@@ -1,0 +1,9 @@
+---
+# Disable
+#   disable all authentication policies
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: aac/disable_all_authentication_policies
+      tags: disable_all_authentication_policies

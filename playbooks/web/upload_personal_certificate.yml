@@ -1,0 +1,13 @@
+---
+# update p12 in kdb
+#   example
+#     import_personal_cert_kdb_id: pdsrv
+#     import_personal_cert_label: wildcard.test.net
+#     import_personal_cert_cert: "uploads/ssl/wildcard.test.net.p12"
+#     import_personal_cert_password: "{{ personal_cert_password }}"
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: import_personal_cert
+      tags: import_personal_cert

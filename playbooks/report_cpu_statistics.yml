@@ -1,0 +1,19 @@
+# Create a Report on CPU Usage
+
+- name: Get CPU Details
+  hosts: all
+  no_log: True
+  connection: local
+  vars:
+    log_level: "CRITICAL"
+  roles:
+    - role: start_config
+      start_config_skip_pending_check: True
+      start_config_skip_snapshot:      True
+
+    - role: get_cpu_statistics
+      statistics_duration: "6d"
+
+    - role: gen_report
+      gen_report_template: "report_cpu_statistics.csv"
+      gen_report_dir: "~"

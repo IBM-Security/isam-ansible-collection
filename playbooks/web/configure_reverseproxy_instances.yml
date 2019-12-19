@@ -1,0 +1,15 @@
+---
+# Configure
+#   configure reverse proxy instances
+#   Example:
+#     instances:
+#       -   inst_name: default
+#           entries:
+#               - { method: set, stanza: server, entry_name: server-name, value: default }
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: web/configure_reverseproxy_instances
+      tags: configure_reverseproxy_instances
+      

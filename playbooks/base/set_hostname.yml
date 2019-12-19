@@ -1,0 +1,10 @@
+---
+# Create
+#   configure appliance hostname
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: set_network_hostname
+      tags: hostname
+      

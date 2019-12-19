@@ -1,0 +1,16 @@
+---
+# Load
+#   load signer certificates into certificate store
+#   Example:
+#      load_signer_certificates:
+#         -   kdb_id: pdsrv
+#             label:  local runtime
+#             server: localhost
+#             port:   443
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: base/load_signer_certificates
+      tags: load_signer_certificates
+      

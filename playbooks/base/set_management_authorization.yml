@@ -1,0 +1,9 @@
+---
+#   configure appliance management authorization
+- hosts: "{{ hosts | default('all')}}"
+  gather_facts: no
+  connection: local
+  roles:
+    - role: base/set_management_authorization
+      tags: management_authorization
+      

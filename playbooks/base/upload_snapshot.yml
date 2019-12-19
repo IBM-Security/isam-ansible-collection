@@ -1,0 +1,9 @@
+---
+# Upload
+#   upload snapshot
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: base/upload_snapshot
+      tags: snapshots

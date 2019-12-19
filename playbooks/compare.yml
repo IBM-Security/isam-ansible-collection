@@ -1,0 +1,17 @@
+---
+# Compare appliances
+
+- name: Compare all aspects of appliance(s) with given Master
+  hosts: all
+  connection: local
+  gather_facts: no
+  vars:
+    master_lmi_port: 443
+    master_username: "admin@local"
+  vars_prompt:
+    - name: master_password
+      prompt: "Enter password to login to master appliance"
+      private: yes
+  roles:
+    - role: execute_compare
+      when: master_hostname is defined and master_hostname != inventory_hostname

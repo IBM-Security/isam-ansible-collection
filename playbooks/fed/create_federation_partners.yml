@@ -1,0 +1,30 @@
+---
+# create
+#   create federation partners:
+#   Example: OIDC connect provider and Test-App partner
+#     federations:
+#       - name: oidc-provider
+#         partners:
+#             - name: Test-App
+#               enabled: true
+#               role: op
+#               configuration:
+#                 clientName: Test-App
+#                 clientSecret: "ABCDEFG12345"
+#                 clientId: Test-App
+#                 redirectUris:
+#                   - http://test-app.demo.com
+#                 responseTypes:
+#                   - id_token token
+#                 allowRefreshGrant: no
+#                 allowIntrospect: no
+#                 scope:
+#                   - openid
+#                 preauthorizedScope:
+#                   - openid
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: fed/create_federation_partners
+      tags: create_federation_partners

@@ -1,0 +1,14 @@
+---
+# Configure
+#   configure access control policy resources
+#   Example:
+#     access_control_policy_resources:
+#       - server: /WebSEAL/default
+#         resourceUri: /index.html
+#         policyType: application
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: aac/configure_access_control_policy_resources
+      tags: configure_access_control_policy_resources

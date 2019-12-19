@@ -1,0 +1,13 @@
+# playbook for exporting certificates
+# Example inventory:
+#  export_certificates:
+#      kdb_id:     "{{ item.kdb_id }}"
+#      cert_id:    "{{ item.cert_id }}"
+#      filename:   "{{ inventory_dir }}/{{ item.filename }}"
+---
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: base/export_certificates
+      tags: export_certificates

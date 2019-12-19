@@ -1,0 +1,10 @@
+---
+# configure
+#   configure runtime template root
+#   Example:
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: aac/configure_runtime_template_root
+      tags: configure_runtime_template_root

@@ -1,0 +1,14 @@
+# main task for importing personal certificates
+# Example inventory:
+#     import_personal_certs:
+#       - kdb_id: pdsrv
+#         label: wildcard.test.net
+#         cert: "uploads/ssl/wildcard.test.net.p12"
+#         password: "{{ personal_cert_password }}"
+---
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: base/import_personal_certificates
+      tags: import_personal_certificates

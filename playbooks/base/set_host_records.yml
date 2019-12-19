@@ -1,0 +1,14 @@
+---
+# Set
+#   Set host entries
+#   Example:
+#      host_records:
+#        - addr: 192.168.0.1
+#          hostnames:
+#            - isam.ibm.com
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: base/set_host_records
+      tags: set_host_records

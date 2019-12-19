@@ -1,0 +1,19 @@
+---
+# Revert an Appliance to original state by de-activating all modules
+# This playbook will be useful when applying a snapshot will not work
+# because of incompatible firmware levels
+
+- name: Revert Appliances to Pre-Configuration State
+  hosts: all
+  connection: local
+  gather_facts: no
+  roles:
+    - role: delete_activation
+      tags: ["delete", "activation", "federation"]
+      delete_activation_id: "federation"
+    - role: delete_activation
+      tags: ["delete", "activation", "mga"]
+      delete_activation_id: "mga"
+    - role: delete_activation
+      tags: ["delete", "activation", "wga"]
+      delete_activation_id: "wga"

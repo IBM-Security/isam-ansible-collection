@@ -1,0 +1,14 @@
+---
+# Upload
+#   upload signer certificates into certificate database
+#   Example:
+#      signer_certificates:
+#         -   kdb_id: "{{ item.kdb_id }}"
+#             cert: "{{ inventory_dir }}/{{ item.cert  }}"
+#             label: "{{ item.label }}"
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: base/import_signer_certificates
+      tags: import_signer_certificates

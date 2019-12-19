@@ -17,7 +17,7 @@ readme: README.md
 # A list of the collection's content authors. Can be just the name or in the format 'Full Name <email> (url)
 # @nicks:irc/im.site#channel'
 authors:
-- IBM Security <security@ibm.com>
+- IBM Security Orchestration <secorch@us.ibm.com>
 
 
 ### OPTIONAL but strongly recommended
@@ -40,7 +40,6 @@ tags:
 - IBM
 - ISAM
 - security
-- credential
 
 # Collections that this collection requires to be installed for it to be usable. The key of the dict is the
 # collection label 'namespace.name'. The value is a version range

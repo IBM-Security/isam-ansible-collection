@@ -1,0 +1,9 @@
+---
+# Download
+#   download snapshots
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: base/download_snapshots
+      tags: snapshot

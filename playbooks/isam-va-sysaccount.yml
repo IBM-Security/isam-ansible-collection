@@ -1,0 +1,12 @@
+---
+- name: Create group account
+  hosts: all
+  roles:
+    - role: add_sysaccount_group
+      tags: ["system account", "group"]
+
+- name: Create user account
+  hosts: all
+  roles:
+    - role: add_sysaccount_user
+      tags: ["system account", "user"]

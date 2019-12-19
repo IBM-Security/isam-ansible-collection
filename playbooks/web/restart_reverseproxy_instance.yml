@@ -1,0 +1,9 @@
+---
+# restart
+#   restart reverse proxy instance/s
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: web/restart_reverseproxy_instance
+      tags: restart_reverseproxy_instance

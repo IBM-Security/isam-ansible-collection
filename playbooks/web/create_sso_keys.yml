@@ -1,0 +1,9 @@
+---
+# create
+#   Create sso key file
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: web/create_sso_keys
+      tags: create_sso_keys

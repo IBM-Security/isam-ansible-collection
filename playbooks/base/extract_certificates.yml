@@ -1,0 +1,14 @@
+# playbook for extracting certificates
+# Example inventory:
+#  extract_certificates:
+#      kdb_id:     "{{ item.kdb_id }}"
+#      cert_id:    "{{ item.cert_id }}"
+#      password:   "{{ item.password }}"
+#      filename:   "{{ inventory_dir }}/{{ item.filename }}"
+---
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: base/extract_certificates
+      tags: extract_certificates

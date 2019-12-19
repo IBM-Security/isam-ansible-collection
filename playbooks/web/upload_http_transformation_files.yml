@@ -1,0 +1,12 @@
+---
+# upload
+#   upload http transformation files
+#   Example:
+#     http_transformations
+#       - file: uploads/http_transformations/default.xslt
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: web/upload_http_transformation_files
+      tags: upload_http_transformation_files

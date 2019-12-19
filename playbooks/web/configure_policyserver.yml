@@ -1,0 +1,19 @@
+---
+# configure
+#   configure a policy server with generic inventory:
+#   Example: (minimal parameter to support local policy server/local embedded ldap)
+#      policy_server_runtime:
+#       admin_pwd:              "{{ admin_pwd }}"
+#       ps_mode:                "local"
+#       user_registry:          "local"
+#       ldap_pwd:               "{{ ldap_pwd }}"
+#       clean_ldap:             "true"
+#       admin_cert_lifetime:    1460
+#       ssl_compliance:         "none"
+#       ...     <- additional parameters
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: web/configure_policyserver
+      tags: configure_policyserver

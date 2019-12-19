@@ -1,0 +1,21 @@
+---
+# playbook to import template files
+#   Example:
+#     runtime_templates:
+#       - type: dir
+#         path: C/authsvc/api
+#       - type: file
+#         path: C/authsvc/api
+#         filename: uploads/template_files/s
+#         name: success_response.json
+#       - type: file
+#         path: C/authsvc/api
+#         filename: uploads/template_files/s
+#         name: success_response.html
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: import_runtime_template_file
+      tags: import_runtime_template_file
+      

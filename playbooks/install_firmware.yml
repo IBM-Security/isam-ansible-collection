@@ -1,0 +1,18 @@
+---
+# Install Firmware Upgrade
+# Need to necessarily pass the following three variables for this playbook to work:
+#   install_firmware_file: "/home/python/isam_9.0.2.0_20161102-2353.pkg"
+#   install_firmware_version: "9.0.2.0"
+#   install_firmware_release_date: "2016-11-02"
+# The above two can be deduced from the pkg file name
+
+- name: Upgrade all Appliances to a given Firmware Level
+  hosts: all
+  connection: local
+  gather_facts: no
+  roles:
+    - start_config
+
+    # Install Firmware
+    - role: install_firmware
+      when: install_firmware_file is defined and install_firmware_version is defined and install_firmware_release_date is defined

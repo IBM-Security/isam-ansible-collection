@@ -1,0 +1,12 @@
+---
+# Running first steps if necessary
+#     accept service agreements
+#     set up LMI FIPS (may restart appliance)
+#     change password
+#     commit and restart LMI
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: base/first_steps
+      tags: first_steps

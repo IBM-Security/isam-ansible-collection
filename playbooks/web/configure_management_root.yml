@@ -1,0 +1,27 @@
+---
+# upload
+#   upload management root files
+#   Example:
+#     instances:
+#       - inst_name: default
+#         management_root:
+#           - action: upload
+#             target: management/C/login.html
+#             file: uploads/management_root/default/management/C/login.html
+#           - action: delete
+#             target: errors/C/38ad52fa.html
+#             type: file
+#           - action: delete
+#             target: errors/de
+#             type: directory
+#           - action: delete
+#             type: directory
+#             targets: 
+#               - errors/de
+#               - errors/fr
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: web/configure_management_root
+      tags: configure_management_root

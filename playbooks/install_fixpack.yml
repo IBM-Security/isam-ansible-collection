@@ -1,0 +1,16 @@
+---
+# Install fixpack
+# Need to necessarily pass fixpack filename like so:
+#   install_fixpack_file: "/tmp/9021_IF1.fixpack"
+
+- name: Apply given Fixpack to all Appliances
+  hosts: all
+  connection: local
+  gather_facts: no
+  roles:
+    - start_config
+
+    # Install Fixpack
+    - role: install_fixpack
+      install_fixpack_file: "/home/python/9021_IF1.fixpack"
+      when: install_fixpack_file is defined

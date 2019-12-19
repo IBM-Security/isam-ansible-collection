@@ -1,0 +1,35 @@
+---
+# Configure
+#   configure advanced configurations at once
+#   Example:
+#     advanced_configurations:
+#       - key: otp.email.smtpPassword
+#         sensitive: false
+#         value: 
+#       - key: otp.email.smtpUsername
+#         sensitive: false
+#         value: 
+#       - key: otp.email.smtpUseSSL
+#         sensitive: false
+#         value: false
+#       - key: otp.email.smtpPort
+#         sensitive: false
+#         value: 25
+#       - key: otp.email.smtpStartTls
+#         sensitive: false
+#         value: false
+#       - key: otp.email.smtpTlsProtocol
+#         sensitive: false
+#         value: TLS
+#       - key: otp.email.senderEmail
+#         sensitive: false
+#         value: localhost
+#       - key: otp.email.smtpHostname
+#         sensitive: false
+#         value: info@localhost
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: aac/update_advanced_configurations
+      tags: update_advanced_configurations

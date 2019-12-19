@@ -1,0 +1,23 @@
+---
+- name: Get details of server from VCenter
+  hosts: all
+  connection: local
+  vars_prompt:
+    - name: vcenter_username
+      prompt: "Enter AD Userid to login to Vcenter"
+      private: no
+    - name: vcenter_password
+      prompt: "Enter AD Password to login to Vcenter"
+      private: yes
+  tasks:
+    - name: Gather all registered virtual machines
+      vmware_vm_facts:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{vcenter_username}}"
+        password: "{{vcenter_password}}"
+        validate_certs: False
+      delegate_to: localhost
+      register: vmfacts
+
+    - debug:
+        var: vmfacts.virtual_machines

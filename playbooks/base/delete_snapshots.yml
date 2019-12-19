@@ -1,0 +1,9 @@
+---
+# Delete
+#   delete snapshots
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: base/delete_snapshots
+      tags: snapshots

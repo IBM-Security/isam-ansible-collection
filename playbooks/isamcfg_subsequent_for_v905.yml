@@ -1,0 +1,146 @@
+---
+- name: Execute isamcfg Subsequent (after First Time) for v9.0.5 all-in-one Appliances
+  hosts: all
+  connection: local
+  roles:
+    - role: start_config
+      start_config_skip_pending_check: False
+      start_config_skip_snapshot:      True
+
+#    - role: delete_signer_cert
+#      delete_signer_cert_kdb_id : "pdsrv"
+#      delete_signer_cert_cert_id: "localhost-CA-Certificate"
+
+    - role: execute_cli
+      execute_cli_command: "isam/aac/config"
+      execute_cli_input  :
+# Select/deselect the capabilities you would like to configure by typing its number. Press enter to continue:
+# [ X ] 1. Context-based Authorization
+# [ X ] 2. Authentication Service
+# [ X ] 3. API Protection
+        - "\n"
+# Enter your choice:
+# Press 1 for Next, 2 for Previous, 3 to Repeat, C to Cancel:
+        - "1"
+# Advanced Access Control Local Management Interface hostname:
+        - "{{inventory_hostname}}"
+# Advanced Access Control Local Management Interface port [443]:
+        - "{{lmi_port}}"
+# Advanced Access Control administrator user ID [admin]:
+        - "{{username}}"
+# Advanced Access Control administrator password:
+        - "{{password}}"
+# SSL certificate data valid (y/n):
+        - "y"
+# Press 1 for Next, 2 for Previous, 3 to Repeat, C to Cancel:
+        - "1"
+# Security Access Manager Appliance Local Management Interface hostname:
+        - "{{inventory_hostname}}"
+# Security Access Manager Appliance Local Management Interface port [443]:
+        - "{{lmi_port}}"
+# Security Access Manager Appliance administrator user ID [admin]:
+        - "{{username}}"
+# Security Access Manager Appliance administrator password:
+        - "{{password}}"
+# SSL certificate data valid (y/n):
+        - "y"
+# Instance to configure:
+#   1. default
+#   2. Cancel
+# Enter your choice [1]:
+        - "1"
+# Press 1 for Next, 2 for Previous, 3 to Repeat, C to Cancel:
+        - "1"
+# Security Access Manager administrator user ID [sec_master]:
+        - "{{sec_master_id}}"
+# Security Access Manager administrator password:
+        - "{{sec_master_pwd}}"
+# Security Access Manager Domain Name [Default]:
+        - "Default"
+# Press 1 for Next, 2 for Previous, 3 to Repeat, C to Cancel:
+        - "1"
+# Advanced Access Control runtime listening interface hostname:
+        - "localhost"
+# Advanced Access Control runtime listening interface port:
+        - "443"
+# Select the method for authentication between WebSEAL and the Advanced Access Control runtime listening interface:
+#   1. Certificate authentication
+#   2. User-id/password authentication
+# Enter your choice [1]:
+        - "2"
+# Advanced Access Control runtime listening interface user ID:
+        - "{{aac_userid}}"
+# Advanced Access Control runtime listening interface password:
+        - "{{aac_password}}"
+# SSL certificate data valid (y/n):
+        - "y"
+# Automatically add CA certificate to the key database (y/n):
+        - "y"
+#--> The CA certificate already exists in the key database. Replace the CA certificate? (y/n):
+        - "y"
+# Press 1 for Next, 2 for Previous, 3 to Repeat, C to Cancel:
+        - "1"
+#--> A POP named rba-pop already exists.
+# Do you wish to replace the POP, or reuse it? If you replace the
+# POP, any special configuration options associated with the POP
+# will be lost.
+#   1. Reuse
+#   2. Replace
+#   3. Cancel
+# Enter your choice [1]:
+        - "1"
+# Press 1 for Next, 2 for Previous, 3 to Repeat, C to Cancel:
+        - "1"
+# The following files are available on the Security Access Manager Appliance. Choose one for the '400 Bad Request' response page.
+#   1. oauth_template_rsp_400_bad_request.html
+#   2. oauth_template_rsp_401_unauthorized.html
+#   3. oauth_template_rsp_502_bad_gateway.html
+# Enter your choice [1]:
+        - "1"
+# The following files are available on the Security Access Manager Appliance. Choose one for the '401 Unauthorized' response page.
+#   1. oauth_template_rsp_400_bad_request.html
+#   2. oauth_template_rsp_401_unauthorized.html
+#   3. oauth_template_rsp_502_bad_gateway.html
+# Enter your choice [2]:
+        - "2"
+# The following files are available on the Security Access Manager Appliance. Choose one for the '502 Bad Gateway' response page.
+#   1. oauth_template_rsp_400_bad_request.html
+#   2. oauth_template_rsp_401_unauthorized.html
+#   3. oauth_template_rsp_502_bad_gateway.html
+# Enter your choice [3]:
+        - "3"
+#--> A POP named oauth-pop already exists.
+# Do you wish to replace the POP, or reuse it? If you replace the
+# POP, any special configuration options associated with the POP
+# will be lost.
+#    1. Reuse
+#    2. Replace
+#    3. Cancel
+# Enter your choice [1]:
+        - "1"
+# Press 1 for Next, 2 for Previous, 3 to Repeat, C to Cancel:
+        - "1"
+# The junction /mga contains endpoints that require Authorization HTTP header to be forwarded to the backend server.
+# Do you want to enable this feature? [y|n]?
+        - "y"
+#--> A junction already exists at /mga.
+# Do you wish to replace the junction, or reuse it? If you replace the
+# junction, any special configuration options associated with the junction
+# will be lost.
+#    1. Reuse
+#    2. Replace
+#    3. Cancel
+# Enter your choice [1]
+        - "1"
+# Press 1 for Next, 2 for Previous, 3 to Repeat, C to Cancel:
+        - "1"
+# Press 1 for Next, 2 for Previous, 3 to Repeat, C to Cancel:
+        - "1"
+
+    - role: commit
+      tags: ["commit"]
+
+  tasks:
+    - debug: msg="Trigger Reverse Proxy restarts"
+      changed_when: True
+      notify: Restart Reverse Proxy

@@ -1,0 +1,23 @@
+---
+- name: Reboot new vmware server with ISAM iso file
+  hosts: all
+  connection: local
+  vars_prompt:
+    - name: vcenter_username
+      prompt: "Enter AD Userid to login to Vcenter"
+      private: no
+    - name: vcenter_password
+      prompt: "Enter AD Password to login to Vcenter"
+      private: yes
+  tasks:
+    - name: Attach ISAM ISO and Reboot
+      vmware_guest:
+        cdrom:
+          type: "iso"
+          # Need to parametrize the iso file name
+          iso_path: "[{{ vcenter_datastore }}] ISAM_905/isam_9.0.5.0_20180606-2319.iso"
+        hostname: "{{ vcenter_hostname }}"
+        name:     "{{ inventory_hostname.partition('.')[0] }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: no

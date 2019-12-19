@@ -1,0 +1,8 @@
+---
+# main task to export all appliaction log files
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: export_application_logs
+      tags: export_application_logs

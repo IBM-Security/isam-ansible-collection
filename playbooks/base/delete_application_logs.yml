@@ -1,0 +1,10 @@
+---
+# main task to delete all appliaction log files, a contaisn filter for the name and a path parameter are available.
+# eg.:
+# -e path=federation/runtime -e name=trace
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: delete_application_logs
+      tags: delete_application_logs

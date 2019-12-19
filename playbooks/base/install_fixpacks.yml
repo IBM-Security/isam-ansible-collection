@@ -1,0 +1,13 @@
+---
+# Add
+#   add interfaces by following inventory structure:
+#   Example:
+#      fix_packs:
+#        - file: uploads/fix_packs/90x_IFx.fixpack
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: base/install_fixpacks
+      tags: install_fixpacks
+      

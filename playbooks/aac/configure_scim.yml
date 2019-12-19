@@ -1,0 +1,9 @@
+---
+# Configure
+#   configure scim
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: aac/configure_scim
+      tags: configure_scim

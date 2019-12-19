@@ -1,0 +1,26 @@
+---
+# Configure
+#   configure access control attributes
+#   Example:
+#     access_control_attributes:
+#       - name: testAttribute
+#         description: attribute for policy decision
+#         attributeURI: testAttribute
+#         type:
+#           policy: true
+#           risk: false
+#         category: Environment
+#         datatype: Boolean
+#         predefined: false
+#         issuer: ""
+#         matcher: 1
+#         storageDomain:
+#           device: false
+#           session: false
+#           behavior: false
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: aac/configure_access_control_attributes
+      tags: configure_access_control_attributes
