@@ -1,0 +1,31 @@
+- name: Set Administrator Configuration
+  ibm.isam.isam:
+    appliance : "{{ inventory_hostname }}"
+    username  : "{{ username }}"
+    password  : "{{ password }}"
+    lmi_port  : "{{ lmi_port }}"
+    log       : "{{ log_level }}"
+    force     : "{{ force }}"
+    action: ibmsecurity.isam.base.admin.set
+    isamapi:
+      oldPassword               : "{{ set_admin_cfg_oldPassword }}"
+      newPassword               : "{{ set_admin_cfg_newPassword }}"
+      minHeapSize               : "{{ set_admin_cfg_minHeapSize }}"
+      maxHeapSize               : "{{ set_admin_cfg_maxHeapSize }}"
+      sessionTimeout            : "{{ set_admin_cfg_sessionTimeout }}"
+      httpPort                  : "{{ set_admin_cfg_httpPort }}"
+      httpsPort                 : "{{ set_admin_cfg_httpsPort }}"
+      minThreads                : "{{ set_admin_cfg_minThreads }}"
+      maxThreads                : "{{ set_admin_cfg_maxThreads }}"
+      maxPoolSize               : "{{ set_admin_cfg_maxPoolSize }}"
+      lmiDebuggingEnabled       : "{{ set_admin_cfg_lmiDebuggingEnabled }}"
+      consoleLogLevel           : "{{ set_admin_cfg_consoleLogLevel }}"
+      acceptClientCerts         : "{{ set_admin_cfg_acceptClientCerts }}"
+      validateClientCertIdentity: "{{ set_admin_cfg_validateClientCertIdentity }}"
+      excludeCsrfChecking       : "{{ set_admin_cfg_excludeCsrfChecking }}"
+      enableSSLv3               : "{{ set_admin_cfg_enableSSLv3 }}"
+      maxFiles                  : "{{ set_admin_cfg_maxFiles }}"
+      maxFileSize               : "{{ set_admin_cfg_maxFileSize }}"
+  notify:
+    - Commit Changes
+    - Restart LMI

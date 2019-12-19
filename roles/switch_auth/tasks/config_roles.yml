@@ -1,0 +1,135 @@
+- name: Setup Global Administrators
+  ibm.isam.isam:
+    appliance: "{{ inventory_hostname }}"
+    username:  "{{ username }}"
+    password:  "{{ password }}"
+    lmi_port:  "{{ lmi_port }}"
+    log:       "{{ log_level }}"
+    force:     "{{ force }}"
+    action: ibmsecurity.isam.base.management_authorization.role_group.set
+    isamapi:
+      name:       "Global Administrator"
+      group_name: "{{ item }}"
+      type:       "ldap"
+  with_items: "{{ switch_auth_admin_group | default([]) }}"
+  when: switch_auth_admin_group is defined
+  notify: Commit Changes
+
+- name: Setup Global Read/Only
+  ibm.isam.isam:
+    appliance: "{{ inventory_hostname }}"
+    username:  "{{ username }}"
+    password:  "{{ password }}"
+    lmi_port:  "{{ lmi_port }}"
+    log:       "{{ log_level }}"
+    force:     "{{ force }}"
+    action: ibmsecurity.isam.base.management_authorization.role_group.set
+    isamapi:
+      name:       "Global Read Only Access"
+      group_name: "{{ item }}"
+      type:       "ldap"
+  with_items: "{{ switch_auth_readonly_group | default([]) }}"
+  when: switch_auth_readonly_group is defined
+  notify: Commit Changes
+
+- name: Setup Security Administrator
+  ibm.isam.isam:
+    appliance: "{{ inventory_hostname }}"
+    username:  "{{ username }}"
+    password:  "{{ password }}"
+    lmi_port:  "{{ lmi_port }}"
+    log:       "{{ log_level }}"
+    force:     "{{ force }}"
+    action: ibmsecurity.isam.base.management_authorization.role_group.set
+    isamapi:
+      name:       "Security Administrator"
+      group_name: "{{ item }}"
+      type:       "ldap"
+  with_items: "{{ switch_auth_security_group | default([]) }}"
+  when: switch_auth_security_group is defined
+  notify: Commit Changes
+
+- name: Setup Policy Administration Users
+  ibm.isam.isam:
+    appliance: "{{ inventory_hostname }}"
+    username:  "{{ username }}"
+    password:  "{{ password }}"
+    lmi_port:  "{{ lmi_port }}"
+    log:       "{{ log_level }}"
+    force:     "{{ force }}"
+    action: ibmsecurity.isam.base.management_authorization.role_group.set
+    isamapi:
+      name:       "Policy Administration Users"
+      group_name: "{{ item }}"
+      type:       "ldap"
+  with_items: "{{ switch_auth_policy_admin_group | default([]) }}"
+  when: switch_auth_policy_admin_group is defined
+  notify: Commit Changes
+
+- name: Setup Security Monitoring
+  ibm.isam.isam:
+    appliance: "{{ inventory_hostname }}"
+    username:  "{{ username }}"
+    password:  "{{ password }}"
+    lmi_port:  "{{ lmi_port }}"
+    log:       "{{ log_level }}"
+    force:     "{{ force }}"
+    action: ibmsecurity.isam.base.management_authorization.role_group.set
+    isamapi:
+      name:       "Security Monitoring"
+      group_name: "{{ item }}"
+      type:       "ldap"
+  with_items: "{{ switch_auth_security_monitoring_group | default([]) }}"
+  when: switch_auth_security_monitoring_group is defined
+  notify: Commit Changes
+
+- name: Setup Security Viewer
+  ibm.isam.isam:
+    appliance: "{{ inventory_hostname }}"
+    username:  "{{ username }}"
+    password:  "{{ password }}"
+    lmi_port:  "{{ lmi_port }}"
+    log:       "{{ log_level }}"
+    force:     "{{ force }}"
+    action: ibmsecurity.isam.base.management_authorization.role_group.set
+    isamapi:
+      name:       "Security Viewer"
+      group_name: "{{ item }}"
+      type:       "ldap"
+  with_items: "{{ switch_auth_security_viewer_group | default([]) }}"
+  when: switch_auth_security_viewer_group is defined
+  notify: Commit Changes
+
+- name: Setup System Administrator
+  ibm.isam.isam:
+    appliance: "{{ inventory_hostname }}"
+    username:  "{{ username }}"
+    password:  "{{ password }}"
+    lmi_port:  "{{ lmi_port }}"
+    log:       "{{ log_level }}"
+    force:     "{{ force }}"
+    action: ibmsecurity.isam.base.management_authorization.role_group.set
+    isamapi:
+      name:       "System Administrator"
+      group_name: "{{ item }}"
+      type:       "ldap"
+  with_items: "{{ switch_auth_system_admin_group | default([]) }}"
+  when: switch_auth_system_admin_group is defined
+  notify: Commit Changes
+
+- name: Setup System Monitoring
+  ibm.isam.isam:
+    appliance: "{{ inventory_hostname }}"
+    username:  "{{ username }}"
+    password:  "{{ password }}"
+    lmi_port:  "{{ lmi_port }}"
+    log:       "{{ log_level }}"
+    force:     "{{ force }}"
+    action: ibmsecurity.isam.base.management_authorization.role_group.set
+    isamapi:
+      name:       "System Monitoring"
+      group_name: "{{ item }}"
+      type:       "ldap"
+  with_items: "{{ switch_auth_system_monitoring_group | default([]) }}"
+  when: switch_auth_system_monitoring_group is defined
+  notify: Commit Changes

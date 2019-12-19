@@ -1,0 +1,30 @@
+galaxy_info:
+  author: IBM
+  description: Role that adds a Suffix to Embedded LDAP
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: 2.2
+  platforms:
+    - name: Fedora
+      versions:
+        - 30
+        - 29
+        - 28
+        - 27
+    - name: EL
+      versions:
+        - 8
+        - 7
+        - 6
+
+  galaxy_tags:
+  - isam
+  - ibm
+  - ldap
+  - suffix
+  - add
+
+dependencies:
+  - start_config

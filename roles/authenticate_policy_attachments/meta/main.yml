@@ -1,0 +1,31 @@
+galaxy_info:
+  author: IBM
+  description: Role that Authenticates before Policy Attachments (CBA policies)
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: 2.2
+  platforms:
+    - name: Fedora
+      versions:
+        - 30
+        - 29
+        - 28
+        - 27
+    - name: EL
+      versions:
+        - 8
+        - 7
+        - 6
+
+  galaxy_tags:
+  - isam
+  - ibm
+  - authenticates
+  - policy
+  - attachments
+  - cba
+
+dependencies:
+  - start_config
