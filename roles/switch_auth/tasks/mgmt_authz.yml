@@ -1,11 +1,7 @@
 - name: Enable Management Authorization (Role Based Access)
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.management_authorization.config.set
     isamapi:
       enforcing: "{{ switch_auth_enable }}"

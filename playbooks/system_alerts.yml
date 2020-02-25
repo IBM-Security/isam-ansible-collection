@@ -3,7 +3,6 @@
 
 - name : Setup and enable system alerts with a rsyslog server as the destination
   hosts: all
-  connection: local
   gather_facts: no
   roles :
     - role : add_system_alerts_rsyslog
@@ -11,7 +10,6 @@
 
 - name : Setup and enable system alerts with a SNMP as the destination
   hosts: all
-  connection: local
   gather_facts: no
   roles :
     - role : add_system_alerts_snmp
@@ -19,7 +17,6 @@
 
 - name : Setup and enable system alerts with a SMTP as the destination
   hosts: all
-  connection: local
   gather_facts: no
   roles :
     - role : add_system_alerts_smtp

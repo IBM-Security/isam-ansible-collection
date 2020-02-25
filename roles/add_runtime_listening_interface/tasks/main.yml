@@ -1,23 +1,15 @@
 - name: Snapshot Appliance Before Adding Runtime Listening Interfaces
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.snapshots.create
     isamapi:
       comment: "{{ add_runtime_listening_interface_comment }}"
 
 - name: Add Runtime Listening Interfaces
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.runtime.listening_interfaces.set
     isamapi:
       interface: "{{ item.runtime_listening_interface_interface }}"

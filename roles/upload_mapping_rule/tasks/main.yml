@@ -1,11 +1,7 @@
 - name: Upload Mapping Rule - {{ upload_mapping_rule_name }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.aac.mapping_rules.upload
     isamapi:
       name           : "{{ upload_mapping_rule_name }}"

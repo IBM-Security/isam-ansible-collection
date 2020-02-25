@@ -18,7 +18,6 @@ set_cluster_config_hvdb_db_type: null
 set_cluster_config_hvdb_address: null
 set_cluster_config_hvdb_port: null
 set_cluster_config_hvdb_user: null
-set_cluster_config_hvdb_password: null
 set_cluster_config_hvdb_db2_alt_address: null
 set_cluster_config_hvdb_db2_alt_port: null
 set_cluster_config_hvdb_db_name: null
@@ -30,7 +29,6 @@ set_cluster_config_cfgdb_db_type: null
 set_cluster_config_cfgdb_address: null
 set_cluster_config_cfgdb_port: null
 set_cluster_config_cfgdb_user: null
-set_cluster_config_cfgdb_password: null
 set_cluster_config_cfgdb_db2_alt_address: null
 set_cluster_config_cfgdb_db2_alt_port: null
 set_cluster_config_cfgdb_db_name: null

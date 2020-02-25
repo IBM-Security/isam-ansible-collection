@@ -1,11 +1,7 @@
 - name: Set Remote Syslog Forwarder Sources {{ set_rsyslog_forwarder_sources_server }}:{{ set_rsyslog_forwarder_sources_port }}
   ibm.isam.isam:
-    appliance : "{{ inventory_hostname }}"
-    username  : "{{ username }}"
-    password  : "{{ password }}"
-    lmi_port  : "{{ lmi_port }}"
-    log       : "{{ log_level }}"
-    force     : "{{ force }}"
+    log       : "{{ log_level | default('INFO') }}"
+    force     : "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.remote_syslog.forwarder_sources.set
     isamapi:
       server:   "{{ item.server   }}"

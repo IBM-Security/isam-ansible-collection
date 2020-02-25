@@ -3,13 +3,10 @@
 
 - name: Update RP Entry
   hosts: all
-  connection: local
   gather_facts: no
   roles:
-    - role: start_config
-
-    - role: update_reverseproxy_conf
-      update_reverseproxy_conf_reverseproxy_id: "{{ reverseproxy_instance_name }}"
+    - role: ibm.isam.update_reverseproxy_conf
+      update_reverseproxy_conf_reverseproxy_id: "{{ reverseproxy_instance_name | default('default') }}"
       update_reverseproxy_conf_entries:
         - stanza_id: "{{ stanza_id | default(None) }}"
           entry_id : "{{ entry_id  | default(None) }}"

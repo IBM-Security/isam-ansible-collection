@@ -36,7 +36,7 @@ Here is an example of how to use this role:
     - hosts: servers
       connection: local
       roles:
-         - role: set_runtime_tuning_parameter
+         - role: ibm.isam.set_runtime_tuning_parameter
            runtime_tuning_parameters:
              - runtime_tuning_parameter_option: "Option 1"
                runtime_tuning_parameter_value: "Value 1"

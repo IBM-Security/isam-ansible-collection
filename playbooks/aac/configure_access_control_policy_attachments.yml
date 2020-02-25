@@ -5,13 +5,12 @@
 #     access_control_policy_attachments:
 #       server: /WebSEAL/default
 #       resourceUri: /index.html
-#       attachments: 
+#       attachments:
 #         - name: test_access_policy
 #           type: policy
 #       action: set
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: aac/configure_access_control_policy_attachments
+    - role: ibm.isam.aac/configure_access_control_policy_attachments
       tags: configure_access_control_policy_attachments

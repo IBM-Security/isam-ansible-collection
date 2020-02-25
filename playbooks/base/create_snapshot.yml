@@ -2,9 +2,8 @@
 # Create
 #   create snapshot
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: base/create_snapshot
+    - role: ibm.isam.base/create_snapshot
       tags: snapshot
-      
+

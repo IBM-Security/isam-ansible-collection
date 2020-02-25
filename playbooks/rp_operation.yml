@@ -2,14 +2,13 @@
 # Restart reverse proxy, pass variable force as True to force restarts
 - name: Restart Reverse Proxy
   hosts: all
-  connection: local
   gather_facts: no
   roles:
-    - role: start_config
+    - role: ibm.isam.start_config
 
-    - role: get_reverseproxies
+    - role: ibm.isam.get_reverseproxies
 
-    - role: execute_rp_op
+    - role: ibm.isam.execute_rp_op
       execute_rp_op_ids: "{{reverseproxy_ret_obj['data']}}"
       # Override as needed
       execute_rp_op_operation: "stop"

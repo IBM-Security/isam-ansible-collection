@@ -8,12 +8,8 @@
 #     set_role_group_type: ldap
 - name: Add a group to a management authorization role group
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.management_authorization.role_group.set
     isamapi:
       name: "{{ set_role_group_name }}"

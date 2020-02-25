@@ -37,7 +37,7 @@ Here is an example of how to use this role:
     - hosts: servers
       connection: local
       roles:
-         - role: set_advanced_tuning_parameter
+         - role: ibm.isam.set_advanced_tuning_parameter
            advanced_tuning_parameters:
              - advanced_tuning_parameter_key: "Key 1"
                advanced_tuning_parameter_value: "Value 1"

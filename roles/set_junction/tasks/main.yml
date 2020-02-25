@@ -1,11 +1,7 @@
 - name: Update a Junction - {{ set_junction_junction_point }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.junctions.set
     isamapi:
       junction_point:                   "{{ set_junction_junction_point }}"
@@ -46,11 +42,8 @@
       ltpa_keyfile:                     "{{ set_junction_ltpa_keyfile }}"
       authz_rules:                      "{{ set_junction_authz_rules }}"
       fsso_config_file:                 "{{ set_junction_fsso_config_file }}"
-      username:                         "{{ set_junction_username }}"
-      password:                         "{{ set_junction_password }}"
       server_uuid:                      "{{ set_junction_server_uuid }}"
       local_ip:                         "{{ set_junction_local_ip }}"
-      ltpa_keyfile_password:            "{{ set_junction_ltpa_keyfile_password }}"
       delegation_support:               "{{ set_junction_delegation_support }}"
       insert_ltpa_cookies:              "{{ set_junction_insert_ltpa_cookies }}"
       http2_junction:                   "{{ set_junction_http2_junction }}"

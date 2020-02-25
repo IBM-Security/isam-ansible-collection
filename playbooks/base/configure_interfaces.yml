@@ -1,8 +1,8 @@
 ---
 # Configure
 #   configure interfaces by following inventory structure:
-#   with parameter 'delete_missing=True' all missing ip 
-#   addresses in the inventory will be deleted on the server 
+#   with parameter 'delete_missing=True' all missing ip
+#   addresses in the inventory will be deleted on the server
 #   Example:
 #     interfaces:
 #         -   label:  '1.1'
@@ -16,8 +16,7 @@
 #                     allowManagement:    false
 #                     enabled:            true
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: base/configure_interfaces
+    - role: ibm.isam.base/configure_interfaces
       tags: configure_interfaces

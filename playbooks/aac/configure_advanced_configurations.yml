@@ -5,10 +5,10 @@
 #     advanced_configurations:
 #       - key: otp.email.smtpPassword
 #         sensitive: false
-#         value: 
+#         value:
 #       - key: otp.email.smtpUsername
 #         sensitive: false
-#         value: 
+#         value:
 #       - key: otp.email.smtpUseSSL
 #         sensitive: false
 #         value: false
@@ -28,8 +28,7 @@
 #         sensitive: false
 #         value: info@localhost
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: aac/update_advanced_configurations
+    - role: ibm.isam.aac/update_advanced_configurations
       tags: update_advanced_configurations

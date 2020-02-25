@@ -11,9 +11,7 @@
 #                     -   server_hostname:    "localhost"
 #                         server_port:        443
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: web/configure_reverseproxy_junctions
+    - role: ibm.isam.web/configure_reverseproxy_junctions
       tags: configure_reverseproxy_junctions
-      

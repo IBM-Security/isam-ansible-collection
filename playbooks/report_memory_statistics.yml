@@ -3,17 +3,16 @@
 - name: Get Memory Details
   hosts: all
   no_log: True
-  connection: local
   vars:
     log_level: "CRITICAL"
   roles:
-    - role: start_config
+    - role: ibm.isam.start_config
       start_config_skip_pending_check: True
       start_config_skip_snapshot:      True
 
-    - role: get_memory_statistics
+    - role: ibm.isam.get_memory_statistics
       statistics_duration: "6d"
 
-    - role: gen_report
+    - role: ibm.isam.gen_report
       gen_report_template: "report_memory_statistics.csv"
       gen_report_dir: "~"

@@ -1,14 +1,5 @@
 - name: Get management root files
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
-    adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
-    adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
-    omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ port | default(omit) }}"
     log:       "{{ log_level | default(omit) }}"
     force:     "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.file.get_all
@@ -27,15 +18,6 @@
 
 - name: Delete missing local files on the server
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
-    adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
-    adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
-    omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ port | default(omit) }}"
     log:       "{{ log_level | default(omit) }}"
     force:     "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.web.reverse_proxy.management_root.{{ local.element.type }}.delete"
@@ -79,19 +61,9 @@
 - vars:
     filter_current_management_root: "[? inst_name == '{{ item.0.inst_name }}'].management_root"
   set_fact:
-    management_root: "{{ hostvars[inventory_hostname].instances | json_query(filter_current_management_root) }} + {{ directory_updates }} + {{ file_updates }}"
 
 - name: Create management root directories [sync_up]
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
-    adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
-    adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
-    omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ port | default(omit) }}"
     log:       "{{ log_level | default(omit) }}"
     force:     "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.directory.create
@@ -108,15 +80,6 @@
 
 - name: Upload management root files [sync_up]
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
-    adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
-    adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
-    omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ port | default(omit) }}"
     log:       "{{ log_level | default(omit) }}"
     force:     "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.file.import_file

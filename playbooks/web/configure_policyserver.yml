@@ -12,8 +12,7 @@
 #       ssl_compliance:         "none"
 #       ...     <- additional parameters
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: web/configure_policyserver
+    - role: ibm.isam.web/configure_policyserver
       tags: configure_policyserver

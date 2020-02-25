@@ -1,17 +1,13 @@
  - name: Add Federation Partner - {{ add_partner_partner_name }} to {{ add_partner_federation_name }}
    ibm.isam.isam:
-     appliance: "{{ inventory_hostname }}"
-     username:  "{{ username }}"
-     password:  "{{ password }}"
-     lmi_port:  "{{ lmi_port }}"
-     log:       "{{ log_level }}"
-     force:     "{{ force }}"
+     log:       "{{ log_level | default('INFO') }}"
+     force:     "{{ force | default(False) }}"
      action: ibmsecurity.isam.fed.partners.add
      isamapi:
         federation_name: "{{ add_partner_federation_name }}"
         partner_name:    "{{ add_partner_partner_name }}"
         enabled:         "{{ add_partner_enabled }}"
-        role:            "{{ add_partner_role }}"
+        role: ibm.isam.           "{{ add_partner_role }}"
         configuration:   "{{ add_partner_configuration }}"
         templateName:    "{{ add_partner_templateName }}"
    when:

@@ -6,9 +6,7 @@
 #        - id: wga
 #          code: "AAAA-BBBB-CCCC-DDDD-EEEE"
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: base/activate_modules
+    - role: ibm.isam.base/activate_modules
       tags: activate_modules
-      

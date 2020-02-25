@@ -2,8 +2,7 @@
 # import
 #   import sso key files
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: web/import_sso_keys
+    - role: ibm.isam.web/import_sso_keys
       tags: import_sso_keys

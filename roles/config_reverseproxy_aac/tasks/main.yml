@@ -3,19 +3,13 @@
 
 - name: Configure Reverse Proxy {{ config_reverseproxy_aac_instance_id }} for AAC
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username: "{{ username }}"
-    password: "{{ password }}"
-    lmi_port: "{{ lmi_port }}"
-    log: "{{ log_level }}"
-    force: "{{ force }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.aac_configuration.config
     isamapi:
       instance_id: "{{ config_reverseproxy_aac_instance_id }}"
       hostname:    "{{ config_reverseproxy_aac_hostname }}"
       port:        "{{ config_reverseproxy_aac_port }}"
-      username:    "{{ config_reverseproxy_aac_username }}"
-      password:    "{{ config_reverseproxy_aac_password }}"
       reuse_certs: "{{ config_reverseproxy_aac_reuse_certs }}"
       reuse_acls:  "{{ config_reverseproxy_aac_reuse_acls }}"
   notify:

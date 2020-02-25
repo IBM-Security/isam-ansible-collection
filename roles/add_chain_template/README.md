@@ -16,7 +16,6 @@ Provide the name, description (optional), and chain items of the new chain templ
   chain_template_name: Template 1
   chain_template_description: Description for Template 1
   chain_template_items:
-    - {"id": "default-username", "mode": "validate", "prefix": "my-ut"}
     - {"id": "default-map", "mode": "map", "prefix": "my-map"}
     - {"id": "default-saml2_0", "mode": "issue", "prefix": "my-saml2_0"}
 ```
@@ -37,11 +36,10 @@ Here is an example of how to use this role:
     - hosts: servers
       connection: local
       roles:
-         - role: add_chain_template
+         - role: ibm.isam.add_chain_template
            chain_template_name: Template 1
            chain_template_description: Description for Template 1
            chain_template_items:
-             - {"id": "default-username", "mode": "validate", "prefix": "my-ut"}
              - {"id": "default-map", "mode": "map", "prefix": "my-map"}
              - {"id": "default-saml2_0", "mode": "issue", "prefix": "my-saml2_0"}
 

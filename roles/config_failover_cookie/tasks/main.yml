@@ -10,12 +10,8 @@
 # If the failover key exists then import it
 - name: Import failover key
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.sso_keys.import_key
     isamapi:
       id:       "{{ config_failover_cookie_id }}"
@@ -26,12 +22,8 @@
 # If failover key does not exists then create it
 - name: Create failover key
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.sso_keys.add
     isamapi:
        ssokey_name: "{{ config_failover_cookie_id }}"
@@ -46,12 +38,8 @@
 # Export the newly created failover key for reuse
 - name: Export failover key
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.sso_keys.export_key
     isamapi:
       id:       "{{ config_failover_cookie_id }}"
@@ -67,12 +55,8 @@
 # Configure Reverse Proxy configuration to support failover cookies
 - name: Reverse Proxy Failover configuration
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.configuration.entry.update
     isamapi:
       reverseproxy_id: "{{ config_failover_cookie_reverseproxy_id }}"

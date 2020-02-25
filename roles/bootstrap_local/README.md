@@ -52,7 +52,7 @@ A sample playbook *test.yml* has been placed under *tests/* subdirectory.
 
     - hosts: servers
       roles:
-         - { role: bootstrap_local, BS_vm_hostname: isamdemo, BS_vm_mgmt_ip: 192.168.42.101, BS_vm_netmask: 255.255.255.0, BS_vm_default_gw: 192.168.42.1 }
+         - { role: ibm.isam.bootstrap_local, BS_vm_hostname: isamdemo, BS_vm_mgmt_ip: 192.168.42.101, BS_vm_netmask: 255.255.255.0, BS_vm_default_gw: 192.168.42.1 }
 
 After verifying the other variables set in *host_vars/localhost.yml*,  you may run it with ansible-playbook directly:
 

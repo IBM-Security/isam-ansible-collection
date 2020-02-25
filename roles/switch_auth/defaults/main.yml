@@ -10,7 +10,6 @@ switch_auth_user_attribute:  "samAccountName"
 switch_auth_group_member_attribute:  "member"
 switch_auth_anon_bind:  False
 #switch_auth_bind_dn:
-#switch_auth_bind_password:
 
 switch_auth_enable: True
 

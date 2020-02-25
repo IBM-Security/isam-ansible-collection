@@ -3,10 +3,6 @@
 #   configure instances to use the specified federations
 - name: Configuring Instances for Federations
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port | default(omit) }}"
     log:       "{{ log_level | default(omit) }}"
     force:     "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.federation_configuration.config

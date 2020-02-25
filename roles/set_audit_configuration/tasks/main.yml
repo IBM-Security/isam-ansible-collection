@@ -1,23 +1,15 @@
 # There should be just one "id" with value of "1" - this step is avoid hardcoding id
 - name: Query Existing Audit Configuration for "id"
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.audit_configuration.get
   register: ret_obj
 
 - name: Set Audit Configuration - id "{{ ret_obj['data'][0]['id'] }}"
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.audit_configuration.set
     isamapi:
       id:      "{{ ret_obj['data'][0]['id'] }}"

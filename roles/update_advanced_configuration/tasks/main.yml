@@ -1,11 +1,7 @@
 - name: Update Advanced Configuration - {{ update_advanced_configuration_key }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.aac.advanced_configuration.update
     isamapi:
       key:       "{{ update_advanced_configuration_key }}"

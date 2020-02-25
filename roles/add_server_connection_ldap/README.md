@@ -36,7 +36,7 @@ Here is an example of how to use this role:
     - hosts: servers
       connection: local
       roles:
-         - role: add_server_connection_ldap
+         - role: ibm.isam.add_server_connection_ldap
            ldap_server_connection_name: "LDAP Connection"
            ldap_server_connection_connection: {"hostName": "ldap.int", "hostPort": "636", "bindDN": "cn=root", "bindPwd": "secret", "ssl": true, "sslTruststore": "trust.kdb", "sslAuthKey": "client_key"}
            ldap_server_connection_description: "This is a connection to an LDAP server"

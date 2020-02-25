@@ -2,10 +2,9 @@
 # Restart reverse proxy that need it, pass variable force as True to force restarts
 - name: Restart Reverse Proxy
   hosts: all
-  connection: local
   gather_facts: no
   roles:
-    - role: start_config
+    - role: ibm.isam.start_config
 
   tasks:
     - debug: msg="Trigger Reverse Proxy restarts"

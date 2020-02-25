@@ -5,9 +5,7 @@
 #      updates:
 #        - file: uploads/updates/90x.pkg
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: base/upload_updates
+    - role: ibm.isam.base/upload_updates
       tags: upload_updates
-      

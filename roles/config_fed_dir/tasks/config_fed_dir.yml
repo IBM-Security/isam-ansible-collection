@@ -1,11 +1,7 @@
 - name: Set the Certificate Database for LDAP Connections
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.runtime.configuration.entry.add
     isamapi:
       resource_id : "ldap.conf"
@@ -20,12 +16,8 @@
 
 - name: Configure Federated Directory
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.runtime.federated_directories.stanza.set
     isamapi:
       id               : "{{ config_fed_dir_id }}"
@@ -43,12 +35,8 @@
 
 - name: Set Replica Servers to Federated Directory Configuration
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.runtime.configuration.entry.set
     isamapi:
       resource_id: "ldap.conf"

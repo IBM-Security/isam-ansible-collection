@@ -38,7 +38,7 @@ Here is an example of how to use this role:
     - hosts: servers
       connection: local
       roles:
-         - role: add_runtime_listening_interface
+         - role: ibm.isam.add_runtime_listening_interface
            runtime_listening_interfaces:
              - runtime_listening_interface_interface: local-interface
                runtime_listening_interface_port: 80

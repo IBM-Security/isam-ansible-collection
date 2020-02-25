@@ -18,7 +18,6 @@ Required variables are:
 
 **ldap_bind_dn**: Binding DN, for example "cn=root,secAuthority=default"
 
-**ldap_bind_pw**: Binding password
 
 **ldap_server_uri**: LDAP server URI, for example, "ldaps://192.168.42.101:636/"
 
@@ -56,7 +55,7 @@ A sample playbook *test.yml* has been placed under *tests/* subdirectory.
   hosts: localhost
   connection: local
   roles:
-      - role: set_ldap_user_attr
+      - role: ibm.isam.set_ldap_user_attr
         ldap_bind_dn: "cn=root,secAuthority=default"
         ldap_bind_pw: "passw0rd"
         ldap_server_uri: "ldaps://192.168.42.101:636/"

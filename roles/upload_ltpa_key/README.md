@@ -36,7 +36,7 @@ Here is an example of how to use this role:
     - hosts: servers
       connection: local
       roles:
-         - role: upload_ltpa_key
+         - role: ibm.isam.upload_ltpa_key
            ltpa_keys:
              - ltpa_key_id: "LTPA Key 1"
                ltpa_key_keyfile: "ltpa-keyfile-1"

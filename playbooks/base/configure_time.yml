@@ -6,8 +6,7 @@
 #        timeZone: "Europe/Berlin"
 #        ntpServers: "time.ibm.com,time2.ibm.com"
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: base/configure_time
+    - role: ibm.isam.base/configure_time
       tags: configure_time

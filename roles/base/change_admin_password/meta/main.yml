@@ -1,6 +1,5 @@
 galaxy_info:
   author: IBM
-  description: Role to change password of appliance admin user
   company: IBM
 
   license: Apache
@@ -11,7 +10,6 @@ galaxy_info:
   - isam
   - ibm
   - change
-  - password
 
 dependencies:
   - start_config

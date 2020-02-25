@@ -1,11 +1,7 @@
 - name: Update Runtime ldap.conf for Basic User Support
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action    : ibmsecurity.isam.web.runtime.configuration.entry.update
     isamapi:
       resource_id : "{{ item.resource }}"

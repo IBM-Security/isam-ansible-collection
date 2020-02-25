@@ -2,15 +2,14 @@
 
 - name: Create Report on Firmware and Fixpacks
   hosts: all
-  connection: local
   gather_facts: yes
   roles:
-    - role: start_config
+    - role: ibm.isam.start_config
 
-    - role: get_firmware
+    - role: ibm.isam.get_firmware
 
-    - role: get_fixpack
+    - role: ibm.isam.get_fixpack
 
-    - role: gen_report
+    - role: ibm.isam.gen_report
       gen_report_template: "report_fix_levels.template"
       gen_report_dir: "~"

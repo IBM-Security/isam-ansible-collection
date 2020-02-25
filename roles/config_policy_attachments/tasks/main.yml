@@ -1,11 +1,7 @@
 - name: Configure Policy Attachments - {{ config_policy_attachments_name }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.aac.access_control.policy_attachments.config
     isamapi:
       server:                   "{{ config_policy_attachments_server }}"
@@ -17,12 +13,8 @@
 
 - name: Publish Policy Attachments - {{ config_policy_attachments_resourceUri }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.aac.access_control.policy_attachments.publish
     isamapi:
       server:      "{{ config_policy_attachments_server }}"

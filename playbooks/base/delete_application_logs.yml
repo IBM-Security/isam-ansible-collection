@@ -3,8 +3,7 @@
 # eg.:
 # -e path=federation/runtime -e name=trace
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: delete_application_logs
+    - role: ibm.isam.delete_application_logs
       tags: delete_application_logs

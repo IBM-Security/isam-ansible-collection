@@ -5,7 +5,6 @@ vars.yml
 externalize_hvdb_hvdb_address: oracle.server.com
 externalize_hvdb_hvdb_db_name: oraservicename
 externalize_hvdb_hvdb_user: "hvdb"
-externalize_hvdb_hvdb_password: "{{ vault_oracle_hvdb_pwd }}"
 externalize_hvdb_cfgdb_embedded:  True
 externalize_hvdb_dsc_client_grace_period:      600
 externalize_hvdb_dsc_external_clients: False

@@ -34,7 +34,7 @@ Here is an example of how to use this role:
     - hosts: servers
       connection: local
       roles:
-         - role: add_mgmtazn_role
+         - role: ibm.isam.add_mgmtazn_role
            mgmtazn_role_name:
              - Role 1
              - Role 2

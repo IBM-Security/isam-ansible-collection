@@ -5,7 +5,7 @@
 #     federations:
 #       - name: oidc-provider
 #         protocol: OIDC
-#         role: op
+#         role: ibm.isam.op
 #         configuration:
 #           issuerIdentifier: https://oidc/test
 #           signatureAlgorithm: RS256
@@ -25,8 +25,7 @@
 #             properties:
 #               identityMappingRuleReference: "5"
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: fed/create_federations
+    - role: ibm.isam.fed/create_federations
       tags: create_federations

@@ -4,8 +4,7 @@
 #      kdb_name: "{{ item.kdb_id }}"
 ---
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: base/create_ssl_certificate_databases
+    - role: ibm.isam.base/create_ssl_certificate_databases
       tags: create_ssl_certificate_databases

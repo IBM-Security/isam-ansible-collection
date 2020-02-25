@@ -4,21 +4,14 @@
 #     accept service agreements
 #     set up LMI FIPS
 #     restart LMI
-#     change password
 #
 # accept service agreements
 - name: Accept Service Agreements
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username: admin
-    password: admin
     action: ibmsecurity.isam.base.service_agreement.set
 
 - name: Get Last Boot Timestamp
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username: admin
-    password: admin
     action: ibmsecurity.isam.base.firmware.get
   check_mode: no
   register: ret_obj
@@ -30,9 +23,6 @@
 # set up LMI FIPS
 - name: Setup FIPS Mode
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username: admin
-    password: admin
     action: ibmsecurity.isam.base.fips.set
     isamapi:
       fipsEnabled: "{{ FIPS_cfg.fipsEnabled }}"
@@ -45,9 +35,6 @@
 # Restart after FIPS if needed
 - name: Restart after enabling FIPS
   ibm.isam.isam:
-      appliance: "{{ inventory_hostname }}"
-      username: admin
-      password: admin
       action: ibmsecurity.isam.base.fips.restart
   when:
     - first_steps_fips
@@ -65,9 +52,6 @@
 # Make sure system restarted
 - name: Check FIPS settings for System Online Status
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username: admin
-    password: admin
     action: ibmsecurity.isam.base.firmware.get
   register: result
   retries: 5
@@ -82,33 +66,21 @@
 # Complete the appliance set up
 - name: Complete Appliance Setup
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username: admin
-    password: admin
     action: ibmsecurity.isam.base.setup_complete.set
   register: ret_obj
 - debug: var=ret_obj
 
-# Change password
-- name: Change password for admin user
   ibm.isam.isam:
-      appliance: "{{ inventory_hostname }}"
-      password: "admin"
       action: ibmsecurity.isam.base.admin.set_pw
       isamapi:
           'oldPassword': 'admin'
-          'newPassword': "{{ password }}"
           'sessionTimeout': "{{ lmi_session_timeout }}"
   when: first_steps_admin_pwd
 
 - name: Get LMI Last Restart Timestamp
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.lmi.get
   check_mode: no
   register: ret_obj
@@ -120,12 +92,8 @@
 
 - name: Commit Changes and Restart LMI
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.appliance.commit_and_restart
   when: not ansible_check_mode
 
@@ -136,9 +104,6 @@
 
 - name: Wait for LMI to Respond
   ibm.isam.isam:
-      appliance: "{{ inventory_hostname }}"
-      username: "{{ username }}"
-      password: "{{ password }}"
       action: ibmsecurity.isam.base.lmi.await_startup
       isamapi:
           start_time: "{{ old_start_time }}"

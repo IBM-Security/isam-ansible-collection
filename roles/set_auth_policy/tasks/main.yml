@@ -2,12 +2,8 @@
 # in the "policy" attribute for this task
 - name: Set Authentication Policy - {{ set_auth_policy_name }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.aac.authentication.policies.set_file
     isamapi:
       name:        "{{ set_auth_policy_name }}"

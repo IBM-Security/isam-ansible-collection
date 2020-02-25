@@ -3,7 +3,7 @@
 #     federations:
 #       - name: oidc-provider
 #         protocol: OIDC
-#         role: op
+#         role: ibm.isam.op
 #         configuration:
 #           issuerIdentifier: https://oidc/test
 #           signatureAlgorithm: RS256
@@ -24,22 +24,13 @@
 #               identityMappingRuleReference: "5"
 - name: Create federations
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
-    adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
-    adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
-    omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ port | default(omit) }}"
     log:       "{{ log_level | default(omit) }}"
     force:     "{{ force | default(omit) }}"
     action: ibmsecurity.isam.fed.federations.set
     isamapi:
       name: "{{ item.name }}"
       protocol: "{{ item.protocol }}"
-      role: "{{ item.role }}"
+      role: ibm.isam."{{ item.role }}"
       configuration: "{{ item.configuration }}"
   with_items: "{{ federations }}"
   when: item.name == fed_name

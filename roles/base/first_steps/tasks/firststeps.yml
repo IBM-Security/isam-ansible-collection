@@ -3,35 +3,16 @@
 #
 #     accept service agreements
 #     set up LMI FIPS
-#     change password
 #     commit and restart appliance
 #
 # accept service agreements
 - name: Accept Service Agreements
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
-    adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
-    adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
-    omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
-    username:  admin
-    password:  admin
-    lmi_port:  "{{ port | default(omit) }}"
     action: ibmsecurity.isam.base.service_agreement.set
 
 # set up LMI FIPS
 - name: Setup FIPS Mode
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
-    adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
-    adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
-    omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
-    username:  admin
-    password:  admin
-    lmi_port:  "{{ port | default(omit) }}"
     action: ibmsecurity.isam.base.fips.set
     isamapi:
         fipsEnabled: "{{ FIPS_cfg.fipsEnabled }}"
@@ -46,15 +27,6 @@
 # Restart after FIPS if needed
 - name: Restart after enabling FIPS
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
-    adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
-    adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
-    omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
-    username:  admin
-    password:  admin
-    lmi_port:  "{{ port | default(omit) }}"
     action: ibmsecurity.isam.base.fips.restart_and_wait
   when:
     - first_steps_fips
@@ -64,46 +36,16 @@
 # Complete the appliance set up
 - name: Complete Appliance Setup
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
-    adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
-    adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
-    omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
-    username:  admin
-    password:  admin
-    lmi_port:  "{{ port | default(omit) }}"
     action: ibmsecurity.isam.base.setup_complete.set
 
-# Change password
-- name: Change password for admin user
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
-    adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
-    adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
-    omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
-    username:  admin
-    password:  admin
-    lmi_port:  "{{ port | default(omit) }}"
     action: ibmsecurity.isam.base.admin.set_pw
     isamapi:
         'oldPassword': 'admin'
-        'newPassword': "{{ password }}"
         'sessionTimeout': "{{ lmi_session_timeout }}"
   when: first_steps_admin_pwd
 
 # Commit changes and restart LMI
 - name: Commit Changes and Restart LMI
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
-    adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
-    adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
-    omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
-    username:  admin
-    password:  "{{ password }}"
-    lmi_port:  "{{ port | default(omit) }}"
     action: ibmsecurity.isam.appliance.commit_and_restart_and_wait

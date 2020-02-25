@@ -1,11 +1,7 @@
 - name: Configure System Alert to SNMP
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.system_alerts.snmp.add
     isamapi:
       name: "SNMP Alert to {{ add_system_alerts_snmp_trapAddress }}"
@@ -14,7 +10,6 @@
       trapNotificationType: "{{ add_system_alerts_snmp_trapNotificationType }}"
       trapVersion: "{{ add_system_alerts_snmp_trapVersion }}"
       trapPort: "{{ add_system_alerts_snmp_trapPort }}"
-      username: "{{ username }}"
       authEnabled: "{{ add_system_alerts_snmp_authEnabled }}"
       authType: "{{ add_system_alerts_snmp_authType }}"
       authPassPhrase: "{{ add_system_alerts_snmp_authPassPhrase }}"
@@ -31,12 +26,8 @@
 
 - name: Enable System Alert - Created in previous Step
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.system_alerts.alerts.enable
     isamapi:
       uuid    : "{{ alertObj['data']['uuid'] }}"

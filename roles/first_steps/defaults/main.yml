@@ -1,6 +1,3 @@
-lmi_port: 443
-username: admin
-password: admin
 log_level: INFO
 force: false
 

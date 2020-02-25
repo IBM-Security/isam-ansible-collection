@@ -1,23 +1,15 @@
 - name: Snapshot Appliance Before Configuring Cluster
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.snapshots.create
     isamapi:
       comment : "{{ set_cluster_config_comment }}"
 
 - name: Set Cluster Configuration
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.cluster.configuration.set
     isamapi:
       primary_master               : "{{ set_cluster_config_primary_master }}"
@@ -38,7 +30,6 @@
       hvdb_address                 : "{{ set_cluster_config_hvdb_address }}"
       hvdb_port                    : "{{ set_cluster_config_hvdb_port }}"
       hvdb_user                    : "{{ set_cluster_config_hvdb_user }}"
-      hvdb_password                : "{{ set_cluster_config_hvdb_password }}"
       hvdb_db2_alt_address         : "{{ set_cluster_config_hvdb_db2_alt_address }}"
       hvdb_db2_alt_port            : "{{ set_cluster_config_hvdb_db2_alt_port }}"
       hvdb_db_name                 : "{{ set_cluster_config_hvdb_db_name }}"
@@ -50,7 +41,6 @@
       cfgdb_address                : "{{ set_cluster_config_cfgdb_address }}"
       cfgdb_port                   : "{{ set_cluster_config_cfgdb_port }}"
       cfgdb_user                   : "{{ set_cluster_config_cfgdb_user }}"
-      cfgdb_password               : "{{ set_cluster_config_cfgdb_password }}"
       cfgdb_db2_alt_address        : "{{ set_cluster_config_cfgdb_db2_alt_address }}"
       cfgdb_db2_alt_port           : "{{ set_cluster_config_cfgdb_db2_alt_port }}"
       cfgdb_db_name                : "{{ set_cluster_config_cfgdb_db_name }}"

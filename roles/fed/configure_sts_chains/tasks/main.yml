@@ -21,7 +21,6 @@
 #             - name: uuid1bc4c3d8-cc79-4bc4-87dc-c264052a8655.ltpa.self.filename
 #               value:
 #                 - asdf.ltpa
-#             - name: uuid1bc4c3d8-cc79-4bc4-87dc-c264052a8655.ltpa.self.password
 #               value:
 #                 - asdf
 #             - name: uuid1bc4c3d8-cc79-4bc4-87dc-c264052a8655.ltpa.self.usefips
@@ -41,15 +40,6 @@
 #                 - "*"
 - name: Configure STS chains
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
-    adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
-    adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
-    omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ port | default(omit) }}"
     log:       "{{ log_level | default(omit) }}"
     force:     "{{ force | default(omit) }}"
     action: ibmsecurity.isam.fed.sts.module_chains.set

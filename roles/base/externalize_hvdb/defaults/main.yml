@@ -29,7 +29,6 @@ externalize_hvdb_cfgdb_db_type:                null
 externalize_hvdb_cfgdb_address:                null
 externalize_hvdb_cfgdb_port:                   null
 externalize_hvdb_cfgdb_user:                   null
-externalize_hvdb_cfgdb_password:               null
 externalize_hvdb_db2_cfgdb_alt_address:        null
 externalize_hvdb_db2_cfgdb_alt_port:           null
 externalize_hvdb_cfgdb_db_name:                null
@@ -60,7 +59,6 @@ externalize_hvdb_ora_keystores:
 # DB2 or Oracle Database Name and Userid to Connect
 #externalize_hvdb_hvdb_db_nam:
 #externalize_hvdb_hvdb_user:
-#externalize_hvdb_hvdb_password:
 
 # Advanced Tuning Parameters for ORACLE
 # Oracle - enable oracle tracing for LMI and runtime

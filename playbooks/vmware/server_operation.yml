@@ -1,7 +1,6 @@
 ---
 - name: Execute an operation reboot/stop/start on server in VCenter
   hosts: all
-  connection: local
   vars:
     server_operation: "rebootguest"
   vars_prompt:

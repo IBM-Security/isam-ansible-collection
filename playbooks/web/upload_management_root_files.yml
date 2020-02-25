@@ -7,8 +7,7 @@
 #             filename: "uploads/management_root/management/C/example.html"
 #             target: "management/C/example.html"
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: web/upload_management_root_files
+    - role: ibm.isam.web/upload_management_root_files
       tags: upload_management_root_files

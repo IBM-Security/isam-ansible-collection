@@ -7,8 +7,7 @@
 #             cert: "{{ inventory_dir }}/{{ item.cert  }}"
 #             label: "{{ item.label }}"
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: base/import_signer_certificates
+    - role: ibm.isam.base/import_signer_certificates
       tags: import_signer_certificates

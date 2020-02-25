@@ -34,7 +34,7 @@ Here is an example of how to use this role:
     - hosts: servers
       connection: local
       roles:
-         - role: activate_module
+         - role: ibm.isam.activate_module
            activate_module_id: 'wga'
            activate_module_code: 'xxxx-xxxx-xxxx-xxxx'
 

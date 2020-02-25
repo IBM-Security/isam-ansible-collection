@@ -1,11 +1,7 @@
 - name: Set a new OAuth 2.0 Client - {{ set_oauth_client_name }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.aac.api_protection.clients.set
     isamapi:
       name          : "{{ set_oauth_client_name }}"

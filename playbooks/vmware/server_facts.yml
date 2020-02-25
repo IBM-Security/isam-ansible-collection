@@ -1,7 +1,6 @@
 ---
 - name: Get details of server from VCenter
   hosts: all
-  connection: local
   vars_prompt:
     - name: vcenter_username
       prompt: "Enter AD Userid to login to Vcenter"

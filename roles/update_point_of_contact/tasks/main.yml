@@ -1,11 +1,7 @@
 - name: Update/add Point of Contact configuration - {{ update_point_of_contact_name }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.fed.point_of_contact.set
     isamapi:
       name: "{{ update_point_of_contact_name }}"

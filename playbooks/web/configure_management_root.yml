@@ -16,12 +16,11 @@
 #             type: directory
 #           - action: delete
 #             type: directory
-#             targets: 
+#             targets:
 #               - errors/de
 #               - errors/fr
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: web/configure_management_root
+    - role: ibm.isam.web/configure_management_root
       tags: configure_management_root

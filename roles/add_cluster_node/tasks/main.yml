@@ -5,14 +5,9 @@
     get_md5: False
   register: signature_file
 
-- name: Add {{ inventory_hostname }} to cluster
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.cluster.node.add
     isamapi:
       signature_file: "{{ add_cluster_node_signature_file }}"

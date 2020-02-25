@@ -2,12 +2,8 @@
 
 - name: Set Junction to AAC - {{ execute_isamcfg_junction_point }}
   isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.junctions.set
     isamapi:
       junction_point:     "{{ execute_isamcfg_junction_point }}"

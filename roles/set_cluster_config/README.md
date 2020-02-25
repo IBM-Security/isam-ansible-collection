@@ -26,7 +26,7 @@ Here is an example of how to use this role:
     - hosts: servers
       connection: local
       roles:
-         - role: set_cluster_config
+         - role: ibm.isam.set_cluster_config
            set_cluster_config_primary_master: '192.168.198.100'
 
 License

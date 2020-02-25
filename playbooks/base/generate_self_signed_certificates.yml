@@ -9,8 +9,7 @@
 #      size:       "{{ item.size }}"
 ---
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: base/generate_self_signed_certificates
+    - role: ibm.isam.base/generate_self_signed_certificates
       tags: generate_self_signed_certificates

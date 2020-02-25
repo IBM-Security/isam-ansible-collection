@@ -1,11 +1,7 @@
 - name: Setup Management Authentication using AD
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.management_authentication.set
     isamapi:
       ldap_host:      "{{ switch_auth_ldap_host }}"
@@ -19,6 +15,5 @@
       group_member_attribute:   "{{ switch_auth_group_member_attribute }}"
       anon_bind:      "{{ switch_auth_anon_bind }}"
       bind_dn:        "{{ switch_auth_bind_dn }}"
-      bind_password:  "{{ switch_auth_bind_password }}"
   when: switch_auth_ldap_host is defined and switch_auth_ldap_port is defined
   notify: Commit Changes

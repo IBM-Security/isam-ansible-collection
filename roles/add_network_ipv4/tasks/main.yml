@@ -1,11 +1,7 @@
 - name: Snapshot Appliance as Backup
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.snapshots.create
     isamapi:
       comment: 'Execute Snapshot as Backup - before adding ipv4 {{ add_network_ipv4_address }}'
@@ -13,12 +9,8 @@
 
 - name: Add IPv4 Address to Interface {{ add_network_ipv4_label }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username: "{{ username }}"
-    password: "{{ password }}"
-    lmi_port: "{{ lmi_port }}"
-    log: "{{ log_level }}"
-    force: "{{ force }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.network.interfaces_ipv4.add
     isamapi:
       label                 : "{{ add_network_ipv4_label }}"

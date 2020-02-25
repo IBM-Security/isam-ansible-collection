@@ -1,11 +1,7 @@
 - name: Import Management Root Files into {{ import_management_root_instance_id }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.file.import_file
     isamapi:
       instance_id: "{{ import_management_root_instance_id }}"

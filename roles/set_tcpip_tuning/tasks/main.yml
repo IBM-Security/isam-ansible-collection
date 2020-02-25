@@ -2,12 +2,8 @@
 
 - name: Configure TCP Ephemeral Port Range Tuning
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.advanced_tuning_parameters.set
     isamapi:
       key: sysctl.net.ipv4.ip_local_port_range
@@ -19,12 +15,8 @@
 
 - name: Configure TCP Time Wait Tuning
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.advanced_tuning_parameters.set
     isamapi:
       key: sysctl.net.ipv4.tcp_fin_timeout
@@ -36,12 +28,8 @@
 
 - name: Configure TCP Time Wait Socket Reuse
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.advanced_tuning_parameters.set
     isamapi:
       key: sysctl.net.ipv4.tcp_tw_reuse
@@ -53,12 +41,8 @@
 
 - name: Configure TCP Time Wait Recycle
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.advanced_tuning_parameters.set
     isamapi:
       key: sysctl.net.ipv4.tcp_tw_recycle

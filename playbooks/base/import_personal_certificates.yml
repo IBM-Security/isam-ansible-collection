@@ -7,8 +7,7 @@
 #         password: "{{ personal_cert_password }}"
 ---
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: base/import_personal_certificates
+    - role: ibm.isam.base/import_personal_certificates
       tags: import_personal_certificates

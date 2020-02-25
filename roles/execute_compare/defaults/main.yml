@@ -34,7 +34,6 @@ execute_compare_wga_features:
   - ibmsecurity.isam.web.client_certificate_mapping
   - ibmsecurity.isam.web.http_transformation
   - ibmsecurity.isam.web.junction_mapping
-  - ibmsecurity.isam.web.password_strength
   - ibmsecurity.isam.web.url_mapping
   - ibmsecurity.isam.web.reverse_proxy.instance
 execute_compare_mga_features:

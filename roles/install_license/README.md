@@ -32,7 +32,7 @@ Here is an example of how to use this role:
     - hosts: servers
       connection: local
       roles:
-         - role: install_license
+         - role: ibm.isam.install_license
            install_license_file: '/tmp/666666_88888888_4444'
 
 License

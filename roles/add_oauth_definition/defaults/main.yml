@@ -20,7 +20,7 @@ add_oauth_definition_oidc                                        : null
 
 
 # This would be a possible example on how to invoke this role
-#    - role: add_oauth_definition
+#    - role: ibm.isam.add_oauth_definition
 #      add_oauth_definition_name						: "myDefinition1"
 #      add_oauth_definition_description 					: "My test definition"
 #      add_oauth_definition_grantTypes						: ["AUTHORIZATION_CODE"]

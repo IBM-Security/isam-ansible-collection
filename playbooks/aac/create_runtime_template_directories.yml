@@ -5,9 +5,7 @@
 #      - type: dir
 #        path: C/authsvc/api
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: create_runtime_template_directories
+    - role: ibm.isam.create_runtime_template_directories
       tags: create_runtime_template_directories
-      

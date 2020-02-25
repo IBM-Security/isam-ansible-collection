@@ -1,3 +1,1 @@
-# Set the id and password for the embedded LDAP user
 #set_ldap_user_pwd_id:
-#set_ldap_user_pwd_password:

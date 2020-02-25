@@ -1,6 +1,5 @@
 create_reverseproxy_inst_name      : 'default'
 create_reverseproxy_admin_pwd      : 'passw0rd'
-create_reverseproxy_host           : "{{ inventory_hostname.split('.')[0] }}"
 create_reverseproxy_listening_port : 7234
 create_reverseproxy_domain         : 'Default'
 create_reverseproxy_admin_id       : 'sec_master'

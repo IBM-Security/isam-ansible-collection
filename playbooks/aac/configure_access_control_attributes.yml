@@ -19,8 +19,7 @@
 #           session: false
 #           behavior: false
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: aac/configure_access_control_attributes
+    - role: ibm.isam.aac/configure_access_control_attributes
       tags: configure_access_control_attributes

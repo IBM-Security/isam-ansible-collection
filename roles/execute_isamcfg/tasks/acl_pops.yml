@@ -2,11 +2,7 @@
 
 - name: Run PDAdmin commands
   ibm.isam.isamadmin:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
+    log:       "{{ log_level | default('INFO') }}"
     isamuser:  "{{ execute_isamcfg_isamuser }}"
     isampwd:   "{{ execute_isamcfg_isampwd }}"
     commands:

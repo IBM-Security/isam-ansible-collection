@@ -1,11 +1,7 @@
 - name: Create Certificate Database
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.ssl_certificates.certificate_databases.create
     isamapi:
       kdb_name: "{{ switch_auth_key_database }}"
@@ -14,12 +10,8 @@
 
 - name: Set Certificate Database Description
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.ssl_certificates.certificate_databases.set
     isamapi:
       cert_id: "{{ switch_auth_key_database }}"
@@ -29,12 +21,8 @@
 
 - name: Load AD CA Certificate
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.ssl_certificates.signer_certificate.load
     isamapi:
       kdb_id: "{{ switch_auth_key_database }}"
@@ -46,12 +34,8 @@
 
 - name: Import CA Certs into keystore {{ item.label }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.ssl_certificates.signer_certificate.import_cert
     isamapi:
       kdb_id : "{{ switch_auth_key_database }}"

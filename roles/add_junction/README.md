@@ -31,7 +31,7 @@ Here is an example of how to use this role:
     - hosts: servers
       connection: local
       roles:
-         - role: add_junction
+         - role: ibm.isam.add_junction
            add_junction_junction_point: '/test'
            add_junction_junction_type: 'tcp'
            add_junction_reverseproxy_id: 'default'

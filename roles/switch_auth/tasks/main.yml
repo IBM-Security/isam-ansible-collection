@@ -2,12 +2,8 @@
 
 - name: Snapshot Before Switch to External LDAP
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username: "{{ username }}"
-    password: "{{ password }}"
-    lmi_port: "{{ lmi_port }}"
-    log: "{{ log_level }}"
-    force: "{{ force }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.snapshots.create
     isamapi:
       comment: "Snapshot Before Switch to External LDAP"

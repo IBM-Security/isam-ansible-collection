@@ -12,9 +12,7 @@
 #     hvdb_db_name: ISAM_HVDB
 #     hvdb_db_secure: false
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: base/configure_cluster
+    - role: ibm.isam.base/configure_cluster
       tags: configure_cluster
-      

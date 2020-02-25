@@ -1,11 +1,7 @@
 - name: Extract Self-Signed Certs from HVDB Database into keystore {{ item }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.ssl_certificates.signer_certificate.load
     isamapi:
       kdb_id: "{{ item }}"
@@ -18,12 +14,8 @@
 
 - name: Import CA Certs from HVDB Database into keystore {{ item[0] }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.ssl_certificates.signer_certificate.import_cert
     isamapi:
       kdb_id : "{{ item[0] }}"

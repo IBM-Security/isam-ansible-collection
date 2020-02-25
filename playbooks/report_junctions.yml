@@ -3,18 +3,17 @@
 - name: Create a report on all Junctions
   hosts: all
   no_log: True
-  connection: local
   vars:
     log_level: "CRITICAL"
   roles:
-    - role: start_config
+    - role: ibm.isam.start_config
 
-    - role: get_reverseproxies
+    - role: ibm.isam.get_reverseproxies
 
-    - role: get_junctions
+    - role: ibm.isam.get_junctions
 
-    - role: get_junction_details
+    - role: ibm.isam.get_junction_details
 
-    - role: gen_report
+    - role: ibm.isam.gen_report
       gen_report_template: "report_junctions.template"
       gen_report_dir: "~"

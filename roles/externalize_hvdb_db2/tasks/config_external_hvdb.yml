@@ -1,11 +1,7 @@
 - name: Configure External HVDB (using DB2 databases)
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.cluster.configuration.set
     isamapi:
       cfgdb_embedded:               "{{ externalize_hvdb_db2_cfgdb_embedded }}"
@@ -24,7 +20,6 @@
       hvdb_embedded:                "{{ externalize_hvdb_db2_hvdb_embedded }}"
       hvdb_port:                    "{{ externalize_hvdb_db2_hvdb_port }}"
       hvdb_user:                    "{{ externalize_hvdb_db2_hvdb_user }}"
-      hvdb_password:                "{{ externalize_hvdb_db2_hvdb_password }}"
       primary_master:               "{{ externalize_hvdb_db2_primary_master }}"
       secondary_master:             "{{ externalize_hvdb_db2_secondary_master }}"
       master_ere:                   "{{ externalize_hvdb_db2_master_ere }}"
@@ -38,7 +33,6 @@
       cfgdb_address:                "{{ externalize_hvdb_db2_cfgdb_address }}"
       cfgdb_port:                   "{{ externalize_hvdb_db2_cfgdb_port }}"
       cfgdb_user:                   "{{ externalize_hvdb_db2_cfgdb_user }}"
-      cfgdb_password:               "{{ externalize_hvdb_db2_cfgdb_password }}"
       cfgdb_db2_alt_address:        "{{ externalize_hvdb_db2_cfgdb_db2_alt_address }}"
       cfgdb_db2_alt_port:           "{{ externalize_hvdb_db2_cfgdb_db2_alt_port }}"
       cfgdb_db_name:                "{{ externalize_hvdb_db2_cfgdb_db_name }}"

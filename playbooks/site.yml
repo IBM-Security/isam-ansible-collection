@@ -3,46 +3,45 @@
 
 - name: Apply Common Configuration to all Appliances
   hosts: all
-  connection: local
   gather_facts: no
   roles:
-    - role: start_config
+    - role: ibm.isam.start_config
       tags: ["start"]
-    - role: first_steps
+    - role: ibm.isam.first_steps
       tags: ["first", "steps"]
       first_steps_fips: False
       first_steps_admin_pwd: False
-    - role: sanity_checks
+    - role: ibm.isam.sanity_checks
       tags: ["sanity"]
-    - role: add_network_ipv4
+    - role: ibm.isam.add_network_ipv4
       tags: ["ipv4"]
       add_network_ipv4_label                : "1.1"
       add_network_ipv4_address              : "{{ ipv4_1_1_ip_address }}"
       add_network_ipv4_maskOrPrefix         : "{{ ipv4_1_1_ip_mask }}"
       add_network_ipv4_allowManagement      : True
       when: ipv4_1_1_ip_address is defined
-    - role: set_network_ipv4_dhcp
+    - role: ibm.isam.set_network_ipv4_dhcp
       tags: ["dhcp"]
       set_network_ipv4_dhcp_label           : "1.1"
       set_network_ipv4_dhcp_allowManagement : False
       set_network_ipv4_dhcp_enabled         : False
       set_network_ipv4_dhcp_providesDefaultRoute: False
       when: ipv4_1_1_ip_address is defined
-    - role: add_network_ipv4
+    - role: ibm.isam.add_network_ipv4
       tags: ["ipv4"]
       add_network_ipv4_label                : "1.2"
       add_network_ipv4_address              : "{{ ipv4_1_2_ip_address }}"
       add_network_ipv4_maskOrPrefix         : "{{ ipv4_1_2_ip_mask }}"
       add_network_ipv4_allowManagement      : False
       when: ipv4_1_1_ip_address is defined
-    - role: set_network_hostname
+    - role: ibm.isam.set_network_hostname
       tags: ["hostname"]
       set_network_hostname_hostname         : "{{ appliance_name }}"
-    - role: config_dns
+    - role: ibm.isam.config_dns
       tags: ["dns"]
-    - role: config_ntp
+    - role: ibm.isam.config_ntp
       tags: ["ntp"]
-    - role: set_host_records
+    - role: ibm.isam.set_host_records
       tags: ["host", "records"]
       set_host_records:
       - addr: "192.168.198.144"
@@ -57,47 +56,45 @@
         hostnames:
         - {name: "isam3.ibm.com"}
         - {name: "isam3"}
-    - role: config_snmp_monitoring
+    - role: ibm.isam.config_snmp_monitoring
       tags: ["snmp"]
       config_snmp_monitoring_community: "ibm"
       config_snmp_monitoring_port: 161
-    - role: activate_module
+    - role: ibm.isam.activate_module
       tags: ["activate", "wga"]
       activate_module_id  : "wga"
       activate_module_code: "{{ lookup('file', '/Users/ram/Documents/Work/Software/ISAM_90_ACTIVATION_CODE_MP_ML.txt') }}"
 
 - name: Setup Primary Appliance
   hosts: primary
-  connection: local
   gather_facts: no
   roles:
-    - role: config_policyserver
+    - role: ibm.isam.config_policyserver
       tags: ["policyserver", "config"]
       config_policyserver_admin_pwd: "{{sec_master_pwd}}"
       config_policyserver_ldap_pwd: "passw0rd"
-    - role: set_cluster_config
+    - role: ibm.isam.set_cluster_config
       set_cluster_config_primary_master: "{{ ipv4_1_1_ip_address}}"
-    - role: set_cert_replication
+    - role: ibm.isam.set_cert_replication
       tags: ["certificate", "replication"]
-    - role: set_runtime_replication
+    - role: ibm.isam.set_runtime_replication
       tags: ["runtime", "replication"]
-    - role: export_cluster_sign
+    - role: ibm.isam.export_cluster_sign
       export_cluster_sign_filename: "/Users/ram/Documents/Work/TechAcademy/primary.sign"
 
 - name: Setup Restricted Appliances
   hosts: restricted
-  connection: local
   gather_facts: no
   vars:
     reverseproxy_instance_name: "default"
   roles:
-    - role: add_cluster_node
+    - role: ibm.isam.add_cluster_node
       tags: ["cluster", "add"]
       add_cluster_node_signature_file: "/Users/ram/Documents/Work/TechAcademy/primary.sign"
       add_cluster_node_restricted:     True
-    - role: set_tcpip_tuning
+    - role: ibm.isam.set_tcpip_tuning
       tags: ["tcpip"]
-    - role: create_reverseproxy
+    - role: ibm.isam.create_reverseproxy
       tags: ["reverseproxy", "create"]
       create_reverseproxy_host      : "{{ appliance_name.split('.')[0] }}"
       create_reverseproxy_inst_name : "{{ reverseproxy_instance_name }}"
@@ -107,10 +104,9 @@
 
 - name: Setup Primary Appliance
   hosts: primary
-  connection: local
   gather_facts: no
   roles:
-    - role: execute_pdadmin
+    - role: ibm.isam.execute_pdadmin
       tags: ["pdadmin", "object", "create"]
       execute_pdadmin_commands:
         - "object create /WebSEAL/ibm \"Common Web Root for all Reverse Proxies\" 5 ispolicyattachable yes"
@@ -119,12 +115,11 @@
 
 - name: Setup Restricted Appliances
   hosts: restricted
-  connection: local
   gather_facts: no
   vars:
     reverseproxy_instance_name: "default"
   roles:
-    - role: update_reverseproxy_conf
+    - role: ibm.isam.update_reverseproxy_conf
       tags: ["reverseproxy", "update"]
       update_reverseproxy_conf_reverseproxy_id: "{{ reverseproxy_instance_name }}"
       update_reverseproxy_conf_entries:

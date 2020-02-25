@@ -4,10 +4,9 @@
 #   Example:
 #     policyserver_runtime:
 #       federated_directories:
-#      
+#
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: web/configure_federated_directories
+    - role: ibm.isam.web/configure_federated_directories
       tags: configure_federated_directories

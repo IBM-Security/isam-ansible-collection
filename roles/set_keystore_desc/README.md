@@ -25,7 +25,7 @@ Here is an example on how to use this role:
       connection: local
       roles:
         - start_config
-        - role: set_keystore_desc
+        - role: ibm.isam.set_keystore_desc
           set_keystore_desc_keystore: 'keystore id'
           set_keystore_desc_description: 'Description of Sample keystore'
 

@@ -24,7 +24,6 @@ externalize_hvdb_db2_cfgdb_db_type:                null
 externalize_hvdb_db2_cfgdb_address:                null
 externalize_hvdb_db2_cfgdb_port:                   null
 externalize_hvdb_db2_cfgdb_user:                   null
-externalize_hvdb_db2_cfgdb_password:               null
 externalize_hvdb_db2_cfgdb_db2_alt_address:        null
 externalize_hvdb_db2_cfgdb_db2_alt_port:           null
 externalize_hvdb_db2_cfgdb_db_name:                null
@@ -55,7 +54,6 @@ externalize_hvdb_db2_keystores:
 # DB2 Database Name and Userid to Connect
 #externalize_hvdb_db2_hvdb_db_name:
 #externalize_hvdb_db2_hvdb_user:
-#externalize_hvdb_db2_hvdb_password:
 
 # Advanced Tuning Parameters to ensure DB2 fails over consistently
 externalize_hvdb_db2_tcp_retries2: 5

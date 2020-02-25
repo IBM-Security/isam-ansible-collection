@@ -1,11 +1,7 @@
 - name: Create Certificate Database for Federated Directory - {{ config_fed_dir_kdb_name }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action    : ibmsecurity.isam.base.ssl_certificates.certificate_databases.create
     isamapi:
       kdb_name: "{{ config_fed_dir_kdb_name }}"
@@ -15,12 +11,8 @@
 
 - name: Load Self-Signed Certificates for Federated Directory - {{ config_fed_dir_hostname }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.ssl_certificates.signer_certificate.load
     isamapi:
       kdb_id  : "{{ config_fed_dir_kdb_name }}"
@@ -38,12 +30,8 @@
 
 - name: Load CA Certificates for Federated Directory - {{ config_fed_dir_hostname }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.ssl_certificates.signer_certificate.import_cert
     isamapi:
       kdb_id : "{{ config_fed_dir_kdb_name }}"
@@ -56,12 +44,8 @@
 
 - name: Set Certificate Database Description
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action    : ibmsecurity.isam.base.ssl_certificates.certificate_databases.set
     isamapi:
       cert_id    : "{{ config_fed_dir_kdb_name }}"

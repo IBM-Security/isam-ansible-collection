@@ -27,7 +27,7 @@ Here is an example on how to use this role:
       connection: local
       roles:
         - start_config
-        - role: create_mgmt_root_file
+        - role: ibm.isam.create_mgmt_root_file
           create_mgmt_root_file_instance_id: "rp-demo"
           create_mgmt_root_file_id: 'junction-root'
           create_mgmt_root_file_name: 'test.html'

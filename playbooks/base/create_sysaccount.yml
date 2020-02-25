@@ -2,9 +2,7 @@
 # Create
 #   configure appliance sysaccounts
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: base/create_sysaccounts
+    - role: ibm.isam.base/create_sysaccounts
       tags: sysaccount
-      

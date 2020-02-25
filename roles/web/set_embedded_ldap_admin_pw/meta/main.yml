@@ -1,6 +1,5 @@
 galaxy_info:
   author: IBM
-  description: Role that sets password for embedded ldap admin user
   company: IBM
 
   license: Apache
@@ -10,7 +9,6 @@ galaxy_info:
   galaxy_tags:
   - isam
   - ibm
-  - password
   - embedded_ldap
   - admin_user
   - set

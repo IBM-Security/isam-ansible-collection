@@ -2,15 +2,14 @@
 
 - name: Run a query on Embedded LDAP
   hosts: all
-  connection: local
   vars:
     log_level: "CRITICAL"
   roles:
-    - role: start_config
+    - role: ibm.isam.start_config
       start_config_skip_pending_check: True
       start_config_skip_snapshot:      True
 
-    - role: ldap_query
+    - role: ibm.isam.ldap_query
       ldap_query_hostname: "{{inventory_hostname}}"
       ldap_query_binddn:   "cn=root,secAuthority=Default"
       ldap_query_bindpw:   "{{embedded_ldap_pwd}}"

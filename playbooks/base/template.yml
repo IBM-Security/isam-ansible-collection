@@ -4,9 +4,7 @@
 #   Example:
 #      iterator:
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: base/playbook
+    - role: ibm.isam.base/playbook
       tags: playbook
-      

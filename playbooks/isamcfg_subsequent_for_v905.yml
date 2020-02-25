@@ -1,17 +1,16 @@
 ---
 - name: Execute isamcfg Subsequent (after First Time) for v9.0.5 all-in-one Appliances
   hosts: all
-  connection: local
   roles:
-    - role: start_config
+    - role: ibm.isam.start_config
       start_config_skip_pending_check: False
       start_config_skip_snapshot:      True
 
-#    - role: delete_signer_cert
+#    - role: ibm.isam.delete_signer_cert
 #      delete_signer_cert_kdb_id : "pdsrv"
 #      delete_signer_cert_cert_id: "localhost-CA-Certificate"
 
-    - role: execute_cli
+    - role: ibm.isam.execute_cli
       execute_cli_command: "isam/aac/config"
       execute_cli_input  :
 # Select/deselect the capabilities you would like to configure by typing its number. Press enter to continue:
@@ -137,7 +136,7 @@
 # Press 1 for Next, 2 for Previous, 3 to Repeat, C to Cancel:
         - "1"
 
-    - role: commit
+    - role: ibm.isam.commit
       tags: ["commit"]
 
   tasks:

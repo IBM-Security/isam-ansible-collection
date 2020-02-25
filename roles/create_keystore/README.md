@@ -54,7 +54,7 @@ Here is an example of how to use this role:
       connection: local
       roles:
         - start_config
-        - role: create_keystore
+        - role: ibm.isam.create_keystore
           create_keystore_name: 'sample_db'
 
 ## License

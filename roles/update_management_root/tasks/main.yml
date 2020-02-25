@@ -1,11 +1,7 @@
 - name: Update Management Root Files in {{ update_management_root_instance_id }} from {{ update_management_root_zip_filename | basename }} archive
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.all.import_zip
     isamapi:
       instance_id: "{{ update_management_root_instance_id }}"
@@ -16,12 +12,8 @@
 
 - name: Update Management Root Files in {{ update_management_root_instance_id }} from individual updates
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.file.update
     isamapi:
       instance_id: "{{ update_management_root_instance_id }}"
@@ -34,12 +26,8 @@
 
 - name: Delete Management Root 'errors' Directories in {{ update_management_root_instance_id }} for locale {{ update_management_root_locale_exclusion }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.directory.delete
     isamapi:
       instance_id: "{{ update_management_root_instance_id }}"
@@ -51,12 +39,8 @@
 
 - name: Delete Management Root 'management' Directories in {{ update_management_root_instance_id }} for locale {{ update_management_root_locale_exclusion }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.directory.delete
     isamapi:
       instance_id: "{{ update_management_root_instance_id }}"

@@ -4,8 +4,7 @@
 #    set_current_point_of_contact_name: Non-Access Manager Username, Access Manager groups and extended attributes
 
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: set_current_point_of_contact
+    - role: ibm.isam.set_current_point_of_contact
       tags: set_current_point_of_contact

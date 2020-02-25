@@ -1,11 +1,7 @@
 - name: Add a Suffix to Embedded LDAP - {{ add_suffix_name }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.embedded_ldap.suffix.add
     isamapi:
       name: "{{ add_suffix_name }}"

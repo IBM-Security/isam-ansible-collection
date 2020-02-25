@@ -26,7 +26,7 @@ Here is an example of how to use this role:
     - hosts: servers
       connection: local
       roles:
-         - role: set_dsc_config
+         - role: ibm.isam.set_dsc_config
            set_dsc_config_worker_threads: 64
            set_dsc_config_max_session_lifetime: 3600
            set_dsc_config_client_grace: 600

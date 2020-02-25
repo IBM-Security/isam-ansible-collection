@@ -1,14 +1,7 @@
 - name: Compare Certificate Database->{{ cert_db.id }} Signer Certificates
-  ibm.isam.ibm.isam.isamcompare:
+  ibm.isam.isamcompare:
     appliance1: "{{ master_hostname }}"
-    lmi_port1:  "{{ master_lmi_port }}"
-    username1:  "{{ master_username }}"
-    password1:  "{{ master_password }}"
-    appliance2: "{{ inventory_hostname }}"
-    lmi_port2:  "{{ lmi_port }}"
-    username2:  "{{ username }}"
-    password2:  "{{ password }}"
-    log:        "{{ log_level }}"
+    log:        "{{ log_level | default('INFO') }}"
     action: ibmsecurity.isam.base.ssl_certificates.signer_certificate
     isamapi:
       kdb_id: "{{ cert_db.id }}"
@@ -26,16 +19,9 @@
   when: ret_obj|failed
 
 - name: Compare Certificate Database->{{ cert_db.id }} Personal Certificates
-  ibm.isam.ibm.isam.isamcompare:
+  ibm.isam.isamcompare:
     appliance1: "{{ master_hostname }}"
-    lmi_port1:  "{{ master_lmi_port }}"
-    username1:  "{{ master_username }}"
-    password1:  "{{ master_password }}"
-    appliance2: "{{ inventory_hostname }}"
-    lmi_port2:  "{{ lmi_port }}"
-    username2:  "{{ username }}"
-    password2:  "{{ password }}"
-    log:        "{{ log_level }}"
+    log:        "{{ log_level | default('INFO') }}"
     action: ibmsecurity.isam.base.ssl_certificates.personal_certificate
     isamapi:
       kdb_id: "{{ cert_db.id }}"

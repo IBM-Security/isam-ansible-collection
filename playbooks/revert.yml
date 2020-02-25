@@ -5,15 +5,14 @@
 
 - name: Revert Appliances to Pre-Configuration State
   hosts: all
-  connection: local
   gather_facts: no
   roles:
-    - role: delete_activation
+    - role: ibm.isam.delete_activation
       tags: ["delete", "activation", "federation"]
       delete_activation_id: "federation"
-    - role: delete_activation
+    - role: ibm.isam.delete_activation
       tags: ["delete", "activation", "mga"]
       delete_activation_id: "mga"
-    - role: delete_activation
+    - role: ibm.isam.delete_activation
       tags: ["delete", "activation", "wga"]
       delete_activation_id: "wga"

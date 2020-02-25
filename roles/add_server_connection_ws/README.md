@@ -14,7 +14,6 @@ Role Variables
 Provide the name, connection, description, locked flag, and the connection manager for the new LDAP server connection
 ```
   ws_server_connection_name: "LDAP Connection"
-  ws_server_connection_connection: {"url": "https://someserver:443/someWebServiceURI", "user": "aUser", "password": "secret", "ssl": true, "sslTruststore": "trust.kdb", "sslAuthKey": "client_key"}
   ws_server_connection_description: "This is a connection to an LDAP server"
   ws_server_connection_locked: false
   ws_server_connection_connection_manager: {"connectTimeout": 300}
@@ -36,9 +35,8 @@ Here is an example of how to use this role:
     - hosts: servers
       connection: local
       roles:
-         - role: add_server_connection_ws
+         - role: ibm.isam.add_server_connection_ws
            ws_server_connection_name: "LDAP Connection"
-           ws_server_connection_connection: {"url": "https://someserver:443/someWebServiceURI", "user": "aUser", "password": "secret", "ssl": true, "sslTruststore": "trust.kdb", "sslAuthKey": "client_key"}
            ws_server_connection_description: "This is a connection to a Web Service"
            ws_server_connection_locked: false
            ws_server_connection_connection_manager: {"connectTimeout": 300}

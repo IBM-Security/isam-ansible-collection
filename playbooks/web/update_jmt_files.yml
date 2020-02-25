@@ -5,8 +5,7 @@
 #     jmt_files
 #       - file: uploads/jmt/jmt.conf
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: web/update_jmt_files
+    - role: ibm.isam.web/update_jmt_files
       tags: update_jmt_files

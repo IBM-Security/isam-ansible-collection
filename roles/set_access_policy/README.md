@@ -40,8 +40,8 @@ With this playbook you can create or update an access policy
     - hosts: servers
       connection: local
       roles:
-        - role: start_config
-        - role: set_access_policy
+        - role: ibm.isam.start_config
+        - role: ibm.isam.set_access_policy
           set_access_policy_name: "Policy1"
           set_access_policy_file: "/path/to/access_policy.js"
 ```

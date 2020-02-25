@@ -1,16 +1,15 @@
 ---
 # Install Update
-#   Example: 
+#   Example:
 #     cli:(-e name=Firmware -e type=firmware -e version=9.0.6 -e release_date=2018-11-19)
 #     inventory:
 #       name: Firmware
 #       type: firmware
 #       version: 9.0.6
 #       release_date: 2018-11-19
-#          
+#
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: base/install_update
+    - role: ibm.isam.base/install_update
       tags: install_update

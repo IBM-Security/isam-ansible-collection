@@ -52,7 +52,7 @@ Here is an example of how to use this role:
     - hosts: servers
       connection: local
       roles:
-         - role: add_module_chain
+         - role: ibm.isam.add_module_chain
            module_chain_name: Chain 1
            module_chain_template_name: Template 1
            module_chain_request_type: http://docs.oasis-open.org/ws-sx/ws-trust/200512/Issue

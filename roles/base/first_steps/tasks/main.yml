@@ -1,9 +1,6 @@
-# check whether ISAM appliance LMI is ready and accept default password
 - name: Check ISAM appliance for First Steps Execution
   uri:
-    url: "https://{{ inventory_hostname }}/lmi"
     user: admin
-    password: admin
     method: GET
     return_content: yes
     force_basic_auth: yes
@@ -18,7 +15,6 @@
   set_fact:
     firststeps: "skip_fs.yml"
 
-# if default password fails we do not go through firststeps and change password
 - name: Initiate logic if First Steps Required
   set_fact:
     firststeps: "firststeps.yml"

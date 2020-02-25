@@ -1,13 +1,12 @@
 ---
 - name: Execute isamcfg for v9.0.6 and Later
   hosts: all
-  connection: local
   roles:
     # Assumes hostname and port are localhost and 443 respectively
-    - role: config_reverseproxy_aac
+    - role: ibm.isam.config_reverseproxy_aac
       tags: ["reverseproxy", "aac", "config", "isamcfg"]
-      config_reverseproxy_aac_instance_id: "{{reverseproxy_instance_name}}"
-      config_reverseproxy_aac_username:    "{{aac_userid}}"
-      config_reverseproxy_aac_password:    "{{aac_password}}"
+      config_reverseproxy_aac_instance_id: "{{reverseproxy_instance_name | default('default')}}"
+      config_reverseproxy_aac_username:    "{{aac_userid | default('easuser')}}"
+      config_reverseproxy_aac_password:    "{{aac_password | default('passw0rd')}}"
       config_reverseproxy_aac_reuse_certs: False
       config_reverseproxy_aac_reuse_acls:  False

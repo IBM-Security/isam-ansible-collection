@@ -1,11 +1,7 @@
 - name: Configure System Alert to Remote Syslog
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.system_alerts.rsyslog.add
     isamapi:
       name          : "{{ add_system_alerts_rsyslog_name | default('RSyslog Alert to ' + add_system_alerts_rsyslog_collector) }}"
@@ -19,12 +15,8 @@
 
 - name: Enable System Alert - Created in previous Step
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.system_alerts.alerts.enable
     isamapi:
       uuid    : "{{ alertObj['data']['uuid'] }}"

@@ -1,6 +1,5 @@
 galaxy_info:
   author: IBM
-  description: Role that sets password for admin user
   company: IBM
 
   license: Apache
@@ -22,7 +21,6 @@ galaxy_info:
   galaxy_tags:
   - isam
   - ibm
-  - password
   - admin
   - set
 

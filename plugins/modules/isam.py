@@ -1,15 +1,11 @@
 #!/usr/bin/python
 
-import logging
 import logging.config
 import sys
-import importlib
 from ansible.module_utils.basic import AnsibleModule
-from io import StringIO
 import datetime
 
 from ansible_collections.ibm.isam.plugins.module_utils.isam import ISAMUtil
-from ibmsecurity.appliance.ibmappliance import IBMError
 
 logger = logging.getLogger(sys.argv[0])
 try:
@@ -22,18 +18,14 @@ def main():
     module = AnsibleModule(
         argument_spec=dict(
             log=dict(required=False, default='INFO', choices=['DEBUG', 'INFO', 'ERROR', 'CRITICAL']),
-            appliance=dict(required=True),
-            lmi_port=dict(required=False, default=443, type='int'),
             action=dict(required=True),
             force=dict(required=False, default=False, type='bool'),
-            username=dict(required=False),
-            password=dict(required=True, no_log=True),
-            isamapi=dict(required=False, type='dict'),
-            adminProxyProtocol=dict(required=False, default='https', choices=['http','https']),
-            adminProxyHostname=dict(required=False),
-            adminProxyPort=dict(required=False, default=443, type='int'),
-            adminProxyApplianceShortName=dict(required=False, default=False, type='bool'),
-            omitAdminProxy=dict(required=False, default=False, type='bool')
+            isamapi=dict(required=False, type='dict')
+            # adminProxyProtocol=dict(required=False, default='https', choices=['http', 'https']),
+            # adminProxyHostname=dict(required=False),
+            # adminProxyPort=dict(required=False, default=443, type='int'),
+            # adminProxyApplianceShortName=dict(required=False, default=False, type='bool'),
+            # omitAdminProxy=dict(required=False, default=False, type='bool')
         ),
         supports_check_mode=True
     )
@@ -57,13 +49,13 @@ def main():
                 options = options + ', ' + key + '="' + value + '"'
             else:
                 options = options + ', ' + key + '=' + str(value)
+    else:
+        module.debug('No isamapi dict object passed.')
     module.debug('Option to be passed to action: ' + options)
 
     # Dynamically process the action to be invoked
     # Simple check to restrict calls to just "isam" ones for safety
     if action.startswith('ibmsecurity.isam.'):
-#       try:
-
         startd = datetime.datetime.now()
 
         # Execute requested 'action'

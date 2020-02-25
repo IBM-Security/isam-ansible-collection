@@ -39,11 +39,8 @@ add_junction_version_two_cookies: null
 add_junction_ltpa_keyfile: null
 add_junction_authz_rules: null
 add_junction_fsso_config_file: null
-add_junction_username: null
-add_junction_password: null
 add_junction_server_uuid: null
 add_junction_local_ip: null
-add_junction_ltpa_keyfile_password: null
 add_junction_delegation_support: null
 add_junction_insert_ltpa_cookies: null
 add_junction_http2_junction: null

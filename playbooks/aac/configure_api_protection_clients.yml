@@ -9,15 +9,13 @@
 #           grantTypes:
 #             - AUTHORIZATION_CODE
 #           tcmBehavior: NEVER_PROMPT
-#           clients: 
+#           clients:
 #             - name: TestApp
 #               companyName: IBM demo client for OAuth flows
 #               redirectUri: https://localhost
 #               contactType: ADMINISTRATIVE
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: aac/configure_api_protection_clients
+    - role: ibm.isam.aac/configure_api_protection_clients
       tags: configure_api_protection_clients
-      

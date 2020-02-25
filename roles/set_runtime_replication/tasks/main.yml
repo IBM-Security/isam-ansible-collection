@@ -1,11 +1,7 @@
 - name: Set Web Runtime Replication Status in a cluster
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.runtime.replication.set
     isamapi:
       replicating: "{{ set_runtime_replication_replicating }}"

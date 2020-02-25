@@ -2,5 +2,4 @@
 # Example:
 #  sysaccounts:
 #    - id: sec_master
-#      password: "{{ basicauth_dummy_passwd }}"
 sysaccounts: []

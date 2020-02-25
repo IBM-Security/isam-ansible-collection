@@ -5,7 +5,6 @@
 #     - file: uploads/kerberos/kerberos.krb5
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
-  connection: local
   roles:
-    - role: web/import_keytab_files
+    - role: ibm.isam.web/import_keytab_files
       tags: import_keytab_files

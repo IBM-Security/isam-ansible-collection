@@ -1,11 +1,7 @@
 - name: Snapshot Appliance as Backup
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.snapshots.create
     isamapi:
       comment: "{{ set_network_ipv4_dhcp_comment }}"
@@ -13,12 +9,8 @@
 
 - name: Update DHCP for Interface {{ set_network_ipv4_dhcp_label }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.network.interfaces_ipv4.set_dhcp
     isamapi:
       label                 : "{{ set_network_ipv4_dhcp_label }}"

@@ -1,15 +1,6 @@
 ---
 - name: Lookup interfaces
   ibm.isam.isam:
-      appliance                   : "{{ inventory_hostname }}"
-      adminProxyProtocol          : "{{ adminProxyProtocol | default(omit) }}"
-      adminProxyHostname          : "{{ adminProxyHostname | default(omit) }}"
-      adminProxyPort              : "{{ adminProxyPort | default(omit) }}"
-      adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
-      omitAdminProxy              : "{{ omitAdminProxy | default(omit) }}"
-      username                    : "{{ username }}"
-      password                    : "{{ password }}"
-      lmi_port                    : "{{ port | default(omit) }}"
       log                         : "{{ log_level | default(omit) }}"
       force                       : "{{ force | default(omit) }}"
       action                      : ibmsecurity.isam.base.network.interfaces._get_interface
@@ -32,15 +23,6 @@
 
 - name: Update bonding master
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
-    adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
-    adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
-    omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
-    username: "{{ username }}"
-    password: "{{ password }}"
-    lmi_port: "{{ port | default(omit) }}"
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.network.{{ add_interfaces_action }}.update
@@ -57,15 +39,6 @@
 
 - name: Update bonding slave
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
-    adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
-    adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
-    omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
-    username: "{{ username }}"
-    password: "{{ password }}"
-    lmi_port: "{{ port | default(omit) }}"
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.network.{{ add_interfaces_action }}.update

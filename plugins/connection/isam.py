@@ -1,4 +1,5 @@
 from __future__ import (absolute_import, division, print_function)
+
 __metaclass__ = type
 
 DOCUMENTATION = """
@@ -106,16 +107,14 @@ from io import BytesIO
 import importlib
 
 from ansible.errors import AnsibleConnectionFailure
-from ansible.module_utils.six.moves.urllib.error import HTTPError, URLError
-from ansible.module_utils.urls import open_url
-from ansible.playbook.play_context import PlayContext
-from ansible.plugins.connection import NetworkConnectionBase, ensure_connect
+from ansible.plugins.connection import NetworkConnectionBase
 
 try:
     from ibmsecurity.appliance.isamappliance import ISAMAppliance
     from ibmsecurity.appliance.isamappliance_adminproxy import ISAMApplianceAdminProxy
     from ibmsecurity.appliance.ibmappliance import IBMError
     from ibmsecurity.user.applianceuser import ApplianceUser
+
     HAS_IBMSECURITY = True
 except ImportError:
     HAS_IBMSECURITY = False
@@ -127,7 +126,6 @@ class Connection(NetworkConnectionBase):
     transport = 'isam'
     has_pipelining = False
     has_tty = False
-
 
     def __init__(self, play_context, new_stdin, *args, **kwargs):
         super(Connection, self).__init__(play_context, new_stdin, *args, **kwargs)
@@ -158,13 +156,13 @@ class Connection(NetworkConnectionBase):
             else:
                 u = ApplianceUser(username=user, password=passwd)
 
-            #FIXME - add AdminProxy options and handle that here
+            # FIXME - add AdminProxy options and handle that here
             #
             ## Create appliance object to be used for all calls
             ## if adminProxy hostname is set, use the ISAMApplianceAdminProxy
-            #if adminProxyHostname == '' or adminProxyHostname is None or omitAdminProxy:
+            # if adminProxyHostname == '' or adminProxyHostname is None or omitAdminProxy:
             #    self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port)
-            #else:
+            # else:
             #    #self.isam_server = ISAMApplianceAdminProxy(adminProxyHostname=adminProxyHostname, user=u, hostname=appliance, adminProxyProtocol=adminProxyProtocol, adminProxyPort=adminProxyPort, adminProxyApplianceShortName=adminProxyApplianceShortName)
             #    pass
             self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port)
@@ -199,15 +197,38 @@ class Connection(NetworkConnectionBase):
         except ImportError as e:
             raise AnsibleConnectionFailure('Error> action belongs to a module that is not found!', isam_module, e)
         except AttributeError as e:
-            raise AnsibleConnectionFailure('Error> invalid action was specified, method not found in module!', isam_module, e)
-        except TypeError:
+            raise AnsibleConnectionFailure('Error> invalid action was specified, method not found in module!',
+                                           isam_module, e)
+        except TypeError as e:
             raise AnsibleConnectionFailure(
                 'Error> action does not have the right set of arguments or there is a code bug! Options: ' + options,
-                isam_module,
-                e
-            )
+                isam_module, e)
         except IBMError as e:
-            raise AnsibleConnectionFailure("Error> IBMError", action, e)
+            raise AnsibleConnectionFailure("Error> IBMError", options, e)
+
+    def call_isam_admin(self, adminDomain, isamuser, isampwd, commands):
+        """
+        Execute an ISAM Admin command, also know as pdadmin commands
+        """
+        if not self.connected:
+            self._connect()
+        try:
+            import ibmsecurity.isam.web.runtime.pdadmin
+            from ibmsecurity.user.isamuser import ISAMUser
+            if isamuser == '' or isamuser is None:
+                iu = ISAMUser(password=isampwd)
+            else:
+                iu = ISAMUser(username=isamuser, password=isampwd)
+
+            # Execute isam admin function
+            ret_obj = ibmsecurity.isam.web.runtime.pdadmin.execute(isamAppliance=self.isam_server, isamUser=iu,
+                                                                   admin_domain=adminDomain, commands=commands)
+            ret_obj['ansible_facts'] = self.isam_server.facts
+            return ret_obj
+        except ImportError as e:
+            raise AnsibleConnectionFailure('Error> Unable to Import pdadmin module!')
+        except IBMError as e:
+            raise AnsibleConnectionFailure("Error> IBMError", e)
 
     def close(self):
         '''
@@ -218,4 +239,3 @@ class Connection(NetworkConnectionBase):
             self.queue_message('vvv', "closing connection to IBM ISAM device")
 
         super(Connection, self).close()
-

@@ -2,8 +2,7 @@
 # set
 #   Set default id and password for the embedded LDAP user
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: web/set_embedded_ldap_admin_pw
+    - role: ibm.isam.web/set_embedded_ldap_admin_pw
       tags: set_embedded_ldap_admin_pw

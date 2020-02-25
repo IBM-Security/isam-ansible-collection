@@ -1,11 +1,7 @@
 - name: Add Additional Server/Port to existing Junction
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.junctions_server.add
     isamapi:
       reverseproxy_id:        "{{ add_junction_servers_reverseproxy_id }}"

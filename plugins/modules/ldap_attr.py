@@ -31,7 +31,6 @@ try:
 except ImportError:
     HAS_LDAP = False
 
-
 DOCUMENTATION = """
 ---
 module: ldap_attr
@@ -111,7 +110,6 @@ options:
         a list of strings (see examples).
 """
 
-
 EXAMPLES = """
 - name: Configure directory number 1 for example.com
   ldap_attr:
@@ -178,7 +176,6 @@ EXAMPLES = """
     state: exact
     params: "{{ ldap_auth }}"
 """
-
 
 RETURN = """
 modlist:

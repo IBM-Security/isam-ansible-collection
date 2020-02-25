@@ -1,11 +1,7 @@
 - name: Update Network Interface {{ update_network_interface_vlan_label }} Vlan {{ update_network_interface_vlan_vlanId }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.network.interfaces_vlan.update
     isamapi:
       label      : "{{ update_network_interface_vlan_label }}"

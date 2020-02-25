@@ -14,8 +14,7 @@
 #                     allowManagement:    false
 #                     enabled:            true
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: base/add_interfaces
+    - role: ibm.isam.base/add_interfaces
       tags: add_interfaces

@@ -1,11 +1,7 @@
 - name: Create Directory in Management Root {{ create_mgmt_root_dir_name }}
   ibm.isam.isam:
-    appliance: "{{ inventory_hostname }}"
-    username:  "{{ username }}"
-    password:  "{{ password }}"
-    lmi_port:  "{{ lmi_port }}"
-    log:       "{{ log_level }}"
-    force:     "{{ force }}"
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.directory.create
     isamapi:
       instance_id: "{{ create_mgmt_root_dir_instance_id }}"

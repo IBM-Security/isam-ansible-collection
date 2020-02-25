@@ -2,9 +2,7 @@
 # Configure
 #   configure dhcp settings for interfaces
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: base/configure_dhcp
+    - role: ibm.isam.base/configure_dhcp
       tags: configure_dhcp
-      

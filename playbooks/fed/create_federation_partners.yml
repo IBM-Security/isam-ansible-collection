@@ -7,7 +7,7 @@
 #         partners:
 #             - name: Test-App
 #               enabled: true
-#               role: op
+#               role: ibm.isam.op
 #               configuration:
 #                 clientName: Test-App
 #                 clientSecret: "ABCDEFG12345"
@@ -23,8 +23,7 @@
 #                 preauthorizedScope:
 #                   - openid
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: fed/create_federation_partners
+    - role: ibm.isam.fed/create_federation_partners
       tags: create_federation_partners

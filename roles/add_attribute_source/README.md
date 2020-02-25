@@ -44,7 +44,7 @@ Here is an example of how to use this role:
     - hosts: servers
       connection: local
       roles:
-         - role: add_attribute_source
+         - role: ibm.isam.add_attribute_source
            attribute_sources:
              - attribute_source_name: "Attribute Source 1"
                attribute_source_type: "ldap"

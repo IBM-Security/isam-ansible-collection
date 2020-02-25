@@ -13,8 +13,7 @@
 #           - key: infoMap.JSRule
 #             value: MappingRule1
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: aac/configure_authentication_policies
+    - role: ibm.isam.aac/configure_authentication_policies
       tags: configure_authentication_policies

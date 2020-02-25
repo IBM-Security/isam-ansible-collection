@@ -10,8 +10,7 @@
 #       - action: delete
 #         key: test
 - hosts: "{{ hosts | default('all')}}"
-  connection: local
   gather_facts: no
   roles:
-    - role: base/configure_advanced_tuning_parameters
+    - role: ibm.isam.base/configure_advanced_tuning_parameters
       tags: configure_advanced_tuning_parameters
