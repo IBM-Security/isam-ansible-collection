@@ -28,4 +28,4 @@ galaxy_info:
   - applicationlogfiles
 
 dependencies:
-  - start_config
+  - common_handlers

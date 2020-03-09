@@ -29,4 +29,4 @@ galaxy_info:
   - set
 
 dependencies:
-  - start_config
+  - common_handlers

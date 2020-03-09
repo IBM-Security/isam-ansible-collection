@@ -14,4 +14,4 @@ galaxy_info:
   - policy_resources
 
 dependencies:
-  - start_config
+  - common_handlers

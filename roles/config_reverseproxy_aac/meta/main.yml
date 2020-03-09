@@ -28,4 +28,4 @@ galaxy_info:
   - isamcfg
 
 dependencies:
-  - start_config
+  - common_handlers

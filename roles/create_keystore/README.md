@@ -53,7 +53,7 @@ Here is an example of how to use this role:
       hosts: primary_master
       connection: local
       roles:
-        - start_config
+        - common_handlers
         - role: ibm.isam.create_keystore
           create_keystore_name: 'sample_db'
 

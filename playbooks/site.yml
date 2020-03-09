@@ -5,8 +5,6 @@
   hosts: all
   gather_facts: no
   roles:
-    - role: ibm.isam.start_config
-      tags: ["start"]
     - role: ibm.isam.first_steps
       tags: ["first", "steps"]
       first_steps_fips: False

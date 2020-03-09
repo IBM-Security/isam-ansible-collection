@@ -4,8 +4,6 @@
   hosts: all
   gather_facts: yes
   roles:
-    - role: ibm.isam.start_config
-
     - role: ibm.isam.get_firmware
 
     - role: ibm.isam.get_fixpack

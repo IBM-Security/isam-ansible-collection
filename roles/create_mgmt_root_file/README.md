@@ -26,7 +26,7 @@ Here is an example on how to use this role:
       hosts: restricted_nodes
       connection: local
       roles:
-        - start_config
+        - common_handlers
         - role: ibm.isam.create_mgmt_root_file
           create_mgmt_root_file_instance_id: "rp-demo"
           create_mgmt_root_file_id: 'junction-root'

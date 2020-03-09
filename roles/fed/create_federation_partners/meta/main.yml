@@ -14,4 +14,4 @@ galaxy_info:
   - federation_partner
 
 dependencies:
-  - start_config
+  - common_handlers

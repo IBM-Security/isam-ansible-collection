@@ -25,4 +25,4 @@ galaxy_info:
   - advancedtuning
 
 dependencies:
-  - start_config
+  - common_handlers

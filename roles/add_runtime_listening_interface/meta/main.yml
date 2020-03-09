@@ -25,4 +25,4 @@ galaxy_info:
   - runtimelisteninginterface
 
 dependencies:
-  - start_config
+  - common_handlers

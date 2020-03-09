@@ -14,4 +14,4 @@ galaxy_info:
   - runtime_template_root
 
 dependencies:
-  - start_config
+  - common_handlers

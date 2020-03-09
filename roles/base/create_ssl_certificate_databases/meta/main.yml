@@ -14,4 +14,4 @@ galaxy_info:
   - ssl_certificate_databases
 
 dependencies:
-  - start_config
+  - common_handlers

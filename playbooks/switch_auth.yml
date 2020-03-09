@@ -5,9 +5,6 @@
   hosts: all
   gather_facts: no
   roles:
-    - role: ibm.isam.start_config
-      tags: ["start"]
-
     - role: ibm.isam.switch_auth
       tags: ["switch", "authentication"]
       switch_auth_ldap_host: "ad.ibm.com"

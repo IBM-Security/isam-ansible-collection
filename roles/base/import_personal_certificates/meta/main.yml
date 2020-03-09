@@ -14,4 +14,4 @@ galaxy_info:
   - personal_certificates
 
 dependencies:
-  - start_config
+  - common_handlers

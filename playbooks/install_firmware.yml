@@ -10,8 +10,6 @@
   hosts: all
   gather_facts: no
   roles:
-    - start_config
-
     # Install Firmware
     - role: ibm.isam.install_firmware
       when: install_firmware_file is defined and install_firmware_version is defined and install_firmware_release_date is defined

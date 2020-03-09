@@ -28,5 +28,5 @@ galaxy_info:
   - sources
 
 dependencies:
-  - start_config
+  - common_handlers
 

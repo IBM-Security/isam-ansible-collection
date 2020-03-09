@@ -13,4 +13,4 @@ galaxy_info:
   - sso_key
 
 dependencies:
-  - start_config
+  - common_handlers

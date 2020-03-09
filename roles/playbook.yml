@@ -34,6 +34,7 @@
     - authenticate_policy_attachments
     - base
     - bootstrap_local
+    - common_handlers
     - config_dns
     - config_failover_cookie
     - config_fed_dir
@@ -114,7 +115,6 @@
     - set_runtime_replication
     - set_runtime_tuning_parameter
     - set_tcpip_tuning
-    - start_config
     - switch_auth
     - update_advanced_configuration
     - update_auth_mech

@@ -26,4 +26,4 @@ galaxy_info:
   - dns
 
 dependencies:
-  - start_config
+  - common_handlers

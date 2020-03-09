@@ -24,7 +24,7 @@ Here is an example on how to use this role:
       hosts: primary_master
       connection: local
       roles:
-        - start_config
+        - common_handlers
         - role: ibm.isam.set_keystore_desc
           set_keystore_desc_keystore: 'keystore id'
           set_keystore_desc_description: 'Description of Sample keystore'

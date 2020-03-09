@@ -5,8 +5,6 @@
   hosts: all
   gather_facts: no
   roles:
-    - role: ibm.isam.start_config
-
     - role: ibm.isam.archive_logs
       archive_logs_instance_id: "{{ reverseproxy_instance_name }}"
       archive_logs_directory: "/tmp"

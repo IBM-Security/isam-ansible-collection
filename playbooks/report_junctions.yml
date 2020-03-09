@@ -6,8 +6,6 @@
   vars:
     log_level: "CRITICAL"
   roles:
-    - role: ibm.isam.start_config
-
     - role: ibm.isam.get_reverseproxies
 
     - role: ibm.isam.get_junctions

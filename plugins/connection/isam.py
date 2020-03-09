@@ -192,6 +192,8 @@ class Connection(NetworkConnectionBase):
 
             # Execute requested 'action'
             ret_obj = eval(func_call)
+            if ret_obj is None:
+                ret_obj = {}
             ret_obj['ansible_facts'] = self.isam_server.facts
             return ret_obj
         except ImportError as e:

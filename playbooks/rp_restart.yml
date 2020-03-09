@@ -3,11 +3,9 @@
 - name: Restart Reverse Proxy
   hosts: all
   gather_facts: no
-  roles:
-    - role: ibm.isam.start_config
-
   tasks:
     - debug: msg="Trigger Reverse Proxy restarts"
       changed_when: True
-      notify: Restart Reverse Proxy
+      notify:
+        - 'ibm.isam.common_handlers : Restart Reverse Proxy'
 

@@ -14,4 +14,4 @@ galaxy_info:
   - attributes
 
 dependencies:
-  - start_config
+  - common_handlers

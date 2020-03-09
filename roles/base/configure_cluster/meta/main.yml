@@ -13,4 +13,4 @@ galaxy_info:
   - cluster
 
 dependencies:
-  - start_config
+  - common_handlers

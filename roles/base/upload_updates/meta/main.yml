@@ -14,4 +14,4 @@ galaxy_info:
   - updates
 
 dependencies:
-  - start_config
+  - common_handlers

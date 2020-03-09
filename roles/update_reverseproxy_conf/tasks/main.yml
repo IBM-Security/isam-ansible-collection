@@ -12,5 +12,5 @@
   with_items:          "{{ update_reverseproxy_conf_entries }}"
   when: update_reverseproxy_conf_entries is defined
   notify:
-  - Commit Changes
-  - Restart Reverse Proxy
+  - 'Commit Changes'
+  - 'Restart Reverse Proxy'

@@ -3,9 +3,5 @@
 - name: Execute CLI Command
   hosts: all
   roles:
-    - role: ibm.isam.start_config
-      start_config_skip_pending_check: False
-      start_config_skip_snapshot:      True
-
     - role: ibm.isam.execute_cli
       when: username == "admin" or username == "admin@local"

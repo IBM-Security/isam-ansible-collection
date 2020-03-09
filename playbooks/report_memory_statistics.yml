@@ -6,10 +6,6 @@
   vars:
     log_level: "CRITICAL"
   roles:
-    - role: ibm.isam.start_config
-      start_config_skip_pending_check: True
-      start_config_skip_snapshot:      True
-
     - role: ibm.isam.get_memory_statistics
       statistics_duration: "6d"
 

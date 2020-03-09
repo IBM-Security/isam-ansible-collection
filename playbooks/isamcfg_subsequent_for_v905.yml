@@ -2,10 +2,6 @@
 - name: Execute isamcfg Subsequent (after First Time) for v9.0.5 all-in-one Appliances
   hosts: all
   roles:
-    - role: ibm.isam.start_config
-      start_config_skip_pending_check: False
-      start_config_skip_snapshot:      True
-
 #    - role: ibm.isam.delete_signer_cert
 #      delete_signer_cert_kdb_id : "pdsrv"
 #      delete_signer_cert_cert_id: "localhost-CA-Certificate"

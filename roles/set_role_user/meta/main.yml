@@ -27,4 +27,4 @@ galaxy_info:
   - managementauthorization
 
 dependencies:
-  - start_config
+  - common_handlers

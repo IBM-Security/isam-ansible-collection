@@ -4,8 +4,6 @@
   hosts: all
   gather_facts: no
   roles:
-    - role: ibm.isam.start_config
-
     - role: ibm.isam.get_reverseproxies
 
     - role: ibm.isam.execute_rp_op
