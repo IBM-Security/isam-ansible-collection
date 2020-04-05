@@ -29,7 +29,7 @@ options:
       - section: defaults
         key: remote_port
     env:
-      - name: ANSIBLE_REMOTE_PORT
+      - name: ANSIBLE_ISAM_PORT
     vars:
       - name: ansible_isam_port
   user:
@@ -43,9 +43,10 @@ options:
       - section: defaults
         key: remote_user
     env:
-      - name: ANSIBLE_REMOTE_USER
+      - name: ANSIBLE_ISAM_USER
     vars:
-      - name: ansible_user
+      - name: ansible_isam_user
+      - name: ansible_isam_username
   password:
     type: str
     description:
@@ -145,10 +146,10 @@ class Connection(NetworkConnectionBase):
 
             self.queue_message(
                 'vvv',
-                "Connection to IBM ISAM Appliance established for user: {0} -> {1}".format(
-                    self._play_context.remote_user,
-                    'https://{0}:{1}'.format(host, port)
-                )
+                "Connection to IBM ISAM Appliance established for user: {0} -> {1}".format(user,
+                                                                                           'https://{0}:{1}'.format(
+                                                                                               host, port)
+                                                                                           )
             )
             # Create appliance object to be used for all calls
             if user == '' or user is None:
@@ -206,7 +207,7 @@ class Connection(NetworkConnectionBase):
                 'Error> action does not have the right set of arguments or there is a code bug! Options: ' + options,
                 isam_module, e)
         except IBMError as e:
-            raise AnsibleConnectionFailure("Error> IBMError", options, e)
+            raise AnsibleConnectionFailure("Error> IBMError, action: {} Exception: {}".format(isam_module, e), options, e)
 
     def call_isam_admin(self, adminDomain, isamuser, isampwd, commands):
         """
