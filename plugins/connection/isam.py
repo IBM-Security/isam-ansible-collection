@@ -171,6 +171,10 @@ class Connection(NetworkConnectionBase):
 
             self._connected = True
 
+    def reset(self):
+        self._connected = False
+        self._connect()
+
     def call_isam_action(self, isam_module, options):
         """
         Imports a module and executes a target module dynamically using the
@@ -207,7 +211,8 @@ class Connection(NetworkConnectionBase):
                 'Error> action does not have the right set of arguments or there is a code bug! Options: ' + options,
                 isam_module, e)
         except IBMError as e:
-            raise AnsibleConnectionFailure("Error> IBMError, action: {} Exception: {}".format(isam_module, e), options, e)
+            raise AnsibleConnectionFailure("Error> IBMError, action: {} Exception: {}".format(isam_module, e), options,
+                                           e)
 
     def call_isam_admin(self, adminDomain, isamuser, isampwd, commands):
         """

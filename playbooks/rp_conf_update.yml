@@ -2,7 +2,7 @@
 # Update an Entry in Reverse Proxy Configuration
 
 - name: Update RP Entry
-  hosts: all
+  hosts: boulder_primary
   gather_facts: no
   roles:
     - role: ibm.isam.update_reverseproxy_conf
