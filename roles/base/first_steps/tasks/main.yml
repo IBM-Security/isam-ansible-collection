@@ -1,6 +1,46 @@
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        first_steps
+      
+      DESCRIPTION
+        Role that executes first steps on an appliance that has just been built
+      
+      STEPS
+        1) Check SLA on appliance
+        2) Accept service agreements
+        3) Set up FIPS mode (default FIPS_cfg.fipsEnabled=false)
+        4) Restart after FIPS if needed
+        5) commit and restart appliance
+      
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/base/first_steps.yml
+        ansible-playbook -i [...] playbooks/ansible_collections/base/first_steps.yml -e first_steps_retries=20 // check 20 times with a delay of 5s until appliance is reachable
+        ansible-playbook -i [...] playbooks/ansible_collections/base/first_steps.yml -e first_steps_retries=10 -e first_steps_delay=10 // check 10 times wit a delay of 10s until appliance is reachable
+        ansible-playbook -i [...] playbooks/ansible_collections/base/first_steps.yml -e '{ "FIPS_cfg": {"fipsEnabled": true, "tlsv10Enabled": true, "tlsv11Enabled": true}}' // overwrite FIPS mode default at runtime [not recommended -> use inventory instead]
+      
+      INVENTORY
+      ==========
+      # enable FIPS mode by default
+      FIPS_cfg:
+        fipsEnabled: true
+        tlsv10Enabled: true
+        tlsv11Enabled: true
+      ==========
+      
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
 - name: Check ISAM appliance for First Steps Execution
   uri:
+    url: "https://{{ inventory_hostname }}:{{ ansible_isam_port }}/lmi"
     user: admin
+    password: "{{ first_steps_default_password }}"
     method: GET
     return_content: yes
     force_basic_auth: yes
@@ -10,16 +50,10 @@
      "Accept": "application/json"
   check_mode: no
   register: result
-
-- name: Assume First Steps Executed
-  set_fact:
-    firststeps: "skip_fs.yml"
-
-- name: Initiate logic if First Steps Required
-  set_fact:
-    firststeps: "firststeps.yml"
-  when: result is defined and result.status == 200 and result.json.sla is defined
+  until: result.status == 200 or result.status == 403
+  retries: "{{ first_steps_retries }}"
+  delay: "{{ first_steps_delay }}"
 
 # Go through basic set up to accept license and set up FIPS only needed
-- include: "{{ firststeps }}"
-  dynamic: true
+- include: firststeps.yml
+  when: result is defined and result.status == 200 and result.json.sla is defined
