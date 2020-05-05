@@ -8,8 +8,6 @@ Requirements
 
 Please activate "`federation`" module before using this role.
 
-`start_config` role is a required dependencies. It contains the Ansible Custom Modules and handlers.
-
 `upload_mapping_rule` - maybe required to load a mapping rule before creating the federation.
 
 `search_mapping_rule` - maybe required to lookup a mapping rule to pass in the variable `identityMappingRuleReference`.
@@ -29,8 +27,7 @@ add_federation_templateName:
 
 Dependencies
 ------------
-
-start_config is a required role - since it contains the Ansible Custom Modules and Handlers.
+N/A
 
 Example Playbook
 ----------------

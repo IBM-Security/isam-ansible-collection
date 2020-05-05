@@ -5,8 +5,7 @@ Use this Role to Add One or More Runtime Listening Interfaces on the ISAM Applia
 
 Requirements
 ------------
-
-start_config role is a required dependencies. It contains the Ansible Custom Modules and handlers.
+N/A
 
 Role Variables
 --------------
@@ -27,8 +26,7 @@ The role automatically takes a snapshot before adding runtime listening interfac
 
 Dependencies
 ------------
-
-start_config is a required role - since it contains the Ansible Custom Modules and Handlers.
+N/A
 
 Example Playbook
 ----------------

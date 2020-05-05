@@ -5,8 +5,7 @@ Use this Role to add Junctions to a Reverse Proxy in the ISAM Appliance.
 
 Requirements
 ------------
-
-start_config role is a required dependencies. It contains the Ansible Custom Modules and handlers.
+N/A
 
 Role Variables
 --------------
@@ -20,8 +19,7 @@ add_junction_server_port:
 
 Dependencies
 ------------
-
-start_config is a required role - since it contains the Ansible Custom Modules and Handlers.
+N/A
 
 Example Playbook
 ----------------

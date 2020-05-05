@@ -5,8 +5,7 @@ Use this Role to Add One or More Custom Management Authorization Roles to the IS
 
 Requirements
 ------------
-
-start_config role is a required dependencies. It contains the Ansible Custom Modules and handlers.
+N/A
 
 Role Variables
 --------------
@@ -23,8 +22,7 @@ The role automatically takes a snapshot before adding roles, override as needed:
 
 Dependencies
 ------------
-
-start_config is a required role - since it contains the Ansible Custom Modules and Handlers.
+N/A
 
 Example Playbook
 ----------------
