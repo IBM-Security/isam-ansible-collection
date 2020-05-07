@@ -1,7 +1,57 @@
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        change_admin_password
+      
+      DESCRIPTION
+        Role that changes the admin password for appliance LMI
+      
+      STEPS
+        1) Change admin passwor for LMI
+        2) Commit changes (with new_password)
+      
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/base/change_admin_password.yml //if not available playbook requests for old_password and new_password
+        ansible-playbook -i [...] playbooks/ansible_collections/base/change_admin_password.yml -e old_password=**** -e new_password=**** //give passwords at runtime [use with caution as passwords will be available through history]
+        ansible-playbook -i [...] playbooks/ansible_collections/base/change_admin_password.yml -e old_password=admin // change default password after first_steps with new_password being requested or from inventory
+        ansible-playbook -i [...] playbooks/ansible_collections/base/change_admin_password.yml -e sessionTimeout=620 // increase default session timeout [120] with password change
+      
+      INVENTORY
+      ==========
+      # change_admin_password parameters
+      # corresponding inventory file should be secured with ansible-vault (https://docs.ansible.com/ansible/latest/user_guide/vault.html)
+      old_password: ****
+      new_password: ****
+      ==========
+      
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Change admin password for LMI
+  vars:
+    ansible_password: "{{ old_password }}"
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.base.admin.set_pw
+    isamapi:
+      oldPassword: "{{ old_password }}"
+      newPassword: "{{ new_password }}"
+      sessionTimeout: "{{ sessionTimeout | default(omit) }}"
+
+# reset connection that new_password can be used for the commit changes request
+- name: Reset connection
+  meta: reset_connection  
+    
+- name: Commit Changes
+  vars:
+    ansible_password: "{{ new_password }}"
   ibm.isam.isam:
     log:       "{{ log_level | default(omit) }}"
     force:     "{{ force | default(omit) }}"
-    action: ibmsecurity.isam.base.admin.set_pw
-    isamapi:
-      sessionTimeout: "{{ sessionTimeout | default(omit) }}"
-  notify: Commit Changes
+    action: ibmsecurity.isam.appliance.commit
