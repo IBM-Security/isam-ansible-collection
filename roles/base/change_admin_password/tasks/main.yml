@@ -34,7 +34,7 @@
 
 - name: Change admin password for LMI
   vars:
-    ansible_password: "{{ old_password }}"
+    ansible_isam_password: "{{ old_password }}"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -50,7 +50,7 @@
     
 - name: Commit Changes
   vars:
-    ansible_password: "{{ new_password }}"
+    ansible_isam_password: "{{ new_password }}"
   ibm.isam.isam:
     log:       "{{ log_level | default(omit) }}"
     force:     "{{ force | default(omit) }}"
