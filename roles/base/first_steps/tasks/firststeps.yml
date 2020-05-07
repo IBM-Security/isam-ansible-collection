@@ -2,7 +2,7 @@
 # accept service agreements
 - name: Accept Service Agreements
   vars:
-    ansible_password: "{{ first_steps_default_password }}"
+    ansible_isam_password: "{{ first_steps_default_password }}"
   ibm.isam.isam:
     action: ibmsecurity.isam.base.service_agreement.set
     log: "{{ log_level | default(omit) }}"
