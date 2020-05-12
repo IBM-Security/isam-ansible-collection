@@ -10,7 +10,7 @@ first_steps_delay: 5
 # LMI FIPS options
 # Override this setting if you do not want FIPS mode to be turned on
 FIPS_cfg:
-  fipsEnabled: true
+  fipsEnabled: false
   tlsv10Enabled: false
   tlsv11Enabled: false
 
