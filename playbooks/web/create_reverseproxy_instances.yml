@@ -1,22 +1,8 @@
 ---
-# Create
-#   create reverse proxy instances
-#   Example:
-#    instances:
-#        - inst_name:          default
-#          host:               "{{ inventory_hostname }}"
-#          listening_port:     7234
-#          domain:             "{{ admin_domain | default('Default')}}"
-#          admin_id:           sec_master
-#          admin_pwd:          "{{ admin_pwd }}"
-#          http_yn:            'no'
-#          http_port:          80
-#          https_yn:           'yes'
-#          https_port:         443
-#          nw_interface_yn:    'yes'
-#          ip_address:         "{{ interfaces[0].addresses[1].address }}"
+# create_reverseproxy_instances
+#   create multiple reverse proxy instances
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.web/create_reverseproxy_instances
+    - role: ibm.isam.web.create_reverseproxy_instances
       tags: create_reverseproxy_instances

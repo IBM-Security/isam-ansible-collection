@@ -1,46 +1,63 @@
-# main task to create reverse proxy instances
-# Example:
-#    instances:
-#        - inst_name: "{{ item.inst_name }}"
-#          host: "{{ item.host }}"
-#          listening_port: "{{ item.listening_port }}"
-#          domain: "{{ item.domain | default('default') }}"
-#          admin_id: "{{ item.admin_id }}"
-#          admin_pwd: "{{ item.admin_pwd }}"
-#          ssl_yn: "{{ item.ssl_yn | default('None') }}"
-#          key_file: "{{ item.key_file | default('None') }}"
-#          cert_label: "{{ item.cert_label | default('None') }}"
-#          ssl_port: "{{ item.ssl_port | default('None') }}"
-#          http_yn: "{{ item.http_yn | default('no') }}"
-#          http_port: "{{ item.http_port | default(80) }}"
-#          https_yn: "{{ item.https_yn | default('no') }}"
-#          https_port: "{{ item.https_port | default(443) }}"
-#          nw_interface_yn: "{{ item.nw_interface_yn | default('None') }}"
-#          ip_address: "{{ item.ip_address }}"
 ---
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        create_reverseproxy_instances
+      
+      DESCRIPTION
+        Role to create reverse proxy instance
+      
+      STEPS
+        1) Create reverse proxy instances
+        2) Commit changes
+      
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/web/create_reverseproxy_instances.yml
+        ansible-playbook -i [...] playbooks/ansible_collections/web/create_reverseproxy_instances.yml -e inst_name=default // limit the creation of reverse proxy instances at runtime
+      
+      INVENTORY
+      ==========
+      instances:
+        # create default instance (docker based)
+        - inst_name: default
+          configuration:
+            host: "{{ '{{ inventory_hostname }}' }}"
+            admin_id: sec_master
+            admin_pwd: "{{ '{{ admin_pwd }}' }}"
+            https_yn: 'yes'
+            ssl_yn: "on"
+            key_file: "Registry_Keystore.kdb"
+            ssl_port: "636"
+        # create default instance (appliance based)
+        - inst_name: default
+          configuration:
+            host: "{{ '{{ inventory_hostname }}' }}"
+            listening_port: 7234
+            admin_id: sec_master
+            admin_pwd: "{{ '{{ admin_pwd }}' }}"
+            http_yn: 'no'
+            http_port: 80
+            https_yn: 'yes'
+            https_port: 443
+            nw_interface_yn: 'yes'
+      ==========
+      
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
 - name: Create reverse proxy instances
   ibm.isam.isam:
     log:       "{{ log_level | default(omit) }}"
     force:     "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.instance.add
-    isamapi:
-      inst_name: "{{ item.inst_name }}"
-      host: "{{ item.host }}"
-      listening_port: "{{ item.listening_port }}"
-      domain: "{{ item.domain | default('default') }}"
-      admin_id: "{{ item.admin_id }}"
-      admin_pwd: "{{ item.admin_pwd }}"
-      ssl_yn: "{{ item.ssl_yn | default('None') }}"
-      key_file: "{{ item.key_file | default('None') }}"
-      cert_label: "{{ item.cert_label | default('None') }}"
-      ssl_port: "{{ item.ssl_port | default('None') }}"
-      http_yn: "{{ item.http_yn | default('no') }}"
-      http_port: "{{ item.http_port | default(80) }}"
-      https_yn: "{{ item.https_yn | default('no') }}"
-      https_port: "{{ item.https_port | default(443) }}"
-      nw_interface_yn: "{{ item.nw_interface_yn | default('None') }}"
-      ip_address: "{{ item.ip_address }}"
+    isamapi: "{{ item.configuration | combine({ 'inst_name': item.inst_name })}}"
   with_items: "{{ instances }}"
+  when: item.configuration is defined and item.inst_name == inst_name
   loop_control:
-   label: "Creating (( item.inst_name )) with ip address (( item.ip_address ))"
+   label: "{'inst_name': {{ item.inst_name }}{{ (', ' + \"'ip_address'\" + ': ' + item.configuration.ip_address)  if item.configuration.ip_address is defined }}}"
   notify: Commit Changes
