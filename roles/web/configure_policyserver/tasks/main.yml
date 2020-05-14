@@ -24,10 +24,10 @@
       policyserver_runtime:
         configuration:
           ps_mode: local
-          admin_pwd: "{{ admin_pwd }}"
+          admin_pwd: "{{ '{{ admin_pwd }}' }}"
           user_registry: ldap
-          ldap_dn: "{{ ldap_dn }}"
-          ldap_pwd: "{{ ldap_pwd }}"
+          ldap_dn: "{{ '{{ ldap_dn }}' }}"
+          ldap_pwd: "{{ '{{ ldap_pwd }}' }}"
           ldap_host: "isam-ldap"
           ldap_port: "636"
           admin_cert_lifetime: 1460
@@ -37,20 +37,20 @@
       # sample for local Policy Server with Local Embedded LDAP
       policyserver_runtime:
         configuration:
-          admin_pwd: "{{ admin_pwd }}"
+          admin_pwd: "{{ '{{ admin_pwd }}' }}"
           ps_mode: "local"
           user_registry: "local"
-          ldap_pwd: "{{ ldap_pwd }}"
+          ldap_pwd: "{{ '{{ ldap_pwd }}' }}"
           clean_ldap: "true"
           admin_cert_lifetime: 1460
           ssl_compliance: "none"
           
       # additional configuraitons can be looked up in the isam web service documentation: e.g.:
-      #  ldap_ssl_label:      "{{ ldap_ssl_label }}"
-      #  ldap_suffix:         "{{ ldap_suffix }}"
-      #  domain:              "{{ domain }}"
-      #  isam_host:           "{{ isam_host }}"
-      #  isam_port:           "{{ isam_port }}"
+      #  ldap_ssl_label:      "{{ '{{ ldap_ssl_label }}' }}"
+      #  ldap_suffix:         "{{ '{{ ldap_suffix }}' }}"
+      #  domain:              "{{ '{{ domain }}' }}"
+      #  isam_host:           "{{ '{{ isam_host }}' }}"
+      #  isam_port:           "{{ '{{ isam_port }}' }}"
       ==========
       
       INTERACTION
