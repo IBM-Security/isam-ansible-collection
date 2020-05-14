@@ -1,20 +1,12 @@
-# The following need to be provided for role to work
-# Example:
-#  interfaces:
-#      -   label:  '1.1'
-#          addresses:
-#              -   address:            "192.168.1.1"
-#                  maskOrPrefix:       "24"
-#                  allowManagement:    true
-#                  enabled:            true
-#              -   address:            "192.168.1.2"
-#                  maskOrPrefix:       "24"
-#                  allowManagement:    false
-#                  enabled:            true
-# Default values for configuring an ipv4 address - override as needed
-#
+# default variables to configure interfaces on appliances
+interfaces: []
+
 # possible values: [interfaces_ipv4, interfaces_ipv6, interfaces_vlan]
 configure_interfaces_action: interfaces_ipv4
 
 # variable to delete all IP addresses not listed in the inventories
-delete_missing: "FALSE"
+configure_interfaces_delete_missing: false
+
+# limit at runtime for particular variables otherwise use loop variables
+label: "{{ item.0.label }}"
+address: "{{ item.1.address if item.1.address is defined else item.1}}"
