@@ -3,8 +3,7 @@
 Use this Role to add a file to the management root on the ISAM Appliance.
 
 ## Requirements
-
-start_config role is a required dependencies. It contains the Ansible Custom Modules and handlers.
+N/A
 
 ## Role Variables
 
@@ -15,8 +14,7 @@ The following variables are required:
 * create_mgmt_root_file_contents
 
 ## Dependencies
-
-start_config role is a required dependencies. It contains the Ansible Custom Modules and handlers.
+N/A
 
 ## Example Playbook
 

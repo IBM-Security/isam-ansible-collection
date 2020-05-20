@@ -3,8 +3,7 @@
 Use this Role to set a description for a keystore on the ISAM Appliance.
 
 ## Requirements
-
-start_config role is a required dependencies. It contains the Ansible Custom Modules and handlers.
+N/A
 
 ## Role Variables
 
@@ -13,8 +12,7 @@ The following values are required:
 * set_keystore_desc_description
 
 ## Dependencies
-
-start_config role is a required dependencies. It contains the Ansible Custom Modules and handlers.
+N/A
 
 ## Example Playbook
 

@@ -5,8 +5,7 @@ Use this Role to configure cluster for an ISAM Appliance.
 
 Requirements
 ------------
-
-start_config role is a required dependencies. It contains the Ansible Custom Modules and handlers.
+N/A
 
 Role Variables
 --------------
@@ -15,8 +14,7 @@ All variables to this role are optional. They will take default values if not sp
 
 Dependencies
 ------------
-
-start_config is a required role - since it contains the Ansible Custom Modules and Handlers.
+N/A
 
 Example Playbook
 ----------------
