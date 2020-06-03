@@ -4,7 +4,7 @@ Use this Role to create a new keystore on the ISAM Appliance.
 
 ## Requirements
 
-start_config role is a required dependencies. It contains the Ansible Custom Modules and handlers.
+N/A
 
 ## Role Variables
 
@@ -42,8 +42,7 @@ Not provided by Python API:
 * create_keystore_secondary_esn: null
 
 ## Dependencies
-
-start_config role is a required dependencies. It contains the Ansible Custom Modules and handlers.
+N/A
 
 ## Example Playbook
 

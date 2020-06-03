@@ -5,8 +5,7 @@ Use this Role to Set One or More Advanced Tuning Parameters on the ISAM Applianc
 
 Requirements
 ------------
-
-start_config role is a required dependencies. It contains the Ansible Custom Modules and handlers.
+N/A
 
 Role Variables
 --------------
@@ -26,8 +25,7 @@ The role automatically takes a snapshot before setting advanced tuning parameter
 
 Dependencies
 ------------
-
-start_config is a required role - since it contains the Ansible Custom Modules and Handlers.
+N/A
 
 Example Playbook
 ----------------

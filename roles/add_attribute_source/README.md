@@ -5,8 +5,7 @@ Use this Role to Add One or More Attribute Sources to the ISAM Appliance.
 
 Requirements
 ------------
-
-start_config role is a required dependencies. It contains the Ansible Custom Modules and handlers.
+N/A
 
 Role Variables
 --------------
@@ -33,8 +32,7 @@ The role automatically takes a snapshot before adding attribute sources, overrid
 
 Dependencies
 ------------
-
-start_config is a required role - since it contains the Ansible Custom Modules and Handlers.
+N/A
 
 Example Playbook
 ----------------

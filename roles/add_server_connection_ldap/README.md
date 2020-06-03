@@ -5,8 +5,7 @@ Use this Role to Add an LDAP Server Connection to the ISAM Appliance.
 
 Requirements
 ------------
-
-start_config role is a required dependencies. It contains the Ansible Custom Modules and handlers.
+N/A
 
 Role Variables
 --------------
@@ -25,8 +24,7 @@ The role automatically takes a snapshot before adding the LDAP server connection
 
 Dependencies
 ------------
-
-start_config is a required role - since it contains the Ansible Custom Modules and Handlers.
+N/A
 
 Example Playbook
 ----------------
