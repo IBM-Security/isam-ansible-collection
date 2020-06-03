@@ -2,6 +2,9 @@
 # Override this setting e.g. if pre-configured docker environment with different default password is used
 first_steps_default_password: admin
 
+# default isam ansible port for use in uri module
+ansible_isam_port: 443
+
 # retries and delay to check appliance availability
 # Override at runtime for docker environment to let the container get healthy
 first_steps_retries: 0
