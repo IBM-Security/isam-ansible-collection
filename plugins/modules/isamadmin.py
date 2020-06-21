@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import logging.config
 import sys
 from ansible.module_utils.basic import AnsibleModule

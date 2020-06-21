@@ -103,8 +103,6 @@ options:
       - name: ansible_persistent_log_messages
 
 """
-
-from io import BytesIO
 import importlib
 
 from ansible.errors import AnsibleConnectionFailure
