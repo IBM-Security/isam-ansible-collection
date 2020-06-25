@@ -1,3 +1,5 @@
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 import logging.config
 import sys
 from ansible.module_utils.basic import AnsibleModule

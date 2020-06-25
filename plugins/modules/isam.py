@@ -1,17 +1,18 @@
 #!/usr/bin/python
 
+from __future__ import (absolute_import, division, print_function)
+
+__metaclass__ = type
+
 import logging.config
 import sys
 from ansible.module_utils.basic import AnsibleModule
 import datetime
+from ansible.module_utils.six import string_types
 
 from ansible_collections.ibm.isam.plugins.module_utils.isam import ISAMUtil
 
 logger = logging.getLogger(sys.argv[0])
-try:
-    basestring
-except NameError:
-    basestring = (str, bytes)
 
 
 def main():
@@ -45,7 +46,7 @@ def main():
         options = options + ', check_mode=True'
     if isinstance(module.params['isamapi'], dict):
         for key, value in module.params['isamapi'].items():
-            if isinstance(value, basestring):
+            if isinstance(value, string_types):
                 options = options + ', ' + key + '="' + value + '"'
             else:
                 options = options + ', ' + key + '=' + str(value)

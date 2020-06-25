@@ -9,7 +9,7 @@ namespace: ibm
 name: isam
 
 # The version of the collection. Must be compatible with semantic versioning
-version: 2020.05.20.0
+version: 0.0.1
 
 # The path to the Markdown (.md) readme file. This path is relative to the root of the collection
 readme: README.md
@@ -32,13 +32,14 @@ license:
 
 # The path to the license file for the collection. This path is relative to the root of the collection. This key is
 # mutually exclusive with 'license'
-license_file: LICENSE
+#license_file: LICENSE
 
 # A list of tags you want to associate with the collection for indexing/searching. A tag name has the same character
 # requirements as 'namespace' and 'name'
 tags:
-- IBM
-- ISAM
+- ibm
+- isam
+- isva
 - security
 
 # Collections that this collection requires to be installed for it to be usable. The key of the dict is the
@@ -48,13 +49,13 @@ tags:
 dependencies: {}
 
 # The URL of the originating SCM repository
-repository: https://github.com/IBM-Security/isam-ansible-roles
+repository: https://github.com/IBM-Security/isam-ansible-collection
 
 # The URL to any online docs
-documentation: https://github.com/IBM-Security/isam-ansible-roles/blob/master/README.md
+documentation: https://github.com/IBM-Security/isam-ansible-collection/blob/master/README.md
 
 # The URL to the homepage of the collection/project
-homepage: https://github.com/IBM-Security/isam-ansible-roles
+homepage: https://github.com/IBM-Security/isam-ansible-collection
 
 # The URL to the collection issue tracker
-issues: https://github.com/IBM-Security/isam-ansible-roles/issues
+issues: https://github.com/IBM-Security/isam-ansible-collection/issues

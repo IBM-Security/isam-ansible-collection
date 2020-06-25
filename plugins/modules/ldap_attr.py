@@ -20,8 +20,11 @@
 # along with Ansible.  If not, see <http://www.gnu.org/licenses/>.
 
 
+from __future__ import (absolute_import, division, print_function)
+
+__metaclass__ = type
+
 from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils.pycompat24 import get_exception
 
 try:
     import ldap
@@ -231,8 +234,7 @@ class LdapAttr(object):
         try:
             results = self.connection.search_s(
                 self.dn, ldap.SCOPE_BASE, attrlist=[self.name])
-        except ldap.LDAPError:
-            e = get_exception()
+        except ldap.LDAPError as e:
             self.module.fail_json(
                 msg="Cannot search for attribute %s" % self.name,
                 details=str(e))
@@ -271,8 +273,7 @@ class LdapAttr(object):
         if self.start_tls:
             try:
                 connection.start_tls_s()
-            except ldap.LDAPError:
-                e = get_exception()
+            except ldap.LDAPError as e:
                 self.module.fail_json(msg="Cannot start TLS.", details=str(e))
 
         try:
@@ -280,8 +281,7 @@ class LdapAttr(object):
                 connection.simple_bind_s(self.bind_dn, self.bind_pw)
             else:
                 connection.sasl_interactive_bind_s('', ldap.sasl.external())
-        except ldap.LDAPError:
-            e = get_exception()
+        except ldap.LDAPError as e:
             self.module.fail_json(
                 msg="Cannot bind to the server.", details=str(e))
 
@@ -337,8 +337,7 @@ def main():
         if not module.check_mode:
             try:
                 ldap.connection.modify_s(ldap.dn, modlist)
-            except Exception:
-                e = get_exception()
+            except Exception as e:
                 module.fail_json(
                     msg="Attribute action failed.", details=str(e))
 
