@@ -1,0 +1,16 @@
+---
+# tasks file for import_metadata
+
+- name: Import a new partner
+  ibm.isam.isam:
+    log:       "{{ log_level | default(omit) }}"
+    force:     "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.fed.partners.import_metadata
+    isamapi:
+      federation_name: "{{ import_metadata_federation_name }}"
+      partner_name: "{{ import_metadata_partner_name | default(omit) }}"
+      filename: "{{ import_metadata_filename }}"
+  when: import_metadata_federation_name is defined and import_metadata_filename is defined
+  notify: Commit Changes
+  register: ret_obj
+

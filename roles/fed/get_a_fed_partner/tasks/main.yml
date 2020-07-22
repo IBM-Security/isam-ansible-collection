@@ -1,0 +1,12 @@
+---
+# tasks file for get_a_fed_partner
+- name: "Get a federation partner by name"
+  ibm.isam.isam:
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
+    action: ibmsecurity.isam.fed.partners.get
+    isamapi:
+      federation_name: "{{ get_a_fed_partner_federation_name }}"
+      partner_name: "{{ get_a_fed_partner_partner_name }}"
+  when: get_a_fed_partner_federation_name is defined and get_a_fed_partner_partner_name is defined
+  register: ret_obj

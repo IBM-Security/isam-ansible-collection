@@ -1,0 +1,11 @@
+---
+# tasks file for get_sts_chains
+- name: Get all the sts chains
+  ibm.isam.isam:
+    log:       "{{ log_level | default('INFO') }}"
+    force:     "{{ force | default(False) }}"
+    action: ibmsecurity.isam.fed.sts.templates.get
+    isamapi:
+      name: "{{ sts_template_name }}"
+  when: sts_template_name is defined
+  register: ret_obj

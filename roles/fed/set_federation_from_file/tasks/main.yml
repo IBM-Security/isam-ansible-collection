@@ -1,0 +1,21 @@
+---
+# tasks file for set_federation_from_file
+
+# main task to create federations
+#   Example: OIDC connect provider
+#     federations:
+#       - name: oidc-provider
+#         protocol: OIDC
+#         role: ibm.isam.op
+#         filename: /dir/configuration.json
+#         mapping_id: id to be used for identityMappingRuleReference
+-
+- name: Create federations using a configuration json file
+  ibm.isam.isam:
+    log:       "{{ log_level | default(omit) }}"
+    force:     "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.fed.federations.set_file
+    isamapi: "{{ item }}"
+  when: item is defined
+  with_items: "{{ set_federation_from_file }}"
+  notify: Commit Changes
