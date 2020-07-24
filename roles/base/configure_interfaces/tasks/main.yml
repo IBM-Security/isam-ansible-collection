@@ -1,18 +1,50 @@
 ---
-# Configure interface with custom isamapi parameters
-# Therefore combining label with interface parameter:
-# Example:
-#  interfaces:
-#    - label:  '1.1'
-#      addresses:
-#       - address:            "192.168.230.130"
-#         maskOrPrefix:       "24"
-#         allowManagement:    true
-#         enabled:            true
-#       - address:            "192.168.230.131"
-#         maskOrPrefix:       "24"
-#         allowManagement:    false
-#         enabled:            true
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_interfaces
+      
+      DESCRIPTION
+        Role to configure addresses for multiple interfaces
+      
+      STEPS
+        1) Add interfaces
+        2) Get interfaces
+        3) Delete missing IP addresses from interfaces (default configure_interfaces_delete_missing=false)
+        4) Commit changes
+      
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml -e configure_interfaces_delete_missing=True //delete IP address from interfaces which are missing in the inventory
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml -e label=1.1 //only configure interface with corresponding label
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml -e address=192.168.42.110 //only configure interface with corresponding label
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml -e address=192.168.42.113 -e configure_interfaces_delete_missing=True //only delete one IP from interface if not contained in inventory
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml -e label=1.1 -e configure_interfaces_delete_missing=True //clean up only one interface
+      
+      INVENTORY
+      ==========
+      # configure IP addresses for interfaces
+      # recommended host based configuration (in hosts_vars/<< host_name >>.yml; host_name from hosts file)
+      interfaces:
+        - label:  '1.1'
+          addresses:
+            - address: "192.168.42.110"
+              maskOrPrefix: "24"
+              allowManagement: true
+              enabled: true
+            - address: "192.168.42.111"
+              maskOrPrefix: "24"
+              allowManagement: false
+              enabled: true
+      ==========
+      
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
 - name: Add interfaces
   ibm.isam.isam:
     log:       "{{ log_level | default(omit) }}"
@@ -24,9 +56,10 @@
       maskOrPrefix: "{{ item.1.maskOrPrefix }}"
       allowManagement: "{{ item.1.allowManagement }}"
       enabled: "{{ item.1.enabled | default(False) }}"
+  when: item.0.label == label and item.1.address == address
   loop:  "{{ interfaces | subelements('addresses', {'skip_missing': True}) }}"
   loop_control:
-    label: "Processing interface {{ item.0.label }} and ip address {{ item.1.address }}"
+    label: "Processing interface {{ item.0.label }} and IP address {{ item.1.address }}"
   notify: Commit Changes
 
 - name: Get interfaces
@@ -37,20 +70,21 @@
     isamapi:
       label: "{{ item.label }}"
   loop:  "{{ interfaces }}"
-  when: (delete_missing | upper) == 'TRUE' and item.label is defined
+  when: configure_interfaces_delete_missing and item.label is defined
   register: ret_obj
   loop_control:
     label: "Getting interface {{ item.label }}"
-  notify: Commit Changes
 
 - vars:
     filter_current_interfaces: "[].{label: label , addresses: ipv4.addresses[].address}"
+    filter_condition_check: "[].label"
   set_fact:
     addresses_list_server: "{{ ret_obj.results | json_query(filter_current_interfaces) }}"
+  when: ret_obj is defined and ret_obj.results != [] and (ret_obj.results | json_query(filter_condition_check)) != []
 
 - vars:
     filter_current_interfaces: "[? label=='{{ item.0.label }}'].addresses[].address"
-  name: Delete missing ip addresses from interfaces
+  name: Delete missing IP addresses from interfaces (-e configure_interfaces_delete_missing=true)
   ibm.isam.isam:
     log:       "{{ log_level | default(omit) }}"
     force:     "{{ force | default(omit) }}"
@@ -58,9 +92,9 @@
     isamapi:
       label: "{{ item.0.label }}"
       address: "{{ item.1 }}"
-      # vlanId: {{ item.1.vlanId }}
-  when: item.1 is not in (interfaces | json_query(filter_current_interfaces)) and (delete_missing | upper) == 'TRUE'
+  when: item.1 is not in (interfaces | json_query(filter_current_interfaces)) and configure_interfaces_delete_missing and item.0.label == label and item.1 == address
   with_subelements:
-    - "{{ addresses_list_server }}"
+    - "{{ addresses_list_server | default([]) }}"
     - addresses
+    - skip_missing: true
   notify: Commit Changes
