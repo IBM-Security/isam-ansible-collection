@@ -1,0 +1,8 @@
+---
+# publish docker changes
+- hosts: "{{ hosts | default('all')}}"
+  connection: local
+  gather_facts: no
+  roles:
+    - role: ibm.isam.base.publish
+      tags: publish

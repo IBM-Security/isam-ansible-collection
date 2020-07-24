@@ -1,0 +1,33 @@
+---
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        publish
+      
+      DESCRIPTION
+        Role to publish snapshot from configuration container [docker]
+      
+      STEPS
+        1) Publish changes
+      
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/base/publish.yml
+      
+      INVENTORY
+      ==========
+      # no INVENTORY configuration requried
+      ==========
+      
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Publish Changes [Docker]
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.docker.publish.publish_changes
