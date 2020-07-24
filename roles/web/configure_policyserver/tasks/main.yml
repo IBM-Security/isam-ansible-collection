@@ -1,15 +1,64 @@
-# Generic approach for isamapi parameters
-# Following structure is supported: e.g.
-#   policyserver_runtime:
-#     configuration:
-#       admin_pwd:              "{{ admin_pwd }}"
-#       ps_mode:                "local"
-#       user_registry:          "local"
-#       ldap_pwd:               "{{ ldap_pwd }}"
-#       clean_ldap:             "true"
-#       admin_cert_lifetime:    1460
-#       ssl_compliance:         "none"
-#       ...     <- additional parameters
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_policyserver
+      
+      DESCRIPTION
+        Role that configures a Policy Server
+      
+      STEPS
+        1) Configure policy server
+        2) commit pending changes
+      
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_policyserver.yml
+      
+      INVENTORY
+      ==========
+      # configuration of the policy server is seperated into several sub categories.
+      # this role uses all entries in the configuration section of the policyserver_runtime object
+      
+      # sample for docker environment
+      policyserver_runtime:
+        configuration:
+          ps_mode: local
+          admin_pwd: "{{ '{{ admin_pwd }}' }}"
+          user_registry: ldap
+          ldap_dn: "{{ '{{ ldap_dn }}' }}"
+          ldap_pwd: "{{ '{{ ldap_pwd }}' }}"
+          ldap_host: "isam-ldap"
+          ldap_port: "636"
+          admin_cert_lifetime: 1460
+          ssl_compliance: fips
+          ldap_ssl_db: Registry_Keystore.kdb
+      
+      # sample for local Policy Server with Local Embedded LDAP
+      policyserver_runtime:
+        configuration:
+          admin_pwd: "{{ '{{ admin_pwd }}' }}"
+          ps_mode: "local"
+          user_registry: "local"
+          ldap_pwd: "{{ '{{ ldap_pwd }}' }}"
+          clean_ldap: "true"
+          admin_cert_lifetime: 1460
+          ssl_compliance: "none"
+          
+      # additional configuraitons can be looked up in the isam web service documentation: e.g.:
+      #  ldap_ssl_label:      "{{ '{{ ldap_ssl_label }}' }}"
+      #  ldap_suffix:         "{{ '{{ ldap_suffix }}' }}"
+      #  domain:              "{{ '{{ domain }}' }}"
+      #  isam_host:           "{{ '{{ isam_host }}' }}"
+      #  isam_port:           "{{ '{{ isam_port }}' }}"
+      ==========
+      
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
 - name: Configure Policy Server
   ibm.isam.isam:
     log:       "{{ log_level | default(omit) }}"
@@ -17,18 +66,3 @@
     action: ibmsecurity.isam.web.runtime.process.config
     isamapi: "{{ policyserver_runtime.configuration }}"
   when: policyserver_runtime.configuration is defined
-
-- name: Update Connection Inactivity to be less than infinity
-  ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
-    action    : ibmsecurity.isam.web.runtime.configuration.entry.update
-    isamapi:
-      resource_id : "ldap.conf"
-      stanza_id   : "ldap"
-      entry_id    : "connection-inactivity"
-      value_id    : "{{ policyserver_connection_inactivity }}"
-  when: not ansible_check_mode
-  notify:
-  - Commit Changes
-  - Restart Web Runtime
