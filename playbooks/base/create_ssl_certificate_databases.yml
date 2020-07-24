@@ -1,10 +1,7 @@
 # playbook for creating certificate databases
-# Example inventory:
-#  create_certificate_databases:
-#      kdb_name: "{{ item.kdb_id }}"
 ---
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.base/create_ssl_certificate_databases
+    - role: ibm.isam.base.create_ssl_certificate_databases
       tags: create_ssl_certificate_databases
