@@ -1,14 +1,8 @@
 ---
-# Load
-#   load signer certificates into certificate store
-#   Example:
-#      load_signer_certificates:
-#         -   kdb_id: pdsrv
-#             label:  local runtime
-#             server: localhost
-#             port:   443
+# load_signer_certificates
+#   load signer certificates into corresponding certificate store
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.base/load_signer_certificates
+    - role: ibm.isam.base.load_signer_certificates
       tags: load_signer_certificates
