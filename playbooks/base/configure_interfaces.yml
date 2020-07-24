@@ -1,22 +1,8 @@
 ---
 # Configure
-#   configure interfaces by following inventory structure:
-#   with parameter 'delete_missing=True' all missing ip
-#   addresses in the inventory will be deleted on the server
-#   Example:
-#     interfaces:
-#         -   label:  '1.1'
-#             addresses:
-#                 -   address:            "192.168.1.1"
-#                     maskOrPrefix:       "24"
-#                     allowManagement:    true
-#                     enabled:            true
-#                 -   address:            "192.168.1.2"
-#                     maskOrPrefix:       "24"
-#                     allowManagement:    false
-#                     enabled:            true
+#   configure interfaces of ISAM appliances
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.base/configure_interfaces
+    - role: ibm.isam.base.configure_interfaces
       tags: configure_interfaces
