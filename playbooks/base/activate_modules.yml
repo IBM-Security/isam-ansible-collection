@@ -1,12 +1,8 @@
 ---
-# Add
-#   add interfaces by following inventory structure:
-#   Example:
-#      activation_keys:
-#        - id: wga
-#          code: "AAAA-BBBB-CCCC-DDDD-EEEE"
+# activate_modules
+#   activate multiple modules in ISAM
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.base/activate_modules
+    - role: ibm.isam.base.activate_modules
       tags: activate_modules
