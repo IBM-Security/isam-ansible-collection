@@ -10,8 +10,8 @@
         Role to configure addresses for multiple interfaces
       
       STEPS
-        1) Add interfaces
-        2) Get interfaces
+        1) Add interfaces IP
+        2) Get all interfaces
         3) Delete missing IP addresses from interfaces (default configure_interfaces_delete_missing=false)
         4) Commit changes
       
@@ -45,7 +45,7 @@
         Ctrl+C + 'C'  = continue
         Ctrl+C + 'A'  = abort
   when: help is defined
-- name: Add interfaces
+- name: Add interfaces IP
   ibm.isam.isam:
     log:       "{{ log_level | default(omit) }}"
     force:     "{{ force | default(omit) }}"
@@ -62,25 +62,19 @@
     label: "Processing interface {{ item.0.label }} and IP address {{ item.1.address }}"
   notify: Commit Changes
 
-- name: Get interfaces
+- name: Get all interfaces
   ibm.isam.isam:
     log:       "{{ log_level | default(omit) }}"
     force:     "{{ force | default(omit) }}"
-    action: ibmsecurity.isam.base.network.interfaces._get_interface
-    isamapi:
-      label: "{{ item.label }}"
-  loop:  "{{ interfaces }}"
-  when: configure_interfaces_delete_missing and item.label is defined
+    action: ibmsecurity.isam.base.network.interfaces.get_all
+  when: configure_interfaces_delete_missing
   register: ret_obj
-  loop_control:
-    label: "Getting interface {{ item.label }}"
 
 - vars:
-    filter_current_interfaces: "[].{label: label , addresses: ipv4.addresses[].address}"
-    filter_condition_check: "[].label"
+    filter_current_interfaces: "interfaces[].{label: label,addresses: ipv4.addresses[].address}"
   set_fact:
-    addresses_list_server: "{{ ret_obj.results | json_query(filter_current_interfaces) }}"
-  when: ret_obj is defined and ret_obj.results != [] and (ret_obj.results | json_query(filter_condition_check)) != []
+    addresses_list_server: "{{ ret_obj.data | json_query(filter_current_interfaces) }}"
+  when: ret_obj is defined and ret_obj.data != []
 
 - vars:
     filter_current_interfaces: "[? label=='{{ item.0.label }}'].addresses[].address"
