@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  collections:
+    - ibm.isam
+  tasks:
+    - debug:
+        msg: "Molecule Default"
