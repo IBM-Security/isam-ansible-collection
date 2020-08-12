@@ -1,2 +1,5 @@
 # Default variables for creation of reverse proxy instances
 instances: []
+
+# limit execution at runtime to filter for inst_name's 
+inst_name: "{{ item.inst_name }}"
