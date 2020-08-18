@@ -74,7 +74,7 @@
     filter_current_interfaces: "interfaces[].{label: label,addresses: ipv4.addresses[].address}"
   set_fact:
     addresses_list_server: "{{ ret_obj.data | json_query(filter_current_interfaces) }}"
-  when: ret_obj is defined and ret_obj.data != []
+  when: ret_obj.data is defined and ret_obj.data != []
 
 - vars:
     filter_current_interfaces: "[? label=='{{ item.0.label }}'].addresses[].address"
