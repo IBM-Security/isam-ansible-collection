@@ -5,4 +5,4 @@
 *.retry
 *.pyc
 *.bak
-ibm-isam-*.tar.gz
+*.tar.gz

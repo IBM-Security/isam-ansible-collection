@@ -44,8 +44,9 @@
 #           "type": "Directory",
 #           "version": "1522187109"
 #       }
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
-from ansible import errors
 
 class FilterModule(object):
     data = []
@@ -61,17 +62,17 @@ class FilterModule(object):
         return self.data
 
     def flatten(self, element, parent):
-        if(parent):
-            path = parent+'/'+element['name']
+        if (parent):
+            path = parent + '/' + element['name']
         else:
             path = element['name']
         self.data.append(
-			{
-				'name': element['name'],
+            {
+                'name': element['name'],
                 'type': element['type'].lower(),
                 'path': path
-			}
-		)
+            }
+        )
         if 'children' in element:
             for child in element['children']:
                 self.flatten(child, path)
