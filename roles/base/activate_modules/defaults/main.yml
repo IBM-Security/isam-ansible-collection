@@ -2,3 +2,6 @@
 
 # id to filter activations at runtime
 id: "{{ item.id }}"
+
+# increase command timeout, otherwise task will indicate failure although modules are activated [false positives]
+ansible_command_timeout: 120
