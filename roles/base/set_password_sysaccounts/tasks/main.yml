@@ -1,0 +1,43 @@
+---
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        set_password_sysaccounts
+      
+      DESCRIPTION
+        Role to set password for system accounts
+      
+      STEPS
+        1) Set password of multiple system accounts
+        2) Commit changes
+      
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/base/set_password_sysaccounts.yml
+        ansible-playbook -i [...] playbooks/ansible_collections/base/set_password_sysaccounts.yml -e id=sample_user // limit password setting to one user id at runtime
+      
+      INVENTORY
+      ==========
+      sysaccounts:
+        - id: sample_user
+          password: "{{ '{{ sample_user_pwd }}' }}"
+      ==========
+      
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Set password for sysaccounts
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.base.sysaccount.users.modify
+    isamapi: "{{ item }}"
+  with_items: "{{ sysaccounts }}"
+  when: item.id is defined and item.id == id
+  loop_control:
+    label: "{'id': {{ item.id }}}"
+  notify: Commit Changes
