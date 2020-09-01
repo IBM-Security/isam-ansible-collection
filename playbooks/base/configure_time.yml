@@ -1,12 +1,7 @@
 ---
 # Configure
 #   configure time for appliance
-#   Example:
-#      time_cfg:
-#        timeZone: "Europe/Berlin"
-#        ntpServers: "time.ibm.com,time2.ibm.com"
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
   roles:
-    - role: ibm.isam.base/configure_time
+    - role: ibm.isam.base.configure_time
       tags: configure_time
