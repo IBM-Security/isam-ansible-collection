@@ -1,10 +1,7 @@
 ---
 # playbook to import kerberos keytab files
-# Example:
-#   import_keytab_files:
-#     - file: uploads/kerberos/kerberos.krb5
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.web/import_keytab_files
+    - role: ibm.isam.web.import_keytab_files
       tags: import_keytab_files

@@ -1,0 +1,4 @@
+# default values to import kerberos keytab files
+keytab_files: []
+
+name: "{{ item.file | basename }}"

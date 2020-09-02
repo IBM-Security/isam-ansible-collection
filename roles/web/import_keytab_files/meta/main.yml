@@ -1,0 +1,17 @@
+galaxy_info:
+  author: IBM
+  description: Role to import kerberos keytab files
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: 2.2
+
+  galaxy_tags:
+  - isam
+  - ibm
+  - import
+  - keytab_files
+
+dependencies:
+  - common_handlers
