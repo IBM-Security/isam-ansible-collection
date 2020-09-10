@@ -1,0 +1,19 @@
+---
+- name: Create Realms Subsections (2nd level) (-e kerberos_action=create_subsections)
+  ibm.isam.isam:
+    log:       "{{ log_level | default(omit) }}"
+    force:     "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.kerberos_configuration.realms_subsection.add
+    isamapi:
+      realm: "{{ subsections_1st_level.0.realm }}/{{ subsections_1st_level.1.name }}"
+      subsection: "{{ subsection_loop.name }}"
+  when:
+    - subsection_loop.name is defined
+    - subsections_1st_level.1.name == subsection 
+    - kerberos_action == 'create_subsections' or
+      kerberos_action == 'all'
+  loop: "{{ subsections_1st_level.1.subsections }}"
+  loop_control:
+    loop_var: subsection_loop
+    label: "{ \"realm\": \"{{ subsections_1st_level.0.realm }}/{{ subsections_1st_level.1.name }}\", \"subsection\": \"{{ subsection_loop.name if (subsection_loop.name is defined) }}\" }"
+  notify: Commit Changes
