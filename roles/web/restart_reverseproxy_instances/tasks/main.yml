@@ -1,0 +1,52 @@
+---
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        restart_reverseproxy_instances
+      
+      DESCRIPTION
+        Role to restart reverse proxy instance/s
+      
+      STEPS
+        1) restart reverse proxy instances
+      
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/web/restart_reverseproxy_instances.yml // restart all instances, if there are pending changes available. Do not restart instances which are up-to-date.
+        ansible-playbook -i [...] playbooks/ansible_collections/web/restart_reverseproxy_instances.yml -e inst_name=default // only try to restart 'default', if there are pending changes for this instance
+        ansible-playbook -i [...] playbooks/ansible_collections/web/restart_reverseproxy_instances.yml -e inst_name=default -e force=True // restart 'default' even if there are no pending changes
+        ansible-playbook -i [...] playbooks/ansible_collections/web/restart_reverseproxy_instances.yml -e force=True // restart all instances even if there are no pending changes !ATTENTION!: use with caution in production environments
+      
+      INVENTORY
+      ==========
+      # restart reverse proxy instance/s
+      # !ATTENTION!: No inventory needed. Reverse proxy instances will be pulled from appliance and if no filter is applied this role will restart instances one by one (depending on available changes or if forced to [-e force=True])
+      ==========
+      
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Get all reverse proxy instance/s from appliance
+  ibm.isam.isam:
+    log:       "{{ log_level | default(omit) }}"
+    force:     "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.reverse_proxy.instance.get
+  register: appliance_instances
+
+- name: Restart reverse proxy instance/s
+  ibm.isam.isam:
+    log:       "{{ log_level | default(omit) }}"
+    force:     "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.reverse_proxy.instance.execute
+    isamapi:
+      id: "{{ item.instance_name }}"
+  with_items: "{{ appliance_instances.data }}"
+  when:
+    - item is defined
+    - item.id == inst_name
+  loop_control:
+    label: "{'u'inst_name': u'{{ item.id }}'}"
