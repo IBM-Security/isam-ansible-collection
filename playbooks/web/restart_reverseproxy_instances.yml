@@ -4,5 +4,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.web/restart_reverseproxy_instance
+    - role: ibm.isam.web.restart_reverseproxy_instances
       tags: restart_reverseproxy_instance

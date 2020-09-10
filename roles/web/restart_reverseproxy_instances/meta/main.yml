@@ -1,6 +1,6 @@
 galaxy_info:
   author: IBM
-  description: Role to restart reverse proxy instance
+  description: Role to restart reverse proxy instance/s
   company: IBM
 
   license: Apache
@@ -11,7 +11,7 @@ galaxy_info:
   - isam
   - ibm
   - restart
-  - reverseproxy_instance
+  - reverseproxy_instances
 
 dependencies:
   - common_handlers
