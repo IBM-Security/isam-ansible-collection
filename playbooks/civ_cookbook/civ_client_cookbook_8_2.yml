@@ -1,0 +1,14 @@
+---
+- name: ISAM as CIV Client Cookbook
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "civ_client_cookbook_vars.yml"
+        name: inventory
+
+    - name: "8.2 Create new CIV Auth Types attribute"
+      include_role:
+        name: ibm.isam.aac.configure_access_control_attributes
+      vars:
+        access_control_attributes: "{{ inventory.access_control_attributes }}"

@@ -1,0 +1,62 @@
+---
+- name: ISAM as CIV Client Cookbook
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "civ_client_cookbook_vars.yml"
+        name: inventory
+
+    - name: "8.4 Authenticate to Policy Server"
+      include_role:
+        name: ibm.isam.authenticate_policy_attachments
+      vars:
+        authenticate_policy_attachments_username:
+          "{{ inventory.authenticate_policy_attachments_username }}"
+        authenticate_policy_attachments_password:
+          "{{ inventory.authenticate_policy_attachments_password }}"
+
+    - name: "8.4 Get hostname"
+      include_role:
+        name: ibm.isam.base.network.get_hostname
+
+    - name: "8.4 save server name to a variable"
+      set_fact:
+        server_name: "{{ ret_obj.data.hostName }}-default"
+
+    - name: "8.4 create policy_resources variable"
+      set_fact:
+        policy_resources:
+          - server: "{{ server_name }}"
+            resourceUri: "/app/mobile-demo/rba"
+            policyType: "reverse_proxy"
+            cache: -1
+
+    - name: "8.4 Add a resource and attach policy"
+      include_role:
+        name: ibm.isam.aac.configure_access_control_policy_resources
+      vars:
+        access_control_policy_resources: "{{ policy_resources }}"
+
+    - name: "8.4 get policy"
+      include_role:
+        name: ibm.isam.aac.policies.get_access_control_policy
+      vars:
+        get_access_control_policy_name:
+          "{{ inventory.get_access_control_policy_name }}"
+
+    - name: "8.4 create variable"
+      set_fact:
+        attach_resource:
+          - server: "{{ server_name }}"
+            resourceUri: "/app/mobile-demo/rba"
+            attachments:
+              - name: "Require CIV 2FA"
+                type: policy
+            action: add
+
+    - name: "8.4 attach resource"
+      include_role:
+        name: ibm.isam.aac.configure_access_control_policy_attachments
+      vars:
+        access_control_policy_attachments: "{{ attach_resource }}"

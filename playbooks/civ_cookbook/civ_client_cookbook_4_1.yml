@@ -1,0 +1,16 @@
+---
+- name: ISAM as CIV Client Cookbook
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "civ_client_cookbook_vars.yml"
+        name: inventory
+
+    - name: "4.1 Create Access Manager User"
+      include_role:
+        name: ibm.isam.execute_pdadmin
+      vars:
+        execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
+        execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
+        execute_pdadmin_commands: "{{ inventory.test_user_pdadmin_commands }}"

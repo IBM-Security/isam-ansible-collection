@@ -1,0 +1,15 @@
+---
+- name: ISAM as CIV Client Cookbook
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "civ_client_cookbook_vars.yml"
+        name: inventory
+
+    - name: "5.2 Upload mapping rules"
+      include_role:
+        name: ibm.isam.aac.configure_mapping_rules
+      vars:
+        inventory_dir: "{{ inventory.inventory_dir }}"
+        mapping_rules: "{{ inventory.mapping_rules }}"

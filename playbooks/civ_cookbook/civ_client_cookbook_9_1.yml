@@ -1,0 +1,31 @@
+---
+- name: ISAM as CIV Client Cookbook
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "civ_client_cookbook_vars.yml"
+        name: inventory
+
+    - name: "9.1 Delete Access Manager User Jacob"
+      include_role:
+        name: ibm.isam.execute_pdadmin
+      vars:
+        execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
+        execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
+        execute_pdadmin_commands: "{{ inventory.delete_user_pdadmin_commands }}"
+
+    - name: "9.1 Create Access Manager User Jacob"
+      include_role:
+        name: ibm.isam.execute_pdadmin
+      vars:
+        execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
+        execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
+        execute_pdadmin_commands: "{{ inventory.new_user_pdadmin_commands }}"
+
+    - name: "9.1.2 Modify User Mapping in Access Manager"
+      include_role:
+        name: ibm.isam.aac.configure_mapping_rules
+      vars:
+        inventory_dir: "{{ inventory.inventory_dir }}"
+        mapping_rules: "{{ inventory.ci_common_mapping_rules }}"

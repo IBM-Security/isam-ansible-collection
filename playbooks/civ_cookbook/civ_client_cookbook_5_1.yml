@@ -1,0 +1,14 @@
+---
+- name: ISAM as CIV Client Cookbook
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "civ_client_cookbook_vars.yml"
+        name: inventory
+
+    - name: "5.1 Revert Point of Contact Profile"
+      include_role:
+        name: ibm.isam.set_current_point_of_contact
+      vars:
+        set_current_point_of_contact_name: "{{ inventory.poc_name }}"

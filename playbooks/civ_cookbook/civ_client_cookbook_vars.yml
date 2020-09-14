@@ -1,0 +1,69 @@
+---
+# Ch. 4.1
+execute_pdadmin_isamuser: sec_master
+execute_pdadmin_isampwd: Passw0rd
+test_user_pdadmin_commands: ["user create -gsouser
+                                          jacob@yourtenantid.ice.ibmcloud.com
+                                          uid=jacob@yourtenantid.ice.ibmcloud.com,dc=ibm,dc=com
+                                          Jacob Jackson
+                                          Passw0rd",
+                             "user modify jacob@yourtenantid.ice.ibmcloud.com
+                                          account-valid yes"]
+
+# Ch. 5.1
+poc_name: "Access Manager Username and extended attributes"
+
+# Ch. 5.2 - Fill in the inventory_dir with location of ci_authentication_rule.js
+inventory_dir:
+mapping_rules: [{name: CI_Authentication_Rule,
+                 category: infomap,
+                 file: ci_authentication_rule.js}]
+
+# Ch. 8.1
+inst_name: "rp1"
+set_reverseproxy_conf_entries: [{stanza_id: "eai",
+                                 entries:
+                                   [["eai-create-multi-valued-attributes",
+                                     "yes"]]}]
+
+# Ch. 8.2
+access_control_attributes:
+  - name: CIV Completed Auth Types
+    description: CIV 2FA Authentication Types completed in the current session
+    attributeURI: ciAuthTypes
+    type:
+      policy: true
+      risk: false
+    category: Subject
+    datatype: String
+    predefined: false
+    issuer: ""
+    matcher: "1"
+    storageDomain:
+      device: false
+      session: false
+      behavior: false
+
+# Ch. 8.4
+authenticate_policy_attachments_username: "sec_master"
+authenticate_policy_attachments_password: "Passw0rd"
+get_access_control_policy_name: "Require CIV 2FA"
+
+# Ch. 9.1
+delete_user_pdadmin_commands: ["user delete -registry
+                                            jacob@yourtenant.ice.ibmcloud.com"]
+new_user_pdadmin_commands: ["user create -gsouser
+                                          jacob
+                                          uid=jacob,dc=ibm,dc=com
+                                          Jacob Jackson
+                                          Passw0rd",
+                            "user modify jacob
+                                         account-valid yes"]
+ci_common_mapping_rules: [{name: CI_Common,
+                           category: infomap,
+                           file: ci_common.js}]
+
+# Ch. 9.2
+ci_common_2_mapping_rules: [{name: CI_Common,
+                             category: infomap,
+                             file: ci_common_9_2_2.js}]

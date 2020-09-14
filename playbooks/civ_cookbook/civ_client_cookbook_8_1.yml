@@ -1,0 +1,17 @@
+---
+- name: ISAM as CIV Client Cookbook
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "civ_client_cookbook_vars.yml"
+        name: inventory
+
+    - name: "8.1 Configure Multi-valued Attributes in Reverse Proxy"
+      include_role:
+        name: ibm.isam.set_reverseproxy_conf
+      vars:
+        set_reverseproxy_conf_entries:
+          "{{ inventory.set_reverseproxy_conf_entries }}"
+        set_reverseproxy_conf_reverseproxy_id:
+          "{{ inventory.inst_name }}"
