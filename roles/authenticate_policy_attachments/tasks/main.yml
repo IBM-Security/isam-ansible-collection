@@ -1,6 +1,9 @@
+- name: Authenticate to policy server
   ibm.isam.isam:
     log:       "{{ log_level | default('INFO') }}"
     force:     "{{ force | default(False) }}"
     action: ibmsecurity.isam.aac.access_control.policy_attachments.authenticate
     isamapi:
-      domain:   "{{ authenticate_policy_attachments_domain }}"
+      domain:   "{{ authenticate_policy_attachments_domain | default('Default')}}"
+      username: "{{ authenticate_policy_attachments_username }}"
+      password: "{{ authenticate_policy_attachments_password }}"
