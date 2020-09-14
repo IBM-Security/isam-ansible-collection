@@ -12,8 +12,8 @@
 ---
 - name: Configure federated directories
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.runtime.federated_directories.stanza.set
     isamapi: "{{ item }}"
   with_items: "{{ policyserver_runtime.federated_directories }}"

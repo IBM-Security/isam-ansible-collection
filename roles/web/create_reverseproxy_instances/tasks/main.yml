@@ -5,18 +5,18 @@
     prompt: |
       NAME
         create_reverseproxy_instances
-      
+
       DESCRIPTION
         Role to create reverse proxy instance
-      
+
       STEPS
         1) Create reverse proxy instances
         2) Commit changes
-      
+
       EXAMPLES
         ansible-playbook -i [...] playbooks/ansible_collections/web/create_reverseproxy_instances.yml
         ansible-playbook -i [...] playbooks/ansible_collections/web/create_reverseproxy_instances.yml -e inst_name=default // limit the creation of reverse proxy instances at runtime
-      
+
       INVENTORY
       ==========
       instances:
@@ -44,7 +44,7 @@
             nw_interface_yn: 'yes'
             ip_address: "{{ '{{ interfaces[0].addresses[1].address }}' }}"
       ==========
-      
+
       INTERACTION
         ENTER         = continue
         Ctrl+C + 'C'  = continue
@@ -53,8 +53,8 @@
 
 - name: Create reverse proxy instances
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.instance.add
     isamapi: "{{ item.configuration | combine({ 'inst_name': item.inst_name })}}"
   with_items: "{{ instances }}"

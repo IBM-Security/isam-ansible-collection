@@ -1,16 +1,16 @@
 - name: Snapshot Appliance Before Installing Product Support License
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.snapshots.create
     isamapi:
       comment: "{{ install_license_comment }}"
 
 - name: Import Product License
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
-    action:     ibmsecurity.isam.base.license.install
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.license.install
     isamapi:
       license : "{{ install_license_file }}"
   when: install_license_file is defined

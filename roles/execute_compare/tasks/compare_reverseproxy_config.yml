@@ -1,7 +1,7 @@
 - name: Compare Reverse Proxy->{{ reverseproxy.id }} Management Root Directories/Files
   ibm.isam.ibm.isam.isamcompare:
     appliance1: "{{ master_hostname }}"
-    log:        "{{ log_level | default('INFO') }}"
+    log: "{{ log_level | default('INFO') }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.directory
     isamapi:
       instance_id: "{{ reverseproxy.id }}"
@@ -21,7 +21,7 @@
 - name: Compare Reverse Proxy->{{ reverseproxy.id }} Junctions
   ibm.isam.ibm.isam.isamcompare:
     appliance1: "{{ master_hostname }}"
-    log:        "{{ log_level | default('INFO') }}"
+    log: "{{ log_level | default('INFO') }}"
     action: ibmsecurity.isam.web.reverse_proxy.junctions
     isamapi:
       reverseproxy_id: "{{ reverseproxy.id }}"
@@ -41,7 +41,7 @@
 - name: Compare Reverse Proxy->{{ reverseproxy.id }} stanza/entries
   ibm.isam.ibm.isam.isamcompare:
     appliance1: "{{ master_hostname }}"
-    log:        "{{ log_level | default('INFO') }}"
+    log: "{{ log_level | default('INFO') }}"
     action: ibmsecurity.isam.web.reverse_proxy.configuration.stanza
     isamapi:
       reverseproxy_id: "{{ reverseproxy.id }}"

@@ -6,8 +6,8 @@
 #       -   name: server_connection_1
 #           class: ldap
 #           connection:
-#             bindDN:   cn=root
-#             bindPwd:  "{{ pwd }}"
+#             bindDN: cn=root
+#             bindPwd: "{{ pwd }}"
 #             hostName: ldap.ibm.com
 #             hostPort: 389
 #             ssl: false

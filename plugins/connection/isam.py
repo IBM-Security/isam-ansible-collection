@@ -178,10 +178,10 @@ class Connection(NetworkConnectionBase):
         Imports a module and executes a target module dynamically using the
         persistent ISAMAppliance instance.
 
-            :arg isam_module: str, the fully qualified module.method name to invoke
-            :arg options: dict, the dict of options to pass to the API call
+ :arg isam_module: str, the fully qualified module.method name to invoke
+ :arg options: dict, the dict of options to pass to the API call
 
-            :returns: dict, return value(s) from the api call
+ :returns: dict, return value(s) from the api call
         """
         if not self.connected:
             self._connect()

@@ -1,7 +1,7 @@
 - name: Get Junctions in Reverse Proxy
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.junctions.get
     isamapi:
       reverseproxy_id: "{{ item.0.item.id }}"

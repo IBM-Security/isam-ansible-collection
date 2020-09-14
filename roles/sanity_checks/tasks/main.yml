@@ -1,7 +1,7 @@
 - name: Check if there are pending changes on the appliance
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     False
+    log: "{{ log_level | default('INFO') }}"
+    force: False
     action: ibmsecurity.isam.appliance.commit
   check_mode: yes
   register: ret_obj
@@ -13,8 +13,8 @@
 
 - name: Snapshot Appliance as Backup
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.snapshots.create
     isamapi:
       comment: "{{ start_config_comment }}"

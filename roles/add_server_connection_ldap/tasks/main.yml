@@ -1,15 +1,15 @@
 - name: Snapshot Appliance Before Adding LDAP Server Connection
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.snapshots.create
     isamapi:
       comment: "{{ add_server_connection_ldap_comment }}"
 
 - name: Add LDAP Server Connection
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.aac.server_connections.ldap.add
     isamapi:
       name: "{{ ldap_server_connection_name }}"

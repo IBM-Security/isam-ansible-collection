@@ -7,8 +7,8 @@
 ---
 - name: Upload signer certificates
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.ssl_certificates.signer_certificate.import_cert
     isamapi:
       kdb_id: "{{ item.kdb_id }}"

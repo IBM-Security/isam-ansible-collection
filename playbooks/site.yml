@@ -13,28 +13,28 @@
       tags: ["sanity"]
     - role: ibm.isam.add_network_ipv4
       tags: ["ipv4"]
-      add_network_ipv4_label                : "1.1"
-      add_network_ipv4_address              : "{{ ipv4_1_1_ip_address }}"
-      add_network_ipv4_maskOrPrefix         : "{{ ipv4_1_1_ip_mask }}"
-      add_network_ipv4_allowManagement      : True
+      add_network_ipv4_label : "1.1"
+      add_network_ipv4_address : "{{ ipv4_1_1_ip_address }}"
+      add_network_ipv4_maskOrPrefix : "{{ ipv4_1_1_ip_mask }}"
+      add_network_ipv4_allowManagement : True
       when: ipv4_1_1_ip_address is defined
     - role: ibm.isam.set_network_ipv4_dhcp
       tags: ["dhcp"]
-      set_network_ipv4_dhcp_label           : "1.1"
+      set_network_ipv4_dhcp_label : "1.1"
       set_network_ipv4_dhcp_allowManagement : False
-      set_network_ipv4_dhcp_enabled         : False
+      set_network_ipv4_dhcp_enabled : False
       set_network_ipv4_dhcp_providesDefaultRoute: False
       when: ipv4_1_1_ip_address is defined
     - role: ibm.isam.add_network_ipv4
       tags: ["ipv4"]
-      add_network_ipv4_label                : "1.2"
-      add_network_ipv4_address              : "{{ ipv4_1_2_ip_address }}"
-      add_network_ipv4_maskOrPrefix         : "{{ ipv4_1_2_ip_mask }}"
-      add_network_ipv4_allowManagement      : False
+      add_network_ipv4_label : "1.2"
+      add_network_ipv4_address : "{{ ipv4_1_2_ip_address }}"
+      add_network_ipv4_maskOrPrefix : "{{ ipv4_1_2_ip_mask }}"
+      add_network_ipv4_allowManagement : False
       when: ipv4_1_1_ip_address is defined
     - role: ibm.isam.set_network_hostname
       tags: ["hostname"]
-      set_network_hostname_hostname         : "{{ appliance_name }}"
+      set_network_hostname_hostname : "{{ appliance_name }}"
     - role: ibm.isam.config_dns
       tags: ["dns"]
     - role: ibm.isam.config_ntp
@@ -60,7 +60,7 @@
       config_snmp_monitoring_port: 161
     - role: ibm.isam.activate_module
       tags: ["activate", "wga"]
-      activate_module_id  : "wga"
+      activate_module_id : "wga"
       activate_module_code: "{{ lookup('file', '/Users/ram/Documents/Work/Software/ISAM_90_ACTIVATION_CODE_MP_ML.txt') }}"
 
 - name: Setup Primary Appliance
@@ -89,15 +89,15 @@
     - role: ibm.isam.add_cluster_node
       tags: ["cluster", "add"]
       add_cluster_node_signature_file: "/Users/ram/Documents/Work/TechAcademy/primary.sign"
-      add_cluster_node_restricted:     True
+      add_cluster_node_restricted: True
     - role: ibm.isam.set_tcpip_tuning
       tags: ["tcpip"]
     - role: ibm.isam.create_reverseproxy
       tags: ["reverseproxy", "create"]
-      create_reverseproxy_host      : "{{ appliance_name.split('.')[0] }}"
+      create_reverseproxy_host : "{{ appliance_name.split('.')[0] }}"
       create_reverseproxy_inst_name : "{{ reverseproxy_instance_name }}"
       create_reverseproxy_ip_address: "{{ ipv4_1_2_ip_address}}"
-      create_reverseproxy_admin_id  : "{{ sec_master_id }}"
+      create_reverseproxy_admin_id : "{{ sec_master_id }}"
       create_reverseproxy_admin_pwd : "{{ sec_master_pwd }}"
 
 - name: Setup Primary Appliance
@@ -109,7 +109,7 @@
       execute_pdadmin_commands:
         - "object create /WebSEAL/ibm \"Common Web Root for all Reverse Proxies\" 5 ispolicyattachable yes"
       execute_pdadmin_isamuser: "{{sec_master_id}}"
-      execute_pdadmin_isampwd:  "{{sec_master_pwd}}"
+      execute_pdadmin_isampwd: "{{sec_master_pwd}}"
 
 - name: Setup Restricted Appliances
   hosts: restricted
@@ -122,5 +122,5 @@
       update_reverseproxy_conf_reverseproxy_id: "{{ reverseproxy_instance_name }}"
       update_reverseproxy_conf_entries:
         - stanza_id: "server"
-          entry_id:  "server-name"
-          value_id:  "ibm"
+          entry_id: "server-name"
+          value_id: "ibm"

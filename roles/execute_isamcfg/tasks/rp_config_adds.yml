@@ -1,8 +1,8 @@
 # Add new entries / Stanzas to reverse proxy config file
 - name: Configure Reverse Proxy for AAC (Adds)
   isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.configuration.entry.add
     isamapi:
       reverseproxy_id: "{{ execute_isamcfg_reverseproxy_id }}"

@@ -2,8 +2,8 @@
 ---
 - name: Configure user registry
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.aac.user_registry.user.{{ item.action }}"
     isamapi: "{{ item | exclude('action') }}"
   when: item.action and item.id == id

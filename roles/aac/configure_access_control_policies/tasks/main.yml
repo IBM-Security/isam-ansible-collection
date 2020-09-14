@@ -12,8 +12,8 @@
 ---
 - name: Configure access control policies
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.policies.set
     isamapi: "{{ item }}"
   when: item is defined

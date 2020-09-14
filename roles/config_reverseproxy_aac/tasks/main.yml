@@ -8,10 +8,10 @@
     action: ibmsecurity.isam.web.reverse_proxy.aac_configuration.config
     isamapi:
       instance_id: "{{ config_reverseproxy_aac_instance_id }}"
-      hostname:    "{{ config_reverseproxy_aac_hostname }}"
-      port:        "{{ config_reverseproxy_aac_port }}"
+      hostname: "{{ config_reverseproxy_aac_hostname }}"
+      port: "{{ config_reverseproxy_aac_port }}"
       reuse_certs: "{{ config_reverseproxy_aac_reuse_certs }}"
-      reuse_acls:  "{{ config_reverseproxy_aac_reuse_acls }}"
+      reuse_acls: "{{ config_reverseproxy_aac_reuse_acls }}"
   notify:
     - Commit Changes
     - Restart Reverse Proxy

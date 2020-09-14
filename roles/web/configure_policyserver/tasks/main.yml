@@ -4,22 +4,22 @@
     prompt: |
       NAME
         configure_policyserver
-      
+
       DESCRIPTION
         Role that configures a Policy Server
-      
+
       STEPS
         1) Configure policy server
         2) commit pending changes
-      
+
       EXAMPLES
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_policyserver.yml
-      
+
       INVENTORY
       ==========
       # configuration of the policy server is seperated into several sub categories.
       # this role uses all entries in the configuration section of the policyserver_runtime object
-      
+
       # sample for docker environment
       policyserver_runtime:
         configuration:
@@ -33,7 +33,7 @@
           admin_cert_lifetime: 1460
           ssl_compliance: fips
           ldap_ssl_db: Registry_Keystore.kdb
-      
+
       # sample for local Policy Server with Local Embedded LDAP
       policyserver_runtime:
         configuration:
@@ -44,15 +44,15 @@
           clean_ldap: "true"
           admin_cert_lifetime: 1460
           ssl_compliance: "none"
-          
+
       # additional configuraitons can be looked up in the isam web service documentation: e.g.:
-      #  ldap_ssl_label:      "{{ '{{ ldap_ssl_label }}' }}"
-      #  ldap_suffix:         "{{ '{{ ldap_suffix }}' }}"
-      #  domain:              "{{ '{{ domain }}' }}"
-      #  isam_host:           "{{ '{{ isam_host }}' }}"
-      #  isam_port:           "{{ '{{ isam_port }}' }}"
+      #  ldap_ssl_label: "{{ '{{ ldap_ssl_label }}' }}"
+      #  ldap_suffix: "{{ '{{ ldap_suffix }}' }}"
+      #  domain: "{{ '{{ domain }}' }}"
+      #  isam_host: "{{ '{{ isam_host }}' }}"
+      #  isam_port: "{{ '{{ isam_port }}' }}"
       ==========
-      
+
       INTERACTION
         ENTER         = continue
         Ctrl+C + 'C'  = continue
@@ -61,8 +61,8 @@
 
 - name: Configure Policy Server
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.runtime.process.config
     isamapi: "{{ policyserver_runtime.configuration }}"
   when: policyserver_runtime.configuration is defined

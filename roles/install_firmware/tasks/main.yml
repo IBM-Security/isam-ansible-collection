@@ -7,8 +7,8 @@
 
 - name: Upload Firmware file - {{ install_firmware_file }}
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.available_updates.upload
     isamapi:
       file: "{{ install_firmware_file }}"
@@ -17,8 +17,8 @@
 
 - name: Snapshot Appliance Before Firmware Upgrade to {{ install_firmware_version }}
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.snapshots.create
     isamapi:
       comment: "{{ install_firmware_comment }}"
@@ -29,14 +29,14 @@
 
 - name: Firmware install of {{ install_firmware_version }}
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.available_updates.install
     isamapi:
-      type         : "{{ install_firmware_type }}"
-      version      : "{{ install_firmware_version }}"
+      type : "{{ install_firmware_type }}"
+      version : "{{ install_firmware_version }}"
       release_date : "{{ install_firmware_release_date }}"
-      name         : "{{ install_firmware_name }}"
+      name : "{{ install_firmware_name }}"
   when: firmware.stat.exists
   register: install_firmware
   notify: Await Appliance LMI Response

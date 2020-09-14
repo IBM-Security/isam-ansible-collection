@@ -7,8 +7,8 @@
 ---
 - name: Upload management root files
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.file.import_file
     isamapi:
       id: "{{ item.target }}"

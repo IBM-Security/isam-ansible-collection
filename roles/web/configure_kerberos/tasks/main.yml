@@ -5,10 +5,10 @@
     prompt: |
       NAME
         configure_kerberos
-      
+
       DESCRIPTION
         Role to configure_kerberos
-      
+
       STEPS
         1) import multiple kerberos keytab files (-e kerberos_action=import_keytabs)
         2) Create realms (-e kerberos_action=create_realms)
@@ -22,10 +22,10 @@
        10) Configure Kerberos CA Paths (-e kerberos_action=configure_ca_paths)
        11) Configure Kerberos CA Paths Properties (-e kerberos_action=configure_ca_paths)
        12) Commit changes
-      
+
       EXAMPLES
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_kerberos.yml # do all steps
-      
+
         # available filters per kerberos_action:
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_kerberos.yml -e kerberos_action=import_keytabs -e keytab_file=default.krb5 # do only import of keytabs with limit to a specific file from inventory !ATTENTION!: only basename from path variable is used for filtering
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_kerberos.yml -e kerberos_action=create_subsections -e realm=realm_1 -e subsection=sub_1
@@ -33,7 +33,7 @@
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_kerberos.yml -e kerberos_action=configure_defaults -e default_name=default_realm -e default_value=realm_1
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_kerberos.yml -e kerberos_action=configure_domains -e domain_name=domain_1 -e domain_value=realm_1
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_kerberos.yml -e kerberos_action=configure_ca_paths -e ca_paths_name=domain_1 -e client_realm=domain_1 -e server_realm=s_realm_1 -e intermediate_realm=i_realm_1
-      
+
       INVENTORY
       ==========
       # import multiple kerberos keytbal files
@@ -73,7 +73,7 @@
               - server_realm: s_realm_1
                 intermediate_realm: i_realm_1
       ==========
-      
+
       INTERACTION
         ENTER         = continue
         Ctrl+C + 'C'  = continue
@@ -81,8 +81,8 @@
   when: help is defined
 - name: Import kerberos keytab files (-e kerberos_action=import_keytabs)
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.kerberos_configuration.keyfiles.import_keytab
     isamapi:
       id: "{{ item.file | basename }}"
@@ -99,8 +99,8 @@
 
 - name: Create Realms (-e kerberos_action=create_realms)
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.kerberos_configuration.realms.add
     isamapi:
       realm: "{{ item.realm }}"
@@ -116,8 +116,8 @@
 
 - name: Create Realms Subsections (1st level) (-e kerberos_action=create_subsections)
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.kerberos_configuration.realms_subsection.add
     isamapi:
       realm: "{{ item.0.realm }}"
@@ -128,7 +128,7 @@
     - item.1.name == subsection
     - kerberos_action == 'create_subsections' or
       kerberos_action == 'all'
-  with_subelements: 
+  with_subelements:
     - "{{ kerberos.realms }}"
     - subsections
   loop_control:
@@ -141,7 +141,7 @@
     - subsections_1st_level.0.realm == realm
     - kerberos_action == 'create_subsections' or
       kerberos_action == 'all'
-  with_subelements: 
+  with_subelements:
     - "{{ kerberos.realms }}"
     - subsections
     - skip_missing: True
@@ -150,8 +150,8 @@
 
 - name: Create Realms Subsection Properties (root level) (-e kerberos_action=configure_properties)
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.kerberos_configuration.realms_property.set
     isamapi:
       realm: "{{ item.0.realm }}"
@@ -166,7 +166,7 @@
     - item.0.realm == realm
     - kerberos_action == 'configure_properties' or
       kerberos_action == 'all'
-  with_subelements: 
+  with_subelements:
     - "{{ kerberos.realms }}"
     - properties
   loop_control:
@@ -174,7 +174,7 @@
   notify: Commit Changes
 
 - include_tasks: include_configure_subsections_properties_1st_level.yml
-  with_subelements: 
+  with_subelements:
     - "{{ kerberos.realms }}"
     - subsections
   when:
@@ -182,7 +182,7 @@
     - subsections_1st_level.0.realm == realm
     - kerberos_action == 'configure_properties' or
       kerberos_action == 'all'
-  with_subelements: 
+  with_subelements:
     - "{{ kerberos.realms }}"
     - subsections
     - skip_missing: True
@@ -191,8 +191,8 @@
 
 - name: Configure Defaults (-e kerberos_action=configure_defaults)
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.kerberos_configuration.defaults.set
     isamapi:
       name: "{{ item.name }}"
@@ -209,8 +209,8 @@
 
 - name: Configure Kerberos Domain Mapping (-e kerberos_action=configure_domains)
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.kerberos_configuration.domains.set
     isamapi:
       name: "{{ item.name }}"
@@ -227,8 +227,8 @@
 
 - name: Configure Kerberos CA Paths (-e kerberos_action=configure_ca_paths)
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.kerberos_configuration.ca_paths.add
     isamapi:
       name: "{{ item.name }}"
@@ -242,14 +242,14 @@
 
 - name: Configure Kerberos CA Paths Properties (-e kerberos_action=configure_ca_paths)
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.kerberos_configuration.ca_paths_property.set
     isamapi:
       client_realm: "{{ item.0.name }}"
       server_realm: "{{ item.1.server_realm }}"
       intermediate_realm: "{{ item.1.intermediate_realm }}"
-  with_subelements: 
+  with_subelements:
     - "{{ kerberos.ca_paths }}"
     - properties
   when:

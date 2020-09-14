@@ -1,15 +1,15 @@
 - name: Update Authentication Mechanism - {{ update_auth_mech_name }}
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.aac.authentication.mechanisms.update
     isamapi:
-      name:        "{{ update_auth_mech_name }}"
-      typeName:    "{{ update_auth_mech_typeName }}"
-      uri:         "{{ update_auth_mech_uri }}"
+      name: "{{ update_auth_mech_name }}"
+      typeName: "{{ update_auth_mech_typeName }}"
+      uri: "{{ update_auth_mech_uri }}"
       description: "{{ update_auth_mech_description }}"
-      attributes:  "{{ update_auth_mech_attributes }}"
-      properties:  "{{ update_auth_mech_properties }}"
-      predefined:  "{{ update_auth_mech_predefined }}"
-      new_name:    "{{ update_auth_mech_new_name }}"
+      attributes: "{{ update_auth_mech_attributes }}"
+      properties: "{{ update_auth_mech_properties }}"
+      predefined: "{{ update_auth_mech_predefined }}"
+      new_name: "{{ update_auth_mech_new_name }}"
   notify: Commit Changes

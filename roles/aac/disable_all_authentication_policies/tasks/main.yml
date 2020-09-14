@@ -2,16 +2,16 @@
 ---
 - name: Disable authentication mechanisms
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.authentication.policies.get_all
   register: authPolicies
 
 - debug: msg="{{ authPolicies.data }}"
 - name: Disable all authentication mechanisms
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.authentication.policies.activate
     isamapi:
       name: "{{ item.name }}"

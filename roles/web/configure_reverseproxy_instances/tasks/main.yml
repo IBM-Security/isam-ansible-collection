@@ -5,15 +5,15 @@
     prompt: |
       NAME
         configure_reverseproxy_instances
-      
+
       DESCRIPTION
         Role to configure existing reverse proxy instances
-      
+
       STEPS
-        1) Configure reverse proxy 
+        1) Configure reverse proxy
         2) Commit changes
         *) NOT INCLUDED: Restart reverse proxy instance (use web/restart_reverseproxy_instances role to restart instances with pending changes)
-      
+
       EXAMPLES
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_reverseproxy_instances.yml
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_reverseproxy_instances.yml -e inst_name=default // limits changes to one instance only
@@ -22,7 +22,7 @@
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_reverseproxy_instances.yml -e entry_id=my-entry-id // limits changes to a particular entry_id !ATTENTION!: entry_id's will also be removed at runtime from entries leaving only elements in entries matching the filter.
         # !ATTENTION!: no filter for value_id supported
         # filter combination is supported
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_reverseproxy_instances.yml -e inst_name=default -e stanza_id=custom -e entry_id=my-entry-id 
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_reverseproxy_instances.yml -e inst_name=default -e stanza_id=custom -e entry_id=my-entry-id
       INVENTORY
       ==========
       # configure default reverse proxy instance
@@ -45,7 +45,7 @@
             - { method: delete_all, stanza_id: custom, entry_id: my-entry-id }
             - { method: delete, stanza_id: custom }
       ==========
-      
+
       INTERACTION
         ENTER         = continue
         Ctrl+C + 'C'  = continue
@@ -53,16 +53,16 @@
   when: help is defined
 - name: Configure reverse proxy instances
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.web.reverse_proxy.configuration.{{ 'entry' if (item.1.entries is defined or item.1.entry_id is defined) else 'stanza'}}.{{ item.1.method }}"
     isamapi: "{{ item.1 | ibm.isam.exclude('method') | combine({ 'reverseproxy_id': item.0.inst_name }) | ibm.isam.include_only(entry_id) }}"
   with_subelements:
     - "{{ instances }}"
     - entries
     - skip_missing: true
-  when: 
-    - item.0.inst_name == inst_name 
+  when:
+    - item.0.inst_name == inst_name
     - item.1.method == method
     - item.1.stanza_id == stanza_id
     - (item.1.entries is defined and ((item.1.entries | ibm.isam.include_only(entry_id)) != [])) or

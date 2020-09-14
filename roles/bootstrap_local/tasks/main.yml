@@ -1,5 +1,5 @@
 ---
-- name:  tasks file for bootstrap_local
+- name: tasks file for bootstrap_local
   include_vars: "{{ ansible_os_family }}.yml"
 
 - name: Check if there is a vm with the destination name already exist

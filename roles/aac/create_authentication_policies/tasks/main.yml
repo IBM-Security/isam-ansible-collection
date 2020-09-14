@@ -3,14 +3,14 @@
 #   authentication_policies:
 #     - name: authPolicy1
 #       mechUri: "urn:ibm:security:authentication:asf:mechanism:authPolicy1"
-#       uri:            "urn:ibm:security:authentication:asf:authPolicy1"
-#       description:    "authentication policy 1"
-#       enabled:        "True"
+#       uri: "urn:ibm:security:authentication:asf:authPolicy1"
+#       description: "authentication policy 1"
+#       enabled: "True"
 ---
 - name: Create authentication policies
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.authentication.policies.set
     isamapi:
       name: "{{ item.name }}"

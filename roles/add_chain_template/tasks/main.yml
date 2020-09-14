@@ -1,15 +1,15 @@
 - name: Snapshot Appliance Before Adding Chain Template
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.snapshots.create
     isamapi:
       comment: "{{ add_chain_template_comment }}"
 
 - name: Add Chain Template
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.fed.sts.templates.add
     isamapi:
       name: "{{ chain_template_name }}"

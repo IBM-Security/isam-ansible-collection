@@ -2,8 +2,8 @@
 
 - name: Configure TCP Ephemeral Port Range Tuning
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.advanced_tuning_parameters.set
     isamapi:
       key: sysctl.net.ipv4.ip_local_port_range
@@ -15,8 +15,8 @@
 
 - name: Configure TCP Time Wait Tuning
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.advanced_tuning_parameters.set
     isamapi:
       key: sysctl.net.ipv4.tcp_fin_timeout
@@ -28,8 +28,8 @@
 
 - name: Configure TCP Time Wait Socket Reuse
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.advanced_tuning_parameters.set
     isamapi:
       key: sysctl.net.ipv4.tcp_tw_reuse
@@ -41,8 +41,8 @@
 
 - name: Configure TCP Time Wait Recycle
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.advanced_tuning_parameters.set
     isamapi:
       key: sysctl.net.ipv4.tcp_tw_recycle

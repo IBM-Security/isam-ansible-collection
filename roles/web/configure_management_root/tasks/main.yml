@@ -33,8 +33,8 @@
 
 - name: Create management root directories
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.directory.create
     isamapi:
       instance_id: "{{ item.0.inst_name }}"
@@ -46,12 +46,12 @@
     - management_root
     - skip_missing: True
   loop_control:
-    label:  "(action=\"{{ item.1.action }}\", inst_name=\"{{ item.0.inst_name }}\", target=\"{{ item.1.target | default(None) }}\", type=\"{{ item.1.type | default(None) }}\")"
+    label: "(action=\"{{ item.1.action }}\", inst_name=\"{{ item.0.inst_name }}\", target=\"{{ item.1.target | default(None) }}\", type=\"{{ item.1.type | default(None) }}\")"
 
 - name: Upload management root files
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.file.import_file
     isamapi:
       instance_id: "{{ item.0.inst_name }}"
@@ -63,24 +63,24 @@
     - management_root
     - skip_missing: True
   loop_control:
-    label:  "(action=\"{{ item.1.action }}\", inst_name=\"{{ item.0.inst_name }}\", filename=\"{{ item.1.file if (item is defined and item.1 is defined and item.1.file is defined) else 'none' }}\", target=\"{{ item.1.target | default(None) }}\", type=\"{{ item.1.type | default(None) }}\")"
+    label: "(action=\"{{ item.1.action }}\", inst_name=\"{{ item.0.inst_name }}\", filename=\"{{ item.1.file if (item is defined and item.1 is defined and item.1.file is defined) else 'none' }}\", target=\"{{ item.1.target | default(None) }}\", type=\"{{ item.1.type | default(None) }}\")"
   notify: Commit Changes
 
 - name: Delete management root file/directory
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.web.reverse_proxy.management_root.{{ item.1.type }}.delete"
     isamapi:
-      id:             "{{ item.1.target }}"
-      instance_id:    "{{ item.0.inst_name }}"
+      id: "{{ item.1.target }}"
+      instance_id: "{{ item.0.inst_name }}"
   when: item.1.action == 'delete' and item.1.target is defined and item.1.type is defined and (item.1.type == 'file' or item.1.type == 'directory') and item.0.inst_name == inst_name and item.1.target == target
   with_subelements:
     - "{{ instances }}"
     - management_root
     - skip_missing: True
   loop_control:
-    label:  "(action: [{{ item.1.action }}], type: [{{ item.1.type | default('file')}}], inst_name:[{{ item.0.inst_name }}], target:[{{ item.1.target | default('none') }}])"
+    label: "(action: [{{ item.1.action }}], type: [{{ item.1.type | default('file')}}], inst_name:[{{ item.0.inst_name }}], target:[{{ item.1.target | default('none') }}])"
   notify: Commit Changes
 
 - include: include_delete_management_root_contents.yml
@@ -90,7 +90,7 @@
     - management_root
     - skip_missing: True
   loop_control:
-    label:  "(action=\"{{ item.1.action }}\", type=\"{{ item.1.type | default('file') }}\", inst_name=\"{{ item.0.inst_name }}\", target=\"{{ item.1.target | default('none') }}\")"
+    label: "(action=\"{{ item.1.action }}\", type=\"{{ item.1.type | default('file') }}\", inst_name=\"{{ item.0.inst_name }}\", target=\"{{ item.1.target | default('none') }}\")"
   notify: Commit Changes
 
 - name: Import management root zip files
@@ -105,8 +105,8 @@
 
 - name: Import a single runtime template zip file
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.all.import_zip
     isamapi:
       filename: "{{ inventory_dir }}/{{ file }}"

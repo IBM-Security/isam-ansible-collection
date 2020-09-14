@@ -1,9 +1,9 @@
 - name: Configure NTP
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.date_time.set
     isamapi:
-      timeZone   : "{{ config_ntp_timeZone }}"
+      timeZone : "{{ config_ntp_timeZone }}"
       ntpServers : "{{ config_ntp_ntp_servers }}"
   notify: Commit Changes

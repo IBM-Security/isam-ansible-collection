@@ -4,5 +4,5 @@
 # Provide entries in the following format. Create an array for each value to be updated.
 #update_reverseproxy_conf_entries:
 #  - stanza_id: "server"
-#    entry_id:  "worker-threads"
-#    value_id:  "301"
+#    entry_id: "worker-threads"
+#    value_id: "301"

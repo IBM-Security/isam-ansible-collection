@@ -1,7 +1,7 @@
 - name: Import runtime template zip files
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.runtime_template.root.import_file
     isamapi:
       filename: "{{ inventory_dir }}/{{ item.file }}"

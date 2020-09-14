@@ -5,11 +5,11 @@
 ---
 - name: Upload runtime components
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.runtime.configuration.file.update
     isamapi:
-      resource_id:    "{{ item.migrate_file | basename }}"
-      file_contents:  "{{ lookup('template', item.migrate_file) | replace('\n', '\\n') }}"
+      resource_id: "{{ item.migrate_file | basename }}"
+      file_contents: "{{ lookup('template', item.migrate_file) | replace('\n', '\\n') }}"
   with_items: "{{ runtime_components }}"
   notify: Commit Changes

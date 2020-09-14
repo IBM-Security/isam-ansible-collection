@@ -1,7 +1,7 @@
 - name: Create Certificate Database
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.ssl_certificates.certificate_databases.create
     isamapi:
       kdb_name: "{{ switch_auth_key_database }}"
@@ -10,8 +10,8 @@
 
 - name: Set Certificate Database Description
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.ssl_certificates.certificate_databases.set
     isamapi:
       cert_id: "{{ switch_auth_key_database }}"
@@ -21,26 +21,26 @@
 
 - name: Load AD CA Certificate
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.ssl_certificates.signer_certificate.load
     isamapi:
       kdb_id: "{{ switch_auth_key_database }}"
-      label:  "{{ switch_auth_cert_label }}"
+      label: "{{ switch_auth_cert_label }}"
       server: "{{ switch_auth_ldap_host }}"
-      port:   "{{ switch_auth_ldap_port }}"
+      port: "{{ switch_auth_ldap_port }}"
   when: switch_auth_key_database is defined and switch_auth_cert_label is defined
   notify: Commit Changes
 
 - name: Import CA Certs into keystore {{ item.label }}
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.ssl_certificates.signer_certificate.import_cert
     isamapi:
       kdb_id : "{{ switch_auth_key_database }}"
-      cert   : "{{ item.cert }}"
-      label  : "{{ item.label }}"
+      cert : "{{ item.cert }}"
+      label : "{{ item.label }}"
   with_items: "{{ switch_auth_ca_certandlabel | default([]) }}"
   when: switch_auth_key_database is defined and switch_auth_ca_certandlabel is defined
   notify: Commit Changes

@@ -1,7 +1,7 @@
 - name: "Import managment root zip files inst_name: [{{ item.0.inst_name }}] file: [{{ inventory_dir }}/{{ item.1.file }}]"
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.all.import_zip
     isamapi:
       filename: "{{ inventory_dir }}/{{ item.1.file }}"

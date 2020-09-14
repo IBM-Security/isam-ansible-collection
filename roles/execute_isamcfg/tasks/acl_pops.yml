@@ -2,9 +2,9 @@
 
 - name: Run PDAdmin commands
   ibm.isam.isamadmin:
-    log:       "{{ log_level | default('INFO') }}"
-    isamuser:  "{{ execute_isamcfg_isamuser }}"
-    isampwd:   "{{ execute_isamcfg_isampwd }}"
+    log: "{{ log_level | default('INFO') }}"
+    isamuser: "{{ execute_isamcfg_isamuser }}"
+    isampwd: "{{ execute_isamcfg_isampwd }}"
     commands:
     - "# Create POPs"
     - "pop create oauth-pop"

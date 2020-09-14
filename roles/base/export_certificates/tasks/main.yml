@@ -1,20 +1,20 @@
 # main task for exporting certificates
 # Example inventory:
 #  export_certificates:
-#      kdb_id:     "{{ item.kdb_id }}"
-#      cert_id:    "{{ item.cert_id }}"
-#      filename:   "{{ inventory_dir }}/{{ item.filename }}"
+#      kdb_id: "{{ item.kdb_id }}"
+#      cert_id: "{{ item.cert_id }}"
+#      filename: "{{ inventory_dir }}/{{ item.filename }}"
 ---
 - name: Create local directory structure
   file: path="{{ inventory_dir }}/{{ item.filename | dirname }}" state=directory
   with_items: "{{ export_certificates }}"
 - name: Export certificates
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.ssl_certificates.personal_certificate.export_cert
     isamapi:
-      kdb_id:     "{{ item.kdb_id }}"
-      cert_id:    "{{ item.cert_id }}"
-      filename:   "{{ inventory_dir }}/{{ item.filename }}"
+      kdb_id: "{{ item.kdb_id }}"
+      cert_id: "{{ item.cert_id }}"
+      filename: "{{ inventory_dir }}/{{ item.filename }}"
   with_items: "{{ export_certificates }}"

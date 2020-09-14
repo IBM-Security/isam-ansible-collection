@@ -10,8 +10,8 @@
 ---
 - name: Import template files
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.runtime_template.file.import_file
     isamapi:
       id: "{{ item.id }}"

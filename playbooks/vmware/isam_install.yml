@@ -16,7 +16,7 @@
           # Need to parametrize the iso file name
           iso_path: "[{{ vcenter_datastore }}] ISAM_905/isam_9.0.5.0_20180606-2319.iso"
         hostname: "{{ vcenter_hostname }}"
-        name:     "{{ inventory_hostname.partition('.')[0] }}"
+        name: "{{ inventory_hostname.partition('.')[0] }}"
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
         validate_certs: no

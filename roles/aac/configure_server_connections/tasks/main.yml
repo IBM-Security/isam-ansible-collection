@@ -2,8 +2,8 @@
 ---
 - name: Configure server connections
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.aac.server_connections.{{ item.type }}.set"
     isamapi: "{{ item | exclude('type') }}"
   when: item.type and item.name == name

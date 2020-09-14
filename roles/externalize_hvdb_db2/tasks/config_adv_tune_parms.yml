@@ -1,7 +1,7 @@
 - name: Configure TCP Retries2 for DB2 Failovers
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.advanced_tuning_parameters.set
     isamapi:
       key: sysctl.net.ipv4.tcp_retries2
@@ -15,8 +15,8 @@
 
 - name: Configure HVDB maxRetries for DB2 Client Re-route
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.advanced_tuning_parameters.set
     isamapi:
       key: isam_cluster.hvdb.properties.maxRetriesForClientReroute
@@ -30,8 +30,8 @@
 
 - name: Configure HVDB retryInterval for DB2 Client Re-route
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.advanced_tuning_parameters.set
     isamapi:
       key: isam_cluster.hvdb.properties.retryIntervalForClientReroute
