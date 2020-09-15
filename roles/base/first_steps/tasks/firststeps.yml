@@ -13,9 +13,9 @@
     action: ibmsecurity.isam.base.fips.set
     log: "{{ log_level | default(omit) }}"
     isamapi:
-      fipsEnabled: "{{ FIPS_cfg.fipsEnabled }}"
-      tlsv10Enabled: "{{ FIPS_cfg.tlsv10Enabled }}"
-      tlsv11Enabled: "{{ FIPS_cfg.tlsv11Enabled }}"
+        fipsEnabled: "{{ FIPS_cfg.fipsEnabled }}"
+        tlsv10Enabled: "{{ FIPS_cfg.tlsv10Enabled }}"
+        tlsv11Enabled: "{{ FIPS_cfg.tlsv11Enabled }}"
   register: ret_obj
   when:
     - FIPS_cfg is defined

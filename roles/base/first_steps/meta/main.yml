@@ -1,27 +1,15 @@
----
-#
-# Use base/first_steps instead
-#
 galaxy_info:
   author: IBM
-  description: "Role that executes first steps on an appliance
-                that has just been built"
+  description: Role that executes first steps on an appliance that has just been built
   company: IBM
 
   license: Apache
 
-  min_ansible_version: 2.7
-
-  platforms:
-    - name: EL
-      versions:
-        - 8
-        - 7
-        - 6
+  min_ansible_version: 2.2
 
   galaxy_tags:
-    - isam
-    - ibm
+  - isam
+  - ibm
 
 dependencies:
-  - start_config
+  - common_handlers

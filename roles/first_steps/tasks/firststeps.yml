@@ -35,7 +35,7 @@
 # Restart after FIPS if needed
 - name: Restart after enabling FIPS
   ibm.isam.isam:
-    action: ibmsecurity.isam.base.fips.restart
+      action: ibmsecurity.isam.base.fips.restart
   when:
     - first_steps_fips
     - ret_obj.data.reboot is defined
@@ -71,10 +71,10 @@
 - debug: var=ret_obj
 
   ibm.isam.isam:
-    action: ibmsecurity.isam.base.admin.set_pw
-    isamapi:
-      'oldPassword': 'admin'
-      'sessionTimeout': "{{ lmi_session_timeout }}"
+      action: ibmsecurity.isam.base.admin.set_pw
+      isamapi:
+          'oldPassword': 'admin'
+          'sessionTimeout': "{{ lmi_session_timeout }}"
   when: first_steps_admin_pwd
 
 - name: Get LMI Last Restart Timestamp
@@ -99,15 +99,15 @@
 
 - name: Wait for 1 minute
   pause:
-    minutes: 1
+      minutes: 1
   when: not ansible_check_mode
 
 - name: Wait for LMI to Respond
   ibm.isam.isam:
-    action: ibmsecurity.isam.base.lmi.await_startup
-    isamapi:
-      start_time: "{{ old_start_time }}"
-      wait_time: "{{ start_config_wait_time }}"
+      action: ibmsecurity.isam.base.lmi.await_startup
+      isamapi:
+          start_time: "{{ old_start_time }}"
+          wait_time: "{{ start_config_wait_time }}"
   retries: 5
   delay: 30
   ignore_errors: true
@@ -115,6 +115,5 @@
 
 - name: Fail Appliance if Running in Check Mode
   fail:
-    msg: "Appliance does not have First Steps Executed.
-          No task will run successfully so failing."
+    msg: Appliance does not have First Steps Executed. No task will run successfully so failing.
   when: ansible_check_mode

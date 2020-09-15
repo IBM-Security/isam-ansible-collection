@@ -1,15 +1,18 @@
----
 galaxy_info:
   author: IBM
-  description: "Role that executes first steps on an appliance
-                that has just been built"
+  description: Role that executes first steps on an appliance that has just been built
   company: IBM
 
   license: Apache
 
-  min_ansible_version: 2.8
-
+  min_ansible_version: 2.2
   platforms:
+    - name: Fedora
+      versions:
+        - 30
+        - 29
+        - 28
+        - 27
     - name: EL
       versions:
         - 8
@@ -17,8 +20,8 @@ galaxy_info:
         - 6
 
   galaxy_tags:
-    - isam
-    - ibm
+  - isam
+  - ibm
 
 dependencies:
-  - start_config
+  - common_handlers
