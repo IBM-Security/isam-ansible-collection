@@ -1,5 +1,7 @@
-# main task to disable all authentication policies
 ---
+
+# main task to disable all authentication policies
+
 - name: Disable authentication mechanisms
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
