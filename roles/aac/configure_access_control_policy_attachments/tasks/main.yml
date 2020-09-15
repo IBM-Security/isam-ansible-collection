@@ -1,3 +1,5 @@
+---
+
 # main task to configure access control policies
 # example:
 #   access_control_policy_attachments:
@@ -7,7 +9,7 @@
 #       - name: test_access_policy
 #         type: policy
 #     action: set
----
+
 - name: Configure access control policy attachments
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
