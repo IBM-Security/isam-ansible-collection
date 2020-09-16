@@ -10,8 +10,8 @@
 ---
 - name: Configure access control policy attachments
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.policy_attachments.update_attachments
     isamapi: "{{ item }}"
   when: item is defined
@@ -19,8 +19,8 @@
 
 - name: Publish access control policy attachments
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.policy_attachments.publish
     isamapi:
       server: "{{ item.server }}"

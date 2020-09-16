@@ -28,11 +28,11 @@ This depends on bondingMode being set to slave or one of the other modes.
 If bondingMode is set to slave; bondedTo is also required.
 
 interfaces:
-  - label      :  '1.3'
+  - label : '1.3'
     name: "Bonding Master"
     bondingMode: '802.3ad'
-    comment    : 'Your comment is my command'
-  - label        :  '1.4'
+    comment : 'Your comment is my command'
+  - label : '1.4'
     name: "Bonding Slave"
     bondingMode: 'slave'
     bondedTo: '1.3'
@@ -61,10 +61,10 @@ Example Playbook
           bondingMode: '802.3ad'
           comment: 'MASTER'
           addresses:
-          - address:            "192.168.42.100"
-            maskOrPrefix:       "255.255.255.0"
-            allowManagement:    false
-            enabled:            true
+          - address: "192.168.42.100"
+            maskOrPrefix: "255.255.255.0"
+            allowManagement: false
+            enabled: true
         - label: '1.4'
           name: "Bonding Slave"
           bondingMode: 'slave'

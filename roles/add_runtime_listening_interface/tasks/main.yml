@@ -1,15 +1,15 @@
 - name: Snapshot Appliance Before Adding Runtime Listening Interfaces
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.snapshots.create
     isamapi:
       comment: "{{ add_runtime_listening_interface_comment }}"
 
 - name: Add Runtime Listening Interfaces
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.runtime.listening_interfaces.set
     isamapi:
       interface: "{{ item.runtime_listening_interface_interface }}"

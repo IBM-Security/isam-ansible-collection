@@ -1,7 +1,7 @@
 - name: Snapshot of Appliance
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
-    action    : ibmsecurity.isam.base.snapshots.create
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action : ibmsecurity.isam.base.snapshots.create
     isamapi:
       comment : "{{ create_snapshot_comment }}"

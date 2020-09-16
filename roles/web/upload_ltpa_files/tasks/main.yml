@@ -5,8 +5,8 @@
 ---
 - name: Upload ltpa files
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.ltpa_key.import_key
     isamapi:
       id: "{{ item.file | basename }}"

@@ -1,7 +1,7 @@
 - name: Get the certificate databases
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.ssl_certificates.certificate_databases.get_all
   register: ret_obj
 

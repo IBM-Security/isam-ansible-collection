@@ -3,11 +3,11 @@
 #     instances:
 #       -   inst_name: default
 #           junctions:
-#             -   junction_point:             "/jct1"
-#                 junction_type:              "tcp"
+#             -   junction_point: "/jct1"
+#                 junction_type: "tcp"
 #                 servers:
-#                     -   server_hostname:    "localhost"
-#                         server_port:        443
+#                     -   server_hostname: "localhost"
+#                         server_port: 443
 ---
 - name: Include over all instances and junctions
   include: include_junctions.yml

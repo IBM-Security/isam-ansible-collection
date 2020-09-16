@@ -1,15 +1,15 @@
 - name: Set a Federation - {{ set_federation_name }}
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.fed.federations.set
     isamapi:
-      name:          "{{ set_federation_name }}"
-      protocol:      "{{ set_federation_protocol }}"
+      name: "{{ set_federation_name }}"
+      protocol: "{{ set_federation_protocol }}"
       role: ibm.isam.         "{{ set_federation_role }}"
       configuration: "{{ set_federation_configuration }}"
-      templateName:  "{{ set_federation_templateName }}"
-      new_name:      "{{ set_federation_new_name }}"
+      templateName: "{{ set_federation_templateName }}"
+      new_name: "{{ set_federation_new_name }}"
   when:
     - set_federation_name is defined
     - set_federation_protocol is defined

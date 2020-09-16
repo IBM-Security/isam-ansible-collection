@@ -1,15 +1,15 @@
 - name: Snapshot Appliance Before Adding Attribute Sources
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.snapshots.create
     isamapi:
       comment: "{{ add_attribute_source_comment }}"
 
 - name: Add Attribute Sources
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.fed.attribute_source.add
     isamapi:
       name: "{{ item.attribute_source_name }}"

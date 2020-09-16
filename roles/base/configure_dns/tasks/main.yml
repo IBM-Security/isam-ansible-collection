@@ -5,17 +5,17 @@
     prompt: |
       NAME
         configure_dns
-      
+
       DESCRIPTION
         Role to configure dns
-      
+
       STEPS
         1) Configure dns
         2) Commit changes
-      
+
       EXAMPLES
         ansible-playbook -i [...] playbooks/ansible_collections/base/configure_dns.yml
-      
+
       INVENTORY
       ==========
       # configure dns
@@ -23,23 +23,23 @@
       dns:
         auto: true
         autoFromInterface: '1.1'
-      
+
       # AUTO (set via DHCP of loopback Interface)
       dns:
         auto: true
         autoFromInterface: 'loopback'
-      
+
       # Manual with only primary DNS
       dns:
         primaryServer: 192.168.42.1
         auto: false
-      
+
       # AUTO (set via DHCP of Interface with Interface UUID)
       dns:
         auto: true
         autoFromInterface: '<UUID>' e.g.('b702f799-c305-4439-8835-4e51c9b6d16b')
       ==========
-      
+
       INTERACTION
         ENTER         = continue
         Ctrl+C + 'C'  = continue
@@ -47,8 +47,8 @@
   when: help is defined
 - name: Configure dns
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.base.network.dns.set"
     isamapi: "{{ dns }}"
   when: dns is defined

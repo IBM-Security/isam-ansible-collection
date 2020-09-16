@@ -3,20 +3,20 @@
 # Therefore combining label with interface parameter:
 # Example:
 #  interfaces:
-#    - label:  '1.1'
+#    - label: '1.1'
 #      addresses:
-#       - address:            "192.168.230.130"
-#         maskOrPrefix:       "24"
-#         allowManagement:    true
-#         enabled:            true
-#       - address:            "192.168.230.131"
-#         maskOrPrefix:       "24"
-#         allowManagement:    false
-#         enabled:            true
+#       - address: "192.168.230.130"
+#         maskOrPrefix: "24"
+#         allowManagement: true
+#         enabled: true
+#       - address: "192.168.230.131"
+#         maskOrPrefix: "24"
+#         allowManagement: false
+#         enabled: true
 - name: Add interfaces
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.base.network.{{ add_interfaces_action }}.add"
     isamapi:
       label: "{{ item.0.label }}"
@@ -24,7 +24,7 @@
       maskOrPrefix: "{{ item.1.maskOrPrefix }}"
       allowManagement: "{{ item.1.allowManagement }}"
       enabled: "{{ item.1.enabled | default(False) }}"
-  loop:  "{{ interfaces | subelements('addresses', {'skip_missing': True}) }}"
+  loop: "{{ interfaces | subelements('addresses', {'skip_missing': True}) }}"
   loop_control:
     label: "Processing interface {{ item.0.label }} and ip address {{ item.1.address }}"
   notify: Commit Changes

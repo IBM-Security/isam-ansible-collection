@@ -1,12 +1,12 @@
 - name: Set group into Mgmt Azn Role
   ibm.isam.isam:
-      log:       "{{ log_level | default('INFO') }}"
-      force:     "{{ force | default(False) }}"
+      log: "{{ log_level | default('INFO') }}"
+      force: "{{ force | default(False) }}"
       action: ibmsecurity.isam.base.management_authorization.role_group.set
       isamapi:
-        name:       "{{ item.name }}"
+        name: "{{ item.name }}"
         group_name: "{{ item.group_name }}"
-        type:       "{{ item.type | default(None) }}"
+        type: "{{ item.type | default(None) }}"
   with_items: "{{ set_mgmtazn_role_groups }}"
   when: set_mgmtazn_role_groups is defined
   notify:

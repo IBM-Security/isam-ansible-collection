@@ -2,8 +2,8 @@
 ---
 - name: Configure scim
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.scim.set_all
     isamapi:
       scim_configuration: "{{ scim_configuration }}"

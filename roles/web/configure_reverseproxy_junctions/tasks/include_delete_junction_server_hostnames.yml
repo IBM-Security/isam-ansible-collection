@@ -1,8 +1,8 @@
 ---
 - name: Get junction servers
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.junctions.get
     isamapi:
       reverseproxy_id: "{{ item.0.inst_name }}"
@@ -10,8 +10,8 @@
   register: ret_obj
 - name: Delete junction servers
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.junctions_server.delete
     isamapi:
       reverseproxy_id: "{{ item.0.inst_name }}"

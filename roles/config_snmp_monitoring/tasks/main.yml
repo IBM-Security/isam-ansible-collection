@@ -1,9 +1,9 @@
 - name: Configure SNMP Monitoring v1/2C
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.snmp_monitoring.set_v1v2
     isamapi:
       community: "{{ config_snmp_monitoring_community }}"
-      port     : "{{ config_snmp_monitoring_port }}"
+      port : "{{ config_snmp_monitoring_port }}"
   notify: Commit Changes

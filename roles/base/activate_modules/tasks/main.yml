@@ -4,18 +4,18 @@
     prompt: |
       NAME
         activate_modules
-      
+
       DESCRIPTION
         Role to activate multiple modules in ISAM
-      
+
       STEPS
         1) Activate module (id + code)
         2) Flush handler for commit changes and Restart LMI
-      
+
       EXAMPLES
         ansible-playbook -i [...] playbooks/ansible_collections/base/activate_modules.yml
         ansible-playbook -i [...] playbooks/ansible_collections/base/activate_modules.yml -e id=wga //although inventory contains other keys only activate wga (base) module
-      
+
       INVENTORY
       ==========
       # Provide valid module identifiers - they can be wga, mga or federation
@@ -23,7 +23,7 @@
       # The activation code can be read from the activation files downloaded from
       # IBM Passport Advantage
       # secure corresponding inventory file with ansible-vault (https://docs.ansible.com/ansible/latest/user_guide/vault.html)
-      activation_keys: 
+      activation_keys:
         - id: wga
           code: AAAA-AAAA-AAAA...
         - id: mga
@@ -31,7 +31,7 @@
         - id: federation
           code: CCCC-CCCC-CCCC...
       ==========
-      
+
       INTERACTION
         ENTER         = continue
         Ctrl+C + 'C'  = continue
@@ -41,12 +41,12 @@
 
 - name: Activate Modules
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.activation.set
     isamapi:
-      id:     "{{ item.id }}"
-      code:   "{{ item.code }}"
+      id: "{{ item.id }}"
+      code: "{{ item.code }}"
   when: item is defined and item.id is defined and item.code is defined and item.id == id
   with_items: "{{ activation_keys }}"
   notify: Commit Changes and Restart

@@ -4,8 +4,8 @@
 #     - file: uploads/certificate_mappings/cert_map.xsl
 - name: Import certificate mapping files
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.client_certificate_mapping.import_file
     isamapi:
       id: "{{ item.file | basename }}"

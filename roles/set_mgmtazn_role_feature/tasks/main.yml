@@ -1,12 +1,12 @@
 - name: Set Feature and Access into Mgmt Azn Role
   ibm.isam.isam:
-     log:       "{{ log_level | default('INFO') }}"
-     force:     "{{ force | default(False) }}"
+     log: "{{ log_level | default('INFO') }}"
+     force: "{{ force | default(False) }}"
      action: ibmsecurity.isam.base.management_authorization.role_feature.set
      isamapi:
-       name:         "{{ item.name }}"
+       name: "{{ item.name }}"
        feature_name: "{{ item.feature_name }}"
-       access:       "{{ item.access | default(None) }}"
+       access: "{{ item.access | default(None) }}"
   with_items: "{{ set_mgmtazn_role_features }}"
   when: set_mgmtazn_role_features is defined
   notify:

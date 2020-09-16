@@ -3,17 +3,17 @@ set_audit_configuration_verbose: False
 set_audit_configuration_type: "Syslog"
 # The following are values embedded inside "config"
 # NOTE: All "value" are to be in string even when corresponding datatype indicates otherwise
-set_audit_configuration_ssl_trust_store:           ""
-set_audit_configuration_client_auth_key:           "_"
-set_audit_configuration_failover_to_disk:          "False"
-set_audit_configuration_num_retry:                 "2"
-set_audit_configuration_num_sender_threads:        "1"
+set_audit_configuration_ssl_trust_store: ""
+set_audit_configuration_client_auth_key: "_"
+set_audit_configuration_failover_to_disk: "False"
+set_audit_configuration_num_retry: "2"
+set_audit_configuration_num_sender_threads: "1"
 set_audit_configuration_client_cert_auth_required: "False"
-set_audit_configuration_server_port:               "514"
-set_audit_configuration_server_host:               '127.0.0.1'
-set_audit_configuration_transport:                 "TRANSPORT_UDP"
-set_audit_configuration_queue_full_timeout:        "-1"
-set_audit_configuration_max_queue_size:            "1000"
+set_audit_configuration_server_port: "514"
+set_audit_configuration_server_host: '127.0.0.1'
+set_audit_configuration_transport: "TRANSPORT_UDP"
+set_audit_configuration_queue_full_timeout: "-1"
+set_audit_configuration_max_queue_size: "1000"
 # Above values are set inside of "config"
 set_audit_configuration_config:
   - datatype: String

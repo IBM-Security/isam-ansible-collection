@@ -7,8 +7,8 @@
 ---
 - name: Set runtime components
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.web.runtime.configuration.entry.{{ item.method }}"
     isamapi: "{{ item | exclude('method') }}"
   with_items: "{{ policyserver_runtime.entries if (policyserver_runtime.entries is defined and (policyserver_runtime.entries != None)) else [] }}"

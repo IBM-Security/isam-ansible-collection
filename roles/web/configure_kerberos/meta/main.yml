@@ -1,6 +1,6 @@
 galaxy_info:
   author: IBM
-  description: Role to restart reverse proxy instance
+  description: Role to configure kerberos
   company: IBM
 
   license: Apache
@@ -10,8 +10,8 @@ galaxy_info:
   galaxy_tags:
   - isam
   - ibm
-  - restart
-  - reverseproxy_instance
+  - configure
+  - kerberos
 
 dependencies:
   - common_handlers

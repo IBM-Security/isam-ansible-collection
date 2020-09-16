@@ -1,7 +1,7 @@
 - name: "Get the federation partners - {{ get_federation_partners_federation_name }}"
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.fed.partners.get_all
     isamapi:
       federation_name: "{{ get_federation_partners_federation_name }}"

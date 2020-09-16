@@ -2,8 +2,8 @@
 ---
 - name: Configure runtime tuning parameters
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.runtime.tuning_parameters.set
     isamapi: "{{ item }}"
   when: item.option.find(option) != -1

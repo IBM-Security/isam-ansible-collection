@@ -1,11 +1,11 @@
 - name: Delete Directory or File in Management Root
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.file.delete
     isamapi:
       instance_id: "{{ delete_mgmt_root_file_instance_id }}"
-      id         : "{{ item }}"
+      id : "{{ item }}"
   with_items: "{{ delete_mgmt_root_file_ids }}"
   when: delete_mgmt_root_file_instance_id is defined and delete_mgmt_root_file_ids is defined
   notify:

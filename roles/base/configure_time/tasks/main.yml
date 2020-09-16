@@ -1,7 +1,44 @@
+# main task to configure time
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_time
+
+      DESCRIPTION
+        Role to configure dns
+
+      STEPS
+        1) Configure time
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_time.yml
+
+      INVENTORY
+      ==========
+      # configure time with multiple NTP server
+      time_cfg:
+        enableNtp: true
+        ntpServers: "time.ibm.com,time2.ibm.com"
+        timeZone: "America/New_York"
+
+      # configure time with local time on ansible server
+      time_cfg:
+        dateTime: "{{ ansible_date_time.date }} {{ ansible_date_time.time }}"
+        timeZone: "America/New_York"
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
 - name: Configure time settings [time]
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.date_time.set
     isamapi: "{{ time_cfg }}"
   when: time_cfg is defined

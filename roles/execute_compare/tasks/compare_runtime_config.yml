@@ -1,7 +1,7 @@
 - name: Compare Web Runtime {{ resource_id }} stanzas/entries
   ibm.isam.isamcompare:
     appliance1: "{{ master_hostname }}"
-    log:        "{{ log_level | default('INFO') }}"
+    log: "{{ log_level | default('INFO') }}"
     action: ibmsecurity.isam.web.runtime.configuration.stanza
     isamapi:
       resource_id: "{{ resource_id }}"

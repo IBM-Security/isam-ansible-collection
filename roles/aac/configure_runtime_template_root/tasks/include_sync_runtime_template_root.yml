@@ -1,7 +1,7 @@
 - name: Get runtime template root files
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.runtime_template.directory.get
     isamapi:
       path: "{{ item.target }}"
@@ -18,8 +18,8 @@
 
 - name: Delete missing local files on the server
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.runtime_template.root.delete
     isamapi:
         id: "{{ (item.target +'/'+ local.element.path) if (item.target != '') else (local.element.path) }}"

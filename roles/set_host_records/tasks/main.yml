@@ -1,10 +1,10 @@
 - name: Set Host Records
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.host.records.set
     isamapi:
-      addr      : "{{ item.addr }}"
+      addr : "{{ item.addr }}"
       hostnames : "{{ item.hostnames }}"
   when: set_host_records is defined
   with_items: "{{ set_host_records }}"

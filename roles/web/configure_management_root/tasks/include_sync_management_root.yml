@@ -1,7 +1,7 @@
 - name: Get management root files
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.file.get_all
     isamapi:
       instance_id: "{{ item.0.inst_name }}"
@@ -18,8 +18,8 @@
 
 - name: Delete missing local files on the server
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.web.reverse_proxy.management_root.{{ local.element.type }}.delete"
     isamapi:
         instance_id: "{{ item.0.inst_name }}"
@@ -64,8 +64,8 @@
 
 - name: Create management root directories [sync_up]
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.directory.create
     isamapi:
       instance_id: "{{ item.0.inst_name }}"
@@ -74,14 +74,14 @@
   when: sync_create.action == 'create' and sync_create.type == 'directory'
   with_items: "{{ management_root }}"
   loop_control:
-    label:  "(action=\"{{ sync_create.action }}\", inst_name=\"{{ item.0.inst_name }}\", target=\"{{ sync_create.target | default(None) }}\", type=\"{{ sync_create.type | default(None) }}\")"
+    label: "(action=\"{{ sync_create.action }}\", inst_name=\"{{ item.0.inst_name }}\", target=\"{{ sync_create.target | default(None) }}\", type=\"{{ sync_create.type | default(None) }}\")"
     loop_var: sync_create
   notify: Commit Changes
 
 - name: Upload management root files [sync_up]
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.file.import_file
     isamapi:
       instance_id: "{{ item.0.inst_name }}"
@@ -90,6 +90,6 @@
   when: sync_upload.action == 'upload' and sync_upload.type == 'file'
   with_items: "{{ management_root }}"
   loop_control:
-    label:  "(action=\"{{ sync_upload.action }}\", inst_name=\"{{ item.0.inst_name }}\", filename=\"{{ (sync_upload.target | basename) }}\", target=\"{{ (sync_upload.target | default(None)) | dirname }}\", type=\"{{ sync_upload.type | default(None) }}\")"
+    label: "(action=\"{{ sync_upload.action }}\", inst_name=\"{{ item.0.inst_name }}\", filename=\"{{ (sync_upload.target | basename) }}\", target=\"{{ (sync_upload.target | default(None)) | dirname }}\", type=\"{{ sync_upload.type | default(None) }}\")"
     loop_var: sync_upload
   notify: Commit Changes

@@ -20,8 +20,8 @@
 
 - name: Create runtime template root directories
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.runtime_template.directory.create
     isamapi:
       path: "{{ item.path }}"
@@ -32,8 +32,8 @@
 
 - name: Upload runtime template root files
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.runtime_template.file.import_file
     isamapi:
       path: "{{ (item.target | dirname ) }}"
@@ -50,8 +50,8 @@
 
 - name: Import a single runtime template zip file
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.runtime_template.root.import_file
     isamapi:
       filename: "{{ inventory_dir }}/{{ file }}"
