@@ -1,3 +1,5 @@
+---
+
 # main task to configure dns
 - name: Help INFO (-e help=true)
   pause:

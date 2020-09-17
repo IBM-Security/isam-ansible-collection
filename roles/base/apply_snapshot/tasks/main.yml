@@ -1,3 +1,5 @@
+---
+
 # main task to apply a snapshot
 - name: Apply a snapshot
   ibm.isam.isam:

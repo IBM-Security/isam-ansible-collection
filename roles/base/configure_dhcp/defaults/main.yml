@@ -1,2 +1,4 @@
+---
+
 # default variables to configure dhcp on an interface
 configure_dhcp_action: interfaces_ipv4

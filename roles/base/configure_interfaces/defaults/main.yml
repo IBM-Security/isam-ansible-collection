@@ -1,3 +1,5 @@
+---
+
 # default variables to configure interfaces on appliances
 interfaces: []
 

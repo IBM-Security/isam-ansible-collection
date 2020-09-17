@@ -1,3 +1,4 @@
+---
 # main task for exporting certificates
 # Example inventory:
 #  export_certificates:

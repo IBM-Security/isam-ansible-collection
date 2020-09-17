@@ -1,3 +1,5 @@
+---
+
 # Provide valid module identifiers - they can be wga, mga or federation
 # activate_module_id: 'wga'
 
