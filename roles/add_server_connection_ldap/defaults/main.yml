@@ -1,3 +1,5 @@
+---
+
 # Provide the name, connection, description, locked flag, and connection manager for the LDAP server connection
 #
 # ldap_server_connection_name: "LDAP Connection"

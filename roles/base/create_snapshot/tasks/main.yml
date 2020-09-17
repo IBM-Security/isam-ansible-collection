@@ -1,3 +1,5 @@
+---
+
 # main task to create snapshots
 - name: Snapshot Appliance
   ibm.isam.isam:

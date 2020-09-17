@@ -1,8 +1,10 @@
+---
+
 # Role to set policy attachment and publish
 #
 #
 #
----
+
 - name: Authenticate
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"

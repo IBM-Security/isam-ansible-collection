@@ -1,3 +1,5 @@
+---
+
 # main task to configure api protection definition
 #   Example:
 #     api_protection:
@@ -7,7 +9,7 @@
 #           grantTypes:
 #             - AUTHORIZATION_CODE
 #           tcmBehavior: NEVER_PROMPT
----
+
 - name: Configure api protection definitions
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"

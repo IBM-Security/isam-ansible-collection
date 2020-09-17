@@ -1,3 +1,5 @@
+---
+
 - name: Configure System Alert to Remote Syslog
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

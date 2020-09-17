@@ -1,3 +1,5 @@
+---
+
 # Default variables for configuration of server connections
 server_connections: []
 

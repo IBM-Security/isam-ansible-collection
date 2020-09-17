@@ -1,5 +1,7 @@
-# main task to configure user registry
 ---
+
+# main task to configure user registry
+
 - name: Configure user registry
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"

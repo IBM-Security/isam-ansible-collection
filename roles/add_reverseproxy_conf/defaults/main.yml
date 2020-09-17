@@ -1,3 +1,5 @@
+---
+
 # Provide the name of the reverse proxy to update
 #add_reverseproxy_conf_reverseproxy_id: "default"
 
