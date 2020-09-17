@@ -1,3 +1,5 @@
+---
+
 # main task to create snapshots
 - name: Download appliance snapshots
   ibm.isam.isam:
