@@ -1,3 +1,5 @@
+---
+
 - name: Check if Signature File Exists - {{ add_cluster_node_signature_file }}
   stat:
     path: "{{ add_cluster_node_signature_file }}"

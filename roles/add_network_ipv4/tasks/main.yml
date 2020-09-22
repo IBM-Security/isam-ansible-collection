@@ -1,3 +1,5 @@
+---
+
 - name: Snapshot Appliance as Backup
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

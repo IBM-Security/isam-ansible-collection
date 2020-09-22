@@ -1,4 +1,5 @@
 ---
+
 galaxy_info:
   author: IBM
   description: Role to confiure access control attributes

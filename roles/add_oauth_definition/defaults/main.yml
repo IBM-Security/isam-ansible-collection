@@ -1,3 +1,5 @@
+---
+
 # Provide at the very least the name of the definition to create, override as needed
 # add_oauth_definition_name
 add_oauth_definition_description : ""

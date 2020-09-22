@@ -1,5 +1,7 @@
-# playbook for creating certificate databases
 ---
+
+# playbook for creating certificate databases
+
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:

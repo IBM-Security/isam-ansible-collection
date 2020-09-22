@@ -1,3 +1,5 @@
+---
+
 # main task for importing personal certificates
 # Example inventory:
 #     import_personal_certs:
@@ -5,7 +7,7 @@
 #         label: wildcard.test.net
 #         cert: "uploads/ssl/wildcard.test.net.p12"
 #         password: "{{ personal_cert_password }}"
----
+
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:

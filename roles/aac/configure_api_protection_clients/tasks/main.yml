@@ -1,3 +1,5 @@
+---
+
 # main task to add or update api protection definition
 #   Example:
 #     api_protection:
@@ -13,7 +15,7 @@
 #               redirectUri:
 #                 - https://localhost
 #               contractType: ADMINISTRATIVE
----
+
 - name: Configure api protection client
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"

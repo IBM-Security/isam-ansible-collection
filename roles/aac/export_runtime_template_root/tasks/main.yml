@@ -1,3 +1,5 @@
+---
+
 # main task to export runtime template root conten
 - name: Export a runtime template zip file
   ibm.isam.isam:

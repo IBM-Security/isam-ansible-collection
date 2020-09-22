@@ -1,3 +1,5 @@
+---
+
 # main task to configure runtime template root content
 # Example:
 #   runtime_template_root:
@@ -12,7 +14,7 @@
 #       file: /ansible/inventory/INT/uploads/template_files/C/authsvc/authenticator/new_dir/new_file.html
 #       target: C/authsvc/authenticator/new_dir/new_file.html
 #       type: file
-# ---
+
 - name: Sync runtime template root [local => server]
   include: include_sync_runtime_template_root.yml
   when: item.action == 'sync_up' and (skip_sync | upper) != "TRUE"
