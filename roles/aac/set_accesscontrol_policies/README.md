@@ -27,7 +27,6 @@ the policy files of a configured system.
 
 ### Prerequisites
 
-start_config
 
 ```
 The policy file (policy_file) needs to exist , in the correct xacml format .
