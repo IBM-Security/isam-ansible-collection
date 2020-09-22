@@ -37,7 +37,6 @@ attachment configuration , to use here.
 
 ### Prerequisites
 
-start_config
 
 ```
 
