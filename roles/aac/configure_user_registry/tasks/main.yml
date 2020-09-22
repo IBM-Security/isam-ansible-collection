@@ -11,4 +11,5 @@
   when: item.action and item.id == id
   with_items: "{{ user_registry }}"
   loop_control:
+    label: "item={u'password': u'******'',u'action: u'{{ item.action }}', u'id: u'{{ item.id }}' }"
   notify: Commit Changes
