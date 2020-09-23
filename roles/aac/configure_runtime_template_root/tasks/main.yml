@@ -1,26 +1,151 @@
 ---
 
 # main task to configure runtime template root content
-# Example:
-#   runtime_template_root:
-#     - action: sync_up
-#       target: C/authsvc/authenticator
-#       directory: uploads/template_files/C/authsvc/authenticator
-#     - action: create
-#       name: new_dir
-#       path: C/authsvc/authenticator
-#       type: directory
-#     - action: upload
-#       file: /ansible/inventory/INT/uploads/template_files/C/authsvc/authenticator/new_dir/new_file.html
-#       target: C/authsvc/authenticator/new_dir/new_file.html
-#       type: file
 
-- name: Sync runtime template root [local => server]
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_runtime_template_root
+      
+      DESCRIPTION
+        Role to configure runtime template root
+      
+      STEPS
+        1) Export single runtime template root [-e tmpl_action=export_zip -e file=</path/to/export/file.zip> -e skip_export=True/False -e skip_exports=True/False]
+        2) Export all runtime template roots from inventroy [-e tmpl_action=export_zip -e skip_exports=True/False]
+        3) Sync runtime template root from folder [-e tmpl_action=sync_up -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]
+        4) Create runtime template root directories [-e tmpl_action=create -e path=<path of file> -e dir_name=<name_of_directory>]
+        5) Upload runtime template root files [-e tmpl_action=upload -e target=<full_file_path_and_name_on_server> -e file=<file_to_upload>]
+        6) Delete runtime template root file/directory [-e tmpl_action=delete -e inst_name=<instance> -e target=<file/directory_to_delete>]
+        7) Import runtime template root zip files [-e tmpl_action=import_zip -e skip_imports=True/False]
+        8) Import a single runtime template zip file [-e tmpl_action=import_zip -e file=<file_to_import> -e skip_import=True/False -e skip_imports=True/False]
+      
+      EXAMPLES
+        # export a single runtime template root to a zip file
+        # export file parameter can be an absolute path or relative to inventory directory ( {{ inventory_dir }}/<file> )
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_runtime_template_root.yml -e tmpl_action=export_zip -e file="files/runtime_template_root_files/runtime_template_root_{{ ansible_date_time.date }}.zip"
+        
+        # skip all exports single/multiple ones
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_runtime_template_root.yml -e skip_exports=True
+        
+        # skip only multiple exports but leave single export active
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_runtime_template_root.yml -e skip_exports=True -e skip_export=False -e file=<file_to_export>
+        
+        # skip all imports single/multiple ones
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_runtime_template_root.yml -e skip_imports=True
+        
+        # skip only multiple imports but leave single import active
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_runtime_template_root.yml -e skip_imports=True -e skip_export=False
+        
+        # only do a particular task from the list of tasks
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_runtime_template_root.yml -e tmpl_action=export_zip
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_runtime_template_root.yml -e tmpl_action=import_zip
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_runtime_template_root.yml -e tmpl_action=sync_up
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_runtime_template_root.yml -e tmpl_action=create
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_runtime_template_root.yml -e tmpl_action=upload
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_runtime_template_root.yml -e tmpl_action=delete
+        
+      INVENTORY
+      ==========
+      runtime_template_root:
+        - tmpl_action: sync_up
+          target: C/authsvc/authenticator
+          directory: files/runtime_template_root_directories/C/authsvc/authenticator
+        - tmpl_action: create
+          name: new_dir
+          path: C/authsvc/authenticator
+          type: directory
+        - tmpl_action: upload
+          file: /ansible/inventory/<stage>/files/runtime_template_root_directories/C/authsvc/authenticator/new_dir/new_file.html
+          target: C/authsvc/authenticator/new_dir/new_file.html
+          type: file
+        - tmpl_action: import_zip
+          file: files/runtime_template_root_files/runtime_template_root_2020-09-23.zip
+        - tmpl_action: export_zip
+          file: "files/runtime_template_root_files/runtime_template_root__{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip"        
+        - tmpl_action: delete
+          target: errors/C/38ad52fa.html
+          type: file
+        - tmpl_action: delete
+          target: C/authsvc/authenticator/idontexists.html
+          type: file
+        - tmpl_action: delete
+          target: de/authsvc/authenticator
+          type: directory
+      ==========
+      
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Make sure local export directory exists
+  local_action: 
+    module: file
+    path: "{{ (file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file)) | dirname }}"
+    recurse: yes
+    state: directory
+  when: 
+    - file is defined 
+    - file != ''
+    - tmpl_action == 'export_zip'
+    - (not (skip_exports | bool)) or 
+      (not (skip_export | bool))
+
+- name: "Export single runtime template root to {{ file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) }} [-e tmpl_action=export_zip -e file=</path/to/export/file.zip> -e skip_export=True/False -e skip_exports=True/False]"
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.runtime_template.root.export_file
+    isamapi:
+      filename: "{{ file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) }}"
+  when: 
+    - file is defined 
+    - file != ''
+    - (
+        (
+          tmpl_action == 'export_zip' and
+          not (skip_export | bool)
+        )
+        or
+        ( 
+          tmpl_action == 'None' and
+          not (skip_export | bool)
+        )
+      )
+
+- name: "Export all runtime template root files [-e tmpl_action=export_zip -e skip_exports=True/False]"
+  include: include_export_runtime_template_root.yml
+  when: 
+    - item.tmpl_action == 'export_zip'
+    - (
+        (
+          tmpl_action == 'export_zip' and
+          not (skip_exports | bool)
+        )
+        or
+        ( 
+          tmpl_action == 'None' and
+          not (skip_exports | bool)
+        )
+      )
+  loop: "{{ runtime_template_root }}"
+
+- name: "Sync runtime template root [local => server] [-e tmpl_action=sync_up -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]"
   include: include_sync_runtime_template_root.yml
-  when: item.action == 'sync_up' and (skip_sync | upper) != "TRUE"
-  with_items: "{{ runtime_template_root }}"
+  when: 
+    - item.tmpl_action == 'sync_up'
+    - item.target == target
+    - item.directory == directory
+    - tmpl_action == 'sync_up' or
+      tmpl_action == 'None'
+    - not (skip_sync | bool)
+  loop: "{{ runtime_template_root }}"
 
-- name: Create runtime template root directories
+- name: "Create runtime template root directories [-e tmpl_action=create -e path=<path of file> -e dir_name=<name_of_directory>]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -28,11 +153,19 @@
     isamapi:
       path: "{{ item.path }}"
       name: "{{ item.name }}"
-  when: item.action == 'create' and item.type == 'directory' and item.path is defined and item.path == path and item.name is defined and item.name == name
+  when:
+    - item.tmpl_action == 'create'
+    - item.type == 'directory'
+    - item.path is defined
+    - item.path == path
+    - item.name is defined
+    - item.name == dir_name
+    - tmpl_action == 'create' or
+      tmpl_action == 'None'
   with_items: "{{ runtime_template_root }}"
   notify: Commit Changes
 
-- name: Upload runtime template root files
+- name: "Upload runtime template root files [-e tmpl_action=upload -e target=<full_file_path_and_name_on_server> -e file=<file_to_upload>]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -41,22 +174,78 @@
       path: "{{ (item.target | dirname ) }}"
       name: "{{ (item.target | basename ) }}"
       filename: "{{ item.file }}"
-  when: item.action == 'upload' and item.type == 'file' and item.target is defined and item.file is defined and item.target == target and item.file == file
+  when:
+    - item.tmpl_action == 'upload'
+    - item.type == 'file'
+    - item.target is defined
+    - item.file is defined
+    - item.target == target
+    - item.file == file
+    - tmpl_action == 'upload' or
+      tmpl_action == 'None'
+  loop: "{{ runtime_template_root }}"
+  notify: Commit Changes
+
+- name: "Delete runtime template root file/directory [-e tmpl_action=delete -e target=<file/directory_to_delete>]"
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: "ibmsecurity.isam.aac.runtime_template.root.delete"
+    isamapi:
+      id: "{{ item.target }}"
+      type: "{{ item.type }}"
+  when: 
+    - item.tmpl_action == 'delete'
+    - item.target is defined
+    - item.type is defined
+    - ( 
+        item.type == 'file' or 
+        item.type == 'directory'
+      )
+    - item.target == target
+    - tmpl_action == 'delete' or
+      tmpl_action == 'None'
+  loop: "{{ runtime_template_root }}"
+  notify: Commit Changes
+
+- name: "Import runtime template zip files [-e tmpl_action=import_zip -e skip_imports=True/False]"
+  include: include_import_runtime_template_root.yml
+  when:
+    - item.tmpl_action == 'import_zip'
+    - (
+        (
+          tmpl_action == 'import_zip' and
+          not (skip_imports | bool)
+        )
+        or
+        ( 
+          tmpl_action == 'None' and
+          not (skip_imports | bool)
+        )
+      )
   with_items: "{{ runtime_template_root }}"
   notify: Commit Changes
 
-- name: Import runtime template zip files
-  include: include_import_runtime_template_root.yml
-  when: item.action == 'import_file' and (skip_imports | upper) != "TRUE"
-  with_items: "{{ runtime_template_root }}"
-
-- name: Import a single runtime template zip file
+- name: "Import a single runtime template zip file [-e tmpl_action=import_zip -e file=<file_to_import> -e skip_import=True/False -e skip_imports=True/False]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.runtime_template.root.import_file
     isamapi:
-      filename: "{{ inventory_dir }}/{{ file }}"
-      delete_missing: "{{ delete_missing }}"
-  when: file is defined and file != 'none'
+      filename: "{{ file if((file  | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) }}"
+      delete_missing: "{{ delete_missing | bool }}"
+  when: 
+    - file is defined
+    - file != ''
+    - (
+        (
+          tmpl_action == 'import_zip' and
+          not (skip_import | bool)
+        )
+        or
+        ( 
+          tmpl_action == 'None' and
+          not (skip_import | bool)
+        )
+      )
   notify: Commit Changes
