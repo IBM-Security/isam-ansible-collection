@@ -1,7 +1,36 @@
 ---
 
 # main task to create snapshots
-- name: Snapshot Appliance
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        create_snapshot
+      
+      DESCRIPTION
+        Role to create snapshots
+      
+      STEPS
+        1) Create snapshots
+      
+      EXAMPLES
+        # create a snapshot
+        # Remark: idempotency based on snapshot comment
+        ansible-playbook -i [...] playbooks/ansible_collections/base/create_snapshot.yml -e comment=<snapshots_comment>
+        
+      INVENTORY
+      ==========
+        # no inventory needed
+      ==========
+      
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: "Snapshot Appliance [-e comment=<snapshots_comment>]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
