@@ -28,4 +28,4 @@ galaxy_info:
     - keytab
 
 dependencies:
-  - start_config
+  - common_handlers

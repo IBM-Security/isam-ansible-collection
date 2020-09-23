@@ -1,3 +1,5 @@
+---
+
 # Provide the name, chain template name, request type, description (optional), token type (optional), xPath (optional), sign responses flag (optional), signature key (optional), validate request flag (optional), validation key (optional), send validation confirmation flag (optional), issuer (optional), applies to (optional), and properties (optional) for the new module chain
 # module_chain_name: Chain 1
 # module_chain_template_name: Template 1

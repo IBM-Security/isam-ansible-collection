@@ -1,3 +1,5 @@
+---
+
 # main task to delete snapshots
 - name: Delete one or multiple snapshots
   ibm.isam.isam:

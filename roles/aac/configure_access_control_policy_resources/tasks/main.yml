@@ -1,10 +1,12 @@
+---
+
 # main task to configure access control policies
 # example:
 #   access_control_policy_resources:
 #     - server: /WebSEAL/default
 #       resourceUri: /index.html
 #       policyType: application
----
+
 - name: Configure access control policy attachments
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"

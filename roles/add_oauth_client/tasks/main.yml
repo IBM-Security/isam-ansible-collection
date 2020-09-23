@@ -1,3 +1,5 @@
+---
+
 - name: Add a new OAuth 2.0 Definition - {{ add_oauth_client_name }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

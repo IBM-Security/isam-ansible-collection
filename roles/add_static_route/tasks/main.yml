@@ -1,3 +1,5 @@
+---
+
 - name: Add a Static Route - {{ add_static_route_address }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

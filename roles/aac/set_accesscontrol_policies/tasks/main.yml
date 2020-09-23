@@ -1,6 +1,7 @@
+---
+
 # Role to set policy based on policy file
 
----
 - name: Create Policy based on policy files
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"

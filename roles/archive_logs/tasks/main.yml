@@ -1,3 +1,5 @@
+---
+
 - name: List all the logs from reverse proxy {{ archive_logs_instance_id }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
