@@ -14,6 +14,13 @@ mgmt_action: "None"
 # Do not delete any files as default behavior
 delete_missing: false
 
-# do not skip import tasks by default
-skip_imports: false
-skip_exports: false
+# control file import tasks
+skip_imports: false # whether to skip multiple file imports from inventory
+skip_import: "{{ skip_imports }}"  # whether to skip a single file import
+
+# control file export tasks
+skip_exports: false # whether to skip multiple file exports from inventory
+skip_export: "{{ skip_exports }}"  # whether to skip a single file export
+
+# skip slower sync task 
+skip_sync: false

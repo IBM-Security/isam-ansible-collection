@@ -10,20 +10,27 @@
         Role to configure management root
       
       STEPS
-        1) Export single management root from one instance [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance>]
-        2) Export all management roots from all instance in inventroy
-        3) Sync management root from folder [local => server] [-e mgmt_action=sync_up -e inst_name=<instance> -e target=<directory_on_server> -e directory=<directory_on_local>]
+        1) Export single management root from one instance [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance> -e skip_export=True/False -e skip_exports=True/False]
+        2) Export all management roots from all instance in inventroy [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance> -e skip_exports=True/False]
+        3) Sync management root from folder [local => server] [-e mgmt_action=sync_up -e inst_name=<instance> -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]
         4) Create management root directories [-e mgmt_action=create -e inst_name=<instance> -e target=<directory_on_server> ]
         5) Upload management root files [-e mgmt_action=upload -e inst_name=<instance> -e target=<target> -e file=</path/to/file.txt>]
         6) Delete management root file/directory [-e mgmt_action=delete -e inst_name=<instance> -e target=<file/directory_to_delete>]
-        7) Import management root zip files [-e mgmt_action=import_zip -e inst_name=<instance>]
-        8) Import a single runtime template zip file
+        7) Import management root zip files from inventory [-e mgmt_action=import_zip -e inst_name=<instance> -e skip_imports=True/False]
+        8) Import a single runtime template zip file [-e mgmt_action=import_zip -e file=<file/to/import/management_root.zip> -e skip_imports=True/False -e skip_import=True/False]
       
       EXAMPLES
         # export a single management root to a zip file
         # export file parameter can be an absolute path or relative to inventory directory ( {{ inventory_dir }}/<file> )
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e mgmt_action=export_zip -e file="files/management_root_files/management_root_{{ ansible_date_time.date }}.zip" -e inst_name=default
-        
+      
+        # only do a particular task from the list of tasks
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=export_zip
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=import_zip
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=sync_up
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=create
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=upload
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=delete
       
       INVENTORY
       ==========
@@ -72,9 +79,10 @@
     - file is defined 
     - file != ''
     - mgmt_action == 'export_zip'
-    - not (skip_export | bool)
+    - (not (skip_exports | bool)) or 
+      (not (skip_export | bool))
 
-- name: "Export single management root from one instance [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance>]"
+- name: "Export single management root from one instance [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance> -e skip_export=True/False -e skip_exports=True/False]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -87,9 +95,17 @@
     - file != ''
     - inst_name is defined
     - inst_name != ''
-    - mgmt_action == 'export_zip'
-    - not (skip_export | bool)
-  notify: Commit Changes
+    - (
+        (
+          mgmt_action == 'export_zip' and
+          not (skip_export | bool)
+        )
+        or
+        ( 
+          mgmt_action == 'None' and
+          not (skip_export | bool)
+        )
+      )
 
 - name: "Export all management root files from instances in inventory [-e mgmt_action=export_zip -e inst_name=<instance>]"
   include: include_export_management_root.yml
@@ -97,10 +113,14 @@
     - item.1.mgmt_action == 'export_zip'
     - item.0.inst_name == inst_name 
     - (
-        mgmt_action == 'export_zip' or
+        (
+          mgmt_action == 'export_zip' and
+          not (skip_exports | bool)
+        )
+        or
         ( 
           mgmt_action == 'None' and
-          not (skip_export | bool)
+          not (skip_exports | bool)
         )
       )
   with_subelements:
@@ -110,7 +130,7 @@
   loop_control:
     label: "{{ item.1 }}"
 
-- name: "Sync management root [local => server] [-e mgmt_action=sync_up -e inst_name=<instance> -e target=<directory_on_server> -e directory=<directory_on_local>]"
+- name: "Sync management root [local => server] [-e mgmt_action=sync_up -e inst_name=<instance> -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]"
   include: include_sync_management_root.yml
   when: 
     - item.1.mgmt_action == 'sync_up'
@@ -118,6 +138,7 @@
     - item.1.target == target
     - mgmt_action == 'sync_up' or
       mgmt_action == 'None'
+    - not (skip_sync | bool)
   with_subelements:
     - "{{ instances }}"
     - management_root
@@ -215,6 +236,8 @@
         item.1.type == 'directory'
       )
     - item.0.inst_name == inst_name
+    - mgmt_action == 'delete' or
+      mgmt_action == 'None'
   with_subelements:
     - "{{ instances }}"
     - management_root
@@ -223,13 +246,17 @@
     label: "{ 'mgmt_action': \"{{ item.1.mgmt_action }}\", 'type': \"{{ item.1.type | default('file') }}\", 'inst_name': \"{{ item.0.inst_name }}\", 'targets': \"{{ item.1.targets | default('none') }}\"}"
   notify: Commit Changes
 
-- name: "Import management root zip files [-e mgmt_action=import_zip -e inst_name=<instance>]"
+- name: "Import management root zip files [-e mgmt_action=import_zip -e inst_name=<instance> -e skip_imports=True/False]"
   include: include_import_management_root.yml
   when: 
     - item.1.mgmt_action == 'import_zip'
     - item.0.inst_name == inst_name 
     - (
-        mgmt_action == 'import_zip' or
+        (
+          mgmt_action == 'import_zip' and
+          not (skip_imports | bool)
+        )
+        or
         ( 
           mgmt_action == 'None' and
           not (skip_imports | bool)
@@ -242,7 +269,7 @@
   loop_control:
     label: "{{ item.1 }}"
 
-- name: "Import a single runtime template zip file [-e mgmt_action=import_zip -e file=<file/to/import/management_root.zip>]"
+- name: "Import a single runtime template zip file [-e mgmt_action=import_zip -e file=<file/to/import/management_root.zip> -e skip_imports=True/False -e skip_import=True/False]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -257,7 +284,14 @@
     - inst_name is defined
     - inst_name != ''
     - (
-        mgmt_action == 'import_zip' or
-        not (skip_imports | bool)
+        (
+          mgmt_action == 'import_zip' and
+          not (skip_import | bool)
+        )
+        or
+        ( 
+          mgmt_action == 'None' and
+          not (skip_import | bool)
+        )
       )
   notify: Commit Changes
