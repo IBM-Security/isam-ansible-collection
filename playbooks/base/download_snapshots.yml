@@ -2,7 +2,6 @@
 # Download
 #   download snapshots
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
   roles:
-    - role: ibm.isam.base/download_snapshots
+    - role: ibm.isam.base.download_snapshots
       tags: snapshot
