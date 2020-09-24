@@ -1,0 +1,13 @@
+---
+# tasks file for set_pwd_user_registry
+
+- name: Set password user registry
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: "ibmsecurity.isam.aac.user_registry.user.set_pw"
+    isamapi:
+      id: "{{ user_registry_id }}"
+      password: "{{ user_registry_password }}"
+  when: user_registry_id is defined and user_registry_password is defined
+  notify: Commit Changes
