@@ -1,3 +1,5 @@
+---
+
 # Role to create a user in the embedded ldap directory
 #
 # Example:
@@ -9,8 +11,8 @@
 #
 - name: Create User in the AAC User Registry
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.user_registry.user.add
     isamapi:
   notify: Commit Changes

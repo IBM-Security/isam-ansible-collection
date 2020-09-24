@@ -1,7 +1,7 @@
 - name: Configure Oracle connection string for hvdb
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.advanced_tuning_parameters.set
     isamapi:
       key: isam_cluster.hvdb.properties.URL
@@ -16,8 +16,8 @@
 # Trace Oracle LMI connections
 - name: Enable Oracle tracing in the LMI
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.advanced_tuning_parameters.set
     isamapi:
       key: lmi.jvm_option.
@@ -31,8 +31,8 @@
 
 - name: Disable Oracle tracing in the LMI for hvdb
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.advanced_tuning_parameters.delete
     isamapi:
       key: lmi.jvm_option.
@@ -44,8 +44,8 @@
 
 - name: Enable Oracle tracing for configdb
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.advanced_tuning_parameters.set
     isamapi:
       key: runtime_profile.jvm_option.
@@ -59,8 +59,8 @@
 
 - name: Disable Oracle tracing in the runtime
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.advanced_tuning_parameters.delete
     isamapi:
       key: runtime_profile.jvm_option.

@@ -1,8 +1,10 @@
+---
+
 # main task to export runtime template root conten
 - name: Export a runtime template zip file
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.runtime_template.root.export_file
     isamapi:
       filename: "{{ inventory_dir }}/{{ file }}"

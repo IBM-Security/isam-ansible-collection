@@ -1,3 +1,5 @@
+---
+
 # Provide the name, connection, description, and locked flag for the Web Service connection
 #
 # ws_server_connection_name: "Web Service Connection"

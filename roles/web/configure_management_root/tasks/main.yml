@@ -1,29 +1,128 @@
-# main task to configure management root content
-# Example:
-#     instances:
-#       - inst_name: default
-#         management_root:
-#           - action: upload
-#             target: management/C/login.html
-#             file: uploads/management_root/default/management/C/login.html
-#           - action: delete
-#             target: errors/C/38ad52fa.html
-#             type: file
-#           - action: delete
-#             target: errors/de
-#             type: directory
-#           - action: delete
-#             type: directory
-#             targets:
-#               - errors/de
-#               - errors/fr
-#           - action: sync_up
-#             target: errors
-#             directory: uploads/management_root/default/errors
-# ---
-- name: Sync management root [local => server]
-  include: include_sync_management_root.yml
-  when: item.1.action == 'sync_up' and item.0.inst_name == inst_name
+---
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_management_root
+      
+      DESCRIPTION
+        Role to configure management root
+      
+      STEPS
+        1) Export single management root from one instance [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance> -e skip_export=True/False -e skip_exports=True/False]
+        2) Export all management roots from all instance in inventroy [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance> -e skip_exports=True/False]
+        3) Sync management root from folder [local => server] [-e mgmt_action=sync_up -e inst_name=<instance> -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]
+        4) Create management root directories [-e mgmt_action=create -e inst_name=<instance> -e target=<directory_on_server> ]
+        5) Upload management root files [-e mgmt_action=upload -e inst_name=<instance> -e target=<target> -e file=</path/to/file.txt>]
+        6) Delete management root file/directory [-e mgmt_action=delete -e inst_name=<instance> -e target=<file/directory_to_delete>]
+        7) Import management root zip files from inventory [-e mgmt_action=import_zip -e inst_name=<instance> -e skip_imports=True/False]
+        8) Import a single runtime template zip file [-e mgmt_action=import_zip -e file=<file/to/import/management_root.zip> -e skip_imports=True/False -e skip_import=True/False]
+      
+      EXAMPLES
+        # export a single management root to a zip file
+        # export file parameter can be an absolute path or relative to inventory directory ( {{ inventory_dir }}/<file> )
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e mgmt_action=export_zip -e file="files/management_root_files/management_root_{{ ansible_date_time.date }}.zip" -e inst_name=default
+      
+        # only do a particular task from the list of tasks
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=export_zip
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=import_zip
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=sync_up
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=create
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=upload
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=delete
+      
+      INVENTORY
+      ==========
+      instances:
+        - inst_name: default
+          management_root:
+            - mgmt_action: upload
+              target: management/C/login.html
+              file: uploads/management_root/default/management/C/login.html
+            - mgmt_action: create
+              type: directory
+              target: errors/idontexist
+            - mgmt_action: delete
+              target: errors/C/38ad52fa.html
+              type: file
+            - mgmt_action: delete
+              target: errors/de
+              type: directory
+            - mgmt_action: delete
+              type: directory
+              targets:
+                - errors/de
+                - errors/fr
+            - mgmt_action: sync_up
+              target: errors
+              directory: uploads/management_root/default/errors
+            - mgmt_action: import_zip
+              file: files/management_root_files/management_root_2020-09-16.zip
+            - mgmt_action: export_zip
+              file: "/ansible/inventory/simple/files/management_root_files/management_root_{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip"
+      ==========
+      
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Make sure local export directory exists
+  local_action: 
+    module: file
+    path: "{{ (file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file)) | dirname }}"
+    recurse: yes
+    state: directory
+  when: 
+    - file is defined 
+    - file != ''
+    - mgmt_action == 'export_zip'
+    - (not (skip_exports | bool)) or 
+      (not (skip_export | bool))
+
+- name: "Export single management root from one instance [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance> -e skip_export=True/False -e skip_exports=True/False]"
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.reverse_proxy.management_root.all.export_zip
+    isamapi:
+      filename: "{{ file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) }}"
+      instance_id: "{{ inst_name }}"
+  when: 
+    - file is defined 
+    - file != ''
+    - inst_name is defined
+    - inst_name != ''
+    - (
+        (
+          mgmt_action == 'export_zip' and
+          not (skip_export | bool)
+        )
+        or
+        ( 
+          mgmt_action == 'None' and
+          not (skip_export | bool)
+        )
+      )
+
+- name: "Export all management root files from instances in inventory [-e mgmt_action=export_zip -e inst_name=<instance>]"
+  include: include_export_management_root.yml
+  when: 
+    - item.1.mgmt_action == 'export_zip'
+    - item.0.inst_name == inst_name 
+    - (
+        (
+          mgmt_action == 'export_zip' and
+          not (skip_exports | bool)
+        )
+        or
+        ( 
+          mgmt_action == 'None' and
+          not (skip_exports | bool)
+        )
+      )
   with_subelements:
     - "{{ instances }}"
     - management_root
@@ -31,71 +130,138 @@
   loop_control:
     label: "{{ item.1 }}"
 
-- name: Create management root directories
+- name: "Sync management root [local => server] [-e mgmt_action=sync_up -e inst_name=<instance> -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]"
+  include: include_sync_management_root.yml
+  when: 
+    - item.1.mgmt_action == 'sync_up'
+    - item.0.inst_name == inst_name
+    - item.1.target == target
+    - mgmt_action == 'sync_up' or
+      mgmt_action == 'None'
+    - not (skip_sync | bool)
+  with_subelements:
+    - "{{ instances }}"
+    - management_root
+    - skip_missing: True
+  loop_control:
+    label: "{{ item.1 }}"
+
+- name: "Create management root directories [-e mgmt_action=create -e inst_name=<instance> -e target=<directory_on_server> ]"
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.directory.create
     isamapi:
       instance_id: "{{ item.0.inst_name }}"
       id: "{{ item.1.target.split('/')[0] }}"
       name: "{{ item.1.target | regex_replace(item.1.target.split('/')[0]+'/','') }}"
-  when: item.1.action == 'create' and item.1.type == 'directory' and item.1.target is defined and item.0.inst_name == inst_name
+  when: 
+    - item.1.mgmt_action == 'create'
+    - item.1.type == 'directory'
+    - item.1.target is defined
+    - item.1.target == target
+    - item.0.inst_name == inst_name
+    - mgmt_action == 'create' or
+      mgmt_action == 'None'
   with_subelements:
     - "{{ instances }}"
     - management_root
     - skip_missing: True
   loop_control:
-    label:  "(action=\"{{ item.1.action }}\", inst_name=\"{{ item.0.inst_name }}\", target=\"{{ item.1.target | default(None) }}\", type=\"{{ item.1.type | default(None) }}\")"
+    label: "{\"mgmt_action\": \"{{ item.1.mgmt_action }}\", \"inst_name\": \"{{ item.0.inst_name }}\", \"target\": \"{{ item.1.target if (item is defined and item.1 is defined and item.1.target is defined) }}\", \"type\": \"{{ item.1.type if (item is defined and item.1 is defined and item.1.type is defined) }}\"}"
+  notify: Commit Changes
 
-- name: Upload management root files
+- name: "Upload management root files [-e mgmt_action=upload -e inst_name=<instance> -e target=<target> -e file=</path/to/file.txt>]"
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.file.import_file
     isamapi:
       instance_id: "{{ item.0.inst_name }}"
       id: "{{ item.1.target }}"
       filename: "{{ item.1.file if((item.1.file | regex_search('^/') == '/') ) else (inventory_dir +'/'+ item.1.file) }}"
-  when: item.1.action == 'upload' and item.1.type == 'file' and item.1.target is defined and item.1.file is defined and item.0.inst_name == inst_name and item.1.target == target and item.1.file == file
+  when: 
+    - item.1.mgmt_action == 'upload'
+    - item.1.type == 'file'
+    - item.1.target is defined
+    - item.1.file is defined
+    - item.0.inst_name == inst_name
+    - item.1.target == target
+    - item.1.file == file
+    - mgmt_action == 'upload' or
+      mgmt_action == 'None'
   with_subelements:
     - "{{ instances }}"
     - management_root
     - skip_missing: True
   loop_control:
-    label:  "(action=\"{{ item.1.action }}\", inst_name=\"{{ item.0.inst_name }}\", filename=\"{{ item.1.file if (item is defined and item.1 is defined and item.1.file is defined) else 'none' }}\", target=\"{{ item.1.target | default(None) }}\", type=\"{{ item.1.type | default(None) }}\")"
+    label: "{\"mgmt_action\": \"{{ item.1.mgmt_action }}\", \"inst_name\": \"{{ item.0.inst_name }}\", \"filename\": \"{{ item.1.file if (item is defined and item.1 is defined and item.1.file is defined) }}\", \"target\": \"{{ item.1.target if (item is defined and item.1 is defined and item.1.target is defined) }}\", \"type\": \"{{ item.1.type if (item is defined and item.1 is defined and item.1.type is defined) }}\"}"
   notify: Commit Changes
 
-- name: Delete management root file/directory
+- name: "Delete management root file/directory [-e mgmt_action=delete -e inst_name=<instance> -e target=<file/directory_to_delete>]"
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.web.reverse_proxy.management_root.{{ item.1.type }}.delete"
     isamapi:
-      id:             "{{ item.1.target }}"
-      instance_id:    "{{ item.0.inst_name }}"
-  when: item.1.action == 'delete' and item.1.target is defined and item.1.type is defined and (item.1.type == 'file' or item.1.type == 'directory') and item.0.inst_name == inst_name and item.1.target == target
+      id: "{{ item.1.target }}"
+      instance_id: "{{ item.0.inst_name }}"
+  when: 
+    - item.1.mgmt_action == 'delete'
+    - item.1.target is defined
+    - item.1.type is defined
+    - ( 
+        item.1.type == 'file' or 
+        item.1.type == 'directory'
+      )
+    - item.0.inst_name == inst_name
+    - item.1.target == target
+    - mgmt_action == 'delete' or
+      mgmt_action == 'None'
   with_subelements:
     - "{{ instances }}"
     - management_root
     - skip_missing: True
   loop_control:
-    label:  "(action: [{{ item.1.action }}], type: [{{ item.1.type | default('file')}}], inst_name:[{{ item.0.inst_name }}], target:[{{ item.1.target | default('none') }}])"
+    label: "{ 'mgmt_action': \"{{ item.1.mgmt_action }}\", 'type': \"{{ item.1.type | default('file')}}\", 'inst_name': \"{{ item.0.inst_name }}\", 'target': \"{{ item.1.target | default('none') }}\"}"
   notify: Commit Changes
 
 - include: include_delete_management_root_contents.yml
-  when: item.1.action == 'delete' and item.1.targets is defined and item.1.type is defined and (item.1.type == 'file' or item.1.type == 'directory') and item.0.inst_name == inst_name and item.1.target == target
+  when: 
+    - item.1.mgmt_action == 'delete'
+    - item.1.targets is defined 
+    - item.1.type is defined 
+    - (
+        item.1.type == 'file' or 
+        item.1.type == 'directory'
+      )
+    - item.0.inst_name == inst_name
+    - mgmt_action == 'delete' or
+      mgmt_action == 'None'
   with_subelements:
     - "{{ instances }}"
     - management_root
     - skip_missing: True
   loop_control:
-    label:  "(action=\"{{ item.1.action }}\", type=\"{{ item.1.type | default('file') }}\", inst_name=\"{{ item.0.inst_name }}\", target=\"{{ item.1.target | default('none') }}\")"
+    label: "{ 'mgmt_action': \"{{ item.1.mgmt_action }}\", 'type': \"{{ item.1.type | default('file') }}\", 'inst_name': \"{{ item.0.inst_name }}\", 'targets': \"{{ item.1.targets | default('none') }}\"}"
   notify: Commit Changes
 
-- name: Import management root zip files
+- name: "Import management root zip files [-e mgmt_action=import_zip -e inst_name=<instance> -e skip_imports=True/False]"
   include: include_import_management_root.yml
-  when: item.1.action == 'import_file' and item.0.inst_name == inst_name and (skip_imports | upper) != "TRUE"
+  when: 
+    - item.1.mgmt_action == 'import_zip'
+    - item.0.inst_name == inst_name 
+    - (
+        (
+          mgmt_action == 'import_zip' and
+          not (skip_imports | bool)
+        )
+        or
+        ( 
+          mgmt_action == 'None' and
+          not (skip_imports | bool)
+        )
+      )
   with_subelements:
     - "{{ instances }}"
     - management_root
@@ -103,14 +269,29 @@
   loop_control:
     label: "{{ item.1 }}"
 
-- name: Import a single runtime template zip file
+- name: "Import a single runtime template zip file [-e mgmt_action=import_zip -e file=<file/to/import/management_root.zip> -e skip_imports=True/False -e skip_import=True/False]"
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.all.import_zip
     isamapi:
       filename: "{{ inventory_dir }}/{{ file }}"
       instance_id: "{{ inst_name }}"
       delete_missing: "{{ delete_missing }}"
-  when: file is defined and file != 'none' and inst_name is defined and inst_name != 'none'
+  when:
+    - file is defined 
+    - file != ''
+    - inst_name is defined
+    - inst_name != ''
+    - (
+        (
+          mgmt_action == 'import_zip' and
+          not (skip_import | bool)
+        )
+        or
+        ( 
+          mgmt_action == 'None' and
+          not (skip_import | bool)
+        )
+      )
   notify: Commit Changes

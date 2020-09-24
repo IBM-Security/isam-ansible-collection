@@ -1,7 +1,9 @@
+---
+
 - name: List all the logs from reverse proxy {{ archive_logs_instance_id }}
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.logs.get_all
     isamapi:
       instance_id: "{{ archive_logs_instance_id }}"
@@ -15,8 +17,8 @@
 
 - name: Export logs from reverse proxy {{ archive_logs_instance_id }}
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.logs.export_file
     isamapi:
       instance_id: "{{ archive_logs_instance_id }}"
@@ -33,8 +35,8 @@
 
 - name: Delete logs from reverse proxy {{ archive_logs_instance_id }}
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.logs.delete
     isamapi:
       instance_id: "{{ archive_logs_instance_id }}"

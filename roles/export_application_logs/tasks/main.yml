@@ -5,8 +5,8 @@
 ---
 - name: Get application log file list
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.application_logs.get_all
     isamapi:
       flat_details: yes
@@ -19,8 +19,8 @@
 
 - name: Get application log files
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.application_logs.export_file
     isamapi:
       file_path: "{{ item.path }}/{{ item.name }}"

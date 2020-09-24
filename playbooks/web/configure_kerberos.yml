@@ -1,0 +1,7 @@
+---
+# playbook to configure kerberos
+- hosts: "{{ hosts | default('all')}}"
+  gather_facts: no
+  roles:
+    - role: ibm.isam.web.configure_kerberos
+      tags: configure_kerberos

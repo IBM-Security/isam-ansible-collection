@@ -1,3 +1,5 @@
+---
+
 galaxy_info:
   author: IBM
   description: Role to add an ipv4 address to an interface

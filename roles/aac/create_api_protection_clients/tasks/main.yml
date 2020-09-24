@@ -1,3 +1,5 @@
+---
+
 # main task to create api protection definition
 #   Example:
 #     api_protection:
@@ -14,11 +16,11 @@
 #                 - https://localhost
 #               contractType: ADMINISTRATIVE
 #               definitionName: oauth-provider
----
+
 - name: Create api protection client
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.api_protection.clients.add
     isamapi: "{{ item.1 | combine({ 'definitionName': item.0.name }) }}"
   when: item.1.name == client_name

@@ -1,11 +1,7 @@
 ---
-# Running first steps if necessary
-#     accept service agreements
-#     set up LMI FIPS (may restart appliance)
-#     change password
-#     commit and restart LMI
+
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.base/first_steps
+    - role: ibm.isam.base.first_steps
       tags: first_steps

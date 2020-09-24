@@ -1,9 +1,10 @@
-# main task to update advanced configurations
 ---
+
+# main task to update advanced configurations
 - name: Update advanced configurations
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.advanced_configuration.update
     isamapi:
       key: "{{ item.key }}"

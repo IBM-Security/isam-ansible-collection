@@ -1,15 +1,43 @@
-# main task for creating certificate databases
-# Example inventory:
-#  create_certificate_databases:
-#      kdb_id: "{{ item.kdb_id }}"
 ---
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        create_certificate_databases
+
+      DESCRIPTION
+        Role to create ssl certificate databases
+
+      STEPS
+        1) Create certificate databse keystore
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/base/create_certificate_databases.yml
+        ansible-playbook -i [...] playbooks/ansible_collections/base/create_certificate_databases.yml -e kdb_name=Registry_Keystore // filter for kdb_name at runtime and configure only matching keystores
+
+      INVENTORY
+      ==========
+      # create necessary certificate keystores
+      create_certificate_databases:
+        - kdb_name: Registry_Keystore
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
 - name: Create certificate databases
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.ssl_certificates.certificate_databases.create
     isamapi:
       kdb_name: "{{ item.kdb_name }}"
-      type:  kdb
+      type: kdb
+  when: item.kdb_name == kdb_name
   with_items: "{{ create_certificate_databases }}"
   notify: Commit Changes

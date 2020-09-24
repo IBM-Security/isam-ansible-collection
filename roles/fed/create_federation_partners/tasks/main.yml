@@ -22,8 +22,8 @@
 #                   - openid
 - name: Create federation partners
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.fed.partners.set
     isamapi:
       federation_name: "{{ item.0.name }}"

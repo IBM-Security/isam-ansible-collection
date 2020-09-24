@@ -8,12 +8,12 @@
     action: ibmsecurity.isam.web.reverse_proxy.oauth_configuration.config
     isamapi:
       instance_id: "{{ config_reverseproxy_oauth_instance_id }}"
-      hostname:    "{{ config_reverseproxy_oauth_hostname }}"
-      port:        "{{ config_reverseproxy_oauth_port }}"
+      hostname: "{{ config_reverseproxy_oauth_hostname }}"
+      port: "{{ config_reverseproxy_oauth_port }}"
       reuse_certs: "{{ config_reverseproxy_oauth_reuse_certs }}"
-      reuse_acls:  "{{ config_reverseproxy_oauth_reuse_acls }}"
-      api:         "{{ config_reverseproxy_oauth_api }}"
-      browser:     "{{ config_reverseproxy_oauth_browser }}"
+      reuse_acls: "{{ config_reverseproxy_oauth_reuse_acls }}"
+      api: "{{ config_reverseproxy_oauth_api }}"
+      browser: "{{ config_reverseproxy_oauth_browser }}"
   notify:
     - Commit Changes
     - Restart Reverse Proxy

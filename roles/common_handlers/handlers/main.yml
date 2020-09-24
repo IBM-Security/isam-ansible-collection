@@ -3,14 +3,14 @@
 # <cut>Handlers are run in the order they are listed, not in the order that they are notified.</cut>
 - name: Commit Changes
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.appliance.commit
 
 - name: Commit Changes and Restart
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.appliance.commit_and_restart_and_wait
 
 # Commit and Restart may cause LMI to restart - so wait to be safe
@@ -23,8 +23,8 @@
 
 - name: Restart Web Runtime
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.runtime.process.execute
     isamapi:
       operation: "restart"
@@ -33,8 +33,8 @@
 # Get all reverse proxies in appliance - also set changed flag to trigegr next handler
 - name: Restart Reverse Proxy
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.instance.get
   notify: Restart all Reverse Proxys - checks if flagged for restart
   changed_when: True
@@ -43,19 +43,19 @@
 # Note: Restart function will only restart if required - set force to True to avoid that kind of check
 - name: Restart all Reverse Proxys - checks if flagged for restart
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.instance.execute
     isamapi:
-      id:        "{{ item.id }}"
+      id: "{{ item.id }}"
       operation: "restart"
   when: reverseproxy_list is defined and 'data' in reverseproxy_list
   with_items: "{{ reverseproxy_list['data'] }}"
 
 - name: Reload Liberty Runtime
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.runtime.process.execute
     isamapi:
       operation: "reload"
@@ -63,8 +63,8 @@
 
 - name: Restart AAC Runtime
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.runtime.process.execute
     isamapi:
       operation: "restart"
@@ -72,16 +72,16 @@
 
 - name: Reboot Appliance
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.appliance.reboot
   notify: Await Appliance LMI Response
   when: not ansible_check_mode
 
 - name: Restart LMI
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.lmi.restart
 
 - name: Await Appliance LMI Response
@@ -93,6 +93,6 @@
 
 - name: Restart LMI and wait
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.lmi.restart_and_wait

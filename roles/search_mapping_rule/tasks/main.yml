@@ -1,7 +1,8 @@
+---
 - name: Search for a Mapping Rule
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.aac.mapping_rules.search
     isamapi:
       name: "{{ search_mapping_rule_name }}"

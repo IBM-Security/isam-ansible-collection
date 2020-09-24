@@ -1,7 +1,7 @@
 - name: Set Current Point of Contact - {{ set_current_point_of_contact_name }}
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.fed.point_of_contact.set_current
     isamapi:
       name: "{{ set_current_point_of_contact_name }}"

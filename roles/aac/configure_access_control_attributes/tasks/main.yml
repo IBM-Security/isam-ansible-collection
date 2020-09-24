@@ -1,3 +1,5 @@
+---
+
 # main task to configure access control attributes
 # example:
 #   access_control_attributes:
@@ -16,11 +18,11 @@
 #         device: false
 #         session: false
 #         behavior: false
----
+
 - name: Configure access control attributes
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.attributes.set
     isamapi: "{{ item }}"
   when: item is defined

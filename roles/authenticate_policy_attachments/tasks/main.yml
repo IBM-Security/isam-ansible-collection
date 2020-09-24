@@ -1,6 +1,9 @@
+---
+
+- name: isam something
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.aac.access_control.policy_attachments.authenticate
     isamapi:
-      domain:   "{{ authenticate_policy_attachments_domain }}"
+      domain: "{{ authenticate_policy_attachments_domain }}"

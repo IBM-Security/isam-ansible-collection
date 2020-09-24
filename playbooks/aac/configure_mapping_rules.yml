@@ -5,7 +5,7 @@
 #      mapping_rules:
 #       -   name: mapping_rule_1
 #           file: "uploads/mapping_rules/<file-name>.js"
-#           category:   InfoMap
+#           category: InfoMap
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:

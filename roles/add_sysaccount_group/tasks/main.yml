@@ -1,7 +1,9 @@
+---
+
 - name: Create LMI system account group
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.sysaccount.groups.create
     isamapi:
       id : "{{ add_sysaccount_group }}"

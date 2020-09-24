@@ -1,7 +1,7 @@
 - name: Install firmware update
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.available_updates.install
     isamapi:
       name: "{{ name }}"

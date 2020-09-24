@@ -1,7 +1,7 @@
 - name: Execute operation {{ execute_rp_op_operation }} against reverse proxy
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.instance.execute
     isamapi:
       id: "{{ item['id'] }}"

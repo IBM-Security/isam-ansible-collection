@@ -1,8 +1,10 @@
+---
+
 # main task to configure advanced tuning parameters
 - name: Configure advanced tuning parameters
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.base.advanced_tuning_parameters.{{ item.action }}"
     isamapi: "{{ item | exclude('action') }}"
   with_items: "{{ advanced_tuning_parameters }}"

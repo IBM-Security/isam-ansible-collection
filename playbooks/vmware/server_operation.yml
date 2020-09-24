@@ -13,10 +13,10 @@
   tasks:
     - name: Reboot VM Guest Machine
       vmware_guest:
-        state:    "{{ server_operation }}"
+        state: "{{ server_operation }}"
         hostname: "{{ vcenter_hostname }}"
         # VCenter name of server needs to be provided below - implementation specifc
-        name:     "{{ hostname.partition('.')[0] }}"
+        name: "{{ hostname.partition('.')[0] }}"
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
         validate_certs: no

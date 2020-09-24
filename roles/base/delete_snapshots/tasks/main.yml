@@ -1,8 +1,10 @@
+---
+
 # main task to delete snapshots
 - name: Delete one or multiple snapshots
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.snapshots.multi_delete
     isamapi:
       comment: "{{ comment | default(omit) }}"

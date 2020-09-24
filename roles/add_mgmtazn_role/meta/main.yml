@@ -1,3 +1,5 @@
+---
+
 galaxy_info:
   author: IBM
   description: Role to add one or more custom management authorization roles in ISAM

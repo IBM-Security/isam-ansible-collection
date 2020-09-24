@@ -1,0 +1,264 @@
+---
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_kerberos
+
+      DESCRIPTION
+        Role to configure_kerberos
+
+      STEPS
+        1) import multiple kerberos keytab files (-e kerberos_action=import_keytabs)
+        2) Create realms (-e kerberos_action=create_realms)
+        3) Create Realms Subsections (1st level) (-e kerberos_action=create_subsections)
+        4) Create Realms Subsections (2nd level) (-e kerberos_action=create_subsections)
+        5) Configure Realms Subsection Properties (root level) (-e kerberos_action=configure_properties)
+        6) Configure Realms Subsection Properties (1st level) (-e kerberos_action=configure_properties)
+        7) Configure Realms Subsection Properties (2nd level) (-e kerberos_action=configure_properties)
+        8) Configure Defaults (-e kerberos_action=configure_defaults)
+        9) Configure Kerberos Domain Mapping (-e kerberos_action=configure_domains)
+       10) Configure Kerberos CA Paths (-e kerberos_action=configure_ca_paths)
+       11) Configure Kerberos CA Paths Properties (-e kerberos_action=configure_ca_paths)
+       12) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_kerberos.yml # do all steps
+
+        # available filters per kerberos_action:
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_kerberos.yml -e kerberos_action=import_keytabs -e keytab_file=default.krb5 # do only import of keytabs with limit to a specific file from inventory !ATTENTION!: only basename from path variable is used for filtering
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_kerberos.yml -e kerberos_action=create_subsections -e realm=realm_1 -e subsection=sub_1
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_kerberos.yml -e kerberos_action=configure_properties -e realm=realm_1 -e subsection=sub_1 -e propname=prop_1 -e propvalue=value_1
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_kerberos.yml -e kerberos_action=configure_defaults -e default_name=default_realm -e default_value=realm_1
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_kerberos.yml -e kerberos_action=configure_domains -e domain_name=domain_1 -e domain_value=realm_1
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_kerberos.yml -e kerberos_action=configure_ca_paths -e ca_paths_name=domain_1 -e client_realm=domain_1 -e server_realm=s_realm_1 -e intermediate_realm=i_realm_1
+
+      INVENTORY
+      ==========
+      # import multiple kerberos keytbal files
+      # !ATTENTION! ibmsecurity library supports id + file parameter but appliance REST API does not support that the same file with different id is imported
+      # Therefore relying only on file parameter for this role
+      kerberos:
+        [...]
+        keytab_files:
+          - file: files/kerberos/default.krb5
+          - file: /ansible/inventory/simple/files/kerberos/another.krb5
+        [...]
+        realms:
+          - realm: realm_1
+            properties:
+              - propname: prop_1
+                propvalue: value_1
+            subsections:
+              - name: sub_1
+                subsections:
+                  - name: sub_sub_1
+        [...]
+        defaults:
+          - name: default_realm
+            value: realm_1
+          - name: default_tgs_enctypes
+            value: rc4-hmac des-cbc-md5 des-cbc-crc aes256-cts
+          - name: default_tkt_enctypes
+            value: rc4-hmac des-cbc-md5 des-cbc-crc aes256-cts
+        [...]
+        domains:
+          - name: domain_1
+            value: realm_1
+        [...]
+        ca_paths:
+          - name: domain_1
+            properties:
+              - server_realm: s_realm_1
+                intermediate_realm: i_realm_1
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+- name: Import kerberos keytab files (-e kerberos_action=import_keytabs)
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.kerberos_configuration.keyfiles.import_keytab
+    isamapi:
+      id: "{{ item.file | basename }}"
+      file: "{{ item.file if((item.file | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.file) }}"
+  when:
+    - item.file is defined
+    - (item.file | basename) == keytab_file
+    - kerberos_action == 'import_keytabs' or
+      kerberos_action == 'all'
+  loop: "{{ kerberos.keytab_files }}"
+  loop_control:
+    label: "{ \"id\": \"{{ item.file | basename }}\", \"file\": \"{{ item.file }}\" }"
+  notify: Commit Changes
+
+- name: Create Realms (-e kerberos_action=create_realms)
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.kerberos_configuration.realms.add
+    isamapi:
+      realm: "{{ item.realm }}"
+  when:
+    - item.realm is defined
+    - item.realm == realm
+    - kerberos_action == 'create_realms' or
+      kerberos_action == 'all'
+  with_items: "{{ kerberos.realms }}"
+  loop_control:
+    label: "{ \"realm\": \"{{ item.realm }}\" }"
+  notify: Commit Changes
+
+- name: Create Realms Subsections (1st level) (-e kerberos_action=create_subsections)
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.kerberos_configuration.realms_subsection.add
+    isamapi:
+      realm: "{{ item.0.realm }}"
+      subsection: "{{ item.1.name }}"
+  when:
+    - item.1.name is defined
+    - item.0.realm == realm
+    - item.1.name == subsection
+    - kerberos_action == 'create_subsections' or
+      kerberos_action == 'all'
+  with_subelements:
+    - "{{ kerberos.realms }}"
+    - subsections
+  loop_control:
+    label: "{ \"realm\": \"{{ item.0.realm }}\", \"subsection\": \"{{ item.1.name if (item.1.name is defined) }}\" }"
+  notify: Commit Changes
+
+- include_tasks: include_create_realms_subsections_2nd_level.yml
+  when:
+    - subsections_1st_level.1.name is defined
+    - subsections_1st_level.0.realm == realm
+    - kerberos_action == 'create_subsections' or
+      kerberos_action == 'all'
+  with_subelements:
+    - "{{ kerberos.realms }}"
+    - subsections
+    - skip_missing: True
+  loop_control:
+    loop_var: subsections_1st_level
+
+- name: Create Realms Subsection Properties (root level) (-e kerberos_action=configure_properties)
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.kerberos_configuration.realms_property.set
+    isamapi:
+      realm: "{{ item.0.realm }}"
+      propname: "{{ item.1.propname }}"
+      propvalue: "{{ item.1.propvalue }}"
+  when:
+    - item.1.propname is defined
+    - item.1.propvalue is defined
+    - item.1.propname == propname
+    - item.1.propvalue == propvalue
+    - subsection == ''
+    - item.0.realm == realm
+    - kerberos_action == 'configure_properties' or
+      kerberos_action == 'all'
+  with_subelements:
+    - "{{ kerberos.realms }}"
+    - properties
+  loop_control:
+    label: "{ \"realm\": \"{{ item.0.realm }}\", \"propname\": \"{{ item.1.propname if (item.1.propname is defined) }}\", \"propvalue\": \"{{ item.1.propvalue if (item.1.propvalue is defined) }}\" }"
+  notify: Commit Changes
+
+- include_tasks: include_configure_subsections_properties_1st_level.yml
+  with_subelements:
+    - "{{ kerberos.realms }}"
+    - subsections
+  when:
+    - subsections_1st_level.1.name is defined
+    - subsections_1st_level.0.realm == realm
+    - kerberos_action == 'configure_properties' or
+      kerberos_action == 'all'
+  with_subelements:
+    - "{{ kerberos.realms }}"
+    - subsections
+    - skip_missing: True
+  loop_control:
+    loop_var: subsections_1st_level
+
+- name: Configure Defaults (-e kerberos_action=configure_defaults)
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.kerberos_configuration.defaults.set
+    isamapi:
+      name: "{{ item.name }}"
+      value: "{{ item.value }}"
+  loop: "{{ kerberos.defaults }}"
+  when:
+    - item.name is defined
+    - item.value is defined
+    - item.name == default_name
+    - item.value == default_value
+    - kerberos_action == 'configure_defaults' or
+      kerberos_action == 'all'
+  notify: Commit Changes
+
+- name: Configure Kerberos Domain Mapping (-e kerberos_action=configure_domains)
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.kerberos_configuration.domains.set
+    isamapi:
+      name: "{{ item.name }}"
+      value: "{{ item.value }}"
+  loop: "{{ kerberos.domains }}"
+  when:
+    - item.name is defined
+    - item.value is defined
+    - item.name == domain_name
+    - item.value == domain_value
+    - kerberos_action == 'configure_domains' or
+      kerberos_action == 'all'
+  notify: Commit Changes
+
+- name: Configure Kerberos CA Paths (-e kerberos_action=configure_ca_paths)
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.kerberos_configuration.ca_paths.add
+    isamapi:
+      name: "{{ item.name }}"
+  loop: "{{ kerberos.domains }}"
+  when:
+    - item.name is defined
+    - item.name == ca_paths_name
+    - kerberos_action == 'configure_ca_paths' or
+      kerberos_action == 'all'
+  notify: Commit Changes
+
+- name: Configure Kerberos CA Paths Properties (-e kerberos_action=configure_ca_paths)
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.kerberos_configuration.ca_paths_property.set
+    isamapi:
+      client_realm: "{{ item.0.name }}"
+      server_realm: "{{ item.1.server_realm }}"
+      intermediate_realm: "{{ item.1.intermediate_realm }}"
+  with_subelements:
+    - "{{ kerberos.ca_paths }}"
+    - properties
+  when:
+    - item.0.name is defined
+    - item.1.server_realm is defined
+    - item.1.intermediate_realm is defined
+    - item.0.name == client_realm
+    - item.1.server_realm == server_realm
+    - item.1.intermediate_realm == intermediate_realm
+    - kerberos_action == 'configure_ca_paths' or
+      kerberos_action == 'all'
+  notify: Commit Changes

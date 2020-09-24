@@ -1,8 +1,10 @@
+---
+
 # main task to apply a snapshot
 - name: Apply a snapshot
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.snapshots.apply
     isamapi:
       comment: "{{ comment | default(omit) }}"

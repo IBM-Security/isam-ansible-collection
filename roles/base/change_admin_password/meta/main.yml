@@ -1,5 +1,7 @@
+---
 galaxy_info:
   author: IBM
+  description: Role that changes the admin password for appliance LMI
   company: IBM
 
   license: Apache
@@ -9,7 +11,7 @@ galaxy_info:
   galaxy_tags:
   - isam
   - ibm
-  - change
+  - change_admin_password
 
 dependencies:
   - common_handlers

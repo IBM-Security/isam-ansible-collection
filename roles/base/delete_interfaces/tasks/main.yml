@@ -1,31 +1,33 @@
+---
+
 # The following is needed to be provided for role to work
 # Example:
 #  interfaces:
-#      -   label:  '1.1'
+#      -   label: '1.1'
 #          addresses:
-#              -   address:            "192.168.1.1"
-#                  maskOrPrefix:       "24"
-#                  allowManagement:    true
-#                  enabled:            true
-#          #   -   address:            "192.168.1.2"
-#          #        maskOrPrefix:       "24"
-#          #        allowManagement:    false
-#          #        enabled:            true
+#              -   address: "192.168.1.1"
+#                  maskOrPrefix: "24"
+#                  allowManagement: true
+#                  enabled: true
+#          #   -   address: "192.168.1.2"
+#          #        maskOrPrefix: "24"
+#          #        allowManagement: false
+#          #        enabled: true
 # Attention: commented out or missing addresses will be deleted by this role
 - name: get all interfaces
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.network.interfaces.get_all
   register: ret_obj
 - name: delete interfaces
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.base.network.interfaces_{{ delete_interfaces_action }}.delete"
     isamapi:
-      label:    "{{ item.0.label }}"
-      address:  "{{ item.1.address }}"
+      label: "{{ item.0.label }}"
+      address: "{{ item.1.address }}"
   vars:
     filter: "[? label=='{{ item.0.label }}'].addresses[].address"
   when: item.1.address not in (interfaces | json_query(filter))

@@ -1,9 +1,9 @@
 - name: Run PDAdmin commands
   ibm.isam.isamadmin:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
-    isamuser:  "{{ admin_id }}"
-    isampwd:   "{{ admin_pwd }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    isamuser: "{{ admin_id }}"
+    isampwd: "{{ admin_pwd }}"
     isamdomain: "{{ admin_domain }}"
     commands: "{{ pdadmin_commands | default([]) }} + {{ include_pdadmin_commands | default([]) }}"
   ignore_errors: true

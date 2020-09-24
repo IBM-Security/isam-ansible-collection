@@ -1,6 +1,7 @@
+---
 galaxy_info:
   author: IBM
-  description: Role to configure addresses to an interface
+  description: Role to configure addresses for multiple interfaces
   company: IBM
 
   license: Apache

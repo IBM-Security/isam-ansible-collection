@@ -1,3 +1,5 @@
+---
+
 # main task to configure authentication policies
 #   Example:
 #     authentication_policies:
@@ -11,11 +13,11 @@
 #             value:	test.html
 #         typeName: InfoMapAuthenticationName
 #         uri:	urn:ibm:security:authentication:asf:mechanism:test
----
+
 - name: Configure authentication mechanisms
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.authentication.policies.set
     isamapi: "{{ item }}"
   with_items: "{{ authentication_policies }}"

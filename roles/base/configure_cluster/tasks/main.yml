@@ -11,8 +11,8 @@
 #   hvdb_db_secure: false
 - name: Configure cluster
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.cluster.configuration.set
     isamapi: "{{ cluster }}"
   when: cluster is defined

@@ -1,7 +1,8 @@
+---
 - name: Configure System Alert to Email
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.system_alerts.email.add
     isamapi:
       name: "Email Alert to {{ add_system_alerts_smtpServer }}"
@@ -17,8 +18,8 @@
 
 - name: Enable System Alert - Created in previous Step
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.system_alerts.alerts.enable
     isamapi:
       uuid: "{{ alertObj['data']['uuid'] }}"

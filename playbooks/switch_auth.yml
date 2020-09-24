@@ -9,7 +9,7 @@
       tags: ["switch", "authentication"]
       switch_auth_ldap_host: "ad.ibm.com"
       switch_auth_ldap_port: 636
-      switch_auth_base_dn:   "o=ibm,c=us"
+      switch_auth_base_dn: "o=ibm,c=us"
 
     # Modify a feature of default role "Security Administrator"
     - role: ibm.isam.set_mgmtazn_role_feature

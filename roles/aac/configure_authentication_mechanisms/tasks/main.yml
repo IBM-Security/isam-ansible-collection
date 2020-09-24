@@ -1,3 +1,5 @@
+---
+
 # main task to configure api protection definition
 #   Example:
 #     authentication_mechanisms:
@@ -14,8 +16,8 @@
 ---
 - name: Configure authentication mechanisms
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.authentication.mechanisms.set
     isamapi: "{{ item }}"
   with_items: "{{ authentication_mechanisms }}"

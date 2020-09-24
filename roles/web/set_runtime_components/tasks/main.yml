@@ -7,8 +7,8 @@
 ---
 - name: Set runtime components
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.runtime.configuration.entry.update
     isamapi:
       resource_id: "{{ item.resource_id }}"

@@ -1,13 +1,15 @@
+---
+
 # playbook for generating self signed certificates
 # Example inventory:
 #  generate_self_signed_certificates:
-#      kdb_id:     "{{ item.kdb_id }}"
-#      label:      "{{ item.label }}"
-#      dn:         "{{ item.dn }}"
-#      expire:     "{{ item.expire }}"
-#      default:    "{{ item.default }}"
-#      size:       "{{ item.size }}"
----
+#      kdb_id: "{{ item.kdb_id }}"
+#      label: "{{ item.label }}"
+#      dn: "{{ item.dn }}"
+#      expire: "{{ item.expire }}"
+#      default: "{{ item.default }}"
+#      size: "{{ item.size }}"
+
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:

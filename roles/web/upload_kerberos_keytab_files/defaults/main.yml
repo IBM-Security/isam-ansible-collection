@@ -1,0 +1,4 @@
+---
+# Default variables for uploading keytab files
+#
+keytab_files: []

@@ -40,8 +40,8 @@
 #                 - "*"
 - name: Configure STS chains
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.fed.sts.module_chains.set
     isamapi: "{{ item }}"
   when: item.name == name and item.chainName == chainName and item.requestType == item.requestType and item.issuer.address == issuer.address and item.appliesTo.address == appliesTo.address

@@ -1,2 +1,12 @@
-# Default variables for seamless integration
+# load_signer_certificates default variables
 load_signer_certificates: []
+
+# filter to limit role execution at runtime
+kdb_id: "{{ item.kdb_id }}" 
+label: "{{ item.label }}"
+server: "{{ item.server }}" 
+
+# comparing certificates is supported in two modes: simple(default) & advanced
+# simple[check_remote=false] only checks if label already exists in appliance kdb
+# advanced[check_remote=true] retrieving server certificate and compare with appliance certificate content
+check_remote: false

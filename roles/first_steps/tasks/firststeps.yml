@@ -79,8 +79,8 @@
 
 - name: Get LMI Last Restart Timestamp
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.lmi.get
   check_mode: no
   register: ret_obj
@@ -92,8 +92,8 @@
 
 - name: Commit Changes and Restart LMI
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.appliance.commit_and_restart
   when: not ansible_check_mode
 

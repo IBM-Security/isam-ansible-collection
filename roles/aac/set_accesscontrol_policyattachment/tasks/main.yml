@@ -1,20 +1,22 @@
+---
+
 # Role to set policy attachment and publish
 #
 #
 #
----
+
 - name: Authenticate
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.colruyt_policy_attachments.authenticate
     isamapi:
            domain: "{{ aac_access_control_domain | default('Default') }}"
 
 - name: Create Policy Attachments
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.colruyt_policy_attachments.config
     isamapi:
            server: "{{ item.server }}"
@@ -30,8 +32,8 @@
 
 - name: Get all Access Control Policy Resources
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.colruyt_policy_attachments.get_all
     isamapi:
   register: ret_obj
@@ -42,8 +44,8 @@
 
 - name: Publish attachments that require publishing
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.colruyt_policy_attachments.publish
     isamapi:
            server: "{{ item.server }}"
