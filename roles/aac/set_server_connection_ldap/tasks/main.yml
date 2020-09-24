@@ -3,8 +3,8 @@
 
 - name: Set LDAP Server Connection
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.aac.server_connections.ldap.set
     isamapi:
       name: "{{ set_ldap_server_connection_name }}"

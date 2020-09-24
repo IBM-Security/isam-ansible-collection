@@ -2,8 +2,8 @@
 # tasks file for get_point_of_contact
 - name: "Get a point of contact by name"
   ibm.isam.isam:
-    log:       "{{ log_level | default('INFO') }}"
-    force:     "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.fed.point_of_contact.get
     isamapi:
       name: "{{ get_point_of_contact_name }}"
