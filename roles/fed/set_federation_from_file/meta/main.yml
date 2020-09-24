@@ -1,6 +1,7 @@
+---
 galaxy_info:
   author: IBM
-  description: Set federation from a file
+  description: Role to set federation from a file
   company: IBM
 
   # If the issue tracker for your role is not on github, uncomment the
@@ -39,15 +40,19 @@ galaxy_info:
   #   - 7
   #   - 99.99
 
-  galaxy_tags: []
-    # List tags for your role here, one per line. A tag is a keyword that describes
-    # and categorizes the role. Users find roles by searching for tags. Be sure to
-    # remove the '[]' above, if you add tags to this list.
-    #
-    # NOTE: A tag is limited to a single word comprised of alphanumeric characters.
-    #       Maximum 20 tags per role.
+  galaxy_tags:
+    - isam
+    - ibm
+    - federation
+    - set
+    - set_from_file
+  # List tags for your role here, one per line. A tag is a keyword that describes
+  # and categorizes the role. Users find roles by searching for tags. Be sure to
+  # remove the '[]' above, if you add tags to this list.
+  #
+  # NOTE: A tag is limited to a single word comprised of alphanumeric characters.
+  #       Maximum 20 tags per role.
 
 dependencies: []
-  # List your role dependencies here, one per line. Be sure to remove the '[]' above,
-  # if you add dependencies to this list.
-  
+# List your role dependencies here, one per line. Be sure to remove the '[]' above,
+# if you add dependencies to this list.

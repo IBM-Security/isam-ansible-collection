@@ -3,8 +3,8 @@
 
 - name: Export a federation
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.fed.federations.export_metadata
     isamapi:
       name: "{{ export_metadata_name }}"
