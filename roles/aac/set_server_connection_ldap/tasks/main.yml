@@ -1,0 +1,20 @@
+---
+# tasks file for set_server_connection_ldap
+
+- name: Set LDAP Server Connection
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.aac.server_connections.ldap.set
+    isamapi:
+      name: "{{ set_ldap_server_connection_name }}"
+      connection: "{{ set_ldap_server_connection_connection }}"
+      description: "{{ set_ldap_server_connection_description | default(omit) }}"
+      locked: "{{ set_ldap_server_connection_locked | default(omit) }}"
+      connectionManager: "{{ set_ldap_server_connection_manager | default(omit) }}"
+      servers: "{{ set_ldap_server_connection_servers | default(omit) }}"
+      new_name: "{{ set_ldap_server_connection_new_name | default(omit) }}"
+  when:
+    - set_ldap_server_connection_name is defined
+    - set_ldap_server_connection_connection is defined
+  notify: Commit Changes
