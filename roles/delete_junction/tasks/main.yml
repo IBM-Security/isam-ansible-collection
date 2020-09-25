@@ -1,8 +1,8 @@
 ---
 - name: Delete junction - {{ delete_junction_junction_name }}
-  isam:
-    log: "{{ log_level }}"
-    force: "{{ force }}"
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.junctions.delete
     isamapi:
       junctionname: "{{ delete_junction_junction_name }}"
