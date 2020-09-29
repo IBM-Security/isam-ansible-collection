@@ -1,0 +1,23 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  collections:
+    - ibm.isam
+  tasks:
+    - name: "Test add using configure_access_control_attributes role"
+      include_role:
+        name: "configure_access_control_attributes"
+      vars:
+        access_control_attributes:
+          - category: "{{ category }}"
+            datatype: "{{ datatype }}"
+            description: "{{ add_description }}"
+            issuer: "{{ issuer }}"
+            matcher: "{{ matcher }}"
+            name: "{{ name }}"
+            predefined: "{{ predefined }}"
+            storageDomain: "{{ storageDomain }}"
+            type: "{{ type }}"
+            attributeURI: "{{ attributeURI }}"
+      register: ret_obj

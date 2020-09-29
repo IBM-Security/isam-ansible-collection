@@ -1,3 +1,4 @@
+---
 - name: Search for a Mapping Rule
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -6,4 +7,4 @@
     isamapi:
       name: "{{ search_mapping_rule_name }}"
   when: search_mapping_rule_name is defined
-  register: "{{ search_mapping_rule_register }}"
+  register: ret_obj
