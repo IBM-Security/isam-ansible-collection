@@ -1,0 +1,58 @@
+---
+
+# main task to configure dns
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_static_routes
+
+      DESCRIPTION
+        Role to configure static routes
+
+      STEPS
+        1) Configure static routes (route_action=set/add/update/delete)
+        3) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_static_routes.yml
+
+      INVENTORY
+      ==========
+      # configure static routes
+      # route_action: [ set | add | update | delete ]
+      # REMARK:
+      #   - set implies add or update by check method
+      #   - delete takes fewer arguments
+      static_routes:
+        - route_action: set
+          address: default
+          gateway: '192.168.42.2'
+          metric: 1
+          label: '1.1'
+        - route_action: set
+          address: '192.168.42.6'
+          gateway: '192.168.42.2'
+          metric: 1
+          label: '1.1'
+        - route_action: delete
+          address: '192.168.42.6'
+          label: '1.1'
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+- name: Configure static routes
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: "ibmsecurity.isam.base.network.static_routes.{{ item.route_action }}"
+    isamapi: "{{ item | ibm.isam.exclude('route_action') }}"
+  when:
+    - item is defined
+  loop: "{{ static_routes }}"
+  notify: Commit Changes
