@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  collections:
+    - ibm.isam
+  tasks:
+    - debug:
+        msg: "To test add using configure_access_control_policies role:
+          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name add'
+          To test remove using configure_access_control_attributes role:
+          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name remove'
+          To test set using configure_access_control_attributes role:
+          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name set'
+          To test force remove using configure_access_control_attributes role:
+          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name force_remove'"

@@ -1,0 +1,11 @@
+---
+server: "1"
+resourceUri: "/testdefinition"
+attachments: [{'name': 'testapi2',
+               'type': 'definition'}]
+set_attachments: [{'name': 'testapi2',
+                   'type': 'definition'}]
+action_add: "add"
+action_remove: "remove"
+action_force_remove: "force_remove"
+action_set: "set"
