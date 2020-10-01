@@ -96,3 +96,10 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.lmi.restart_and_wait
+
+- name: Publish Changes (docker)
+  isam:
+    log:       "{{ log_level | default(omit) }}"
+    force:     "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.docker.publish.publish_changes
+  when: '"model" in ansible_facts and ansible_facts.model == "Docker"'
