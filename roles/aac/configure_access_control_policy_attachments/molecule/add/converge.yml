@@ -1,0 +1,14 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Include configure_access_control_policy_attachments"
+      include_role:
+        name: "configure_access_control_policy_attachments"
+      vars:
+        access_control_policy_attachments:
+          - server: "{{ server }}"
+            resourceUri: "{{ resourceUri }}"
+            attachments: "{{ attachments }}"
+            action: "{{ action_add }}"

@@ -1,0 +1,43 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "../../vars/main.yml"
+        name: inventory
+
+    - name: "Include get_access_control_policy_attachments"
+      include_role:
+        name: "get_access_control_policy_attachments"
+      vars:
+        get_access_control_policy_attachments:
+          - server: "{{ inventory.server }}"
+            resourceUri: "{{ inventory.resourceUri }}"
+
+    - name: "set fact lista"
+      set_fact:
+        lista: []
+
+    - name: "set fact listb"
+      set_fact:
+        listb: []
+
+    - name: "set fact lista with items from inventory"
+      set_fact:
+        lista: "{{ lista }} + ['{{ item.name }} {{ item.type }}']"
+      with_items: "{{ inventory.attachments }}"
+
+    - name: "set fact lista with items from inventory"
+      set_fact:
+        listb: "{{ listb }} + ['{{ item.name }} {{ item.type }}']"
+      with_items: "{{ ret_obj.results.0.data.policies }}"
+
+    - name: "Assert that policy attachment for server {{ inventory.server }} and resourceUri {{ inventory.resourceUri }} was added"
+      assert:
+        that:
+          - lista is not subset(listb)
+        fail_msg: "Policy attachment for server {{ inventory.server }} and resourceUri {{ inventory.resourceUri }} was not removed"
+        success_msg: "Policy attachment for server {{ inventory.server }} and resourceUri {{ inventory.resourceUri }} was removed"
