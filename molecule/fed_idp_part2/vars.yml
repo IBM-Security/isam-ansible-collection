@@ -1,0 +1,362 @@
+#9.1 Configuring Partner for the IdP
+fed_name: saml20idp
+protocol: SAML2_0
+role: ip
+import_metadata_filename: "providedfiles/Automation/tmp/spmetadata.xml"
+partner_name: "SP Company"
+configuration: {
+  encryptionSettings: {
+    blockEncryptionAlgorithm: "AES-256",
+    encryptionKeyTransportAlgorithm: "RSA-OAEP",
+    encryptionOptions: {
+      encryptAssertion: false,
+      encryptAssertionAttributes: false,
+      encryptNameID: false
+    }
+  },
+  signatureSettings: {
+    digestAlgorithm: "SHA512",
+    signatureAlgorithm: "RSA-SHA512",
+    signingOptions: {
+      signAssertion: true,
+      signAuthnResponse: true
+    },
+    transformAlgorithmElements: {},
+    validationOptions: {
+      validateArtifactRequest: true,
+      validateArtifactResponse: true,
+      validateAuthnRequest: true,
+      validateLogoutRequest: true,
+      validateLogoutResponse: true,
+      validateNameIDManagementRequest: true,
+      validateNameIDManagementResponse: true
+    }
+  }
+}
+set_partner_enabled: true
+set_partner_role: "sp"
+
+#10.3 Configure test user
+execute_pdadmin_isamuser: sec_master
+execute_pdadmin_isampwd: Passw0rd
+test_user_pdadmin_commands: ["user create testuser cn=testuser,dc=iswga Test User Passw0rd",
+                             "user modify testuser account-valid yes"]
+test_user_dn: cn=testuser,dc=iswga
+ldap_server_uri: ldaps://192.168.42.101:636
+ldap_bind_dn: cn=root,secAuthority=default
+ldap_bind_pw: passw0rd
+ldap_attributes: {
+  mail: "testuser@mailinator.com",
+  homePhone: "555-12345",
+  displayName: "Test User"
+}
+
+#12 Create OpenID Connect Provider
+oidc_mapping_rule_name: OIDCIDToken
+ip_oidc_fed: "providedfiles/ip_odic_fed.json"
+oidc_fed_name: ISAMOP
+oidc_protocol: OIDC
+oidc_role: op
+
+#12.2 Configure Reverse Proxy for IdP
+config_reverseproxy_federation_hostname: "127.0.0.1"
+config_reverseproxy_federation_port: "443"
+config_reverseproxy_federation_reuse_certs: false
+config_reverseproxy_federation_reuse_acls: false
+inst_name: "default"
+
+#12.3.1 ISAM-to-ISAM partner
+oidc_isam_partner_name: ISAM-to-ISAM
+oidc_isam_enabled: true
+oidc_isam_role: "op"
+oidc_isam_partner_configuration: {
+  "allowIntrospect": "false",
+  "allowRefreshGrant": "false",
+  "clientId": "isamtoisamid",
+  "clientName": "ISAM Client",
+  "clientSecret": "isamClientSecret",
+  "redirectUris": ["https://www.mysp.ibm.com/isam/oidcclient/redirect/amapp-runtime-ISAMRPImplicit",
+                   "https://www.mysp.ibm.com/isam/oidcclient/redirect/amapp-runtime-ISAMRPCode"],
+  "responseTypes": ["code", "id_token token"],
+  "scope": ["openid"]
+}
+
+#12.3.2 ISAM-to-Cloud partner
+oidc_cloud_partner_name: ISAM-to-Cloud
+oidc_cloud_enabled: true
+oidc_cloud_role: "op"
+oidc_cloud_partner_configuration: {
+  "allowIntrospect": "false",
+  "clientId": "isamClientID",
+  "clientSecret": "isamClientSecret",
+  "clientName": "Cloud Client",
+  "redirectUris": ["https://oidcdemoclient.mybluemix.net/oidcclient/redirect/isamClientID"],
+  "responseTypes": ["id_token token"],
+  "scope": ["openid"]
+}
+
+#17.1 Configuring the STSUU to STSUU Chain Template
+sts_chain_templates: [ {"name": "STSUU to STSUU", "chainItems": [{"id": "default-stsuu", "mode": "validate"}, {"id": "default-map", "mode": "map"}, {"id": "default-stsuu", "mode": "issue"}], "description": "STSUU to STSUU"}]
+sts_template_name: "STSUU to STSUU"
+sts_template_content_id: "default-map"
+sts_template_content_rule_name: "stsuutostsuu"
+sts_chain: {
+  chainName: "STSUU to STSUU",
+  "appliesTo": {
+    "address": "http://stsuu/appliesto"
+  },
+  "description": "STSUUMapper",
+  issuer: {
+    "address": "http://stsuu/issuer"
+  },
+  name: "STSUUMapper",
+  requestType: "http://schemas.xmlsoap.org/ws/2005/02/trust/Validate",
+  signResponses: false,
+  validateRequests: false
+}
+
+#17.3 Allowing access to the STS via the ISAM Reverse Proxy
+sts_pdadmin_commands: ["acl create sts-unauth",
+                       "acl modify sts-unauth set group iv-admin TcmdbsvaBRrxl",
+                       "acl modify sts-unauth set group webseal-servers Tgmdbsrxl",
+                       "acl modify sts-unauth set user sec_master TcmdbsvaBRrxl",
+                       "acl modify sts-unauth set any-other Tr",
+                       "acl modify sts-unauth set unauthenticated Tr",
+                       "acl attach /WebSEAL/isam.myidp.ibm.com-default/isam/TrustServer/SecurityTokenService sts-unauth",
+                       "acl attach /WebSEAL/isam.myidp.ibm.com-default/isam/TrustServerWST13/services/RequestSecurityToken sts-unauth"]
+
+#"17.4 Updating the easuser password"
+easuser_registry_id: "easuser"
+easuser_registry_password: "Passw0rd"
+
+#18.1 Using HttpClient from Javascript mapping rules
+set_federation_name: "saml20idp"
+set_federation_protocol: "SAML2_0"
+set_federation_role: "ip"
+update_mapping_rule_name: ip_saml20_httpclient_wstrust
+set_federation_configuration: {
+  "companyName": "IdP Company",
+  "pointOfContactUrl": "https:\/\/www.myidp.ibm.com\/isam\/sps",
+  "extensionMapping": { "activeDelegateId": "skip-extension-map"},
+  "singleSignOnService": [
+  { "binding": "post" }, { "binding": "redirect" }
+  ]
+}
+
+#18.2 Using the external http callout mapping module
+update_federation_configuration: {
+  "companyName": "IdP Company",
+  "pointOfContactUrl": "https:\/\/www.myidp.ibm.com\/isam\/sps",
+  "extensionMapping": { "activeDelegateId": "skip-extension-map"},
+  "identityMapping": {
+    "activeDelegateId": "default-http-custom-map",
+    "properties": {
+      "appliesTo": "http://appliesto/stsuu",
+      "authType": "BASIC",
+      "basicAuthPassword": "Passw0rd",
+      "basicAuthUsername": "easuer",
+      "issuerUri": "http://issuer/stsuu",
+      "messageFormat": "WSTRUST",
+      "sslKeyStore": "pdsrv",
+      "uri": "https://localhost/TrustServer/SecurityTokenService"
+    }
+  },
+  "singleSignOnService": [
+  { "binding": "post" }, { "binding": "redirect" }
+  ]
+}
+
+#18.3.2.1 Configuring a Server Connection
+set_ldap_server_connection_name: "localldap"
+set_ldap_server_connection_connection: {
+  "bindDN": "cn=root,secAuthority=Default",
+  "bindPwd": "passw0rd",
+  "hostName": "localhost",
+  "hostPort": 389,
+  "ssl": "false",
+  "sslAuthKey": "",
+  "sslTruststore": ""
+}
+set_ldap_server_connection_description: "Local LDAP Server"
+set_ldap_server_connection_manager: {
+  "connectTimeout": 20
+}
+
+#18.3.2.2 Configuring Attribute Sources
+attribute_sources:
+  [
+  {
+    "attribute_source_name": "LDAPDisplayName",
+    "attribute_source_type": "ldap",
+    "attribute_source_value": "displayName",
+    "attribute_source_properties":
+      [
+      {
+        "key": "serverConnection",
+        "value": "localldap"
+      },
+      {
+        "key": "scope",
+        "value": "base"
+      },
+      {
+        "key": "selector",
+        "value": "homePhone,displayName"
+      },
+      {
+        "key": "searchFilter",
+        "value": "(objectclass=*)"
+      },
+      {
+        "key": "baseDN",
+        "value": "{BASE_DN}"
+      }
+      ]
+  },
+  {
+    "attribute_source_name": "LDAPPhoneNumber",
+    "attribute_source_type": "ldap",
+    "attribute_source_value": "homePhone",
+    "attribute_source_properties":
+      [
+      {
+        "key": "serverConnection",
+        "value": "localldap"
+      },
+      {
+        "key": "scope",
+        "value": "base"
+      },
+      {
+        "key": "selector",
+        "value": "homePhone,displayName"
+      },
+      {
+        "key": "searchFilter",
+        "value": "(objectclass=*)"
+      },
+      {
+        "key": "baseDN",
+        "value": "{BASE_DN}"
+      }
+      ]
+  }
+  ]
+
+#18.3.4 Configuring the STS chain for LDAP Attribute Map
+sts_ldap_templates: [ {"name": "STSUULDAPAttributeMapper", "chainItems": [{"id": "default-stsuu", "mode": "validate"}, {"id": "default-map", "mode": "map"}, {"id": "default-attr_map", "mode": "map"}, {"id": "default-map", "mode": "map"}, {"id": "default-stsuu", "mode": "issue"}], "description": "Maps from STSUU to another STSUU reading in LDAP attributes"}]
+modify_sts_template_name: "STSUULDAPAttributeMapper"
+ip_pre_ldap_rule_name: "ip_pre_ldap"
+ip_post_ldap_rule_name: "ip_post_ldap"
+mapper_name: "default-map"
+attribute_source_phone: "LDAPPhoneNumber"
+attribute_source_name: "LDAPDisplayName"
+update_sts_chain: {
+  "chainName": "STSUULDAPAttributeMapper",
+  "appliesTo": {
+    "address": "http://stsuu/appliesto"
+  },
+  "description": "STSUUMapper",
+  "issuer": {
+    "address": "http://stsuu/issuer"
+  },
+  "name": "STSUUMapper",
+  "requestType": "http://schemas.xmlsoap.org/ws/2005/02/trust/Validate",
+  "signResponses": false,
+  "validateRequests": false
+}
+
+#19.1 Create the ISAM Credential to SAML 2.0 STS Chain Template
+saml_sts_templates: [ {"name": "IVCredToSAML20JunctionExample", "chainItems": [{"id": "default-ivc", "mode": "validate"}, {"id": "default-map", "mode": "map"}, {"id": "default-saml2_0", "mode": "issue"}], "description": "IVCredToSAML20JunctionExample"}]
+IVCredToSAML20JunctionExample_name: "IVCredToSAML20JunctionExample"
+saml_mapper_name: "default-map"
+saml20_ivc_to_saml20_name: "saml20_ivc_to_saml20"
+saml_issue_name: "default-saml2_0"
+saml_validate_name: "default-ivc"
+saml_sts_chain: {
+  "chainName": "IVCredToSAML20JunctionExample",
+  "appliesTo": {
+    "address": "http://appliesto/saml20"
+  },
+  "description": "A chain to convert an ISAM Credential to a SAML 2.0 Token",
+  "issuer": {
+    "address": "amwebrte-sts-client"
+  },
+  "name": "IVCredToSAML20Chain",
+  "requestType": "http://docs.oasis-open.org/ws-sx/ws-trust/200512/Issue",
+  "tokenType": "http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0",
+  "signResponses": false,
+  "validateRequests": false
+}
+
+#19.3 Update the reverse proxy configuration file
+set_reverseproxy_conf_entries_19_3: [{stanza_id: "tfim-cluster:samljct", entries: [["server", "9,https://localhost:443/TrustServerWST13/services/RequestSecurityToken"],
+                                                                                   ["ssl-keyfile", "pdsrv.kdb"],
+                                                                                   ["ssl-keyfile-stash", "pdsrv.sth"],
+                                                                                   ["handle-pool-size", "10"],
+                                                                                   ["handle-idle-timeout", "240"],
+                                                                                   ["timeout", "240"],
+                                                                                   ["basic-auth-user", "easuser"],
+                                                                                   ["basic-auth-passwd", "Passw0rd"]
+]
+                                     },
+                                     {stanza_id: "tfimsso:/samljct", entries: [["token-type", "http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0"],
+                                                                               ["applies-to", "http://appliesto/saml20"],
+                                                                               ["renewal-window", "15"],
+                                                                               ["preserve-xml-token", "false"],
+                                                                               ["tfim-cluster-name", "samljct"],
+                                                                               ["token-transmit-type", "header"],
+                                                                               ["token-transmit-name", "SAMLAssertion"],
+                                                                               ["always-send-tokens", "true"],
+                                                                               ["one-time-token", "true"],
+                                                                               ["token-collection-size", "1"]
+                                     ]
+                                     }
+]
+
+#19.4 Create the /samljct Junction
+samljct_pdadmin_commands: ["server task default-webseald-isam.myidp.ibm.com create -t ssl -h localhost -p 443 -Y /samljct"]
+
+#19.5 Enable the demonstration application
+update_advanced_configuration_key: "live.demos.enabled"
+update_advanced_configuration_value: "true"
+update_advanced_configuration_sensitive: false
+url: "https://192.168.42.102/isam/mobile-demo/setting/"
+acHostAndPort: "localhost:443"
+lmiHostAndPort: "isam.myidp.ibm.com:443"
+lmiAdminId: "admin"
+lmiAdminPwd: "Passw0rd"
+websealHostNameAndPort: "www.myidp.ibm.com:443"
+acUuidCookieName: "ac.uuid"
+acl_pdadmin_commands: ["acl attach /WebSEAL/isam.myidp.ibm.com-default/isam/mobile-demo default-webseal",
+                       "server replicate"]
+demo_pdadmin_commands: ["acl create temp-unauth",
+                        "acl modify temp-unauth set group iv-admin TcmdbsvaBRrxl",
+                        "acl modify temp-unauth set group webseal-servers Tgmdbsrxl",
+                        "acl modify temp-unauth set user sec_master TcmdbsvaBRrxl",
+                        "acl modify temp-unauth set any-other Tr",
+                        "acl modify temp-unauth set unauthenticated Tr",
+                        "acl attach /WebSEAL/isam.myidp.ibm.com-default/isam/mobile-demo temp-unauth",
+                        "server replicate"]
+web_username: "sec_master"
+web_password: "Passw0rd"
+
+#21.1 Replace login.html on the identity provider
+update_management_root_idandfilename: [
+{"id": "management/C/login.html", "filename": "/home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook/providedfiles/Automation/pages/saml20/login.html"}
+]
+update_management_root_instance_id: "default"
+
+#21.2 Configure authentication macros in the federation runtime
+new_point_of_contact_name: "PartnerID Macro + Access Manager Username and extended attributes"
+new_point_of_contact_authenticateCallbacks: [
+  {
+    "index": 0,
+    "moduleReferenceId": "websealPocAuthenticateCallback",
+    "parameters": [
+      {"name": "authentication.macros", "value": "%PARTNERID%"},
+      {"name": "fim.user.request.header.name", "value": "iv-user"}
+    ]
+  }
+]
+get_point_of_contact_name: "Access Manager Username and extended attributes"
