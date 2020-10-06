@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Include configure_api_protection_clients"
+      include_role:
+        name: "configure_api_protection_clients"
+      vars:
+        api_protection_clients:
+          - name: "{{ client_name }}"
+            companyName: "{{ companyName }}"
+            redirectUri: "{{ redirectUri }}"
+            contactType: "{{ contactType }}"
+            definitionName: "{{ definition_name }}"
+            description: "{{ description }}"

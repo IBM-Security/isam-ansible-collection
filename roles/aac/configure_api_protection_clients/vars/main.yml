@@ -1,0 +1,12 @@
+---
+
+definition_name: testapi1
+grantTypes: AUTHORIZATION_CODE
+tcmBehavior: NEVER_PROMPT
+client_name: TestApp
+companyName: IBM demo client for OAuth flows
+redirectUri: https://localhost
+contactType: ADMINISTRATIVE
+clients:
+  - name: TestApp
+companyUrl: https://ibm.com
