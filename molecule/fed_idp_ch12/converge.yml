@@ -1,0 +1,59 @@
+---
+- name: Federation Cookbook IdP Part 2 Ch. 12
+  hosts: all
+  gather_facts: no
+  vars:
+    homedir: "/home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook"
+  tasks:
+    - include_vars:
+        file: "../vars/fed_cookbook_idp_vars.yml"
+        name: inventory
+
+    # 12 Create OpenID Connect Provider
+    - name: "12.1 Create Federation: get mapping rule id"
+      include_role:
+        name: ibm.isam.search_mapping_rule
+      vars:
+        search_mapping_rule_name: "{{ inventory.oidc_mapping_rule_name }}"
+
+    - name: "12.1 Create Federation: create the federation"
+      include_role:
+        name: ibm.isam.fed.set_federation_from_file
+      vars:
+        set_federation_from_file:
+          - name: "{{ inventory.oidc_fed_name}}"
+            protocol: "{{ inventory.oidc_protocol }}"
+            role: "{{ inventory.oidc_role }}"
+            filename: "{{ homedir }}/{{ inventory.ip_oidc_fed }}"
+            mapping_id: "{{ ret_obj.data }}"
+
+    - name: "12.2 Configure Reverse Proxy for IdP"
+      include_role:
+        name: ibm.isam.config_reverseproxy_federation
+      vars:
+        config_reverseproxy_federation_name: "{{ inventory.oidc_fed_name }}"
+        config_reverseproxy_federation_instance_id: "{{ inventory.inst_name }}"
+        config_reverseproxy_federation_hostname: "{{ inventory.config_reverseproxy_federation_hostname }}"
+        config_reverseproxy_federation_port: "{{ inventory.config_reverseproxy_federation_port }}"
+        config_reverseproxy_federation_reuse_certs: "{{ inventory.config_reverseproxy_federation_reuse_certs }}"
+        config_reverseproxy_federation_reuse_acls: "{{ inventory.config_reverseproxy_federation_reuse_acls }}"
+
+    - name: "12.3.1 ISAM-to-ISAM partner"
+      include_role:
+        name: ibm.isam.set_partner
+      vars:
+        set_partner_federation_name: "{{ inventory.oidc_fed_name }}"
+        set_partner_partner_name: "{{ inventory.oidc_isam_partner_name }}"
+        set_partner_enabled: "{{ inventory.oidc_isam_enabled }}"
+        set_partner_role: "{{ inventory.oidc_isam_role }}"
+        set_partner_configuration: "{{ inventory.oidc_isam_partner_configuration }}"
+
+    - name: "12.3.2 ISAM-to-Cloud partner"
+      include_role:
+        name: ibm.isam.set_partner
+      vars:
+        set_partner_federation_name: "{{ inventory.oidc_fed_name }}"
+        set_partner_partner_name: "{{ inventory.oidc_cloud_partner_name }}"
+        set_partner_enabled: "{{ inventory.oidc_cloud_enabled }}"
+        set_partner_role: "{{ inventory.oidc_cloud_role }}"
+        set_partner_configuration: "{{ inventory.oidc_cloud_partner_configuration }}"

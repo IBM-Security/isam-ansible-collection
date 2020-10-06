@@ -1,0 +1,30 @@
+---
+- name: Federation Cookbook IdP Part 1 Ch. 8
+  hosts: all
+  gather_facts: no
+  vars:
+    homedir: "/home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook"
+  tasks:
+    - include_vars:
+        file: "../vars/fed_cookbook_idp_vars.yml"
+        name: inventory
+
+    # 8 Configure Reverse Proxy for Federation
+    # 8.1 ISAM Configuration for the IdP
+    - name: "8.1.1 Configure Reverse Proxy for IdP"
+      include_role:
+        name: ibm.isam.config_reverseproxy_federation
+      vars:
+        config_reverseproxy_federation_name: "{{ inventory.fed_name }}"
+        config_reverseproxy_federation_instance_id: "{{ inventory.inst_name }}"
+        config_reverseproxy_federation_hostname: "{{ inventory.config_reverseproxy_federation_hostname }}"
+        config_reverseproxy_federation_port: "{{ inventory.config_reverseproxy_federation_port }}"
+        config_reverseproxy_federation_reuse_certs: "{{ inventory.config_reverseproxy_federation_reuse_certs }}"
+        config_reverseproxy_federation_reuse_acls: "{{ inventory.config_reverseproxy_federation_reuse_acls }}"
+
+    - name: "8.1.2 Environment-specific configuration"
+      include_role:
+        name: ibm.isam.set_reverseproxy_conf
+      vars:
+        set_reverseproxy_conf_entries: "{{ inventory.set_reverseproxy_conf_entries_8_1_2 }}"
+        set_reverseproxy_conf_reverseproxy_id: "{{ inventory.inst_name }}"

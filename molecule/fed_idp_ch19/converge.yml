@@ -1,0 +1,181 @@
+---
+- name: Federation Cookbook IdP Part 2 Ch. 19
+  hosts: all
+  gather_facts: no
+  vars:
+    homedir: "/home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook"
+  tasks:
+    - include_vars:
+        file: "../vars/fed_cookbook_idp_vars.yml"
+        name: inventory
+
+    # 19 STS Tokens on Reverse Proxy Junctions
+    - name: "19.1 Create the ISAM Credential to SAML 2.0 STS Chain Template"
+      include_role:
+        name: ibm.isam.fed.configure_sts_chain_templates
+      vars:
+        sts_chain_templates: "{{ inventory.saml_sts_templates }}"
+
+    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - find IVCredToSAML20JunctionExample template"
+      include_role:
+        name: ibm.isam.fed.get_sts_chains
+      vars:
+        sts_template_name: "{{ inventory.IVCredToSAML20JunctionExample_name }}"
+
+    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find validate module uuid"
+      set_fact:
+        saml_validate_uuid: "{{ item.prefix }}"
+      when: "{{ item.id == inventory.saml_validate_name }}"
+      with_items: "{{ ret_obj.data.chainItems }}"
+
+    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find map module uuid"
+      set_fact:
+        saml_mapper_uuid: "{{ item.prefix }}"
+      when: "{{ item.id == inventory.saml_mapper_name }}"
+      with_items: "{{ ret_obj.data.chainItems }}"
+
+    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find issue module uuid"
+      set_fact:
+        saml_issue_uuid: "{{ item.prefix }}"
+      when: "{{ item.id == inventory.saml_issue_name }}"
+      with_items: "{{ ret_obj.data.chainItems }}"
+
+    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - get saml20_ivc_to_saml20 mapping rule id"
+      include_role:
+        name: ibm.isam.search_mapping_rule
+      vars:
+        search_mapping_rule_name: "{{ inventory.saml20_ivc_to_saml20_name }}"
+
+    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save saml20_ivc_to_saml20 id"
+      set_fact:
+        saml20_ivc_to_saml20_id: "{{ ret_obj.data }}"
+
+    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - create properties obj"
+      set_fact:
+        chain_properties:
+          properties: {
+            partner: [{ "name": "{{ saml_validate_uuid }}.ivcred.verify.signatures",
+                        "value": ["false"]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.attribute.types",
+                        "value": ["*"]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.sign",
+                        "value": ["true"]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.SigningKeyIdentifier.db",
+                        "value": ["myidpkeys"]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.SigningKeyIdentifier.cert",
+                        "value": ["myidpkey"]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.subject.keyid",
+                        "value": ["true"]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.public.key",
+                        "value": ["true"]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.issuer.details",
+                        "value": ["true"]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.subject.name",
+                        "value": ["true"]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.cert.data",
+                        "value": ["true"]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.SignatureAlgorithm",
+                        "value": ["RSA-SHA512"]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.DigestAlgorithm",
+                        "value": ["SHA256"]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptionKeyIdentifier.db",
+                        "value": [""]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptionKeyIdentifier.cert",
+                        "value": [""]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptAssertions",
+                        "value": ["false"]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptAllAttributes",
+                        "value": ["false"]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptNameIdentifiers",
+                        "value": ["false"]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.BlockEncryptionAlgorithm",
+                        "value": ["TRIPLEDES"]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptionKeyTransportAlgorithm",
+                        "value": ["RSA-OAEP"]},
+                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.SubjectConfirmationMethod",
+                        "value": ["urn:oasis:names:tc:SAML:2.0:cm:bearer"]}],
+            self: [ { "name": "{{ saml_mapper_uuid }}.map.rule.type",
+                      "value": ["JAVASCRIPT"]},
+                    { "name": "{{ saml_mapper_uuid }}.map.rule.reference.ids",
+                      "value": ["{{ saml20_ivc_to_saml20_id }}"]},
+                    { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.issuer",
+                      "value": ["https://www.myidp.ibm.com/isam/sps/saml20idp/saml20"]},
+                    { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.pretime.valid",
+                      "value": ["3600"]},
+                    { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.posttime.valid",
+                      "value": ["3600"]}]
+          }
+
+
+    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - create properties obj"
+      set_fact:
+        new_saml_chain: ["{{ inventory.saml_sts_chain | combine(chain_properties) }}"]
+
+    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain"
+      include_role:
+        name: ibm.isam.fed.configure_sts_chains
+      vars:
+        sts_chains: "{{ new_saml_chain }}"
+
+    - name: "19.3 Update the reverse proxy configuration file"
+      include_role:
+        name: ibm.isam.set_reverseproxy_conf
+      vars:
+        set_reverseproxy_conf_entries: "{{ inventory.set_reverseproxy_conf_entries_19_3 }}"
+        set_reverseproxy_conf_reverseproxy_id: "{{ inventory.inst_name }}"
+
+    - name: "19.4 Create the /samljct Junction"
+      include_role:
+        name: ibm.isam.execute_pdadmin
+      vars:
+        execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
+        execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
+        execute_pdadmin_commands: "{{ inventory.samljct_pdadmin_commands }}"
+
+    - name: "19.5 Enable the demonstration application"
+      include_role:
+        name: ibm.isam.update_advanced_configuration
+      vars:
+        update_advanced_configuration_key: "{{ inventory.update_advanced_configuration_key }}"
+        update_advanced_configuration_value: "{{ inventory.update_advanced_configuration_value }}"
+        update_advanced_configuration_sensitive: "{{ inventory.update_advanced_configuration_sensitive }}"
+
+    - name: "19.5 Enable the demonstration application - setup acls"
+      include_role:
+        name: ibm.isam.execute_pdadmin
+      vars:
+        execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
+        execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
+        execute_pdadmin_commands: "{{ inventory.demo_pdadmin_commands }}"
+
+    - name: "19.5 Enable the demonstration application - update demo app settings"
+      vars:
+        inputs:
+          - "acHostAndPort={{ inventory.acHostAndPort }}"
+          - "lmiHostAndPort={{ inventory.lmiHostAndPort }}"
+          - "lmiAdminId={{ inventory.lmiAdminId }}"
+          - "lmiAdminPwd={{ inventory.lmiAdminPwd }}"
+          - "websealHostNameAndPort={{ inventory.websealHostNameAndPort }}"
+          - "acUuidCookieName={{ inventory.acUuidCookieName }}"
+      uri:
+        validate_certs: false
+        url_username: "{{ inventory.web_username }}"
+        url_password: "{{ inventory.web_password }}"
+        force_basic_auth: yes
+        url: "{{ inventory.url }}"
+        method: POST
+        return_content: yes
+        body_format: form-urlencoded
+        body: "{{ inputs | join('&') }}"
+        headers:
+          Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+      register: rest_post
+      ignore_errors: yes
+
+    - name: "19.6 Authorize Access to Mobile Demo Application - update acls"
+      include_role:
+        name: ibm.isam.execute_pdadmin
+      vars:
+        execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
+        execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
+        execute_pdadmin_commands: "{{ inventory.acl_pdadmin_commands }}"
