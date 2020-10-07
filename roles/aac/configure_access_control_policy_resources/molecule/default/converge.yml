@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Include configure_access_control_policy_resources"
+      include_role:
+        name: "configure_access_control_policy_resources"
+      vars:
+        access_control_policy_resources:
+          - server: "{{ server }}"
+            resourceUri: "{{ resourceUri }}"
+            policies: "{{ policies }}"
+
+    - debug:
+        var: ret_obj

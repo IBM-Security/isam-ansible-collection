@@ -10,10 +10,10 @@ galaxy_info:
   min_ansible_version: 2.2
 
   galaxy_tags:
-  - isam
-  - ibm
-  - configure
-  - policies
+    - isam
+    - ibm
+    - configure
+    - policies
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers
