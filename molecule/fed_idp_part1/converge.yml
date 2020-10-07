@@ -3,10 +3,10 @@
   hosts: all
   gather_facts: no
   vars:
-    homedir: "/home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook"
+    homedir: ""
   tasks:
     - include_vars:
-        file: "vars.yml"
+        file: "../vars/fed_cookbook_idp_vars.yml"
         name: inventory
 
     - name: "4.2 Enable NTP"
@@ -15,6 +15,7 @@
       vars:
         config_ntp_ntp_servers: "{{ inventory.ntpServers }}"
         config_ntp_timeZone: "{{ inventory.timeZone }}"
+        config_ntp_enableNtp: "{{ inventory.enableNtp }}"
 
     - name: "4.3 Product Activation"
       include_role:
@@ -124,8 +125,8 @@
         - export_metadata_name: "{{ inventory.fed_name }}"
         - export_metadata_filename: "{{ homedir }}/{{ inventory.export_metadata_filename }}"
 
-#8 Configure Reverse Proxy for Federation
-  # 8.1 ISAM Configuration for the IdP
+    # 8 Configure Reverse Proxy for Federation
+    # 8.1 ISAM Configuration for the IdP
     - name: "8.1.1 Configure Reverse Proxy for IdP"
       include_role:
         name: ibm.isam.config_reverseproxy_federation
@@ -143,4 +144,3 @@
       vars:
         set_reverseproxy_conf_entries: "{{ inventory.set_reverseproxy_conf_entries_8_1_2 }}"
         set_reverseproxy_conf_reverseproxy_id: "{{ inventory.inst_name }}"
-

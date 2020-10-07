@@ -3,10 +3,10 @@
   hosts: all
   gather_facts: no
   vars:
-    homedir: "/home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook"
+    homedir: ""
   tasks:
     - include_vars:
-        file: "vars.yml"
+        file: "../vars/fed_cookbook_sp_vars.yml"
         name: inventory
 
     - name: "4.2 Enable NTP"
@@ -15,6 +15,7 @@
       vars:
         - config_ntp_ntp_servers: "{{ inventory.ntpServers }}"
           config_ntp_timeZone: "{{ inventory.timeZone }}"
+          config_ntp_enableNtp: "{{ inventory.enableNtp }}"
 
     - name: "4.3 Product Activation"
       include_role:
@@ -85,7 +86,7 @@
         execute_rp_op_ids: "{{ inventory.execute_rp_op_ids }}"
         execute_rp_op_operation: "{{ inventory.execute_rp_op_operation }}"
 
-#7 Create SAML 2.0 Service Provider federation
+    # 7 Create SAML 2.0 Service Provider federation
     - name: "7.1 Uploading keystore files"
       include_role:
         name: ibm.isam.import_certificate_db
@@ -124,7 +125,7 @@
         - export_metadata_name: "{{ inventory.fed_name }}"
         - export_metadata_filename: "{{ homedir }}/{{ inventory.export_metadata_filename }}"
 
-#8.2 ISAM Configuration for SP
+    # 8.2 ISAM Configuration for SP
     - name: "8.2.1 Configure Reverse Proxy for SP"
       include_role:
         name: ibm.isam.config_reverseproxy_federation
