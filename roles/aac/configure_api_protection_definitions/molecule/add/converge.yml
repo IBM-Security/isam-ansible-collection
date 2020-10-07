@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Include configure_api_protection_definitions"
+      include_role:
+        name: "configure_api_protection_definitions"
+      vars:
+        api_protection_definitions:
+          - name: "{{ definition_name }}"
+            description: "{{ description }}"
+            tcmBehavior: "{{ tcmBehavior }}"
