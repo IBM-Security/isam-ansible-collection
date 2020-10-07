@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: no
   vars:
-    homedir: "/home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook"
+    homedir: ""
   tasks:
     - include_vars:
         file: "../vars/fed_cookbook_idp_vars.yml"
