@@ -1,17 +1,25 @@
+---
+
 # Important: The order of handlers is crucial. See documentation:
 #   http://docs.ansible.com/ansible/glossary.html#notify
 # <cut>Handlers are run in the order they are listed, not in the order that they are notified.</cut>
-- name: Commit Changes
+- name: Commit Changes for both Appliance and Docker
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.appliance.commit
+  listen: "Commit Changes"
 
-- name: Commit Changes and Restart
-  ibm.isam.isam:
+- name: Publish Changes (docker)
+  isam:
+    lmi_port: "{{ port | default(omit) }}"
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: ibmsecurity.isam.appliance.commit_and_restart_and_wait
+    action: ibmsecurity.isam.docker.publish.publish_changes
+  when:
+    - '"model" in ansible_facts and ansible_facts.model == "Docker"'
+    - docker_publish_changes == true
+  listen: "Commit Changes"
 
 # Commit and Restart may cause LMI to restart - so wait to be safe
 - name: Await Appliance Commit LMI Response
@@ -96,10 +104,3 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.lmi.restart_and_wait
-
-- name: Publish Changes (docker)
-  isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
-    action: ibmsecurity.isam.docker.publish.publish_changes
-  when: '"model" in ansible_facts and ansible_facts.model == "Docker"'
