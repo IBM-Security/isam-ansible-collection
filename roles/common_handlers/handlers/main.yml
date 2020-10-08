@@ -21,6 +21,12 @@
     - docker_publish_changes == true
   listen: "Commit Changes"
 
+- name: Commit Changes and Restart
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.appliance.commit_and_restart_and_wait
+
 # Commit and Restart may cause LMI to restart - so wait to be safe
 - name: Await Appliance Commit LMI Response
   wait_for:
