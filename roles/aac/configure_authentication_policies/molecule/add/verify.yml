@@ -1,0 +1,22 @@
+---
+
+- name: Verify - add
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "../../vars/main.yml"
+        name: inventory
+
+    - name: "Get the authentication policy {{ inventory.name }}"
+      include_role:
+        name: "get_authentication_policies"
+      vars:
+        get_authentication_policies:
+          - name: "{{ inventory.name }}"
+
+    - name: "Assert that the authentication policy {{ inventory.name }} was added"
+      assert:
+        that: ret_obj.results.0.data.name == inventory.name
+        fail_msg: "Authentication Policy {{ inventory.name }} was not added"
+        success_msg: "Authentication Policy {{ inventory.name }} was added"
