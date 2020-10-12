@@ -1,0 +1,12 @@
+---
+# tasks file for get_access_control_policy_attachments
+
+- name: Get access control policies by name
+  ibm.isam.isam:
+    log:       "{{ log_level | default(omit) }}"
+    force:     "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.access_control.policy_attachments.get
+    isamapi: "{{ item }}"
+  when: item is defined
+  with_items: "{{ get_access_control_policy_attachments }}"
+  register: ret_obj

@@ -9,7 +9,7 @@
        enabled: "{{ set_partner_enabled }}"
        role: "{{ set_partner_role }}"
        configuration: "{{ set_partner_configuration }}"
-       templateName: "{{ set_partner_templateName }}"
+       templateName: "{{ set_partner_templateName | default(omit) }}"
    when:
      - set_partner_federation_name is defined
      - set_partner_partner_name is defined

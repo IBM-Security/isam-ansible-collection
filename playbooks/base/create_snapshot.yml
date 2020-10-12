@@ -4,6 +4,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.base/create_snapshot
+    - role: ibm.isam.base.create_snapshot
       tags: snapshot
-
