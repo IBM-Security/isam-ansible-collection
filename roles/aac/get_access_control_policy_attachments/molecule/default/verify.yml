@@ -1,0 +1,14 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: no
+  tasks:
+
+  - debug:
+      msg: "{{ ret_obj }}"
+
+  - name: Example assertion
+    assert:
+      that: true
