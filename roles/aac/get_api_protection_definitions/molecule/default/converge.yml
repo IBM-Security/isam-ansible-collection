@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Include get_api_protection_definitions"
+      include_role:
+        name: "get_api_protection_definitions"
+      vars:
+        get_api_protection_definitions: "{{ definitions }}"
+
+    - debug:
+        var: ret_obj

@@ -1,0 +1,11 @@
+---
+# tasks file for get_api_protection_client
+- name: Get an api_protection definition by name
+  ibm.isam.isam:
+    log:       "{{ log_level | default(omit) }}"
+    force:     "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.api_protection.definitions.get
+    isamapi: "{{ item }}"
+  when: item is defined
+  with_items: "{{ get_api_protection_definitions }}"
+  register: ret_obj
