@@ -1,0 +1,15 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Include get_access_control_policies"
+      include_role:
+        name: "get_access_control_policies"
+      vars:
+        get_access_control_policies:
+          - name: "{{ name }}"
+        register: ret_obj
+
+    - debug:
+        var: ret_obj

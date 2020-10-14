@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Include get_access_control_policy_attachments"
+      include_role:
+        name: "get_access_control_policy_attachments"
+      vars:
+        get_access_control_policy_attachments:
+          - server: "{{ server }}"
+            resourceUri: "{{ resourceUri }}"
+      register: ret_obj
+
+    - debug:
+        var: ret_obj

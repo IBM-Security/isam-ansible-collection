@@ -1,0 +1,4 @@
+---
+# vars file for get_api_protection_client
+definitions:
+  - name: testapi1
