@@ -1,0 +1,35 @@
+---
+
+# replace location_of_the_updated_mapping_rule_file with actual path and filename
+
+- name: Verify - update mapping rules
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - include_vars:
+        file: "../../vars/main.yml"
+        name: inventory
+
+    - name: read content from file
+      set_fact:
+        file_content: "{{ lookup('file', 'location_of_the_updated_mapping_rule_file') | regex_replace('\\r|\\n', '') }}"
+
+    - name: "Get the mapping rule {{ inventory.name }}"
+      include_role:
+        name: "get_mapping_rule_by_name"
+      vars:
+        get_mapping_rule_names:
+          - name: "{{ inventory.name }}"
+
+    - name: remove newline from returned content
+      set_fact:
+        returned_content: "{{ ret_obj.results.0.data.content | regex_replace('\\r|\\n', '') }}"
+
+    - name: "Assert that the mapping rule {{ inventory.name }} was updated"
+      assert:
+        that:
+          - ret_obj.results.0.data.name == inventory.name
+          - returned_content == file_content
+        fail_msg: "Mapping Rule {{ inventory.name }} was not updated"
+        success_msg: "Mapping Rule {{ inventory.name }} was updated"

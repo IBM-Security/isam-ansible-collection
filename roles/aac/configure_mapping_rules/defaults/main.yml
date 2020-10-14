@@ -6,3 +6,5 @@ mapping_rules: []
 # Default variables to filter for configuration of specific mapping rules at runtime
 name: "{{ item.name }}"
 category: "{{ item.category }}"
+upload_filename: None
+content: None
