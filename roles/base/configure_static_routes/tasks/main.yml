@@ -29,7 +29,7 @@
         - route_action: set
           address: default
           gateway: '192.168.42.2'
-          metric: 1
+          metric: 0
           label: '1.1'
         - route_action: set
           address: '192.168.42.6'

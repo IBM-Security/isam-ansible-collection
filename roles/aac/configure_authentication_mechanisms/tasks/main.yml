@@ -13,7 +13,7 @@
 #             value:	test.html
 #         typeName: InfoMapAuthenticationName
 #         uri:	urn:ibm:security:authentication:asf:mechanism:test
----
+
 - name: Configure authentication mechanisms
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"

@@ -1,0 +1,16 @@
+---
+- name: Converge - add
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing add - configure_authentication_mechanisms"
+      include_role:
+        name: "configure_authentication_mechanisms"
+      vars:
+        authentication_mechanisms:
+          - name: "{{ name }}"
+            description: "{{ description }}"
+            predefined: "{{ predefined }}"
+            properties: "{{ properties }}"
+            typeName: "{{ typeName }}"
+            uri: "{{ uri }}"
