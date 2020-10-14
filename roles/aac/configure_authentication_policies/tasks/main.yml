@@ -3,18 +3,14 @@
 # main task to configure authentication policies
 #   Example:
 #     authentication_policies:
-#       - name: InfoMapAuthenticationName
+#       - name: testap1
 #         description: test
-#         predefined:	false
-#         properties:
-#           - key: infoMap.JSRule
-#             value:	test
-#           - key: infoMap.HTMLPage
-#             value:	test.html
-#         typeName: InfoMapAuthenticationName
-#         uri:	urn:ibm:security:authentication:asf:mechanism:test
+#         dialect: urn:ibm:security:authentication:policy:1.0:schema
+#         enabled: true
+#         uri: urn:ibm:security:authentication:asf:testap1
+#         policy: '<Policy xmlns="urn:ibm:security:authentication:policy:1.0:schema" PolicyId="urn:ibm:security:authentication:asf:testap1"><Description/><Step id="id16025195966980" type="Authenticator"><Authenticator id="id16025195966991" AuthenticatorId="urn:ibm:security:authentication:asf:mechanism:info_map"/></Step></Policy>'
 
-- name: Configure authentication mechanisms
+- name: Configure authentication policies
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

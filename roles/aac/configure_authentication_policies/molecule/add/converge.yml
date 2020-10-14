@@ -1,0 +1,16 @@
+---
+- name: Converge - add
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing add - configure_authentication_policies"
+      include_role:
+        name: "configure_authentication_policies"
+      vars:
+        authentication_policies:
+          - name: "{{ name }}"
+            description: "{{ description }}"
+            dialect: "{{ dialect }}"
+            uri: "{{ uri }}"
+            enabled: "{{ enabled }}"
+            policy: "{{ policy }}"
