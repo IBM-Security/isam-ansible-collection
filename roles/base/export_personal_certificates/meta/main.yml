@@ -2,7 +2,7 @@
 
 galaxy_info:
   author: IBM
-  description: Role to export certificates from databases
+  description: Role to export personal certificates from databases
   company: IBM
 
   license: Apache
@@ -13,7 +13,7 @@ galaxy_info:
   - isam
   - ibm
   - export
-  - certificates
+  - personal_certificates
 
 dependencies:
   - common_handlers
