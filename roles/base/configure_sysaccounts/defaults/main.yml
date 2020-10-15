@@ -1,0 +1,9 @@
+---
+
+# default variables to set password for system accounts
+sysaccounts: []
+
+
+# limit execution at runtime to filter for system accounts
+id: "{{ item.id }}"
+sysaccount_action: "{{ item.sysaccount_action }}"
