@@ -1,0 +1,12 @@
+---
+# tasks file for get_user_registry_by_id
+- name: Get user registry by id
+  ibm.isam.isam:
+    log:       "{{ log_level | default(omit) }}"
+    force:     "{{ force | default(omit) }}"
+    action: "ibmsecurity.isam.aac.user_registry.user.get"
+    isamapi:
+      id: "{{ item.id }}"
+  when: item is defined
+  with_items: "{{ get_user_registry_ids}}"
+  register: ret_obj
