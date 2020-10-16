@@ -1,0 +1,17 @@
+---
+# Fill in the value for inventory_dir in vars/main.yml.  The value is for the directory location
+# that contains the mapping rule file
+
+- name: Converge - add mapping rules
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing add - configure_mapping_rules"
+      include_role:
+        name: configure_mapping_rules
+      vars:
+        inventory_dir: "{{ inventory_dir }}"
+        mapping_rules:
+          - name: "{{ name }}"
+            category: "{{ category }}"
+            file: "{{ file }}"

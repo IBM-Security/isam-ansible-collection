@@ -7,7 +7,7 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.aac.server_connections.{{ item.type }}.set"
-    isamapi: "{{ item | exclude('type') }}"
-  when: item.type and item.name == name
+    isamapi: "{{ item.server_info }}"
+  when: item.type and item.server_info.name == name
   with_items: "{{ server_connections }}"
   notify: Commit Changes
