@@ -1,0 +1,22 @@
+---
+
+- name: Verify - add mapping rules
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "../../vars/main.yml"
+        name: inventory
+
+    - name: "Get the mapping rule {{ inventory.name }}"
+      include_role:
+        name: "get_mapping_rule_by_name"
+      vars:
+        get_mapping_rule_names:
+          - name: "{{ inventory.name }}"
+
+    - name: "Assert that the mapping rule {{ inventory.name }} was added"
+      assert:
+        that: ret_obj.results.0.data.name == inventory.name
+        fail_msg: "Mapping Rule {{ inventory.name }} was not added"
+        success_msg: "Mapping Rule {{ inventory.name }} was added"

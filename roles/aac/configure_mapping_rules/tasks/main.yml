@@ -8,7 +8,10 @@
     isamapi:
       name: "{{ item.name }}"
       category: "{{ item.category }}"
-      upload_filename: "{{ inventory_dir }}/{{ item.file }}"
-  when: item.name == name and item.category == category
+      upload_filename: "{{ inventory_dir | default(omit) }}/{{ item.file | default(omit) }}"
+      content: "{{ item.content | default(omit) }}"
+  when:
+    - item.name == name and item.category == category
+    - upload_filename or content
   with_items: "{{ mapping_rules }}"
   notify: Commit Changes

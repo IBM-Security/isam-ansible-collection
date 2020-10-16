@@ -1,0 +1,13 @@
+---
+
+type: isamruntime
+name: "test4"
+description: "test test3"
+update_description: "updated comment"
+connection:
+  {
+    bindDN: '',
+    ssl: False,
+    sslAuthKey: '',
+    sslTruststore: ''
+  }
