@@ -1,0 +1,58 @@
+---
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        delete_reverseproxy_instance
+
+      DESCRIPTION
+        Role to delete single reverse proxy instance
+
+      STEPS
+        1) Get all reverse proxy instances from this appliance
+        2) Delete specified reverse proxy instance [-e inst_name=<name>]
+
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/web/delete_reverseproxy_instance.yml // nothing to be deleted !
+        ansible-playbook -i [...] playbooks/ansible_collections/web/delete_reverseproxy_instance.yml -e inst_name=default // delete instance with name default
+        ansible-playbook -i [...] playbooks/ansible_collections/web/delete_reverseproxy_instance.yml -e inst_name=default -e admin_pwd=<password> // delete instance with name default and password on cmd. Attention->not recommended, use ansible-vault and inventory instead
+
+      INVENTORY
+      ==========
+      # no inventory required
+      # admin_id is default to sec_master
+      admin_id: someone_else # [optional] overwrite default sec_master admin_id
+      admin_pwd: <password>  # *required* should be place in ansible-vault secured location
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Get all reverse proxy instance/s from appliance
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.reverse_proxy.instance.get
+  register: appliance_instances
+
+- name: "Delete reverse proxy instance if existing [-e inst_name=<instance>]"
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.reverse_proxy.instance.delete
+    isamapi:
+      id: "{{ item.instance_name }}"
+      admin_id: "{{ admin_id }}"
+      admin_pwd: "{{ admin_pwd }}"      
+  with_items: "{{ appliance_instances.data }}"
+  when:
+    - item is defined
+    - item.id == inst_name
+    - admin_id is defined
+    - admin_pwd is defined
+  loop_control:
+    label: "{'u'inst_name': u'{{ item.id }}'}"
