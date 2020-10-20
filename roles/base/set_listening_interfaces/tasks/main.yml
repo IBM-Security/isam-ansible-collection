@@ -1,5 +1,40 @@
-# main task to set listening interfaces
 ---
+
+# main task to set listening interfaces
+
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        set_listening_interfaces
+
+      DESCRIPTION
+        Role to set listening interfaces
+
+      STEPS
+        1) Set listening interfaces
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/base/set_listening_interfaces.yml 
+
+      INVENTORY
+      ==========
+      # set listening interfaces
+      # !Attention: ip address must exist on appliance
+      listening_interfaces:
+        - address: 192.168.42.1
+          port: 443
+          secure: 'yes'
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
 - name: Set listening interfaces
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"

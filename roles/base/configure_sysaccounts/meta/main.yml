@@ -1,6 +1,8 @@
+---
+
 galaxy_info:
   author: IBM
-  description: Role to upload signer certificates
+  description: Role to configure system accounts
   company: IBM
 
   license: Apache
@@ -10,8 +12,8 @@ galaxy_info:
   galaxy_tags:
   - isam
   - ibm
-  - upload
-  - signer_certificates
+  - configure
+  - sysaccounts
 
 dependencies:
   - common_handlers

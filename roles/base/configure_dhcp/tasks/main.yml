@@ -1,6 +1,51 @@
 ---
 
 # main task to configure dhcp on an interface
+
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_dhcp
+
+      DESCRIPTION
+        Role to configure dhcp on an interface
+
+      STEPS
+        1) Configure dhcp
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_dhcp.yml 
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_dhcp.yml -e label='1.1' # limit configuration at runtime for interface 1.1
+
+      INVENTORY
+      ==========
+      # configure dhcp
+      interfaces:
+        - label: '1.1'
+          dhcp:
+            enabled: false
+          [...]
+        - label: '1.2'
+          dhcp:
+            enabled: true
+            vlanId: None
+            allowManagement: false
+            providesDefaultRoute: false
+            routeMetric: None
+       
+      # overwrite default ipv4 with configuration ipv6
+      configure_dhcp_action: interfaces_ipv6
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
 - name: Configure dhcp on interface
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
@@ -8,7 +53,10 @@
     action: "ibmsecurity.isam.base.network.{{ configure_dhcp_action }}.set_dhcp"
     isamapi: "{{ item.dhcp | combine({ 'label': item.label })}}"
   with_items: "{{ interfaces }}"
-  when: item.dhcp is defined and item.label is defined
+  when: 
+    - item.dhcp is defined
+    - item.label is defined
+    - item.label == label
   loop_control:
     label: "interface: [{{ item.label }}], dhcp: [{{ item.dhcp | default(none)}}]"
   notify: Commit Changes
