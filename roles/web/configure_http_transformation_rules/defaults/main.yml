@@ -1,0 +1,12 @@
+---
+
+# Default variables to configure http transformation rules
+http_transformations: []
+
+# Default variable to skip certain tasks
+skip_exports: false
+
+# filter variables to limit execution at runtime
+transformation_action: "{{ item.transformation_action }}"
+id: "{{ item.id if(item.id is defined) }}"
+filename: "{{ item.filename if(item.filename is defined) }}"
