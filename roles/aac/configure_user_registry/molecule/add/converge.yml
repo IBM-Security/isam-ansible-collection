@@ -1,0 +1,14 @@
+---
+- name: Converge - add an user registry
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing add - configure_user_registry"
+      include_role:
+        name: configure_user_registry
+      vars:
+        user_registry:
+          - action: "add"
+            user_info:
+              id: "{{ id }}"
+              password: "{{ password }}"
