@@ -1,0 +1,13 @@
+---
+- name: Converge - delete an user registry
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing delete - configure_user_registry"
+      include_role:
+        name: configure_user_registry
+      vars:
+        user_registry:
+          - action: "delete"
+            user_info:
+              id: "{{ id }}"
