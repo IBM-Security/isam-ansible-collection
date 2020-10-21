@@ -18,13 +18,6 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.authentication.mechanisms.add
-    isamapi:
-      name: "{{ item.name }}"
-      uri: "{{ item.uri  }}"
-      description: "{{ item.description | default('') }}"
-      attributes: "{{ item.attributes | default([]) }}"
-      properties: "{{ item.properties | default([]) }}"
-      predefined: "{{ item.predefined | default('False') }}"
-      typeName: "{{ item.typeName | default([]) }}"
+    isamapi: "{{ item }}"
   with_items: "{{ authentication_mechanisms }}"
   notify: Commit Changes
