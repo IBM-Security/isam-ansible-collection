@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Include get_obligations_by_name"
+      include_role:
+        name: "get_obligations_by_name"
+      vars:
+        get_obligations:
+          - name: "{{ name }}"
+        register: ret_obj
