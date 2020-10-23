@@ -1,0 +1,16 @@
+---
+
+- name: Converge - testing export runtime template root
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "../../vars/main.yml"
+        name: inventory
+
+    - name: "Testing export runtime template root"
+      include_role:
+        name: "export_runtime_template_root"
+      vars:
+        inventory_dir: "{{ inventory.inventory_dir }}"
+        file: "{{ inventory.file }}"
