@@ -5,7 +5,7 @@
   tasks:
     - name: "Get an Authentication Policy by Name"
       include_role:
-        name: "get_authentication_policies"
+        name: "get_authentication_policies_by_name"
       vars:
         get_authentication_policies:
           - name: "{{ name }}"

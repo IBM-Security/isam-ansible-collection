@@ -9,7 +9,7 @@
         file: "../../vars/main.yml"
         name: inventory
 
-    - name: "Get the mapping rule {{ inventory.name }}"
+    - name: "Get the server connection {{ inventory.name }}"
       include_role:
         name: "get_server_connections_by_name"
       vars:

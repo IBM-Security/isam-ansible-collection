@@ -17,5 +17,5 @@
     - name: "Assert that each authentication policy was disabled"
       assert:
         that: enabled is not defined
-        fail_msg: "All the authentication policies were disabled"
-        success_msg: "Not all the authentication policies were disabled"
+        fail_msg: "Not all the authentication policies were disabled"
+        success_msg: "All the authentication policies were disabled"
