@@ -6,4 +6,5 @@
     isamapi:
       timeZone : "{{ config_ntp_timeZone }}"
       ntpServers : "{{ config_ntp_ntp_servers }}"
+      enableNtp: "{{ config_ntp_enableNtp }}"
   notify: Commit Changes

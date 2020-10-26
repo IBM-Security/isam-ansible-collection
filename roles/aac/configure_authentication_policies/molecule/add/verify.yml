@@ -10,7 +10,7 @@
 
     - name: "Get the authentication policy {{ inventory.name }}"
       include_role:
-        name: "get_authentication_policies"
+        name: "get_authentication_policies_by_name"
       vars:
         get_authentication_policies:
           - name: "{{ inventory.name }}"

@@ -16,6 +16,8 @@
 
     - name: "Assert that the client {{ inventory.client_name }} was added"
       assert:
-        that: ret_obj.results.0.data.name == inventory.client_name
+        that:
+          - ret_obj.results.0.data.name is defined
+          - ret_obj.results.0.data.name == inventory.client_name
         fail_msg: "API Protection client {{ inventory.client_name }} was not added"
         success_msg: "API Protection client {{ inventory.client_name }} was added"
