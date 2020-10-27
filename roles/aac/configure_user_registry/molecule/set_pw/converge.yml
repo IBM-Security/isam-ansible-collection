@@ -8,7 +8,7 @@
         name: configure_user_registry
       vars:
         user_registry:
-          - action: "set_pw"
-            user_info:
-              id: "{{ id }}"
-              password: "{{ new_password }}"
+          # set password for existing user registry user
+          - registry_action: "set_pw"
+            id: "{{ id }}"
+            password: "{{ new_password }}"
