@@ -7,9 +7,10 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.aac.user_registry.user.{{ item.action }}"
-    isamapi: "{{ item | exclude('action') }}"
-  when: item.action and item.id == id
+    isamapi: "{{ item.user_info }}"
+  when: item.action
   with_items: "{{ user_registry }}"
   loop_control:
-    label: "item={u'password': u'******'',u'action: u'{{ item.action }}', u'id: u'{{ item.id }}' }"
+    label: "item={'password': '******'', 'action: '{{ item.action }}', 'id: '{{ item.user_info.id }}' }"
   notify: Commit Changes
+  register: ret_obj

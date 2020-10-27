@@ -1,0 +1,13 @@
+---
+- name: Converge - update
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing update - create_obligation"
+      include_role:
+        name: create_obligation
+      vars:
+        authentication_obligations:
+          - name: "{{ name }}"
+            description: "{{ update_description }}"
+            obligationURI: "{{ obligationURI }}"

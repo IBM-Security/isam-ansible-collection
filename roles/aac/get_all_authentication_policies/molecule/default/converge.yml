@@ -1,0 +1,11 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Get all Authentication Policies"
+      include_role:
+        name: "get_all_authentication_policies"
+      vars:
+        get_all_authentication_policies:
+          - name: "{{ name }}"

@@ -1,0 +1,11 @@
+---
+# tasks file for get_access_control_attribute
+- name: Get obligations by name
+  ibm.isam.isam:
+    log:       "{{ log_level | default(omit) }}"
+    force:     "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.obligations.get
+    isamapi: "{{ item }}"
+  when: item is defined
+  with_items: "{{ get_obligations_by_name }}"
+  register: ret_obj

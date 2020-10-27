@@ -1,0 +1,14 @@
+---
+- name: Converge - default
+  hosts: all
+  gather_facts: no
+  collections:
+    - ibm.isam
+  tasks:
+    - debug:
+        msg: "To test add using configure_user_registry role:
+          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name add'
+          To test delete using configure_user_registry role:
+          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name delete'
+          To test set password using configure_user_registry role:
+          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name set_pw'"

@@ -1,0 +1,8 @@
+---
+
+definition_name: testapi6
+description: API protection for OAuth service provider
+tcmBehavior: NEVER_PROMPT
+update_description: updated description
+definitions:
+  - name: testapi6

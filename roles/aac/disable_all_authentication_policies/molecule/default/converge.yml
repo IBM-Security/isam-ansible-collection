@@ -1,0 +1,8 @@
+---
+- name: Converge - testing disable all authentication policies
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing disable all authentication policies"
+      include_role:
+        name: "disable_all_authentication_policies"

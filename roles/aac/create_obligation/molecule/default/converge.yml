@@ -1,0 +1,12 @@
+---
+- name: Converge - default
+  hosts: all
+  gather_facts: no
+  collections:
+    - ibm.isam
+  tasks:
+    - debug:
+        msg: "To test add using create_obligation role:
+          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name add'
+          To test update using create_obligation role:
+          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name update'"

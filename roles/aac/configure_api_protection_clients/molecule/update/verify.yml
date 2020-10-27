@@ -20,6 +20,8 @@
     - name: "Assert that policy {{ inventory.client_name }} is added"
       assert:
         that:
+          - ret_obj.results.0.data.name is defined
+          - ret_obj.results.0.data.companyUrl is defined
           - ret_obj.results.0.data.name == inventory.client_name
           - ret_obj.results.0.data.companyUrl  == inventory.companyUrl
         fail_msg: "API Protection client {{ inventory.client_name }} was not updated"

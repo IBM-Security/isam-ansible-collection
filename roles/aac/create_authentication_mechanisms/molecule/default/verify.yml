@@ -1,0 +1,24 @@
+---
+
+- name: Verify - add
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "../../vars/main.yml"
+        name: inventory
+
+    - name: "Get the authentication mechanism {{ inventory.name }}"
+      include_role:
+        name: "get_authentication_mechanisms"
+      vars:
+        get_authentication_mechanisms:
+          - name: "{{ inventory.name }}"
+
+    - name: "Assert that the authentication mechanism {{ inventory.name }} was added"
+      assert:
+        that:
+          - ret_obj.results.0.data.name is defined
+          - ret_obj.results.0.data.name == inventory.name
+        fail_msg: "Authentication Mechanism {{ inventory.name }} was not added"
+        success_msg: "Authentication Mechanism {{ inventory.name }} was added"
