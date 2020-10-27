@@ -1,0 +1,12 @@
+# Get all mapping rules and register the mapping_rules_obj,
+# to use in other roles/playbooks
+---
+- name: Get a mapping rule by name
+  ibm.isam.isam:
+    log:       "{{ log_level | default(omit) }}"
+    force:     "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.mapping_rules.get
+    isamapi: "{{ item }}"
+  when: item is defined
+  with_items: "{{ get_mapping_rule_names }}"
+  register: ret_obj

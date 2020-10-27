@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Get an Server Connections by Name"
+      include_role:
+        name: "get_server_connections_by_name"
+      vars:
+        get_server_connections_names:
+          - type: "{{ type }}"
+            name: "{{ name }}"
+      register: ret_obj
+
+    - debug:
+        var: ret_obj

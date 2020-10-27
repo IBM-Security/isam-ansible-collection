@@ -1,0 +1,15 @@
+---
+- name: Converge - update configure server connection
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing add - configure_server_connection"
+      include_role:
+        name: configure_server_connections
+      vars:
+        server_connections:
+          - type: "{{ type }}"
+            server_info:
+              name: "{{ name }}"
+              description: "{{ update_description }}"
+              connection: "{{ connection }}"
