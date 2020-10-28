@@ -9,6 +9,6 @@
       vars:
         user_registry:
           # set password for existing user registry user
-          - registry_action: "set_pw"
+          - registry_action: "user.set_pw"
             id: "{{ id }}"
             password: "{{ new_password }}"

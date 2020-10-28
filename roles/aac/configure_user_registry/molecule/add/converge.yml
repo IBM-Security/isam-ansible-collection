@@ -9,6 +9,6 @@
       vars:
         user_registry:
           # add a new user
-          - registry_action: "add"
+          - registry_action: "user.add"
             id: "{{ id }}"
             password: "{{ password }}"

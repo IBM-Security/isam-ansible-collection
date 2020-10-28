@@ -9,5 +9,5 @@
       vars:
         user_registry:
           # delete an existing user
-          - action: "delete"
+          - action: "user.delete"
             id: "{{ id }}"
