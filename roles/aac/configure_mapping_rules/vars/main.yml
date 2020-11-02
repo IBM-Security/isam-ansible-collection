@@ -1,7 +1,5 @@
 ---
 
-name: accesspolicy_prompt
-category: SAML2_0
-file: ""
-update_file: """"
-inventory_dir: ""
+molecule_name: accesspolicy_prompt
+molecule_file: "files/mapping_rules/accesspolicy_prompt.js"
+molecule_categorey: InfoMap
