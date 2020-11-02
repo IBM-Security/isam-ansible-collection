@@ -1,0 +1,16 @@
+---
+
+- name: Converge - add mapping rules
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing add - configure_mapping_rules"
+      include_role:
+        name: configure_mapping_rules
+      vars:
+        mapping_rules:
+          # upload or update mapping rule from file
+          - rule_action: set
+            name: "{{ molecule_name }}"
+            file: "{{ molecule_file }}"
+            category: "{{ molecule_categorey }}"

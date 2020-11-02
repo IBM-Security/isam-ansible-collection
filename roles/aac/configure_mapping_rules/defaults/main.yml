@@ -4,7 +4,9 @@
 mapping_rules: []
 
 # Default variables to filter for configuration of specific mapping rules at runtime
-name: "{{ item.name }}"
-category: "{{ item.category }}"
-upload_filename: None
-content: None
+rule_name: "{{ item.name }}"
+category: "{{ item.category if item.category is defined }}"
+rule_action: "{{ item.rule_action }}"
+file: "{{ item.file if item.file is defined }}"
+content: "{{ item.content if item.content is defined }}"
+filename: "{{ item.filename if item.filename is defined }}"

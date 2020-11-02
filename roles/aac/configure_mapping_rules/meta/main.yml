@@ -12,7 +12,7 @@ galaxy_info:
   galaxy_tags:
     - isam
     - ibm
-    - update
+    - configure
     - mapping_rules
 
 dependencies:
