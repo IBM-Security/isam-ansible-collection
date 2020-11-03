@@ -1,13 +1,14 @@
 ---
 
-type: isamruntime
-name: "test4"
-description: "test test3"
-update_description: "updated comment"
-connection:
-  {
-    bindDN: '',
-    ssl: False,
-    sslAuthKey: '',
-    sslTruststore: ''
-  }
+molecule_name: server_connection_ldap_1
+molecule_ignore_password_for_idempotency: true
+molecule_class: ldap
+molecule_description: Demo Connection to LDAP
+molecule_connection:
+  bindDN: cn=root
+  bindPwd: test
+  hostName: ldap.ibm.com
+  hostPort: '389'
+  ssl: false
+molecule_connectionManager:
+  maxPoolSize: 0
