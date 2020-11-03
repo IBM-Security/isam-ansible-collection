@@ -8,6 +8,6 @@
         name: configure_user_registry
       vars:
         user_registry:
-          - action: "delete"
-            user_info:
-              id: "{{ id }}"
+          # delete an existing user
+          - registry_action: "user.delete"
+            id: "{{ id }}"

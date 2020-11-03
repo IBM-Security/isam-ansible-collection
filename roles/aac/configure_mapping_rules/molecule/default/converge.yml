@@ -6,7 +6,5 @@
     - ibm.isam
   tasks:
     - debug:
-        msg: "To test add using configure_mapping_rules role:
-          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name add'
-          To test update using configure_mapping_rules role:
-          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name update'"
+        msg: "To test set using configure_mapping_rules role:
+          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name set'"

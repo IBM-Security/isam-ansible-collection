@@ -8,7 +8,7 @@
         name: configure_user_registry
       vars:
         user_registry:
-          - action: "add"
-            user_info:
-              id: "{{ id }}"
-              password: "{{ password }}"
+          # add a new user
+          - registry_action: "user.add"
+            id: "{{ id }}"
+            password: "{{ password }}"
