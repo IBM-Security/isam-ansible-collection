@@ -1,0 +1,16 @@
+---
+# Fill in the value for inventory_dir in vars/main.yml.  The value is for the directory location
+# that contains the mapping rule file
+
+- name: Converge - export mapping rules
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing add - configure_mapping_rules"
+      include_role:
+        name: configure_mapping_rules
+      vars:
+        mapping_rules:
+          - rule_action: export_file
+            name: "{{ molecule_name }}"
+            filename: "{{ molecule_export_file }}"
