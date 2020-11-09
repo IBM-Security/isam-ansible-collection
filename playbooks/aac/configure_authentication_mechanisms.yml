@@ -15,5 +15,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.aac/configure_authentication_mechanisms
+    - role: ibm.isam.aac.configure_authentication_mechanisms
       tags: configure_authentication_mechanisms

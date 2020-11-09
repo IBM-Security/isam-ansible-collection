@@ -4,5 +4,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.base/create_sysaccounts
+    - role: ibm.isam.base.create_sysaccounts
       tags: sysaccount

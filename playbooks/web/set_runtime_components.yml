@@ -9,5 +9,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.web/set_runtime_components
+    - role: ibm.isam.web.set_runtime_components
       tags: set_runtime_components

@@ -14,5 +14,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.base/configure_cluster
+    - role: ibm.isam.base.configure_cluster
       tags: configure_cluster
