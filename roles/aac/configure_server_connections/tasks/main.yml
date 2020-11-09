@@ -242,7 +242,7 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: "Configure server connections [-e class=[ldap|ci|isamruntime|jdbc|smtp|ws] -e connection_name=<name_of_connection> -e ignore_password_for_idempotency=[True|False]]"
+- name: "Configure server connections [-e class=[ldap|ci|isamruntime|jdbc|smtp|ws] -e connection_action=[get|set|delete] -e connection_name=<name_of_connection> -e ignore_password_for_idempotency=[True|False]]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -255,6 +255,7 @@
   when: 
     - item.class is defined
     - item.connection_action is defined
+    - item.connection_action == connection_action
     - item.class == class
     - item.name == connection_name
     - (item.type is defined and item.type == type)

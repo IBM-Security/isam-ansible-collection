@@ -4,6 +4,7 @@
 server_connections: []
 
 # Default variables to filter for configuration of specific server connections at runtime
+connection_action: "{{ item.connection_action }}"
 connection_name: "{{ item.name }}"
 class: "{{ item.class }}"
 type: "{{ item.type if (item.type is defined) }}"
