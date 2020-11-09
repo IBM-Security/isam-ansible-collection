@@ -1,13 +1,13 @@
 ---
 
-name: InfoMapAuthenticationName
-description: test
-predefined: false
-properties:
+molecule.mechanism_action: set
+molecule.name: Infomap_Sample_Mech_1
+molecule.typeName: InfoMapAuthenticationName
+molecule.uri: "urn:ibm:security:authentication:asf:mechanism:mappingRule1"
+molecule.description: "InfoMap Sample Mechanism 1"
+molecule.predefined: false
+molecule.properties:
   - key: infoMap.JSRule
-    value: test
+    value: Sample_Mapping_Rule
   - key: infoMap.HTMLPage
-    value: test.html
-typeName: InfoMapAuthenticationName
-uri: urn:ibm:security:authentication:asf:mechanism:test
-update_description: "updated description"
+    value: "test.html"

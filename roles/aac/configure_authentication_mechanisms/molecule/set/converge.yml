@@ -1,0 +1,17 @@
+---
+- name: Converge - set
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing set - configure_authentication_mechanisms"
+      include_role:
+        name: "configure_authentication_mechanisms"
+      vars:
+        authentication_mechanisms:
+          - mechanism_action: set
+            name: "{{ molecule.name }}"
+            description: "{{ molecule.description }}"
+            predefined: "{{ molecule.predefined }}"
+            properties: "{{ molecule.properties }}"
+            typeName: "{{ molecule.typeName }}"
+            uri: "{{ molecule.uri }}"

@@ -7,6 +7,6 @@
   tasks:
     - debug:
         msg: "To test add using configure_authentication mechanisms role:
-          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name add'
+          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name set'
           To test update using configure_authentication mechanisms role:
-          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name update'"
+          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name delete'"
