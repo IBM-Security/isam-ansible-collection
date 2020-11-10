@@ -6,7 +6,7 @@
     - ibm.isam
   tasks:
     - debug:
-        msg: "To test add using configure_server_connection role:
-          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name add'
-          To test update using configure_server_connection role:
-          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name update'"
+        msg: "To test set using configure_server_connection role:
+          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name set'
+          To test delete using configure_server_connection role:
+          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name delete'"

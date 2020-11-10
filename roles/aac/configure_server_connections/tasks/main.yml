@@ -2,12 +2,265 @@
 
 # main task to configure server connections
 
-- name: Configure server connections
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_server_connections
+
+      DESCRIPTION
+        Role to configure server connections
+
+      STEPS
+        1) Configure server connections
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_server_connections.yml // configure all server connections without password idempotency
+        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_server_connections.yml -e ignore_password_for_idempotency=True // configure all server connections and ignore password for idempotency (all other parameters will be compared). This configuration can be global or on seperate server connection level (see inventory samples)
+        
+        // only configure server connection for corresponding class
+        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_server_connections.yml -e class=ws
+        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_server_connections.yml -e class=ldap
+        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_server_connections.yml -e class=ci
+        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_server_connections.yml -e class=smtp
+        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_server_connections.yml -e class=jdbc
+        
+        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_server_connections.yml -e class=jdbc -e type=db2 -e connection_action=set -e ignore_password_for_idempotency=True // set only jdbc server connections without considering the password for idempotency
+
+      INVENTORY
+      ==========
+      # configure server connections
+      server_connections:
+      
+        # Sample Get CI Server Connection -> 
+        - connection_action: get
+          class: ci
+          name: server_connection_ci_1
+          
+        # Sample LDAP Sever Connection
+        - connection_action: set
+          name: server_connection_ldap_1
+          class: ldap
+          connection:
+            bindDN: cn=root
+            bindPwd: test
+            hostName: ldap.ibm.com
+            hostPort: '389'
+            ssl: false
+          connectionManager:
+            maxPoolSize: 0   
+          description: Demo Connection to LDAP
+          
+        # Same LDAP Server Connection with password idempotency (ignore_password_for_idempotency parameter or globally -e ignore_password_for_idempotency=True)
+        - connection_action: set
+          name: server_connection_ldap_1
+          ignore_password_for_idempotency: true
+          class: ldap
+          connection:
+            bindDN: cn=root
+            bindPwd: test
+            hostName: ldap.ibm.com
+            hostPort: '389'
+            ssl: false
+          connectionManager:
+            maxPoolSize: 0   
+          description: Demo Connection to LDAP
+        
+        # Sample CI Sever Connection
+        - connection_action: set
+          name: server_connection_ci_1
+          class: ci
+          connection:
+            adminHost: "test.ice.ibmcloud.com"
+            clientId: test
+            clientSecret: "test"
+            ssl: false
+          description: Demo Connection for CI
+          
+        # Sample ISAM Runtime Sever Connection
+        - connection_action: set
+          name: server_connection_isamruntime_1
+          class: isamruntime
+          connection:
+            bindDN: cn=root
+            bindPwd: "test"
+            ssl: false
+          description: Demo Connection for ISVA Runtime
+        
+        # Sample JDBC DB2 Sever Connection
+        - connection_action: set
+          name: server_connection_db2_1
+          class: jdbc
+          type: db2
+          jndiId: "db2Test"
+          connection:
+            databaseName: "db2DB"
+            serverName: db2.server
+            portNumber: '50000'
+            ssl: false
+            user: db2_user
+            password: "passw0rd"
+          connectionManager:
+            agedTimeout: "20s"
+            connectionTimeout: "1m30s"
+            minPoolSize: 5
+            maxPoolSize: 20
+            purgePolicy: "ValidateAllConnections"
+            reapTime: "30s"
+            maxConnectionsPerThread: 5
+            numConnectionsPerThreadLocal: 10
+          description: Demo Connection for DB2
+        
+        # Sample SMTP Sever Connection
+        - connection_action: set
+          name: server_connection_smtp_1
+          class: smtp
+          connection:
+            hostName: "smtpServer.ibm.com"
+            hostPort: '25'
+            password: "passw0rd"
+            ssl: false
+            user: "smtpUser"
+          connectionManager:
+            connectTimeout: 30
+          description: Demo Connection for SMTP
+        
+        # Sample WS Sever Connection
+        - connection_action: set
+          name: server_connection_ws_1
+          class: ws
+          connection:
+            url: "http://ibm.com/api"
+            user: "api_user"
+            password: "passw0rd"
+            ssl: false
+        
+        # Sample JDBC Oracle Sever Connection
+        - connection_action: set
+          name: server_connection_oracle_1
+          class: jdbc
+          type: oracle
+          jndiId: "oracleTest"
+          connection:
+            serviceName: "oracleDB"
+            serverName: oracle.server
+            portNumber: '1521'
+            ssl: false
+            type: "thin"
+            user: oracle_user
+            password: "passw0rd"
+          connectionManager:
+            agedTimeout: "20s"
+            connectionTimeout: "1m30s"
+            minPoolSize: 5
+            maxPoolSize: 20
+            purgePolicy: "ValidateAllConnections"
+            reapTime: "30s"
+            maxConnectionsPerThread: 5
+            numConnectionsPerThreadLocal: 10
+          description: Demo Connection for Oracle
+        - connection_action: delete
+          class: jdbc
+          name: server_connection_oracle_1
+          
+        # Sample JDBC Solid DB Sever Connection
+        - connection_action: set
+          name: server_connection_soliddb_1
+          class: jdbc
+          type: soliddb
+          jndiId: "solidTest"
+          connection:
+            serverName: soliddb.server
+            portNumber: '2315'
+            ssl: false
+            user: oracle_user
+            password: "passw0rd"
+          connectionManager:
+            agedTimeout: "20s"
+            connectionTimeout: "1m30s"
+            minPoolSize: 5
+            maxPoolSize: 20
+            purgePolicy: "ValidateAllConnections"
+            reapTime: "30s"
+            maxConnectionsPerThread: 5
+            numConnectionsPerThreadLocal: 10
+          description: Demo Connection for Solid DB
+
+        # Sample JDBC postgresql Sever Connection
+        - connection_action: set
+          name: server_connection_postgresql_1
+          class: jdbc
+          type: postgresql
+          jndiId: "postgresqlTest"
+          connection:
+            databaseName: postgresqlDB
+            serverName: soliddb.server
+            portNumber: '2315'
+            ssl: false
+            user: postgresql_user
+            password: "passw0rd"
+          connectionManager:
+            agedTimeout: "20s"
+            connectionTimeout: "1m30s"
+            minPoolSize: 5
+            maxPoolSize: 20
+            purgePolicy: "ValidateAllConnections"
+            reapTime: "30s"
+            maxConnectionsPerThread: 5
+            numConnectionsPerThreadLocal: 10
+          description: Demo Connection for Solid DB
+          
+        # Delete Server connections by class
+        - connection_action: delete
+          class: ldap
+          name: server_connection_ldap_1
+        - connection_action: delete
+          class: ci
+          name: server_connection_ci_1
+        - connection_action: delete
+          class: isamruntime
+          name: server_connection_isamruntime_1
+        - connection_action: delete
+          class: jdbc
+          name: server_connection_db2_1
+        - connection_action: delete
+          class: smtp
+          name: server_connection_smtp_1
+        - connection_action: delete
+          class: jdbc
+          name: server_connection_soliddb_1
+        - connection_action: delete
+          class: jdbc
+          name: server_connection_postgresql_1
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: "Configure server connections [-e class=[ldap|ci|isamruntime|jdbc|smtp|ws] -e connection_action=[get|set|delete] -e connection_name=<name_of_connection> -e ignore_password_for_idempotency=[True|False]]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.aac.server_connections.{{ item.type }}.set"
-    isamapi: "{{ item.server_info }}"
-  when: item.type and item.server_info.name == name
-  with_items: "{{ server_connections }}"
+    action: "ibmsecurity.isam.aac.server_connections.{{ item.class }}.{{ item.connection_action }}"
+    isamapi: "{{ item 
+                 | ibm.isam.exclude('class') 
+                 | ibm.isam.exclude('connection_action')
+                 | combine({'ignore_password_for_idempotency': (ignore_password_for_idempotency | bool) } if ((ignore_password_for_idempotency | bool) and (item.connection_action == 'set' or item.connection_action == 'update')) else {}) 
+              }}"
+  when: 
+    - item.class is defined
+    - item.connection_action is defined
+    - item.connection_action == connection_action
+    - item.class == class
+    - item.name == connection_name
+    - (item.type is defined and item.type == type)
+      or item.type is not defined
+  loop: "{{ server_connections }}"
+  loop_control:
+    label: "{{ item | ibm.isam.exclude('connection') | ibm.isam.exclude('connectionManager')  }}"
   notify: Commit Changes
