@@ -1,0 +1,25 @@
+---
+
+- name: Verify - set configure server connection
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - include_vars:
+        file: "../../vars/main.yml"
+        name: inventory
+
+    - name: "Get the server connection {{ inventory.molecule_name }}"
+      include_role:
+        name: "get_server_connections_by_name"
+      vars:
+        get_server_connections_names:
+          - type: "{{ inventory.molecule_class }}"
+            name: "{{ inventory.molecule_name }}"
+
+    - name: "Assert that the server connection {{ inventory.name }} does not exist"
+      assert:
+        that:
+          - ret_obj.results.0.data == {}
+        fail_msg: "Server connection {{ inventory.molecule_name }} might still exists. Data has been returned !"
+        success_msg: "Server connection {{ inventory.molecule_name }} does not exist"
