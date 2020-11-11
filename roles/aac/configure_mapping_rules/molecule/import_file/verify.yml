@@ -2,7 +2,7 @@
 
 # replace location_of_the_updated_mapping_rule_file with actual path and filename
 
-- name: Verify - set mapping rules
+- name: Verify - import mapping rules
   hosts: all
   gather_facts: no
 
@@ -13,7 +13,7 @@
 
     - name: read content from file
       set_fact:
-        file_content: "{{ lookup('file', inventory.molecule_set_file) | regex_replace('\\r|\\n', '') }}"
+        file_content: "{{ lookup('file', inventory.molecule_import_file) | regex_replace('\\r|\\n', '') }}"
 
     - name: "Get the mapping rule {{ inventory.molecule_name }}"
       include_role:
@@ -26,11 +26,11 @@
       set_fact:
         returned_content: "{{ ret_obj.results.0.data.content | regex_replace('\\r|\\n', '') }}"
 
-    - name: "Assert that the mapping rule {{ inventory.molecule_name }} was updated"
+    - name: "Assert that the mapping rule {{ inventory.molecule_name }} was imported"
       assert:
         that:
           - ret_obj.results.0.data.name is defined
           - ret_obj.results.0.data.name == inventory.molecule_name
           - returned_content == file_content
-        fail_msg: "Mapping Rule {{ inventory.molecule_name }} was not updated"
-        success_msg: "Mapping Rule {{ inventory.molecule_name }} was updated"
+        fail_msg: "Mapping Rule {{ inventory.molecule_name }} was not imported"
+        success_msg: "Mapping Rule {{ inventory.molecule_name }} was imported"

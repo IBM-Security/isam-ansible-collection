@@ -2,7 +2,7 @@
 
 # replace location_of_the_updated_mapping_rule_file with actual path and filename
 
-- name: Verify - set mapping rules
+- name: Verify - update mapping rules
   hosts: all
   gather_facts: no
 
@@ -13,7 +13,7 @@
 
     - name: read content from file
       set_fact:
-        file_content: "{{ lookup('file', inventory.molecule_set_file) | regex_replace('\\r|\\n', '') }}"
+        file_content: "{{ lookup('file', inventory.molecule_update_file) | regex_replace('\\r|\\n', '') }}"
 
     - name: "Get the mapping rule {{ inventory.molecule_name }}"
       include_role:

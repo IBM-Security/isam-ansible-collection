@@ -1,6 +1,8 @@
 ---
+# Fill in the value for inventory_dir in vars/main.yml.  The value is for the directory location
+# that contains the mapping rule file
 
-- name: Converge - set mapping rules
+- name: Converge - upload mapping rules
   hosts: all
   gather_facts: no
   tasks:
@@ -9,8 +11,7 @@
         name: configure_mapping_rules
       vars:
         mapping_rules:
-          # upload or update mapping rule from file
-          - rule_action: set
+          - rule_action: upload
             name: "{{ molecule_name }}"
-            file: "{{ molecule_set_file }}"
+            file: "{{ molecule_file }}"
             category: "{{ molecule_category }}"

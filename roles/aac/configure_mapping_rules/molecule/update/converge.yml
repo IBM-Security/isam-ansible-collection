@@ -1,0 +1,13 @@
+---
+- name: Converge - update configure mapping rules
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing update - configure_mapping_rules"
+      include_role:
+        name: configure_mapping_rules
+      vars:
+        mapping_rules:
+          - rule_action: update
+            name: "{{ molecule_name }}"
+            file: "{{ molecule_update_file }}"
