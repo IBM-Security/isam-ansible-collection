@@ -1,23 +1,94 @@
 ---
 
 # main task to configure authentication policies
-#   Example:
-#     authentication_policies:
-#       - name: testap1
-#         description: test
-#         dialect: urn:ibm:security:authentication:policy:1.0:schema
-#         enabled: true
-#         uri: urn:ibm:security:authentication:asf:testap1
-#         policy: '<Policy xmlns="urn:ibm:security:authentication:policy:1.0:schema" PolicyId="urn:ibm:security:authentication:asf:testap1"><Description/><Step id="id16025195966980" type="Authenticator"><Authenticator id="id16025195966991" AuthenticatorId="urn:ibm:security:authentication:asf:mechanism:info_map"/></Step></Policy>'
 
-- name: Configure authentication policies
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_authentication_policies
+
+      DESCRIPTION
+        Role to configure authentication policies
+
+      STEPS
+        1) Configure authentication policies
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_authentication_policies.yml // configure all authentication policies
+        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_authentication_policies.yml -e policy_action=set // run only tasks with set to add or update authentication policies
+        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_authentication_policies.yml -e policy_name=test_auth_policy_1 // run only tasks from authentication_policies inventory where element name equals this parameter
+
+      INVENTORY
+      ==========
+      # configure authentication policies
+      authentication_policies:
+        # create authentication policy
+        # Attention: the PolicyId attribute inside the policy element must be identitcal to the uri element. Either use ansible variable or keep them manually in sync!
+        #            e.g. globally define `test_auth_policy_1_uri: urn:ibm:security:authentication:asf:test_auth_policy_1` and use {{ '{{' }} test_auth_policy_1_uri {{ '}}' }} inside authentication_policies dict
+        - policy_action: set
+          name: test_auth_policy_1
+          description: Test authentication policy
+          dialect: urn:ibm:security:authentication:policy:1.0:schema
+          enabled: true
+          uri: urn:ibm:security:authentication:asf:test_auth_policy_1
+          policy: '<Policy xmlns="urn:ibm:security:authentication:policy:1.0:schema" PolicyId="urn:ibm:security:authentication:asf:test_auth_policy_1"><Step type="Authenticator"><Authenticator AuthenticatorId="urn:ibm:security:authentication:asf:mechanism:info_map"/></Step></Policy>'
+
+        # policy provided as yaml (converted with collection filter ibm.isam.to_xml)
+        - policy_action: set
+          name: test_auth_policy_1
+          description: Test authentication policy
+          dialect: urn:ibm:security:authentication:policy:1.0:schema
+          enabled: true
+          uri: urn:ibm:security:authentication:asf:test_auth_policy_1
+          policy:
+            - name: Policy
+              attributes:
+                xmlns: urn:ibm:security:authentication:policy:1.0:schema
+                PolicyId: urn:ibm:security:authentication:asf:test_auth_policy_1
+              children:
+                - name: Step
+                  attributes:
+                    type: Authenticator
+                  children:
+                    - name: Authenticator
+                      attributes:
+                        AuthenticatorId: urn:ibm:security:authentication:asf:mechanism:info_map
+
+        # delete authentication policy
+        - policy_action: delete
+          name: test_auth_policy_1
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: "Configure authentication policies [-e policy_action=[get|set|delete]  -e policy_name=<policy-name>]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: ibmsecurity.isam.aac.authentication.policies.set
-    isamapi: "{{ item }}"
-  with_items: "{{ authentication_policies }}"
-  when: item.name == name
+    action: "ibmsecurity.isam.aac.authentication.policies.{{ item.policy_action }}"
+    isamapi: "{{
+     { 'name': item.name }
+     | combine({ 'description': item.description } if (item.description is defined) else {})
+     | combine({ 'dialect': item.dialect } if (item.dialect is defined) else {})
+     | combine({ 'enabled': item.enabled } if (item.enabled is defined) else {})
+     | combine({ 'uri': item.uri } if (item.uri is defined) else {})
+     | combine({ 'policy': (item.policy | ibm.isam.to_xml | regex_replace('\"', '\\\"')) } if (item.policy is defined) else {})
+   }}"
+  loop: "{{ authentication_policies }}"
+  when:
+    - item.policy_action is defined
+    - item.policy_action == policy_action
+    - item.name == policy_name
   loop_control:
-    label: "{{ item.name }}"
+    label: "{
+        'policy_action': {{ item.policy_action }},
+        'name': {{ item.name }}
+    }"
   notify: Commit Changes

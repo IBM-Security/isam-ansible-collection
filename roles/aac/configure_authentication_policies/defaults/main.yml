@@ -4,4 +4,5 @@
 authentication_policies: []
 
 # Default variables for filtering
-name: "{{ item.name }}"
+policy_name: "{{ item.name }}"
+policy_action: "{{ item.policy_action }}"
