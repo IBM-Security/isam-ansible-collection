@@ -8,7 +8,7 @@
         name: "configure_authentication_policies"
       vars:
         authentication_policies:
-          - policy_action: add
+          - policy_action: set
             name: "{{ molecule.name }}"
             description: "{{ molecule.description }}"
             dialect: "{{ molecule.dialect }}"

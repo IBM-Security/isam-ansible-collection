@@ -8,9 +8,10 @@
         name: "configure_authentication_policies"
       vars:
         authentication_policies:
-          - name: "{{ name }}"
-            description: "{{ update_description }}"
-            dialect: "{{ dialect }}"
-            uri: "{{ uri }}"
-            enabled: "{{ enabled }}"
-            policy: "{{ policy }}"
+          - policy_action: update
+            name: "{{ molecule.name }}"
+            description: "{{ molecule.update_description }}"
+            dialect: "{{ molecule.dialect }}"
+            uri: "{{ molecule.uri }}"
+            enabled: "{{ molecule.enabled }}"
+            policy: "{{ molecule.policy }}"
