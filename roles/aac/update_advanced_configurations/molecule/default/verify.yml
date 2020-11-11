@@ -1,0 +1,22 @@
+---
+
+- name: Verify - update advanced configuration
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: "Get advanced configuration by key - basicLdapUser.ldap.maxBinds"
+      include_role:
+        name: "get_advanced_configurations_by_key"
+      vars:
+        get_advanced_configuration_keys:
+          - key: "basicLdapUser.ldap.maxBinds"
+
+    - name: "Assert that the advanced configuration basicLdapUser.ldap.maxBinds was updated"
+      assert:
+        that:
+          - ret_obj.results.0.data.key is defined
+          - ret_obj.results.0.data.key == "basicLdapUser.ldap.maxBinds"
+          - ret_obj.results.0.data.value == "5"
+        fail_msg: "Advanced configuration basicLdapUser.ldap.maxBinds was not updated"
+        success_msg: "Advanced configuration basicLdapUser.ldap.maxBinds was updated"
