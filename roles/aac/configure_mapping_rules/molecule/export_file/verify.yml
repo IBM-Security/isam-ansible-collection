@@ -1,0 +1,21 @@
+---
+
+- name: Verify the mapping rule was exported
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "../../vars/main.yml"
+        name: inventory
+
+    - name: "check if file exists"
+      stat:
+        path: "{{ inventory.molecule_export_file }}"
+      register: export_file_result
+
+    - name: Assert that exported file exits
+      assert:
+        that:
+          - export_file_result.stat.exists == True
+        fail_msg: "The exported file {{ inventory.molecule_export_file }} does not exist"
+        success_msg: "The exported file {{ inventory.molecule_export_file }} does exist"
