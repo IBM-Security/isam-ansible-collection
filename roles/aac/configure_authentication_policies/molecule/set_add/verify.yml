@@ -1,6 +1,6 @@
 ---
 
-- name: Verify - add
+- name: Verify - set
   hosts: all
   gather_facts: no
   tasks:
