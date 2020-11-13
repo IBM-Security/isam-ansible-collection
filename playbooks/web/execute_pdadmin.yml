@@ -4,5 +4,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.web/execute_pdadmin
+    - role: ibm.isam.web.execute_pdadmin
       tags: execute_pdadmin
