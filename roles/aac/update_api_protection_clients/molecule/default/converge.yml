@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Include update_api_protection_clients"
+      include_role:
+        name: "update_api_protection_clients"
+      vars:
+        api_protection_clients:
+          - name: "TestClient"
+            companyName: "IBM demo client for OAuth flows"
+            redirectUri: "https://localhost"
+            contactType: "ADMINISTRATIVE"
+            definitionName: "testapi1"
+            companyUrl: "https://test.ibm.com"

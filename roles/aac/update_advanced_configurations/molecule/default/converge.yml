@@ -1,0 +1,13 @@
+---
+- name: Converge - update advanced configurations
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing update advanced configurations"
+      include_role:
+        name: update_advanced_configurations
+      vars:
+        advanced_configurations:
+          - key: "basicLdapUser.ldap.maxBinds"
+            value: "5"
+            sensitive: False

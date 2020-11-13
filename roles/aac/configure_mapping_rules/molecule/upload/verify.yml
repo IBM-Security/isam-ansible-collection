@@ -1,0 +1,24 @@
+---
+
+- name: Verify - upload mapping rules
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "../../vars/main.yml"
+        name: inventory
+
+    - name: "Get the mapping rule {{ inventory.molecule_name }}"
+      include_role:
+        name: "get_mapping_rule_by_name"
+      vars:
+        get_mapping_rule_names:
+          - name: "{{ inventory.molecule_name }}"
+
+    - name: "Assert that the mapping rule {{ inventory.molecule_name }} was uploaded"
+      assert:
+        that:
+          - ret_obj.results.0.data.name is defined
+          - ret_obj.results.0.data.name == inventory.molecule_name
+        fail_msg: "Mapping Rule {{ inventory.molecule_name }} was not uploaded"
+        success_msg: "Mapping Rule {{ inventory.molecule_name }} was uploaded"

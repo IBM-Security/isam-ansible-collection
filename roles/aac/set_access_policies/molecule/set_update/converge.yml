@@ -1,0 +1,15 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  vars:
+    molecule_name: test2
+    molecule_update_file: /location/of/the/updated_file.js
+  tasks:
+    - name: "Test add using set_access_policies role"
+      include_role:
+        name: "set_access_policies"
+      vars:
+        access_policies:
+          - name: "{{ molecule_name }}"
+            file: "{{ molecule_update_file }}"

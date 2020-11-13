@@ -1,5 +1,9 @@
 ---
 
 molecule_name: accesspolicy_prompt
-molecule_file: "files/mapping_rules/accesspolicy_prompt.js"
-molecule_categorey: InfoMap
+molecule_file: "/location/of/the/mapping_rule/mappingrule.js"
+molecule_category: SAML2_0
+molecule_update_file: "/location/of/the/mapping_rule/mappingrule.js"
+molecule_set_file: "/location/of/the/mapping_rule/mappingrule.js"
+molecule_export_file: "/location/of/the/mapping_rule/exportedfile.js"
+molecule_import_file: "/location/of/the/mapping_rule/mappingrule.js"

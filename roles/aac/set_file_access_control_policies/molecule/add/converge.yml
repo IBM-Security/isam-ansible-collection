@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Add policy using set_file_acces_control_policies"
+      include_role:
+        name: "ibm.isam.aac.set_file_access_control_policies"
+      vars:
+        accesscontrol_policies:
+          - name: "{{ molecule_name }}"
+            attributesrequired: "{{ molecule_attributesrequired }}"
+            policy_file: "{{ molecule_policy_file }}"
+            description: "{{ molecule_add_description }}"
+            dialect: "{{ molecule_dialect }}"
+            predefined: "{{ molecule_predefined }}"
