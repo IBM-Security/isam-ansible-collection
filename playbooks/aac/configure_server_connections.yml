@@ -1,17 +1,6 @@
 ---
 # Configure
 #   configure server connections
-#   Example:
-#      server_connections:
-#       -   name: server_connection_1
-#           class: ldap
-#           connection:
-#             bindDN: cn=root
-#             bindPwd: "{{ pwd }}"
-#             hostName: ldap.ibm.com
-#             hostPort: 389
-#             ssl: false
-#           description: Demo Connection to LDAP
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:

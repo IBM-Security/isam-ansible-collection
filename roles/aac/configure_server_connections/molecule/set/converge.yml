@@ -1,0 +1,18 @@
+---
+- name: Converge - set a server connection
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing set - configure a isamruntime connection"
+      include_role:
+        name: configure_server_connections
+      vars:
+        server_connections:
+          - connection_action: set
+            name: "{{ molecule_name }}"
+            ignore_password_for_idempotency: "{{ molecule_ignore_password_for_idempotency }}"
+            class: "{{ molecule_class }}"
+            connection: "{{ molecule_connection }}"
+            connectionManager: "{{ molecule_connectionManager }}"
+            description: "{{ molecule_description }}"
+
