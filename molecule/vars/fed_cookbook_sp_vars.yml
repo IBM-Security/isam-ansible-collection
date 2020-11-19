@@ -256,13 +256,13 @@ update_management_root_idandfilename:
   ]
 update_management_root_instance_id: "default"
 
-# 20.3 Scenario: “USERNAME” authentication
+# 20.3 Scenario: USERNAME authentication
 username_poc_name: "Access Manager Username and extended attributes"
 
-# 20.4 Scenario: “PAC” authentication
+# 20.4 Scenario: PAC authentication
 access_manager_poc_name: "Access Manager Credential"
 
-# 20.5 Scenario: “EXTUSER” authentication
+# 20.5 Scenario: EXTUSER authentication
 non_access_manager_poc_name: "Non-Access Manager Username, Access Manager groups and extended attributes"
 saml20_dynamic_group_name: "sp_saml20_dynamic_group"
 set_federation_name: "saml20sp"

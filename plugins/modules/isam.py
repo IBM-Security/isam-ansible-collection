@@ -1,7 +1,27 @@
 #!/usr/bin/python
-
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 from __future__ import (absolute_import, division, print_function)
 
+
+DOCUMENTATION = '''
+---
+module: isam
+short_description: This module will make calls to connection
+description: This module will make calls to connection
+author: Ram Sreerangam (@ram-ibm)
+'''
+
+EXAMPLES = '''
+- name: Configure access control attributes
+  ibm.isam.isam:
+    log:       "{{ log_level | default(omit) }}"
+    force:     "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.attributes.get
+    isamapi: "{{ item }}"
+  when: item is defined
+  with_items: "{{ get_access_control_attributes }}"
+  register: ret_obj
+'''
 __metaclass__ = type
 
 import logging.config
@@ -40,7 +60,7 @@ def main():
     isam_util = ISAMUtil(module)
 
     # Create options string to pass to action method
-    ## NOTE: self.isam_server is inherited from the connection plugin
+    # NOTE: self.isam_server is inherited from the connection plugin
     options = 'isamAppliance=self.isam_server, force=' + str(force)
     if module.check_mode is True:
         options = options + ', check_mode=True'
