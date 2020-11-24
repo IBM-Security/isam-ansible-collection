@@ -1,0 +1,34 @@
+---
+
+# replace location_of_the_updated_access_policy_file with actual path and filename
+
+- name: Verify - update access policy
+  hosts: all
+  gather_facts: no
+  vars:
+    molecule_name: test2
+    molecule_update_file: /location/of/the/updated_file.js
+  tasks:
+    - name: read content from file
+      set_fact:
+        file_content: "{{ lookup('file', molecule_update_file) | regex_replace('\\r|\\n', '') }}"
+
+    - name: "Get the mapping rule {{ molecule_name }}"
+      include_role:
+        name: "get_access_policies_by_name"
+      vars:
+        get_access_policies:
+          - name: "{{ molecule_name }}"
+
+    - name: remove newline from returned content
+      set_fact:
+        returned_content: "{{ ret_obj.results.0.data.properties.content | regex_replace('\\r|\\n', '') }}"
+
+    - name: "Assert that the mapping rule {{ molecule_name}} was updated"
+      assert:
+        that:
+          - ret_obj.results.0.data.name is defined
+          - ret_obj.results.0.data.name == molecule_name
+          - returned_content == file_content
+        fail_msg: "Access policy {{ molecule_name }} was not updated"
+        success_msg: "Access policy {{ molecule_name }} was updated"

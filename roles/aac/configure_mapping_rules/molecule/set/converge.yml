@@ -1,6 +1,6 @@
 ---
 
-- name: Converge - add mapping rules
+- name: Converge - set mapping rules
   hosts: all
   gather_facts: no
   tasks:
@@ -12,5 +12,5 @@
           # upload or update mapping rule from file
           - rule_action: set
             name: "{{ molecule_name }}"
-            file: "{{ molecule_file }}"
-            category: "{{ molecule_categorey }}"
+            file: "{{ molecule_set_file }}"
+            category: "{{ molecule_category }}"

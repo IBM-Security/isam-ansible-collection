@@ -8,15 +8,15 @@
         file: "../../vars/main.yml"
         name: inventory
 
-    - name: "Get the authentication policy {{ inventory.name }}"
+    - name: "Get the authentication policy {{ inventory.molecule.name }}"
       include_role:
         name: "get_authentication_policies_by_name"
       vars:
         get_authentication_policies:
-          - name: "{{ inventory.name }}"
+          - name: "{{ inventory.molecule.name }}"
 
-    - name: "Assert that the authentication policy {{ inventory.name }} was added"
+    - name: "Assert that the authentication policy {{ inventory.molecule.name }} was added"
       assert:
-        that: ret_obj.results.0.data.name == inventory.name
-        fail_msg: "Authentication Policy {{ inventory.name }} was not added"
-        success_msg: "Authentication Policy {{ inventory.name }} was added"
+        that: ret_obj.results.0.data.name == inventory.molecule.name
+        fail_msg: "Authentication Policy {{ inventory.molecule.name }} was not added"
+        success_msg: "Authentication Policy {{ inventory.molecule.name }} was added"

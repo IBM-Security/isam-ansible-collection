@@ -15,7 +15,7 @@ the policy files of a configured system.
     - name: Create AAC Access Control policies
       tags: ["aac","access-control-policy","resources"]
       import_role:
-       name: aac/set_accesscontrol_policies
+       name: aac/set_file_access_control_policies
       vars:
        accesscontrol_policies:
         -  attributesrequired: false

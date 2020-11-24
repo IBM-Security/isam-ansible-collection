@@ -1,0 +1,22 @@
+---
+
+- name: Verify
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Include get_api_protection_client"
+      include_role:
+        name: "get_api_protection_clients"
+      vars:
+        get_api_protection_clients:
+          - name: TestClient
+
+    - name: "Assert that API protection client TestClient is updated"
+      assert:
+        that:
+          - ret_obj.results.0.data.name is defined
+          - ret_obj.results.0.data.companyUrl is defined
+          - ret_obj.results.0.data.name == "TestClient"
+          - ret_obj.results.0.data.companyUrl  == "https://test.ibm.com"
+        fail_msg: "API Protection client TestClient was not updated"
+        success_msg: "API Protection client TestClient was updated"
