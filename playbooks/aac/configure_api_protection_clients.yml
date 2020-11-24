@@ -17,5 +17,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.aac/configure_api_protection_clients
+    - role: ibm.isam.aac.configure_api_protection_clients
       tags: configure_api_protection_clients

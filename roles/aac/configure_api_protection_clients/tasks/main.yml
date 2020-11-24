@@ -2,32 +2,31 @@
 
 # main task to add or update api protection client
 #   Example:
-#           clients:
+#     api_protection:
+#       definitions:
+#         - name: oauth-provider
+#           description: API protection for OAuth service provider
+#           grantTypes:
+#             - AUTHORIZATION_CODE
+#           tcmBehavior: NEVER_PROMPT
+#           clients: 
 #             - name: TestApp
-#               definitionName:
-#               companyName:
-#               redirectUri:
-#               companyUrl:
-#               contactPerson:
-#               contractType:
-#               email:
-#               phone:
-#               otherInfo:
-#               clientId:
-#               clientSecret:
-#               new_name:
-#               requirePkce:
-#               encryptionDb:
-#               encryptionCert:
-#               jwksUri:
-#               extProperties:
-#               introspectWithSecret:
+#               companyName: IBM demo client for OAuth flows
+#               redirectUri: 
+#                 - https://localhost
+#               contractType: ADMINISTRATIVE
 
 - name: Configure api protection client
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.api_protection.clients.set
-    isamapi: "{{ item }}"
-  with_items: "{{ api_protection_clients }}"
+    isamapi: "{{ item.1 | combine({ 'definitionName': item.0.name }) }}"
+  when: item.1.name == client_name
+  with_subelements: 
+    - "{{ api_protection.definitions | default([])}}"
+    - clients
+    - skip_missing: True
+  loop_control:
+    label: "{ 'definitionName': {{ item.0.name }}, 'client_name': {{ item.1.name }} }"
   notify: Commit Changes
