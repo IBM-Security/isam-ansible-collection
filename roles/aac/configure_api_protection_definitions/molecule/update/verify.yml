@@ -12,12 +12,12 @@
       include_role:
         name: "get_api_protection_definitions"
       vars:
-        get_api_protection_definitions: "{{ inventory.definitions }}"
+        get_api_protection_definitions: "{{ inventory.molecule_definitions }}"
 
-    - name: "Assert that the client {{ inventory.definition_name }} was added"
+    - name: "Assert that the client {{ inventory.molecule_definition_name }} was added"
       assert:
         that:
-          - ret_obj.results.0.data.name == inventory.definition_name
-          - ret_obj.results.0.data.description == inventory.update_description
-        fail_msg: "API Protection definition {{ inventory.definition_name }} was not updated"
-        success_msg: "API Protection definition {{ inventory.definition_name }} was updated"
+          - ret_obj.results.0.data.name == inventory.molecule_definition_name
+          - ret_obj.results.0.data.description == inventory.molecule_update_description
+        fail_msg: "API Protection definition {{ inventory.molecule_definition_name }} was not updated"
+        success_msg: "API Protection definition {{ inventory.molecule_definition_name }} was updated"

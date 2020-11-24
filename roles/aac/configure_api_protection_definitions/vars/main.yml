@@ -1,8 +1,8 @@
 ---
 
-definition_name: testapi4
-description: API protection for OAuth service provider
-tcmBehavior: NEVER_PROMPT
-update_description: updated description
-definitions:
+molecule_definition_name: testapi4
+molecule_description: API protection for OAuth service provider
+molecule_tcmBehavior: NEVER_PROMPT
+molecule_update_description: updated description
+molecule_definitions:
   - name: testapi4
