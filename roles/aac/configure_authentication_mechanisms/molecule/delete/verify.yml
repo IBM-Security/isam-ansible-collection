@@ -1,0 +1,23 @@
+---
+
+- name: Verify - update
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "../../vars/main.yml"
+        name: inventory
+
+    - name: "Get the authentication mechanism {{ inventory.molecule_name }}"
+      include_role:
+        name: "get_authentication_mechanisms"
+      vars:
+        get_authentication_mechanisms:
+          - name: "{{ inventory.molecule_name }}"
+
+    - name: "Assert that the authentication mechanism {{ inventory.molecule_name }} was deleted"
+      assert:
+        that:
+          - ret_obj.results.0.data == {}
+        fail_msg: "Authentication Mechanism {{ inventory.molecule_name }} was not deleted"
+        success_msg: "Authentication Mechanism {{ inventory.molecule_name }} was deleted"
