@@ -1,0 +1,67 @@
+---
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        config_reverseproxy_oauth
+
+      DESCRIPTION
+        Role to configure existing reverse proxy instances for oauth integration
+
+      STEPS
+        1) Configure reverse proxy for oauth
+        2) Commit changes
+        *) NOT INCLUDED: Restart reverse proxy instance (use web/restart_reverseproxy_instances role to restart instances with pending changes)
+
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/web/config_reverseproxy_oauth.yml
+
+      INVENTORY
+      ==========
+      # configure default reverse proxy for oauth
+      instances:
+        [...]
+        - inst_name: default
+          [...]
+          # configure browser oauth
+          oauth_configuration:
+            oauth_action: config
+            hostname: localhost
+            port: '443'
+            username: easuser
+            password: {{ '{{' }} vault_easuser_pwd {{ '}}' }} # ansible-vault secured pwd
+            junction: /mga
+            api: True
+            browser: True
+            auth_register: True # Needs 9.0.5.0 or higher. 
+            reuse_acls: True
+            reuse_certs: True
+          [...]
+          # or unconfigure oauth for default: TBD. (currently ISVA REST API does not support unconfig for oauth)
+          #oauth_configuration:
+          #  oauth_action: unconfig
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Configure reverse proxy for oauth
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: "ibmsecurity.isam.web.reverse_proxy.oauth_configuration.{{ item.oauth_configuration.oauth_action }}"
+    isamapi: "{{ item.oauth_configuration | ibm.isam.exclude('oauth_action') | combine({ 'instance_id': item.inst_name }) }}"
+  loop: "{{ instances }}"
+  loop_control:
+    label: "{
+      'instance_id': '{{ item.inst_name }}'
+      {{ (', ' + \"'oauth_action'\" + ': ' + item.oauth_configuration.oauth_action) if item.oauth_configuration is defined }}
+    }"
+  when:
+    - item.inst_name == inst_name
+    - item.oauth_configuration is defined
+  notify: Commit Changes
