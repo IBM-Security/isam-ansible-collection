@@ -7,7 +7,8 @@
       include_role:
         name: "configure_api_protection_definitions"
       vars:
-        api_protection_definitions:
-          - name: "{{ definition_name }}"
-            description: "{{ description }}"
-            tcmBehavior: "{{ tcmBehavior }}"
+        api_protection:
+          definitions:
+            - name: "{{ molecule_definition_name }}"
+              description: "{{ molecule_description }}"
+              tcmBehavior: "{{ molecule_tcmBehavior }}"
