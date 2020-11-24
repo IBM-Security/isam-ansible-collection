@@ -9,9 +9,9 @@
       vars:
         authentication_mechanisms:
           - mechanism_action: set
-            name: "{{ molecule.name }}"
-            description: "{{ molecule.description }}"
-            predefined: "{{ molecule.predefined }}"
-            properties: "{{ molecule.properties }}"
-            typeName: "{{ molecule.typeName }}"
-            uri: "{{ molecule.uri }}"
+            name: "{{ molecule_name }}"
+            description: "{{ molecule_description }}"
+            predefined: "{{ molecule_predefined }}"
+            properties: "{{ molecule_properties }}"
+            typeName: "{{ molecule_typeName }}"
+            uri: "{{ molecule_uri }}"

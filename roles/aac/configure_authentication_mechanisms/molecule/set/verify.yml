@@ -8,15 +8,15 @@
         file: "../../vars/main.yml"
         name: inventory
 
-    - name: "Get the authentication mechanism {{ inventory.molecule.name }}"
+    - name: "Get the authentication mechanism {{ inventory.molecule_name }}"
       include_role:
         name: "get_authentication_mechanisms"
       vars:
         get_authentication_mechanisms:
-          - name: "{{ inventory.molecule.name }}"
+          - name: "{{ inventory.molecule_name }}"
 
-    - name: "Assert that the authentication mechanism {{ inventory.molecule.name }} was added"
+    - name: "Assert that the authentication mechanism {{ inventory.molecule_name }} was added"
       assert:
-        that: ret_obj.results.0.data.name == inventory.molecule.name
-        fail_msg: "Authentication Mechanism {{ inventory.molecule.name }} was not added"
-        success_msg: "Authentication Mechanism {{ inventory.molecule.name }} was added"
+        that: ret_obj.results.0.data.name == inventory.molecule_name
+        fail_msg: "Authentication Mechanism {{ inventory.molecule_name }} was not added"
+        success_msg: "Authentication Mechanism {{ inventory.molecule_name }} was added"
