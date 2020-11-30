@@ -1,0 +1,12 @@
+---
+- name: Converge - delete
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing delete - configure_authentication_mechanisms"
+      include_role:
+        name: "configure_authentication_mechanisms"
+      vars:
+        authentication_mechanisms:
+          - mechanism_action: delete
+            name: "{{ molecule.name }}"
