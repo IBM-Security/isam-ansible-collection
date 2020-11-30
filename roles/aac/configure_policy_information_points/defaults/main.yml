@@ -1,0 +1,3 @@
+---
+# Default variables to configure policy information points
+policy_information_points: []
