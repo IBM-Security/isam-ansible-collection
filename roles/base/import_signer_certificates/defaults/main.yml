@@ -1,5 +1,5 @@
 # Default variables for importing signer certificates
-signer_certificates: []
+import_signer_certificates: []
 
 # default variables to limit execution at runtime
 kdb_id: "{{ item.kdb_id }}"
