@@ -12,17 +12,17 @@
       include_role:
         name: "get_api_protection_clients"
       vars:
-        get_api_protection_clients: "{{ inventory.clients }}"
+        get_api_protection_clients: "{{ inventory.molecule_clients }}"
 
     - debug:
         var: ret_obj
 
-    - name: "Assert that policy {{ inventory.client_name }} is added"
+    - name: "Assert that policy {{ inventory.molecule_client_name }} is added"
       assert:
         that:
           - ret_obj.results.0.data.name is defined
           - ret_obj.results.0.data.companyUrl is defined
-          - ret_obj.results.0.data.name == inventory.client_name
-          - ret_obj.results.0.data.companyUrl  == inventory.companyUrl
-        fail_msg: "API Protection client {{ inventory.client_name }} was not updated"
-        success_msg: "API Protection client {{ inventory.client_name }} was updated"
+          - ret_obj.results.0.data.name == inventory.molecule_client_name
+          - ret_obj.results.0.data.companyUrl  == inventory.molecule_companyUrl
+        fail_msg: "API Protection client {{ inventory.molecule_client_name }} was not updated"
+        success_msg: "API Protection client {{ inventory.molecule_client_name }} was updated"
