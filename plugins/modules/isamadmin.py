@@ -9,6 +9,39 @@ module: isamadmin
 short_description: This module will make calls to connection
 description: This module will make calls to connection
 author: Ram Sreerangam (@ram-ibm)
+options:
+    log:
+        description:
+            - level for log setting
+        type: str
+        required: False
+        default: INFO
+        choices:
+            - DEBUG
+            - INFO
+            - ERROR
+            - CRITICAL
+    isamuser:
+        description:
+            - user name
+        type: str
+        required: False
+    isampwd:
+        description:
+            - user password
+        type: str
+        required: True
+    isamdomain:
+        description:
+            - domain name
+        type: str
+        required: False
+        default: Default
+    commands:
+        description:
+            - list of commands
+        type: list
+        required: True
 '''
 
 EXAMPLES = '''

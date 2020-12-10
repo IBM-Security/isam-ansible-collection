@@ -9,6 +9,32 @@ module: isam
 short_description: This module will make calls to connection
 description: This module will make calls to connection
 author: Ram Sreerangam (@ram-ibm)
+options:
+    log:
+        description:
+            - level for log setting
+        type: str
+        required: False
+        default: INFO
+        choices:
+            - DEBUG
+            - INFO
+            - ERROR
+            - CRITICAL
+    force:
+        description:
+            - if force is True then a call to ISAM will always happen
+        type: bool
+        required: False
+    action:
+        description:
+            - name of the ibmsecurity call
+        type: str
+        required: True
+    isamapi:
+        description: parameters to pass to the ibmsecurity call
+        type: dict
+        required: False
 '''
 
 EXAMPLES = '''

@@ -204,17 +204,17 @@ class Connection(NetworkConnectionBase):
             ret_obj['ansible_facts'] = self.isam_server.facts
             return ret_obj
         except ImportError as e:
-            raise AnsibleConnectionFailure('Error> action belongs to a module that is not found!', isam_module, e) from e
+            raise AnsibleConnectionFailure('Error> action belongs to a module that is not found!', isam_module, e)
         except AttributeError as e:
             raise AnsibleConnectionFailure('Error> invalid action was specified, method not found in module!',
-                                           isam_module, e) from e
+                                           isam_module, e)
         except TypeError as e:
             raise AnsibleConnectionFailure(
                 'Error> action does not have the right set of arguments or there is a code bug! Options: ' + options,
-                isam_module, e) from e
+                isam_module, e)
         except IBMError as e:
             raise AnsibleConnectionFailure("Error> IBMError, action: {0} Exception: {1}".format(isam_module, e), options,
-                                           e) from e
+                                           e)
 
     def call_isam_admin(self, adminDomain, isamuser, isampwd, commands):
         """
@@ -234,9 +234,9 @@ class Connection(NetworkConnectionBase):
             ret_obj['ansible_facts'] = self.isam_server.facts
             return ret_obj
         except ImportError as e:
-            raise AnsibleConnectionFailure('Error> Unable to Import pdadmin module!') from e
+            raise AnsibleConnectionFailure('Error> Unable to Import pdadmin module!')
         except IBMError as e:
-            raise AnsibleConnectionFailure("Error> IBMError", e) from e
+            raise AnsibleConnectionFailure("Error> IBMError", e)
 
     def close(self):
         '''
