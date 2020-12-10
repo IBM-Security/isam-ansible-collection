@@ -52,7 +52,7 @@ def convertYaml2XmlAux(inobj, out=None):
                     out.append('</%s>' % obj['name'])
     else:
         # leave data unchanged, if not of type dict and still inital value
-        if (out == [] or out is None):
+        if (out == []):
             out = inobj
 
     if isinstance(out, list):
@@ -87,7 +87,7 @@ def convertYaml2NiceXmlAux(inobj, level=0, indent=2, out=None):
                     out.append('</%s>\n' % obj['name'])
     else:
         # leave data unchanged, if not of type dict and still inital value
-        if (out == [] or out is None):
+        if (out == []):
             out = inobj
 
     if isinstance(out, list):
