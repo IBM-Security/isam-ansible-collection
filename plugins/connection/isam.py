@@ -1,4 +1,6 @@
 from __future__ import (absolute_import, division, print_function)
+import ibmsecurity.isam.web.runtime.pdadmin
+from ibmsecurity.user.isamuser import ISAMUser
 
 __metaclass__ = type
 
@@ -157,12 +159,14 @@ class Connection(NetworkConnectionBase):
 
             # FIXME - add AdminProxy options and handle that here
             #
-            ## Create appliance object to be used for all calls
-            ## if adminProxy hostname is set, use the ISAMApplianceAdminProxy
+            # Create appliance object to be used for all calls
+            # if adminProxy hostname is set, use the ISAMApplianceAdminProxy
             # if adminProxyHostname == '' or adminProxyHostname is None or omitAdminProxy:
             #    self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port)
             # else:
-            #    #self.isam_server = ISAMApplianceAdminProxy(adminProxyHostname=adminProxyHostname, user=u, hostname=appliance, adminProxyProtocol=adminProxyProtocol, adminProxyPort=adminProxyPort, adminProxyApplianceShortName=adminProxyApplianceShortName)
+            #    self.isam_server = ISAMApplianceAdminProxy(adminProxyHostname=adminProxyHostname, user=u,
+            #    hostname=appliance, adminProxyProtocol=adminProxyProtocol, adminProxyPort=adminProxyPort,
+            #    adminProxyApplianceShortName=adminProxyApplianceShortName)
             #    pass
             self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port)
             self._sub_plugin = {'name': 'isam_server', 'obj': self.isam_server}
@@ -200,17 +204,17 @@ class Connection(NetworkConnectionBase):
             ret_obj['ansible_facts'] = self.isam_server.facts
             return ret_obj
         except ImportError as e:
-            raise AnsibleConnectionFailure('Error> action belongs to a module that is not found!', isam_module, e)
+            raise AnsibleConnectionFailure('Error> action belongs to a module that is not found!', isam_module, e) from e
         except AttributeError as e:
             raise AnsibleConnectionFailure('Error> invalid action was specified, method not found in module!',
-                                           isam_module, e)
+                                           isam_module, e) from e
         except TypeError as e:
             raise AnsibleConnectionFailure(
                 'Error> action does not have the right set of arguments or there is a code bug! Options: ' + options,
-                isam_module, e)
+                isam_module, e) from e
         except IBMError as e:
-            raise AnsibleConnectionFailure("Error> IBMError, action: {} Exception: {}".format(isam_module, e), options,
-                                           e)
+            raise AnsibleConnectionFailure("Error> IBMError, action: {0} Exception: {1}".format(isam_module, e), options,
+                                           e) from e
 
     def call_isam_admin(self, adminDomain, isamuser, isampwd, commands):
         """
@@ -219,8 +223,6 @@ class Connection(NetworkConnectionBase):
         if not self.connected:
             self._connect()
         try:
-            import ibmsecurity.isam.web.runtime.pdadmin
-            from ibmsecurity.user.isamuser import ISAMUser
             if isamuser == '' or isamuser is None:
                 iu = ISAMUser(password=isampwd)
             else:
@@ -232,9 +234,9 @@ class Connection(NetworkConnectionBase):
             ret_obj['ansible_facts'] = self.isam_server.facts
             return ret_obj
         except ImportError as e:
-            raise AnsibleConnectionFailure('Error> Unable to Import pdadmin module!')
+            raise AnsibleConnectionFailure('Error> Unable to Import pdadmin module!') from e
         except IBMError as e:
-            raise AnsibleConnectionFailure("Error> IBMError", e)
+            raise AnsibleConnectionFailure("Error> IBMError", e) from e
 
     def close(self):
         '''

@@ -10,31 +10,31 @@
         name: inventory
 
     # 20 Advanced External Authentication Interface Configuration for Service Providers
-    - name: "20.3 Scenario: “USERNAME” authentication"
+    - name: "20.3 Scenario: USERNAME authentication"
       include_role:
         name: ibm.isam.set_current_point_of_contact
       vars:
         set_current_point_of_contact_name: "{{ inventory.username_poc_name }}"
 
-    - name: "20.4 Scenario: “PAC” authentication"
+    - name: "20.4 Scenario: PAC authentication"
       include_role:
         name: ibm.isam.set_current_point_of_contact
       vars:
         set_current_point_of_contact_name: "{{ inventory.access_manager_poc_name }}"
 
-    - name: "20.5 Scenario: “EXTUSER” authentication - set POC"
+    - name: "20.5 Scenario: EXTUSER authentication - set POC"
       include_role:
         name: ibm.isam.set_current_point_of_contact
       vars:
         set_current_point_of_contact_name: "{{ inventory.non_access_manager_poc_name }}"
 
-    - name: "20.5 Scenario: “EXTUSER” authentication - get sp_saml20_dynamic_group id"
+    - name: "20.5 Scenario: EXTUSER authentication - get sp_saml20_dynamic_group id"
       include_role:
         name: ibm.isam.search_mapping_rule
       vars:
         search_mapping_rule_name: "{{ inventory.saml20_dynamic_group_name }}"
 
-    - name: "20.5 Scenario: “EXTUSER” authentication - create mapping obj"
+    - name: "20.5 Scenario: EXTUSER authentication - create mapping obj"
       set_fact:
         id_mapping_obj:
           {
@@ -48,11 +48,11 @@
               }
           }
 
-    - name: "20.5 Scenario: “EXTUSER” authentication - create updated config obj"
+    - name: "20.5 Scenario: EXTUSER authentication - create updated config obj"
       set_fact:
         update_config_obj: "{{ inventory.set_federation_configuration | combine(id_mapping_obj) }}"
 
-    - name: "20.5 Scenario: “EXTUSER” authentication - update the federation"
+    - name: "20.5 Scenario: EXTUSER authentication - update the federation"
       include_role:
         name: ibm.isam.set_federation
       vars:
@@ -62,7 +62,7 @@
         set_federation_configuration: "{{ update_config_obj }}"
         set_federation_templateName: ""
 
-    - name: "20.5 Scenario: “EXTUSER” authentication - add testgroup and testgroup2"
+    - name: "20.5 Scenario: EXTUSER authentication - add testgroup and testgroup2"
       include_role:
         name: ibm.isam.execute_pdadmin
       vars:

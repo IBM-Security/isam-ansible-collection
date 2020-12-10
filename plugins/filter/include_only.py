@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 """
 filter plugin with following features:
   1. filter takes a list 'a' and removes every tuple if the first value in the tuple matches a string 'b'

@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # ported sample from https://sourceforge.net/p/yaml/mailman/message/8986251/ to ansible
 
 from __future__ import (absolute_import, division, print_function)
@@ -12,25 +11,29 @@ from ansible.module_utils._text import to_text
 #           xmlns: urn:ibm:security:authentication:policy:1.0:schema
 #           PolicyId: urn:ibm:security:authentication:asf:test_auth_policy_1
 #         children:
-#           - name: Step  
+#           - name: Step
 #             attributes:
 #               type: Authenticator
 #             children:
 #               - name: Authenticator
 #                 attributes:
 #                   AuthenticatorId: urn:ibm:security:authentication:asf:mechanism:info_map
-# to xml: 
-#   <Policy xmlns=\"urn:ibm:security:authentication:policy:1.0:schema\" PolicyId=\"urn:ibm:security:authentication:asf:test_auth_policy_1\"><Step type=\"Authenticator\"><Authenticator AuthenticatorId=\"urn:ibm:security:authentication:asf:mechanism:info_map\"/></Step></Policy>
-# or nice xml: 
-# <Policy xmlns=\"urn:ibm:security:authentication:policy:1.0:schema\" PolicyId=\"urn:ibm:security:authentication:asf:test_auth_policy_1\">
+# to xml:
+#   <Policy xmlns=\"urn:ibm:security:authentication:policy:1.0:schema\"
+#   PolicyId=\"urn:ibm:security:authentication:asf:test_auth_policy_1\"><Step type=\"Authenticator\">
+#   <Authenticator AuthenticatorId=\"urn:ibm:security:authentication:asf:mechanism:info_map\"/></Step></Policy>
+# or nice xml:
+# <Policy xmlns=\"urn:ibm:security:authentication:policy:1.0:schema\"
+# PolicyId=\"urn:ibm:security:authentication:asf:test_auth_policy_1\">
 #   <Step type=\"Authenticator\">
 #     <Authenticator AuthenticatorId=\"urn:ibm:security:authentication:asf:mechanism:info_map\"/>
 #   </Step>
 # </Policy>
 
 
-
-def convertYaml2XmlAux(inobj, out=[]):
+def convertYaml2XmlAux(inobj, out=None):
+    if out is None:
+        out = []
     if isinstance(inobj, list):
         for obj in inobj:
             if isinstance(obj, dict) and 'name' in obj:
@@ -44,20 +47,23 @@ def convertYaml2XmlAux(inobj, out=[]):
                     out.append('>')
                     if 'text' in obj:
                         out.append(obj['text'])
-                    if 'children':
+                    if 'children' in obj:
                         convertYaml2XmlAux(obj['children'], out)
                     out.append('</%s>' % obj['name'])
     else:
         # leave data unchanged, if not of type dict and still inital value
         if (out == []):
             out = inobj
-    
+
     if isinstance(out, list):
         out = to_text("".join(out))
-    
+
     return out
 
-def convertYaml2NiceXmlAux(inobj, level=0, indent=2, out=[]):
+
+def convertYaml2NiceXmlAux(inobj, level=0, indent=2, out=None):
+    if out is None:
+        out = []
     if isinstance(inobj, list):
         for obj in inobj:
             if isinstance(obj, dict) and 'name' in obj:
@@ -75,7 +81,7 @@ def convertYaml2NiceXmlAux(inobj, level=0, indent=2, out=[]):
                         out.append('>')
                     if 'text' in obj:
                         out.append(obj['text'])
-                    if 'children':
+                    if 'children' in obj:
                         convertYaml2NiceXmlAux(inobj=obj['children'], level=(level + 1), out=out)
                         addLevel(level=level, indent=indent, out=out)
                     out.append('</%s>\n' % obj['name'])
@@ -83,18 +89,20 @@ def convertYaml2NiceXmlAux(inobj, level=0, indent=2, out=[]):
         # leave data unchanged, if not of type dict and still inital value
         if (out == []):
             out = inobj
-    
+
     if isinstance(out, list):
         out = to_text("".join(out))
-    
+
     return out
+
 
 #
 # Utility functions.
 #
 def addLevel(level, indent, out):
     for idx in range(level):
-        out.append(' '*indent)
+        out.append(' ' * indent)
+
 
 class FilterModule(object):
     def filters(self):

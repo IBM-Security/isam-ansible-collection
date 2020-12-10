@@ -1,4 +1,29 @@
+#!/usr/bin/python
+# Apache License Version 2.0, January 2004 http://www.apache.org/licenses/
+
 from __future__ import (absolute_import, division, print_function)
+
+DOCUMENTATION = '''
+---
+module: isamadmin
+short_description: This module will make calls to connection
+description: This module will make calls to connection
+author: Ram Sreerangam (@ram-ibm)
+'''
+
+EXAMPLES = '''
+- name: Configure access control attributes
+  ibm.isam.isam:
+    log:       "{{ log_level | default(omit) }}"
+    force:     "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.attributes.get
+    isamapi: "{{ item }}"
+  when: item is defined
+  with_items: "{{ get_access_control_attributes }}"
+  register: ret_obj
+'''
+
+
 __metaclass__ = type
 import logging.config
 import sys
@@ -45,8 +70,8 @@ def main():
     ret_obj['start'] = str(startd)
     ret_obj['end'] = str(endd)
     ret_obj['delta'] = str(delta)
-    ret_obj['cmd'] = "pdadmin execution using Domain: {}, User: {} and Commands: {}".format(isamdomain, isamuser,
-                                                                                            commands)
+    ret_obj['cmd'] = "pdadmin execution using Domain: {0}, User: {1} and Commands: {2}".format(isamdomain, isamuser,
+                                                                                               commands)
 
     module.exit_json(**ret_obj)
 
