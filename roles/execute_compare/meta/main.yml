@@ -1,3 +1,5 @@
+---
+
 galaxy_info:
   author: IBM
   description: Role that compares all aspects of an appliance with a master
@@ -20,9 +22,9 @@ galaxy_info:
         - 6
 
   galaxy_tags:
-  - isam
-  - ibm
-  - compare
+    - isam
+    - ibm
+    - compare
 
 dependencies:
   - common_handlers

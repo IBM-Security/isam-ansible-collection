@@ -1,13 +1,16 @@
-# Use the following to control what gets compared
-execute_compare_base: True
-execute_compare_wga: True
-execute_compare_mga: True
-execute_compare_fed: True
-execute_compare_certs: True
-execute_compare_reverseproxy: True
-execute_compare_web_runtime: True
+---
 
-# The following are the python files corresponding to the features to be compared
+# Use the following to control what gets compared
+execute_compare_base: true
+execute_compare_wga: true
+execute_compare_mga: true
+execute_compare_fed: true
+execute_compare_certs: true
+execute_compare_reverseproxy: true
+execute_compare_web_runtime: true
+
+# The following are the python files corresponding
+# to the features to be compared
 execute_compare_base_features:
   - ibmsecurity.isam.base.firmware
   - ibmsecurity.isam.base.fixpack
