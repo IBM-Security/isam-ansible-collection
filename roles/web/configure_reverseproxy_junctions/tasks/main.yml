@@ -51,7 +51,7 @@
                 - iv_user_l
               scripting_support: "yes"                                  # Supplies junction identification in a cookie to handle script-generated server-relative URLs.
               stateful_junction: "yes"
-              junction_hard_limit: 80                                   # Defines the hard limit percentage for consumption of worker threads. Valid value is an integer from "0" to "100". 
+              junction_hard_limit: 80                                   # Defines the hard limit percentage for consumption of worker threads. Valid value is an integer from "0" to "100".
               junction_soft_limit: 60                                   # Defines the soft limit percentage for consumption of worker threads. Valid value is an integer from "0" to "100".
               tfim_sso: "yes"                                           # Enables IBM Security Federated Identity Manager single sign-on (SSO) for the junction. Valid value is "yes" or "no"
               mutual_auth: "no"                                         # Specifies whether to enforce mutual authentication between a front-end Reverse Proxy server and a back-end Reverse Proxy server over SSL. Valid value is "yes" or "no".
@@ -80,7 +80,7 @@
                   virtual_hostname: "idontexist.com:81"                 # Virtual host name that is used for the junctioned Web server. Optional: Add virtual host port [:port] to be used.
                   query_contents: /server2/cgi-bin/query                # Provides the Reverse Proxy with the correct name of the query_contents program file and where to find the file. By default, the Windows file is called query_contents.exe and the UNIX file is called query_contents.sh. By default, the Reverse Proxy looks for the file in the cgi_bin directory of the back-end Web server. Required for back-end Windows and UNIX Web servers.
                   https_port: 444                                       # HTTPS port of the back-end third-party server. Applicable when the junction type is ssl.
-                  http_port: 81                                         # HTTP port of the back-end third-party server. Applicable when the junction type is tcp. 
+                  http_port: 81                                         # HTTP port of the back-end third-party server. Applicable when the junction type is tcp.
                   server_port: 443
                 - server_hostname: "server2.example.com"
                   server_dn: "CN=server2.example.com"                   # Specifies the distinguished name of the junctioned Web server.

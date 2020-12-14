@@ -2,8 +2,8 @@
 # tasks file for get_access_control_attribute
 - name: Get access control policies by name
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.policies.get
     isamapi: "{{ item }}"
   when: item is defined

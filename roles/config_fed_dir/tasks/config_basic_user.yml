@@ -2,21 +2,21 @@
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
-    action : ibmsecurity.isam.web.runtime.configuration.entry.update
+    action: ibmsecurity.isam.web.runtime.configuration.entry.update
     isamapi:
-      resource_id : "{{ item.resource }}"
-      stanza_id : "{{ item.stanza }}"
-      entry_id : "{{ item.entry }}"
-      value_id : "{{ item.value }}"
+      resource_id: "{{ item.resource }}"
+      stanza_id: "{{ item.stanza }}"
+      entry_id: "{{ item.entry }}"
+      value_id: "{{ item.value }}"
   with_items:
-  - resource : "ldap.conf"
-    stanza : "ldap"
-    entry : "basic-user-support"
-    value : "{{ config_fed_dir_basic_user_support | default('yes') }}"
-  - resource : "ldap.conf"
-    stanza : "ldap"
-    entry : "basic-user-pwd-policy"
-    value : "{{ config_fed_dir_basic_user_pwd_policy | default('no') }}"
+  - resource: "ldap.conf"
+    stanza: "ldap"
+    entry: "basic-user-support"
+    value: "{{ config_fed_dir_basic_user_support | default('yes') }}"
+  - resource: "ldap.conf"
+    stanza: "ldap"
+    entry: "basic-user-pwd-policy"
+    value: "{{ config_fed_dir_basic_user_pwd_policy | default('no') }}"
   notify:
   - Commit Changes
   - Restart Web Runtime

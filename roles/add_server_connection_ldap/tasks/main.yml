@@ -26,4 +26,3 @@
     - ldap_server_connection_locked is defined
     - ldap_server_connection_manager is defined
   notify: Commit Changes
-

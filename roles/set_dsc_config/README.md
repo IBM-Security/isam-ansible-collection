@@ -35,7 +35,6 @@ Here is an example of how to use this role:
                service_port: 443
                replication_port: 444
 
-
 License
 -------
 

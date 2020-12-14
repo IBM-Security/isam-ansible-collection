@@ -3,7 +3,7 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.embedded_ldap.user.set_pw
     isamapi:
-      id : "{{ set_ldap_user_pwd_id }}"
+      id: "{{ set_ldap_user_pwd_id }}"
   notify:
     - Commit Changes
     - Restart AAC Runtime

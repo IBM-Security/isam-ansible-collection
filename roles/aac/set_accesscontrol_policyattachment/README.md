@@ -11,11 +11,11 @@ attachment configuration , to use here.
   connection: local
   gather_facts: yes
   tasks:
-    - name : Attach Access Control Policies to resources
-      tags : ["attachments","access-control-policy","resources"]
+    - name: Attach Access Control Policies to resources
+      tags: ["attachments","access-control-policy","resources"]
       import_role:
         name: aac/set_accesscontrol_policyattachment
-      vars :
+      vars:
         accesscontrol_policy_attachments:
           - cache: -1
             policies:
@@ -34,9 +34,7 @@ attachment configuration , to use here.
             server: "{{ appliance_name }}-{{ 'wrp1' }}"
             type: reverse_proxy
 
-
 ### Prerequisites
-
 
 ```
 

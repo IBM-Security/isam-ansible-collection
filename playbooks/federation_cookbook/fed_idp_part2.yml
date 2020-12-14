@@ -217,7 +217,6 @@
           }
         }
 
-
     - name: "18.1 Using HttpClient from Javascript mapping rules - create updated config obj"
       set_fact:
         update_config_obj: "{{ inventory.set_federation_configuration | combine(id_mapping_obj) }}"
@@ -343,7 +342,6 @@
                     }
                 ]
         }
-
 
     - name: "18.3.4 Modify STS Test Module Chain - create properties obj"
       set_fact:
@@ -478,7 +476,6 @@
                     }
                   ]
             }
-
 
     - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - create properties obj"
       set_fact:

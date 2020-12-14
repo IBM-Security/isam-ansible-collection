@@ -18,4 +18,3 @@
   with_items: "{{ advanced_tuning_parameters }}"
   when: advanced_tuning_parameters is defined
   notify: Commit Changes
-

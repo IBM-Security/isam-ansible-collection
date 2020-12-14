@@ -6,11 +6,11 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.system_alerts.rsyslog.add
     isamapi:
-      name : "{{ add_system_alerts_rsyslog_name | default('RSyslog Alert to ' + add_system_alerts_rsyslog_collector) }}"
-      collector : "{{ add_system_alerts_rsyslog_collector }}"
-      collectorPort : "{{ add_system_alerts_rsyslog_collectorPort }}"
-      collectorLeef : "{{ add_system_alerts_rsyslog_collectorLeef }}"
-      comment : "RSyslog alert to {{ add_system_alerts_rsyslog_collector }}"
+      name: "{{ add_system_alerts_rsyslog_name | default('RSyslog Alert to ' + add_system_alerts_rsyslog_collector) }}"
+      collector: "{{ add_system_alerts_rsyslog_collector }}"
+      collectorPort: "{{ add_system_alerts_rsyslog_collectorPort }}"
+      collectorLeef: "{{ add_system_alerts_rsyslog_collectorLeef }}"
+      comment: "RSyslog alert to {{ add_system_alerts_rsyslog_collector }}"
   when: add_system_alerts_rsyslog_collector is defined
   register: alertObj
   notify: Commit Changes
@@ -21,8 +21,7 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.system_alerts.alerts.enable
     isamapi:
-      uuid : "{{ alertObj['data']['uuid'] }}"
-      objType : "{{ alertObj['data']['objType'] }}"
+      uuid: "{{ alertObj['data']['uuid'] }}"
+      objType: "{{ alertObj['data']['objType'] }}"
   when: add_system_alerts_rsyslog_collector is defined and alertObj.changed and (not ansible_check_mode)
   notify: Commit Changes
-

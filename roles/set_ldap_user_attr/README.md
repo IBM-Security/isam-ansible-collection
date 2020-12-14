@@ -18,7 +18,6 @@ Required variables are:
 
 **ldap_bind_dn**: Binding DN, for example "cn=root,secAuthority=default"
 
-
 **ldap_server_uri**: LDAP server URI, for example, "ldaps://192.168.42.101:636/"
 
 **ldap_state**: LDAP attribute target state, valid options are:
@@ -35,7 +34,6 @@ Required variables are:
       - { "name": "mail", "values": "testuser@mailinator.com" }
       - { "name": "displayName", "values": "Test User" }
 ```
-
 
 Dependencies
 ------------
@@ -77,7 +75,6 @@ License
 -------
 
 Apache
-
 
 Author Information
 ------------------

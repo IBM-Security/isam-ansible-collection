@@ -12,7 +12,7 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.license.install
     isamapi:
-      license : "{{ install_license_file }}"
+      license: "{{ install_license_file }}"
   when: install_license_file is defined
   notify: Commit Changes
 

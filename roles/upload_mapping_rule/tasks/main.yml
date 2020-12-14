@@ -4,8 +4,8 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.aac.mapping_rules.upload
     isamapi:
-      name : "{{ upload_mapping_rule_name }}"
-      category : "{{ upload_mapping_rule_category }}"
+      name: "{{ upload_mapping_rule_name }}"
+      category: "{{ upload_mapping_rule_category }}"
       upload_filename: "{{ upload_mapping_rule_upload_filename }}"
   when: upload_mapping_rule_name is defined and upload_mapping_rule_category is defined and upload_mapping_rule_upload_filename is defined
   notify: Commit Changes

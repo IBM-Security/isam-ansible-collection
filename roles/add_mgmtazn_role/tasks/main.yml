@@ -18,4 +18,3 @@
   with_items: "{{ mgmtazn_role_names }}"
   when: mgmtazn_role_names is defined
   notify: Commit Changes
-

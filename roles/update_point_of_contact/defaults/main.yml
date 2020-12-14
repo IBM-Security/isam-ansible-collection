@@ -9,7 +9,6 @@ update_point_of_contact_localIdCallbacks: null
 update_point_of_contact_signInCallbacks: null
 update_point_of_contact_signOutCallbacks: null
 
-
 #  This is a sample role usage that creates a new Point Of Contact profile that replicates the default existing "Access Manager Username and extended attributes" profile
 #
 #- role: ibm.isam.update_point_of_contact
