@@ -87,7 +87,8 @@ from ansible.module_utils.basic import AnsibleModule
 from io import StringIO
 import datetime
 from ansible.module_utils.six import string_types
-from ansible.errors import AnsibleConnectionFailure
+from ansible.module_utils.connection import ConnectionError
+
 
 try:
     from ibmsecurity.appliance.isamappliance import ISAMAppliance
@@ -102,7 +103,7 @@ logger = logging.getLogger(sys.argv[0])
 
 def main():
     if not HAS_IBMSECURITY:
-        raise AnsibleConnectionFailure(
+        raise ConnectionError(
             "Error> ibmsecurity python module required for ibm.isam.isam connection plugin"
         )
     module = AnsibleModule(
