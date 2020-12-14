@@ -1,23 +1,23 @@
 ---
 # Configure the Appliance to send alerts to a Remote Syslog server, a SNMP server and also via SMTP.
 
-- name : Setup and enable system alerts with a rsyslog server as the destination
+- name: Setup and enable system alerts with a rsyslog server as the destination
   hosts: all
   gather_facts: no
-  roles :
-    - role : add_system_alerts_rsyslog
+  roles:
+    - role: add_system_alerts_rsyslog
       tags: ["system alerts", "rsyslog"]
 
-- name : Setup and enable system alerts with a SNMP as the destination
+- name: Setup and enable system alerts with a SNMP as the destination
   hosts: all
   gather_facts: no
-  roles :
-    - role : add_system_alerts_snmp
+  roles:
+    - role: add_system_alerts_snmp
       tags: ["system alerts", "snmp"]
 
-- name : Setup and enable system alerts with a SMTP as the destination
+- name: Setup and enable system alerts with a SMTP as the destination
   hosts: all
   gather_facts: no
-  roles :
-    - role : add_system_alerts_smtp
+  roles:
+    - role: add_system_alerts_smtp
       tags: ["system alerts", "smtp"]

@@ -4,7 +4,7 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.http_transformation.import_file
     isamapi:
-      id : "{{ import_http_transformation_id }}"
+      id: "{{ import_http_transformation_id }}"
       filename: "{{ import_http_transformation_filename }}"
   when: import_http_transformation_id is defined and import_http_transformation_filename is defined
   notify:

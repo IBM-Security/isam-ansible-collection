@@ -1,6 +1,5 @@
 ---
 
-
 - name: Get all Access Control Policies
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
@@ -16,11 +15,11 @@
 
 - name: Make sure destination directory "{{ access_control_output_dir }}/{{ unique_code }}" exists
   become: "{{ access_control_output_become | default(false) }}"
-  file :
-     path : "{{ access_control_output_dir }}/{{ unique_code }}"
-     state : directory
-     mode : "{{ access_control_output_export_mode }}"
-     group : "{{ access_control_output_export_group }}"
+  file:
+     path: "{{ access_control_output_dir }}/{{ unique_code }}"
+     state: directory
+     mode: "{{ access_control_output_export_mode }}"
+     group: "{{ access_control_output_export_group }}"
      recurse: true
 
 - name: Create a file with the output "{{ access_control_output_dir }}/{{ unique_code }}/access_control_policies.yaml"
@@ -38,7 +37,7 @@
            filename: "{{ access_control_output_dir }}/{{ unique_code }}/{{ item.name.split(' ') | join('_') }}.xml"
   loop: "{{ get_accesscontrolpolicies }}"
   loop_control:
-      label: "EXPORT : {{ access_control_output_dir }}/{{ unique_code }}/{{ item.name.split(' ') | join('_') }}.xml"
+      label: "EXPORT: {{ access_control_output_dir }}/{{ unique_code }}/{{ item.name.split(' ') | join('_') }}.xml"
   when: get_accesscontrolpolicies is defined
 
 - name: Get all Access Control Policy Resources

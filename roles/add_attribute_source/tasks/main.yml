@@ -21,4 +21,3 @@
   with_items: "{{ attribute_sources }}"
   when: attribute_sources is defined
   notify: Commit Changes
-

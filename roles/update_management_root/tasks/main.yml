@@ -5,7 +5,7 @@
     action: ibmsecurity.isam.web.reverse_proxy.management_root.all.import_zip
     isamapi:
       instance_id: "{{ update_management_root_instance_id }}"
-      filename : "{{ update_management_root_zip_filename }}"
+      filename: "{{ update_management_root_zip_filename }}"
   when: update_management_root_instance_id is defined and update_management_root_zip_filename is defined
   notify:
   - Commit Changes
@@ -17,8 +17,8 @@
     action: ibmsecurity.isam.web.reverse_proxy.management_root.file.update
     isamapi:
       instance_id: "{{ update_management_root_instance_id }}"
-      id : "{{ item.id }}"
-      filename : "{{ item.filename }}"
+      id: "{{ item.id }}"
+      filename: "{{ item.filename }}"
   with_items: "{{ update_management_root_idandfilename }}"
   when: update_management_root_idandfilename is defined and update_management_root_instance_id is defined
   notify:
@@ -31,7 +31,7 @@
     action: ibmsecurity.isam.web.reverse_proxy.management_root.directory.delete
     isamapi:
       instance_id: "{{ update_management_root_instance_id }}"
-      id : "errors/{{ item }}"
+      id: "errors/{{ item }}"
   with_items: "{{ update_management_root_locale_exclusion }}"
   when: update_management_root_locale_exclusion is defined
   notify:
@@ -44,7 +44,7 @@
     action: ibmsecurity.isam.web.reverse_proxy.management_root.directory.delete
     isamapi:
       instance_id: "{{ update_management_root_instance_id }}"
-      id : "management/{{ item }}"
+      id: "management/{{ item }}"
   with_items: "{{ update_management_root_locale_exclusion }}"
   when: update_management_root_locale_exclusion is defined
   notify:

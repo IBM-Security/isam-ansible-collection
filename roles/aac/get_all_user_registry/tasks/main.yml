@@ -2,8 +2,8 @@
 # tasks file for get_user_registry_by_id
 - name: Get all user registry
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.aac.user_registry.user.get_all"
     isamapi:
   register: ret_obj

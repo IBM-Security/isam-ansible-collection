@@ -4,8 +4,8 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.url_mapping.import_file
     isamapi:
-      id : "{{ import_url_mapping_id }}"
-      filename : "{{ import_url_mapping_filename }}"
+      id: "{{ import_url_mapping_id }}"
+      filename: "{{ import_url_mapping_filename }}"
   when: import_url_mapping_id is defined and import_url_mapping_filename is defined
   notify: Commit Changes
 
