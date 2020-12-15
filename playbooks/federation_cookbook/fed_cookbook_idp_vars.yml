@@ -229,7 +229,7 @@ set_federation_role: "ip"
 update_mapping_rule_name: ip_saml20_httpclient_wstrust
 set_federation_configuration: {
   "companyName": "IdP Company",
-  "pointOfContactUrl": "https:\/\/www.myidp.ibm.com\/isam\/sps",
+  "pointOfContactUrl": "https://www.myidp.ibm.com/isam/sps",
   "extensionMapping": { "activeDelegateId": "skip-extension-map"},
   "singleSignOnService": [
   { "binding": "post" }, { "binding": "redirect" }
@@ -239,7 +239,7 @@ set_federation_configuration: {
 #18.2 Using the external http callout mapping module
 update_federation_configuration: {
   "companyName": "IdP Company",
-  "pointOfContactUrl": "https:\/\/www.myidp.ibm.com\/isam\/sps",
+  "pointOfContactUrl": "https://www.myidp.ibm.com/isam/sps",
   "extensionMapping": { "activeDelegateId": "skip-extension-map"},
   "identityMapping": {
     "activeDelegateId": "default-http-custom-map",

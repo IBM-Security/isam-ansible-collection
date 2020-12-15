@@ -25,6 +25,7 @@ options:
         description:
             - if force is True then a call to ISAM will always happen
         type: bool
+        default: False
         required: False
     action:
         description:
