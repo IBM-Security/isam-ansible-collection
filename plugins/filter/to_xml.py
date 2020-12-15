@@ -13,7 +13,7 @@ from ansible.module_utils._text import to_text
 #         children:
 #           - name: Step
 #             attributes:
-#               type: Authenticator
+# >             type: Authenticator
 #             children:
 #               - name: Authenticator
 #                 attributes:
