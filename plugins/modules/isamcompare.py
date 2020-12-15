@@ -101,10 +101,6 @@ logger = logging.getLogger(sys.argv[0])
 
 
 def main():
-    if not HAS_IBMSECURITY:
-        raise ImportError(
-            "Error> ibmsecurity python module required for ibm.isam.isam connection plugin"
-        )
     module = AnsibleModule(
         argument_spec=dict(
             log=dict(required=False, default='INFO', choices=['DEBUG', 'INFO', 'ERROR', 'CRITICAL']),
