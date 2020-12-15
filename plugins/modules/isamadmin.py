@@ -41,6 +41,7 @@ options:
         description:
             - list of commands
         type: list
+        elements: str
         required: True
 '''
 
@@ -75,7 +76,7 @@ def main():
             isamuser=dict(required=False),
             isampwd=dict(required=True, no_log=True),
             isamdomain=dict(required=False, default='Default'),
-            commands=dict(required=True, type='list')
+            commands=dict(required=True, type='list', elements='str')
         ),
         supports_check_mode=False
     )
