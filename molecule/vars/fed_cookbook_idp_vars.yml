@@ -248,8 +248,8 @@ update_federation_configuration:
     "companyName": "IdP Company",
     "pointOfContactUrl": "https://www.myidp.ibm.com/isam/sps",
     "extensionMapping": {
-      "activeDelegateId": "skip-extension-map"}
-    ,
+      "activeDelegateId": "skip-extension-map"
+    },
     "identityMapping":
       {
         "activeDelegateId": "default-http-custom-map",
