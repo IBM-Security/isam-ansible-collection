@@ -31,7 +31,7 @@
       enabled: "{{ item.1.enabled }}"
       role: ibm.isam."{{ item.1.role }}"
       configuration: "{{ item.1.configuration }}"
-  with_subelements :
+  with_subelements:
     - "{{ federations }}"
     - partners
     - skip_missing: True

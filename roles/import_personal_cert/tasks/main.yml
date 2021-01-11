@@ -4,9 +4,9 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.ssl_certificates.personal_certificate.import_cert
     isamapi:
-      kdb_id : "{{ import_personal_cert_kdb_id }}"
-      label : "{{ import_personal_cert_label }}"
-      cert : "{{ import_personal_cert_cert }}"
+      kdb_id: "{{ import_personal_cert_kdb_id }}"
+      label: "{{ import_personal_cert_label }}"
+      cert: "{{ import_personal_cert_cert }}"
   when:
     - import_personal_cert_kdb_id is defined
     - import_personal_cert_label is defined

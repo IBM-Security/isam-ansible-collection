@@ -1,0 +1,64 @@
+---
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        config_reverseproxy_aac
+
+      DESCRIPTION
+        Role to configure existing reverse proxy instances for aac integration
+
+      STEPS
+        1) Configure reverse proxy for aac
+        2) Commit changes
+        *) NOT INCLUDED: Restart reverse proxy instance (use web/restart_reverseproxy_instances role to restart instances with pending changes)
+
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/web/config_reverseproxy_aac.yml
+
+      INVENTORY
+      ==========
+      # configure default reverse proxy for aac
+      instances:
+        [...]
+        - inst_name: default
+          [...]
+          # configure browser aac
+          aac_configuration:
+            aac_action: config
+            hostname: localhost
+            port: '443'
+            username: easuser
+            password: {{ '{{' }} vault_easuser_pwd {{ '}}' }} # ansible-vault secured pwd
+            junction: /mga
+            reuse_acls: True
+            reuse_certs: True
+          [...]
+          # or unconfigure aac for default: TBD. (currently ISVA REST API does not support unconfig for aac)
+          #aac_configuration:
+          #  aac_action: unconfig
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Configure reverse proxy for aac
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: "ibmsecurity.isam.web.reverse_proxy.aac_configuration.{{ item.aac_configuration.aac_action }}"
+    isamapi: "{{ item.aac_configuration | ibm.isam.exclude('aac_action') | combine({ 'instance_id': item.inst_name }) }}"
+  loop: "{{ instances }}"
+  loop_control:
+    label: "{
+      'instance_id': '{{ item.inst_name }}'
+      {{ (', ' + \"'aac_action'\" + ': ' + item.aac_configuration.aac_action) if item.aac_configuration is defined }}
+    }"
+  when:
+    - item.inst_name == inst_name
+    - item.aac_configuration is defined
+  notify: Commit Changes

@@ -24,4 +24,3 @@
     - ws_server_connection_description is defined
     - ws_server_connection_locked is defined
   notify: Commit Changes
-

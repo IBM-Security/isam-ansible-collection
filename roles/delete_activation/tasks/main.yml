@@ -2,9 +2,9 @@
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
-    action : ibmsecurity.isam.base.activation.delete
+    action: ibmsecurity.isam.base.activation.delete
     isamapi:
-      id : "{{ delete_activation_id }}"
+      id: "{{ delete_activation_id }}"
   when: delete_activation_id is defined
   notify:
   - Commit Changes

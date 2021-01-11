@@ -4,7 +4,7 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.client_certificate_mapping.import_file
     isamapi:
-      id : "{{ import_client_cert_mapping_id }}"
+      id: "{{ import_client_cert_mapping_id }}"
       filename: "{{ import_client_cert_mapping_filename }}"
   when: import_client_cert_mapping_filename is defined and import_client_cert_mapping_id is defined
   notify:

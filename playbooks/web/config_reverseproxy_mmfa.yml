@@ -1,0 +1,8 @@
+---
+# configure
+#   configure reverse proxy mmfa
+- hosts: "{{ hosts | default('all')}}"
+  gather_facts: no
+  roles:
+    - role: ibm.isam.web.config_reverseproxy_mmfa
+      tags: config_reverseproxy_mmfa

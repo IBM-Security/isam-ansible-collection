@@ -174,9 +174,6 @@
   notify: Commit Changes
 
 - include_tasks: include_configure_subsections_properties_1st_level.yml
-  with_subelements:
-    - "{{ kerberos.realms }}"
-    - subsections
   when:
     - subsections_1st_level.1.name is defined
     - subsections_1st_level.0.realm == realm

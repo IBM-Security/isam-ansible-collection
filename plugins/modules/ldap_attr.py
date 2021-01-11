@@ -24,15 +24,6 @@ from __future__ import (absolute_import, division, print_function)
 
 __metaclass__ = type
 
-from ansible.module_utils.basic import AnsibleModule
-
-try:
-    import ldap
-    import ldap.sasl
-
-    HAS_LDAP = True
-except ImportError:
-    HAS_LDAP = False
 
 DOCUMENTATION = """
 ---
@@ -55,13 +46,13 @@ notes:
     rules. This should work out in most cases, but it is theoretically
     possible to see spurious changes when target and actual values are
     semantically identical but lexically distinct.
-version_added: '2.3'
 author:
   - Jiri Tyr (@jtyr)
 requirements:
   - python-ldap
 options:
   bind_dn:
+    type: str
     required: false
     default: null
     description:
@@ -69,19 +60,23 @@ options:
         the EXTERNAL mechanism. If this is blank, we'll use an anonymous
         bind.
   bind_pw:
+    type: str
     required: false
     default: null
     description:
       - The password to use with I(bind_dn).
   dn:
+    type: str
     required: true
     description:
       - The DN of the entry to modify.
   name:
+    type: str
     required: true
     description:
       - The name of the attribute to modify.
   server_uri:
+    type: str
     required: false
     default: ldapi:///
     description:
@@ -89,12 +84,13 @@ options:
         LDAP client library look for a UNIX domain socket in its default
         location.
   start_tls:
+    type: bool
     required: false
-    choices: ['yes', 'no']
     default: 'no'
     description:
       - If true, we'll use the START_TLS LDAP extension.
   state:
+    type: str
     required: false
     choices: [present, absent, exact]
     default: present
@@ -106,11 +102,16 @@ options:
         I(state=exact) and I(value) is empty, all values for this
         attribute will be removed.
   values:
+    type: raw
     required: true
     description:
       - The value(s) to add or remove. This can be a string or a list of
         strings. The complex argument format is required in order to pass
         a list of strings (see examples).
+  params:
+    type: dict
+    description:
+        - parameters to be passed
 """
 
 EXAMPLES = """
@@ -187,6 +188,16 @@ modlist:
   type: list
   sample: '[[2, "olcRootDN", ["cn=root,dc=example,dc=com"]]]'
 """
+
+from ansible.module_utils.basic import AnsibleModule
+
+try:
+    import ldap
+    import ldap.sasl
+
+    HAS_LDAP = True
+except ImportError:
+    HAS_LDAP = False
 
 
 class LdapAttr(object):

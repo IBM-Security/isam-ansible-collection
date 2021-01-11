@@ -10,12 +10,12 @@ externalize_hvdb_dsc_client_grace_period: 600
 externalize_hvdb_dsc_external_clients: False
 externalize_hvdb_dsc_maximum_session_lifetime: 3600
 externalize_hvdb_dsc_worker_threads: 64
-externalize_hvdb_first_port : 2020
-externalize_hvdb_hvdb_db_secure : False
-externalize_hvdb_hvdb_db_type : "oracle"
+externalize_hvdb_first_port: 2020
+externalize_hvdb_hvdb_db_secure: False
+externalize_hvdb_hvdb_db_type: "oracle"
 externalize_hvdb_hvdb_driver_type: "thin"
-externalize_hvdb_hvdb_embedded : False
-externalize_hvdb_primary_master : "127.0.0.1"
+externalize_hvdb_hvdb_embedded: False
+externalize_hvdb_primary_master: "127.0.0.1"
 externalize_hvdb_hvdb_port: "1521"
 externalize_hvdb_oracle_connection_string: 'jdbc:oracle:thin:@//oracle.server.com:1521/oraservicename'
 

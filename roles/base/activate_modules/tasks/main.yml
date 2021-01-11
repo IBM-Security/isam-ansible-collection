@@ -40,7 +40,6 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-
 - name: Activate Modules
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"

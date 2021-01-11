@@ -10,7 +10,7 @@ namespace: ibm
 name: isam
 
 # The version of the collection. Must be compatible with semantic versioning
-version: 0.1.32
+version: 1.0.0
 
 # The path to the Markdown (.md) readme file. This path is relative to the root of the collection
 readme: README.md
@@ -19,7 +19,6 @@ readme: README.md
 # @nicks:irc/im.site#channel'
 authors:
 - IBM Security Orchestration <secorch@us.ibm.com>
-
 
 ### OPTIONAL but strongly recommended
 

@@ -12,7 +12,6 @@ Please activate "`federation`" module before using this role.
 
 `search_mapping_rule` - maybe required to lookup a mapping rule to pass in the variable `identityMappingRuleReference`.
 
-
 Role Variables
 --------------
 
@@ -40,13 +39,13 @@ Here is an example of how to use this role:
 
     - role: ibm.isam.upload_mapping_rule
       tags: ["mapping", "rule", "upload"]
-      upload_mapping_rule_category : "OIDC"
-      upload_mapping_rule_name : "OIDCIBMOP"
+      upload_mapping_rule_category: "OIDC"
+      upload_mapping_rule_name: "OIDCIBMOP"
       upload_mapping_rule_upload_filename: "/home/python/rules/OIDCIBMOP.js"
 
     - role: ibm.isam.search_mapping_rule
       tags: ["mapping", "rule", "search"]
-      search_mapping_rule_name : "OIDCIBMOP"
+      search_mapping_rule_name: "OIDCIBMOP"
 
     - role: ibm.isam.set_federation
       tags: ["federation", "add"]

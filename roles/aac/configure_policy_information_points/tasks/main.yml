@@ -1,0 +1,69 @@
+---
+
+# main task to configure policy information points
+
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_policy_information_points
+
+      DESCRIPTION
+        Role to configure policy information points
+
+      STEPS
+        1) Configure policy information points
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_policy_information_points.yml 
+
+      INVENTORY
+      ==========
+      # configure pip
+      policy_information_points:
+        # set (add or update) a pip with corresponding file content from lookup-plugin
+        # Attention: Files should be formatted with Unix (LF) EOF for idempotency
+        - class: javascript
+          pip_action: set
+          name: ExamplePIP
+          type: JavaScript
+          properties:
+            - datatype: JavaScript
+              key: javascript.code
+              readOnly: false
+              sensitive: false
+              value: "{{ '{{' }} lookup('file', 'policy_information_points/ExamplePIP.js') {{ '{{' }}" # will lookup in inventory_dir + /files
+        # import file to existing pip
+        # Attention: Files should be formatted with Unix (LF) EOF for idempotency
+        # import_file converts Windows (CR+LF) EOF to Unix (LF) before uploading
+        - class: javascript
+          pip_action: import_file
+          name: ExamplePIP
+          filepath: "policy_information_points/ExamplePIP.js"
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Configure access control attributes
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: "ibmsecurity.isam.aac.policy_information_points.{{ item.class}}.{{ item.pip_action }}"
+    isamapi: "{{
+      { 'name': item.name }
+      | combine({ 'properties': item.properties } if (item.properties is defined) else {})
+      | combine({ 'attributes': item.attributes } if (item.attributes is defined) else {})
+      | combine({ 'description': item.description } if (item.description is defined) else {})
+      | combine({ 'type': item.type } if (item.type is defined) else {})
+      | combine({ 'new_name': item.new_name } if (item.new_name is defined) else {})
+      | combine({ 'filepath': (item.filepath if((item.filepath | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.filepath)) } if (item.filepath is defined) else {})
+    }}"
+  when: item is defined
+  with_items: "{{ policy_information_points }}"
+  notify: Commit Changes

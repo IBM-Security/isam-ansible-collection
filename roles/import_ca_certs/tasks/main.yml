@@ -4,10 +4,10 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.ssl_certificates.signer_certificate.import_cert
     isamapi:
-      kdb_id : "{{ import_ca_certs_kdb_id }}"
-      cert : "{{ item.cert }}"
-      label : "{{ item.label }}"
-  with_items : "{{ import_ca_certs_certandlabel }}"
+      kdb_id: "{{ import_ca_certs_kdb_id }}"
+      cert: "{{ item.cert }}"
+      label: "{{ item.label }}"
+  with_items: "{{ import_ca_certs_certandlabel }}"
   when: import_ca_certs_certandlabel is defined
   notify:
   - Commit Changes

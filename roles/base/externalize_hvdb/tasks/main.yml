@@ -3,7 +3,6 @@
 # even the db2 specifics can be handled by when clauses .
 # not tested for db2, only for Oracle
 
-
 # Import CA certificates for HVDB Database
 # Currently only valid for DB2 (at least up to 9.0.6)
 - include_tasks: import_CA.yml

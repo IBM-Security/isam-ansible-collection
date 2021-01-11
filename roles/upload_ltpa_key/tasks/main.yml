@@ -17,4 +17,3 @@
   with_items: "{{ ltpa_keys }}"
   when: ltpa_keys is defined
   notify: Commit Changes
-

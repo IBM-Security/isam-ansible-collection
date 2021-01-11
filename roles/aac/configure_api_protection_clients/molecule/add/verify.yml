@@ -12,12 +12,12 @@
       include_role:
         name: "get_api_protection_clients"
       vars:
-        get_api_protection_clients: "{{ inventory.clients }}"
+        get_api_protection_clients: "{{ inventory.molecule_clients }}"
 
-    - name: "Assert that the client {{ inventory.client_name }} was added"
+    - name: "Assert that the client {{ inventory.molecule_client_name }} was added"
       assert:
         that:
           - ret_obj.results.0.data.name is defined
-          - ret_obj.results.0.data.name == inventory.client_name
-        fail_msg: "API Protection client {{ inventory.client_name }} was not added"
-        success_msg: "API Protection client {{ inventory.client_name }} was added"
+          - ret_obj.results.0.data.name == inventory.molecule_client_name
+        fail_msg: "API Protection client {{ inventory.molecule_client_name }} was not added"
+        success_msg: "API Protection client {{ inventory.molecule_client_name }} was added"
