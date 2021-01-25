@@ -1,7 +1,5 @@
----
 - name: modify LDAP user attributes
   hosts: localhost
-  connection: local
   roles:
       - role: ibm.isam.set_ldap_user_attr
         ldap_bind_dn: "cn=root,secAuthority=default"

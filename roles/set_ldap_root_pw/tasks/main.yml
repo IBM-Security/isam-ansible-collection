@@ -1,6 +1,7 @@
-  ibm.isam.isam:
-    log: "{{ log_level | default('INFO') }}"
-    force: "{{ force | default(False) }}"
-    action: ibmsecurity.isam.web.embedded_ldap.admin.set_pw
-    isamapi:
-  notify: Commit Changes
+  - name: Set LDAP root password
+    ibm.isam.isam:
+      log: "{{ log_level | default('INFO') }}"
+      force: "{{ force | default(False) }}"
+      action: ibmsecurity.isam.web.embedded_ldap.admin.set_pw
+      isamapi:
+    notify: Commit Changes

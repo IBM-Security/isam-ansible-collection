@@ -5,13 +5,21 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: 2.2
+  min_ansible_version: 2.8
 
   galaxy_tags:
   - isam
   - ibm
   - create
   - federation
+  platforms:
+   - name: EL
+     versions:
+      - all
+   - name: CentOS
+     versions:
+      - all
+   - name: IBM Security Verify Acces
+     versions:
+      - all
 
-dependencies:
-  - common_handlers

@@ -4,6 +4,7 @@
   stat: path={{ BS_appliance_iso }}
   register: isofile
   failed_when: not isofile.stat.exists
+
 - debug: var=isofile.stat.exists
 
 - name: Check if the target VM directory exists
@@ -18,11 +19,13 @@
 - name: create target VM directory
   file: path="{{ BS_vm_dest_dir }}" state=directory mode=0755
   register: shell_out
+
 - debug: var=shell_out
 
 - name: copy vmx file to target VM directory
   template: src="{{ role_path }}/templates/isam9_sample.vmx" dest="{{ BS_vm_vmx }}"
   register: cmd_out
+  
 - debug: var=cmd_out
 
 - name: create VM disk

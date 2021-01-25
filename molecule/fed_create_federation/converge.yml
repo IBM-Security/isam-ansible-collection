@@ -1,0 +1,33 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  collections:
+    - ibm.isam
+  tasks:
+    - include_vars:
+        file: "../vars/fed_cookbook_sp_vars.yml"
+        name: inventory
+
+    - set_fact:
+         federations:
+              - name: "OIDC"
+                protocol: "OIDC10"
+                role: "rp"
+                templateName: ""
+                configuration:
+                  responseTypes:
+                   - code
+                  advanceConfiguration:
+                    activeDelegateId: "skip-advance-map"
+                  attributeMapping:
+                    map: []
+                    providerId: "https://isam.ibm.com/mga/sps/oidc/rp/OIDC"
+                  identityMapping:
+                    activeDelegateId: "skip-identity-map"
+                  redirectUriPrefix: "https://isam.ibm.com/mga/sps/oidc/rp/"
+                partners: []
+
+    - name: "Include create_federations"
+      include_role:
+         name: ibm.isam.fed.create_federations

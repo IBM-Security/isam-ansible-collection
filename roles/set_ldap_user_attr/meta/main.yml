@@ -34,15 +34,10 @@ galaxy_info:
   platforms:
     - name: Fedora
       versions:
-        - 30
-        - 29
-        - 28
-        - 27
+        - all
     - name: EL
       versions:
-        - 8
-        - 7
-        - 6
+        -  all
   #platforms:
   #- name: OpenBSD
   #  versions:

@@ -1,0 +1,49 @@
+---
+dependency:
+  name: galaxy
+  collections: 
+    -  ibm.isam
+driver:
+  name: delegated
+platforms:
+  - name: instance
+lint:
+  ansible-lint
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+    enabled: True
+  ansible_args:
+    - -e ansible_python_interpreter=/home/tbosmans/venvisam/bin/python
+  inventory:
+    hosts:
+      isam:
+         - 192.168.151.128
+    group_vars:
+      all:
+        ansible_connection: "ibm.isam.isam"
+        ansible_isam_password: "Passw0rd"
+        ansible_isam_port: 443
+    host_vars:
+      isam:
+        192.168.151.128:
+           ansible_password: "Passw0rd"
+           ansible_isam_username: admin@local
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint
+    enabled: True
+scenario:
+  name: fed_create_federation
+  test_sequence:
+    - lint
+    - syntax
+    - prepare
+    - converge
+    # - idempotence
+    - side_effect
+    # - verify
+    - cleanup
+    - destroy
