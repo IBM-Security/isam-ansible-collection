@@ -22,53 +22,6 @@
 #             activeDelegateId: default-map
 #             properties:
 #               identityMappingRuleReference: "5"
-# main task to configure dns
-- name: Help INFO (-e help=true)
-  pause:
-    echo: yes
-    prompt: |
-      NAME
-        create_federations
-
-      DESCRIPTION
-        Role to create federations
-
-      STEPS
-        1) Create federations
-        2) Commit changes
-
-      EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_dns.yml
-
-      INVENTORY
-      ==========
-      # configure federations
-      #
-      Example: OIDC connect relying party
-      federations:
-         - name: ISAMRP
-           protocol: OIDC10
-           role: rp
-           configuration:
-             responseTypes:
-               - id_token
-               - token
-               - code
-             advanceConfiguration:
-               activeDelegateId: "skip-advance-map"
-             attributeMapping:
-               map: []
-               providerId: "https://www.isva.ibm.com/isam/sps/oidc/rp/ISAMRP"
-             identityMapping:
-               activeDelegateId: "skip-identity-map"
-             redirectUriPrefix: "https://www.isva.ibm.com/isam/sps/oidc/rp/"
-           partners: []
-      ==========
-
-      INTERACTION
-        ENTER         = continue
-        Ctrl+C + 'C'  = continue
-        Ctrl+C + 'A'  = abort
 - name: Create federations
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
@@ -77,13 +30,10 @@
     isamapi:
       name: "{{ item.name }}"
       protocol: "{{ item.protocol }}"
-      role: "{{ item.role|default(omit) }}"
+      role: ibm.isam."{{ item.role }}"
       configuration: "{{ item.configuration }}"
-  loop: "{{ federations }}"
-  when:
-    - federations is defined
-    - item.name is defined 
-    - item.name == fed_name
+  with_items: "{{ federations }}"
+  when: item.name == fed_name
   notify: Commit Changes
   loop_control:
-    label: "{u'name': u'{{ item.name|default('name missing') }}'}"
+    label: "{u'name': u'{{ item.name }}'}"

@@ -9,6 +9,7 @@
 #         role: ibm.isam.op
 #         filename: /dir/configuration.json
 #         mapping_id: id to be used for identityMappingRuleReference
+-
 - name: Create federations using a configuration json file
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"

@@ -1,5 +1,5 @@
 - name: Get CPU Statistics
-  ibm.isam.isam:
+  isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.statistics.get_cpu
@@ -8,7 +8,6 @@
   register: ret_obj
   when: statistics_duration is defined
 
-#@ts-ignore
 - name: Set variable for use by rest of playbook
   set_fact:
     cpu_stats_obj: "{{ ret_obj }}"

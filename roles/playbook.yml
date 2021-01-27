@@ -3,6 +3,7 @@
   hosts: all
   become: false
   gather_facts: false
+
   roles:
     - aac/create_attribute
     - aac/create_obligation
@@ -173,7 +174,7 @@
     - set_junction
     - set_keystore_desc
     - set_ldap_root_pw
-  #  - set_ldap_user_attr
+    - set_ldap_user_attr
     - set_ldap_user_pw
     - set_mapping_rule
     - set_mgmtazn_role_feature

@@ -61,7 +61,7 @@
     - role: ibm.isam.activate_module
       tags: ["activate", "wga"]
       activate_module_id: "wga"
-      activate_module_code: "{{ lookup('file', wga_activation_file) }}"
+      activate_module_code: "{{ lookup('file', '/Users/ram/Documents/Work/Software/ISAM_90_ACTIVATION_CODE_MP_ML.txt') }}"
 
 - name: Setup Primary Appliance
   hosts: primary

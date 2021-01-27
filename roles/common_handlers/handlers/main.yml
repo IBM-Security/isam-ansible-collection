@@ -17,7 +17,7 @@
   listen: "Commit Changes"
 
 - name: Publish Changes (docker)
-  ibm.isam.isam:
+  isam:
     lmi_port: "{{ port | default(omit) }}"
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

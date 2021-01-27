@@ -8,10 +8,15 @@ galaxy_info:
   platforms:
     - name: Fedora
       versions:
-        - all
+        - 30
+        - 29
+        - 28
+        - 27
     - name: EL
       versions:
-        - all
+        - 8
+        - 7
+        - 6
 
   galaxy_tags:
   - isam

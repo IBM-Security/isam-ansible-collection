@@ -1,3 +1,4 @@
+---
 # tasks file for set_ldap_user_attr
 # modify ldap
 - name: modify user LDAP attributes
@@ -10,7 +11,5 @@
       bind_dn: "{{ ldap_bind_dn }}"
       bind_pw: "{{ ldap_bind_pw }}"
   with_subelements:
-    - "{{ ldap_user_attributes }}"
-    - attributes
-  when:
-    -  ldap_user_attributes is defined
+  - "{{ ldap_user_attributes }}"
+  - attributes

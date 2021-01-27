@@ -16,10 +16,9 @@
   check_mode: no
   register: ret_obj
 
-# @ts-ignore
 - name: Extract Last Boot Timestamp
   set_fact:
-    last_boot: "{{ ret_obj.data[0].last_boot|default(0) }}"
+    last_boot: "{{ ret_obj.data[0].last_boot }}"
 
 # set up LMI FIPS
 - name: Setup FIPS Mode
@@ -31,9 +30,8 @@
       tlsv11Enabled: "{{ FIPS_cfg.tlsv11Enabled }}"
   register: ret_obj
   when: first_steps_fips
-- name: debug
-  debug: 
-    msg: "{{ ret_obj }}"
+- debug: var=ret_obj
+
 # Restart after FIPS if needed
 - name: Restart after enabling FIPS
   ibm.isam.isam:
@@ -70,13 +68,8 @@
   ibm.isam.isam:
     action: ibmsecurity.isam.base.setup_complete.set
   register: ret_obj
+- debug: var=ret_obj
 
-- name: Debug setup
-  debug: 
-     msg: "{{ret_obj | default('') | to_nice_yaml}}"
-     verbosity: 2
-
-- name: Set password
   ibm.isam.isam:
       action: ibmsecurity.isam.base.admin.set_pw
       isamapi:
@@ -92,7 +85,6 @@
   check_mode: no
   register: ret_obj
 
-#@ts-ignore
 - name: Extract LMI Restart Timestamp
   set_fact:
     old_start_time: "{{ ret_obj.data[0].start_time }}"
