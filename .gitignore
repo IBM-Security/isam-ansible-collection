@@ -6,13 +6,4 @@
 *.pyc
 *.bak
 *.tar.gz
-tests/output/.tmp/sanity/import/minimal-py39/lib64
-tests/output/.tmp/sanity/import/minimal-py39/pyvenv.cfg
-tests/output/.tmp/sanity/import/minimal-py39/bin/activate
-tests/output/.tmp/sanity/import/minimal-py39/bin/activate.csh
-tests/output/.tmp/sanity/import/minimal-py39/bin/activate.fish
-tests/output/.tmp/sanity/import/minimal-py39/bin/Activate.ps1
-tests/output/.tmp/sanity/import/minimal-py39/bin/importer.py
-tests/output/.tmp/sanity/import/minimal-py39/bin/python
-tests/output/.tmp/sanity/import/minimal-py39/bin/python3
-tests/output/.tmp/sanity/import/minimal-py39/bin/python3.9
+tests/output/.tmp/*
