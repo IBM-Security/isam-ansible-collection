@@ -1,0 +1,12 @@
+---
+scenario:
+  name: execute_pdadmin
+  test_sequence:
+    - lint
+    - cleanup
+    - syntax
+    - converge
+    # - idempotence
+    # - verify
+    - cleanup
+    - destroy
