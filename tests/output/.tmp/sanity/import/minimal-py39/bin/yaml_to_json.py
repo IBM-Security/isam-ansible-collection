@@ -1,1 +1,0 @@
-/home/tbosmans/venvisam/lib64/python3.9/site-packages/ansible_test/_data/sanity/import/yaml_to_json.py

@@ -49,7 +49,9 @@
         - "user create testuser1 uid=testuser1,dc=iswga testuser1 testuser1 {{ '{{' }} testuser1_password {{ '}}' }}"
         - help
         - exit
-      # Note that the variables get merged in alphabetical order of their names, with values from later dicts replacing values from earlier dicts.
+      # Note that the variables get merged in ansible variable precendence order, with values from later dicts replacing values from earlier dicts.
+      # Precedence: group_vars < host_vars < extra vars (full-list: https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)
+      # Additionaly enable sorted merge vars with enable_ansible_merge_vars_sorted to get alphabetical order of their names (e.g. -e enable_ansible_merge_vars_sorted=True)
       # E.g. example will produce pdadmin_commands at runtime
       #  pdadmin_commands:
       #   - user list * 10
@@ -71,23 +73,33 @@
   when:
     - enable_ansible_merge_vars|bool
 
-- name: Debug
+- name: Debug pd_admin_varstomerge before merge [-vv]
   debug:
-    msg: "{{ pd_admin_varstomerge|default('not set' ) }}"
+    var: pd_admin_varstomerge
+    verbosity: 2
 
-- name: Merge the pdadmin_commands
+- name: Merge the pdadmin_commands [unsorted]
   set_fact:
     pdadmin_commands: "{{ pdadmin_commands|default([])  + lookup('vars', item) }}"
   loop: "{{ pd_admin_varstomerge }}"
   when:
     - enable_ansible_merge_vars|bool
+    - not enable_ansible_merge_vars_sorted|bool
     - pd_admin_varstomerge is defined
 
-- name: debug the pdadmin commands
+- name: Merge the pdadmin_commands [sorted]
+  set_fact:
+    pdadmin_commands: "{{ pdadmin_commands|default([])  + lookup('vars', item) }}"
+  loop: "{{ pd_admin_varstomerge | sort }}"
+  when:
+    - enable_ansible_merge_vars|bool
+    - enable_ansible_merge_vars_sorted|bool
+    - pd_admin_varstomerge is defined
+
+- name: debug the pdadmin commands after merge [-vv]
   debug:
-    msg:
-      - "Commands"
-      - "{{ pdadmin_commands }}"
+    var: pdadmin_commands
+    verbosity: 2
 
 - name: Run PDAdmin commands
   ibm.isam.isamadmin:
@@ -97,11 +109,14 @@
     isampwd: "{{ admin_pwd }}"
     isamdomain: "{{ admin_domain }}"
     commands: "{{ pdadmin_commands }}"
+  when:
+    - pdadmin_commands is defined
+    - pdadmin_commands | length > 0
   ignore_errors: true
   register: ret_obj
 
 - name: Output of PDAdmin command execution
-  debug: msg="{{ ret_obj['data']['result'].split('\n') }}"
+  debug:
+    msg: "{{ ret_obj.data.result.split('\n') if (ret_obj is defined and ret_obj.data is defined) else 'VARIABLE IS NOT DEFINED!' }}"
   when:
     - not ansible_check_mode
-    - ret_obj is defined and ret_obj is succeeded and ('result' in ret_obj.data)
