@@ -6,3 +6,4 @@
 *.pyc
 *.bak
 *.tar.gz
+tests/output/.tmp/*

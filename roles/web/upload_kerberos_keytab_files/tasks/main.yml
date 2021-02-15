@@ -17,7 +17,7 @@
 #
 ---
 - name: Upload keytab files
-  isam:
+  ibm.isam.isam:
     appliance: "{{ inventory_hostname }}"
     adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
     adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
