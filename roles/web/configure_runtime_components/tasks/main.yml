@@ -10,7 +10,7 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.web.runtime.configuration.entry.{{ item.method }}"
-    isamapi: "{{ item | exclude('method') }}"
+    isamapi: "{{ item | ibm.isam.exclude('method') }}"
   with_items: "{{ policyserver_runtime.entries if (policyserver_runtime.entries is defined and (policyserver_runtime.entries != None)) else [] }}"
   when: >
     item.method is defined and
