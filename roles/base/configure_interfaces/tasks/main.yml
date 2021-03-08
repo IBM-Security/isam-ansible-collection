@@ -38,6 +38,7 @@
               maskOrPrefix: "24"
               allowManagement: false
               enabled: true
+              overrideSubnetChecking: true
       ==========
 
       INTERACTION
@@ -50,12 +51,13 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.base.network.{{ configure_interfaces_action }}.add"
-    isamapi:
-      label: "{{ item.0.label }}"
-      address: "{{ item.1.address }}"
-      maskOrPrefix: "{{ item.1.maskOrPrefix }}"
-      allowManagement: "{{ item.1.allowManagement }}"
-      enabled: "{{ item.1.enabled | default(False) }}"
+    isamapi: "{{
+      { 'address': item.1.address }
+      | combine({ 'label': item.0.label } if (item.0.label is defined) else {})
+      | combine({ 'maskOrPrefix': item.1.maskOrPrefix } if (item.1.maskOrPrefix is defined) else {})
+      | combine({ 'overrideSubnetChecking': item.1.overrideSubnetChecking } if (item.1.overrideSubnetChecking is defined) else {})
+      | combine({ 'enabled': item.1.enabled } if (item.1.enabled is defined) else {})
+    }}"
   when: item.0.label == label and item.1.address == address
   loop: "{{ interfaces | subelements('addresses', {'skip_missing': True}) }}"
   loop_control:
