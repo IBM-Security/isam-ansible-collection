@@ -13,16 +13,41 @@
   register: logs
 
 - debug:
+    verbosity: 2
     msg: "{{ item }}"
-  when: path == item.path
-  with_items: "{{ logs.data }}"
+  when:
+    - logs.data is defined 
+    - path == item.path
+  loop: "{{ logs.data }}"
 
+- name: unique
+  set_fact:
+    uniquedirs: "{{ (uniquedirs|default([]) + [{'path': item.path}])|unique }}"
+  loop: "{{ logs.data }}"
+
+- name: Make sure the underlying directories {{ logs_export_dir }}/{{ inventory_hostname }} exist
+  become: "{{ logs_become | default(false) }}"
+  file:
+    path: "{{ logs_export_dir }}/{{ inventory_hostname }}/{{ item.path }}"
+    state: directory
+    recurse: true
+    group: "{{ logs_group | default(omit) }}"
+    mode: "{{ logs_mode | default(omit) }}"
+  loop: "{{ uniquedirs }}"
+  loop_control:
+    label: "Make sure directory exists for {{ item.path }}"
+ 
 - name: Get application log files
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.application_logs.export_file
     isamapi:
-      file_path: "{{ item.path }}/{{ item.name }}"
-  when: path == item.path
-  with_items: "{{ logs.data }}"
+      file_path: "{{ (item.path|default('') == '') | ternary(item.name, item.path + '/' + item.name) }}"
+      filename: "{{ logs_export_dir }}/{{ inventory_hostname }}/{{ item.path  | default('') }}/{{ item.name }}" 
+  when: 
+     - logs.data is defined
+     - path == item.path
+  loop: "{{ logs.data }}"
+  loop_control:
+     label: "Export {{ logs_export_dir }}/{{ inventory_hostname }}/{{ item.path  | default('') }}/{{ item.name }}"
