@@ -10,6 +10,9 @@
         msg: "To test add using export_application_logs role:
           'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name default'"
     
-    - name: "Test"
+    - name: "Test export application logs"
+      vars:
+        
+        path: lmt/logs
       include_role:
         name: export_application_logs

@@ -1,6 +1,6 @@
 # main task to export all application log files
-# A downloads folder has to exist in the inventory folder. Inside the downloads folder a folder for each appliance
-# hostname is necessary. It is possible to limit the export using the path variable. E.g append the following to your
+#
+# It is possible to limit the export using the path variable. E.g append the following to your
 # ansible command: -e path=federation/runtime
 ---
 - name: Get application log file list
@@ -12,18 +12,16 @@
       flat_details: yes
   register: logs
 
-- debug:
-    verbosity: 2
-    msg: "{{ item }}"
-  when:
-    - logs.data is defined 
-    - path == item.path
-  loop: "{{ logs.data }}"
-
-- name: unique
+- name: Temporary variable 
   set_fact:
-    uniquedirs: "{{ (uniquedirs|default([]) + [{'path': item.path}])|unique }}"
+     uniquedirs: "{{ (uniquedirs|default([]) + [{'path': item.path}])|unique }}"
   loop: "{{ logs.data }}"
+  loop_control:
+     label: "Adding {{ item.path }}..."
+  when:
+    - logs.data is defined
+    - item.path is defined
+    - path == item.path
 
 - name: Make sure the underlying directories {{ logs_export_dir }}/{{ inventory_hostname }} exist
   become: "{{ logs_become | default(false) }}"
@@ -33,11 +31,11 @@
     recurse: true
     group: "{{ logs_group | default(omit) }}"
     mode: "{{ logs_mode | default(omit) }}"
-  loop: "{{ uniquedirs }}"
+  loop: "{{ uniquedirs|default([]) }}"
   loop_control:
     label: "Make sure directory exists for {{ item.path }}"
- 
 - name: Get application log files
+  ignore_errors: true
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
