@@ -1,2 +1,2 @@
-ibmsecurity==2021.2.25.0
+ibmsecurity
 python_ldap
