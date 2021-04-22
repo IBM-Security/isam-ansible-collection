@@ -1,6 +1,6 @@
 ---
 - name: Snapshot Appliance Before Adding Attribute Sources
-  isam:
+  ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.snapshots.create
@@ -9,7 +9,7 @@
   when: add_attribute_source_snapshot|bool
 
 - name: Set Attribute Sources
-  isam:
+  ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.fed.attribute_source.set

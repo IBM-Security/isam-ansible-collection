@@ -1,9 +1,10 @@
+---
 # Use Default domain, override as needed
 admin_domain: Default
 
 # Initialize pdadmin_commands
 pdadmin_commands: []
 
-# Disable merging action plugin by default (https://pypi.org/project/ansible-merge-vars)
-#  needs extra python package: pip install ansible-merge-vars
+# Disable merging and/or sorting of pdadmin_commands variables by default 
 enable_ansible_merge_vars: false
+enable_ansible_merge_vars_sorted: false

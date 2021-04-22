@@ -4,12 +4,13 @@
 #      kdb_id: "{{ item.kdb_id }}"
 #      cert_id: "{{ item.cert_id }}"
 #      filename: "{{ inventory_dir }}/{{ item.filename }}"
+#      password: "{{ item.password }}"
 ---
 - name: Create local directory structure
   file: path="{{ inventory_dir }}/{{ item.filename | dirname }}" state=directory
   with_items: "{{ extract_certificates }}"
   loop_control:
-    label: "{u'kdb_id': u'{{ item.kdb_id }}', u'cert_id': u'{{ item.cert_id }}', u'filename': u'{{ inventory_dir }}/{{ item.filename }}'}"
+    label: "{'kdb_id': '{{ item.kdb_id }}', 'cert_id': '{{ item.cert_id }}', 'filename': '{{ inventory_dir }}/{{ item.filename }}'}"
 - name: Extract certificates
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
@@ -19,5 +20,5 @@
       kdb_id: "{{ item.kdb_id }}"
       cert_id: "{{ item.cert_id }}"
       filename: "{{ inventory_dir }}/{{ item.filename }}"
+      password: "{{ item.password }}"
   with_items: "{{ extract_certificates }}"
-  loop_control:

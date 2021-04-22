@@ -27,4 +27,3 @@ galaxy_info:
   - install
 
 dependencies:
-  - force | default(False) }fig

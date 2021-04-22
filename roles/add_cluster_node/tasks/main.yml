@@ -1,5 +1,4 @@
 ---
-
 - name: Check if Signature File Exists - {{ add_cluster_node_signature_file }}
   stat:
     path: "{{ add_cluster_node_signature_file }}"
@@ -7,6 +6,7 @@
     get_md5: False
   register: signature_file
 
+- name: add cluster signature
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
@@ -16,7 +16,7 @@
       restricted: "{{ add_cluster_node_restricted }}"
   when: add_cluster_node_signature_file is defined and signature_file.stat.exists
   notify:
-  - Commit Changes
+   - Commit Changes
 
 # Commit cluster changes before proceeding
 - meta: flush_handlers
