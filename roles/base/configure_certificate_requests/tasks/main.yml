@@ -1,0 +1,84 @@
+---
+
+# main task to configure certificate requests
+
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_certificate_requests
+
+      DESCRIPTION
+        Role to configure certificate requests
+
+      STEPS
+        1) Configure certificate requests
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_requests.yml // configure all certificate requests from inventory
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_requests.yml -e kdb_id=pdsrv // configure only certificate requests from inventory for pdsrv.kdb
+        
+        // filter for specific action from a single inventory at runtime
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_requests.yml -e cert_action=get_all
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_requests.yml -e cert_action=get
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_requests.yml -e cert_action=add
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_requests.yml -e cert_action=export_cert
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_requests.yml -e cert_action=delete
+
+      INVENTORY
+      ==========
+      # configure multiple certificate requests
+      certificate_requests:
+        # Retrieving certificate request names and details in a certificate database
+        - cert_action: get_all
+          kdb_id: pdsrv
+        # Retrieving a certificate request from a certificate database
+        - cert_action: get
+          kdb_id: pdsrv
+          cert_id: sample_label
+        # Creating a certificate request in a certificate database
+        - cert_action: add
+          kdb_id: pdsrv
+          label: sample_label
+          dn: 'CN=weblinux.Raleigh.ibm.com,O=ibm,OU=IBMHTTP Server,L=RTP,ST=NC,C=US'
+          size: '2048' # optional defaullt: '1024' OPTIONS: on SHA***WithRSA['1024','2048','4096'] on SHA***WithECDSA['256','384','512']
+          signature_algorithm: 'SHA512WithRSA' # optional default: '' if emptywill get SHA1WithRSASignature OPTIONS: ['SHA256WithRSA','SHA384WithRSA','SHA512WithRSA','SHA256WithECDSA','SHA384WithECDSA','SHA512WithECDSA']
+        # Exporting a certificate request from a certificate database.
+        # This certificate must be signed by CA and re-importet through personal certificate receive method (see configure_personal_certificates role/playbook)
+        - cert_action: export_cert
+          kdb_id: pdsrv
+          cert_id: sample_label
+          filename: files/ssl/sample.csr # absolute or relative path supported
+        # Deleting a certificate request from a certificate database
+        - cert_action: delete
+          kdb_id: pdsrv
+          cert_id: sample_label
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: "Configure certificate requests [-e cert_action=[get_all|get|add|export_cert|delete] -e kdb_id=<kdb>]"
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: "ibmsecurity.isam.base.ssl_certificates.certificate_requests.{{ item.cert_action }}"
+    isamapi: "{{
+      { 'kdb_id': item.kdb_id }
+      | combine({ 'label': item.label } if (item.label is defined) else {})
+      | combine({ 'cert_id': item.cert_id } if (item.cert_id is defined) else {})
+      | combine({ 'dn': item.dn } if (item.dn is defined) else {})
+      | combine({ 'size': item.size } if (item.size is defined) else {})
+      | combine({ 'signature_algorithm': item.signature_algorithm } if (item.signature_algorithm is defined) else {})
+      | combine({ 'filename': item.filename if((item.filename | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.filename) } if (item.filename is defined) else {})
+    }}"
+  loop: "{{ certificate_requests }}"
+  when:
+    - item.cert_action == cert_action
+    - item.kdb_id == kdb_id
+  notify: Commit Changes

@@ -1,4 +1,5 @@
 ---
 
-add_sysaccount_id : null
+add_sysaccount_id: null
+add_sysaccount_password: null
 add_sysaccount_groups: null

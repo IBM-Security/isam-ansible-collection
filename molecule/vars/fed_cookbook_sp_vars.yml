@@ -11,8 +11,8 @@ activation_keys: [{id: wga, code: ""},
 ]
 
 # 4.4 Configure Runtime Interfaces
-label:  '1.1'
-address:  "192.168.42.202"
+label: '1.1'
+address: "192.168.42.202"
 maskOrPrefix: "24"
 allowManagement: false
 enabled: true
@@ -22,7 +22,6 @@ host_records: [ { addr: 192.168.42.101, hostnames: isam.myidp.ibm.com },
                 { addr: 192.168.42.102, hostnames: www.myidp.ibm.com },
                 { addr: 192.168.42.201, hostnames: isam.mysp.ibm.com },
                 { addr: 192.168.42.202, hostnames: www.mysp.ibm.com }]
-
 
 # 4.6 Configure ISAM Runtime Component on the Appliance
 ssl_compliance: "fips"
@@ -129,7 +128,6 @@ configuration: {
     }
   }
 }
-
 
 set_partner_enabled: true
 set_partner_role: "ip"
@@ -256,13 +254,13 @@ update_management_root_idandfilename:
   ]
 update_management_root_instance_id: "default"
 
-# 20.3 Scenario: “USERNAME” authentication
+# 20.3 Scenario: USERNAME authentication
 username_poc_name: "Access Manager Username and extended attributes"
 
-# 20.4 Scenario: “PAC” authentication
+# 20.4 Scenario: PAC authentication
 access_manager_poc_name: "Access Manager Credential"
 
-# 20.5 Scenario: “EXTUSER” authentication
+# 20.5 Scenario: EXTUSER authentication
 non_access_manager_poc_name: "Non-Access Manager Username, Access Manager groups and extended attributes"
 saml20_dynamic_group_name: "sp_saml20_dynamic_group"
 set_federation_name: "saml20sp"

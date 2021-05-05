@@ -7,5 +7,4 @@
     - debug: msg="Trigger Reverse Proxy restarts"
       changed_when: True
       notify:
-        - 'ibm.isam.common_handlers : Restart Reverse Proxy'
-
+        - 'ibm.isam.common_handlers: Restart Reverse Proxy'

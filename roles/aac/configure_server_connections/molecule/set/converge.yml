@@ -15,4 +15,3 @@
             connection: "{{ molecule_connection }}"
             connectionManager: "{{ molecule_connectionManager }}"
             description: "{{ molecule_description }}"
-

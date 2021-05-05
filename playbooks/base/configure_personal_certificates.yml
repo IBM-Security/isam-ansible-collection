@@ -1,0 +1,8 @@
+---
+# Configure
+#   configure personal certificates
+- hosts: "{{ hosts | default('all')}}"
+  gather_facts: no
+  roles:
+    - role: ibm.isam.base.configure_personal_certificates
+      tags: configure_personal_certificates

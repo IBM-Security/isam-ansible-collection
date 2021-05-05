@@ -44,6 +44,20 @@
             - { method: delete, stanza_id: custom, entry_id: my-entry-id, value_id: my-fancy-value }
             - { method: delete_all, stanza_id: custom, entry_id: my-entry-id }
             - { method: delete, stanza_id: custom }
+            # other notation
+            - stanza: custom
+              entries:
+                - [my-entry-id, my-fancy-value]
+                - [my-entry-id, my-fancy-value]
+            # yet another notation
+             - stanza: custom
+               entries:
+                 -
+                   - my-entry-id
+                   - my-fancy-value
+                 -
+                   - my-entry-id
+                   - my-fancy-value
       ==========
 
       INTERACTION

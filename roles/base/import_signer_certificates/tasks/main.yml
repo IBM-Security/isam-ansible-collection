@@ -10,7 +10,7 @@
         import_signer_certificates
 
       DESCRIPTION
-        Role to backup appliance firmware
+        Role to import signer certificates
 
       STEPS
         1) Import signer certificates
@@ -22,7 +22,7 @@
       INVENTORY
       ==========
       # import multiple signer certificates
-      signer_certificates:
+      import_signer_certificates:
         - kdb_id: "lmi_trust_store"
           cert: "files/ssl/lmi.crt"
           label: "sample_label"
@@ -43,7 +43,7 @@
       kdb_id: "{{ item.kdb_id }}"
       cert: "{{ item.cert if((item.cert | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.cert) }}"
       label: "{{ item.label }}"
-  loop: "{{ signer_certificates }}"
+  loop: "{{ import_signer_certificates }}"
   when:
     - item.kdb_id == kdb_id
     - item.label == label

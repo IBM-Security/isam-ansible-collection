@@ -3,8 +3,8 @@
 ---
 - name: Get all Mapping Rules
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.mapping_rules.get_all
     isamapi:
   register: mapping_rules_obj

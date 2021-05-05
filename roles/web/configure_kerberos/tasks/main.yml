@@ -131,6 +131,7 @@
   with_subelements:
     - "{{ kerberos.realms }}"
     - subsections
+    - skip_missing: True
   loop_control:
     label: "{ \"realm\": \"{{ item.0.realm }}\", \"subsection\": \"{{ item.1.name if (item.1.name is defined) }}\" }"
   notify: Commit Changes
@@ -169,14 +170,12 @@
   with_subelements:
     - "{{ kerberos.realms }}"
     - properties
+    - skip_missing: True
   loop_control:
     label: "{ \"realm\": \"{{ item.0.realm }}\", \"propname\": \"{{ item.1.propname if (item.1.propname is defined) }}\", \"propvalue\": \"{{ item.1.propvalue if (item.1.propvalue is defined) }}\" }"
   notify: Commit Changes
 
 - include_tasks: include_configure_subsections_properties_1st_level.yml
-  with_subelements:
-    - "{{ kerberos.realms }}"
-    - subsections
   when:
     - subsections_1st_level.1.name is defined
     - subsections_1st_level.0.realm == realm
@@ -252,6 +251,7 @@
   with_subelements:
     - "{{ kerberos.ca_paths }}"
     - properties
+    - skip_missing: True
   when:
     - item.0.name is defined
     - item.1.server_realm is defined

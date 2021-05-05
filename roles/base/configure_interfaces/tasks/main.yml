@@ -57,6 +57,7 @@
       | combine({ 'maskOrPrefix': item.1.maskOrPrefix } if (item.1.maskOrPrefix is defined) else {})
       | combine({ 'overrideSubnetChecking': item.1.overrideSubnetChecking } if (item.1.overrideSubnetChecking is defined) else {})
       | combine({ 'enabled': item.1.enabled } if (item.1.enabled is defined) else {})
+      | combine({ 'allowManagement': item.1.allowManagement } if (item.1.allowManagement is defined) else {})
     }}"
   when: item.0.label == label and item.1.address == address
   loop: "{{ interfaces | subelements('addresses', {'skip_missing': True}) }}"

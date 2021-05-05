@@ -1,4 +1,63 @@
+#!/usr/bin/python
+# Apache License Version 2.0, January 2004 http://www.apache.org/licenses/
+
 from __future__ import (absolute_import, division, print_function)
+
+DOCUMENTATION = '''
+---
+module: isamadmin
+short_description: This module will make calls to connection
+description: This module will make calls to connection
+author: Ram Sreerangam (@ram-ibm)
+options:
+    log:
+        description:
+            - level for log setting
+        type: str
+        required: False
+        default: INFO
+        choices:
+            - DEBUG
+            - INFO
+            - ERROR
+            - CRITICAL
+    isamuser:
+        description:
+            - user name
+        type: str
+        required: False
+    isampwd:
+        description:
+            - user password
+        type: str
+        required: True
+    isamdomain:
+        description:
+            - domain name
+        type: str
+        required: False
+        default: Default
+    commands:
+        description:
+            - list of commands
+        type: list
+        elements: str
+        required: True
+'''
+
+EXAMPLES = '''
+- name: Configure access control attributes
+  ibm.isam.isam:
+    log:       "{{ log_level | default(omit) }}"
+    force:     "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.attributes.get
+    isamapi: "{{ item }}"
+  when: item is defined
+  with_items: "{{ get_access_control_attributes }}"
+  register: ret_obj
+'''
+
+
 __metaclass__ = type
 import logging.config
 import sys
@@ -17,7 +76,7 @@ def main():
             isamuser=dict(required=False),
             isampwd=dict(required=True, no_log=True),
             isamdomain=dict(required=False, default='Default'),
-            commands=dict(required=True, type='list')
+            commands=dict(required=True, type='list', elements='str')
         ),
         supports_check_mode=False
     )
@@ -45,8 +104,8 @@ def main():
     ret_obj['start'] = str(startd)
     ret_obj['end'] = str(endd)
     ret_obj['delta'] = str(delta)
-    ret_obj['cmd'] = "pdadmin execution using Domain: {}, User: {} and Commands: {}".format(isamdomain, isamuser,
-                                                                                            commands)
+    ret_obj['cmd'] = "pdadmin execution using Domain: {0}, User: {1} and Commands: {2}".format(isamdomain, isamuser,
+                                                                                               commands)
 
     module.exit_json(**ret_obj)
 

@@ -13,7 +13,7 @@
 #             - keytab2.keytab
 ---
 - name: Get krb configuration
-  isam:
+  ibm.isam.isam:
     appliance: "{{ inventory_hostname }}"
     adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
     adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
@@ -35,7 +35,7 @@
 # TODO: check if the combined keyfile is there (if there already, delete ?)
 
 - name: Merge keytabs
-  isam:
+  ibm.isam.isam:
     appliance: "{{ inventory_hostname }}"
     adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
     adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"

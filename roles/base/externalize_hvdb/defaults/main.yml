@@ -12,7 +12,7 @@ externalize_hvdb_hvdb_embedded: False
 externalize_hvdb_primary_master: "127.0.0.1"
 externalize_hvdb_hvdb_port: "50000"
 # For Oracle
-#externalize_hvdb_oracle_connection_string, for instance for RAC Cluster : "externalize_hvdb_oracle_connection_string: "{{ 'jdbc:oracle:thin:@//' + externalize_hvdb_hvdb_address + ':' + externalize_hvdb_hvdb_port + ':' + externalize_hvdb_hvdb_db_name " }}""
+#externalize_hvdb_oracle_connection_string, for instance for RAC Cluster: "externalize_hvdb_oracle_connection_string: "{{ 'jdbc:oracle:thin:@//' + externalize_hvdb_hvdb_address + ':' + externalize_hvdb_hvdb_port + ':' + externalize_hvdb_hvdb_db_name " }}""
 externalize_hvdb_oracle_connection_string: null
 # The following parameters are provided for completeness - especially if you do not want to overwrite other settings
 # with the cluster configuration

@@ -6,6 +6,6 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.sysaccount.groups.create
     isamapi:
-      id : "{{ add_sysaccount_group }}"
+      id: "{{ add_sysaccount_group }}"
   when: add_sysaccount_group is defined
   notify: Commit Changes

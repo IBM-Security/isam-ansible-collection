@@ -2,6 +2,6 @@
 # update_management_ssl_cert_cert
 # update_management_ssl_cert_pwd
 
-#  roles :
+#  roles:
 #    - role: ibm.isam.update_management_ssl_cert
-#      update_management_ssl_cert_cert : "somekeystore.p12"
+#      update_management_ssl_cert_cert: "somekeystore.p12"

@@ -5,8 +5,8 @@
     action: ibmsecurity.isam.web.reverse_proxy.management_root.file.import_file
     isamapi:
       instance_id: "{{ import_management_root_instance_id }}"
-      id : "{{ item.id }}"
-      filename : "{{ item.filename }}"
+      id: "{{ item.id }}"
+      filename: "{{ item.filename }}"
   with_items: "{{ import_management_root_idandfilename }}"
   when: import_management_root_idandfilename is defined and import_management_root_instance_id is defined
   notify:

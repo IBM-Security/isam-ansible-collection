@@ -38,8 +38,8 @@ multiple releases in one day (expected to be uncommon).
 ## Features
 
 ### Custom Modules
-_"Modules (also referred to as "task plugins” or "library plugins”) are the ones that do the actual work in ansible,
-they are what gets executed in each playbook task. But you can also run a single one using the ‘ansible’ command."_
+_"Modules (also referred to as "task plugins" or "library plugins") are the ones that do the actual work in ansible,
+they are what gets executed in each playbook task. But you can also run a single one using the 'ansible' command."_
 http://docs.ansible.com/ansible/modules_intro.html
 
 Ansible custom modules provide the glue to seamless invoke python functions to execute REST API calls against ISAM

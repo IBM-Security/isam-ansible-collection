@@ -1,4 +1,6 @@
 from __future__ import (absolute_import, division, print_function)
+import ibmsecurity.isam.web.runtime.pdadmin
+from ibmsecurity.user.isamuser import ISAMUser
 
 __metaclass__ = type
 
@@ -157,12 +159,14 @@ class Connection(NetworkConnectionBase):
 
             # FIXME - add AdminProxy options and handle that here
             #
-            ## Create appliance object to be used for all calls
-            ## if adminProxy hostname is set, use the ISAMApplianceAdminProxy
+            # Create appliance object to be used for all calls
+            # if adminProxy hostname is set, use the ISAMApplianceAdminProxy
             # if adminProxyHostname == '' or adminProxyHostname is None or omitAdminProxy:
             #    self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port)
             # else:
-            #    #self.isam_server = ISAMApplianceAdminProxy(adminProxyHostname=adminProxyHostname, user=u, hostname=appliance, adminProxyProtocol=adminProxyProtocol, adminProxyPort=adminProxyPort, adminProxyApplianceShortName=adminProxyApplianceShortName)
+            #    self.isam_server = ISAMApplianceAdminProxy(adminProxyHostname=adminProxyHostname, user=u,
+            #    hostname=appliance, adminProxyProtocol=adminProxyProtocol, adminProxyPort=adminProxyPort,
+            #    adminProxyApplianceShortName=adminProxyApplianceShortName)
             #    pass
             self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port)
             self._sub_plugin = {'name': 'isam_server', 'obj': self.isam_server}
@@ -209,7 +213,7 @@ class Connection(NetworkConnectionBase):
                 'Error> action does not have the right set of arguments or there is a code bug! Options: ' + options,
                 isam_module, e)
         except IBMError as e:
-            raise AnsibleConnectionFailure("Error> IBMError, action: {} Exception: {}".format(isam_module, e), options,
+            raise AnsibleConnectionFailure("Error> IBMError, action: {0} Exception: {1}".format(isam_module, e), options,
                                            e)
 
     def call_isam_admin(self, adminDomain, isamuser, isampwd, commands):
@@ -219,8 +223,6 @@ class Connection(NetworkConnectionBase):
         if not self.connected:
             self._connect()
         try:
-            import ibmsecurity.isam.web.runtime.pdadmin
-            from ibmsecurity.user.isamuser import ISAMUser
             if isamuser == '' or isamuser is None:
                 iu = ISAMUser(password=isampwd)
             else:

@@ -10,8 +10,8 @@ activation_keys: [{id: wga, code: ""},
                   {id: federation, code: ""}
 ]
 # 4.4 Configure Runtime Interfaces
-label:  '1.1'
-address:  "192.168.42.102"
+label: '1.1'
+address: "192.168.42.102"
 maskOrPrefix: "24"
 allowManagement: false
 enabled: true
@@ -21,7 +21,6 @@ host_records: [ { addr: 192.168.42.101, hostnames: isam.myidp.ibm.com },
                 { addr: 192.168.42.102, hostnames: www.myidp.ibm.com },
                 { addr: 192.168.42.201, hostnames: isam.mysp.ibm.com },
                 { addr: 192.168.42.202, hostnames: www.mysp.ibm.com }]
-
 
 # 4.6 Configure ISAM Runtime Component on the Appliance
 ssl_compliance: "fips"
@@ -232,8 +231,10 @@ update_mapping_rule_name: ip_saml20_httpclient_wstrust
 set_federation_configuration:
   {
     "companyName": "IdP Company",
-    "pointOfContactUrl": "https:\/\/www.myidp.ibm.com\/isam\/sps",
-    "extensionMapping": { "activeDelegateId": "skip-extension-map"},
+    "pointOfContactUrl": "https://www.myidp.ibm.com/isam/sps",
+    "extensionMapping": {
+      "activeDelegateId": "skip-extension-map"
+    },
     "singleSignOnService":
       [
         { "binding": "post" },
@@ -245,8 +246,10 @@ set_federation_configuration:
 update_federation_configuration:
   {
     "companyName": "IdP Company",
-    "pointOfContactUrl": "https:\/\/www.myidp.ibm.com\/isam\/sps",
-    "extensionMapping": { "activeDelegateId": "skip-extension-map"},
+    "pointOfContactUrl": "https://www.myidp.ibm.com/isam/sps",
+    "extensionMapping": {
+      "activeDelegateId": "skip-extension-map"
+    },
     "identityMapping":
       {
         "activeDelegateId": "default-http-custom-map",
