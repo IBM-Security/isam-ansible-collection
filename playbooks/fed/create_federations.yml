@@ -27,5 +27,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.fed/create_federations
+    - role: ibm.isam.fed.create_federations
       tags: create_federations

@@ -30,5 +30,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.aac/update_advanced_configurations
+    - role: ibm.isam.aac.update_advanced_configurations
       tags: update_advanced_configurations
