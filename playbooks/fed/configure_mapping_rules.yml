@@ -9,5 +9,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.aac/configure_mapping_rules
+    - role: ibm.isam.aac.configure_mapping_rules
       tags: configure_mapping_rules

@@ -7,5 +7,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.web/upload_http_transformation_files
+    - role: ibm.isam.web.upload_http_transformation_files
       tags: upload_http_transformation_files

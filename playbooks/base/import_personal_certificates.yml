@@ -11,5 +11,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.base/import_personal_certificates
+    - role: ibm.isam.base.import_personal_certificates
       tags: import_personal_certificates

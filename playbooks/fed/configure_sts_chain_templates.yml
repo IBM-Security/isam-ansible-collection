@@ -15,5 +15,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.fed/configure_sts_chain_templates
+    - role: ibm.isam.fed.configure_sts_chain_templates
       tags: configure_sts_chain_templates

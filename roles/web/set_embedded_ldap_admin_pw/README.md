@@ -1,5 +1,4 @@
 set_embedded_ldap_admin_pw
-=========
 
 Set the embedded ldap admin password
 
