@@ -50,7 +50,7 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: Configure access control attributes
+- name: Configure policy information point
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -64,6 +64,7 @@
       | combine({ 'new_name': item.new_name } if (item.new_name is defined) else {})
       | combine({ 'filepath': (item.filepath if((item.filepath | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.filepath)) } if (item.filepath is defined) else {})
     }}"
-  when: item is defined
-  with_items: "{{ policy_information_points }}"
+  loop: "{{ policy_information_points }}"
+  loop_control:
+    label: "policy_information_point: {{ item.name }}"
   notify: Commit Changes
