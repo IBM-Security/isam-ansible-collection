@@ -50,7 +50,7 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: Configure policy information point
+- name: Configure policy information points
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
