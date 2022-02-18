@@ -1,0 +1,5 @@
+# Default variables to configure certificate databases
+certificate_databases: []
+
+# default variables to limit execution at runtime
+db_action: "{{ item.db_action }}"
