@@ -1,0 +1,9 @@
+ancestor: null
+releases:
+  1.0.23:
+    changes:
+      minor_changes:
+      - changelog - added new section for changelog as requested by the Red Hat team
+    fragments:
+    - 154-added_changelog.yml
+    release_date: '2022-03-29'

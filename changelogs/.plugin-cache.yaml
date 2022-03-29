@@ -1,0 +1,40 @@
+objects: {}
+plugins:
+  become: {}
+  cache: {}
+  callback: {}
+  cliconf: {}
+  connection:
+    isam:
+      description: Use ibmsecurity python library to connect to IBM ISAM appliances
+      name: isam
+      version_added: '2.9'
+  httpapi: {}
+  inventory: {}
+  lookup: {}
+  module:
+    isam:
+      description: This module will make calls to connection
+      name: isam
+      namespace: ''
+      version_added: null
+    isamadmin:
+      description: This module will make calls to connection
+      name: isamadmin
+      namespace: ''
+      version_added: null
+    isamcompare:
+      description: This module will make calls to connection
+      name: isamcompare
+      namespace: ''
+      version_added: null
+    ldap_attr:
+      description: Add or remove LDAP attribute values.
+      name: ldap_attr
+      namespace: ''
+      version_added: null
+  netconf: {}
+  shell: {}
+  strategy: {}
+  vars: {}
+version: 1.0.23
