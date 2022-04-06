@@ -33,7 +33,7 @@
           | combine({ 'role': item.1.role } if (item.1.role is defined) else {})
           | combine({ 'configuration': item.1.configuration } if (item.1.configuration is defined) else {})
     }}"
-  with_subelements :
+  with_subelements:
     - "{{ federations }}"
     - partners
     - skip_missing: True

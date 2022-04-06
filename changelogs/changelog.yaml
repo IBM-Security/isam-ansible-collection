@@ -7,3 +7,11 @@ releases:
     fragments:
     - 154-added_changelog.yml
     release_date: '2022-03-29'
+  1.0.24:
+    changes:
+      bugfixes:
+      - yamllint - removed too many spaces before colon from files roles/add_oauth_definition/tasks/main.yml:27:23,
+        roles/add_sysaccount_user/tasks/main.yml:10:15, roles/fed/create_federation_partners/tasks/main.yml:36:19
+    fragments:
+    - 155-fixed_yamllint_issues.yml
+    release_date: '2022-04-06'
