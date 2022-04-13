@@ -2,7 +2,7 @@
 
 # main task for importing personal certificates
 # Example inventory:
-#     import_personal_certs:
+#     personal_certificates:
 #       - kdb_id: pdsrv
 #         label: wildcard.test.net
 #         cert: "uploads/ssl/wildcard.test.net.p12"
@@ -11,5 +11,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.base/import_personal_certificates
+    - role: ibm.isam.base.import_personal_certificates
       tags: import_personal_certificates
