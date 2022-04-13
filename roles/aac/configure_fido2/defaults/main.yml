@@ -1,0 +1,7 @@
+---
+
+# Default variables for fido2 configurations
+fido2_configurations: []
+
+# Default variables to filter for configuration of specific fido2 actions at runtime
+fido2_action: "{{ item.fido2_action }}"
