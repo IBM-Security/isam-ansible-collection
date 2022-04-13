@@ -5,6 +5,14 @@ Ibm.Isam Release Notes
 .. contents:: Topics
 
 
+v1.0.25
+=======
+
+Minor Changes
+-------------
+
+- configure_fido2 - new role and playbook
+
 v1.0.24
 =======
 
