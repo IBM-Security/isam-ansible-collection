@@ -22,3 +22,10 @@ releases:
     fragments:
     - 150-configure_fido2.yml
     release_date: '2022-04-13'
+  1.0.26:
+    changes:
+      minor_changes:
+      - redis_configuration - role and playbook to configure Redis on WebSEAL.
+    fragments:
+    - 158-redis_configuration.yml
+    release_date: '2022-04-27'
