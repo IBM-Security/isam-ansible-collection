@@ -1,0 +1,91 @@
+---
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        config_reverseproxy_redis
+
+      DESCRIPTION
+        Role to configure_redis
+
+      STEPS
+        1) Create collection with servers (Redis master + replicas)
+        2) Assign collection to instances
+
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_redis.yml # do all steps
+
+      INVENTORY
+      ==========
+
+      instances:
+          [...]
+        - inst_name: default
+          [...]
+          # assign redis collections to instance
+          redis_collections:
+            - collection1
+
+      redis_collections:
+          - name: collection1
+            servers:
+              - name: master
+                host: redis1.domain.com
+                username: isam
+                port: 6379
+                password: password
+              - name: replica1
+                host: replica1.domain.com
+                username: isam
+                port: 6379
+                password: password
+            cross-domain-support:
+              master-authn-server-url: master.domain.com
+              master-session-code-lifetime: 30
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Configure redis collections
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.global_settings.redis_configuration.collections.set
+    isamapi:
+      name: "{{ item.name }}"
+      max_pooled_connections: "{{ item.max_pooled_connections|default(omit) }}"
+      idle_timeout: "{{ item.idle_timeout|default(omit) }}"
+      connect_timeout: "{{ item.connect_timeout|default(omit) }}"
+      io_timeout: "{{ item.io_timeout|default(omit) }}"
+      health_check_interval: "{{ item.health_check_interval|default(omit) }}"
+      servers: "{{ item.servers|default(omit) }}"
+      cross_domain_support: "{{ item.cross_domain_support|default(omit) }}"
+      matching_hosts: "{{ item.matching_hosts|default(omit) }}"
+  when:
+    - item.name is defined
+  loop: "{{ redis_collections }}"
+  loop_control:
+    label: "Redis collection: {{ item.name | default('') }}"
+  notify: Commit Changes
+
+- name: Configure reverse proxy for redis
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.global_settings.redis_configuration.wrp.update
+    isamapi:
+      name: "{{ item.inst_name }}"
+      input_data: "{{ item.redis_collections }}"
+  loop: "{{ instances }}"
+  loop_control:
+    label: "{{ item.inst_name|default('') }} : redis collections : {{ (item.redis_collections|default([]))|join(',') }} "
+  when:
+    - instances is defined
+    - item.inst_name is defined
+    - item.redis_collections is defined
+    - item.redis_collections|length > 0
+  notify: Commit Changes
