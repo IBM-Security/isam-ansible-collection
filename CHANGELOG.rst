@@ -5,6 +5,14 @@ Ibm.Isam Release Notes
 .. contents:: Topics
 
 
+v1.0.26
+=======
+
+Minor Changes
+-------------
+
+- redis_configuration - role and playbook to configure Redis on WebSEAL.
+
 v1.0.25
 =======
 
