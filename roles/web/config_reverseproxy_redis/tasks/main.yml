@@ -17,6 +17,7 @@
       EXAMPLES
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_redis.yml # do all steps
         ansible-playbook -i [...] ibm.isam.web.configure_redis.yml -e dsess_enabled=False #Disable redis
+
       INVENTORY
       ==========
 
@@ -24,9 +25,9 @@
           [...]
         - inst_name: default
           [...]
-          # assign redis collections to instancevi
+          # assign redis collections to instance
           redis_collections:
-            - collection1
+           - collection1
 
       redis_collections:
           - name: collection1
@@ -98,15 +99,13 @@
           'entries': ((dsess_enabled|bool)|ternary(_dsess_redis_entries_enable,_dsess_redis_entries_disable))}
       ]}}"
   loop: "{{ instances }}"
+  loop_control:
+    label: "Processing {{ item.inst_name|default('not set') }}"
   when:
     - instances is defined
     - item.inst_name is defined
     - item.redis_collections is defined
     - item.redis_collections|length > 0
-
-- name: debug
-  debug:
-    var: _instances
 
 - name: Enable/disable Redis enabled distributed session
   vars:

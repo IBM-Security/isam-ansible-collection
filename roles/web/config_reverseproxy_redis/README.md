@@ -11,6 +11,8 @@ By default, the reverse proxy will also be enabled with Redis as distributed ses
 
 By setting the variable `dsess_enabled` to False, you can disable distributed sessions, however the role will still add the redis collections and servers to the WebSeal configuration.
 
+If you don't have a "redis_collections" object in the "instances" , the whole configuration is skipped anyway and there will be no changes to `dsess_enabled` !
+
 The default collection will be set to the first collection that is configured (this is done automatically by the redis configuration wizard).
 
     [redis]
