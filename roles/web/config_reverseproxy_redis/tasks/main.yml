@@ -16,7 +16,7 @@
 
       EXAMPLES
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_redis.yml # do all steps
-
+        ansible-playbook -i [...] ibm.isam.web.configure_redis.yml -e dsess_enabled=False #Disable redis
       INVENTORY
       ==========
 
@@ -91,11 +91,11 @@
     - item.redis_collections|length > 0
   notify: Commit Changes
 
-- name: prepare enabling/disabling dsess ({{ dsess_enable }})
+- name: prepare enabling/disabling dsess ({{ dsess_enabled }})
   set_fact:
-    _instances: "{{ (_instances|default([])) + [
+    _instances: "{{ (_instances|default([])) + [{
           'inst_name': item.inst_name,
-          'entries': (dsess_enable|ternary(_dsess_redis_entries_enable,_dsess_redis_entries_disable)),
+          'entries': ((dsess_enabled|bool)|ternary(_dsess_redis_entries_enable,_dsess_redis_entries_disable))}
       ]}}"
   loop: "{{ instances }}"
   when:
@@ -111,7 +111,9 @@
 - name: Enable/disable Redis enabled distributed session
   vars:
     instances: "{{ _instances }}"
-  import_role:
-    name: ibmsecurity.isam.web.configure_reverseproxy_instances
+  include_role:
+    name: web/configure_reverseproxy_instances
   when:
     - _instances is defined
+
+- meta: flush_handlers
