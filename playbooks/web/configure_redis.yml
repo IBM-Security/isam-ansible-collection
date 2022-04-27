@@ -1,0 +1,8 @@
+---
+# playbook to configure redis
+- hosts: "{{ hosts | default('all')}}"
+  gather_facts: no
+  tasks:
+    - name: configure redis
+      import_role:
+        name: ibm.isam.web.config_reverseproxy_redis
