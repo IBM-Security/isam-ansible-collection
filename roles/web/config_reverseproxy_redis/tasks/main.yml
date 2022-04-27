@@ -90,3 +90,28 @@
     - item.redis_collections is defined
     - item.redis_collections|length > 0
   notify: Commit Changes
+
+- name: prepare enabling dsess
+  set_fact:
+    _instances: "{{ (_instances|default([])) + [
+          'inst_name': item.inst_name,
+          'entries': _dsess_redis_entries,
+      ]}}"
+  loop: "{{ instances }}"
+  when:
+    - instances is defined
+    - item.inst_name is defined
+    - item.redis_collections is defined
+    - item.redis_collections|length > 0
+
+- name: debug
+  debug:
+    var: _instances
+
+- name: Enable DSESS with Redis
+  vars:
+    instances: "{{ _instances }}"
+  import_role:
+    name: ibmsecurity.isam.web.configure_reverseproxy_instances
+  when:
+    - _instances is defined

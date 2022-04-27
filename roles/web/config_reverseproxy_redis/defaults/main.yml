@@ -1,1 +1,10 @@
 # default values
+dsess_enable: true
+dsess_enabled: str!! yes
+# These entries should be in the format, accepted for configure_reverseproxy_instances
+_dsess_redis_entries:
+  - method: set
+    stanza_id: session
+    entries:
+      - ["dsess-enabled", "{{ dsess_enabled }}"]
+      - ["dsess-server-type", redis]

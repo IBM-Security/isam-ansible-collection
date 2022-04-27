@@ -13,5 +13,8 @@ galaxy_info:
   - configure
   - redis
 
+collections:
+  - ibm.isam
+
 dependencies:
-  - ibm.isam.common_handlers
+  - common_handlers

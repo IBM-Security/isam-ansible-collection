@@ -1,5 +1,5 @@
 ---
-# playbook to configure redis
+# playbook to configure redis for webseal
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   tags:
@@ -8,6 +8,7 @@
     - name: configure redis
       import_role:
         name: ibm.isam.web.config_reverseproxy_redis
+
     - name: restart reverse proxies (if necessary)
       import_role:
         name: ibm.isam.web.restart_reverseproxy_instances
