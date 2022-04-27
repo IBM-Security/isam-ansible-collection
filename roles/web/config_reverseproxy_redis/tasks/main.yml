@@ -23,7 +23,7 @@
           [...]
         - inst_name: default
           [...]
-          # assign redis collections to instance
+          # assign redis collections to instancevi
           redis_collections:
             - collection1
 
@@ -72,9 +72,28 @@
     label: "Redis collection: {{ item.name | default('') }}"
   notify: Commit Changes
 
-- name: Configure reverse proxy for redis
+- name: Get reverse proxy for redis
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.global_settings.redis_configuration.wrp.get
+    isamapi:
+      name: "{{ item.inst_name }}"
+  loop: "{{ instances }}"
+  loop_control:
+    label: "Checking {{ item.inst_name|default('not defined') }}"
+  when:
+    - instances is defined
+    - item.inst_name is defined
+  register: redis_out
+
+- debug:
+    verbosity: 1
+    var: redis_out
+
+- name: Configure reverse proxy for redis
+  ibm.isam.isam:
+    #log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.global_settings.redis_configuration.wrp.update
     isamapi:
