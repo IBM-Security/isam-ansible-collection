@@ -130,7 +130,7 @@ class Connection(NetworkConnectionBase):
         super(Connection, self).__init__(play_context, new_stdin, *args, **kwargs)
 
         #Fix for noneType error
-        self._sub_plugin = {"type": "external"}
+        self._sub_plugin = {"name": "isam_server", "type": "external"}
 
         self.isam_server = None
         if not HAS_IBMSECURITY:
