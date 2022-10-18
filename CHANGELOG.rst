@@ -5,6 +5,14 @@ Ibm.Isam Release Notes
 .. contents:: Topics
 
 
+v1.0.27
+=======
+
+Bugfixes
+--------
+
+- plugins_connection_isam - added self._sub_plugin in _init_ to fix noneType error.
+
 v1.0.26
 =======
 
