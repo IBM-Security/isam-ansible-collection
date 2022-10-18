@@ -29,3 +29,11 @@ releases:
     fragments:
     - 158-redis_configuration.yml
     release_date: '2022-04-27'
+  1.0.27:
+    changes:
+      bugfixes:
+      - plugins_connection_isam - added self._sub_plugin in _init_ to fix noneType
+        error.
+    fragments:
+    - 162-need_self_sub_plugin_in_init_.yml
+    release_date: '2022-10-17'
