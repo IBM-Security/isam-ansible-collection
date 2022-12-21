@@ -9,7 +9,7 @@
 - debug: var=vmxfile
 
 - name: bootstrap a new vm if vmx file does not exist
-  include: bootstrap.yml
+  include_tasks: bootstrap.yml
   dynamic: true
   when: not vmxfile.stat.exists
 

@@ -53,7 +53,7 @@
       when: filtered_difference is defined
 
     - name: "Check to see if enabled status is as expected on whitelisted policies"
-      include: check_for_all_true_status.yml
+      include_tasks: check_for_all_true_status.yml
       when:
         - wrong_policy_status is not defined
       loop: "{{ filtered_authentication_policies }}"
@@ -62,7 +62,7 @@
         var: policy_enabled_status_result
 
     - name: "Check to see if enabled status is as expected on disabled policies"
-      include: check_for_all_false_status.yml
+      include_tasks: check_for_all_false_status.yml
       when:
         - wrong_policy_status is not defined
       loop: "{{ filtered_difference }}"

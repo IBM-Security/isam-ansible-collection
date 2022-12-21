@@ -55,5 +55,5 @@
   delay: "{{ first_steps_delay }}"
 
 # Go through basic set up to accept license and set up FIPS only needed
-- include: firststeps.yml
+- include_tasks: firststeps.yml
   when: result is defined and result.status == 200 and result.json.sla is defined
