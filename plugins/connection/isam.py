@@ -18,6 +18,7 @@ DOCUMENTATION = """
             - Specifies the remote device FQDN or IP address of the IBM ISAM Appliance to establish a connection to.
           default: inventory_hostname
           vars:
+            - name: inventory_hostname
             - name: ansible_host
             - name: remote_addr
         port:
