@@ -1,0 +1,34 @@
+name: ansible test
+on: workflow_dispatch
+
+jobs:
+  build-and-test:
+    strategy:
+      matrix:
+        python-version:
+          - 3.6
+          - 3.8
+          - 3.9
+        ansible-core-version:
+          - stable-2.11
+          - stable-2.12
+          - stable-2.14
+    runs-on: ubuntu-latest
+    steps:
+#      - name: Perform integration testing with ansible-test
+#        uses: ansible-community/ansible-test-gh-action@release/v1
+#        with:
+#          ansible-core-version: stable-2.14
+#          pre-test-cmd: echo This runs before the ansible-test invocation
+#          target-python-version: 3.9
+#          controller-python-version: auto
+#          testing-type: integration
+#          test-deps: ansible.netcommon
+      - name: Perform sanity testing with ansible-test
+        uses: ansible-community/ansible-test-gh-action@v1.12.0
+        with:
+          pull-request-change-detection: true
+          target-python-version: ${{ matrix.python-version }}
+          ansible-core-version: ${{ matrix.ansible-core-version }}
+          testing-type: sanity
+          pre-test-cmd: echo Starting ansible-test
