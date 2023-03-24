@@ -20,5 +20,5 @@
   when: result is defined and result.status == 200 and result.json.sla is defined
 
 # Go through basic set up to accept license and set up FIPS only needed
-- include: "{{ firststeps }}"
+- include_tasks: "{{ firststeps }}"
   dynamic: true

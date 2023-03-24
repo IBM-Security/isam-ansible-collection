@@ -103,7 +103,7 @@
   when: help is defined
 
 - name: Include over all instances and junctions
-  include: include_junctions.yml
+  include_tasks: include_junctions.yml
   with_subelements:
     - "{{ instances }}"
     - junctions
@@ -113,7 +113,7 @@
     label: "{inst_name: {{ item[0].inst_name }}, junction_point: {{ item[1].junction_point }}}"
 
 - name: Include to delete undefined junctions [-e delete_junctions=True]
-  include: include_delete_junctions.yml
+  include_tasks: include_delete_junctions.yml
   loop: "{{ instances }}"
   when: (delete_junctions | bool)
   loop_control:

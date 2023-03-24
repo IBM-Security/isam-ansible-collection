@@ -108,7 +108,7 @@
       )
 
 - name: "Export all management root files from instances in inventory [-e mgmt_action=export_zip -e inst_name=<instance>]"
-  include: include_export_management_root.yml
+  include_tasks: include_export_management_root.yml
   when: 
     - item.1.mgmt_action == 'export_zip'
     - item.0.inst_name == inst_name 
@@ -131,7 +131,7 @@
     label: "{{ item.1 }}"
 
 - name: "Sync management root [local => server] [-e mgmt_action=sync_up -e inst_name=<instance> -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]"
-  include: include_sync_management_root.yml
+  include_tasks: include_sync_management_root.yml
   when: 
     - item.1.mgmt_action == 'sync_up'
     - item.0.inst_name == inst_name
@@ -226,7 +226,7 @@
     label: "{ 'mgmt_action': \"{{ item.1.mgmt_action }}\", 'type': \"{{ item.1.type | default('file')}}\", 'inst_name': \"{{ item.0.inst_name }}\", 'target': \"{{ item.1.target | default('none') }}\"}"
   notify: Commit Changes
 
-- include: include_delete_management_root_contents.yml
+- include_tasks: include_delete_management_root_contents.yml
   when: 
     - item.1.mgmt_action == 'delete'
     - item.1.targets is defined 
@@ -247,7 +247,7 @@
   notify: Commit Changes
 
 - name: "Import management root zip files [-e mgmt_action=import_zip -e inst_name=<instance> -e skip_imports=True/False]"
-  include: include_import_management_root.yml
+  include_tasks: include_import_management_root.yml
   when: 
     - item.1.mgmt_action == 'import_zip'
     - item.0.inst_name == inst_name 
