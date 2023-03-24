@@ -58,7 +58,7 @@
     isamapi: "{{ item.1 | ibm.isam.exclude('fed_action') | combine({ 'instance_id': item.0.inst_name }) }}"
   when:
     - item.0.inst_name == inst_name
-  with_subelements: 
+  with_subelements:
     - "{{ instances }}"
     - federation_configurations
     - skip_missing: True

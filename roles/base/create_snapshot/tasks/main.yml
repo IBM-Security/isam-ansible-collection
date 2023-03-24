@@ -7,23 +7,23 @@
     prompt: |
       NAME
         create_snapshot
-      
+
       DESCRIPTION
         Role to create snapshots
-      
+
       STEPS
         1) Create snapshots
-      
+
       EXAMPLES
         # create a snapshot
         # Remark: idempotency based on snapshot comment
         ansible-playbook -i [...] playbooks/ansible_collections/base/create_snapshot.yml -e comment=<snapshots_comment>
-        
+
       INVENTORY
       ==========
         # no inventory needed
       ==========
-      
+
       INTERACTION
         ENTER         = continue
         Ctrl+C + 'C'  = continue

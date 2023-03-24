@@ -17,7 +17,7 @@
         2) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_advanced_tuning_parameters.yml 
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_advanced_tuning_parameters.yml
 
       INVENTORY
       ==========
@@ -43,6 +43,6 @@
     action: "ibmsecurity.isam.base.advanced_tuning_parameters.{{ item.tuning_action }}"
     isamapi: "{{ item | ibm.isam.exclude('tuning_action') }}"
   loop: "{{ advanced_tuning_parameters }}"
-  when: 
+  when:
     - item.key == key
   notify: Commit Changes

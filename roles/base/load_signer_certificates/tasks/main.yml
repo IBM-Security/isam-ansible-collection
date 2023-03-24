@@ -5,14 +5,14 @@
     prompt: |
       NAME
         load_signer_certificates
-      
+
       DESCRIPTION
         Role to load a signer certificate into a certificate store
-      
+
       STEPS
         1) load signer certificate from remote server into certificate store
         2) commit changes
-      
+
       EXAMPLES
         ansible-playbook -i [...] playbooks/ansible_collections/base/load_signer_certificates.yml
         ansible-playbook -i [...] playbooks/ansible_collections/base/load_signer_certificates.yml -e label=isam-openldap // filter to load only certificates with matching label at runtime
@@ -21,7 +21,7 @@
         ansible-playbook -i [...] playbooks/ansible_collections/base/load_signer_certificates.yml -e server=isam-ldap.ibm.com -e label=isam-openldap // any combination possible
         ansible-playbook -i [...] playbooks/ansible_collections/base/load_signer_certificates.yml -e check_remote=True // overwrite compare mode to advanced. Comparing remote server certificate with appliance certificate data in keystore. Attention: ansible needs to be able to access remote server for this.
         ansible-playbook -i [...] playbooks/ansible_collections/base/load_signer_certificates.yml -e force=True // overwrite comparison and load certificates again from remote servers
-      
+
       INVENTORY
       ==========
       # enable FIPS mode by default
@@ -40,7 +40,7 @@
           port: 1337
           check_remote: True # overwrite default check_remote only for this certificate. ! can't be overwritten at runtime again
       ==========
-      
+
       INTERACTION
         ENTER         = continue
         Ctrl+C + 'C'  = continue

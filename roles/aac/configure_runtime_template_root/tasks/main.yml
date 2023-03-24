@@ -8,10 +8,10 @@
     prompt: |
       NAME
         configure_runtime_template_root
-      
+
       DESCRIPTION
         Role to configure runtime template root
-      
+
       STEPS
         1) Export single runtime template root [-e tmpl_action=export_zip -e file=</path/to/export/file.zip> -e skip_export=True/False -e skip_exports=True/False]
         2) Export all runtime template roots from inventroy [-e tmpl_action=export_zip -e skip_exports=True/False]
@@ -21,24 +21,24 @@
         6) Delete runtime template root file/directory [-e tmpl_action=delete -e inst_name=<instance> -e target=<file/directory_to_delete>]
         7) Import runtime template root zip files [-e tmpl_action=import_zip -e skip_imports=True/False]
         8) Import a single runtime template zip file [-e tmpl_action=import_zip -e file=<file_to_import> -e skip_import=True/False -e skip_imports=True/False]
-      
+
       EXAMPLES
         # export a single runtime template root to a zip file
         # export file parameter can be an absolute path or relative to inventory directory ( {{ inventory_dir }}/<file> )
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e tmpl_action=export_zip -e file="files/runtime_template_root_files/runtime_template_root_{{ ansible_date_time.date }}.zip"
-        
+
         # skip all exports single/multiple ones
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e skip_exports=True
-        
+
         # skip only multiple exports but leave single export active
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e skip_exports=True -e skip_export=False -e file=<file_to_export>
-        
+
         # skip all imports single/multiple ones
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e skip_imports=True
-        
+
         # skip only multiple imports but leave single import active
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e skip_imports=True -e skip_export=False
-        
+
         # only do a particular task from the list of tasks
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e tmpl_action=export_zip
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e tmpl_action=import_zip
@@ -46,7 +46,7 @@
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e tmpl_action=create
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e tmpl_action=upload
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e tmpl_action=delete
-        
+
       INVENTORY
       ==========
       runtime_template_root:
@@ -64,7 +64,7 @@
         - tmpl_action: import_zip
           file: files/runtime_template_root_files/runtime_template_root_2020-09-23.zip
         - tmpl_action: export_zip
-          file: "files/runtime_template_root_files/runtime_template_root__{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip"        
+          file: "files/runtime_template_root_files/runtime_template_root__{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip"
         - tmpl_action: delete
           target: errors/C/38ad52fa.html
           type: file
@@ -75,7 +75,7 @@
           target: de/authsvc/authenticator
           type: directory
       ==========
-      
+
       INTERACTION
         ENTER         = continue
         Ctrl+C + 'C'  = continue
@@ -83,16 +83,16 @@
   when: help is defined
 
 - name: Make sure local export directory exists
-  local_action: 
+  local_action:
     module: file
     path: "{{ (file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file)) | dirname }}"
     recurse: yes
     state: directory
-  when: 
-    - file is defined 
+  when:
+    - file is defined
     - file != ''
     - tmpl_action == 'export_zip'
-    - (not (skip_exports | bool)) or 
+    - (not (skip_exports | bool)) or
       (not (skip_export | bool))
 
 - name: "Export single runtime template root to {{ file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) }} [-e tmpl_action=export_zip -e file=</path/to/export/file.zip> -e skip_export=True/False -e skip_exports=True/False]"
@@ -102,8 +102,8 @@
     action: ibmsecurity.isam.aac.runtime_template.root.export_file
     isamapi:
       filename: "{{ file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) }}"
-  when: 
-    - file is defined 
+  when:
+    - file is defined
     - file != ''
     - (
         (
@@ -111,7 +111,7 @@
           not (skip_export | bool)
         )
         or
-        ( 
+        (
           tmpl_action == 'None' and
           not (skip_export | bool)
         )
@@ -119,7 +119,7 @@
 
 - name: "Export all runtime template root files [-e tmpl_action=export_zip -e skip_exports=True/False]"
   include_tasks: include_export_runtime_template_root.yml
-  when: 
+  when:
     - item.tmpl_action == 'export_zip'
     - (
         (
@@ -127,7 +127,7 @@
           not (skip_exports | bool)
         )
         or
-        ( 
+        (
           tmpl_action == 'None' and
           not (skip_exports | bool)
         )
@@ -136,7 +136,7 @@
 
 - name: "Sync runtime template root [local => server] [-e tmpl_action=sync_up -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]"
   include_tasks: include_sync_runtime_template_root.yml
-  when: 
+  when:
     - item.tmpl_action == 'sync_up'
     - item.target == target
     - item.directory == directory
@@ -194,12 +194,12 @@
     isamapi:
       id: "{{ item.target }}"
       type: "{{ item.type }}"
-  when: 
+  when:
     - item.tmpl_action == 'delete'
     - item.target is defined
     - item.type is defined
-    - ( 
-        item.type == 'file' or 
+    - (
+        item.type == 'file' or
         item.type == 'directory'
       )
     - item.target == target
@@ -218,7 +218,7 @@
           not (skip_imports | bool)
         )
         or
-        ( 
+        (
           tmpl_action == 'None' and
           not (skip_imports | bool)
         )
@@ -234,7 +234,7 @@
     isamapi:
       filename: "{{ file if((file  | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) }}"
       delete_missing: "{{ delete_missing | bool }}"
-  when: 
+  when:
     - file is defined
     - file != ''
     - (
@@ -243,7 +243,7 @@
           not (skip_import | bool)
         )
         or
-        ( 
+        (
           tmpl_action == 'None' and
           not (skip_import | bool)
         )

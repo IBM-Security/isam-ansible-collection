@@ -2,9 +2,9 @@
 load_signer_certificates: []
 
 # filter to limit role execution at runtime
-kdb_id: "{{ item.kdb_id }}" 
+kdb_id: "{{ item.kdb_id }}"
 label: "{{ item.label }}"
-server: "{{ item.server }}" 
+server: "{{ item.server }}"
 
 # comparing certificates is supported in two modes: simple(default) & advanced
 # simple[check_remote=false] only checks if label already exists in appliance kdb

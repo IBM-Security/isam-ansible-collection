@@ -34,7 +34,7 @@
             junction: /mga
             api: True
             browser: True
-            auth_register: True # Needs 9.0.5.0 or higher. 
+            auth_register: True # Needs 9.0.5.0 or higher.
             reuse_acls: True
             reuse_certs: True
           [...]

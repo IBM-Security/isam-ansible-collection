@@ -4,7 +4,7 @@
 runtime_template_root: []
 
 # No filter at runtime on tmpl_action if none is defined. This will try every feasable action in the play
-tmpl_action: "None" 
+tmpl_action: "None"
 
 # variables to control multiple tasks from play
 
@@ -21,7 +21,7 @@ skip_import: "{{ skip_imports }}"  # whether to skip a single file import
 skip_exports: false # whether to skip multiple file exports from inventory
 skip_export: "{{ skip_exports }}"  # whether to skip a single file export
 
-# skip slower sync task 
+# skip slower sync task
 skip_sync: false
 
 path: "{{ item.path | default(omit) }}"

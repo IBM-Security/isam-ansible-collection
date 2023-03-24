@@ -27,7 +27,7 @@
           # configure browser mmfa
           mmfa_configuration:
             mmfa_action: config
-            lmi: 
+            lmi:
               hostname: isva-1.ibm.com
               port: '443'
               username: admin

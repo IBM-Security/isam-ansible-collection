@@ -17,7 +17,7 @@
         2) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_fido2.yml 
+        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_fido2.yml
 
       INVENTORY
       ==========
@@ -110,7 +110,7 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.aac.fido2.{{ item.fido2_action }}"
-    isamapi: "{{ item 
+    isamapi: "{{ item
       | ibm.isam.exclude('fido2_action')
       | combine({ 'filename': (item.filename if((item.filename | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.filename)) } if (item.filename is defined) else {})
     }}"

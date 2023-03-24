@@ -17,7 +17,7 @@
         2) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_runtime_tunings.yml 
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_runtime_tunings.yml
         ansible-playbook -i [...] playbooks/ansible_collections/base/configure_runtime_tunings.yml -e option=max_files # limit configuration as runtime for specific option
         ansible-playbook -i [...] playbooks/ansible_collections/base/configure_runtime_tunings.yml -e runtime_action=set # limit configuration as runtime for specific runtime_action
 
@@ -47,7 +47,7 @@
     force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.base.runtime.tuning_parameters.{{ item.runtime_action }}"
     isamapi: "{{ item | ibm.isam.exclude('runtime_action') }}"
-  when: 
+  when:
     - item.option == option
     - item.runtime_action == runtime_action
   with_items: "{{ runtime_tunings }}"
