@@ -4,7 +4,7 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: ibmsecurity.isam.aac.scim.set_all
+    action: ibmsecurity.isam.aac.scim.scim.set_all
     isamapi:
-      scim_configuration: "{{ scim_configuration }}"
+      settings: "{{ scim_configuration }}"
   notify: Commit Changes
