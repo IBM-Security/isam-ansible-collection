@@ -5,7 +5,7 @@ This role performs the Redis configuration tasks in WebSEAL.
 
 By default, the reverse proxy will also be enabled with Redis as distributed session solution, (`dsess-enabled` and `dsess-server-type` are set in the session stanza).
 
-    [session] 
+    [session]
     dsess-enabled = yes
     dsess-server-type = redis
 
@@ -20,5 +20,3 @@ The default collection will be set to the first collection that is configured (t
     [redis]
     # The name of the default collection of Redis servers to be used.
     default-collection-name = collection1
-  
-

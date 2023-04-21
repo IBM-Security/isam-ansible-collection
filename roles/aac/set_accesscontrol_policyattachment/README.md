@@ -50,4 +50,3 @@ attachment configuration , to use here.
 ## Acknowledgments
 
 * Ram Sreerangam, for driving the ISAM Ansible automation
-

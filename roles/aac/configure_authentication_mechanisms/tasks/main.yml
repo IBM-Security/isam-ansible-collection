@@ -76,7 +76,7 @@
           properties:
             - key: ScimConfig.serverConnection
               value: server_connection_ws_1
-  
+
         # FIDO2 authentication mechanism sample
         - mechanism_action: set
           name: FIDO2_Sample_Mech_1

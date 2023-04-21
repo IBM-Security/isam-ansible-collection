@@ -42,4 +42,3 @@ The policy file (policy_file) needs to exist , in the correct xacml format .
 ## Acknowledgments
 
 * Ram Sreerangam, for driving the ISAM Ansible automation
-

@@ -9,7 +9,7 @@
       stat:
          path: "{{ logs_export_dir }}/{{ inventory_hostname }}"
       register: reg_exportdir
-         
+
     - name: "Assert that file structure was created"
       assert:
         that:

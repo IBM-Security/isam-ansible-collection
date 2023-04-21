@@ -30,7 +30,7 @@
     isamapi:
         id: "{{ (item.target +'/'+ local.element.path) if (item.target != '') else (local.element.path) }}"
         type: "{{ local.element.type }}"
-  when: 
+  when:
     - local.stat is defined
     - not local.stat.exists
     - (local.element.path | dirname) not in (locals.results | json_query('[? !(stat.exists)].element.path') | difference([item.target]))

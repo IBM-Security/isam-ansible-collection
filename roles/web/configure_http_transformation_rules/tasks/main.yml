@@ -62,7 +62,7 @@
   when: help is defined
 
 - name: Make sure all local download directory exists
-  local_action: 
+  local_action:
       module: file
       path: "{{ (item.filename if((item.filename | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.filename)) | dirname }}"
       recurse: yes
@@ -70,7 +70,7 @@
   loop: "{{ http_transformation_rules }}"
   loop_control:
     label: "{{ ((item.filename if((item.filename | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.filename)) | dirname) if item.filename is defined else 'Skipping' }}"
-  when: 
+  when:
     - not (skip_exports | bool)
     - item.transformation_action == 'export_file' or
       item.transformation_action == 'export_template_file'
@@ -83,7 +83,7 @@
     action: "ibmsecurity.isam.web.http_transformation.{{ item.transformation_action }}"
     isamapi: "{{ item | ibm.isam.exclude('transformation_action') | combine({'filename': (item.filename if((item.filename | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.filename))} if (item.filename is defined) else {}) | default(omit) }}"
   loop: "{{ http_transformation_rules }}"
-  when: 
+  when:
     - item.transformation_action == transformation_action
     - (item.id is defined and item.id == id) or
       (item.id is not defined)

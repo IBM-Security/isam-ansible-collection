@@ -13,7 +13,7 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.junctions_server.add
-    isamapi: "{{ 
+    isamapi: "{{
       {
         'reverseproxy_id':item.0.inst_name,
         'junction_point': item.1.junction_point,

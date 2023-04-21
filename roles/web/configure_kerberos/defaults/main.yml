@@ -6,11 +6,11 @@ keytab_file: "{{ item.file | basename }}"
 
 realm: "{{
   item.realm
-    if (item.realm is defined) 
+    if (item.realm is defined)
     else (
-      item.0.realm 
+      item.0.realm
         if (
-          item.0 is defined and 
+          item.0 is defined and
           item.0.realm is defined
         ) else (
         subsections_1st_level.0.realm

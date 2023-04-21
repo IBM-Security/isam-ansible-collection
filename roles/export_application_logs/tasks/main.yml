@@ -12,7 +12,7 @@
       flat_details: yes
   register: logs
 
-- name: Temporary variable 
+- name: Temporary variable
   set_fact:
      uniquedirs: "{{ (uniquedirs|default([]) + [{'path': item.path}])|unique }}"
   loop: "{{ logs.data }}"
@@ -42,8 +42,8 @@
     action: ibmsecurity.isam.application_logs.export_file
     isamapi:
       file_path: "{{ (item.path|default('') == '') | ternary(item.name, item.path + '/' + item.name) }}"
-      filename: "{{ logs_export_dir }}/{{ inventory_hostname }}/{{ item.path  | default('') }}/{{ item.name }}" 
-  when: 
+      filename: "{{ logs_export_dir }}/{{ inventory_hostname }}/{{ item.path  | default('') }}/{{ item.name }}"
+  when:
      - logs.data is defined
      - path == item.path
   loop: "{{ logs.data }}"

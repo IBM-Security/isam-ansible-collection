@@ -28,7 +28,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.fed.federations.set
     isamapi: "{{
-          { 'name': item.name } 
+          { 'name': item.name }
           | combine({ 'protocol': item.protocol } if (item.protocol is defined) else {})
           | combine({ 'role': item.role } if (item.role is defined) else {})
           | combine({ 'configuration': item.configuration } if (item.configuration is defined) else {})

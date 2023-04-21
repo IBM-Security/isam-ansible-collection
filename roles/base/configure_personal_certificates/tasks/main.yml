@@ -19,7 +19,7 @@
       EXAMPLES
         ansible-playbook -i [...] playbooks/ansible_collections/base/configure_personal_certificates.yml // configure all personal certificates from inventory
         ansible-playbook -i [...] playbooks/ansible_collections/base/configure_personal_certificates.yml -e kdb_id=pdsrv // configure only personal certificates from inventory for pdsrv.kdb
-        
+
         // filter for specific action from a single inventory at runtime
         ansible-playbook -i [...] playbooks/ansible_collections/base/configure_personal_certificates.yml -e cert_action=get_all
         ansible-playbook -i [...] playbooks/ansible_collections/base/configure_personal_certificates.yml -e cert_action=get
@@ -46,7 +46,7 @@
           kdb_id: pdsrv
           label: sample_label
           dn: 'CN=weblinux.Raleigh.ibm.com,O=ibm,OU=IBMHTTP Server,L=RTP,ST=NC,C=US'
-          expire: '365' # optional default: '365' 
+          expire: '365' # optional default: '365'
           default: 'no' # optional default: 'no'
           size: '2048' # optional defaullt: '1024' OPTIONS: on SHA***WithRSA['1024','2048','4096'] on SHA***WithECDSA['256','384','512']
           signature_algorithm: 'SHA512WithRSA' # optional default: '' if emptywill get SHA1WithRSASignature OPTIONS: ['SHA256WithRSA','SHA384WithRSA','SHA512WithRSA','SHA256WithECDSA','SHA384WithECDSA','SHA512WithECDSA']

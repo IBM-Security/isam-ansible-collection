@@ -5,10 +5,10 @@
     prompt: |
       NAME
         configure_management_root
-      
+
       DESCRIPTION
         Role to configure management root
-      
+
       STEPS
         1) Export single management root from one instance [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance> -e skip_export=True/False -e skip_exports=True/False]
         2) Export all management roots from all instance in inventroy [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance> -e skip_exports=True/False]
@@ -18,12 +18,12 @@
         6) Delete management root file/directory [-e mgmt_action=delete -e inst_name=<instance> -e target=<file/directory_to_delete>]
         7) Import management root zip files from inventory [-e mgmt_action=import_zip -e inst_name=<instance> -e skip_imports=True/False]
         8) Import a single runtime template zip file [-e mgmt_action=import_zip -e file=<file/to/import/management_root.zip> -e skip_imports=True/False -e skip_import=True/False]
-      
+
       EXAMPLES
         # export a single management root to a zip file
         # export file parameter can be an absolute path or relative to inventory directory ( {{ inventory_dir }}/<file> )
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e mgmt_action=export_zip -e file="files/management_root_files/management_root_{{ ansible_date_time.date }}.zip" -e inst_name=default
-      
+
         # only do a particular task from the list of tasks
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=export_zip
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=import_zip
@@ -31,7 +31,7 @@
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=create
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=upload
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=delete
-      
+
       INVENTORY
       ==========
       instances:
@@ -62,7 +62,7 @@
             - mgmt_action: export_zip
               file: "/ansible/inventory/simple/files/management_root_files/management_root_{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip"
       ==========
-      
+
       INTERACTION
         ENTER         = continue
         Ctrl+C + 'C'  = continue
@@ -70,16 +70,16 @@
   when: help is defined
 
 - name: Make sure local export directory exists
-  local_action: 
+  local_action:
     module: file
     path: "{{ (file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file)) | dirname }}"
     recurse: yes
     state: directory
-  when: 
-    - file is defined 
+  when:
+    - file is defined
     - file != ''
     - mgmt_action == 'export_zip'
-    - (not (skip_exports | bool)) or 
+    - (not (skip_exports | bool)) or
       (not (skip_export | bool))
 
 - name: "Export single management root from one instance [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance> -e skip_export=True/False -e skip_exports=True/False]"
@@ -90,8 +90,8 @@
     isamapi:
       filename: "{{ file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) }}"
       instance_id: "{{ inst_name }}"
-  when: 
-    - file is defined 
+  when:
+    - file is defined
     - file != ''
     - inst_name is defined
     - inst_name != ''
@@ -101,7 +101,7 @@
           not (skip_export | bool)
         )
         or
-        ( 
+        (
           mgmt_action == 'None' and
           not (skip_export | bool)
         )
@@ -109,16 +109,16 @@
 
 - name: "Export all management root files from instances in inventory [-e mgmt_action=export_zip -e inst_name=<instance>]"
   include_tasks: include_export_management_root.yml
-  when: 
+  when:
     - item.1.mgmt_action == 'export_zip'
-    - item.0.inst_name == inst_name 
+    - item.0.inst_name == inst_name
     - (
         (
           mgmt_action == 'export_zip' and
           not (skip_exports | bool)
         )
         or
-        ( 
+        (
           mgmt_action == 'None' and
           not (skip_exports | bool)
         )
@@ -132,7 +132,7 @@
 
 - name: "Sync management root [local => server] [-e mgmt_action=sync_up -e inst_name=<instance> -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]"
   include_tasks: include_sync_management_root.yml
-  when: 
+  when:
     - item.1.mgmt_action == 'sync_up'
     - item.0.inst_name == inst_name
     - item.1.target == target
@@ -155,7 +155,7 @@
       instance_id: "{{ item.0.inst_name }}"
       id: "{{ item.1.target.split('/')[0] }}"
       name: "{{ item.1.target | regex_replace(item.1.target.split('/')[0]+'/','') }}"
-  when: 
+  when:
     - item.1.mgmt_action == 'create'
     - item.1.type == 'directory'
     - item.1.target is defined
@@ -180,7 +180,7 @@
       instance_id: "{{ item.0.inst_name }}"
       id: "{{ item.1.target }}"
       filename: "{{ item.1.file if((item.1.file | regex_search('^/') == '/') ) else (inventory_dir +'/'+ item.1.file) }}"
-  when: 
+  when:
     - item.1.mgmt_action == 'upload'
     - item.1.type == 'file'
     - item.1.target is defined
@@ -206,12 +206,12 @@
     isamapi:
       id: "{{ item.1.target }}"
       instance_id: "{{ item.0.inst_name }}"
-  when: 
+  when:
     - item.1.mgmt_action == 'delete'
     - item.1.target is defined
     - item.1.type is defined
-    - ( 
-        item.1.type == 'file' or 
+    - (
+        item.1.type == 'file' or
         item.1.type == 'directory'
       )
     - item.0.inst_name == inst_name
@@ -227,12 +227,12 @@
   notify: Commit Changes
 
 - include_tasks: include_delete_management_root_contents.yml
-  when: 
+  when:
     - item.1.mgmt_action == 'delete'
-    - item.1.targets is defined 
-    - item.1.type is defined 
+    - item.1.targets is defined
+    - item.1.type is defined
     - (
-        item.1.type == 'file' or 
+        item.1.type == 'file' or
         item.1.type == 'directory'
       )
     - item.0.inst_name == inst_name
@@ -248,16 +248,16 @@
 
 - name: "Import management root zip files [-e mgmt_action=import_zip -e inst_name=<instance> -e skip_imports=True/False]"
   include_tasks: include_import_management_root.yml
-  when: 
+  when:
     - item.1.mgmt_action == 'import_zip'
-    - item.0.inst_name == inst_name 
+    - item.0.inst_name == inst_name
     - (
         (
           mgmt_action == 'import_zip' and
           not (skip_imports | bool)
         )
         or
-        ( 
+        (
           mgmt_action == 'None' and
           not (skip_imports | bool)
         )
@@ -279,7 +279,7 @@
       instance_id: "{{ inst_name }}"
       delete_missing: "{{ delete_missing }}"
   when:
-    - file is defined 
+    - file is defined
     - file != ''
     - inst_name is defined
     - inst_name != ''
@@ -289,7 +289,7 @@
           not (skip_import | bool)
         )
         or
-        ( 
+        (
           mgmt_action == 'None' and
           not (skip_import | bool)
         )

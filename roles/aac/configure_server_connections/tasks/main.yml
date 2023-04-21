@@ -19,26 +19,26 @@
       EXAMPLES
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_server_connections.yml // configure all server connections without password idempotency
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_server_connections.yml -e ignore_password_for_idempotency=True // configure all server connections and ignore password for idempotency (all other parameters will be compared). This configuration can be global or on seperate server connection level (see inventory samples)
-        
+
         // only configure server connection for corresponding class
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_server_connections.yml -e class=ws
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_server_connections.yml -e class=ldap
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_server_connections.yml -e class=ci
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_server_connections.yml -e class=smtp
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_server_connections.yml -e class=jdbc
-        
+
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_server_connections.yml -e class=jdbc -e type=db2 -e connection_action=set -e ignore_password_for_idempotency=True // set only jdbc server connections without considering the password for idempotency
 
       INVENTORY
       ==========
       # configure server connections
       server_connections:
-      
-        # Sample Get CI Server Connection -> 
+
+        # Sample Get CI Server Connection ->
         - connection_action: get
           class: ci
           name: server_connection_ci_1
-          
+
         # Sample LDAP Sever Connection
         - connection_action: set
           name: server_connection_ldap_1
@@ -50,9 +50,9 @@
             hostPort: '389'
             ssl: false
           connectionManager:
-            maxPoolSize: 0   
+            maxPoolSize: 0
           description: Demo Connection to LDAP
-          
+
         # Same LDAP Server Connection with password idempotency (ignore_password_for_idempotency parameter or globally -e ignore_password_for_idempotency=True)
         - connection_action: set
           name: server_connection_ldap_1
@@ -65,9 +65,9 @@
             hostPort: '389'
             ssl: false
           connectionManager:
-            maxPoolSize: 0   
+            maxPoolSize: 0
           description: Demo Connection to LDAP
-        
+
         # Sample CI Sever Connection
         - connection_action: set
           name: server_connection_ci_1
@@ -78,7 +78,7 @@
             clientSecret: "test"
             ssl: false
           description: Demo Connection for CI
-          
+
         # Sample ISAM Runtime Sever Connection
         - connection_action: set
           name: server_connection_isamruntime_1
@@ -88,7 +88,7 @@
             bindPwd: "test"
             ssl: false
           description: Demo Connection for ISVA Runtime
-        
+
         # Sample JDBC DB2 Sever Connection
         - connection_action: set
           name: server_connection_db2_1
@@ -112,7 +112,7 @@
             maxConnectionsPerThread: 5
             numConnectionsPerThreadLocal: 10
           description: Demo Connection for DB2
-        
+
         # Sample SMTP Sever Connection
         - connection_action: set
           name: server_connection_smtp_1
@@ -126,7 +126,7 @@
           connectionManager:
             connectTimeout: 30
           description: Demo Connection for SMTP
-        
+
         # Sample WS Sever Connection
         - connection_action: set
           name: server_connection_ws_1
@@ -136,7 +136,7 @@
             user: "api_user"
             password: "passw0rd"
             ssl: false
-        
+
         # Sample JDBC Oracle Sever Connection
         - connection_action: set
           name: server_connection_oracle_1
@@ -164,7 +164,7 @@
         - connection_action: delete
           class: jdbc
           name: server_connection_oracle_1
-          
+
         # Sample JDBC Solid DB Sever Connection
         - connection_action: set
           name: server_connection_soliddb_1
@@ -211,7 +211,7 @@
             maxConnectionsPerThread: 5
             numConnectionsPerThreadLocal: 10
           description: Demo Connection for Solid DB
-          
+
         # Delete Server connections by class
         - connection_action: delete
           class: ldap
@@ -247,12 +247,12 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.aac.server_connections.{{ item.class }}.{{ item.connection_action }}"
-    isamapi: "{{ item 
-                 | ibm.isam.exclude('class') 
+    isamapi: "{{ item
+                 | ibm.isam.exclude('class')
                  | ibm.isam.exclude('connection_action')
-                 | combine({'ignore_password_for_idempotency': (ignore_password_for_idempotency | bool) } if ((ignore_password_for_idempotency | bool) and (item.connection_action == 'set' or item.connection_action == 'update')) else {}) 
+                 | combine({'ignore_password_for_idempotency': (ignore_password_for_idempotency | bool) } if ((ignore_password_for_idempotency | bool) and (item.connection_action == 'set' or item.connection_action == 'update')) else {})
               }}"
-  when: 
+  when:
     - item.class is defined
     - item.connection_action is defined
     - item.connection_action == connection_action

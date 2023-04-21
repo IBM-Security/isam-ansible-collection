@@ -19,7 +19,7 @@
       EXAMPLES
         ansible-playbook -i [...] playbooks/ansible_collections/base/configure_signer_certificates.yml // configure all signer certificates from inventory
         ansible-playbook -i [...] playbooks/ansible_collections/base/configure_signer_certificates.yml -e kdb_id=pdsrv // configure only signer certificates from inventory for pdsrv.kdb
-        
+
         // filter for specific action from a single inventory at runtime
         ansible-playbook -i [...] playbooks/ansible_collections/base/configure_signer_certificates.yml -e cert_action=get_all
         ansible-playbook -i [...] playbooks/ansible_collections/base/configure_signer_certificates.yml -e cert_action=get

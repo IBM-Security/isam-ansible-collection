@@ -6,7 +6,7 @@ Use this Role to Install the Product Support License with the ISAM Appliance.
 Requirements
 ------------
 
-It requires a valid license support file which can be obtained from IBM 
+It requires a valid license support file which can be obtained from IBM
 Security Systems License Key Center at https://ibmss.flexnetoperations.com
 
 Role Variables
