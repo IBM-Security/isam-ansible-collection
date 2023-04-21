@@ -1,5 +1,5 @@
 # default variables to set password for system accounts
 sysaccounts: []
 
-# limit execution at runtime to filter for user id's 
+# limit execution at runtime to filter for user id's
 id: "{{ item.id }}"

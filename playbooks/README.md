@@ -14,7 +14,7 @@ The following Python Packages are required (including their dependencies):
 
 ISAM Roles need to be installed and available.
 
-Appliances need to have an ip address defined for their LMI. This may mean that appliances have had their initial setup 
+Appliances need to have an ip address defined for their LMI. This may mean that appliances have had their initial setup
 done with license acceptance.
 
 If you have a Docker environment you may also download the isam-ansible docker image which takes care of all the pre-requisites, details please refer to  https://hub.docker.com/r/mludocker/isam-ansible/ .
@@ -26,8 +26,8 @@ Clone this repository to get started, like so:
 ## Features
 
 ### Test Inventory
-The playbook contains a static inventory file describing two appliances in a data center in Boulder. The appliance ip 
-addresses are used to identify them to avoid dependency on DNS or host entries. Passwords are stored in a "vault.yml" - 
+The playbook contains a static inventory file describing two appliances in a data center in Boulder. The appliance ip
+addresses are used to identify them to avoid dependency on DNS or host entries. Passwords are stored in a "vault.yml" -
 these would ideally be encrypted, but that step has been skipped to allow for demonstration purposes.
 
 ### Playbooks
@@ -53,7 +53,7 @@ The playbook excludes appliances that are part of `restricted` group.
 #### Compare
 This playbook will take appliances provided in the current inventory and run compares against a "master" appliance. This
 master can be in the same inventory or not. The playbook can be customized to limit the features compared. By default it
-will try to compare all features found on the master appliance. Look at the default/main.yml of `execute_compare` role for 
+will try to compare all features found on the master appliance. Look at the default/main.yml of `execute_compare` role for
 values that can be overridden. This will work out-of-box. Use like so:
 
 `ansible-playbook -i inventories/test compare.yml --limit 192.168.198.145 -e "master_hostname=192.168.198.153"`
@@ -78,7 +78,7 @@ configuration to base features may still need to be undone. Use like so:
 `ansible-playbook -i inventories/test revert.yml`
 
 #### Site
-This is the standard playbook to be used to build out an environment. Use this as a template to describe and build 
+This is the standard playbook to be used to build out an environment. Use this as a template to describe and build
 your environment.
 
 `ansible-playbook -i inventories/test site.yml`

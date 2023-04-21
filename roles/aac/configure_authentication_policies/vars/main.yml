@@ -12,7 +12,7 @@ molecule.policy:
       xmlns: urn:ibm:security:authentication:policy:1.0:schema
       PolicyId: urn:ibm:security:authentication:asf:test_auth_policy_1
     children:
-      - name: Step  
+      - name: Step
         attributes:
           type: Authenticator
         children:

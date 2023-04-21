@@ -19,7 +19,7 @@
       EXAMPLES
         ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_databases.yml // configure all certificate databases from inventory
         ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_databases.yml -e cert_dbase_id=pdsrv // configure only certificate databases from inventory for pdsrv.kdb
-        
+
         // filter for specific action from a single inventory at runtime
         ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_databases.yml -e db_action=get_all
         ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_databases.yml -e db_action=get

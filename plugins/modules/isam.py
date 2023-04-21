@@ -1,7 +1,9 @@
 #!/usr/bin/python
-# Apache License Version 2.0, January 2004 http://www.apache.org/licenses/
+# Copyright (c) 2022 IBM
+# GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
+# SPDX-License-Identifier: GPL-3.0-or-later
 from __future__ import (absolute_import, division, print_function)
-
+__metaclass__ = type
 
 DOCUMENTATION = '''
 ---
@@ -49,7 +51,6 @@ EXAMPLES = '''
   with_items: "{{ get_access_control_attributes }}"
   register: ret_obj
 '''
-__metaclass__ = type
 
 import logging.config
 import sys

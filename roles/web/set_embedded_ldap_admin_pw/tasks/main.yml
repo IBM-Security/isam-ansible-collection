@@ -6,7 +6,7 @@
     action: ibmsecurity.isam.web.embedded_ldap.admin.set_pw
     isamapi:
       password: "{{ policyserver_runtime.configuration.ldap_pwd }}"
-  when: 
+  when:
     - policyserver_runtime is defined
     - policyserver_runtime.configuration is defined
     - policyserver_runtime.configuration.ldap_pwd is defined

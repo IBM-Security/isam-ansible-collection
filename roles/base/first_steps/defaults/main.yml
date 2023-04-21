@@ -17,5 +17,5 @@ FIPS_cfg:
   tlsv10Enabled: false
   tlsv11Enabled: false
 
-# increase wait time for command execution after appliance restarts (e.g. when FIPS mode is activated) 
+# increase wait time for command execution after appliance restarts (e.g. when FIPS mode is activated)
 ansible_command_timeout: 120

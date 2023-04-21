@@ -7,24 +7,24 @@
     prompt: |
       NAME
         download_snapshots
-      
+
       DESCRIPTION
         Role to download snapshots
-      
+
       STEPS
         1) Download one or multiple snapshots based on provided parameters
-        
+
       EXAMPLES
         ansible-playbook -i [...] playbooks/ansible_collections/base/download_snapshots.yml -e comment="<snapshot_containing_comment_text>" -e file=files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip # can return multiple snapshot files in one zip file
-        ansible-playbook -i [...] playbooks/ansible_collections/base/download_snapshots.yml -e id="<id_of_snapshot_to_download>" -e file=files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip 
+        ansible-playbook -i [...] playbooks/ansible_collections/base/download_snapshots.yml -e id="<id_of_snapshot_to_download>" -e file=files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip
         ansible-playbook -i [...] playbooks/ansible_collections/base/download_snapshots.yml -e id='["<id_1>","<id_2>"]' -e file=files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip # returns snapshots in one zip file. Attention: use proper quote marks
-      
+
       INVENTORY
       ==========
       # no inventory needed
-      
+
       ==========
-      
+
       INTERACTION
         ENTER         = continue
         Ctrl+C + 'C'  = continue
@@ -32,13 +32,13 @@
   when: help is defined
 
 - name: Make sure local download directory exists
-  local_action: 
+  local_action:
     module: file
     path: "{{ (file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file)) | dirname }}"
     recurse: yes
     state: directory
-  when: 
-    - file is defined 
+  when:
+    - file is defined
     - file != ''
 
 - name: "Download appliance snapshots [-e comment=<snapshot_containing_comment_text> -e id=<id_of_comment_to_download> -e ids=[<id_1>,<id_2>] -e file=<path/to/download/file.snapshot> ]"

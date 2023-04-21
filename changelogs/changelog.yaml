@@ -37,3 +37,20 @@ releases:
     fragments:
     - 162-need_self_sub_plugin_in_init_.yml
     release_date: '2022-10-17'
+  1.0.28:
+    changes:
+      bugfixes:
+      - isam.py - add inventory_hostname
+      - roles/aac/configure_runtime_template_root/tasks/include_sync_runtime_template_root.yml
+        - incorrect merging of list
+      deprecated_features:
+      - include action - is deprecated in favor of ``include_tasks``, ``import_tasks``
+        and ``import_playbook`` (https://github.com/ansible/ansible/pull/71262).
+      release_summary: Bugfixes and an attempt at improving the quality (passing ansible-test
+        sanity)
+    fragments:
+    - 1.0.28-releasesummary.yaml
+    - 165_deprecation_warning.yaml
+    - 168_missing_var_entry.yaml
+    - 172-error_with_lists_in_role.yml
+    release_date: '2023-04-21'

@@ -1,4 +1,5 @@
-objects: {}
+objects:
+  role: {}
 plugins:
   become: {}
   cache: {}
@@ -8,7 +9,8 @@ plugins:
     isam:
       description: Use ibmsecurity python library to connect to IBM ISAM appliances
       name: isam
-      version_added: '2.9'
+      version_added: 1.0.0
+  filter: {}
   httpapi: {}
   inventory: {}
   lookup: {}
@@ -36,5 +38,6 @@ plugins:
   netconf: {}
   shell: {}
   strategy: {}
+  test: {}
   vars: {}
-version: 1.0.27
+version: 1.0.28

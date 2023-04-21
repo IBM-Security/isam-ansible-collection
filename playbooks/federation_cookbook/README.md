@@ -13,7 +13,7 @@ fed_sp_part1 and fed_sp_part2 will implement steps related to the Service Provid
 
 part1 playbooks implement Chapters 4 to 8 and part2 playbooks implement Chapters 9 to 21.
 
-If you would like to run all the chapters, then the sequence to run the playbooks is 
+If you would like to run all the chapters, then the sequence to run the playbooks is
 fed_idp_part1 -> fed_sp_part1 -> fed_sp_part1 -> fed_sp_part2
 
 Requirements

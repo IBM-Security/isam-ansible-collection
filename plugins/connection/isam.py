@@ -1,16 +1,18 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (c) 2022 IBM
+# GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
+# SPDX-License-Identifier: GPL-3.0-or-later
 from __future__ import (absolute_import, division, print_function)
-import ibmsecurity.isam.web.runtime.pdadmin
-from ibmsecurity.user.isamuser import ISAMUser
-
 __metaclass__ = type
 
 DOCUMENTATION = """
-    author: Ansible Security Automation Team <https://github.com/ansible-security>
-    name: ibm.isam
+    author: IBM Security Ansible Automation team (@tombosmansibm)
+    name: isam
     short_description: Use ibmsecurity python library to connect to IBM ISAM appliances
     description:
         - This connection plugin provides a connection to IBM ISAM devices via the C(ibmsecurity) python library.
-    version_added: "2.9"
+    version_added: '1.0.0'
     options:
         host:
           type: str
@@ -24,8 +26,7 @@ DOCUMENTATION = """
         port:
           type: int
           description:
-            - Specifies the port on the LMI Port that the IBM ISAM Appliance listens
-              on.
+            - Specifies the port on the LMI Port that the IBM ISAM Appliance listens on.
           ini:
             - section: defaults
               key: remote_port
@@ -110,6 +111,8 @@ from ansible.errors import AnsibleConnectionFailure
 from ansible.plugins.connection import NetworkConnectionBase
 
 try:
+    import ibmsecurity.isam.web.runtime.pdadmin
+    from ibmsecurity.user.isamuser import ISAMUser
     from ibmsecurity.appliance.isamappliance import ISAMAppliance
     from ibmsecurity.appliance.isamappliance_adminproxy import ISAMApplianceAdminProxy
     from ibmsecurity.appliance.ibmappliance import IBMError
@@ -130,7 +133,7 @@ class Connection(NetworkConnectionBase):
     def __init__(self, play_context, new_stdin, *args, **kwargs):
         super(Connection, self).__init__(play_context, new_stdin, *args, **kwargs)
 
-        #Fix for noneType error
+        # Fix for noneType error
         self._sub_plugin = {"name": "isam_server", "type": "external"}
 
         self.isam_server = None

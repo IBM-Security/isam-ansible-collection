@@ -7,23 +7,23 @@
     prompt: |
       NAME
         upload_snapshot
-      
+
       DESCRIPTION
         Role to upload single snapshot
-      
+
       STEPS
         1) Upload a single snapshot
-        
+
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/upload_snapshot.yml -e comment="<new_snapshot_comment>" -e file=files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }}.zip  
+        ansible-playbook -i [...] playbooks/ansible_collections/base/upload_snapshot.yml -e comment="<new_snapshot_comment>" -e file=files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }}.zip
         ansible-playbook -i [...] playbooks/ansible_collections/base/upload_snapshot.yml -e file=/ansible/inventory/ENV/files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip # file with absolute path
-      
+
       INVENTORY
       ==========
       # no inventory needed
-      
+
       ==========
-      
+
       INTERACTION
         ENTER         = continue
         Ctrl+C + 'C'  = continue

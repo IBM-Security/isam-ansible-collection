@@ -17,7 +17,7 @@
         2) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_dhcp.yml 
+        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_dhcp.yml
         ansible-playbook -i [...] playbooks/ansible_collections/base/configure_dhcp.yml -e label='1.1' # limit configuration at runtime for interface 1.1
 
       INVENTORY
@@ -35,7 +35,7 @@
             allowManagement: false
             providesDefaultRoute: false
             routeMetric: None
-       
+
       # overwrite default ipv4 with configuration ipv6
       configure_dhcp_action: interfaces_ipv6
       ==========
@@ -53,7 +53,7 @@
     action: "ibmsecurity.isam.base.network.{{ configure_dhcp_action }}.set_dhcp"
     isamapi: "{{ item.dhcp | combine({ 'label': item.label })}}"
   with_items: "{{ interfaces }}"
-  when: 
+  when:
     - item.dhcp is defined
     - item.label is defined
     - item.label == label

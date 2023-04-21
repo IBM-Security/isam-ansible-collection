@@ -5,25 +5,25 @@
     prompt: |
       NAME
         set_password_sysaccounts
-      
+
       DESCRIPTION
         Role to set password for system accounts
-      
+
       STEPS
         1) Set password of multiple system accounts
         2) Commit changes
-      
+
       EXAMPLES
         ansible-playbook -i [...] playbooks/ansible_collections/base/set_password_sysaccounts.yml
         ansible-playbook -i [...] playbooks/ansible_collections/base/set_password_sysaccounts.yml -e id=sample_user // limit password setting to one user id at runtime
-      
+
       INVENTORY
       ==========
       sysaccounts:
         - id: sample_user
           password: "{{ '{{ sample_user_pwd }}' }}"
       ==========
-      
+
       INTERACTION
         ENTER         = continue
         Ctrl+C + 'C'  = continue

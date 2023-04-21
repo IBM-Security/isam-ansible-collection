@@ -29,7 +29,7 @@
         - kdb_id: lmi_trust_store
           cert_id: server
           file: files/ssl/lmi.cert
-          
+
       # export single certificate at runtime -> no inventory needed
       ==========
 
@@ -40,7 +40,7 @@
   when: help is defined
 
 - name: Make sure all local download directory exists
-  local_action: 
+  local_action:
       module: file
       path: "{{ (item.file if((item.file | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.file)) | dirname }}"
       recurse: yes
@@ -51,7 +51,7 @@
   when: not (skip_exports | bool)
 
 - name: "Make sure single local download directory exists: {{ ((file if(file is defined and (file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) | dirname) if(file is defined) else 'Skipping') }}"
-  local_action: 
+  local_action:
       module: file
       path: "{{ (file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file)) | dirname }}"
       recurse: yes

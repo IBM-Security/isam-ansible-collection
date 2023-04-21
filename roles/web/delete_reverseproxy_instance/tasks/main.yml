@@ -47,7 +47,7 @@
     isamapi:
       id: "{{ item.instance_name }}"
       admin_id: "{{ admin_id }}"
-      admin_pwd: "{{ admin_pwd }}"      
+      admin_pwd: "{{ admin_pwd }}"
   with_items: "{{ appliance_instances.data }}"
   when:
     - item is defined
