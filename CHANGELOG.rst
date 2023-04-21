@@ -5,6 +5,25 @@ Ibm.Isam Release Notes
 .. contents:: Topics
 
 
+v1.0.28
+=======
+
+Release Summary
+---------------
+
+Bugfixes and an attempt at improving the quality (passing ansible-test sanity)
+
+Deprecated Features
+-------------------
+
+- include action - is deprecated in favor of ``include_tasks``, ``import_tasks`` and ``import_playbook`` (https://github.com/ansible/ansible/pull/71262).
+
+Bugfixes
+--------
+
+- isam.py - add inventory_hostname
+- roles/aac/configure_runtime_template_root/tasks/include_sync_runtime_template_root.yml - incorrect merging of list
+
 v1.0.27
 =======
 
