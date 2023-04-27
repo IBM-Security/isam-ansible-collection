@@ -1,0 +1,97 @@
+---
+#
+# This playbook checks if you can reach your ISAM system and that the ibmsecurity python collection is there
+# In an EE (using ansible-navigator), this playbook will try to install the ibmsecurity module (this requires a connection to the internet)
+# Note that you still may need to create a custom EE (for instance, if you cannot connect to the internet or your company's pip repository from the EE.)
+#  and that there may be other python modules that need to be included in the EE !
+#
+- name: preparation
+  hosts: all
+  connection: local
+  gather_facts: false
+  tags:
+    - connectivity
+    - first_steps
+    - ee
+  tasks:
+    - name: debug CONTAINER_NAME variable (-vv)
+      debug:
+        verbosity: 2
+        msg:
+          - "{{ lookup('ansible.builtin.env', 'CONTAINER_NAME')|default('No container') }}"
+      delegate_to: localhost
+
+    - name: Install specified python requirements (only in EE)
+      ansible.builtin.pip:
+        name: ibmsecurity
+      delegate_to: localhost
+      run_once: True
+      ignore_errors: True
+      when:
+        - lookup('ansible.builtin.env', 'CONTAINER_NAME')|default(None)
+
+- name: connectivity check - must have ansible_connection set to ibm.isam.isam
+  hosts: all
+  collections:
+    - ibm.isam
+    - ansible.legacy
+  gather_facts: true
+  tags:
+    - connectivity
+    - first_steps
+  tasks:
+    - name: show python version
+      run_once: True
+      debug:
+        var: ansible_python_version
+
+    - name: show ansible version
+      run_once: True
+      debug:
+        var: ansible_version
+
+    - name: show ansible_host (required)
+      debug:
+        var: ansible_host
+      failed_when:
+        - ansible_host is not defined
+
+    - name: show ansible_isam_port (required)
+      debug:
+        var: ansible_isam_port
+      failed_when:
+        - ansible_isam_port is not defined
+
+    - name: show ansible_connection - should be ibm.isam.isam
+      debug:
+        var: ansible_connection
+
+    - name: show ansible_isam_username (required)
+      debug:
+        var: ansible_isam_username
+
+    - name: is ansible_isam_password set ? (required)
+      debug:
+        msg: "{{ (ansible_isam_password|default(False))|ternary('ansible_isam_password is defined', 'ansible_isam_password is NOT defined') }}"
+      failed_when:
+        - ansible_isam_password is not defined
+
+    - name: check for open port 443
+      tags:
+        - lmi
+      wait_for:
+        host: "{{ ansible_host|default(inventory_hostname) }}"
+        port: 443
+        state: started
+        connect_timeout: 2
+        timeout: 5
+      delegate_to: localhost
+      ignore_errors: true
+
+    - name: any call to isam will do (so ansible_facts is available)
+      import_role:
+        name: ibm.isam.get_firmware
+
+    - name: Show ISAM version
+      debug:
+        msg: "Version: {{ ansible_facts.version | default('unknown or failed to retrieve facts') }}"
