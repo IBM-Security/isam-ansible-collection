@@ -13,7 +13,7 @@ Requirements:
   * Python v3.6 or higher (Python 2 may work)
 
 Instructions for installing ibm.isam:
-  * Optional: Create a python virtual environment and activate it before executing
+  * Recommended: Create a python virtual environment and activate it before executing
             subsequent steps.
   1) Install the following packages (use the latest available version):
         - Ansible
@@ -53,6 +53,7 @@ Instructions for installing ibm.isam:
             * ansible_isam_username
             * ansible_isam_password
             * ansible_isam_port
+            * ansible_host -> this can be set to match inventory_hostname (necessary for recent versions of Ansible)
         - The variables do not need to be in an inventory file.  You can define
           these variables any way you prefer. Including embedding them in playbooks
           and using vault variables
@@ -63,7 +64,7 @@ Instructions for installing ibm.isam:
             192.168.198.100
 
             [primary:vars]
-
+            ansible_host=192.168.198.100
             ansible_connection="ibm.isam.isam"
             ansible_isam_username="admin@local"
             ansible_isam_password="admin"
@@ -76,3 +77,4 @@ Instructions for installing ibm.isam:
           does not have roles unique to your environment.
         - Please submit a pull request on so we can merge your roles into
           the collection.
+
