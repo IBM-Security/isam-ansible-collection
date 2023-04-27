@@ -27,4 +27,4 @@ galaxy_info:
   - db2
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

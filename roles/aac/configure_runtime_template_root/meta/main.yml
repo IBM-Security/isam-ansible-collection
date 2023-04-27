@@ -16,4 +16,4 @@ galaxy_info:
   - runtime_template_root
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

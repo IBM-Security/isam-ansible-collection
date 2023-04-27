@@ -14,4 +14,4 @@ galaxy_info:
   - sts_chain_template
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

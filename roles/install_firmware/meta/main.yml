@@ -27,4 +27,4 @@ galaxy_info:
   - install
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

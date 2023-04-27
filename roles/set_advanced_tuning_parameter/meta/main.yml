@@ -25,4 +25,4 @@ galaxy_info:
   - advancedtuning
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

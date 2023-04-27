@@ -14,4 +14,4 @@ galaxy_info:
   - dynurl_files
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

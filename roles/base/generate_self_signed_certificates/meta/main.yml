@@ -14,4 +14,4 @@ galaxy_info:
   - generate
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

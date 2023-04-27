@@ -14,4 +14,4 @@ galaxy_info:
   - change_admin_password
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

@@ -29,4 +29,4 @@ galaxy_info:
   - policyserver
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers
