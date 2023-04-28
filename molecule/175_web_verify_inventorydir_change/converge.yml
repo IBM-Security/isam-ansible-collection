@@ -1,0 +1,58 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  vars:
+    homedir: "{{ playbook_dir }}" # this is this directory for molecule
+    molecule_file: "files/ltpa.key"
+    instances:
+      - inst_name: default
+        management_root:
+          - mgmt_action: upload
+            target: management/C/molecule_login.html
+            file: files/management_root/management/C/molecule_login.html
+          - mgmt_action: create
+            type: directory
+            target: errors/idontexist
+          - mgmt_action: delete
+            target: management/C/molecule.html
+            type: file
+          - mgmt_action: delete
+            target: errors/ru
+            type: directory
+          - mgmt_action: delete
+            type: directory
+            targets:
+              - errors/de
+              - errors/fr
+          - mgmt_action: sync_up
+            target: oauth
+            directory: files/oauth
+          - mgmt_action: import_zip
+            file: files/management_root/junction-root.zip
+          - mgmt_action: export_zip
+            file: "files/management_root/export_management_root_molecule.zip"
+  tasks:
+    - name: debug
+      debug:
+        var: playbook_dir
+
+    - name: "Test upload using ltpa role"
+      include_role:
+        name: "ibm.isam.web.upload_ltpa_files"
+      vars:
+        ltpa_files:
+          - file: "{{ molecule_file }}"
+
+    - name: "Test upload management root files"
+      include_role:
+        name: "ibm.isam.web.upload_management_root_files"
+      vars:
+        management_root_files:
+          - instance_id: default
+            file: "files/management_root/management/C/molecule.html"
+            target: "management/C/molecule.html"
+
+    - name: "Test configure management root files"
+      include_role:
+        name: "ibm.isam.web.configure_management_root"
