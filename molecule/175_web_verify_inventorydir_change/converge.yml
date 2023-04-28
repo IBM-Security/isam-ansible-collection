@@ -32,6 +32,24 @@
             file: files/management_root/junction-root.zip
           - mgmt_action: export_zip
             file: "files/management_root/export_management_root_molecule.zip"
+    http_transformation_rules:
+      - transformation_action: get_all
+      - transformation_action: add
+        id: request_template
+        template: request
+      - transformation_action: add
+        id: response_template
+        template: response
+      - transformation_action: export_file
+        id: test
+        filename: files/transformationrules/test_export.xslt
+      # import only uses file basename as new id: test2.xslt
+      - transformation_action: import_file
+        filename: files/transformationrules/test.xslt
+      - transformation_action: import_file
+        filename: files/transformationrules/test_lua.lua
+    certificate_mapping_files:
+      - file: files/certificate_mappings/cert_map.xsl
   tasks:
     - name: debug
       debug:
@@ -56,3 +74,11 @@
     - name: "Test configure management root files"
       include_role:
         name: "ibm.isam.web.configure_management_root"
+
+    - name: "Test configure http transformation rules"
+      include_role:
+        name: "ibm.isam.web.configure_http_transformation_rules"
+
+    - name: "Test import certificate mapping files"
+      include_role:
+        name: "ibm.isam.web.import_certificate_mapping_files"
