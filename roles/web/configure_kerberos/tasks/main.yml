@@ -43,7 +43,7 @@
         [...]
         keytab_files:
           - file: files/kerberos/default.krb5
-          - file: /ansible/inventory/simple/files/kerberos/another.krb5
+          - file: files/kerberos/another.krb5
         [...]
         realms:
           - realm: realm_1
@@ -86,7 +86,7 @@
     action: ibmsecurity.isam.web.kerberos_configuration.keyfiles.import_keytab
     isamapi:
       id: "{{ item.file | basename }}"
-      file: "{{ item.file if((item.file | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.file) }}"
+      file: "{{ homedir +'/'+ item.file }}"
   when:
     - item.file is defined
     - (item.file | basename) == keytab_file
