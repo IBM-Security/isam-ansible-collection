@@ -54,5 +54,36 @@
             kdb_id: pdsrv
             cert_id: runtime
 
-
-
+    - name: "Test configure signer certificates"
+      include_role:
+        name: "ibm.isam.base.configure_signer_certificates"
+      vars:
+        signer_certificates:
+          # import multiple signer certificates
+          - cert_action: import_cert
+            kdb_id: pdsrv
+            cert: files/ssl/Default_Trust_ISRG_Root_X1.cer
+            label: ISRG Root X1
+          # get all certificates from keystore
+          - cert_action: get_all
+            kdb_id: pdsrv
+          # get content of a specific certificate from keystore
+          - cert_action: get
+            kdb_id: pdsrv
+            cert_id: ISRG Root X1
+          # load public key into keystore
+          - cert_action: load
+            kdb_id: pdsrv
+            label: runtime
+            server: localhost
+            port: 443
+            check_remote: False # check_remote controls if ansible should check remote certificate by retrieving it or simply by checking for existence of the label in the kdb
+          # export a certificate to local directory
+          - cert_action: export_cert
+            kdb_id: pdsrv
+            cert_id: runtime
+            filename: files/ssl/runtime.cer # absolute or relative path supported
+          # delete a specific sidgner certificate from keystore
+          - cert_action: delete
+            kdb_id: pdsrv
+            cert_id: runtime
