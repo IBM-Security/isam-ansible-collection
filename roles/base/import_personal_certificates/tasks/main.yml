@@ -1,4 +1,3 @@
-# main task: personal_certificates
 ---
 - name: Import personal certificates into certificate store
   ibm.isam.isam:
@@ -8,6 +7,6 @@
     isamapi:
       kdb_id: "{{ item.kdb_id }}"
       label: "{{ item.label }}"
-      cert: "{{ inventory_dir }}/{{ item.cert }}"
+      cert: "{{ homedir }}/{{ item.cert }}"
   with_items: "{{ personal_certificates }}"
   notify: Commit Changes

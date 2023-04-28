@@ -1,14 +1,19 @@
+---
 - name: Upload multiple updates [updates]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.available_updates.upload
     isamapi:
-      file: "{{ item.file if((item.file | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.file) }}"
-  when: item is defined and item.file is defined and file == item.file and filename == ( item.file | basename )
-  with_items: "{{ updates }}"
+      file: "{{ homedir+'/'+item.file }}"
+  when:
+    - item is defined
+    - item.file is defined
+    - file == item.file
+    - filename == ( item.file | basename )
+  loop: "{{ updates }}"
   loop_control:
-    label: "(file=\"{{ item.file }}\")"
+    label: '(file="{{ item.file }}")'
 
 - name: Upload single update file [update_file]
   ibm.isam.isam:
@@ -16,5 +21,5 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.available_updates.upload
     isamapi:
-      file: "{{ update_file if((update_file | regex_search('^/')) == '/') else (inventory_dir +'/'+ update_file) }}"
+      file: "{{ homedir+'/'+update_file }}"
   when: update_file is defined

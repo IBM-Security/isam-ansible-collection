@@ -1,7 +1,5 @@
 ---
-
 # main task to configure certificate databases
-
 - name: Help INFO (-e help=true)
   pause:
     echo: yes
@@ -110,11 +108,12 @@
       | combine({ 'cert_id': item.cert_id } if (item.cert_id is defined) else {})
       | combine({ 'new_name': item.new_name } if (item.new_name is defined) else {})
       | combine({ 'description': item.description } if (item.description is defined) else {})
-      | combine({ 'filename': item.filename if((item.filename | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.filename) } if (item.filename is defined) else {})
-      | combine({ 'kdb': item.kdb if((item.kdb | regex_search('^/')) == '/' or item.zip is defined ) else (inventory_dir +'/'+ item.kdb) } if (item.kdb is defined) else {})
-      | combine({ 'stash': item.stash if((item.stash | regex_search('^/')) == '/' or item.zip is defined) else (inventory_dir +'/'+ item.stash) } if (item.stash is defined) else {})
-      | combine({ 'zip': item.zip if((item.zip | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.zip) } if (item.zip is defined) else {})
+      | combine({ 'filename': homedir+'/'+item.filename } if (item.filename is defined) else {})
+      | combine({ 'kdb': homedir+'/'+item.kdb } if (item.kdb is defined) else {})
+      | combine({ 'stash': homedir+'/'+ item.stash } if (item.stash is defined) else {})
+      | combine({ 'zip': homedir +'/'+ item.zip } if (item.zip is defined) else {})
     }}"
   loop: "{{ certificate_databases }}"
-  when: item.db_action == db_action
+  when:
+    - item.db_action == db_action
   notify: Commit Changes

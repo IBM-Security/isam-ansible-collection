@@ -1,7 +1,5 @@
 ---
-
 # main task to import signer certificates
-
 - name: Help INFO (-e help=true)
   pause:
     echo: yes
@@ -41,10 +39,11 @@
     action: ibmsecurity.isam.base.ssl_certificates.signer_certificate.import_cert
     isamapi:
       kdb_id: "{{ item.kdb_id }}"
-      cert: "{{ item.cert if((item.cert | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.cert) }}"
+      cert: "{{ homedir+'/'+item.cert }}"
       label: "{{ item.label }}"
   loop: "{{ import_signer_certificates }}"
   when:
+    - item.cert is defined
     - item.kdb_id == kdb_id
     - item.label == label
   notify: Commit Changes

@@ -1,7 +1,5 @@
 ---
-
 # main task to configure certificate requests
-
 - name: Help INFO (-e help=true)
   pause:
     echo: yes
@@ -75,7 +73,7 @@
       | combine({ 'dn': item.dn } if (item.dn is defined) else {})
       | combine({ 'size': item.size } if (item.size is defined) else {})
       | combine({ 'signature_algorithm': item.signature_algorithm } if (item.signature_algorithm is defined) else {})
-      | combine({ 'filename': item.filename if((item.filename | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.filename) } if (item.filename is defined) else {})
+      | combine({ 'filename': homedir+'/'+item.filename } if (item.filename is defined) else {})
     }}"
   loop: "{{ certificate_requests }}"
   when:
