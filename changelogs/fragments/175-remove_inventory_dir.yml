@@ -5,7 +5,9 @@ breaking_changes:
   - ibm.isam.web.upload_ltpa_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
   - ibm.isam.web.upload_management_root_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
   - ibm.isam.web.configure_management_root - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
-  -
+  - ibm.isam.web.configure_kerberos - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.web.import_certificate_mapping_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+
 minor_changes:
   - ibm.isam.base.first_steps - rewrite when statement, fix ansible.legacy.uri
   - handlers - rename all occurrences of `common_handlers` to `ibm.isam.common_handlers` (use fqcn everywhere)
@@ -15,7 +17,7 @@ deprecated_features:
 
 trivial:
   - Update documentation to include information on ansible-navigator and ansible automation platform
-  - 175_web_verify_inventorydir_change - molecule test for these
+  - 175_web_verify_inventorydir_change - molecule test for these roles (except configure_kerberos)
 
 bug_fixes:
   - "ibm.isam.web.configure_management_root - ERROR! 'notify' is not a valid attribute for a TaskInclude (main.yml include_tasks: include_delete_management_root_contents.yml"
