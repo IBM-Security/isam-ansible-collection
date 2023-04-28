@@ -213,4 +213,9 @@ Then reference that playbook in your Job template, and run it.
 
 ### 7) Next steps
 
+#### Vaults
+To use ansible vaults with ansible-navigator, there's a couple of options.
+Take a look at the documentation here : <https://ansible-navigator.readthedocs.io/faq/#how-can-i-use-a-vault-password-with-ansible-navigator>
+
+#### Miscellaneous
 The playbooks in the collection can be used as examples to create your own specific deployments of IBM Verify Access using Ansible !
