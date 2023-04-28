@@ -69,18 +69,19 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: Make sure local export directory exists
-  local_action:
-    module: file
-    path: "{{ (file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file)) | dirname }}"
-    recurse: yes
-    state: directory
-  when:
-    - file is defined
-    - file != ''
-    - mgmt_action == 'export_zip'
-    - (not (skip_exports | bool)) or
-      (not (skip_export | bool))
+# TODO: this is broken - does not work on Tower anyway
+#- name: Make sure local export directory exists
+#  local_action:
+#    module: file
+#    path: "{{ file | dirname }}"
+#    recurse: yes
+#    state: directory
+#  when:
+#    - file is defined
+#    - file != ''
+#    - mgmt_action == 'export_zip'
+#    - (not (skip_exports | bool)) or
+#      (not (skip_export | bool))
 
 - name: "Export single management root from one instance [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance> -e skip_export=True/False -e skip_exports=True/False]"
   ibm.isam.isam:
@@ -88,7 +89,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.all.export_zip
     isamapi:
-      filename: "{{ file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) }}"
+      filename: "{{ homedir +'/'+ file) }}"
       instance_id: "{{ inst_name }}"
   when:
     - file is defined
@@ -112,17 +113,8 @@
   when:
     - item.1.mgmt_action == 'export_zip'
     - item.0.inst_name == inst_name
-    - (
-        (
-          mgmt_action == 'export_zip' and
-          not (skip_exports | bool)
-        )
-        or
-        (
-          mgmt_action == 'None' and
-          not (skip_exports | bool)
-        )
-      )
+    - not (skip_exports | bool)
+    - mgmt_action == 'export_zip' or mgmt_action == 'None'
   with_subelements:
     - "{{ instances }}"
     - management_root
@@ -136,8 +128,7 @@
     - item.1.mgmt_action == 'sync_up'
     - item.0.inst_name == inst_name
     - item.1.target == target
-    - mgmt_action == 'sync_up' or
-      mgmt_action == 'None'
+    - mgmt_action == 'sync_up' or mgmt_action == 'None'
     - not (skip_sync | bool)
   with_subelements:
     - "{{ instances }}"
@@ -168,7 +159,7 @@
     - management_root
     - skip_missing: True
   loop_control:
-    label: "{\"mgmt_action\": \"{{ item.1.mgmt_action }}\", \"inst_name\": \"{{ item.0.inst_name }}\", \"target\": \"{{ item.1.target if (item is defined and item.1 is defined and item.1.target is defined) }}\", \"type\": \"{{ item.1.type if (item is defined and item.1 is defined and item.1.type is defined) }}\"}"
+    label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action|default('') }} {{ item.1.type|default('file') }} {{ item.1.target|default('') }}"
   notify: Commit Changes
 
 - name: "Upload management root files [-e mgmt_action=upload -e inst_name=<instance> -e target=<target> -e file=</path/to/file.txt>]"
@@ -179,9 +170,10 @@
     isamapi:
       instance_id: "{{ item.0.inst_name }}"
       id: "{{ item.1.target }}"
-      filename: "{{ item.1.file if((item.1.file | regex_search('^/') == '/') ) else (inventory_dir +'/'+ item.1.file) }}"
+      filename: "{{ homedir + '/' + item.1.file) }}"
   when:
     - item.1.mgmt_action == 'upload'
+    - item.1.type is defined
     - item.1.type == 'file'
     - item.1.target is defined
     - item.1.file is defined
@@ -195,7 +187,7 @@
     - management_root
     - skip_missing: True
   loop_control:
-    label: "{\"mgmt_action\": \"{{ item.1.mgmt_action }}\", \"inst_name\": \"{{ item.0.inst_name }}\", \"filename\": \"{{ item.1.file if (item is defined and item.1 is defined and item.1.file is defined) }}\", \"target\": \"{{ item.1.target if (item is defined and item.1 is defined and item.1.target is defined) }}\", \"type\": \"{{ item.1.type if (item is defined and item.1 is defined and item.1.type is defined) }}\"}"
+    label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action|default('') }} {{ item.1.type|default('file') }} {{ item.1.target|default('') }} {{ item.1.file|default('') }}"
   notify: Commit Changes
 
 - name: "Delete management root file/directory [-e mgmt_action=delete -e inst_name=<instance> -e target=<file/directory_to_delete>]"
@@ -223,10 +215,11 @@
     - management_root
     - skip_missing: True
   loop_control:
-    label: "{ 'mgmt_action': \"{{ item.1.mgmt_action }}\", 'type': \"{{ item.1.type | default('file')}}\", 'inst_name': \"{{ item.0.inst_name }}\", 'target': \"{{ item.1.target | default('none') }}\"}"
+    label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action|default('') }} {{ item.1.type|default('file') }} {{ item.1.target|default('') }}"
   notify: Commit Changes
 
-- include_tasks: include_delete_management_root_contents.yml
+- name: Include delete management root contents
+  include_tasks: include_delete_management_root_contents.yml
   when:
     - item.1.mgmt_action == 'delete'
     - item.1.targets is defined
@@ -243,8 +236,7 @@
     - management_root
     - skip_missing: True
   loop_control:
-    label: "{ 'mgmt_action': \"{{ item.1.mgmt_action }}\", 'type': \"{{ item.1.type | default('file') }}\", 'inst_name': \"{{ item.0.inst_name }}\", 'targets': \"{{ item.1.targets | default('none') }}\"}"
-  notify: Commit Changes
+    label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action|default('') }} {{ item.1.type|default('file') }} {{ item.1.targets|default('') }}"
 
 - name: "Import management root zip files [-e mgmt_action=import_zip -e inst_name=<instance> -e skip_imports=True/False]"
   include_tasks: include_import_management_root.yml
@@ -267,7 +259,7 @@
     - management_root
     - skip_missing: True
   loop_control:
-    label: "{{ item.1 }}"
+    label: "{{ item.1|default('') }}"
 
 - name: "Import a single runtime template zip file [-e mgmt_action=import_zip -e file=<file/to/import/management_root.zip> -e skip_imports=True/False -e skip_import=True/False]"
   ibm.isam.isam:
@@ -275,7 +267,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.all.import_zip
     isamapi:
-      filename: "{{ inventory_dir }}/{{ file }}"
+      filename: "{{ homedir }}/{{ file }}"
       instance_id: "{{ inst_name }}"
       delete_missing: "{{ delete_missing }}"
   when:
@@ -283,15 +275,5 @@
     - file != ''
     - inst_name is defined
     - inst_name != ''
-    - (
-        (
-          mgmt_action == 'import_zip' and
-          not (skip_import | bool)
-        )
-        or
-        (
-          mgmt_action == 'None' and
-          not (skip_import | bool)
-        )
-      )
+    - (not (skip_import | bool) and ( mgmt_action == 'import_zip' or mgmt_action == 'None'))
   notify: Commit Changes
