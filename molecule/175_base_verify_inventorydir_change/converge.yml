@@ -6,9 +6,47 @@
     homedir: "{{ playbook_dir }}" # this is this directory for molecule
 
   tasks:
-    - name: "Test configure personal certificates"
+    - name: Test configure certificate databases
       include_role:
-        name: "ibm.isam.base.configure_personal_certificates"
+        name: ibm.isam.base.configure_certificate_databases
+      vars:
+        certificate_databases:
+          # Get list of all certificate databases
+          - db_action: get_all
+          # Retrieving the SSL certificate database details
+          - db_action: get
+            cert_dbase_id: pdsrv
+          # Create a certificate database
+          - db_action: create
+            kdb_name: Registry_Keystore
+          # Export a certificate database
+          - db_action: export_db
+            cert_id: pdsrv
+            filename: files/out/pdsrv.zip
+          # Import certificate database from KDB and Stash file
+          - db_action: import_db
+            kdb: files/ssl/moleculestash/keystore.p12
+            stash: files/ssl/moleculestash/keystore.sth
+          # Import certificate database from ZIP file
+          # TODO: this fails
+          #- db_action: import_db
+          #  kdb: molecule.p12  # required relative path + filename inside the ZIP
+          #  stash: molecule.sth # required relative path + filename inside the ZIP
+          #  zip: files/ssl/molecule_keystore.zip # file containing KDB and Stash file above
+          # Rename a certificate database
+          - db_action: rename
+            cert_id: Registry_Keystore
+            new_name: New_Registry_Keystore
+          # Set description for a certificate database
+          - db_action: set
+            cert_id: New_Registry_Keystore
+            description: This is my new Keystore for all registries
+          # Delete a certificate database
+          - db_action: delete
+            cert_dbase_id: New_Registry_Keystore
+    - name: Test configure personal certificates
+      include_role:
+        name: ibm.isam.base.configure_personal_certificates
       vars:
         personal_certificates:
           # get all certificates from keystore
@@ -54,14 +92,43 @@
             kdb_id: pdsrv
             cert_id: runtime
 
-    - name: "Test export personal certificates"
+    - name: Test export personal certificates
       include_role:
-        name: "ibm.isam.base.export_personal_certificates"
+        name: ibm.isam.base.export_personal_certificates
       vars:
         export_personal_certificates:
          - kdb_id: pdsrv
            cert_id: CN=isva1005.local,O=IBM,L=Default City,C=BE
            file: files/ssl/isva1005.exported.cert
+
+    - name: Test extract certificates
+      include_role:
+        name: ibm.isam.base.extract_certificates
+      vars:
+        extract_certificates:
+          - kdb_id: pdsrv
+            cert_id: CN=isva1005.local,O=IBM,L=Default City,C=BE
+            filename: files/ssl/testcert.extract.cert
+            password: passw0rd
+
+    - name: Test certificate requests
+      include_role:
+        name: ibm.isam.base.configure_certificate_requests
+      vars:
+        certificate_requests:
+          # Creating a certificate request in a certificate database
+          - cert_action: add
+            kdb_id: pdsrv
+            label: CN=weblinux.Raleigh.ibm.com,O=ibm,OU=IBMHTTP Server,L=RTP,ST=NC,C=US
+            dn: 'CN=weblinux.Raleigh.ibm.com,O=ibm,OU=IBMHTTP Server,L=RTP,ST=NC,C=US'
+            size: '2048'
+            signature_algorithm: 'SHA512WithRSA'
+          # Exporting a certificate request from a certificate database.
+          # This certificate must be signed by CA and re-importet through personal certificate receive method (see configure_personal_certificates role/playbook)
+          - cert_action: export_cert
+            kdb_id: pdsrv
+            cert_id: CN=weblinux.Raleigh.ibm.com,O=ibm,OU=IBMHTTP Server,L=RTP,ST=NC,C=US
+            filename: files/out/certificate_request.csr # absolute or relative path supported
 
     - name: "Test configure signer certificates"
       include_role:
@@ -92,7 +159,16 @@
             kdb_id: pdsrv
             cert_id: runtime
             filename: files/ssl/runtime.cer # absolute or relative path supported
-          # delete a specific sidgner certificate from keystore
+          # delete a specific signer certificate from keystore
           - cert_action: delete
             kdb_id: pdsrv
             cert_id: runtime
+
+    - name: "Test import signer certificates"
+      include_role:
+        name: "ibm.isam.base.import_signer_certificates"
+      vars:
+        import_signer_certificates:
+          - kdb_id: lmi_trust_store
+            cert: files/ssl/Default_Trust_ISRG_Root_X1.cer
+            label: ISRG Root X1
