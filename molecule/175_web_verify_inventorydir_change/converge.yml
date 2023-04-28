@@ -97,3 +97,18 @@
           - file: files/out/failover.key
       include_role:
         name: "ibm.isam.web.export_sso_keys"
+
+    - name: "Test upload junction mapping tables"
+      vars:
+         jmt_files:
+           - file: files/jmt/jmt2.conf
+      include_role:
+        name: "ibm.isam.web.upload_jmt_files"
+
+    - name: "Test update junction mapping tables"
+      vars:
+         jmt_files:
+           - file: files/jmt/jmt.conf
+      include_role:
+        name: "ibm.isam.web.update_jmt_files"
+
