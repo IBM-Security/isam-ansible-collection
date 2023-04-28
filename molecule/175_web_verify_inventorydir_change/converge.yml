@@ -50,8 +50,7 @@
         filename: files/transformationrules/test_lua.lua
     certificate_mapping_files:
       - file: files/certificate_mappings/cert_map.xsl
-    sso_keys:
-      - file: files/sso_keys/failover.key
+
   tasks:
     - name: debug
       debug:
@@ -85,6 +84,16 @@
       include_role:
         name: "ibm.isam.web.import_certificate_mapping_files"
 
+    - name: "Test import sso keys"
+      vars:
+        sso_keys:
+          - file: files/sso_keys/failover.key
+      include_role:
+        name: "ibm.isam.web.import_sso_keys"
+
     - name: "Test export sso keys"
+      vars:
+        sso_keys:
+          - file: files/out/failover.key
       include_role:
         name: "ibm.isam.web.export_sso_keys"
