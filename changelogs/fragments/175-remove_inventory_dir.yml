@@ -14,7 +14,18 @@ breaking_changes:
   - ibm.isam.base.configure_personal_certificates - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
   - ibm.isam.base.export_personal_certificates - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
   - ibm.isam.base.configure_signer_certificates - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.base.extract_certificates - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.base.import_personal_certificates - introduce homedir variable instead of relying on inventory_dir (set homedir variable) (NO TEST)
+  - ibm.isam.base.import_signer_certificates - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
   - ibm.isam.base.download_snapshots - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.base.upload_snapshot - introduce homedir variable instead of relying on inventory_dir (set homedir variable) (NO TEST)
+  - ibm.isam.base.install_fixpacks - introduce homedir variable instead of relying on inventory_dir (set homedir variable) (NO TEST)
+  - ibm.isam.base.upload_updates - introduce homedir variable instead of relying on inventory_dir (set homedir variable) (NO TEST)
+  - ibm.isam.base.configure_certificate_databases - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.base.configure_certificate_requests - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+
+known_issues:
+  - ibm.isam.base.configure_certificate_databases - importing a db using a zip file fails
 
 minor_changes:
   - ibm.isam.base.first_steps - rewrite when statement, fix ansible.legacy.uri
@@ -26,7 +37,7 @@ deprecated_features:
 trivial:
   - Update documentation to include information on ansible-navigator and ansible automation platform
   - 175_web_verify_inventorydir_change - molecule test for these roles (except configure_kerberos)
-
+  - examples now use the playbook FQCN syntax (to start a playbook directly from the collection)
 bug_fixes:
   - "ibm.isam.web.configure_management_root - ERROR! 'notify' is not a valid attribute for a TaskInclude (main.yml include_tasks: include_delete_management_root_contents.yml"
 
