@@ -1,12 +1,13 @@
 ---
 breaking_changes:
-  - 'remove inventory_dir variable from roles- the new homedir variable now defaults to inventory_dir, but if you rely on absolute paths in your inventory, you will have to update them (or set `homedir: "/"`)'
+  - 'remove inventory_dir variable from roles- the new homedir variable now defaults to inventory_dir, but if you rely on absolute paths in your inventory, you will have to update them (or set `homedir: ""`)'
   - ibm.isam.base.upload_jmt_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
   - ibm.isam.web.upload_ltpa_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
   - ibm.isam.web.upload_management_root_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
   - ibm.isam.web.configure_management_root - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
   - ibm.isam.web.configure_kerberos - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
   - ibm.isam.web.import_certificate_mapping_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.web.export_sso_keys - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
 
 minor_changes:
   - ibm.isam.base.first_steps - rewrite when statement, fix ansible.legacy.uri
