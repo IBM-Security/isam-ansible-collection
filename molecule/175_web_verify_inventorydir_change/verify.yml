@@ -1,0 +1,23 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: no
+  vars:
+    molecule_name: test2
+  tasks:
+    - name: "Include get_access_policies"
+      include_role:
+        name: get_access_policies_by_name
+      vars:
+        get_access_policies:
+          - name: "{{ molecule_name }}"
+
+    - name: "Assert that attribute {{ molecule_name }} is added"
+      assert:
+        that:
+          - ret_obj.results.0.data.name is defined
+          - ret_obj.results.0.data.name == molecule_name
+        fail_msg: "Access Policy {{ molecule_name }} was not added"
+        success_msg: "Access Policy {{ molecule_name }} was added"
