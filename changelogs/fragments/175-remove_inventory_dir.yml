@@ -8,6 +8,9 @@ breaking_changes:
   - ibm.isam.web.configure_kerberos - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
   - ibm.isam.web.import_certificate_mapping_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
   - ibm.isam.web.export_sso_keys - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.web.import_sso_keys - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.web.update_jmt_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.web.upload_jmt_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
 
 minor_changes:
   - ibm.isam.base.first_steps - rewrite when statement, fix ansible.legacy.uri
