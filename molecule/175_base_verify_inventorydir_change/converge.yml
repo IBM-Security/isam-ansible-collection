@@ -1,0 +1,58 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  vars:
+    homedir: "{{ playbook_dir }}" # this is this directory for molecule
+
+  tasks:
+    - name: "Test configure personal certificates"
+      include_role:
+        name: "ibm.isam.base.configure_personal_certificates"
+      vars:
+        personal_certificates:
+          # get all certificates from keystore
+          - cert_action: get_all
+            kdb_id: pdsrv
+          # get content of a specific certificate from keystore
+          - cert_action: get
+            kdb_id: pdsrv
+            cert_id: WebSEAL-Test-Only
+          # Generating a self-signed personal certificate in a certificate database
+          - cert_action: generate
+            kdb_id: pdsrv
+            label: sample_label
+            dn: 'CN=weblinux.Raleigh.ibm.com,O=ibm,OU=IBMHTTP Server,L=RTP,ST=NC,C=US'
+            expire: '365'
+            default: 'no'
+            size: '2048'
+            signature_algorithm: 'SHA512WithRSA'
+          # Setting a personal certificate as default in a certificate database
+          - cert_action: set
+            kdb_id: pdsrv
+            cert_id: sample_label
+            default: 'yes' # optional default: 'no'
+          # Exporting a personal certificate from a certificate database
+          - cert_action: export_cert
+            kdb_id: pdsrv
+            cert_id: sample_label
+            filename: files/ssl/weblinux_sample_label.cert
+          # Importing a personal certificate into a certificate database
+          - cert_action: import_cert
+            kdb_id: pdsrv
+            label: CN=isva1005.local,O=IBM,L=Default City,C=BE
+            cert: files/ssl/testcert.p12
+            password: 'passw0rd'
+          # Importing a personal certificate into a certificate database
+          - cert_action: extract_cert
+            kdb_id: pdsrv
+            cert_id: CN=isva1005.local,O=IBM,L=Default City,C=BE
+            filename: files/ssl/testcert.cert
+            password: 'passw0rd'
+          # Deleting a personal certificate from a certificate database
+          - cert_action: delete
+            kdb_id: pdsrv
+            cert_id: runtime
+
+
+
