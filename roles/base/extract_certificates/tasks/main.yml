@@ -7,10 +7,13 @@
 #      password: "{{ item.password }}"
 ---
 - name: Create local directory structure
-  file: path="{{ inventory_dir }}/{{ item.filename | dirname }}" state=directory
+  file:
+    path: "{{ homedir }}/{{ item.filename | dirname }}"
+    state: directory
   with_items: "{{ extract_certificates }}"
   loop_control:
     label: "{'kdb_id': '{{ item.kdb_id }}', 'cert_id': '{{ item.cert_id }}', 'filename': '{{ inventory_dir }}/{{ item.filename }}'}"
+
 - name: Extract certificates
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
