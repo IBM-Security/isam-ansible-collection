@@ -1,5 +1,4 @@
 ---
-
 # main task for exporting certificates
 - name: Help INFO (-e help=true)
   pause:
@@ -18,9 +17,9 @@
         4) Export single certificate
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/export_personal_certificates.yml
-        ansible-playbook -i [...] playbooks/ansible_collections/base/export_personal_certificates.yml -e file=files/ssl/lmi.cert -e kdb_id=lmi_trust_store -e cert_id=server
-        ansible-playbook -i [...] playbooks/ansible_collections/base/export_personal_certificates.yml -e file=files/ssl/lmi.cert -e kdb_id=lmi_trust_store -e cert_id=server -e skip_exports=true # skip export of multiple certificates from inventory
+        ansible-playbook -i [...] ibm.isam.base.export_personal_certificates.yml
+        ansible-playbook -i [...] ibm.isam.base.export_personal_certificates.yml -e file=files/ssl/lmi.cert -e kdb_id=lmi_trust_store -e cert_id=server
+        ansible-playbook -i [...] ibm.isam.base.export_personal_certificates.yml -e file=files/ssl/lmi.cert -e kdb_id=lmi_trust_store -e cert_id=server -e skip_exports=true # skip export of multiple certificates from inventory
 
       INVENTORY
       ==========
@@ -40,22 +39,24 @@
   when: help is defined
 
 - name: Make sure all local download directory exists
-  local_action:
-      module: file
-      path: "{{ (item.file if((item.file | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.file)) | dirname }}"
+  file:
+      path: "{{ (homedir +'/'+ item.file) | dirname }}"
       recurse: yes
       state: directory
+  delegate_to: localhost
   loop: "{{ export_personal_certificates }}"
   loop_control:
-    label: "{{ (item.file if((item.file | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.file)) | dirname }}"
-  when: not (skip_exports | bool)
+    label: "{{ (homedir +'/'+ item.file|default('')) | dirname }}"
+  when:
+    - item.file is defined
+    - not (skip_exports | bool)
 
 - name: "Make sure single local download directory exists: {{ ((file if(file is defined and (file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) | dirname) if(file is defined) else 'Skipping') }}"
-  local_action:
-      module: file
-      path: "{{ (file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file)) | dirname }}"
+  file:
+      path: "{{ (homedir +'/'+ file) | dirname }}"
       recurse: yes
       state: directory
+  delegate_to: localhost
   when: file is defined
 
 - name: "Export certificates from inventory [-e file=<path/to/download/certificate> -e kdb_id=<kdb> -e cert_id=<cert>]"
@@ -66,11 +67,12 @@
     isamapi:
       kdb_id: "{{ item.kdb_id }}"
       cert_id: "{{ item.cert_id }}"
-      filename: "{{ item.file if((item.file  | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.file) }}"
+      filename: "{{ homedir +'/'+ item.file }}"
   loop: "{{ export_personal_certificates }}"
-  when: not (skip_exports | bool)
+  when:
+    - not (skip_exports | bool)
 
-- name: "Export single certificate to {{ ((file if(file is defined and (file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file)) if(file is defined) else 'Skipping') }} [-e file=<path/to/download/certificate> -e kdb_id=<kdb> -e cert_id=<cert>]"
+- name: "Export single certificate to {{ homedir +'/'+ file|default('') }} [-e file=<path/to/download/certificate> -e kdb_id=<kdb> -e cert_id=<cert>]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -78,7 +80,7 @@
     isamapi:
       kdb_id: "{{ kdb_id }}"
       cert_id: "{{ cert_id }}"
-      filename: "{{ file if((file  | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) }}"
+      filename: "{{ homedir + '/' + file }}"
   when:
     - file is defined
     - kdb_id is defined

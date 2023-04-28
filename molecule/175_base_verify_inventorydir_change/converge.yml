@@ -54,6 +54,15 @@
             kdb_id: pdsrv
             cert_id: runtime
 
+    - name: "Test export personal certificates"
+      include_role:
+        name: "ibm.isam.base.export_personal_certificates"
+      vars:
+        export_personal_certificates:
+         - kdb_id: pdsrv
+           cert_id: CN=isva1005.local,O=IBM,L=Default City,C=BE
+           file: files/ssl/isva1005.exported.cert
+
     - name: "Test configure signer certificates"
       include_role:
         name: "ibm.isam.base.configure_signer_certificates"

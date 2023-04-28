@@ -16,10 +16,10 @@
         5) commit and restart appliance
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/first_steps.yml
-        ansible-playbook -i [...] playbooks/ansible_collections/base/first_steps.yml -e first_steps_retries=20 // check 20 times with a delay of 5s until appliance is reachable
-        ansible-playbook -i [...] playbooks/ansible_collections/base/first_steps.yml -e first_steps_retries=10 -e first_steps_delay=10 // check 10 times wit a delay of 10s until appliance is reachable
-        ansible-playbook -i [...] playbooks/ansible_collections/base/first_steps.yml -e '{ "FIPS_cfg": {"fipsEnabled": true, "tlsv10Enabled": true, "tlsv11Enabled": true}}' // overwrite FIPS mode default at runtime [not recommended -> use inventory instead]
+        ansible-playbook -i [...] ibm.isam.base.first_steps.yml
+        ansible-playbook -i [...] ibm.isam.base.first_steps.yml -e first_steps_retries=20 // check 20 times with a delay of 5s until appliance is reachable
+        ansible-playbook -i [...] ibm.isam.base.first_steps.yml -e first_steps_retries=10 -e first_steps_delay=10 // check 10 times wit a delay of 10s until appliance is reachable
+        ansible-playbook -i [...] ibm.isam.base.first_steps.yml -e '{ "FIPS_cfg": {"fipsEnabled": true, "tlsv10Enabled": true, "tlsv11Enabled": true}}' // overwrite FIPS mode default at runtime [not recommended -> use inventory instead]
 
       INVENTORY
       ==========

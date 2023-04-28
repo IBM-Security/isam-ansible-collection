@@ -31,30 +31,12 @@
       tags: ["hostname"]
       vars:
         set_network_hostname_hostname: "{{ appliance_name }}"
+
 - name: configure dns (playbook)
   import_playbook: ibm.isam.base.configure_dns
 - name: configure time (playbook)
   import_playbook: ibm.isam.base.configure_time
   tags: ["ntp"]
-#    - role: ibm.isam.set_host_records
-#      tags: ["host", "records"]
-#      set_host_records:
-#      - addr: "192.168.198.144"
-#        hostnames:
-#        - {name: "isam1.ibm.com"}
-#        - {name: "isam1"}
-#      - addr: "192.168.198.145"
-#        hostnames:
-#        - {name: "isam2.ibm.com"}
-#        - {name: "isam2"}
-#      - addr: "192.168.198.153"
-#        hostnames:
-#        - {name: "isam3.ibm.com"}
-#        - {name: "isam3"}
-#   - role: ibm.isam.config_snmp_monitoring
-#     tags: ["snmp"]
-#     config_snmp_monitoring_community: "ibm"
-#     config_snmp_monitoring_port: 161
 - name: activate modules (playbook)
   import_playbook: ibm.isam.base.activate_modules
   tags: ["activate", "wga"]

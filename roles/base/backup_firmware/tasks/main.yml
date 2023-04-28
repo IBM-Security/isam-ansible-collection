@@ -16,7 +16,7 @@
         1) backup firmware
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/backup_firmware.yml
+        ansible-playbook -i [...] ibm.isam.base.backup_firmware.yml
 
       INVENTORY
       ==========

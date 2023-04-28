@@ -15,8 +15,8 @@
         1) Apply a single snapshot
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/apply_snapshot.yml -e comment=test
-        ansible-playbook -i [...] playbooks/ansible_collections/base/apply_snapshot.yml -e id=632eaf888871acc1b14267c5e12925e4b6c56e06eed875a9e63d2e26c5325b70
+        ansible-playbook -i [...] ibm.isam.base.apply_snapshot.yml -e comment=test
+        ansible-playbook -i [...] ibm.isam.base.apply_snapshot.yml -e id=632eaf888871acc1b14267c5e12925e4b6c56e06eed875a9e63d2e26c5325b70
 
       INVENTORY
       ==========

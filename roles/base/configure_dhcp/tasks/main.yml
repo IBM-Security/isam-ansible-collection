@@ -17,8 +17,8 @@
         2) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_dhcp.yml
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_dhcp.yml -e label='1.1' # limit configuration at runtime for interface 1.1
+        ansible-playbook -i [...] ibm.isam.base.configure_dhcp.yml
+        ansible-playbook -i [...] ibm.isam.base.configure_dhcp.yml -e label='1.1' # limit configuration at runtime for interface 1.1
 
       INVENTORY
       ==========

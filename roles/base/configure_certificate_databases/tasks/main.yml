@@ -17,16 +17,16 @@
         2) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_databases.yml // configure all certificate databases from inventory
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_databases.yml -e cert_dbase_id=pdsrv // configure only certificate databases from inventory for pdsrv.kdb
+        ansible-playbook -i [...] ibm.isam.base.configure_certificate_databases.yml // configure all certificate databases from inventory
+        ansible-playbook -i [...] ibm.isam.base.configure_certificate_databases.yml -e cert_dbase_id=pdsrv // configure only certificate databases from inventory for pdsrv.kdb
 
         // filter for specific action from a single inventory at runtime
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_databases.yml -e db_action=get_all
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_databases.yml -e db_action=get
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_databases.yml -e db_action=create
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_databases.yml -e db_action=delete
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_databases.yml -e db_action=export_db
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_databases.yml -e db_action=import_db
+        ansible-playbook -i [...] ibm.isam.base.configure_certificate_databases.yml -e db_action=get_all
+        ansible-playbook -i [...] ibm.isam.base.configure_certificate_databases.yml -e db_action=get
+        ansible-playbook -i [...] ibm.isam.base.configure_certificate_databases.yml -e db_action=create
+        ansible-playbook -i [...] ibm.isam.base.configure_certificate_databases.yml -e db_action=delete
+        ansible-playbook -i [...] ibm.isam.base.configure_certificate_databases.yml -e db_action=export_db
+        ansible-playbook -i [...] ibm.isam.base.configure_certificate_databases.yml -e db_action=import_db
 
       INVENTORY
       ==========

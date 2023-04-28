@@ -16,7 +16,7 @@
         3) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_static_routes.yml
+        ansible-playbook -i [...] ibm.isam.base.configure_static_routes.yml
 
       INVENTORY
       ==========
