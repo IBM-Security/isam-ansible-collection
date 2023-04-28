@@ -111,4 +111,3 @@
            - file: files/jmt/jmt.conf
       include_role:
         name: "ibm.isam.web.update_jmt_files"
-

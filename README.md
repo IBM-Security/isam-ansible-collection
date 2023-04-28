@@ -182,7 +182,7 @@ or you can pass the inventory on the command line (-i or --inventory, the same a
 The playbook in the collection `connectivity_check.yml` will try to install the ibmsecurity python package in the standard Execution Environment.
 So if you defined your default inventory upfront, you can just run this from with your playbook directory:
 
-    ansible-navigator run ibm.isam.connectivity_check.yml 
+    ansible-navigator run ibm.isam.connectivity_check.yml
 
 You can pass arguments, for instance a different inventory:
 
@@ -200,7 +200,7 @@ In Ansible Automation Platform, you need to define the custom execution environm
 
 In the Project, you can then reference that Execution Environment.
 
-It is not (yet) possible at the moment to define a Job template to run playbooks from collections directly, 
+It is not (yet) possible at the moment to define a Job template to run playbooks from collections directly,
 so you need to create a small playbook that references the collection's playbook:
 
 your_playbook.yml:
