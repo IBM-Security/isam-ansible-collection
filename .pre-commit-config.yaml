@@ -11,6 +11,10 @@ repos:
       - id: check-builtin-literals
       - id: requirements-txt-fixer
 #     - id: check-json
+#  - repo: https://github.com/ansible/ansible-lint
+#    rev: v6.15.0 # put latest release tag from https://github.com/ansible/ansible-lint/releases/
+#    hooks:
+#      - id: ansible-lint
   - repo: local
     hooks:
       - id: ansible-test
