@@ -1,7 +1,5 @@
 ---
-
 # main task to configure runtime template root content
-
 - name: Help INFO (-e help=true)
   pause:
     echo: yes
@@ -85,7 +83,7 @@
 - name: Make sure local export directory exists
   local_action:
     module: file
-    path: "{{ (file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file)) | dirname }}"
+    path: "{{ (homedir + '/' + file) | dirname }}"
     recurse: yes
     state: directory
   when:
@@ -95,43 +93,25 @@
     - (not (skip_exports | bool)) or
       (not (skip_export | bool))
 
-- name: "Export single runtime template root to {{ file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) }} [-e tmpl_action=export_zip -e file=</path/to/export/file.zip> -e skip_export=True/False -e skip_exports=True/False]"
+- name: "Export single runtime template root to {{ homedir + '/' + file) }} [-e tmpl_action=export_zip -e file=</path/to/export/file.zip> -e skip_export=True/False -e skip_exports=True/False]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.runtime_template.root.export_file
     isamapi:
-      filename: "{{ file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) }}"
+      filename: "{{ homedir + '/' + file }}"
   when:
     - file is defined
     - file != ''
-    - (
-        (
-          tmpl_action == 'export_zip' and
-          not (skip_export | bool)
-        )
-        or
-        (
-          tmpl_action == 'None' and
-          not (skip_export | bool)
-        )
-      )
+    - not (skip_export | bool)
+    - tmpl_action == 'export_zip' or tmpl_action == 'None'
 
 - name: "Export all runtime template root files [-e tmpl_action=export_zip -e skip_exports=True/False]"
   include_tasks: include_export_runtime_template_root.yml
   when:
     - item.tmpl_action == 'export_zip'
-    - (
-        (
-          tmpl_action == 'export_zip' and
-          not (skip_exports | bool)
-        )
-        or
-        (
-          tmpl_action == 'None' and
-          not (skip_exports | bool)
-        )
-      )
+    - not (skip_exports | bool)
+    - tmpl_action == 'export_zip' or tmpl_action == 'None'
   loop: "{{ runtime_template_root }}"
 
 - name: "Sync runtime template root [local => server] [-e tmpl_action=sync_up -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]"
@@ -212,17 +192,8 @@
   include_tasks: include_import_runtime_template_root.yml
   when:
     - item.tmpl_action == 'import_zip'
-    - (
-        (
-          tmpl_action == 'import_zip' and
-          not (skip_imports | bool)
-        )
-        or
-        (
-          tmpl_action == 'None' and
-          not (skip_imports | bool)
-        )
-      )
+    - not (skip_imports | bool)
+    - tmpl_action == 'import_zip' or tmpl_action == 'None'
   with_items: "{{ runtime_template_root }}"
   notify: Commit Changes
 
@@ -232,20 +203,11 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.runtime_template.root.import_file
     isamapi:
-      filename: "{{ file if((file  | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) }}"
+      filename: "{{ homedir + '/' + file }}"
       delete_missing: "{{ delete_missing | bool }}"
   when:
     - file is defined
     - file != ''
-    - (
-        (
-          tmpl_action == 'import_zip' and
-          not (skip_import | bool)
-        )
-        or
-        (
-          tmpl_action == 'None' and
-          not (skip_import | bool)
-        )
-      )
+    - not (skip_import | bool)
+    - tmpl_action == 'import_zip' or tmpl_action == 'None'
   notify: Commit Changes

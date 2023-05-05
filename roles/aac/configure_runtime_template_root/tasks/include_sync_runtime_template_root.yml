@@ -15,11 +15,11 @@
 - name: "[sync_up] Check local file"
   local_action:
     module: stat
-    path: "{{ inventory_dir }}/{{ item.directory }}/{{ element.path | regex_replace(item.target,'') }}"
+    path: "{{ homedir }}/{{ item.directory }}/{{ element.path | regex_replace(item.target,'') }}"
   loop: "{{ (ret_obj.data.contents if (ret_obj.data is defined and ret_obj.data.contents is defined) else (ret_obj.data if (ret_obj.data is defined) else ([]))) | ibm.isam.flatten_management_root }}"
   loop_control:
     loop_var: element
-    label: "{ path: \"{{ element.path }}\", type: \"{{ element.type }}\", name: \"{{ element.name }}\"}"
+    label: '{ path: "{{ element.path }}", type: "{{ element.type }}", name: "{{ element.name }}"}'
   register: locals
 
 - name: "[sync_up] Delete missing local files on the server"
@@ -45,13 +45,13 @@
   set_fact:
     directory_update_item: "{{ {'tmpl_action': 'create', 'type': create.state, 'path': ((item.target+'/'+create.path) | dirname) if (item.target != '') else (create.path | dirname), 'name': (create.path | basename) } }}"
   when: create.state == "directory"
-  with_filetree: "{{ inventory_dir }}/{{ item.directory }}"
+  with_filetree: "{{ homedir }}/{{ item.directory }}"
   loop_control:
     loop_var: create
     label: "{{ {'tmpl_action': 'create', 'type': create.state, 'path': ((item.target+'/'+create.path) | dirname) if (item.target != '') else (create.path | dirname), 'name': (create.path | basename) } }}"
   register: directory_update_result
 
-- name: "[sync_up] consolidate uptate items in a list of updates [directory]"
+- name: "[sync_up] consolidate update items in a list of updates [directory]"
   set_fact:
     directory_updates: "{{ directory_update_result.results | selectattr('ansible_facts','defined') | map(attribute='ansible_facts.directory_update_item') | list }}"
 
@@ -59,7 +59,7 @@
   set_fact:
     file_update_item: "{{ {'tmpl_action': 'upload', 'target': (item.target+'/'+ upload.path) if (item.target != '') else (upload.path), 'type': upload.state, 'file': upload.src } }}"
   when: upload.state == "file"
-  with_filetree: "{{ inventory_dir }}/{{ item.directory }}"
+  with_filetree: "{{ homedir }}/{{ item.directory }}"
   loop_control:
     loop_var: upload
     label: "{{ {'tmpl_action': 'upload', 'type': item.state, 'target': (item.target+'/'+ upload.path) if (item.target != '') else (upload.path), 'file': upload.src } }}"
