@@ -41,7 +41,7 @@ trivial:
 
 bugfixes:
   - "ibm.isam.web.configure_management_root - ERROR! 'notify' is not a valid attribute for a TaskInclude (main.yml include_tasks: include_delete_management_root_contents.yml"
-  - "ibm.isam.web.configure_reverseproxy_instances" - problem in label with `if` (https://github.com/IBM-Security/isam-ansible-collection/issues/176)
+  - "ibm.isam.web.configure_reverseproxy_instances - problem in label with `if` (https://github.com/IBM-Security/isam-ansible-collection/issues/176)"
 
 add object.playbook:
   - name: base_site
