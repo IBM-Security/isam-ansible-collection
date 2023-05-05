@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role-name: isam.aac.configure_mapping_rules
+  #role_name: isam.aac.configure_mapping_rules
   namespace: ibm  # if absent, author is used instead
   author: IBM
   description: Role to configure runtime template root content
