@@ -23,6 +23,8 @@ breaking_changes:
   - ibm.isam.base.upload_updates - introduce homedir variable instead of relying on inventory_dir (set homedir variable) (NO TEST)
   - ibm.isam.base.configure_certificate_databases - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
   - ibm.isam.base.configure_certificate_requests - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.aac.configure_mapping_rules - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.aac.configure_runtime_template_root - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
 
 known_issues:
   - ibm.isam.base.configure_certificate_databases - importing a db using a zip file fails
@@ -38,10 +40,13 @@ trivial:
   - Update documentation to include information on ansible-navigator and ansible automation platform
   - 175_web_verify_inventorydir_change - molecule test for these roles (except configure_kerberos)
   - examples now use the playbook FQCN syntax (to start a playbook directly from the collection)
+  - update molecule tests for some roles
 
 bugfixes:
   - "ibm.isam.web.configure_management_root - ERROR! 'notify' is not a valid attribute for a TaskInclude (main.yml include_tasks: include_delete_management_root_contents.yml"
   - "ibm.isam.web.configure_reverseproxy_instances - problem in label with `if` (https://github.com/IBM-Security/isam-ansible-collection/issues/176)"
+  - "ibm.isam.aac.configure_runtime_template_root - ERROR! 'notify' is not a valid attribute for a TaskInclude"
+
 
 add object.playbook:
   - name: base_site
