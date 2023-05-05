@@ -93,7 +93,7 @@
     - (not (skip_exports | bool)) or
       (not (skip_export | bool))
 
-- name: "Export single runtime template root to {{ homedir + '/' + file) }} [-e tmpl_action=export_zip -e file=</path/to/export/file.zip> -e skip_export=True/False -e skip_exports=True/False]"
+- name: "Export single runtime template root to {{ homedir + '/' + file }} [-e tmpl_action=export_zip -e file=</path/to/export/file.zip> -e skip_export=True/False -e skip_exports=True/False]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -153,7 +153,7 @@
     isamapi:
       path: "{{ (item.target | dirname ) }}"
       name: "{{ (item.target | basename ) }}"
-      filename: "{{ item.file }}"
+      filename: "{{ lookup('fileglob', item.file|default('/') ) }}"
   when:
     - item.tmpl_action == 'upload'
     - item.type == 'file'
@@ -195,7 +195,6 @@
     - not (skip_imports | bool)
     - tmpl_action == 'import_zip' or tmpl_action == 'None'
   with_items: "{{ runtime_template_root }}"
-  notify: Commit Changes
 
 - name: "Import a single runtime template zip file [-e tmpl_action=import_zip -e file=<file_to_import> -e skip_import=True/False -e skip_imports=True/False]"
   ibm.isam.isam:

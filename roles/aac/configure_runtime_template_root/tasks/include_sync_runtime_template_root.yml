@@ -1,5 +1,4 @@
 ---
-
 - name: "[sync_up] Get runtime template root files"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
@@ -58,11 +57,12 @@
 - name: "[sync_up] list of file update items"
   set_fact:
     file_update_item: "{{ {'tmpl_action': 'upload', 'target': (item.target+'/'+ upload.path) if (item.target != '') else (upload.path), 'type': upload.state, 'file': upload.src } }}"
-  when: upload.state == "file"
+  when:
+    - upload.state == "file"
   with_filetree: "{{ homedir }}/{{ item.directory }}"
   loop_control:
     loop_var: upload
-    label: "{{ {'tmpl_action': 'upload', 'type': item.state, 'target': (item.target+'/'+ upload.path) if (item.target != '') else (upload.path), 'file': upload.src } }}"
+    label: "{{ {'tmpl_action': 'upload', 'type': upload.state|default(''), 'target': (item.target+'/'+ upload.path) if (item.target != '') else (upload.path), 'file': upload.src|default('n/a') } }}"
   register: file_update_result
 
 - name: "[sync_up] consolidate update items in a list of updates [files]"
