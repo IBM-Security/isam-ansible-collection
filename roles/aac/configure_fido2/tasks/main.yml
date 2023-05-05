@@ -1,7 +1,5 @@
 ---
-
 # main task to configure fido2
-
 - name: Help INFO (-e help=true)
   pause:
     echo: yes
@@ -17,7 +15,7 @@
         2) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_fido2.yml
+        ansible-playbook -i [...] ibm.isam.configure_fido2
 
       INVENTORY
       ==========
@@ -112,7 +110,7 @@
     action: "ibmsecurity.isam.aac.fido2.{{ item.fido2_action }}"
     isamapi: "{{ item
       | ibm.isam.exclude('fido2_action')
-      | combine({ 'filename': (item.filename if((item.filename | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.filename)) } if (item.filename is defined) else {})
+      | combine({ 'filename': homedir + '/' + item.filename } if (item.filename is defined) else {})
     }}"
   when:
     - item.fido2_action is defined
@@ -126,7 +124,7 @@
       | combine({ 'rpId': item.rpId } if (item.rpId is defined) else {})
       | combine({ 'id': item.id } if (item.id is defined) else {})
       | combine({ 'credentialId': item.credentialId } if (item.credentialId is defined) else {})
-      | combine({ 'filename': (item.filename if((item.filename | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.filename)) } if (item.filename is defined) else {})
+      | combine({ 'filename': homedir +'/'+ item.filename } if (item.filename is defined) else {})
     }}"
   notify: Commit Changes
   register: ret_obj
