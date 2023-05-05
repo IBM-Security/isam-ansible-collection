@@ -6,6 +6,10 @@
   hosts: all
   gather_facts: no
   tasks:
+    - name: load variables
+      include_vars:
+        file: "../vars/vars.yml"
+
     - name: "Testing import - configure_mapping_rules"
       include_role:
         name: configure_mapping_rules

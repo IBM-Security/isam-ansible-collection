@@ -1,0 +1,9 @@
+---
+homedir: "{{ playbook_dir }}"
+molecule_name: addxff
+molecule_file: "../files/infomap_addxff.js"
+molecule_category: INFOMAP
+molecule_update_file: "../files/infomap_addxff.js"
+molecule_set_file: "../files/infomap_addxff.js"
+molecule_export_file: "../files/out_exportedfile.js"
+molecule_import_file: "../files/infomap_addxff.js"
