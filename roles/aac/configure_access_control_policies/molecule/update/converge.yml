@@ -5,6 +5,10 @@
   collections:
     - ibm.isam
   tasks:
+    - name: include variables
+      include_vars:
+        file: "../vars/main.yml"
+
     - name: "Add policy using configure_access_contorl_policies"
       include_role:
         name: "ibm.isam.aac.configure_access_control_policies"
