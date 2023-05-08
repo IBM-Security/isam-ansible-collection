@@ -27,6 +27,7 @@ breaking_changes:
   - ibm.isam.aac.configure_runtime_template_root - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
   - ibm.isam.aac.export_runtime_template_root - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
   - ibm.isam.aac.configure_fido2 - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.aac.configure_policy_information_points - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
 
 known_issues:
   - ibm.isam.base.configure_certificate_databases - importing a db using a zip file fails
