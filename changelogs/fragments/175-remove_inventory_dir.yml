@@ -26,9 +26,11 @@ breaking_changes:
   - ibm.isam.aac.configure_mapping_rules - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
   - ibm.isam.aac.configure_runtime_template_root - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
   - ibm.isam.aac.export_runtime_template_root - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.aac.configure_fido2 - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
 
 known_issues:
   - ibm.isam.base.configure_certificate_databases - importing a db using a zip file fails
+  - ibm.isam.aac.configure_fido2 - molecule import test fails because there is no metadata file to import
 
 minor_changes:
   - ibm.isam.base.first_steps - rewrite when statement, fix ansible.legacy.uri
