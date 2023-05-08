@@ -1,5 +1,5 @@
 ---
-# Fill in the value for inventory_dir in vars/main.yml.  The value is for the directory location
+# Fill in the value for homedir in vars/main.yml.  The value is for the directory location
 # that contains the mapping rule file
 
 - name: Converge - import mapping rules

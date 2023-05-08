@@ -22,7 +22,7 @@
 
       EXAMPLES
         # export a single runtime template root to a zip file
-        # export file parameter can be an absolute path or relative to inventory directory ( {{ inventory_dir }}/<file> )
+        # export file parameter will be combined with the homedir variable .  You can set the homedir variable to {{ playbook_dir }} , to access file adjacent to your playbooks.
         ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e tmpl_action=export_zip -e file="files/runtime_template_root_files/runtime_template_root_{{ ansible_date_time.date }}.zip"
 
         # skip all exports single/multiple ones
