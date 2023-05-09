@@ -21,7 +21,7 @@
 
       EXAMPLES
         # export a single management root to a zip file
-        # export file parameter can be an absolute path or relative to inventory directory ( {{ inventory_dir }}/<file> )
+        # export file parameter can be an absolute path or relative to homedir
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e mgmt_action=export_zip -e file="files/management_root_files/management_root_{{ ansible_date_time.date }}.zip" -e inst_name=default
 
         # only do a particular task from the list of tasks

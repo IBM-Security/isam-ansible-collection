@@ -11,7 +11,7 @@ galaxy_info:
   - isam
   - ibm
   - upload
-  - http_tranformation
+  - http_transformation
 
 dependencies:
   - ibm.isam.common_handlers

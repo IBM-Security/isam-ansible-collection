@@ -13,25 +13,25 @@
     	 } else {
     		 document.getElementById('devName').className = 'section disabled';
              document.getElementById('deviceText').disabled = true;
-	}	
+	}
 
      }
-    
+
      function windowStart() {
         displayError();
         enableDiv();
-    }          
-    
+    }
+
     function displayError(){
         var errorDiv = document.getElementById('errorDiv');
         var errorStr="@ERROR_MESSAGE@";
-    
+
         if (errorStr != "") {
             errorDiv.innerHTML = "<b>Error: <\/b>" + errorStr + "<br><br>";
             errorDiv.className = "visible errorMessage";
-        }      
+        }
     }
-    
+
     window.onload = windowStart;
 </script>
 </head>
@@ -47,13 +47,13 @@
 </div>
 <div class="pageContent">
 	<Form name="consentForm" action="@ACTION@" method="post">
-    <div class="hidden errorMessage" id="errorDiv"> </div> 
+    <div class="hidden errorMessage" id="errorDiv"> </div>
 						<h2 class="sectionTitle">Register</h2>
 <input id="enableRegistration" type="checkbox" name="register" value="consent" onClick="enableDiv()"> <label for="enableRegistration">Register this Device.</label>
 	<div id="devName" class="section disabled"  >
         <div class="overlay">&nbsp;</div>
         <label class="vertical" for="deviceText">Enter the name of the device you want to register:</label>
-		<input id="deviceText" type="text" name="Txtdevice" > 
+		<input id="deviceText" type="text" name="Txtdevice" >
     </div>
 	<div class="controls">
 		<input class="submitButton" type="submit" value="Submit">
@@ -63,4 +63,3 @@
 </div>
 </body>
 </html>
-
