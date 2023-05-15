@@ -1,0 +1,61 @@
+---
+breaking_changes:
+  - 'remove inventory_dir variable from roles- the new homedir variable now defaults to inventory_dir, but if you rely on absolute paths in your inventory, you will have to update them (or set `homedir: ""`)'
+  - ibm.isam.base.upload_jmt_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.web.upload_ltpa_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.web.upload_management_root_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.web.configure_management_root - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.web.configure_kerberos - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.web.import_certificate_mapping_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.web.export_sso_keys - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.web.import_sso_keys - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.web.update_jmt_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.web.upload_jmt_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.base.configure_personal_certificates - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.base.export_personal_certificates - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.base.configure_signer_certificates - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.base.extract_certificates - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.base.import_personal_certificates - introduce homedir variable instead of relying on inventory_dir (set homedir variable) (NO TEST)
+  - ibm.isam.base.import_signer_certificates - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.base.download_snapshots - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.base.upload_snapshot - introduce homedir variable instead of relying on inventory_dir (set homedir variable) (NO TEST)
+  - ibm.isam.base.install_fixpacks - introduce homedir variable instead of relying on inventory_dir (set homedir variable) (NO TEST)
+  - ibm.isam.base.upload_updates - introduce homedir variable instead of relying on inventory_dir (set homedir variable) (NO TEST)
+  - ibm.isam.base.configure_certificate_databases - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.base.configure_certificate_requests - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.aac.configure_mapping_rules - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.aac.configure_runtime_template_root - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.aac.export_runtime_template_root - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.aac.configure_fido2 - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.aac.configure_policy_information_points - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.web.upload_http_transformation_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+  - ibm.isam.web.upload_dynurl_files - introduce homedir variable instead of relying on inventory_dir (set homedir variable)
+
+known_issues:
+  - ibm.isam.base.configure_certificate_databases - importing a db using a zip file fails
+  - ibm.isam.aac.configure_fido2 - molecule import test fails because there is no metadata file to import
+
+minor_changes:
+  - ibm.isam.base.first_steps - rewrite when statement, fix ansible.legacy.uri
+  - handlers - rename all occurrences of `common_handlers` to `ibm.isam.common_handlers` (use fqcn everywhere)
+
+deprecated_features:
+  - ibm.isam.first_steps - use ibm.isam.base.first_steps instead.  Will be removed in a future version.
+
+trivial:
+  - Update documentation to include information on ansible-navigator and ansible automation platform
+  - 175_web_verify_inventorydir_change - molecule test for these roles (except configure_kerberos)
+  - examples now use the playbook FQCN syntax (to start a playbook directly from the collection)
+  - update molecule tests for some roles
+
+bugfixes:
+  - "ibm.isam.web.configure_management_root - ERROR! 'notify' is not a valid attribute for a TaskInclude (main.yml include_tasks: include_delete_management_root_contents.yml"
+  - "ibm.isam.web.configure_reverseproxy_instances - problem in label with `if` (https://github.com/IBM-Security/isam-ansible-collection/issues/176)"
+  - "ibm.isam.aac.configure_runtime_template_root - ERROR! 'notify' is not a valid attribute for a TaskInclude"
+
+
+add object.playbook:
+  - name: base_site
+    description: Base configuration for appliances
+  - name: connectivity_check
+    description: Check connectivity and variables.  You can run this using ansible-navigator or using ansible-playbook.

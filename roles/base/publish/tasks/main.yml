@@ -13,7 +13,7 @@
         1) Publish changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/publish.yml
+        ansible-playbook -i [...] ibm.isam.base.publish.yml
 
       INVENTORY
       ==========

@@ -16,4 +16,4 @@ galaxy_info:
   - ssl_certificate_databases
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

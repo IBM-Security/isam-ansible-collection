@@ -1,7 +1,5 @@
 ---
-
 # main task to configure certificate requests
-
 - name: Help INFO (-e help=true)
   pause:
     echo: yes
@@ -17,15 +15,15 @@
         2) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_requests.yml // configure all certificate requests from inventory
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_requests.yml -e kdb_id=pdsrv // configure only certificate requests from inventory for pdsrv.kdb
+        ansible-playbook -i [...] ibm.isam.base.configure_certificate_requests.yml // configure all certificate requests from inventory
+        ansible-playbook -i [...] ibm.isam.base.configure_certificate_requests.yml -e kdb_id=pdsrv // configure only certificate requests from inventory for pdsrv.kdb
 
         // filter for specific action from a single inventory at runtime
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_requests.yml -e cert_action=get_all
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_requests.yml -e cert_action=get
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_requests.yml -e cert_action=add
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_requests.yml -e cert_action=export_cert
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_certificate_requests.yml -e cert_action=delete
+        ansible-playbook -i [...] ibm.isam.base.configure_certificate_requests.yml -e cert_action=get_all
+        ansible-playbook -i [...] ibm.isam.base.configure_certificate_requests.yml -e cert_action=get
+        ansible-playbook -i [...] ibm.isam.base.configure_certificate_requests.yml -e cert_action=add
+        ansible-playbook -i [...] ibm.isam.base.configure_certificate_requests.yml -e cert_action=export_cert
+        ansible-playbook -i [...] ibm.isam.base.configure_certificate_requests.yml -e cert_action=delete
 
       INVENTORY
       ==========
@@ -75,7 +73,7 @@
       | combine({ 'dn': item.dn } if (item.dn is defined) else {})
       | combine({ 'size': item.size } if (item.size is defined) else {})
       | combine({ 'signature_algorithm': item.signature_algorithm } if (item.signature_algorithm is defined) else {})
-      | combine({ 'filename': item.filename if((item.filename | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.filename) } if (item.filename is defined) else {})
+      | combine({ 'filename': homedir+'/'+item.filename } if (item.filename is defined) else {})
     }}"
   loop: "{{ certificate_requests }}"
   when:

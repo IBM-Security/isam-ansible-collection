@@ -1,7 +1,5 @@
 ---
-
 # main task to configure personal certificates
-
 - name: Help INFO (-e help=true)
   pause:
     echo: yes
@@ -17,18 +15,18 @@
         2) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_personal_certificates.yml // configure all personal certificates from inventory
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_personal_certificates.yml -e kdb_id=pdsrv // configure only personal certificates from inventory for pdsrv.kdb
+        ansible-playbook -i [...] ibm.isam.base.configure_personal_certificates.yml // configure all personal certificates from inventory
+        ansible-playbook -i [...] ibm.isam.base.configure_personal_certificates.yml -e kdb_id=pdsrv // configure only personal certificates from inventory for pdsrv.kdb
 
         // filter for specific action from a single inventory at runtime
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_personal_certificates.yml -e cert_action=get_all
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_personal_certificates.yml -e cert_action=get
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_personal_certificates.yml -e cert_action=generate
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_personal_certificates.yml -e cert_action=set
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_personal_certificates.yml -e cert_action=import_cert
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_personal_certificates.yml -e cert_action=export_cert
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_personal_certificates.yml -e cert_action=receive
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_personal_certificates.yml -e cert_action=delete
+        ansible-playbook -i [...] ibm.isam.base.configure_personal_certificates.yml -e cert_action=get_all
+        ansible-playbook -i [...] ibm.isam.base.configure_personal_certificates.yml -e cert_action=get
+        ansible-playbook -i [...] ibm.isam.base.configure_personal_certificates.yml -e cert_action=generate
+        ansible-playbook -i [...] ibm.isam.base.configure_personal_certificates.yml -e cert_action=set
+        ansible-playbook -i [...] ibm.isam.base.configure_personal_certificates.yml -e cert_action=import_cert
+        ansible-playbook -i [...] ibm.isam.base.configure_personal_certificates.yml -e cert_action=export_cert
+        ansible-playbook -i [...] ibm.isam.base.configure_personal_certificates.yml -e cert_action=receive
+        ansible-playbook -i [...] ibm.isam.base.configure_personal_certificates.yml -e cert_action=delete
 
       INVENTORY
       ==========
@@ -97,7 +95,7 @@
     isamapi: "{{
       { 'kdb_id': item.kdb_id }
       | combine({ 'label': item.label } if (item.label is defined) else {})
-      | combine({ 'cert': item.cert if((item.cert | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.cert) } if (item.cert is defined) else {})
+      | combine({ 'cert': homedir +'/'+ item.cert } if (item.cert is defined) else {})
       | combine({ 'cert_id': item.cert_id } if (item.cert_id is defined) else {})
       | combine({ 'dn': item.dn } if (item.dn is defined) else {})
       | combine({ 'expire': item.expire } if (item.expire is defined) else {})
@@ -105,7 +103,7 @@
       | combine({ 'default': item.default } if (item.default is defined) else {})
       | combine({ 'password': item.password } if (item.password is defined) else {})
       | combine({ 'signature_algorithm': item.signature_algorithm } if (item.signature_algorithm is defined) else {})
-      | combine({ 'filename': item.filename if((item.filename | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.filename) } if (item.filename is defined) else {})
+      | combine({ 'filename': homedir +'/'+ item.filename } if (item.filename is defined) else {})
     }}"
   loop: "{{ personal_certificates }}"
   when:

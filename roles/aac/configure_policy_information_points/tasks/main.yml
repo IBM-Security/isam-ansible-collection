@@ -34,8 +34,8 @@
               key: javascript.code
               readOnly: false
               sensitive: false
-              value: "{{ '{{' }} lookup('file', 'policy_information_points/ExamplePIP.js') {{ '{{' }}" # will lookup in inventory_dir + /files
-        # import file to existing pip
+              value: "{{ '{{' }} lookup('file', 'policy_information_points/ExamplePIP.js') {{ '{{' }}"
+        # import file to EXISTING pip
         # Attention: Files should be formatted with Unix (LF) EOF for idempotency
         # import_file converts Windows (CR+LF) EOF to Unix (LF) before uploading
         - class: javascript
@@ -62,7 +62,7 @@
       | combine({ 'description': item.description } if (item.description is defined) else {})
       | combine({ 'type': item.type } if (item.type is defined) else {})
       | combine({ 'new_name': item.new_name } if (item.new_name is defined) else {})
-      | combine({ 'filepath': (item.filepath if((item.filepath | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.filepath)) } if (item.filepath is defined) else {})
+      | combine({ 'filepath': lookup('fileglob', homedir + '/' + item.filepath) } if (item.filepath is defined) else {})
     }}"
   loop: "{{ policy_information_points }}"
   loop_control:

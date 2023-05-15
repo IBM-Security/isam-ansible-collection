@@ -7,4 +7,5 @@
 *.bak
 *.tar.gz
 tests/output/.tmp/*
+tests/output/bot/*
 changelogs/.plugin-cache.yaml

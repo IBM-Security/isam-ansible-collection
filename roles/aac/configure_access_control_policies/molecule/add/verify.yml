@@ -6,7 +6,7 @@
   gather_facts: no
   tasks:
     - include_vars:
-        file: "../../vars/main.yml"
+        file: "../vars/main.yml"
         name: inventory
 
     - name: "Include get_access_control_policies"

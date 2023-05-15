@@ -16,12 +16,12 @@
         4) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml -e configure_interfaces_delete_missing=True //delete IP address from interfaces which are missing in the inventory
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml -e label=1.1 //only configure interface with corresponding label
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml -e address=192.168.42.110 //only configure interface with corresponding label
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml -e address=192.168.42.113 -e configure_interfaces_delete_missing=True //only delete one IP from interface if not contained in inventory
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml -e label=1.1 -e configure_interfaces_delete_missing=True //clean up only one interface
+        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml
+        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e configure_interfaces_delete_missing=True //delete IP address from interfaces which are missing in the inventory
+        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e label=1.1 //only configure interface with corresponding label
+        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e address=192.168.42.110 //only configure interface with corresponding label
+        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e address=192.168.42.113 -e configure_interfaces_delete_missing=True //only delete one IP from interface if not contained in inventory
+        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e label=1.1 -e configure_interfaces_delete_missing=True //clean up only one interface
 
       INVENTORY
       ==========

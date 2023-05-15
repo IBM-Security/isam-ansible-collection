@@ -1,7 +1,5 @@
 ---
-
 # main task to configure signer certificates
-
 - name: Help INFO (-e help=true)
   pause:
     echo: yes
@@ -17,16 +15,16 @@
         2) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_signer_certificates.yml // configure all signer certificates from inventory
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_signer_certificates.yml -e kdb_id=pdsrv // configure only signer certificates from inventory for pdsrv.kdb
+        ansible-playbook -i [...] ibm.isam.base.configure_signer_certificates.yml // configure all signer certificates from inventory
+        ansible-playbook -i [...] ibm.isam.base.configure_signer_certificates.yml -e kdb_id=pdsrv // configure only signer certificates from inventory for pdsrv.kdb
 
         // filter for specific action from a single inventory at runtime
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_signer_certificates.yml -e cert_action=get_all
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_signer_certificates.yml -e cert_action=get
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_signer_certificates.yml -e cert_action=import_cert
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_signer_certificates.yml -e cert_action=export_cert
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_signer_certificates.yml -e cert_action=load
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_signer_certificates.yml -e cert_action=delete
+        ansible-playbook -i [...] ibm.isam.base.configure_signer_certificates.yml -e cert_action=get_all
+        ansible-playbook -i [...] ibm.isam.base.configure_signer_certificates.yml -e cert_action=get
+        ansible-playbook -i [...] ibm.isam.base.configure_signer_certificates.yml -e cert_action=import_cert
+        ansible-playbook -i [...] ibm.isam.base.configure_signer_certificates.yml -e cert_action=export_cert
+        ansible-playbook -i [...] ibm.isam.base.configure_signer_certificates.yml -e cert_action=load
+        ansible-playbook -i [...] ibm.isam.base.configure_signer_certificates.yml -e cert_action=delete
 
       INVENTORY
       ==========
@@ -76,14 +74,16 @@
     isamapi: "{{
       { 'kdb_id': item.kdb_id }
       | combine({ 'label': item.label } if (item.label is defined) else {})
-      | combine({ 'cert': item.cert if((item.cert | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.cert) } if (item.cert is defined) else {})
+      | combine({ 'cert': homedir +'/'+ item.cert } if (item.cert is defined) else {})
       | combine({ 'cert_id': item.cert_id } if (item.cert_id is defined) else {})
       | combine({ 'server': item.server } if (item.server is defined) else {})
       | combine({ 'port': item.port } if (item.port is defined) else {})
       | combine({ 'check_remote': item.check_remote } if (item.check_remote is defined) else {})
-      | combine({ 'filename': item.filename if((item.filename | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.filename) } if (item.filename is defined) else {})
+      | combine({ 'filename': homedir +'/'+ item.filename } if (item.filename is defined) else {})
     }}"
   loop: "{{ signer_certificates }}"
+  loop_control:
+    label: "kdb: {{ item.kdb_id }} - {{ item.label|default('') }} - {{ item.cert_id|default('') }} - {{ item.cert|default('') }}"
   when:
     - item.cert_action == cert_action
     - item.kdb_id == kdb_id

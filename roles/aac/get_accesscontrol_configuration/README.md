@@ -12,6 +12,7 @@ It exports
 
 ## Example playbook
 
+````yaml
 - hosts: "all"
   connection: local
   gather_facts: yes
@@ -21,7 +22,8 @@ It exports
       import_role:
         name: aac/get_accesscontrol_configuration
       vars:
-        access_control_output_dir: "{{ inventory_dir }}"
+        access_control_output_dir: /tmp
+````
 
 ### Prerequisites
 

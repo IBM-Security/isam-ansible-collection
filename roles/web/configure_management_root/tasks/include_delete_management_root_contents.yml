@@ -10,5 +10,5 @@
   with_items: "{{ item.1.targets }}"
   loop_control:
     loop_var: local_target
-    label: "{ 'mgmt_action': \"{{ item.1.mgmt_action }}\", 'type': \"{{ item.1.type }}\", 'inst_name': \"{{ item.0.inst_name }}\", 'target': \"{{ local_target }}\" }"
+    label: "{ 'mgmt_action': '{{ item.1.mgmt_action }}', 'type': '{{ item.1.type }}', 'inst_name': '{{ item.0.inst_name }}', 'target':  '{{ local_target }}' }"
   notify: Commit Changes

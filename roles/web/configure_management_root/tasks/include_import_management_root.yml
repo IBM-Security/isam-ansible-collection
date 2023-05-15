@@ -1,11 +1,11 @@
 ---
-- name: "Import managment root zip files inst_name: [{{ item.0.inst_name }}] from file: [{{ item.1.file }}]"
+- name: "Import management root zip files inst_name: [{{ item.0.inst_name }}] from file: [{{ item.1.file }}]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.all.import_zip
     isamapi:
-      filename: "{{ item.1.file if((item.1.file  | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.1.file) }}"
+      filename: "{{ homedir + '/' + item.1.file }}"
       instance_id: "{{ item.0.inst_name }}"
       delete_missing: "{{ item.1.delete_missing | default(delete_missing) }}"
   when: item.1.file is defined

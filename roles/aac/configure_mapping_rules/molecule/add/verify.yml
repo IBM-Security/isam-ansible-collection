@@ -4,21 +4,21 @@
   hosts: all
   gather_facts: no
   tasks:
-    - include_vars:
-        file: "../../vars/main.yml"
-        name: inventory
+    - name: load variables
+      include_vars:
+        file: "../vars/vars.yml"
 
-    - name: "Get the mapping rule {{ inventory.molecule_name }}"
+    - name: "Get the mapping rule {{ molecule_name }}"
       include_role:
         name: "get_mapping_rule_by_name"
       vars:
         get_mapping_rule_names:
-          - name: "{{ inventory.molecule_name }}"
+          - name: "{{ molecule_name }}"
 
-    - name: "Assert that the mapping rule {{ inventory.molecule_name }} was added"
+    - name: "Assert that the mapping rule {{ molecule_name }} was added"
       assert:
         that:
           - ret_obj.results.0.data.name is defined
-          - ret_obj.results.0.data.name == inventory.molecule_name
-        fail_msg: "Mapping Rule {{ inventory.molecule_name }} was not added"
-        success_msg: "Mapping Rule {{ inventory.molecule_name }} was added"
+          - ret_obj.results.0.data.name == molecule_name
+        fail_msg: "Mapping Rule {{ molecule_name }} was not added"
+        success_msg: "Mapping Rule {{ molecule_name }} was added"

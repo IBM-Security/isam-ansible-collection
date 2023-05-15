@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Consent Page</title>
+<link rel="stylesheet" type="text/css" href="/sps/static/styles.css"></link>
+
+<script type="text/javascript">
+     function enableDiv(){
+    	 if(document.forms[0].register.checked){
+    		 document.getElementById('devName').className = 'section';
+             document.getElementById('deviceText').disabled = false;
+    	 } else {
+    		 document.getElementById('devName').className = 'section disabled';
+             document.getElementById('deviceText').disabled = true;
+	}
+
+     }
+
+     function windowStart() {
+        displayError();
+        enableDiv();
+    }
+
+    function displayError(){
+        var errorDiv = document.getElementById('errorDiv');
+        var errorStr="@ERROR_MESSAGE@";
+
+        if (errorStr != "") {
+            errorDiv.innerHTML = "<b>Error: <\/b>" + errorStr + "<br><br>";
+            errorDiv.className = "visible errorMessage";
+        }
+    }
+
+    window.onload = windowStart;
+</script>
+</head>
+
+<body>
+<div class="header">
+	<div class="brandingLogo"><img src="/sps/static/ibm-logo.png"></img></div>
+</div>
+<div class="content">
+<div class="contentHeader">
+	<h1 class="pageTitle">Consent Page</h1>
+	<div class="instructions">Give your consent here.</div>
+</div>
+<div class="pageContent">
+	<Form name="consentForm" action="@ACTION@" method="post">
+    <div class="hidden errorMessage" id="errorDiv"> </div>
+						<h2 class="sectionTitle">Register</h2>
+<input id="enableRegistration" type="checkbox" name="register" value="consent" onClick="enableDiv()"> <label for="enableRegistration">Register this Device.</label>
+	<div id="devName" class="section disabled"  >
+        <div class="overlay">&nbsp;</div>
+        <label class="vertical" for="deviceText">Enter the name of the device you want to register:</label>
+		<input id="deviceText" type="text" name="Txtdevice" >
+    </div>
+	<div class="controls">
+		<input class="submitButton" type="submit" value="Submit">
+	</div>
+	</Form>
+</div>
+</div>
+</body>
+</html>

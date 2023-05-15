@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: IBM
   description: Role to upload ltpa files
@@ -14,4 +15,4 @@ galaxy_info:
   - ltpa_files
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

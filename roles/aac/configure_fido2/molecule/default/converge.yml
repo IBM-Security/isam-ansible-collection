@@ -1,0 +1,14 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  collections:
+    - ibm.isam
+  tasks:
+    - name: load variables
+      include_vars:
+        file: "../vars/main.yml"
+
+    - name: "Testing configure fido2"
+      include_role:
+        name: ibm.isam.aac.configure_fido2

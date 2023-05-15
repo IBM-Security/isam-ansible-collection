@@ -17,9 +17,9 @@
 
       EXAMPLES
         # delete all snapshots containing a comment string
-        ansible-playbook -i [...] playbooks/ansible_collections/base/delete_snapshots.yml -e comment=<snapshots_comment>
+        ansible-playbook -i [...] ibm.isam.base.delete_snapshots.yml -e comment=<snapshots_comment>
         # delete all snapshots based on their ids
-        ansible-playbook -i [...] playbooks/ansible_collections/base/delete_snapshots.yml -e ids="['e337bd7f069aac69fcf6cc1a884de1aa6128e51d2dc4d1756ccdf487fc97da6f','1929dac774aaf2026f1295262cd74cbbff0237c5cf678edd8e89707a31f3d22a']"
+        ansible-playbook -i [...] ibm.isam.base.delete_snapshots.yml -e ids="['e337bd7f069aac69fcf6cc1a884de1aa6128e51d2dc4d1756ccdf487fc97da6f','1929dac774aaf2026f1295262cd74cbbff0237c5cf678edd8e89707a31f3d22a']"
 
       INVENTORY
       ==========

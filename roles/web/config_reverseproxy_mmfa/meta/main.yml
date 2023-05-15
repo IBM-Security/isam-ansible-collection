@@ -14,4 +14,4 @@ galaxy_info:
   - reverse_proxy_mmfa
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

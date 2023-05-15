@@ -15,9 +15,9 @@
         1) Download one or multiple snapshots based on provided parameters
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/download_snapshots.yml -e comment="<snapshot_containing_comment_text>" -e file=files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip # can return multiple snapshot files in one zip file
-        ansible-playbook -i [...] playbooks/ansible_collections/base/download_snapshots.yml -e id="<id_of_snapshot_to_download>" -e file=files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip
-        ansible-playbook -i [...] playbooks/ansible_collections/base/download_snapshots.yml -e id='["<id_1>","<id_2>"]' -e file=files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip # returns snapshots in one zip file. Attention: use proper quote marks
+        ansible-playbook -i [...] ibm.isam.base.download_snapshots.yml -e comment="<snapshot_containing_comment_text>" -e file=files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip # can return multiple snapshot files in one zip file
+        ansible-playbook -i [...] ibm.isam.base.download_snapshots.yml -e id="<id_of_snapshot_to_download>" -e file=files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip
+        ansible-playbook -i [...] ibm.isam.base.download_snapshots.yml -e id='["<id_1>","<id_2>"]' -e file=files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip # returns snapshots in one zip file. Attention: use proper quote marks
 
       INVENTORY
       ==========
@@ -32,11 +32,11 @@
   when: help is defined
 
 - name: Make sure local download directory exists
-  local_action:
-    module: file
-    path: "{{ (file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file)) | dirname }}"
+  file:
+    path: "{{ (homedir +'/'+ file) | dirname }}"
     recurse: yes
     state: directory
+  delegate_to: localhost
   when:
     - file is defined
     - file != ''
@@ -50,7 +50,7 @@
       comment: "{{ comment | default(omit) }}"
       id: "{{ id | default(omit) }}"
       ids: "{{ ids | default(omit) }}"
-      filename: "{{ file if((file  | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) }}"
+      filename: "{{ homedir +'/'+ file }}"
   when:
     - file is defined
     - comment is defined or

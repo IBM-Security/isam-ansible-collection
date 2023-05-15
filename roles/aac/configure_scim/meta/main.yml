@@ -16,4 +16,4 @@ galaxy_info:
   - scim
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

@@ -1,13 +1,14 @@
 ---
 
 galaxy_info:
+  namespace: ibm
   author: IBM
-  description: Role to confiure policy information points
+  description: Role to configure policy information points
   company: IBM
 
   license: Apache
 
-  min_ansible_version: 2.2
+  min_ansible_version: 2.9
 
   galaxy_tags:
     - isam

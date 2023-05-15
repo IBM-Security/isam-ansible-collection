@@ -1,0 +1,10 @@
+scenario:
+  name: 175_web_verify_inventorydir_change
+  test_sequence:
+    - lint
+    - prepare
+    - converge
+    # - idempotence
+    # - verify
+    - cleanup
+    - destroy

@@ -15,8 +15,8 @@
         2) Flush handler for commit changes and Restart LMI
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/activate_modules.yml
-        ansible-playbook -i [...] playbooks/ansible_collections/base/activate_modules.yml -e id=wga //although inventory contains other keys only activate wga (base) module
+        ansible-playbook -i [...] ibm.isam.base.activate_modules.yml
+        ansible-playbook -i [...] ibm.isam.base.activate_modules.yml -e id=wga //although inventory contains other keys only activate wga (base) module
 
       INVENTORY
       ==========

@@ -1,0 +1,44 @@
+---
+#
+# Base setup
+#
+- name: Apply Common Configuration to all Appliances
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: first steps
+      include_role:
+        name: ibm.isam.base.first_steps
+      tags: ["first", "steps"]
+      vars:
+        first_steps_fips: False
+        first_steps_admin_pwd: False
+    - name: network
+      import_role:
+        name: ibm.isam.base.configure_interfaces
+      tags: ["ipv4"]
+      when:
+        - interfaces is defined
+    - name: network dhcp
+      import_role:
+        name: ibm.isam.base.configure_dhcp
+      tags: ["dhcp"]
+      when:
+        - interfaces is defined
+    - name: set hostname
+      import_role:
+        name: ibm.isam.set_network_hostname
+      tags: ["hostname"]
+      vars:
+        set_network_hostname_hostname: "{{ appliance_name }}"
+
+- name: configure dns (playbook)
+  import_playbook: ibm.isam.base.configure_dns
+- name: configure time (playbook)
+  import_playbook: ibm.isam.base.configure_time
+  tags: ["ntp"]
+- name: activate modules (playbook)
+  import_playbook: ibm.isam.base.activate_modules
+  tags: ["activate", "wga"]
+  when:
+    - activation_keys is defined

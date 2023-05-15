@@ -1,5 +1,4 @@
 ---
-
 # main task to upload a snapshot
 - name: Help INFO (-e help=true)
   pause:
@@ -15,8 +14,8 @@
         1) Upload a single snapshot
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/upload_snapshot.yml -e comment="<new_snapshot_comment>" -e file=files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }}.zip
-        ansible-playbook -i [...] playbooks/ansible_collections/base/upload_snapshot.yml -e file=/ansible/inventory/ENV/files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip # file with absolute path
+        ansible-playbook -i [...] ibm.isam.base.upload_snapshot.yml -e comment="<new_snapshot_comment>" -e file=files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }}.zip
+        ansible-playbook -i [...] ibm.isam.base.upload_snapshot.yml -e file=/ansible/inventory/ENV/files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip # file with absolute path
 
       INVENTORY
       ==========
@@ -36,6 +35,6 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.snapshots.upload
     isamapi:
-      file: "{{ file if((file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) }}"
+      file: "{{ homedir +'/'+ file }}"
       comment: "{{ comment | default(omit) }}"
   when: file is defined

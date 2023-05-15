@@ -18,4 +18,4 @@ galaxy_info:
   - aac
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

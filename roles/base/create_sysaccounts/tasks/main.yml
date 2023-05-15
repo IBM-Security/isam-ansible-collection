@@ -17,8 +17,8 @@
         2) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/create_sysaccounts.yml
-        ansible-playbook -i [...] playbooks/ansible_collections/base/create_sysaccounts.yml -e id=sample_user # filter at runtime for sample-user
+        ansible-playbook -i [...] ibm.isam.base.create_sysaccounts.yml
+        ansible-playbook -i [...] ibm.isam.base.create_sysaccounts.yml -e id=sample_user # filter at runtime for sample-user
 
       INVENTORY
       ==========

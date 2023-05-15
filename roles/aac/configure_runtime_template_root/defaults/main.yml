@@ -27,6 +27,13 @@ skip_sync: false
 path: "{{ item.path | default(omit) }}"
 dir_name: "{{ item.name | default(omit) }}"
 id: "{{ item.id | default(omit)}}"
-file: "{{ item.file if (item is defined and item.file is defined) }}"
+file: "{{ item.file|default('') }}"
 target: "{{ item.target | default(omit) }}"
 directory: "{{ item.directory | default(omit) }}"
+
+# Default homedir.  This defaults to inventory_dir for backwards compatibility reasons,
+#  even though the inventory_dir should NEVER be used to store files (should basically only contain files that can be parsed by an inventory_plugin)
+#  a better default value for homedir, would be playbook_dir:
+#       homedir: "{{ playbook_dir }}"
+#  so this is a varialb
+homedir: "{{ inventory_dir }}"

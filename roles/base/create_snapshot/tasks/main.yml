@@ -17,7 +17,7 @@
       EXAMPLES
         # create a snapshot
         # Remark: idempotency based on snapshot comment
-        ansible-playbook -i [...] playbooks/ansible_collections/base/create_snapshot.yml -e comment=<snapshots_comment>
+        ansible-playbook -i [...] ibm.isam.base.create_snapshot.yml -e comment=<snapshots_comment>
 
       INVENTORY
       ==========
