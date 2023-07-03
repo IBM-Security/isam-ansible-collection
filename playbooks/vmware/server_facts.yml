@@ -3,18 +3,18 @@
   hosts: all
   vars_prompt:
     - name: vcenter_username
-      prompt: "Enter AD Userid to login to Vcenter"
-      private: no
+      prompt: Enter AD Userid to login to Vcenter
+      private: false
     - name: vcenter_password
-      prompt: "Enter AD Password to login to Vcenter"
-      private: yes
+      prompt: Enter AD Password to login to Vcenter
+      private: true
   tasks:
     - name: Gather all registered virtual machines
       community.vmware.vmware_vm_info:
         hostname: "{{ vcenter_hostname }}"
         username: "{{vcenter_username}}"
         password: "{{vcenter_password}}"
-        validate_certs: False
+        validate_certs: false
       delegate_to: localhost
       register: vmfacts
 
