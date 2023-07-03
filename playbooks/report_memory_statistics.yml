@@ -9,12 +9,10 @@
     statistics_duration: "6d"
     gen_report_template: "report_memory_statistics.csv"
     gen_report_dir: "~"
+    gen_report_output_format: csv
   tasks:
     - import_role:
         name: ibm.isam.get_memory_statistics
-
-    - debug:
-        var: memory_stats_obj
 
     - import_role:
         name: ibm.isam.gen_report
