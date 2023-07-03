@@ -1,6 +1,6 @@
 ---
 default_stages:
-    - commit
+  - commit
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
@@ -10,11 +10,11 @@ repos:
       - id: check-yaml
       - id: check-builtin-literals
       - id: requirements-txt-fixer
-#     - id: check-json
-#  - repo: https://github.com/ansible/ansible-lint
-#    rev: v6.15.0 # put latest release tag from https://github.com/ansible/ansible-lint/releases/
-#    hooks:
-#      - id: ansible-lint
+  #     - id: check-json
+  #  - repo: https://github.com/ansible/ansible-lint
+  #    rev: v6.15.0 # put latest release tag from https://github.com/ansible/ansible-lint/releases/
+  #    hooks:
+  #      - id: ansible-lint
   - repo: local
     hooks:
       - id: ansible-test
