@@ -1,0 +1,8 @@
+host, dateMinMaxDiff, free, used, total, y, x, set, id
+{% for h in play_hosts %}
+{%   if hostvars[h] is defined and hostvars[h]['memory_stats_obj'] is defined and hostvars[h]['memory_stats_obj']['data'] is defined and hostvars[h]['memory_stats_obj']['data']['items']|length > 0 %}
+{%     for c in hostvars[h]['memory_stats_obj']['data']['items'] %}
+{{h}}, {{hostvars[h]['memory_stats_obj']['data']['dateMinMaxDiff']}}, {{hostvars[h]['memory_stats_obj']['data']['free']}}, {{hostvars[h]['memory_stats_obj']['data']['used']}}, {{hostvars[h]['memory_stats_obj']['data']['total']}}, {{c.y}}, {{c.x}}, {{c.set}}, {{c.id}}
+{%     endfor %}
+{%   endif %}
+{% endfor %}

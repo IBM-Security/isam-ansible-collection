@@ -1,6 +1,6 @@
 galaxy_info:
   author: IBM
-  description: Role that generates reports uing the template module
+  description: Role that generates reports using the template module
   company: IBM
 
   license: Apache
