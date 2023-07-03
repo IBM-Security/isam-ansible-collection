@@ -1,0 +1,25 @@
+galaxy_info:
+  author: IBM
+  description: >
+    Role to delete application log files.
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: 2.9
+  platforms:
+    - name: GenericLinux
+      versions:
+        - all
+    - name: EL
+      versions:
+        - all
+
+  galaxy_tags:
+  - isam
+  - ibm
+  - delete
+  - applicationlogfiles
+
+dependencies:
+  - role: ibm.isam.common_handlers

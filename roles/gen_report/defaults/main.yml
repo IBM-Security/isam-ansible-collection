@@ -1,6 +1,9 @@
 # Provide the directory where to create the report, defaults to current directory
-gen_report_dir: .
+gen_report_dir: "."
 
 # Provide the template to use for generating report
 # See files sub-directory for a list of valid templates
 gen_report_template: report_fix_levels.template
+
+# output format (html or csv)
+gen_report_output_format: html

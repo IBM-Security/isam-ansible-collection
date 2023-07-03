@@ -1,7 +1,6 @@
 ---
-# Execute CLI
+# Execute CLI (unsure what this does)
 - name: Execute CLI Command
   hosts: all
   roles:
-    - role: ibm.isam.execute_cli
-      when: username == "admin" or username == "admin@local"
+    - role: ibm.isam.base.execute_cli
