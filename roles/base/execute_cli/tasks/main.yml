@@ -1,0 +1,33 @@
+---
+- name: Run cli command
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    action: ibmsecurity.isam.base.cli.execute
+    isamapi:
+      command: "{{ cli_command }}"
+      input: "{{ cli_input|default(omit) }}"
+  when:
+    - cli_command is defined
+  ignore_errors: true
+  register: ret_obj
+
+- name: Output of cli command execution
+  debug:
+    msg: "{{ ret_obj['data']['output'].split('\n') }}"
+  when:
+    - cli_command is defined
+    - ret_obj is defined
+    - ret_obj.data is defined
+    - ret_obj.data.output is defined
+    - ret_obj is succeeded
+    - not ansible_check_mode
+
+- name: Error Messages if cli command failed
+  debug:
+    msg: "{{ ret_obj['log'].split('\n') }}"
+  when:
+    - cli_command is defined
+    - ret_obj is defined
+    - ret_obj.log is defined
+    - ret_obj is failed
+    - not ansible_check_mode

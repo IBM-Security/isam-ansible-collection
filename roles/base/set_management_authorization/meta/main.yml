@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: IBM
+  description: Enable / Disable management authorization
+  company: IBM
+  license: Apache
+
+  min_ansible_version: 2.9
+
+  galaxy_tags:
+  - isam
+  - ibm
+  - management
+
+dependencies:
+  - ibm.isam.common_handlers
