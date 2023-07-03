@@ -10,7 +10,7 @@
       private: yes
   tasks:
     - name: Gather all registered virtual machines
-      vmware_vm_facts:
+      community.vmware.vmware_vm_info:
         hostname: "{{ vcenter_hostname }}"
         username: "{{vcenter_username}}"
         password: "{{vcenter_password}}"
