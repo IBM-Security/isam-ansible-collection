@@ -1,0 +1,15 @@
+---
+minor_changes:
+  - ansible-lint - add a config file
+  - playbooks/aac/create_authentication_policies.yml - correct accessed role
+  - server_facts - new community.vmware.vmware_vm_info instead of vmware_vm_facts
+  - bootstrap_local - remove dynamic=true
+  - playbooks/web/import_keytab_files - use ibm.isam.web.upload_kerberos_keytab_files
+
+add object.role:
+  - base.set_management_ssl_cert - new role to set the management ssl certificate
+  - base.set_management_authorization - enable management authorization
+  - base.execute_cli - role to execute cli commands
+
+removed_features:
+  - playbooks/ldap_query.yml - no corresponding role
