@@ -8,11 +8,16 @@ minor_changes:
   - gen_report - reorganize role
 
 add object.role:
-  - base.set_management_ssl_cert - new role to set the management ssl certificate
-  - base.set_management_authorization - enable management authorization
-  - base.execute_cli - role to execute cli commands
-  - get_memory_statistics - role to generate memory statistics
-  - base.delete_application_logs - role to delete application logs
+  - name: base.set_management_ssl_cert
+    description: new role to set the management ssl certificate
+  - name: base.set_management_authorization
+    description: enable management authorization
+  - name: base.execute_cli
+    description: role to execute cli commands
+  - name: get_memory_statistics
+    description: role to generate memory statistics
+  - name: base.delete_application_logs
+    description: role to delete application logs
 
 removed_features:
   - playbooks/ldap_query.yml - no corresponding role
