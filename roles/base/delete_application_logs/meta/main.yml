@@ -22,4 +22,4 @@ galaxy_info:
   - applicationlogfiles
 
 dependencies:
-  - ibm.isam.common_handlers
+  - role: ibm.isam.common_handlers
