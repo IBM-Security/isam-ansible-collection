@@ -1,0 +1,14 @@
+- name: Configure SNMP Monitoring V3
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.snmp_monitoring.set_v3
+    isamapi:
+      securityLevel: "{{ config_snmp_monitoring_securityLevel }}"
+      securityUser: "{{ config_snmp_monitoring_securityUser }}"
+      authProtocol: "{{ config_snmp_monitoring_authProtocol }}"
+      authPassword: "{{ config_snmp_monitoring_authPassword }}"
+      privacyProtocol: "{{ config_snmp_monitoring_privacyProtocol }}"
+      privacyPassword: "{{ config_snmp_monitoring_privacyPassword }}"
+      port: "{{ config_snmp_monitoring_port }}"
+  notify: Commit Changes
