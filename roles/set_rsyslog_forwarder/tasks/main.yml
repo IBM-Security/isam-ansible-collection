@@ -13,6 +13,7 @@
       client_certificate: "{{ set_rsyslog_forwarder_client_certificate  }}"
       permitted_peers: "{{ set_rsyslog_forwarder_permitted_peers     }}"
       sources: []
+      format: "{{ set_rsyslog_forwarder_format     }}"
   when: set_rsyslog_forwarder is defined
   with_items: "{{ set_rsyslog_forwarder }}"
   notify: Commit Changes
