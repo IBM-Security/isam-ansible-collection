@@ -7,5 +7,6 @@ set_rsyslog_forwarder_keyfile: null
 set_rsyslog_forwarder_ca_certificate: null
 set_rsyslog_forwarder_client_certificate: null
 set_rsyslog_forwarder_permitted_peers: null
+set_rsyslog_forwarder_format: null
 # The following will be hardcoded - use another role to set sources
 #set_rsyslog_forwarder_sources: []
