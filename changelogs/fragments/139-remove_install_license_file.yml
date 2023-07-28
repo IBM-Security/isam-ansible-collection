@@ -1,3 +1,0 @@
----
-minor_changes:
-  - ibm.isam.install_license - remove default variable `install_license_file`

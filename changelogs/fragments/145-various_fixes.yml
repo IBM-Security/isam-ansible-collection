@@ -1,8 +1,0 @@
----
-minor_changes:
-  - ibm.isam.add_static_route - cleanup
-  - ibm.isam.common_handlers - add `start_config_wait_time` default parameter
-
-bugfixes:
-  - base.add_interfaces - remove non-breaking-space character
-  - base.configure_interfaces - remove non-breaking-space character

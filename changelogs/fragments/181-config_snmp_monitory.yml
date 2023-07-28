@@ -1,8 +1,0 @@
----
-minor_changes:
-  - ibm.isam.set_rsyslog_forwarder - add format attribute
-
-add object.role:
-  - name: config_snmp_monitoring_v3
-    description: Role to configure v3 snmp monitoring
-
