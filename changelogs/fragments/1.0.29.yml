@@ -1,0 +1,4 @@
+---
+release_summary: |
+  Possible breaking change (remove the inventory_dir dependency) - this may require you to add a homedir variable !
+  A number of bugfixes, and a number of new roles.
