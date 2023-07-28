@@ -114,7 +114,7 @@ try:
     import ibmsecurity.isam.web.runtime.pdadmin
     from ibmsecurity.user.isamuser import ISAMUser
     from ibmsecurity.appliance.isamappliance import ISAMAppliance
-    from ibmsecurity.appliance.isamappliance_adminproxy import ISAMApplianceAdminProxy
+    # from ibmsecurity.appliance.isamappliance_adminproxy import ISAMApplianceAdminProxy  #  TODO: this is not used currently
     from ibmsecurity.appliance.ibmappliance import IBMError
     from ibmsecurity.user.applianceuser import ApplianceUser
 

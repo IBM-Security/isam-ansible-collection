@@ -190,7 +190,8 @@ modlist:
 """
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils.common.text.converters import to_native, to_bytes, to_text
+#from ansible.module_utils.common.text.converters import to_native, to_bytes, to_text
+from ansible.module_utils.common.text.converters import to_native
 
 try:
     import ldap
