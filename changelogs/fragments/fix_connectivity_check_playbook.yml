@@ -1,3 +1,0 @@
----
-minor_changes:
-  - connectivity_check.yml - use container environment variable, since CONTAINER_NAME is not always there

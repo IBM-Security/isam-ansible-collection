@@ -16,4 +16,3 @@
 
     - import_role:
         name: ibm.isam.gen_report
-

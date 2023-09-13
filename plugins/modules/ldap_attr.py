@@ -190,7 +190,8 @@ modlist:
 """
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils.common.text.converters import to_native, to_bytes, to_text
+# from ansible.module_utils.common.text.converters import to_native, to_bytes, to_text
+from ansible.module_utils.common.text.converters import to_native
 
 try:
     import ldap
@@ -304,7 +305,7 @@ def main():
     module = AnsibleModule(
         argument_spec={
             'bind_dn': dict(default=None),
-            'bind_pw': dict(default='', no_log=True),
+            'bind_pw': dict(default=None, no_log=True),
             'dn': dict(required=True),
             'name': dict(required=True),
             'params': dict(type='dict'),
