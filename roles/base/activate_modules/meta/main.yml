@@ -1,3 +1,5 @@
+---
+
 galaxy_info:
   author: IBM
   description: Role to activate multiple modules in ISAM
@@ -13,4 +15,4 @@ galaxy_info:
   - activation
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

@@ -28,4 +28,4 @@ galaxy_info:
     - accesspolicies
 
 dependencies:
-  - start_config
+  - ibm.isam.common_handlers

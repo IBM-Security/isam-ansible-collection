@@ -18,4 +18,3 @@
       config: "{{ set_audit_configuration_config }}"
       verbose: "{{ set_audit_configuration_verbose }}"
   notify: Commit Changes
-

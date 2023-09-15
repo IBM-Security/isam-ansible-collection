@@ -1,0 +1,26 @@
+---
+
+- name: Verify
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "../../vars/main.yml"
+        name: inventory
+
+    - name: "Include get_api_protection_client"
+      include_role:
+        name: "get_api_protection_clients"
+      vars:
+        get_api_protection_clients: "{{ inventory.clients }}"
+
+    - debug:
+        var: ret_obj
+
+    - name: "Assert that the client {{ inventory.client_name }} was added"
+      assert:
+        that:
+          - ret_obj.results.0.data.name is defined
+          - ret_obj.results.0.data.name == inventory.client_name
+        fail_msg: "API Protection client {{ inventory.client_name }} was not added"
+        success_msg: "API Protection client {{ inventory.client_name }} was added"

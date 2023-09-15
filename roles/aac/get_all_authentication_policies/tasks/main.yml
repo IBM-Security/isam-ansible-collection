@@ -1,0 +1,8 @@
+---
+# tasks file for get_access_control_attribute
+- name: Get Authentication Policies by name
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.authentication.policies.get_all
+  register: ret_obj

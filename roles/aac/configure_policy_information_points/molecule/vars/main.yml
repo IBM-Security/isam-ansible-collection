@@ -1,0 +1,25 @@
+---
+# configure pip
+# The example is taken from https://github.com/IBM-Security/isam-support/blob/master/config-example/aac/javascript-pip/javascript-pip-attribute.js
+homedir: "{{ playbook_dir }}"
+# configure pip
+policy_information_points:
+  # set (add or update) a pip with corresponding file content from lookup-plugin
+  # Attention: Files should be formatted with Unix (LF) EOF for idempotency
+  - class: javascript
+    pip_action: set
+    name: ExamplePIP
+    type: JavaScript
+    properties:
+      - datatype: JavaScript
+        key: javascript.code
+        readOnly: false
+        sensitive: false
+        value: "files/pip/javascript-pip-attribute.js"
+  # import file to existing pip
+  # Attention: Files should be formatted with Unix (LF) EOF for idempotency
+  # import_file converts Windows (CR+LF) EOF to Unix (LF) before uploading
+  - class: javascript
+    pip_action: import_file
+    name: ExamplePIP
+    filepath: "../files/pip/javascript-pip-attribute.js"

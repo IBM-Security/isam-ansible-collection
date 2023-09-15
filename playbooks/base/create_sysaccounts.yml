@@ -1,12 +1,8 @@
 ---
 # Create
 #   create sysaccounts
-#     sysaccounts:
-#        - id: sec_master
-#          password: "{{ basicauth_dummy_passwd }}"
-#          groups: []
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.base/create_sysaccounts
+    - role: ibm.isam.base.create_sysaccounts
       tags: create_sysaccounts

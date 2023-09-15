@@ -1,0 +1,8 @@
+host, dateMinMaxDiff, idle_cpu, system_cpu, user_cpu, y, x, set, id
+{% for h in play_hosts %}
+{%   if hostvars[h] is defined and hostvars[h]['cpu_stats_obj'] is defined and hostvars[h]['cpu_stats_obj']['data'] is defined and hostvars[h]['cpu_stats_obj']['data']['items']|length > 0 %}
+{%     for c in hostvars[h]['cpu_stats_obj']['data']['items'] %}
+{{h}}, {{hostvars[h]['cpu_stats_obj']['data']['dateMinMaxDiff']}}, {{hostvars[h]['cpu_stats_obj']['data']['idle_cpu']}}, {{hostvars[h]['cpu_stats_obj']['data']['system_cpu']}}, {{hostvars[h]['cpu_stats_obj']['data']['user_cpu']}}, {{c.y}}, {{c.x}}, {{c.set}}, {{c.id}}
+{%     endfor %}
+{%   endif %}
+{% endfor %}

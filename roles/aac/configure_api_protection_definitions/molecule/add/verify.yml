@@ -1,0 +1,21 @@
+---
+
+- name: Verify
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "../../vars/main.yml"
+        name: inventory
+
+    - name: "Include get_api_protection_definitions"
+      include_role:
+        name: "get_api_protection_definitions"
+      vars:
+        get_api_protection_definitions: "{{ inventory.molecule_definitions }}"
+
+    - name: "Assert that the client {{ inventory.molecule_definition_name }} was added"
+      assert:
+        that: ret_obj.results.0.data.name == inventory.molecule_definition_name
+        fail_msg: "API Protection definition {{ inventory.molecule_definition_name }} was not added"
+        success_msg: "API Protection definition {{ inventory.molecule_definition_name }} was added"

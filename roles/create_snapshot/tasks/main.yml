@@ -2,6 +2,6 @@
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
-    action : ibmsecurity.isam.base.snapshots.create
+    action: ibmsecurity.isam.base.snapshots.create
     isamapi:
-      comment : "{{ create_snapshot_comment }}"
+      comment: "{{ create_snapshot_comment }}"

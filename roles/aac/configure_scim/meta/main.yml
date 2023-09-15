@@ -1,3 +1,5 @@
+---
+
 galaxy_info:
   author: IBM
   description: Role to configure scim
@@ -14,4 +16,4 @@ galaxy_info:
   - scim
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

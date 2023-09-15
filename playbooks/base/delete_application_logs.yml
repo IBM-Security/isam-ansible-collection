@@ -5,5 +5,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.delete_application_logs
+    - role: ibm.isam.base.delete_application_logs
       tags: delete_application_logs

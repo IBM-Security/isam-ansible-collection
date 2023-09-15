@@ -1,0 +1,9 @@
+---
+- name: "Export runtime template root to file: [{{ item.file }}]"
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.runtime_template.root.export_file
+    isamapi:
+      filename: "{{ homedir + '/' + item.file }}"
+  when: item.file is defined

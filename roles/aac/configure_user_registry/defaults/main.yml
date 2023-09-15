@@ -1,4 +1,7 @@
+---
+
 # Default variables for user_registry configuration
 user_registry: []
 
-id: "{{ item.id }}"
+id: "{{ item.id | default(omit) }}"
+registry_action: "{{ item.registry_action }}"

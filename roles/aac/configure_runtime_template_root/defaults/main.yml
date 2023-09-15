@@ -1,14 +1,39 @@
+---
+
 # Default variables for configuration of runtime template root content
 runtime_template_root: []
 
-# variables to control whether to configure one instance and/or one target at a time or everything from the configurations
-delete_files: "FALSE"
-delete_missing: "FALSE"
-skip_imports: "FALSE"
-skip_sync: "FALSE"
+# No filter at runtime on tmpl_action if none is defined. This will try every feasable action in the play
+tmpl_action: "None"
 
-path: "{{ item.path | default('none') }}"
-name: "{{ item.name | default('none') }}"
-id: "{{ item.id | default('none') }}"
-file: "{{ item.file if (item is defined and item.file is defined) else 'none'}}"
-target: "{{ item.target | default('none') }}"
+# variables to control multiple tasks from play
+
+# If delete_missing=True also sync provided file as master with the server.
+# This will delete files on the server that exist there but are missing in the provided zip file.
+# To use the import_zip in additive mode, leave delete_missing=False
+delete_missing: false
+
+# control file import tasks
+skip_imports: false # whether to skip multiple file imports from inventory
+skip_import: "{{ skip_imports }}"  # whether to skip a single file import
+
+# control file export tasks
+skip_exports: false # whether to skip multiple file exports from inventory
+skip_export: "{{ skip_exports }}"  # whether to skip a single file export
+
+# skip slower sync task
+skip_sync: false
+
+path: "{{ item.path | default(omit) }}"
+dir_name: "{{ item.name | default(omit) }}"
+id: "{{ item.id | default(omit)}}"
+file: "{{ item.file|default('') }}"
+target: "{{ item.target | default(omit) }}"
+directory: "{{ item.directory | default(omit) }}"
+
+# Default homedir.  This defaults to inventory_dir for backwards compatibility reasons,
+#  even though the inventory_dir should NEVER be used to store files (should basically only contain files that can be parsed by an inventory_plugin)
+#  a better default value for homedir, would be playbook_dir:
+#       homedir: "{{ playbook_dir }}"
+#  so this is a varialb
+homedir: "{{ inventory_dir }}"

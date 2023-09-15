@@ -1,3 +1,5 @@
+---
+
 # main task to create api protection definition
 #   Example:
 #     api_protection:
@@ -7,13 +9,13 @@
 #           grantTypes:
 #             - AUTHORIZATION_CODE
 #           tcmBehavior: NEVER_PROMPT
----
+
 - name: Create api protection definition
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.api_protection.definitions.add
-    isamapi: "{{ item | exclude('clients') | exclude('mapping_rules') }}"
-  with_items: "{{ api_protection.definitions | default([]) }}"
+    isamapi: "{{ item }}"
+  with_items: "{{ api_protection_definitions }}"
   when: item.name == name
   notify: Commit Changes

@@ -1,0 +1,14 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  vars:
+    molecule_name: not used
+    molecule_file: "{{ homedir }}/files/ltpa.key"
+  tasks:
+    - name: "Test upload using ltpa role"
+      include_role:
+        name: "ibm.isam.web.upload_ltpa_files"
+      vars:
+        ltpa_files:
+          - file: "{{ molecule_file }}"

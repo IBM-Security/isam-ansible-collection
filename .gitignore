@@ -8,3 +8,6 @@
 *.bak
 *.tar.gz
 .vscode
+tests/output/.tmp/*
+tests/output/bot/*
+changelogs/.plugin-cache.yaml

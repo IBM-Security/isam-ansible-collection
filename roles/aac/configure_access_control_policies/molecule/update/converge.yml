@@ -1,0 +1,22 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  collections:
+    - ibm.isam
+  tasks:
+    - name: include variables
+      include_vars:
+        file: "../vars/main.yml"
+
+    - name: "Add policy using configure_access_contorl_policies"
+      include_role:
+        name: "ibm.isam.aac.configure_access_control_policies"
+      vars:
+        access_control_policies:
+          - name: "{{ name }}"
+            attributesrequired: "{{ attributesrequired }}"
+            policy: "{{ policy }}"
+            description: "{{ update_description}}"
+            dialect: "{{ dialect }}"
+            predefined: "{{ predefined }}"

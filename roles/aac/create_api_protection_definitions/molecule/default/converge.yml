@@ -1,0 +1,13 @@
+---
+- name: Converge - test add with create_api_protection_definitions
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Include create api_protection_definitions"
+      include_role:
+        name: "create_api_protection_definitions"
+      vars:
+        api_protection_definitions:
+          - name: "{{ definition_name }}"
+            description: "{{ description }}"
+            tcmBehavior: "{{ tcmBehavior }}"

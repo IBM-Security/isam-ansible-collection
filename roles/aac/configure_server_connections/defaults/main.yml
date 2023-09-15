@@ -1,5 +1,12 @@
+---
+
 # Default variables for configuration of server connections
 server_connections: []
 
 # Default variables to filter for configuration of specific server connections at runtime
-name: "{{ item.name }}"
+connection_action: "{{ item.connection_action }}"
+connection_name: "{{ item.name }}"
+class: "{{ item.class }}"
+type: "{{ item.type if (item.type is defined) }}"
+
+ignore_password_for_idempotency: "{{ item.ignore_password_for_idempotency | default(False) }}"

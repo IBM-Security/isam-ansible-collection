@@ -1,0 +1,13 @@
+---
+- name: Converge - delete configured server connection
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing delete - configure_server_connection"
+      include_role:
+        name: configure_server_connections
+      vars:
+        server_connections:
+          - connection_action: delete
+            class: "{{ molecule_class }}"
+            name: "{{ molecule_name }}"

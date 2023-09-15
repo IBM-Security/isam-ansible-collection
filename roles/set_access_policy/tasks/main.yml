@@ -5,10 +5,10 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.aac.access_policy.set
     isamapi:
-      name : "{{ set_access_policy_name }}"
+      name: "{{ set_access_policy_name }}"
       category: "{{ set_access_policy_category }}"
-      type : "{{ set_access_policy_type }}"
-      file : "{{ set_access_policy_file | default(None) }}"
-      content : "{{ set_access_policy_content | default(None) }}"
+      type: "{{ set_access_policy_type }}"
+      file: "{{ set_access_policy_file | default(None) }}"
+      content: "{{ set_access_policy_content | default(None) }}"
   when: set_access_policy_name is defined
   notify: Commit Changes

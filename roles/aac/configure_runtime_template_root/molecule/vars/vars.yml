@@ -1,0 +1,23 @@
+---
+runtime_template_root:
+  - tmpl_action: create
+    name: new_dir
+    path: C/authsvc/authenticator
+    type: directory
+  - tmpl_action: sync_up
+    target: C/ac
+    directory: ../files/runtime_template_root_sync/C/ac
+  - tmpl_action: upload
+    file: ../files/runtime_template_root_files/C/authsvc/authenticator/new_dir/new_file.html
+    target: C/authsvc/authenticator/new_dir/new_file.html
+    type: file
+  - tmpl_action: import_zip
+    file: ../files/runtime_template_root_files/runtime_template_root_import.zip
+  - tmpl_action: export_zip
+    file: ../files/runtime_template_root_files/_export.zip
+  - tmpl_action: delete
+    target: C/authsvc/authenticator/idontexists.html
+    type: file
+  - tmpl_action: delete
+    target: de/authsvc/authenticator
+    type: directory

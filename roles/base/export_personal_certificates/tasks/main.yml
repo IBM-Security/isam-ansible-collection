@@ -1,0 +1,87 @@
+---
+# main task for exporting certificates
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        export_personal_certificates
+
+      DESCRIPTION
+        Role to export single or multiple certificates
+
+      STEPS
+        1) Create local download directories for multi-export
+        2) Create local download directory for single export
+        3) Export certificates from inventory
+        4) Export single certificate
+
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.base.export_personal_certificates.yml
+        ansible-playbook -i [...] ibm.isam.base.export_personal_certificates.yml -e file=files/ssl/lmi.cert -e kdb_id=lmi_trust_store -e cert_id=server
+        ansible-playbook -i [...] ibm.isam.base.export_personal_certificates.yml -e file=files/ssl/lmi.cert -e kdb_id=lmi_trust_store -e cert_id=server -e skip_exports=true # skip export of multiple certificates from inventory
+
+      INVENTORY
+      ==========
+      # export multiple certificates
+      export_personal_certificates:
+        - kdb_id: lmi_trust_store
+          cert_id: server
+          file: files/ssl/lmi.cert
+
+      # export single certificate at runtime -> no inventory needed
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Make sure all local download directory exists
+  file:
+      path: "{{ (homedir +'/'+ item.file) | dirname }}"
+      recurse: yes
+      state: directory
+  delegate_to: localhost
+  loop: "{{ export_personal_certificates }}"
+  loop_control:
+    label: "{{ (homedir +'/'+ item.file|default('')) | dirname }}"
+  when:
+    - item.file is defined
+    - not (skip_exports | bool)
+
+- name: "Make sure single local download directory exists: {{ ((file if(file is defined and (file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) | dirname) if(file is defined) else 'Skipping') }}"
+  file:
+      path: "{{ (homedir +'/'+ file) | dirname }}"
+      recurse: yes
+      state: directory
+  delegate_to: localhost
+  when: file is defined
+
+- name: "Export certificates from inventory [-e file=<path/to/download/certificate> -e kdb_id=<kdb> -e cert_id=<cert>]"
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.base.ssl_certificates.personal_certificate.export_cert
+    isamapi:
+      kdb_id: "{{ item.kdb_id }}"
+      cert_id: "{{ item.cert_id }}"
+      filename: "{{ homedir +'/'+ item.file }}"
+  loop: "{{ export_personal_certificates }}"
+  when:
+    - not (skip_exports | bool)
+
+- name: "Export single certificate to {{ homedir +'/'+ file|default('') }} [-e file=<path/to/download/certificate> -e kdb_id=<kdb> -e cert_id=<cert>]"
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.base.ssl_certificates.personal_certificate.export_cert
+    isamapi:
+      kdb_id: "{{ kdb_id }}"
+      cert_id: "{{ cert_id }}"
+      filename: "{{ homedir + '/' + file }}"
+  when:
+    - file is defined
+    - kdb_id is defined
+    - cert_id is defined

@@ -1,16 +1,8 @@
 ---
 # Configure
 #   configure advanced tuning parameters
-#   Example:
-#     advanced_tuning_parameters:
-#       - action: set
-#         key: test
-#         value: HelloWorld
-#         comment: this is a test tuning parameter
-#       - action: delete
-#         key: test
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.base/configure_advanced_tuning_parameters
+    - role: ibm.isam.base.configure_advanced_tuning_parameters
       tags: configure_advanced_tuning_parameters

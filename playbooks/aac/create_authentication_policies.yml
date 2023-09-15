@@ -11,5 +11,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.aac/create_authentication_policies
+    - role: ibm.isam.aac.configure_authentication_policies
       tags: create_authentication_policies

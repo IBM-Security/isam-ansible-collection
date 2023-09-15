@@ -1,5 +1,38 @@
+---
+
 # main task to delete snapshots
-- name: Delete one or multiple snapshots
+
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        delete_snapshots
+
+      DESCRIPTION
+        Role to delete snapshots
+
+      STEPS
+        1) Delete snapshot
+
+      EXAMPLES
+        # delete all snapshots containing a comment string
+        ansible-playbook -i [...] ibm.isam.base.delete_snapshots.yml -e comment=<snapshots_comment>
+        # delete all snapshots based on their ids
+        ansible-playbook -i [...] ibm.isam.base.delete_snapshots.yml -e ids="['e337bd7f069aac69fcf6cc1a884de1aa6128e51d2dc4d1756ccdf487fc97da6f','1929dac774aaf2026f1295262cd74cbbff0237c5cf678edd8e89707a31f3d22a']"
+
+      INVENTORY
+      ==========
+        # no inventory needed
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: "Delete one or multiple snapshots [-e comment=<comment> -e ids=\"['<id_1>','<id_2>']\"]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

@@ -1,3 +1,5 @@
+---
+
 # main task to configure dns
 - name: Help INFO (-e help=true)
   pause:
@@ -14,7 +16,7 @@
         2) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_dns.yml
+        ansible-playbook -i [...] ibm.isam.base.configure_dns.yml
 
       INVENTORY
       ==========

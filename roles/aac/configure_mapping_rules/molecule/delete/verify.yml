@@ -1,0 +1,21 @@
+---
+- name: Verify - delete mapping rules
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: load variables
+      include_vars:
+        file: "../vars/vars.yml"
+
+    - name: "Get the mapping rule {{ molecule_name }}"
+      include_role:
+        name: "get_mapping_rule_by_name"
+      vars:
+        get_mapping_rule_names:
+          - name: "{{ molecule_name }}"
+
+    - name: "Assert that the mapping rule {{ molecule_name }} was deleted"
+      assert:
+        that: ret_obj.results.0.data.name is not defined
+        fail_msg: "Mapping Rule {{ molecule_name }} was not deleted"
+        success_msg: "Mapping Rule {{ molecule_name }} was deleted"

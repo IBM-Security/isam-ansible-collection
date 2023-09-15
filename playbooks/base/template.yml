@@ -6,5 +6,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.base/playbook
+    - role: ibm.isam.base.playbook
       tags: playbook

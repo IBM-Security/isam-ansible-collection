@@ -1,0 +1,174 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  vars:
+    homedir: "{{ playbook_dir }}" # this is this directory for molecule
+
+  tasks:
+    - name: Test configure certificate databases
+      include_role:
+        name: ibm.isam.base.configure_certificate_databases
+      vars:
+        certificate_databases:
+          # Get list of all certificate databases
+          - db_action: get_all
+          # Retrieving the SSL certificate database details
+          - db_action: get
+            cert_dbase_id: pdsrv
+          # Create a certificate database
+          - db_action: create
+            kdb_name: Registry_Keystore
+          # Export a certificate database
+          - db_action: export_db
+            cert_id: pdsrv
+            filename: files/out/pdsrv.zip
+          # Import certificate database from KDB and Stash file
+          - db_action: import_db
+            kdb: files/ssl/moleculestash/keystore.p12
+            stash: files/ssl/moleculestash/keystore.sth
+          # Import certificate database from ZIP file
+          # TODO: this fails
+          #- db_action: import_db
+          #  kdb: molecule.p12  # required relative path + filename inside the ZIP
+          #  stash: molecule.sth # required relative path + filename inside the ZIP
+          #  zip: files/ssl/molecule_keystore.zip # file containing KDB and Stash file above
+          # Rename a certificate database
+          - db_action: rename
+            cert_id: Registry_Keystore
+            new_name: New_Registry_Keystore
+          # Set description for a certificate database
+          - db_action: set
+            cert_id: New_Registry_Keystore
+            description: This is my new Keystore for all registries
+          # Delete a certificate database
+          - db_action: delete
+            cert_dbase_id: New_Registry_Keystore
+    - name: Test configure personal certificates
+      include_role:
+        name: ibm.isam.base.configure_personal_certificates
+      vars:
+        personal_certificates:
+          # get all certificates from keystore
+          - cert_action: get_all
+            kdb_id: pdsrv
+          # get content of a specific certificate from keystore
+          - cert_action: get
+            kdb_id: pdsrv
+            cert_id: WebSEAL-Test-Only
+          # Generating a self-signed personal certificate in a certificate database
+          - cert_action: generate
+            kdb_id: pdsrv
+            label: sample_label
+            dn: 'CN=weblinux.Raleigh.ibm.com,O=ibm,OU=IBMHTTP Server,L=RTP,ST=NC,C=US'
+            expire: '365'
+            default: 'no'
+            size: '2048'
+            signature_algorithm: 'SHA512WithRSA'
+          # Setting a personal certificate as default in a certificate database
+          - cert_action: set
+            kdb_id: pdsrv
+            cert_id: sample_label
+            default: 'yes' # optional default: 'no'
+          # Exporting a personal certificate from a certificate database
+          - cert_action: export_cert
+            kdb_id: pdsrv
+            cert_id: sample_label
+            filename: files/ssl/weblinux_sample_label.cert
+          # Importing a personal certificate into a certificate database
+          - cert_action: import_cert
+            kdb_id: pdsrv
+            label: CN=isva1005.local,O=IBM,L=Default City,C=BE
+            cert: files/ssl/testcert.p12
+            password: 'passw0rd'
+          # Importing a personal certificate into a certificate database
+          - cert_action: extract_cert
+            kdb_id: pdsrv
+            cert_id: CN=isva1005.local,O=IBM,L=Default City,C=BE
+            filename: files/ssl/testcert.cert
+            password: 'passw0rd'
+          # Deleting a personal certificate from a certificate database
+          - cert_action: delete
+            kdb_id: pdsrv
+            cert_id: runtime
+
+    - name: Test export personal certificates
+      include_role:
+        name: ibm.isam.base.export_personal_certificates
+      vars:
+        export_personal_certificates:
+         - kdb_id: pdsrv
+           cert_id: CN=isva1005.local,O=IBM,L=Default City,C=BE
+           file: files/ssl/isva1005.exported.cert
+
+    - name: Test extract certificates
+      include_role:
+        name: ibm.isam.base.extract_certificates
+      vars:
+        extract_certificates:
+          - kdb_id: pdsrv
+            cert_id: CN=isva1005.local,O=IBM,L=Default City,C=BE
+            filename: files/ssl/testcert.extract.cert
+            password: passw0rd
+
+    - name: Test certificate requests
+      include_role:
+        name: ibm.isam.base.configure_certificate_requests
+      vars:
+        certificate_requests:
+          # Creating a certificate request in a certificate database
+          - cert_action: add
+            kdb_id: pdsrv
+            label: CN=weblinux.Raleigh.ibm.com,O=ibm,OU=IBMHTTP Server,L=RTP,ST=NC,C=US
+            dn: 'CN=weblinux.Raleigh.ibm.com,O=ibm,OU=IBMHTTP Server,L=RTP,ST=NC,C=US'
+            size: '2048'
+            signature_algorithm: 'SHA512WithRSA'
+          # Exporting a certificate request from a certificate database.
+          # This certificate must be signed by CA and re-importet through personal certificate receive method (see configure_personal_certificates role/playbook)
+          - cert_action: export_cert
+            kdb_id: pdsrv
+            cert_id: CN=weblinux.Raleigh.ibm.com,O=ibm,OU=IBMHTTP Server,L=RTP,ST=NC,C=US
+            filename: files/out/certificate_request.csr # absolute or relative path supported
+
+    - name: "Test configure signer certificates"
+      include_role:
+        name: "ibm.isam.base.configure_signer_certificates"
+      vars:
+        signer_certificates:
+          # import multiple signer certificates
+          - cert_action: import_cert
+            kdb_id: pdsrv
+            cert: files/ssl/Default_Trust_ISRG_Root_X1.cer
+            label: ISRG Root X1
+          # get all certificates from keystore
+          - cert_action: get_all
+            kdb_id: pdsrv
+          # get content of a specific certificate from keystore
+          - cert_action: get
+            kdb_id: pdsrv
+            cert_id: ISRG Root X1
+          # load public key into keystore
+          - cert_action: load
+            kdb_id: pdsrv
+            label: runtime
+            server: localhost
+            port: 443
+            check_remote: False # check_remote controls if ansible should check remote certificate by retrieving it or simply by checking for existence of the label in the kdb
+          # export a certificate to local directory
+          - cert_action: export_cert
+            kdb_id: pdsrv
+            cert_id: runtime
+            filename: files/ssl/runtime.cer # absolute or relative path supported
+          # delete a specific signer certificate from keystore
+          - cert_action: delete
+            kdb_id: pdsrv
+            cert_id: runtime
+
+    - name: "Test import signer certificates"
+      include_role:
+        name: "ibm.isam.base.import_signer_certificates"
+      vars:
+        import_signer_certificates:
+          - kdb_id: lmi_trust_store
+            cert: files/ssl/Default_Trust_ISRG_Root_X1.cer
+            label: ISRG Root X1

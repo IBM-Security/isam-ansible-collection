@@ -29,4 +29,4 @@ galaxy_info:
     - attribute
 
 dependencies:
-  - start_config
+  - ibm.isam.common_handlers

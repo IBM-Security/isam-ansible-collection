@@ -1,7 +1,13 @@
+---
+- name: set embedded ldap password admin
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.embedded_ldap.admin.set_pw
     isamapi:
-  when: policyserver_runtime is defined and policyserver_runtime.configuration is defined and policyserver_runtime.configuration.ldap_pwd is defined
+      password: "{{ policyserver_runtime.configuration.ldap_pwd }}"
+  when:
+    - policyserver_runtime is defined
+    - policyserver_runtime.configuration is defined
+    - policyserver_runtime.configuration.ldap_pwd is defined
   notify: Commit Changes

@@ -1,7 +1,7 @@
 - name: Set Remote Syslog Forwarder {{ set_rsyslog_forwarder_server }}:{{ set_rsyslog_forwarder_port }}
   ibm.isam.isam:
-    log : "{{ log_level | default('INFO') }}"
-    force : "{{ force | default(False) }}"
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.remote_syslog.forwarder.set
     isamapi:
       server: "{{ item.server   }}"
@@ -13,6 +13,7 @@
       client_certificate: "{{ set_rsyslog_forwarder_client_certificate  }}"
       permitted_peers: "{{ set_rsyslog_forwarder_permitted_peers     }}"
       sources: []
+      format: "{{ set_rsyslog_forwarder_format     }}"
   when: set_rsyslog_forwarder is defined
   with_items: "{{ set_rsyslog_forwarder }}"
   notify: Commit Changes

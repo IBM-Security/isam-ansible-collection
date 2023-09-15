@@ -1,0 +1,20 @@
+---
+
+- name: Verify if all authentication policies were disabled
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "../vars/main.yml"
+
+    - name: "check if file exists"
+      stat:
+        path: "{{ homedir }}/{{ file }}"
+      register: export_file_result
+
+    - name: Assert that exported file exits
+      assert:
+        that:
+          - export_file_result.stat.exists == True
+        fail_msg: "The exported file {{ homedir }}/{{ file }} does not exist"
+        success_msg: "The exported file {{ homedir }}/{{ file }} exists"

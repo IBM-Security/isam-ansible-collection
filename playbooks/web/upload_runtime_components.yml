@@ -7,5 +7,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.web/upload_runtime_components
+    - role: ibm.isam.web.upload_runtime_components
       tags: upload_runtime_components

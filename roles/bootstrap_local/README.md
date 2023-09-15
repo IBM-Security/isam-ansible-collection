@@ -8,13 +8,10 @@ It is useful for demo or proof of concept on the local machine, but not for prod
 
 It will create a new VM if it does not exist, and create a baseline snapshot. If an existing VM with the same name is running, it does nothing. If an existing VM with the same name exists but not running, it will start the VM.
 
-
-
 Requirements
 ------------
 
 VMWare Fusion for Mac OS X or VMWare workstation for Linux must be installed.
-
 
 Role Variables
 --------------
@@ -38,12 +35,10 @@ Optional variables (with default values):
 **BS_vm_hdd_size**: 50
 **BS_vm_nic_count**: 3
 
-
 Dependencies
 ------------
 
 None
-
 
 Example Playbook
 ----------------
@@ -64,7 +59,6 @@ License
 -------
 
 Apache
-
 
 Author Information
 ------------------

@@ -1,0 +1,25 @@
+---
+
+- name: Verify - delete user registry
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "../../vars/main.yml"
+        name: inventory
+
+    - name: "Get all user registry"
+      include_role:
+        name: "get_all_user_registry"
+
+    - name: look for the id
+      set_fact:
+        check_exist: "id exist"
+      with_items: "{{ ret_obj.data }}"
+      when: "{{ inventory.id in item.id }}"
+
+    - name: "Assert that the user registry {{ inventory.id }} was deleted"
+      assert:
+        that: check_exist is not defined
+        fail_msg: "User registry {{ inventory.id }} was not deleted"
+        success_msg: "User registry {{ inventory.id }} was deleted"

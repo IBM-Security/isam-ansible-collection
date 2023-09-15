@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: IBM
   description: Role that configures system alerts snmp
@@ -26,4 +27,4 @@ galaxy_info:
   - runtime
   - policyserver
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

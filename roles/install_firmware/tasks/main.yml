@@ -33,10 +33,10 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.available_updates.install
     isamapi:
-      type : "{{ install_firmware_type }}"
-      version : "{{ install_firmware_version }}"
-      release_date : "{{ install_firmware_release_date }}"
-      name : "{{ install_firmware_name }}"
+      type: "{{ install_firmware_type }}"
+      version: "{{ install_firmware_version }}"
+      release_date: "{{ install_firmware_release_date }}"
+      name: "{{ install_firmware_name }}"
   when: firmware.stat.exists
   register: install_firmware
   notify: Await Appliance LMI Response

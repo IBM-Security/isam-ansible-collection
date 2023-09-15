@@ -1,5 +1,36 @@
+---
+
 # main task to apply a snapshot
-- name: Apply a snapshot
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        apply_snapshot
+
+      DESCRIPTION
+        Role to apply a single snapshot
+
+      STEPS
+        1) Apply a single snapshot
+
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.base.apply_snapshot.yml -e comment=test
+        ansible-playbook -i [...] ibm.isam.base.apply_snapshot.yml -e id=632eaf888871acc1b14267c5e12925e4b6c56e06eed875a9e63d2e26c5325b70
+
+      INVENTORY
+      ==========
+      # no inventory needed
+
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: "Apply a snapshot [-e comment=<unique_comment_to_identify_snapshot> -e id=<id_1>]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -7,5 +38,4 @@
     isamapi:
       comment: "{{ comment | default(omit) }}"
       id: "{{ id | default(omit) }}"
-      filename: "{{ filename | default(omit) }}"
   when: comment is defined or id is defined or filename is defined

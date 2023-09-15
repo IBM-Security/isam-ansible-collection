@@ -1,3 +1,5 @@
+---
+
 galaxy_info:
   author: IBM
   description: Role to create ssl certificate databases
@@ -14,4 +16,4 @@ galaxy_info:
   - ssl_certificate_databases
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

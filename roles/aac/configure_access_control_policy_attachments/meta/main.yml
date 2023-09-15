@@ -1,3 +1,5 @@
+---
+
 galaxy_info:
   author: IBM
   description: Role to confiure access control policy attachments
@@ -8,10 +10,10 @@ galaxy_info:
   min_ansible_version: 2.2
 
   galaxy_tags:
-  - isam
-  - ibm
-  - configure
-  - policy_attachments
+    - isam
+    - ibm
+    - configure
+    - policy_attachments
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

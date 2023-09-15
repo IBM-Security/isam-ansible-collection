@@ -4,5 +4,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.web/import_sso_keys
+    - role: ibm.isam.web.import_sso_keys
       tags: import_sso_keys

@@ -1,0 +1,41 @@
+# main task to export all application log files
+#
+# It is possible to limit the delete using the path variable and name variable. E.g append the following to your
+# ansible command: -e path=federation/runtime -e name=...
+---
+- name: Get application log file list
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.application_logs.get_all
+    isamapi:
+      flat_details: yes
+  register: logs
+
+- name: Temporary variable filter by path
+  set_fact:
+     uniquedirs: "{{ (uniquedirs|default([]) + [{'name': item.name, 'id': item.id, 'path': item.path}])|unique }}"
+  loop: "{{ logs.data }}"
+  loop_control:
+     label: "Adding {{ item.path }}/{{ item.name }}"
+  when:
+    - logs.data is defined
+    - item.path is defined
+    - path == item.path
+
+- name: Delete application log files
+  ignore_errors: true
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.application_logs.delete
+    isamapi:
+      file_id: "{{ (item.id|default('') == '') | ternary(item.name, item.path + '/' + item.name) }}"
+  when:
+     - logs.data is defined
+     - uniquedirs is defined
+     - name == item.name
+     - path == item.path|default('')
+  loop: "{{ uniquedirs }}"
+  loop_control:
+     label: "Delete {{ item.path|default('') + '/' + item.name }}"

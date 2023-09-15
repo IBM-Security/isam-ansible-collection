@@ -1,0 +1,45 @@
+---
+- name: Federation Cookbook IdP Part 2 Ch. 21
+  hosts: all
+  gather_facts: no
+  vars:
+    homedir: ""
+  tasks:
+    - include_vars:
+        file: "../vars/fed_cookbook_idp_vars.yml"
+        name: inventory
+
+    - name: "21.1 Replace login.html on the identity provider"
+      include_role:
+        name: ibm.isam.update_management_root
+      vars:
+        update_management_root_instance_id: "{{ inventory.update_management_root_instance_id }}"
+        update_management_root_idandfilename: "{{ inventory.update_management_root_idandfilename }}"
+
+    - name: "21.2 Configure authentication macros in the federation runtime - get POC"
+      include_role:
+        name: ibm.isam.fed.get_point_of_contact
+      vars:
+        get_point_of_contact_name: "{{ inventory.get_point_of_contact_name }}"
+
+    - name: "21.2 Configure authentication macros in the federation runtime - remove special chars"
+      set_fact:
+        new_description: "{{ ret_obj.data.description | replace('\n', '')| replace('\t', '') }}"
+
+    - name: "21.2 Configure authentication macros in the federation runtime - create new poc"
+      include_role:
+        name: ibm.isam.update_point_of_contact
+      vars:
+        update_point_of_contact_name: "{{ inventory.new_point_of_contact_name }}"
+        update_point_of_contact_description: "{{ new_description }}"
+        update_point_of_contact_authenticateCallbacks: "{{ inventory.new_point_of_contact_authenticateCallbacks }}"
+        update_point_of_contact_authnPolicyCallbacks: "{{ ret_obj.data.authnPolicyCallbacks }}"
+        update_point_of_contact_localIdCallbacks: "{{ ret_obj.data.localIdCallbacks }}"
+        update_point_of_contact_signInCallbacks: "{{ ret_obj.data.signInCallbacks }}"
+        update_point_of_contact_signOutCallbacks: "{{ ret_obj.data.signOutCallbacks }}"
+
+    - name: "21.2 Configure authentication macros in the federation runtime - set POC"
+      include_role:
+        name: ibm.isam.set_current_point_of_contact
+      vars:
+        set_current_point_of_contact_name: "{{ inventory.new_point_of_contact_name }}"

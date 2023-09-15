@@ -1,14 +1,48 @@
 ---
+
 # The following need to be provided for role to work
-# Example:
-#  sysaccounts:
-#    - id: sec_master
-- name: create sysaccount
+
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        create_sysaccounts
+
+      DESCRIPTION
+        Role to create system accounts
+
+      STEPS
+        1) Create system account
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.base.create_sysaccounts.yml
+        ansible-playbook -i [...] ibm.isam.base.create_sysaccounts.yml -e id=sample_user # filter at runtime for sample-user
+
+      INVENTORY
+      ==========
+      # create system accounts
+      sysaccounts:
+        - id: sample_user
+          password: "{{ sample_user_password }}" # password should be secured with ansible-vault
+          groups: []
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: "Create sysaccount [-e id=<user>]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.sysaccount.users.create
     isamapi: "{{ item }}"
-  with_items: "{{ sysaccounts }}"
-  notify: Commit Changes
+  loop: "{{ sysaccounts }}"
   loop_control:
+    label: "{'id': '{{ item.id }}'}"
+  when: item.id == id
+  notify: Commit Changes

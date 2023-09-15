@@ -1,0 +1,15 @@
+---
+- name: Get the policy
+  include_role:
+    name: get_authentication_policies_by_name
+  vars:
+    get_authentication_policies:
+      - name: "{{ item }}"
+
+- name: Check the enable status for policy
+  set_fact:
+    wrong_policy_status: "true"
+    wrong_policy_name: "{{ item }}"
+  when:
+    - "{{ ret_obj.results.0.data.enabled == true }}"
+  register: policy_enabled_status_result

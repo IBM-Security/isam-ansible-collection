@@ -2,13 +2,9 @@
 # to use in other roles/playbooks
 ---
 - name: Get all Mapping Rules
-  isam:
-    appliance: "{{ inventory_hostname }}"
-    username: "{{ username }}"
-    password: "{{ password }}"
-    lmi_port: "{{ lmi_port }}"
-    log: "{{ log_level }}"
-    force: "{{ force }}"
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.mapping_rules.get_all
     isamapi:
   register: mapping_rules_obj

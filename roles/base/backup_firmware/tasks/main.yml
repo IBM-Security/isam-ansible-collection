@@ -1,4 +1,37 @@
+---
+
 # main task to backup appliance firmware
+
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        backup_firmware
+
+      DESCRIPTION
+        Role to backup appliance firmware
+
+      STEPS
+        1) backup firmware
+
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.base.backup_firmware.yml
+
+      INVENTORY
+      ==========
+      # no inventory needed
+      # ! The system format formats the inactive partition while you are backing up the current partition. All data on the inactive partition is lost.
+      # ! This operation restarts the appliance and might leave your network unprotected for several minutes.
+      # ! Are you sure you want to back up the active partition?
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
 - name: Backup Appliance Firmware
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"

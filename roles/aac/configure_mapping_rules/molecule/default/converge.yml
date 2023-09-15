@@ -1,0 +1,10 @@
+---
+- name: Converge - default
+  hosts: all
+  gather_facts: no
+  collections:
+    - ibm.isam
+  tasks:
+    - debug:
+        msg: "To test set using configure_mapping_rules role:
+          'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name set'"

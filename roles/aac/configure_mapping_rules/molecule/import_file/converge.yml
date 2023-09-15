@@ -1,0 +1,20 @@
+---
+# Fill in the value for homedir in vars/main.yml.  The value is for the directory location
+# that contains the mapping rule file
+
+- name: Converge - import mapping rules
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: load variables
+      include_vars:
+        file: "../vars/vars.yml"
+
+    - name: "Testing import - configure_mapping_rules"
+      include_role:
+        name: configure_mapping_rules
+      vars:
+        mapping_rules:
+          - rule_action: import_file
+            name: "{{ molecule_name }}"
+            filename: "{{ molecule_import_file }}"

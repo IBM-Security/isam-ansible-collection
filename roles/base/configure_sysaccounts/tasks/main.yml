@@ -1,0 +1,56 @@
+---
+
+# configure system accounts
+
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_sysaccounts
+
+      DESCRIPTION
+        Role to configure system accounts
+
+      STEPS
+        1) Configure system accounts
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.base.configure_sysaccounts.yml
+        ansible-playbook -i [...] ibm.isam.base.configure_sysaccounts.yml -e id=sample_user -e sysaccount_action=create # limit at runtime to only create sample_user
+
+      INVENTORY
+      ==========
+      # configure system accounts
+      sysaccounts:
+        - sysaccount_action: create
+          id: sample_user
+          password: "{{ sample_user_password }}" # password should be secured with ansible-vault
+          groups: []
+        - sysaccount_action: delete
+          id: sample_user
+        - sysaccount_action: modify
+          id: existing_user
+          password: "{{ existing_user_password }}" # password should be secured with ansible-vault
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: "Configure sysaccounts [-e id=<user> -e sysaccount_action=<create|delete|modify|...>]"
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: "ibmsecurity.isam.base.sysaccount.users.{{ item.sysaccount_action }}"
+    isamapi: "{{ item | ibm.isam.exclude('sysaccount_action') }}"
+  loop: "{{ sysaccounts }}"
+  loop_control:
+    label: "{'sysaccount_action': '{{ item.sysaccount_action }}', 'id': '{{ item.id }}'}"
+  when:
+    - item.sysaccount_action == sysaccount_action
+    - item.id == id
+  notify: Commit Changes

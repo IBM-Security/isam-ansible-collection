@@ -5,21 +5,21 @@
     prompt: |
       NAME
         publish
-      
+
       DESCRIPTION
         Role to publish snapshot from configuration container [docker]
-      
+
       STEPS
         1) Publish changes
-      
+
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/publish.yml
-      
+        ansible-playbook -i [...] ibm.isam.base.publish.yml
+
       INVENTORY
       ==========
       # no INVENTORY configuration requried
       ==========
-      
+
       INTERACTION
         ENTER         = continue
         Ctrl+C + 'C'  = continue

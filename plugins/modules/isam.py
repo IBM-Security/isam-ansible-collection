@@ -1,8 +1,56 @@
 #!/usr/bin/python
-
+# Copyright (c) 2022 IBM
+# GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
+# SPDX-License-Identifier: GPL-3.0-or-later
 from __future__ import (absolute_import, division, print_function)
-
 __metaclass__ = type
+
+DOCUMENTATION = '''
+---
+module: isam
+short_description: This module will make calls to connection
+description: This module will make calls to connection
+author: Ram Sreerangam (@ram-ibm)
+options:
+    log:
+        description:
+            - level for log setting
+        type: str
+        required: False
+        default: INFO
+        choices:
+            - DEBUG
+            - INFO
+            - ERROR
+            - CRITICAL
+    force:
+        description:
+            - if force is True then a call to ISAM will always happen
+        type: bool
+        default: False
+        required: False
+    action:
+        description:
+            - name of the ibmsecurity call
+        type: str
+        required: True
+    isamapi:
+        description: parameters to pass to the ibmsecurity call
+        type: dict
+        required: False
+'''
+
+EXAMPLES = '''
+- name: Configure access control attributes
+  ibm.isam.isam:
+    log:       "{{ log_level | default(omit) }}"
+    force:     "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.attributes.get
+    isamapi: "{{ item }}"
+  when: item is defined
+  with_items: "{{ get_access_control_attributes }}"
+  register: ret_obj
+'''
 
 import logging.config
 import sys
@@ -40,7 +88,7 @@ def main():
     isam_util = ISAMUtil(module)
 
     # Create options string to pass to action method
-    ## NOTE: self.isam_server is inherited from the connection plugin
+    # NOTE: self.isam_server is inherited from the connection plugin
     options = 'isamAppliance=self.isam_server, force=' + str(force)
     if module.check_mode is True:
         options = options + ', check_mode=True'

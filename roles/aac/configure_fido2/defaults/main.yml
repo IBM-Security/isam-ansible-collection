@@ -1,0 +1,13 @@
+---
+# Default variables for fido2 configurations
+fido2_configurations: []
+
+# Default variables to filter for configuration of specific fido2 actions at runtime
+fido2_action: "{{ item.fido2_action }}"
+
+# Default homedir.  This defaults to inventory_dir for backwards compatibility reasons,
+#  even though the inventory_dir should NEVER be used to store files (should basically only contain files that can be parsed by an inventory_plugin)
+#  a better default value for homedir, would be playbook_dir:
+#       homedir: "{{ playbook_dir }}"
+#  so this is a varialb
+homedir: "{{ inventory_dir }}"

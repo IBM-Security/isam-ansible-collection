@@ -1,18 +1,49 @@
-# main task to import signer certificates
-#   Example:
-#      signer_certificates:
-#         -   kdb_id: "{{ item.kdb_id }}"
-#             cert: "{{ inventory_dir }}/{{ item.cert  }}"
-#             label: "{{ item.label }}"
 ---
-- name: Import signer certificates
+# main task to import signer certificates
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        import_signer_certificates
+
+      DESCRIPTION
+        Role to import signer certificates
+
+      STEPS
+        1) Import signer certificates
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.base.import_signer_certificates.yml
+
+      INVENTORY
+      ==========
+      # import multiple signer certificates
+      import_signer_certificates:
+        - kdb_id: "lmi_trust_store"
+          cert: "files/ssl/lmi.crt"
+          label: "sample_label"
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: "Import signer certificates [-e kdb_id=<kdb> -e label=<label>]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.ssl_certificates.signer_certificate.import_cert
     isamapi:
       kdb_id: "{{ item.kdb_id }}"
-      cert: "{{ inventory_dir }}/{{ item.cert  }}"
+      cert: "{{ homedir+'/'+item.cert }}"
       label: "{{ item.label }}"
-  with_items: "{{ signer_certificates }}"
+  loop: "{{ import_signer_certificates }}"
+  when:
+    - item.cert is defined
+    - item.kdb_id == kdb_id
+    - item.label == label
   notify: Commit Changes

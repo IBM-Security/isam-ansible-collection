@@ -5,5 +5,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.aac/export_runtime_template_root
+    - role: ibm.isam.aac.export_runtime_template_root
       tags: export_runtime_template_root

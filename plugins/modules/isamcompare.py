@@ -1,9 +1,86 @@
 #!/usr/bin/python
+# Copyright (c) 2020 IBM
+# GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 from __future__ import (absolute_import, division, print_function)
 
 __metaclass__ = type
 
+DOCUMENTATION = '''
+---
+module: isamcompare
+short_description: This module will make calls to connection
+description: This module will make calls to connection
+author: Ram Sreerangam (@ram-ibm)
+options:
+    log:
+        description:
+            - level for log setting
+        type: str
+        required: False
+        default: INFO
+        choices:
+            - DEBUG
+            - INFO
+            - ERROR
+            - CRITICAL
+    action:
+        description:
+            - name of the ibmsecurity call
+        type: str
+        required: True
+    appliance1:
+        description: ip address of the first appliance
+        type: str
+        required: True
+    lmi_port1:
+        description: port of the first appliance
+        type: int
+        required: False
+        default: 443
+    username1:
+        description: username to log into the first appliance
+        type: str
+        required: False
+    password1:
+        description: password to log into the first appliance
+        type: str
+        required: True
+    appliance2:
+        description: ip address of the 2nd appliance
+        type: str
+        required: True
+    lmi_port2:
+        description: port of the 2nd appliance
+        type: int
+        required: False
+        default: 443
+    username2:
+        description: username to log into the 2nd appliance
+        type: str
+        required: False
+    password2:
+        description: password to log into the 2nd appliance
+        type: str
+        required: True
+    isamapi:
+        description: parameters to pass to the ibmsecurity call
+        type: dict
+        required: False
+'''
+
+EXAMPLES = '''
+- name: Configure access control attributes
+  ibm.isam.isam:
+    log:       "{{ log_level | default(omit) }}"
+    force:     "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.attributes.get
+    isamapi: "{{ item }}"
+  when: item is defined
+  with_items: "{{ get_access_control_attributes }}"
+  register: ret_obj
+'''
 import logging
 import logging.config
 import sys
@@ -13,9 +90,14 @@ from io import StringIO
 import datetime
 from ansible.module_utils.six import string_types
 
-from ibmsecurity.appliance.isamappliance import ISAMAppliance
-from ibmsecurity.appliance.ibmappliance import IBMError
-from ibmsecurity.user.applianceuser import ApplianceUser
+
+try:
+    from ibmsecurity.appliance.isamappliance import ISAMAppliance
+    from ibmsecurity.appliance.ibmappliance import IBMError
+    from ibmsecurity.user.applianceuser import ApplianceUser
+    HAS_IBMSECURITY = True
+except ImportError:
+    HAS_IBMSECURITY = False
 
 logger = logging.getLogger(sys.argv[0])
 

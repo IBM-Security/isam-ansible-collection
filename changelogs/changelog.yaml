@@ -1,0 +1,196 @@
+ancestor: null
+releases:
+  1.0.23:
+    changes:
+      minor_changes:
+      - changelog - added new section for changelog as requested by the Red Hat team
+    fragments:
+    - 154-added_changelog.yml
+    release_date: '2022-03-29'
+  1.0.24:
+    changes:
+      bugfixes:
+      - yamllint - removed too many spaces before colon from files roles/add_oauth_definition/tasks/main.yml:27:23,
+        roles/add_sysaccount_user/tasks/main.yml:10:15, roles/fed/create_federation_partners/tasks/main.yml:36:19
+    fragments:
+    - 155-fixed_yamllint_issues.yml
+    release_date: '2022-04-06'
+  1.0.25:
+    changes:
+      minor_changes:
+      - configure_fido2 - new role and playbook
+    fragments:
+    - 150-configure_fido2.yml
+    release_date: '2022-04-13'
+  1.0.26:
+    changes:
+      minor_changes:
+      - redis_configuration - role and playbook to configure Redis on WebSEAL.
+    fragments:
+    - 158-redis_configuration.yml
+    release_date: '2022-04-27'
+  1.0.27:
+    changes:
+      bugfixes:
+      - plugins_connection_isam - added self._sub_plugin in _init_ to fix noneType
+        error.
+    fragments:
+    - 162-need_self_sub_plugin_in_init_.yml
+    release_date: '2022-10-17'
+  1.0.28:
+    changes:
+      bugfixes:
+      - isam.py - add inventory_hostname
+      - roles/aac/configure_runtime_template_root/tasks/include_sync_runtime_template_root.yml
+        - incorrect merging of list
+      deprecated_features:
+      - include action - is deprecated in favor of ``include_tasks``, ``import_tasks``
+        and ``import_playbook`` (https://github.com/ansible/ansible/pull/71262).
+      release_summary: Bugfixes and an attempt at improving the quality (passing ansible-test
+        sanity)
+    fragments:
+    - 1.0.28-releasesummary.yaml
+    - 165_deprecation_warning.yaml
+    - 168_missing_var_entry.yaml
+    - 172-error_with_lists_in_role.yml
+    release_date: '2023-04-21'
+  1.0.29:
+    changes:
+      breaking_changes:
+      - ibm.isam.aac.configure_fido2 - introduce homedir variable instead of relying
+        on inventory_dir (set homedir variable)
+      - ibm.isam.aac.configure_mapping_rules - introduce homedir variable instead
+        of relying on inventory_dir (set homedir variable)
+      - ibm.isam.aac.configure_policy_information_points - introduce homedir variable
+        instead of relying on inventory_dir (set homedir variable)
+      - ibm.isam.aac.configure_runtime_template_root - introduce homedir variable
+        instead of relying on inventory_dir (set homedir variable)
+      - ibm.isam.aac.export_runtime_template_root - introduce homedir variable instead
+        of relying on inventory_dir (set homedir variable)
+      - ibm.isam.base.configure_certificate_databases - introduce homedir variable
+        instead of relying on inventory_dir (set homedir variable)
+      - ibm.isam.base.configure_certificate_requests - introduce homedir variable
+        instead of relying on inventory_dir (set homedir variable)
+      - ibm.isam.base.configure_personal_certificates - introduce homedir variable
+        instead of relying on inventory_dir (set homedir variable)
+      - ibm.isam.base.configure_signer_certificates - introduce homedir variable instead
+        of relying on inventory_dir (set homedir variable)
+      - ibm.isam.base.download_snapshots - introduce homedir variable instead of relying
+        on inventory_dir (set homedir variable)
+      - ibm.isam.base.export_personal_certificates - introduce homedir variable instead
+        of relying on inventory_dir (set homedir variable)
+      - ibm.isam.base.extract_certificates - introduce homedir variable instead of
+        relying on inventory_dir (set homedir variable)
+      - ibm.isam.base.import_personal_certificates - introduce homedir variable instead
+        of relying on inventory_dir (set homedir variable) (NO TEST)
+      - ibm.isam.base.import_signer_certificates - introduce homedir variable instead
+        of relying on inventory_dir (set homedir variable)
+      - ibm.isam.base.install_fixpacks - introduce homedir variable instead of relying
+        on inventory_dir (set homedir variable) (NO TEST)
+      - ibm.isam.base.upload_jmt_files - introduce homedir variable instead of relying
+        on inventory_dir (set homedir variable)
+      - ibm.isam.base.upload_snapshot - introduce homedir variable instead of relying
+        on inventory_dir (set homedir variable) (NO TEST)
+      - ibm.isam.base.upload_updates - introduce homedir variable instead of relying
+        on inventory_dir (set homedir variable) (NO TEST)
+      - ibm.isam.web.configure_kerberos - introduce homedir variable instead of relying
+        on inventory_dir (set homedir variable)
+      - ibm.isam.web.configure_management_root - introduce homedir variable instead
+        of relying on inventory_dir (set homedir variable)
+      - ibm.isam.web.export_sso_keys - introduce homedir variable instead of relying
+        on inventory_dir (set homedir variable)
+      - ibm.isam.web.import_certificate_mapping_files - introduce homedir variable
+        instead of relying on inventory_dir (set homedir variable)
+      - ibm.isam.web.import_sso_keys - introduce homedir variable instead of relying
+        on inventory_dir (set homedir variable)
+      - ibm.isam.web.update_jmt_files - introduce homedir variable instead of relying
+        on inventory_dir (set homedir variable)
+      - ibm.isam.web.upload_dynurl_files - introduce homedir variable instead of relying
+        on inventory_dir (set homedir variable)
+      - ibm.isam.web.upload_http_transformation_files - introduce homedir variable
+        instead of relying on inventory_dir (set homedir variable)
+      - ibm.isam.web.upload_jmt_files - introduce homedir variable instead of relying
+        on inventory_dir (set homedir variable)
+      - ibm.isam.web.upload_ltpa_files - introduce homedir variable instead of relying
+        on inventory_dir (set homedir variable)
+      - ibm.isam.web.upload_management_root_files - introduce homedir variable instead
+        of relying on inventory_dir (set homedir variable)
+      - 'remove inventory_dir variable from roles- the new homedir variable now defaults
+        to inventory_dir, but if you rely on absolute paths in your inventory, you
+        will have to update them (or set `homedir: ""`)'
+      bugfixes:
+      - base.add_interfaces - remove non-breaking-space character
+      - base.configure_interfaces - remove non-breaking-space character
+      - ibm.isam.aac.configure_runtime_template_root - ERROR! 'notify' is not a valid
+        attribute for a TaskInclude
+      - 'ibm.isam.web.configure_management_root - ERROR! ''notify'' is not a valid
+        attribute for a TaskInclude (main.yml include_tasks: include_delete_management_root_contents.yml'
+      - ibm.isam.web.configure_reverseproxy_instances - problem in label with `if`
+        (https://github.com/IBM-Security/isam-ansible-collection/issues/176)
+      deprecated_features:
+      - ibm.isam.first_steps - use ibm.isam.base.first_steps instead.  Will be removed
+        in a future version.
+      known_issues:
+      - ibm.isam.aac.configure_fido2 - molecule import test fails because there is
+        no metadata file to import
+      - ibm.isam.base.configure_certificate_databases - importing a db using a zip
+        file fails
+      minor_changes:
+      - ansible-lint - add a config file
+      - bootstrap_local - remove dynamic=true
+      - connectivity_check.yml - use container environment variable, since CONTAINER_NAME
+        is not always there
+      - gen_report - reorganize role
+      - handlers - rename all occurrences of `common_handlers` to `ibm.isam.common_handlers`
+        (use fqcn everywhere)
+      - ibm.isam.add_static_route - cleanup
+      - ibm.isam.base.first_steps - rewrite when statement, fix ansible.legacy.uri
+      - ibm.isam.common_handlers - add `start_config_wait_time` default parameter
+      - ibm.isam.install_license - remove default variable `install_license_file`
+      - ibm.isam.set_rsyslog_forwarder - add format attribute
+      - playbooks/aac/create_authentication_policies.yml - correct accessed role
+      - playbooks/web/import_keytab_files - use ibm.isam.web.upload_kerberos_keytab_files
+      - server_facts - new community.vmware.vmware_vm_info instead of vmware_vm_facts
+      release_summary: 'Possible breaking change (remove the inventory_dir dependency)
+        - this may require you to add a homedir variable !
+
+        A number of bugfixes, and a number of new roles.'
+      removed_features:
+      - playbooks/ldap_query.yml - no corresponding role
+    fragments:
+    - 1.0.29.yml
+    - 139-remove_install_license_file.yml
+    - 145-various_fixes.yml
+    - 175-remove_inventory_dir.yml
+    - 179-update_management_ssl_cert_failed.yml
+    - 181-config_snmp_monitory.yml
+    - fix_connectivity_check_playbook.yml
+    objects:
+      playbook:
+      - description: Base configuration for appliances
+        name: base_site
+        namespace: null
+      - description: Check connectivity and variables.  You can run this using ansible-navigator
+          or using ansible-playbook.
+        name: connectivity_check
+        namespace: null
+      role:
+      - description: role to delete application logs
+        name: base.delete_application_logs
+        namespace: null
+      - description: role to execute cli commands
+        name: base.execute_cli
+        namespace: null
+      - description: enable management authorization
+        name: base.set_management_authorization
+        namespace: null
+      - description: new role to set the management ssl certificate
+        name: base.set_management_ssl_cert
+        namespace: null
+      - description: Role to configure v3 snmp monitoring
+        name: config_snmp_monitoring_v3
+        namespace: null
+      - description: role to generate memory statistics
+        name: get_memory_statistics
+        namespace: null
+    release_date: '2023-07-28'

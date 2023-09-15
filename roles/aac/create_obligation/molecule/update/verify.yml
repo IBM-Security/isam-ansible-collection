@@ -1,0 +1,26 @@
+---
+
+- name: Verify - update
+  hosts: all
+  gather_facts: no
+  tasks:
+    - include_vars:
+        file: "../../vars/main.yml"
+        name: inventory
+
+    - name: "Get the obligation {{ inventory.name }}"
+      include_role:
+        name: "get_obligations_by_name"
+      vars:
+        get_obligations_by_name:
+          - name: "{{ inventory.name }}"
+
+    - name: "Assert that the obligation {{ inventory.name }} was updated"
+      assert:
+        that:
+          - ret_obj.results.0.data.name is defined
+          - ret_obj.results.0.data.name == inventory.name
+          - ret_obj.results.0.data.description is defined
+          - ret_obj.results.0.data.description == inventory.update_description
+        fail_msg: "Obligation {{ inventory.name }} was not updated"
+        success_msg: "Obligation {{ inventory.name }} was updated"

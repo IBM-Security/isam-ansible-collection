@@ -30,7 +30,10 @@
       tlsv11Enabled: "{{ FIPS_cfg.tlsv11Enabled }}"
   register: ret_obj
   when: first_steps_fips
-- debug: var=ret_obj
+
+- name: Debug
+  debug:
+     var: ret_obj
 
 # Restart after FIPS if needed
 - name: Restart after enabling FIPS
@@ -68,8 +71,12 @@
   ibm.isam.isam:
     action: ibmsecurity.isam.base.setup_complete.set
   register: ret_obj
-- debug: var=ret_obj
 
+- name: debug
+  debug:
+    var: ret_obj
+
+- name: set password
   ibm.isam.isam:
       action: ibmsecurity.isam.base.admin.set_pw
       isamapi:

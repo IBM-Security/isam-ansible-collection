@@ -1,0 +1,65 @@
+---
+- name: Federation Cookbook SP Ch. 10
+  hosts: all
+  gather_facts: no
+  vars:
+    homedir: ""
+  tasks:
+    - include_vars:
+        file: "../vars/fed_cookbook_sp_vars.yml"
+        name: inventory
+
+    # 10 Configure test application and test user
+    - name: "10.1 Configure test application"
+      include_role:
+        name: ibm.isam.update_advanced_configuration
+      vars:
+        update_advanced_configuration_key: "{{ inventory.update_advanced_configuration_key }}"
+        update_advanced_configuration_value: "{{ inventory.update_advanced_configuration_value }}"
+        update_advanced_configuration_sensitive: "{{ inventory.update_advanced_configuration_sensitive }}"
+
+    - name: "10.2 Authorize Access to Mobile Demo Application - setup acls"
+      include_role:
+        name: ibm.isam.execute_pdadmin
+      vars:
+        execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
+        execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
+        execute_pdadmin_commands: "{{ inventory.demo_pdadmin_commands }}"
+
+    - name: "10.2 Authorize Access to Mobile Demo Application - update demo app settings"
+      vars:
+        inputs:
+          - "acHostAndPort={{ inventory.acHostAndPort }}"
+          - "lmiHostAndPort={{ inventory.lmiHostAndPort }}"
+          - "lmiAdminId={{ inventory.lmiAdminId }}"
+          - "lmiAdminPwd={{ inventory.lmiAdminPwd }}"
+          - "websealHostNameAndPort={{ inventory.websealHostNameAndPort }}"
+          - "acUuidCookieName={{ inventory.acUuidCookieName }}"
+      uri:
+        validate_certs: false
+        url: "{{ inventory.url }}"
+        method: POST
+        return_content: yes
+        body_format: form-urlencoded
+        body: "{{ inputs | join('&') }}"
+        headers:
+          Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+      register: rest_post
+      ignore_errors: yes
+
+    - name: "10.2 Authorize Access to Mobile Demo Application - update acls"
+      include_role:
+        name: ibm.isam.execute_pdadmin
+      vars:
+        execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
+        execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
+        execute_pdadmin_commands: "{{ inventory.acl_pdadmin_commands }}"
+
+    # 10.3 Configure test user
+    - name: "10.3 Configure test user - create test user"
+      include_role:
+        name: ibm.isam.execute_pdadmin
+      vars:
+        execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
+        execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
+        execute_pdadmin_commands: "{{ inventory.test_user_pdadmin_commands }}"

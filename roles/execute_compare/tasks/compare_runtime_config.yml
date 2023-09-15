@@ -1,6 +1,11 @@
+---
+
 - name: Compare Web Runtime {{ resource_id }} stanzas/entries
   ibm.isam.isamcompare:
-    appliance1: "{{ master_hostname }}"
+    appliance1: "{{ inventory_hostname }}"
+    appliance2: "{{ master_hostname }}"
+    password1: "{{ ansible_isam_password }}"
+    password2: "{{ master_password }}"
     log: "{{ log_level | default('INFO') }}"
     action: ibmsecurity.isam.web.runtime.configuration.stanza
     isamapi:
@@ -11,9 +16,11 @@
 - name: Show Differences - values do not match!
   debug: msg="{{ ret_obj['data']['difference'].split('\n') }}"
   ignore_errors: true
-  when: not ret_obj['data']['matches']
+  when:
+    - ret_obj['data']['matches'] is defined
+    - not ret_obj['data']['matches']
 
 - name: Show Log - command failed!
   debug: msg="{{ ret_obj['log'].split('\n') }}"
   ignore_errors: true
-  when: ret_obj|failed
+  when: ret_obj['failed'] is true

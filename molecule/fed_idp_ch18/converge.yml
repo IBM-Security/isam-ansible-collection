@@ -1,0 +1,161 @@
+---
+- name: Federation Cookbook IdP Part 2 Ch. 18
+  hosts: all
+  gather_facts: no
+  vars:
+    homedir: ""
+  tasks:
+    - include_vars:
+        file: "../vars/fed_cookbook_idp_vars.yml"
+        name: inventory
+
+    # 18 Advanced Federation Mapping Rules
+    - name: "18.1 Using HttpClient from Javascript mapping rules - get mapping rule id"
+      include_role:
+        name: ibm.isam.search_mapping_rule
+      vars:
+        search_mapping_rule_name: "{{ inventory.update_mapping_rule_name }}"
+
+    - name: "18.1 Using HttpClient from Javascript mapping rules - create mapping obj"
+      set_fact:
+        id_mapping_obj: {
+          identityMapping: {
+            activeDelegateId: "default-map",
+            properties: {
+              identityMappingRuleReference: "{{ ret_obj.data }}"
+            }
+          }
+        }
+
+
+    - name: "18.1 Using HttpClient from Javascript mapping rules - create updated config obj"
+      set_fact:
+        update_config_obj: "{{ inventory.set_federation_configuration | combine(id_mapping_obj) }}"
+
+    - name: "18.1 Using HttpClient from Javascript mapping rules"
+      include_role:
+        name: ibm.isam.set_federation
+      vars:
+        set_federation_name: "{{ inventory.set_federation_name }}"
+        set_federation_protocol: "{{ inventory.set_federation_protocol }}"
+        set_federation_role: "{{ inventory.set_federation_role }}"
+        set_federation_configuration: "{{ update_config_obj }}"
+        set_federation_templateName: ""
+
+    - name: "18.2 Using the external http callout mapping module"
+      include_role:
+        name: ibm.isam.set_federation
+      vars:
+        set_federation_name: "{{ inventory.set_federation_name }}"
+        set_federation_protocol: "{{ inventory.set_federation_protocol }}"
+        set_federation_role: "{{ inventory.set_federation_role }}"
+        set_federation_configuration: "{{ inventory.update_federation_configuration }}"
+        set_federation_templateName: ""
+
+    # 18.3.2 Configuring the LDAP Attribute Map
+    - name: "18.3.2.1 Configuring a Server Connection"
+      include_role:
+        name: ibm.isam.aac.set_server_connection_ldap
+      vars:
+        set_ldap_server_connection_name: "{{ inventory.set_ldap_server_connection_name }}"
+        set_ldap_server_connection_connection: "{{ inventory.set_ldap_server_connection_connection }}"
+        set_ldap_server_connection_description: "{{ inventory.set_ldap_server_connection_description }}"
+        set_ldap_server_connection_manager: "{{ inventory.set_ldap_server_connection_manager }}"
+
+    - name: "18.3.2.2 Configuring Attribute Sources"
+      include_role:
+        name: ibm.isam.set_attribute_source
+      vars:
+        attribute_sources: "{{ inventory.attribute_sources }}"
+
+    - name: "18.3.4 Configuring the STS chain for LDAP Attribute Map"
+      include_role:
+        name: ibm.isam.fed.configure_sts_chain_templates
+      vars:
+        sts_chain_templates: "{{ inventory.sts_ldap_templates }}"
+
+    - name: "18.3.4 Modify STS Test Module Chain - search for the template id by name"
+      include_role:
+        name: ibm.isam.fed.get_sts_chains
+      vars:
+        sts_template_name: "{{ inventory.modify_sts_template_name }}"
+
+    - name: "18.3.4 Modify STS Test Module Chain - set fact to save ip_pre_ldap uuid"
+      set_fact:
+        pre_mapper_uuid: "{{ item.prefix }}"
+      when: "{{ pre_mapper_uuid is not defined and item.id == inventory.mapper_name }}"
+      with_items: "{{ ret_obj.data.chainItems }}"
+
+    - name: "18.3.4 Modify STS Test Module Chain - set fact to save ip_post_ldap uuid"
+      set_fact:
+        post_mapper_uuid: "{{ item.prefix }}"
+      when: "{{ item.id == inventory.mapper_name }}"
+      with_items: "{{ ret_obj.data.chainItems }}"
+
+    - name: "18.3.4 Modify STS Test Module Chain - get ip_pre_ldap mapping rule id"
+      include_role:
+        name: ibm.isam.search_mapping_rule
+      vars:
+        search_mapping_rule_name: "{{ inventory.ip_pre_ldap_rule_name }}"
+
+    - name: "18.3.4 Modify STS Test Module Chain - set fact to save ip_pre_ldap id"
+      set_fact:
+        pre_mapper_id: "{{ ret_obj.data }}"
+
+    - name: "18.3.4 Modify STS Test Module Chain - get ip_post_ldap mapping rule id"
+      include_role:
+        name: ibm.isam.search_mapping_rule
+      vars:
+        search_mapping_rule_name: "{{ inventory.ip_post_ldap_rule_name }}"
+
+    - name: "18.3.4 Modify STS Test Module Chain - set fact to save stsuu template id"
+      set_fact:
+        post_mapper_id: "{{ ret_obj.data }}"
+
+    - name: "18.3.4 Modify STS Test Module Chain - search attribute phone id"
+      include_role:
+        name: ibm.isam.search_attribute_source
+      vars:
+        search_attribute_source_name: "{{ inventory.attribute_source_phone }}"
+
+    - name: "18.3.4 Modify STS Test Module Chain - set fact to save attribute phone id"
+      set_fact:
+        phone_id: "{{ search_attribute_source_register.data }}"
+
+    - name: "18.3.4 Modify STS Test Module Chain - search attribute name id"
+      include_role:
+        name: ibm.isam.search_attribute_source
+      vars:
+        search_attribute_source_name: "{{ inventory.attribute_source_name }}"
+
+    - name: "18.3.4 Modify STS Test Module Chain - set fact to save attribute name id"
+      set_fact:
+        name_id: "{{ search_attribute_source_register.data }}"
+
+    - name: "18.3.4 Modify STS Test Module Chain - create properties obj"
+      set_fact:
+        chain_properties:
+          properties: {
+            attributeMapping: {
+              map: [{name: "phone", source: "{{ phone_id }}"}, {name: "displayName", source: "{{ name_id }}"}]
+            },
+            self: [ { "name": "{{ pre_mapper_uuid }}.map.rule.type",
+                      "value": ["JAVASCRIPT"]},
+                    { "name": "{{ pre_mapper_uuid }}.map.rule.reference.ids",
+                      "value": ["{{ pre_mapper_id }}"]},
+                    { "name": "{{ post_mapper_uuid }}.map.rule.type",
+                      "value": ["JAVASCRIPT"]},
+                    { "name": "{{ post_mapper_uuid }}.map.rule.reference.ids",
+                      "value": ["{{ post_mapper_id }}"]}
+            ]
+          }
+
+    - name: "18.3.4 Modify STS Test Module Chain - create properties obj"
+      set_fact:
+        new_modify_chain: ["{{ inventory.update_sts_chain | combine(chain_properties) }}"]
+
+    - name: "18.3.4 Modify STS Test Module Chain"
+      include_role:
+        name: ibm.isam.fed.configure_sts_chains
+      vars:
+        sts_chains: "{{ new_modify_chain }}"

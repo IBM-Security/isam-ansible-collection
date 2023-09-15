@@ -1,0 +1,17 @@
+---
+- name: Converge - updatge
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing add - configure_authentication_policies"
+      include_role:
+        name: "configure_authentication_policies"
+      vars:
+        authentication_policies:
+          - policy_action: update
+            name: "{{ molecule.name }}"
+            description: "{{ molecule.update_description }}"
+            dialect: "{{ molecule.dialect }}"
+            uri: "{{ molecule.uri }}"
+            enabled: "{{ molecule.enabled }}"
+            policy: "{{ molecule.policy }}"

@@ -1,0 +1,19 @@
+---
+
+molecule.name: testapi1
+molecule.clients:
+  - name: TestApp
+    companyName: IBM demo client for OAuth flows
+    redirectUri:
+      - https://localhost
+    contractType: ADMINISTRATIVE
+molecule.clients_updated:
+  - name: TestApp
+    companyName: IBM demo client for OAuth flows
+    redirectUri:
+      - https://localhost
+    contractType: ADMINISTRATIVE
+    companyUrl: https://ibm.com
+
+molecule_client_name: TestApp
+molecule_companyUrl: https://ibm.com

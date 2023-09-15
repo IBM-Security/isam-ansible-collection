@@ -1,0 +1,11 @@
+---
+# tasks file for get_access_control_attribute
+- name: Get Authentication Mechanisms by name
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.authentication.mechanisms.get
+    isamapi: "{{ item }}"
+  when: item is defined
+  with_items: "{{ get_authentication_mechanisms}}"
+  register: ret_obj

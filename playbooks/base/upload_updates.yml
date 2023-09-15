@@ -7,5 +7,5 @@
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
-    - role: ibm.isam.base/upload_updates
+    - role: ibm.isam.base.upload_updates
       tags: upload_updates

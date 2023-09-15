@@ -1,5 +1,8 @@
+---
+
 # Default variables for configuration of authentication mechanisms
 authentication_mechanisms: []
 
 # Default variables for filtering
-name: "{{ item.name }}"
+mechanism_action: "{{ item.mechanism_action }}"
+mechanism_name: "{{ item.name }}"

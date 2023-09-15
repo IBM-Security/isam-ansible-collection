@@ -1,0 +1,29 @@
+name: Manual Ansible Test
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on: workflow_dispatch
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build-and-test:
+    strategy:
+      matrix:
+        python-version:
+          - 3.6
+          - 3.8
+          - 3.9
+        ansible-core-version:
+          - stable-2.11
+          - stable-2.12
+          - stable-2.14
+    runs-on: ubuntu-latest
+    steps:
+      - name: Perform sanity testing with ansible-test
+        uses: ansible-community/ansible-test-gh-action@v1.12.0
+        with:
+          pull-request-change-detection: true
+          target-python-version: ${{ matrix.python-version }}
+          ansible-core-version: ${{ matrix.ansible-core-version }}
+          testing-type: sanity
+          pre-test-cmd: echo Starting ansible-test

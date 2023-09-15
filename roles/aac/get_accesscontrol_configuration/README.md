@@ -12,6 +12,7 @@ It exports
 
 ## Example playbook
 
+````yaml
 - hosts: "all"
   connection: local
   gather_facts: yes
@@ -21,11 +22,10 @@ It exports
       import_role:
         name: aac/get_accesscontrol_configuration
       vars:
-        access_control_output_dir: "{{ inventory_dir }}"
+        access_control_output_dir: /tmp
+````
 
 ### Prerequisites
-
-start_config
 
 ```
 access_control_output_dir: variable to set to the directory you want the output to be
@@ -41,4 +41,3 @@ access_control_output_dir: variable to set to the directory you want the output 
 ## Acknowledgments
 
 * Ram Sreerangam, for driving the ISAM Ansible automation
-

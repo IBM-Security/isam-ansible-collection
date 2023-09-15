@@ -1,11 +1,54 @@
-# main task to configure runtime tuning parameters
 ---
+
+# main task to configure runtime tuning parameters
+
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_runtime_tunings
+
+      DESCRIPTION
+        Role to configure runtime tuning parameter
+
+      STEPS
+        1) Configure runtime tuning
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.base.configure_runtime_tunings.yml
+        ansible-playbook -i [...] ibm.isam.base.configure_runtime_tunings.yml -e option=max_files # limit configuration as runtime for specific option
+        ansible-playbook -i [...] ibm.isam.base.configure_runtime_tunings.yml -e runtime_action=set # limit configuration as runtime for specific runtime_action
+
+      INVENTORY
+      ==========
+      # configure runtime tunings
+      runtime_tunings:
+        - runtime_action: set
+          option: max_files
+          value: 40
+        - runtime_action: set
+          option: max_file_size
+          value: 100
+        - runtime_action: reset
+          option: max_files
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
 - name: Configure runtime tuning parameters
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: ibmsecurity.isam.base.runtime.tuning_parameters.set
-    isamapi: "{{ item }}"
-  when: item.option.find(option) != -1
-  with_items: "{{ runtime_tuning }}"
+    action: "ibmsecurity.isam.base.runtime.tuning_parameters.{{ item.runtime_action }}"
+    isamapi: "{{ item | ibm.isam.exclude('runtime_action') }}"
+  when:
+    - item.option == option
+    - item.runtime_action == runtime_action
+  with_items: "{{ runtime_tunings }}"
   notify: Commit Changes

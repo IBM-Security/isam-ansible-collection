@@ -35,7 +35,7 @@ whitelist_authentication_policies:
   - name: QR Code Login Initiate
   - name: MMFA User Presence Authentication
 
-# Example :
+# Example:
 #   - hosts: "all"
 #     connection: local
 #     gather_facts: yes

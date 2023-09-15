@@ -1,3 +1,5 @@
+---
+
 - name: Help INFO (-e help=true)
   pause:
     echo: yes
@@ -13,10 +15,10 @@
         2) Commit changes (with new_password)
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/change_admin_password.yml //if not available playbook requests for old_password and new_password
-        ansible-playbook -i [...] playbooks/ansible_collections/base/change_admin_password.yml -e old_password=**** -e new_password=**** //give passwords at runtime [use with caution as passwords will be available through history]
-        ansible-playbook -i [...] playbooks/ansible_collections/base/change_admin_password.yml -e old_password=admin // change default password after first_steps with new_password being requested or from inventory
-        ansible-playbook -i [...] playbooks/ansible_collections/base/change_admin_password.yml -e sessionTimeout=620 // increase default session timeout [120] with password change
+        ansible-playbook -i [...] ibm.isam.base.change_admin_password.yml //if not available playbook requests for old_password and new_password
+        ansible-playbook -i [...] ibm.isam.base.change_admin_password.yml -e old_password=**** -e new_password=**** //give passwords at runtime [use with caution as passwords will be available through history]
+        ansible-playbook -i [...] ibm.isam.base.change_admin_password.yml -e old_password=admin // change default password after first_steps with new_password being requested or from inventory
+        ansible-playbook -i [...] ibm.isam.base.change_admin_password.yml -e sessionTimeout=620 // increase default session timeout [120] with password change
 
       INVENTORY
       ==========

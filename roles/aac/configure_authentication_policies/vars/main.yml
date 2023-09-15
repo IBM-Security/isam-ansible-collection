@@ -1,0 +1,21 @@
+---
+
+molecule.name: test_auth_policy_1
+molecule.description: Test authentication policy
+molecule.update_description: New test authentication policy
+molecule.dialect: urn:ibm:security:authentication:policy:1.0:schema
+molecule.enabled: true
+molecule.uri: urn:ibm:security:authentication:asf:test_auth_policy_1
+molecule.policy:
+  - name: Policy
+    attributes:
+      xmlns: urn:ibm:security:authentication:policy:1.0:schema
+      PolicyId: urn:ibm:security:authentication:asf:test_auth_policy_1
+    children:
+      - name: Step
+        attributes:
+          type: Authenticator
+        children:
+          - name: Authenticator
+            attributes:
+              AuthenticatorId: urn:ibm:security:authentication:asf:mechanism:info_map

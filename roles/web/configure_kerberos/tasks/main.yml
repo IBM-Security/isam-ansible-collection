@@ -43,7 +43,7 @@
         [...]
         keytab_files:
           - file: files/kerberos/default.krb5
-          - file: /ansible/inventory/simple/files/kerberos/another.krb5
+          - file: files/kerberos/another.krb5
         [...]
         realms:
           - realm: realm_1
@@ -86,7 +86,7 @@
     action: ibmsecurity.isam.web.kerberos_configuration.keyfiles.import_keytab
     isamapi:
       id: "{{ item.file | basename }}"
-      file: "{{ item.file if((item.file | regex_search('^/')) == '/') else (inventory_dir +'/'+ item.file) }}"
+      file: "{{ homedir +'/'+ item.file }}"
   when:
     - item.file is defined
     - (item.file | basename) == keytab_file
@@ -131,6 +131,7 @@
   with_subelements:
     - "{{ kerberos.realms }}"
     - subsections
+    - skip_missing: True
   loop_control:
     label: "{ \"realm\": \"{{ item.0.realm }}\", \"subsection\": \"{{ item.1.name if (item.1.name is defined) }}\" }"
   notify: Commit Changes
@@ -169,14 +170,12 @@
   with_subelements:
     - "{{ kerberos.realms }}"
     - properties
+    - skip_missing: True
   loop_control:
     label: "{ \"realm\": \"{{ item.0.realm }}\", \"propname\": \"{{ item.1.propname if (item.1.propname is defined) }}\", \"propvalue\": \"{{ item.1.propvalue if (item.1.propvalue is defined) }}\" }"
   notify: Commit Changes
 
 - include_tasks: include_configure_subsections_properties_1st_level.yml
-  with_subelements:
-    - "{{ kerberos.realms }}"
-    - subsections
   when:
     - subsections_1st_level.1.name is defined
     - subsections_1st_level.0.realm == realm
@@ -252,6 +251,7 @@
   with_subelements:
     - "{{ kerberos.ca_paths }}"
     - properties
+    - skip_missing: True
   when:
     - item.0.name is defined
     - item.1.server_realm is defined

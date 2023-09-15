@@ -1,6 +1,18 @@
+---
 # Default variables for configuration of mapping rules
 mapping_rules: []
 
 # Default variables to filter for configuration of specific mapping rules at runtime
-name: "{{ item.name }}"
-category: "{{ item.category }}"
+rule_name: "{{ item.name }}"
+category: "{{ item.category if item.category is defined }}"
+rule_action: "{{ item.rule_action }}"
+file: "{{ item.file if item.file is defined }}"
+content: "{{ item.content if item.content is defined }}"
+filename: "{{ item.filename if item.filename is defined }}"
+
+# Default homedir.  This defaults to inventory_dir for backwards compatibility reasons,
+#  even though the inventory_dir should NEVER be used to store files (should basically only contain files that can be parsed by an inventory_plugin)
+#  a better default value for homedir, would be playbook_dir:
+#       homedir: "{{ playbook_dir }}"
+#  so this is a varialb
+homedir: "{{ inventory_dir }}"

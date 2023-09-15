@@ -1,14 +1,84 @@
-# main task to configure mapping rules
 ---
-- name: Configure mapping rules
+# main task to configure mapping rules
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_mapping_rules
+
+      DESCRIPTION
+        Role to configure mapping rules
+
+      STEPS
+        1) Configure mapping rules
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_mapping_rules.yml
+
+      INVENTORY
+      ==========
+      # configure mapping rules
+      mapping_rules:
+        # upload or update mapping rule from file
+        - rule_action: set
+          name: mapping_rule_1
+          file: "uploads/mapping_rules/<file-name>.js"
+          category: InfoMap
+        # upload or update mapping rule from content (one liner)
+        - rule_action: set
+          name: mapping_rule_2 # ! attention: name will be also used as filename if content is defined
+          content: "// Always return with success from this mapping rule\nsuccess.setValue(True)" # onliner with linefeed-char '\n' included
+          category: InfoMap
+        # upload or update mapping rule from content (muli-line)
+        - rule_action: set
+          name: mapping_rule_3 # ! attention: name will be also used as filename if content is defined
+          content: |
+            importClass(Packages.com.tivoli.am.fim.trustserver.sts.utilities.IDMappingExtUtils);
+
+            // Always return with success from this mapping rule
+
+            success.setValue(True);
+            IDMappingExtUtils.traceString("Exit CI_Self_Care_Rule");
+          category: InfoMap
+        # delete a mapping rule by name
+        - rule_action: delete
+          name: mapping_rule_3
+        # export a mapping rule by name
+        - rule_action: export_file
+          name: mapping_rule_2
+          filename: files/mapping_rules/mapping_rule_2.js # can be relative or absolute path
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+# - debug: msg="{{ item.category }} | {{ category }}"
+#   loop: "{{ mapping_rules }}"
+
+- name: "Configure mapping rules [-e rule_action=[set|] -e rule_name=<name> -e category=[AuthSvc|Decision|FIDO2||InfoMap|OAUTH|OIDC|OTP|SAML2|SAML2_0|SAML2_0_EXT|WSFED|...] -e file=<path/to/upload/file>]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: ibmsecurity.isam.aac.mapping_rules.set
-    isamapi:
-      name: "{{ item.name }}"
-      category: "{{ item.category }}"
-      upload_filename: "{{ inventory_dir }}/{{ item.file }}"
-  when: item.name == name and item.category == category
-  with_items: "{{ mapping_rules }}"
+    action: "ibmsecurity.isam.aac.mapping_rules.{{ item.rule_action }}"
+    isamapi: "{{
+      { 'name': item.name }
+      | combine({ 'category': item.category } if (item.category is defined and (item.rule_action=='set' or item.rule_action=='add')) else {})
+      | combine({ 'upload_filename': homedir +'/'+ item.file } if (item.file is defined and (item.rule_action=='set' or item.rule_action=='upload' or item.rule_action=='update' or item.rule_action=='add')) else {})
+      | combine({ 'content': (item.content | replace('\n','\\n') | regex_replace('\"', '\\\"')) } if (item.content is defined and (item.rule_action=='set' or item.rule_action=='add' or item.rule_action=='update')) else {})
+      | combine({ 'filename': (item.name) } if (item.content is defined and item.rule_action != 'export_file') else ({'filename': homedir +'/'+ item.filename } if(item.filename is defined and (item.rule_action=='set' or item.rule_action=='add' or item.rule_action=='export_file' or item.rule_action=='upload' or item.rule_action=='import_file')) else {}))
+    }}"
+  when:
+    - item.rule_action == rule_action
+    - item.name == rule_name
+    - (item.file is defined and item.file == file)
+      or (item.content is defined and item.filename is defined)
+      or (item.name is defined and item.filename is defined)
+      or (item.category is defined and item.category == category)
+      or (item.name is defined and item.rule_action == 'delete')
+  loop: "{{ mapping_rules }}"
   notify: Commit Changes

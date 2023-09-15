@@ -1,0 +1,68 @@
+---
+
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        config_reverseproxy_federations
+
+      DESCRIPTION
+        Role to configure existing reverse proxy instances for federation integration
+
+      STEPS
+        1) Configure reverse proxy for federation
+        2) Commit changes
+        *) NOT INCLUDED: Restart reverse proxy instance (use web/restart_reverseproxy_instances role to restart instances with pending changes)
+
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/web/config_reverseproxy_federations.yml
+        ansible-playbook -i [...] playbooks/ansible_collections/web/config_reverseproxy_federations.yml -e inst_name=default # filter at runtime for federation configuration
+        ansible-playbook -i [...] playbooks/ansible_collections/web/config_reverseproxy_federations.yml -e ansible_command_timeout=200 # increase command timeout to wait for task to complete
+
+      INVENTORY
+      ==========
+      # configure default reverse proxy for federation
+      instances:
+        [...]
+        - inst_name: default
+          [...]
+          # add federation to reverse proxy
+          federation_configurations:
+            - fed_action: config
+              federation_name: demo-fed
+              # federation_id: <fed_id> # [optional] federation_name will search for corresponding federation_id
+              hostname: localhost
+              port: '443' # should be a string, otherwise error WGAWA0423E can occur
+              username: easuser
+              password: {{ '{{' }} vault_easuser_pwd {{ '}}' }} # ansible-vault secured pwd
+              reuse_acls: True
+              reuse_certs: True
+          [...]
+          # unconfigure federation on reverse proxy
+            - fed_action: unconfig
+              federation_name: demo-fed
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Configuring Instances for Federations
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: "ibmsecurity.isam.web.reverse_proxy.federation_configuration.{{ item.1.fed_action }}"
+    isamapi: "{{ item.1 | ibm.isam.exclude('fed_action') | combine({ 'instance_id': item.0.inst_name }) }}"
+  when:
+    - item.0.inst_name == inst_name
+  with_subelements:
+    - "{{ instances }}"
+    - federation_configurations
+    - skip_missing: True
+  loop_control:
+    label: "{{ item.1 | ibm.isam.exclude('password') | combine({ 'instance_id': item.0.inst_name }) }}"
+  notify:
+  - Commit Changes

@@ -1,13 +1,7 @@
 ---
 # Configure
 #   configure user_registry
-#   Example:
-#     user_registry:
-#       - action: set_pw
-#         id: easuser
-#         password: *****
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
   roles:
-    - role: ibm.isam.aac/configure_user_registry
+    - role: ibm.isam.aac.configure_user_registry
       tags: configure_user_registry

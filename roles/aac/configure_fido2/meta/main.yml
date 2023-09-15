@@ -1,0 +1,24 @@
+---
+
+galaxy_info:
+  namespace: ibm
+  author: IBM
+  description: Role to configure fido2 [metadata, registrations, relying-parties, u2f-migration]
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: 2.2
+
+  galaxy_tags:
+  - isam
+  - ibm
+  - configure
+  - fido2
+  - metadata
+  - registrations
+  - relying-parties
+  - u2f-migration
+
+dependencies:
+  - ibm.isam.common_handlers

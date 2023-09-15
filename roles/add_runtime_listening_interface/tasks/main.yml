@@ -18,4 +18,3 @@
   with_items: "{{ runtime_listening_interfaces }}"
   when: runtime_listening_interfaces is defined
   notify: Commit Changes
-

@@ -16,12 +16,12 @@
         4) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml -e configure_interfaces_delete_missing=True //delete IP address from interfaces which are missing in the inventory
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml -e label=1.1 //only configure interface with corresponding label
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml -e address=192.168.42.110 //only configure interface with corresponding label
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml -e address=192.168.42.113 -e configure_interfaces_delete_missing=True //only delete one IP from interface if not contained in inventory
-        ansible-playbook -i [...] playbooks/ansible_collections/base/configure_interfaces.yml -e label=1.1 -e configure_interfaces_delete_missing=True //clean up only one interface
+        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml
+        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e configure_interfaces_delete_missing=True //delete IP address from interfaces which are missing in the inventory
+        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e label=1.1 //only configure interface with corresponding label
+        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e address=192.168.42.110 //only configure interface with corresponding label
+        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e address=192.168.42.113 -e configure_interfaces_delete_missing=True //only delete one IP from interface if not contained in inventory
+        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e label=1.1 -e configure_interfaces_delete_missing=True //clean up only one interface
 
       INVENTORY
       ==========
@@ -38,6 +38,7 @@
               maskOrPrefix: "24"
               allowManagement: false
               enabled: true
+              overrideSubnetChecking: true
       ==========
 
       INTERACTION
@@ -50,14 +51,16 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: "ibmsecurity.isam.base.network.{{ configure_interfaces_action }}.add"
-    isamapi:
-      label: "{{ item.0.label }}"
-      address: "{{ item.1.address }}"
-      maskOrPrefix: "{{ item.1.maskOrPrefix }}"
-      allowManagement: "{{ item.1.allowManagement }}"
-      enabled: "{{ item.1.enabled | default(False) }}"
+    isamapi: "{{
+      { 'address': item.1.address }
+      | combine({ 'label': item.0.label } if (item.0.label is defined) else {})
+      | combine({ 'maskOrPrefix': item.1.maskOrPrefix } if (item.1.maskOrPrefix is defined) else {})
+      | combine({ 'overrideSubnetChecking': item.1.overrideSubnetChecking } if (item.1.overrideSubnetChecking is defined) else {})
+      | combine({ 'enabled': item.1.enabled } if (item.1.enabled is defined) else {})
+      | combine({ 'allowManagement': item.1.allowManagement } if (item.1.allowManagement is defined) else {})
+    }}"
   when: item.0.label == label and item.1.address == address
-  loop: "{{ interfaces | subelements('addresses', {'skip_missing': True}) }}"
+  loop: "{{ interfaces | subelements('addresses', {'skip_missing': True}) }}"
   loop_control:
     label: "Processing interface {{ item.0.label }} and IP address {{ item.1.address }}"
   notify: Commit Changes
@@ -86,6 +89,7 @@
     isamapi:
       label: "{{ item.0.label }}"
       address: "{{ item.1 }}"
+      overrideSubnetChecking: "{{ configure_interfaces_overrideSubnetChecking | default(False) }}"
   when: item.1 is not in (interfaces | json_query(filter_current_interfaces)) and configure_interfaces_delete_missing and item.0.label == label and item.1 == address
   with_subelements:
     - "{{ addresses_list_server | default([]) }}"

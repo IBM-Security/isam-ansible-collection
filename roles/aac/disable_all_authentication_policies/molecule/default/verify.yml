@@ -1,0 +1,21 @@
+---
+
+- name: Verify if all authentication policies were disabled
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Retrieve all authentication policies"
+      include_role:
+        name: "get_all_authentication_policies"
+
+    - name: "Check each policy's status"
+      set_fact:
+        enabled: "true"
+      when: "{{ item.enabled == true }}"
+      with_items: "{{ ret_obj.data }}"
+
+    - name: "Assert that each authentication policy was disabled"
+      assert:
+        that: enabled is not defined
+        fail_msg: "Not all the authentication policies were disabled"
+        success_msg: "All the authentication policies were disabled"

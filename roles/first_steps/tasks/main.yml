@@ -1,12 +1,15 @@
 - name: Check ISAM appliance for First Steps Execution
   uri:
+    url: "https://{{ ansible_host|default(inventory_hostname) }}:{{ ansible_isam_port }}/lmi"
     user: admin
+    password: "{{ first_steps_default_password }}"
     method: GET
     return_content: yes
     force_basic_auth: yes
     status_code: 200, 403
     validate_certs: false
-    HEADER_Accept: "application/json"
+    headers:
+      "Accept": "application/json"
   check_mode: no
   register: result
 
@@ -20,5 +23,5 @@
   when: result is defined and result.status == 200 and result.json.sla is defined
 
 # Go through basic set up to accept license and set up FIPS only needed
-- include: "{{ firststeps }}"
-  dynamic: true
+- include_tasks: "{{ firststeps }}"
+#  dynamic: true

@@ -1,0 +1,13 @@
+---
+# Default variables for exporting personal certificates from databases
+export_personal_certificates: []
+
+# skip multiple exports
+skip_exports: false
+
+# Default homedir.  This defaults to inventory_dir for backwards compatibility reasons,
+#  even though the inventory_dir should NEVER be used to store files (should basically only contain files that can be parsed by an inventory_plugin)
+#  a better default value for homedir, would be playbook_dir:
+#       `homedir: "{{ playbook_dir }}"`
+#  so this is a variable
+homedir: "{{ inventory_dir }}"

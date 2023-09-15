@@ -1,3 +1,5 @@
+---
+
 - name: Configure System Alert to SNMP
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -23,14 +25,13 @@
   register: alertObj
   notify: Commit Changes
 
-
 - name: Enable System Alert - Created in previous Step
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.system_alerts.alerts.enable
     isamapi:
-      uuid : "{{ alertObj['data']['uuid'] }}"
-      objType : "{{ alertObj['data']['objType'] }}"
+      uuid: "{{ alertObj['data']['uuid'] }}"
+      objType: "{{ alertObj['data']['objType'] }}"
   when: add_system_alerts_snmp_trapAddress is defined and alertObj.changed and (not ansible_check_mode)
   notify: Commit Changes

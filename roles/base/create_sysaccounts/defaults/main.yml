@@ -1,5 +1,7 @@
-# The following need to be provided for role to work
-# Example:
-#  sysaccounts:
-#    - id: sec_master
+---
+
+# default variables to create password for system accounts
 sysaccounts: []
+
+# limit execution at runtime to filter for system accounts
+id: "{{ item.id }}"

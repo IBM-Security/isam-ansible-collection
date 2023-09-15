@@ -1,0 +1,11 @@
+---
+# tasks file for get_access_control_attribute
+- name: Configure access control attributes
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.attributes.get
+    isamapi: "{{ item }}"
+  when: item is defined
+  with_items: "{{ get_access_control_attributes }}"
+  register: ret_obj

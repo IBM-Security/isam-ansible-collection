@@ -98,5 +98,3 @@
   notify:
   - Commit Changes
   - Restart Reverse Proxy
-
-

@@ -37,12 +37,9 @@ multiple releases in one day (expected to be uncommon).
 
 ## Features
 
-The `start_config` role is a requirement for every playbok. It contains the custom modules and all handlers. All other
-roles have a dependency on it and `start_config` will get automatically invoked as needed.This repository contains a small selection of roles - users are encouraged to add more as needed.
-
 ### Custom Modules
-_"Modules (also referred to as "task plugins” or "library plugins”) are the ones that do the actual work in ansible,
-they are what gets executed in each playbook task. But you can also run a single one using the ‘ansible’ command."_
+_"Modules (also referred to as "task plugins" or "library plugins") are the ones that do the actual work in ansible,
+they are what gets executed in each playbook task. But you can also run a single one using the 'ansible' command."_
 http://docs.ansible.com/ansible/modules_intro.html
 
 Ansible custom modules provide the glue to seamless invoke python functions to execute REST API calls against ISAM
@@ -57,8 +54,7 @@ the JSON data from one appliance is comapared against another.
 
 ### Handlers
 After a change happens, ansible can be set to execute "handlers" to commit changes and/or restart processes. Handlers
-are just other tasks. Handlers execute based on the sequence in which they are listed. See `start_config` role for
-details.
+are just other tasks. Handlers execute based on the sequence in which they are listed.
 
 ### Roles
 "Roles in Ansible build on the idea of include files and combine them to form clean, reusable abstractions – they allow

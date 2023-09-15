@@ -28,11 +28,11 @@ This depends on bondingMode being set to slave or one of the other modes.
 If bondingMode is set to slave; bondedTo is also required.
 
 interfaces:
-  - label : '1.3'
+  - label: '1.3'
     name: "Bonding Master"
     bondingMode: '802.3ad'
-    comment : 'Your comment is my command'
-  - label : '1.4'
+    comment: 'Your comment is my command'
+  - label: '1.4'
     name: "Bonding Slave"
     bondingMode: 'slave'
     bondedTo: '1.3'
@@ -82,4 +82,3 @@ Author Information
 ------------------
 
 tom.bosmans@be.ibm.com
-

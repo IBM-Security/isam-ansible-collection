@@ -1,0 +1,7 @@
+---
+
+# default variables to configure static routes
+static_routes: []
+
+# default action should be set to configure static route
+route_action: set

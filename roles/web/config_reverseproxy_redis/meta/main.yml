@@ -1,0 +1,20 @@
+galaxy_info:
+  author: IBM
+  description: Role to configure WebSEAL for Redis
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: 2.11
+
+  galaxy_tags:
+  - isam
+  - ibm
+  - configure
+  - redis
+
+collections:
+  - ibm.isam
+
+dependencies:
+  - ibm.isam.common_handlers

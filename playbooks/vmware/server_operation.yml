@@ -2,14 +2,14 @@
 - name: Execute an operation reboot/stop/start on server in VCenter
   hosts: all
   vars:
-    server_operation: "rebootguest"
+    server_operation: rebootguest
   vars_prompt:
     - name: vcenter_username
-      prompt: "Enter AD Userid to login to Vcenter"
-      private: no
+      prompt: Enter AD Userid to login to Vcenter
+      private: false
     - name: vcenter_password
-      prompt: "Enter AD Password to login to Vcenter"
-      private: yes
+      prompt: Enter AD Password to login to Vcenter
+      private: true
   tasks:
     - name: Reboot VM Guest Machine
       vmware_guest:
@@ -19,4 +19,4 @@
         name: "{{ hostname.partition('.')[0] }}"
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
-        validate_certs: no
+        validate_certs: false

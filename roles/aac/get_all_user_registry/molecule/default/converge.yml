@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Get all user registries"
+      include_role:
+        name: "get_all_user_registry"
+      register: ret_obj
+
+    - debug:
+        var: ret_obj

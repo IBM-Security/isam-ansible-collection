@@ -1,25 +1,141 @@
-# main task to configure api protection definition
-#   Example:
-#     authentication_mechanisms:
-#       - name: InfoMapAuthenticationName
-#         description: test
-#         predefined:	false
-#         properties:
-#           - key: infoMap.JSRule
-#             value:	test
-#           - key: infoMap.HTMLPage
-#             value:	test.html
-#         typeName: InfoMapAuthenticationName
-#         uri:	urn:ibm:security:authentication:asf:mechanism:test
 ---
-- name: Configure authentication mechanisms
+
+# main task to configure authentication mechanisms
+
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_authentication_mechanisms
+
+      DESCRIPTION
+        Role to configure authentication mechanism
+
+      STEPS
+        1) Configure authentictaion mechanims
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_authentication_mechanisms.yml // configure all authentication from inventory
+        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_authentication_mechanisms.yml  -e mechanism_action=set // only create or update tasks
+        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_authentication_mechanisms.yml  -e mechanism_action=delete -e mechanism_name=Infomap_Sample_Mech_1 // only run delete task for Infomap_Sample_Mech_1  Attention: delete entry/task must be in the inventory
+
+      INVENTORY
+      ==========
+      # configure authentication mechanims
+      # attention: all referenced mapping rules or template pages must be available on that appliance. Check roles/playbooks: configure_mapping_rules and configure_runtime_template_root
+      authentication_mechanisms:
+
+        # create or update InfoMap authentication mechanism
+        - mechanism_action: set
+          name: Infomap_Sample_Mech_1
+          typeName: InfoMapAuthenticationName
+          uri: "urn:ibm:security:authentication:asf:mechanism:infomap_mech_1"
+          description: "InfoMap Sample Mechanism 1"
+          predefined: false
+          properties:
+            - key: infoMap.JSRule
+              value: Sample_Mapping_Rule
+            - key: infoMap.HTMLPage
+              value: "test.html"
+
+        # delete authentication mechanim
+        - mechanism_action: delete
+          name: Infomap_Sample_Mech_1
+
+        # Email Message authentication mechanism sample
+        # Attention:
+        #   - typeName: Dot [.] at the End is important !
+        #   - server_connection_smtp_1 must already exist on appliance. Check role/playbook: configure_server_connections
+        - mechanism_action: set
+          name: Email_Sample_Mech_1
+          typeName: Email Message.
+          uri: urn:ibm:security:authentication:asf:mechanism:email_mech_1
+          description: "Email Sample Mechanism 1"
+          predefined: false
+          properties:
+            - key: EmailMessage.EmailPage
+              value: "/authsvc/test.html"
+            - key: EmailMessage.ErrorPage
+              value: "/authsvc/user_error.html"
+            - key: EmailMessage.emailAttr
+              value: email
+            - key: EmailMessage.emailAttrSender
+              value: "noReply@ibm.com"
+            - key: EmailMessage.serverConnection
+              value: server_connection_smtp_1
+
+        # SCIM authentication mechanism sample
+        - mechanism_action: set
+          name: SCIM_Sample_Mech_1
+          typeName: ScimConfigName
+          uri: urn:ibm:security:authentication:asf:mechanism:scim_mech_1
+          description: "SCIM Sample Mechanism 1"
+          predefined: false
+          properties:
+            - key: ScimConfig.serverConnection
+              value: server_connection_ws_1
+
+        # FIDO2 authentication mechanism sample
+        - mechanism_action: set
+          name: FIDO2_Sample_Mech_1
+          typeName: U2FName
+          uri: urn:ibm:security:authentication:asf:mechanism:fido2_mech_1
+          description: "FIDO2 Sample Mechanism 1"
+          predefined: false
+          properties:
+            - key: U2F.appId
+              value: TestId
+            - key: U2F.attestationEnforcement
+              value: Required # options: [Required | Optional ]
+            - key: U2F.attestationSource
+              value: '' #The keystore or key set to use for certificate attestation validation. Either the name of the keystore on the appliance, or the URL for a JSON Web Key Set
+            - key: U2F.attestationType
+              value: None # options [ JWKS | KeyStore | None]
+
+        # Cloud Identity authentication mechanism sample
+        - mechanism_action: set
+          name: CI_Sample_Mech_1
+          typeName: CloudIdentityJavascriptName
+          uri: urn:ibm:security:authentication:asf:mechanism:ci_mech_1
+          description: "Cloud Identity Sample Mechanism 1"
+          predefined: false
+          properties:
+            - key: CI.bypass
+              value: "False"
+            - key: CI.serverConnection
+              value: server_connection_ci_1
+            - key: CI.verifyClientId
+              value: "True"
+            - key: infoMap.JSRule
+              value: CI_Common
+
+        # Decision JavaScript authentication mechanism sample
+        - mechanism_action: set
+          name: Decision_Sample_Mech_1
+          typeName: DecisionJavascriptName
+          uri: urn:ibm:security:authentication:asf:mechanism:decision_mech_1
+          description: "Decision Sample Mechanism 1"
+          predefined: false
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: "Configure authentication mechanisms [ -e mechanism_action=[get|set|delete] -e mechanism_name=name_of_the_auch_mech]"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: ibmsecurity.isam.aac.authentication.mechanisms.set
-    isamapi: "{{ item }}"
-  with_items: "{{ authentication_mechanisms }}"
-  when: item.name == name
+    action: "ibmsecurity.isam.aac.authentication.mechanisms.{{ item.mechanism_action }}"
+    isamapi: "{{ item | ibm.isam.exclude('mechanism_action') }}"
+  loop: "{{ authentication_mechanisms }}"
+  when:
+    - item.mechanism_action == mechanism_action
+    - item.name == mechanism_name
   loop_control:
-    label: "{{ item.name }}"
+    label: "{{ item | ibm.isam.exclude('properties') | ibm.isam.exclude('attributes')  }}"
   notify: Commit Changes

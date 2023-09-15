@@ -1,6 +1,8 @@
-# main task to disable all authentication policies
 ---
-- name: Disable authentication mechanisms
+
+# main task to disable all authentication policies
+
+- name: Retrieve authentication mechanisms
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -15,9 +17,9 @@
     action: ibmsecurity.isam.aac.authentication.policies.activate
     isamapi:
       name: "{{ item.name }}"
-      enabled: "FALSE"
+      enabled: False
   with_items: "{{ authPolicies.data }}"
-  when: item.name is defined and item.name == name
+  when: item.name is defined
   loop_control:
     label: "{{ item.name }}"
   notify: Commit Changes

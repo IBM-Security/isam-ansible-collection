@@ -1,0 +1,15 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Get user registry by id"
+      include_role:
+        name: "get_user_registry_by_id"
+      vars:
+        get_user_registry_ids:
+          - id: "{{ id }}"
+      register: ret_obj
+
+    - debug:
+        var: ret_obj

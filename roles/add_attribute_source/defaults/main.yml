@@ -1,3 +1,5 @@
+---
+
 # Provide the name, type, and value of the attribute source. Provide the properties if the type is ldap
 # attribute_sources:
 #   - attribute_source_name: "Attribute Source 1"

@@ -1,0 +1,45 @@
+galaxy_info:
+  author: IBM
+  description: Role that gets all statistics for an appliance
+  company: IBM
+
+  # Some suggested licenses:
+  # - BSD (default)
+  # - MIT
+  # - GPLv2
+  # - GPLv3
+  # - Apache
+  # - CC-BY
+  license: license (GPLv2, CC-BY, etc)
+
+  min_ansible_version: 2.9
+
+  #
+  # Below are all platforms currently available. Just uncomment
+  # the ones that apply to your role. If you don't see your
+  # platform on this list, let us know and we'll get it added!
+  #
+  platforms:
+    - name: GenericLinux
+      versions:
+      - all
+
+
+  galaxy_tags:
+    # List tags for your role here, one per line. A tag is
+    # a keyword that describes and categorizes the role.
+    # Users find roles by searching for tags. Be sure to
+    # remove the '[]' above if you add tags to this list.
+    #
+    # NOTE: A tag is limited to a single word comprised of
+    # alphanumeric characters. Maximum 20 tags per role.
+  - isam
+  - ibm
+  - statistics
+  - get
+
+dependencies:
+  # List your role dependencies here, one per line.
+  # Be sure to remove the '[]' above if you add dependencies
+  # to this list.
+  - ibm.isam.common_handlers

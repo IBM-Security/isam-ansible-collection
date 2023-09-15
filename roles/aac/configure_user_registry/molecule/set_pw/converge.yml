@@ -1,0 +1,14 @@
+---
+- name: Converge - set password user registry
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Testing set password - configure_user_registry"
+      include_role:
+        name: configure_user_registry
+      vars:
+        user_registry:
+          # set password for existing user registry user
+          - registry_action: "user.set_pw"
+            id: "{{ id }}"
+            password: "{{ new_password }}"

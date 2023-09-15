@@ -1,3 +1,5 @@
+---
+
 galaxy_info:
   author: IBM
   description: Role that adds a Federation SAML or OIDC
@@ -26,4 +28,4 @@ galaxy_info:
   - add
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

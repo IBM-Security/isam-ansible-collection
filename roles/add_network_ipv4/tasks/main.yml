@@ -1,3 +1,5 @@
+---
+
 - name: Snapshot Appliance as Backup
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -13,12 +15,12 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.network.interfaces_ipv4.add
     isamapi:
-      label : "{{ add_network_ipv4_label }}"
-      address : "{{ add_network_ipv4_address }}"
-      maskOrPrefix : "{{ add_network_ipv4_maskOrPrefix }}"
-      allowManagement : "{{ add_network_ipv4_allowManagement }}"
-      enabled : "{{ add_network_ipv4_enabled }}"
+      label: "{{ add_network_ipv4_label }}"
+      address: "{{ add_network_ipv4_address }}"
+      maskOrPrefix: "{{ add_network_ipv4_maskOrPrefix }}"
+      allowManagement: "{{ add_network_ipv4_allowManagement }}"
+      enabled: "{{ add_network_ipv4_enabled }}"
       overrideSubnetChecking: "{{ add_network_ipv4_overrideSubnetChecking }}"
-      vlanId : "{{ add_network_ipv4_vlanId }}"
+      vlanId: "{{ add_network_ipv4_vlanId }}"
   when: add_network_ipv4_address is defined
   notify: Commit Changes

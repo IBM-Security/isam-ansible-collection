@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: "Include configure_api_protection_clients"
+      include_role:
+        name: "configure_api_protection_clients"
+      vars:
+        api_protection:
+          definitions:
+            - name: "{{ molecule.definition_name }}"
+              clients: "{{ molecule.clients_updated }}"

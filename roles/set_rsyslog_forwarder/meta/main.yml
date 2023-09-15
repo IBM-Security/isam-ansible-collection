@@ -27,5 +27,4 @@ galaxy_info:
   - forwarder
 
 dependencies:
-  - common_handlers
-
+  - ibm.isam.common_handlers

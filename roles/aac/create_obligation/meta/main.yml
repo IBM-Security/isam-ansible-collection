@@ -25,7 +25,8 @@ galaxy_info:
     - isam
     - ibm
     - create
-    - authenticationpolicy
+    - authentication
+    - obligation
 
 dependencies:
-  - start_config
+  - ibm.isam.common_handlers

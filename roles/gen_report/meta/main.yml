@@ -1,6 +1,6 @@
 galaxy_info:
   author: IBM
-  description: Role that generates reports uing the template module
+  description: Role that generates reports using the template module
   company: IBM
 
   license: Apache
@@ -26,4 +26,4 @@ galaxy_info:
   - generate
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers

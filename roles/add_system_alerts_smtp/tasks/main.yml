@@ -1,3 +1,4 @@
+---
 - name: Configure System Alert to Email
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -13,7 +14,6 @@
   when: add_system_alerts_smtpServer is defined
   register: alertObj
   notify: Commit Changes
-
 
 - name: Enable System Alert - Created in previous Step
   ibm.isam.isam:

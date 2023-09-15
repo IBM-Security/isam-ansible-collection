@@ -1,0 +1,11 @@
+---
+- name: "Export management root from instance[{{ item.0.inst_name }}] to file: [{{ item.1.file }}]"
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.reverse_proxy.management_root.all.export_zip
+    isamapi:
+      filename: "{{ homedir + '/' + item.1.file }}"
+      instance_id: "{{ item.0.inst_name }}"
+  when: item.1.file is defined
+  notify: Commit Changes

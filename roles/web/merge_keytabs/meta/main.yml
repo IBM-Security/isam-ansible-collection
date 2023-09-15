@@ -30,4 +30,4 @@ galaxy_info:
     - krb
 
 dependencies:
-  - start_config
+  - ibm.isam.common_handlers

@@ -1,3 +1,5 @@
+---
+
 galaxy_info:
   author: IBM
   description: Role to create authentication mechanisms
@@ -8,10 +10,10 @@ galaxy_info:
   min_ansible_version: 2.2
 
   galaxy_tags:
-  - isam
-  - ibm
-  - create
-  - authentication_mechanism
+    - isam
+    - ibm
+    - create
+    - authentication_mechanism
 
 dependencies:
-  - common_handlers
+  - ibm.isam.common_handlers
