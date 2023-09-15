@@ -1,0 +1,5 @@
+---
+minor_changes:
+  - ibm.isam.delete_junction - sync from isam-ansible-roles
+
+
