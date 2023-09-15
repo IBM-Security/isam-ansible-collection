@@ -22,6 +22,22 @@
       enableSSLv3: "{{ set_admin_cfg_enableSSLv3 }}"
       maxFiles: "{{ set_admin_cfg_maxFiles }}"
       maxFileSize: "{{ set_admin_cfg_maxFileSize }}"
+      enabledTLS: "{{ set_admin_cfg_enabledTLS }}"
+      sshdPort: "{{ set_admin_cfg_sshdPort }}"
+      sessionCachePurge: "{{ set_admin_cfg_sessionCachePurge }}"
+      sessionInactivityTimeout: "{{ set_admin_cfg_sessionInactivityTimeout }}"
+      sshdClientAliveInterval: "{{ set_admin_cfg_sshdClientAliveInterval }}"
+      swapFileSize: "{{ set_admin_cfg_swapFileSize }}"
+      httpProxy: "{{ set_admin_cfg_httpProxy }}"
+      enabledServerProtocols: "{{ set_admin_cfg_enabledServerProtocols }}"
+      loginHeader: "{{ set_admin_cfg_loginHeader }}"
+      loginMessage: "{{ set_admin_cfg_loginMessage }}"
+      pendingChangesLifetime: "{{ set_admin_cfg_pendingChangesLifetime }}"
+      baSessionTimeout: "{{ set_admin_cfg_baSessionTimeout }}"
+      httpsProxy: "{{ set_admin_cfg_httpsProxy }}"
+      accessLogFormat: "{{ set_admin_cfg_accessLogFormat }}"
+      lmiMessageTimeout: "{{ set_admin_cfg_lmiMessageTimeout }}"
+      validVerifyDomains: "{{ set_admin_cfg_validVerifyDomains }}"
   notify:
     - Commit Changes
     - Restart LMI
