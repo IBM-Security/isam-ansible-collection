@@ -1,3 +1,4 @@
+---
 .idea/*
 */.idea/*
 .DS_Store
@@ -6,6 +7,7 @@
 *.pyc
 *.bak
 *.tar.gz
+.vscode
 tests/output/.tmp/*
 tests/output/bot/*
 changelogs/.plugin-cache.yaml
