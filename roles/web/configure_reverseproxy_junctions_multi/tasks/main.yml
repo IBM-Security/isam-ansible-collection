@@ -90,11 +90,12 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: Include over all instances and junctions
-  include_tasks: include_junctions.yml
-  with_subelements:
-    - "{{ instances }}"
-    - junctions
-    - skip_missing: True
-  loop_control:
-    label: "{inst_name: {{ item[0].inst_name|default('missing') }}, junction_point: {{ item[1].junction_point|default('missing') }}}"
+- name: "Create junctions and servers"
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.reverse_proxy.junctions.set_all
+    isamapi:
+      "{{ item.junctions | combine(item.junctions.servers[0]) | combine({'reverseproxy_id':item.inst_name}) }}"
+  loop: "{{ instances }}"
+  register: ret_obj
