@@ -96,6 +96,6 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.junctions.set_all
     isamapi:
-      "{{ item.junctions | combine(item.junctions.servers[0]) | combine({'reverseproxy_id':item.inst_name}) }}"
+      "{{ item.junctions | combine({'reverseproxy_id':item.inst_name}) }}"
   loop: "{{ instances }}"
   register: ret_obj
