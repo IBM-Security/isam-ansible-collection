@@ -1,0 +1,8 @@
+---
+- name: "Create junctions and servers"
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.reverse_proxy.junctions.set_all
+    isamapi: "{{ item.1 | combine(item.1.servers[0]) | combine({'reverseproxy_id':item.0.inst_name}) }}"
+  register: ret_obj
