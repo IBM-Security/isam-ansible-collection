@@ -1,0 +1,11 @@
+---
+add object.role:
+  - name: web.configure_reverseproxy_junctions_setall
+    description: Role to use the new set_all() for junctions and servers
+
+add object.playbook:
+  - name: web.configure_reverseproxy_junctions_setall.yml
+    description: Playbook for the new role
+
+minor_changes:
+  - ibm.isam.web.configure_reverseproxy_junctions - use new set_all() for junctions and junction_servers from the original role (using a variable)
