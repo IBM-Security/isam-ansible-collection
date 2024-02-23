@@ -4,18 +4,19 @@
     echo: yes
     prompt: |
       NAME
-        configure_reverseproxy_junctions
+        web.configure_reverseproxy_junctions_setall
 
       DESCRIPTION
         Role to configure reverse proxy junctions and servers
+        This is a lot faster when there are no changes
 
       STEPS
-        1) Configure reverse proxy junctions 
+        1) Configure reverse proxy junctions and servers
         3) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_reverseproxy_junctions.yml -e junction_point=/jct1 -e force=True // re-configure junction /jct1
-
+        ansible-playbook -i [...] ibm.isam.web.configure_reverseproxy_junctions_setall.yml
+      
       INVENTORY
       ==========
       # configure /tcp1 junction for instance default
@@ -34,9 +35,9 @@
               transparent_path_junction: "yes"                          # Specifies whether a transparent path junction is created. Valid value is "yes" or "no". This parameter is not valid for virtual junctions.
               basic_auth_mode: filter                                   # Defines how the Reverse Proxy server passes client identity information in HTTP basic authentication (BA) headers to the back-end server. The value is one of: filter (default), ignore, supply, gso.
               remote_http_header:                                       # Controls the insertion of Security Verify Access specific client identity information in HTTP headers across the junction. The value is an array containing a combination of: iv-user, iv-user-l, iv-groups, iv-creds or all. Note: This is an array of elements.
-                - iv_user
-                - iv_creds
-                - iv_user_l
+                - iv-user
+                - iv-creds
+                - iv-user-l
               scripting_support: "yes"                                  # Supplies junction identification in a cookie to handle script-generated server-relative URLs.
               stateful_junction: "yes"
               junction_hard_limit: 80                                   # Defines the hard limit percentage for consumption of worker threads. Valid value is an integer from "0" to "100".
@@ -96,6 +97,10 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.junctions.set_all
     isamapi:
-      "{{ item.junctions | combine({'reverseproxy_id':item.inst_name}) }}"
+      "{{ item.junctions | combine({'reverseproxy_id': item.inst_name}) }}"
   loop: "{{ instances }}"
+  loop_control:
+    label: "Processing junctions {{ item.junctions | default([]) | map(attribute='junction_point') | join(', ') }} for {{ item.inst_name|default('') }}"
+  when:
+    - item.junctions is defined
   register: ret_obj
