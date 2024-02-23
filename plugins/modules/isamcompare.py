@@ -220,14 +220,14 @@ def main():
             module.exit_json(**ret_obj)
 
         except ImportError:
-            module.fail_json(name=action, msg='Error> action belongs to a module that is not found!',
+            module.fail_json(name=action, msg='Error> action ' + action + ' belongs to a module that is not found!',
                              log=strlog.getvalue())
         except AttributeError:
-            module.fail_json(name=action, msg='Error> invalid action was specified, method not found in module!',
+            module.fail_json(name=action, msg='Error> invalid action ' + action + ' was specified, method not found in module!',
                              log=strlog.getvalue())
         except TypeError:
             module.fail_json(name=action,
-                             msg='Error> action does not have the right set of arguments or there is a code bug! Options: ' + options,
+                             msg='Error> action ' + action + ' does not have the right set of arguments or there is a code bug! Options: ' + options,
                              log=strlog.getvalue())
         except IBMError as e:
             module.fail_json(name=action, msg=str(e), log=strlog.getvalue())
