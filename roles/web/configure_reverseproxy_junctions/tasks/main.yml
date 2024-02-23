@@ -21,13 +21,14 @@
         3) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_reverseproxy_junctions.yml // create and add all inventory defined junctions
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_reverseproxy_junctions.yml -e delete_junction_server=True -e delete_junctions=True // create, add all inventory defined junctions and delete all junction servers or junctions that are missing from inventory
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_reverseproxy_junctions.yml -e inst_name=default // create and add inventory defined junctions for instance default only
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_reverseproxy_junctions.yml -e junction_point=/jct1 // do all tasks only if junction equals /jct1
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_reverseproxy_junctions.yml -e junction_point=/jct2 -e delete_junction_server=True -e delete_junctions=True // if junction_point renamed in inventory to /jct2, then this command can reconfigure that junction server under the new name
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_reverseproxy_junctions.yml -e junction_point=/jct1 -e force=True // re-configure junction /jct1
-
+        ansible-playbook -i [...] ibm.isam.configure_reverseproxy_junctions.yml // create and add all inventory defined junctions
+        ansible-playbook -i [...] ibm.isam.configure_reverseproxy_junctions.yml -e delete_junction_server=True -e delete_junctions=True // create, add all inventory defined junctions and delete all junction servers or junctions that are missing from inventory
+        ansible-playbook -i [...] ibm.isam.configure_reverseproxy_junctions.yml -e inst_name=default // create and add inventory defined junctions for instance default only
+        ansible-playbook -i [...] ibm.isam.configure_reverseproxy_junctions.yml -e junction_point=/jct1 // do all tasks only if junction equals /jct1
+        ansible-playbook -i [...] ibm.isam.configure_reverseproxy_junctions.yml -e junction_point=/jct2 -e delete_junction_server=True -e delete_junctions=True // if junction_point renamed in inventory to /jct2, then this command can reconfigure that junction server under the new name
+        ansible-playbook -i [...] ibm.isam.configure_reverseproxy_junctions.yml -e junction_point=/jct1 -e force=True // re-configure junction /jct1
+        ansible-playbook -i [...] ibm.isam.configure_reverseproxy_junctions.yml -e control_setall_junctions=True # Use the faster mode
+      
       INVENTORY
       ==========
       # configure /tcp1 junction for instance default
@@ -108,13 +109,34 @@
     - "{{ instances }}"
     - junctions
     - skip_missing: True
-  when: item[1].junction_point == (junction_point | default(item[1].junction_point)) and item[0].inst_name == (inst_name | default(item[0].inst_name))
+  when:
+    - not (control_setall_junctions|bool)
+    - item[1].junction_point == (junction_point | default(item[1].junction_point))
+    - item[0].inst_name == (inst_name | default(item[0].inst_name))
+
   loop_control:
     label: "{inst_name: {{ item[0].inst_name }}, junction_point: {{ item[1].junction_point }}}"
 
 - name: Include to delete undefined junctions [-e delete_junctions=True]
   include_tasks: include_delete_junctions.yml
   loop: "{{ instances }}"
-  when: (delete_junctions | bool)
+  when:
+    - not (control_setall_junctions|bool)
+    - (delete_junctions | bool)
   loop_control:
     label: "{inst_name: {{ item.inst_name }}, delete_junctions: {{ delete_junctions }}}"
+
+- name: Create all junctions and servers (set_all)
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.reverse_proxy.junctions.set_all
+    isamapi:
+      "{{ item.junctions | combine({'reverseproxy_id': item.inst_name}) }}"
+  loop: "{{ instances }}"
+  loop_control:
+    label: "Processing junctions {{ item.junctions | default([]) | map(attribute='junction_point') | join(', ') }} for {{ item.inst_name|default('') }}"
+  when:
+    - control_setall_junctions|bool
+    - item.junctions is defined
+  register: ret_obj

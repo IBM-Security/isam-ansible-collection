@@ -5,3 +5,6 @@ instances: []
 delete_junction_server: false
 delete_junctions: false
 force: false
+
+# Control of using set_all instead of looping through junctions
+control_setall_junctions: False
