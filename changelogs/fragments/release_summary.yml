@@ -1,0 +1,6 @@
+---
+release_summary: |
+  | Release Date: 2024-02-27
+  | Faster idempotent role to set junctions (only faster when the junctions already exist)
+  | New parameters in set_admin_cfg
+  | Some minor changes.
