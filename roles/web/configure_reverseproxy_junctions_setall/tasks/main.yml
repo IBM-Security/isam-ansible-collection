@@ -16,7 +16,7 @@
 
       EXAMPLES
         ansible-playbook -i [...] ibm.isam.web.configure_reverseproxy_junctions_setall.yml
-      
+
       INVENTORY
       ==========
       # configure /tcp1 junction for instance default
