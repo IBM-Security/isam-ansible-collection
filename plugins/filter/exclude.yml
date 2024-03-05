@@ -1,0 +1,24 @@
+DOCUMENTATION:
+  name: exclude
+  author: IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>
+  version_added: 'historical'
+  short_description: Exclude keys from a dictionary
+  description:
+    - Exclude keys from a dictionary
+    - The return value is a dict.
+  positional: _input
+  options:
+    _input:
+      description: The key to exclude from the dictionary
+      type: string
+      required: true
+
+EXAMPLES: |
+  # exclude properties key from dictionary
+  exclude_var: "{{ {test: 'var', 'properties': 'exclude_this'} | ibm.isam.exclude('properties') }}"
+
+
+RETURN:
+  _value:
+    description: The dictionary, without the excluded key
+    type: dict

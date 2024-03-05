@@ -1,0 +1,37 @@
+DOCUMENTATION:
+  name: to_xml
+  author: IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>
+  version_added: 'historical'
+  short_description: Transform yaml list e.g. (authentication policy)
+  description:
+    - Transform yaml list to xml or nice xml
+    - The return value is a dict
+  positional: _input
+  options:
+    _input:
+      description: The key to exclude from the dictionary
+      type: string
+      required: true
+
+EXAMPLES: |
+  # to xml
+  policies:
+        - name: Policy
+          attributes:
+           xmlns: urn:ibm:security:authentication:policy:1.0:schema
+           PolicyId: urn:ibm:security:authentication:asf:test_auth_policy_1
+          children:
+          - name: Step
+             attributes:
+              type: Authenticator
+              children:
+               - name: Authenticator
+                   attributes:
+                   AuthenticatorId: urn:ibm:security:authentication:asf:mechanism:info_map
+  to_xml: "{{ policies | ibm.isam.to_xml }}"
+
+
+RETURN:
+  _value:
+    description: The dictionary, without the excluded key
+    type: string
