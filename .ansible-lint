@@ -19,6 +19,7 @@ exclude_paths:
   - roles/aac/disable_authentication_policies/molecule/default/check_for_all_false_status.yml
   - roles/aac/disable_authentication_policies/molecule/default/check_for_all_true_status.yml
   - playbooks/base_site.yml
+  - playbooks/vmware
 
 # parseable: true
 # quiet: true
