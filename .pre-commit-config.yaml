@@ -20,7 +20,7 @@ repos:
         require_serial: true
         additional_dependencies:
           - ansible-core
-#  - repo: https://github.com/ansible/ansible-lint
- #   rev: v24.2.0 # put latest release tag from https://github.com/ansible/ansible-lint/releases/
- #   hooks:
-  #    - id: ansible-lint
+  - repo: https://github.com/ansible/ansible-lint
+    rev: v24.2.0 # put latest release tag from https://github.com/ansible/ansible-lint/releases/
+    hooks:
+      - id: ansible-lint
