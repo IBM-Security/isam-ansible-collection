@@ -10,7 +10,7 @@
       private: yes
   tasks:
     - name: Attach ISAM ISO and Reboot
-      vmware_guest:
+      community.vmware.vmware_guest:
         cdrom:
           type: "iso"
           # Need to parametrize the iso file name
