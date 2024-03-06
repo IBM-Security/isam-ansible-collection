@@ -8,10 +8,10 @@ galaxy_info:
   min_ansible_version: 2.9
 
   galaxy_tags:
-  - isam
-  - ibm
-  - configure
-  - reverse_proxy_junctions
+    - isam
+    - ibm
+    - configure
+    - junctions
 
 dependencies:
-  - ibm.isam.common_handlers
+  - role: ibm.isam.common_handlers
