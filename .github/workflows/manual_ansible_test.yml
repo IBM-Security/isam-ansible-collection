@@ -19,6 +19,7 @@ jobs:
           - stable-2.16
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Perform sanity testing with ansible-test
         uses: ansible-community/ansible-test-gh-action@v1.14.1
         with:
@@ -27,6 +28,5 @@ jobs:
           ansible-core-version: ${{ matrix.ansible-core-version }}
           testing-type: sanity
           pre-test-cmd: echo Starting ansible-test
-      - uses: actions/checkout@v4
       - name: Run ansible-lint
         uses: ansible/ansible-lint@main # or version tag instead of 'main'
