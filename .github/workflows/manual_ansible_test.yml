@@ -10,10 +10,9 @@ jobs:
     strategy:
       matrix:
         python-version:
+          - default
           - 3.9
-          - 3.10
           - 3.11
-          - 3.12
         ansible-core-version:
           - stable-2.14
           - stable-2.15
