@@ -15,7 +15,7 @@ repos:
     hooks:
       - id: ansible-test
         name: Run ansible-test
-        entry: ansible-test sanity --allow-disabled
+        entry: ansible-test sanity --allow-disabled -v
         language: python
         require_serial: true
         additional_dependencies:
