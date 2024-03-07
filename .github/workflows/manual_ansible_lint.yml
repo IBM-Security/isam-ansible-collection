@@ -1,4 +1,4 @@
-name: Manual Ansible Test
+name: Manual Ansible Lint
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
@@ -19,11 +19,6 @@ jobs:
           - stable-2.16
     runs-on: ubuntu-latest
     steps:
-      - name: Perform sanity testing with ansible-test
-        uses: ansible-community/ansible-test-gh-action@v1.14.1
-        with:
-          pull-request-change-detection: true
-          target-python-version: ${{ matrix.python-version }}
-          ansible-core-version: ${{ matrix.ansible-core-version }}
-          testing-type: sanity
-          pre-test-cmd: echo Starting ansible-test
+      - uses: actions/checkout@v4
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@v6 # or version tag instead of 'main'
