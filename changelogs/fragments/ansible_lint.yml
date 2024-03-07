@@ -3,3 +3,4 @@ minor_changes:
   - web/import_sso_keys - lint problem reserved name `name`, indentation, meta
   - configure_reverseproxy_junctions_setall - lint issues meta
   - configure_reverseproxy_junctions - lint issues meta
+  - add documentation to filter plugins - required to pass red hat verification
