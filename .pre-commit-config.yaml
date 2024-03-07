@@ -15,14 +15,7 @@ repos:
     hooks:
       - id: ansible-test
         name: Run ansible-test
-        entry: ansible-test sanity
-        language: python
-        require_serial: true
-        additional_dependencies:
-          - ansible-core
-      - id: ansible-test-shebang
-        name: Run ansible-test shebang
-        entry: ansible-test sanity --test shebang
+        entry: ansible-test sanity --allow-disabled
         language: python
         require_serial: true
         additional_dependencies:
