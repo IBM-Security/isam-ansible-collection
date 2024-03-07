@@ -1,11 +1,11 @@
 ---
 DOCUMENTATION:
-  name: to_xml
+  name: to_nice_xml
   author: IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>
   version_added: 'historical'
-  short_description: Transform yaml list e.g. (authentication policy)
+  short_description: Transform yaml list e.g. (authentication policy) to nicely formatted xml
   description:
-    - Transform yaml list to xml
+    - Transform yaml list to nice xml
     - The return value is a dict
   positional: _input
   options:
@@ -30,9 +30,9 @@ EXAMPLES: |
   #                 attributes:
   #                 AuthenticatorId: urn:ibm:security:authentication:asf:mechanism:info_map
   # to xml
-  to_xml: "{{ policies | ibm.isam.to_xml }}"
+  to_nice_xml: "{{ policies | ibm.isam.to_nice_xml }}"
 
 RETURN:
   _value:
-    description: The resulting xml as string
+    description: The resulting nicely formatted xml as string
     type: string
