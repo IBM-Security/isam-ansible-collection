@@ -4,6 +4,22 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v1.1.1
+======
+
+Release Summary
+---------------
+
+Changes related to publishing the collection to red hat automation hub
+
+Minor Changes
+-------------
+
+- add documentation to filter plugins - required to pass red hat verification
+- configure_reverseproxy_junctions - lint issues meta
+- configure_reverseproxy_junctions_setall - lint issues meta
+- web/import_sso_keys - lint problem reserved name `name`, indentation, meta
+
 v1.1.0
 ======
 

@@ -227,3 +227,17 @@ releases:
         name: web.configure_reverseproxy_junctions_setall
         namespace: null
     release_date: '2024-03-01'
+  1.1.1:
+    changes:
+      minor_changes:
+      - add documentation to filter plugins - required to pass red hat verification
+      - configure_reverseproxy_junctions - lint issues meta
+      - configure_reverseproxy_junctions_setall - lint issues meta
+      - web/import_sso_keys - lint problem reserved name `name`, indentation, meta
+      release_summary: 'Changes related to publishing the collection to red hat automation
+        hub
+
+        '
+    fragments:
+    - ansible_lint.yml
+    release_date: '2024-03-07'
