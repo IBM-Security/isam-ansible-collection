@@ -20,7 +20,10 @@
       junctionname: "{{ server.id }}"
   vars:
     filter: "[? inst_name == '{{ item.inst_name }}'].junctions[].junction_point"
-  when: server.id not in (instances | json_query(filter)) and server.id == (junction_point | default(server.id)) and item.inst_name == (inst_name | default(item.inst_name))
+  when:
+    - server.id not in (instances | json_query(filter))
+    - server.id == (junction_point | default(server.id))
+    - item.inst_name == (inst_name | default(item.inst_name))
   loop: "{{ ret_obj.data | default([]) }}"
   loop_control:
     loop_var: server

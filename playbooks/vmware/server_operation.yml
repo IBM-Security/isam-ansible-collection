@@ -12,7 +12,7 @@
       private: true
   tasks:
     - name: Reboot VM Guest Machine
-      vmware_guest:
+      community.vmware.vmware_guest:
         state: "{{ server_operation }}"
         hostname: "{{ vcenter_hostname }}"
         # VCenter name of server needs to be provided below - implementation specifc

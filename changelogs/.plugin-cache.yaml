@@ -10,7 +10,28 @@ plugins:
       description: Use ibmsecurity python library to connect to IBM ISAM appliances
       name: isam
       version_added: 1.0.0
-  filter: {}
+  filter:
+    exclude:
+      description: Exclude keys from a dictionary
+      name: exclude
+      version_added: historical
+    flatten_management_root:
+      description: Flatten isva management root object
+      name: flatten_management_root
+      version_added: historical
+    include_only:
+      description: Include
+      name: include_only
+      version_added: historical
+    to_nice_xml:
+      description: Transform yaml list e.g. (authentication policy) to nicely formatted
+        xml
+      name: to_nice_xml
+      version_added: historical
+    to_xml:
+      description: Transform yaml list e.g. (authentication policy)
+      name: to_xml
+      version_added: historical
   httpapi: {}
   inventory: {}
   lookup: {}
@@ -40,4 +61,4 @@ plugins:
   strategy: {}
   test: {}
   vars: {}
-version: 1.0.29
+version: 1.1.1

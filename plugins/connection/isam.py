@@ -209,13 +209,13 @@ class Connection(NetworkConnectionBase):
             ret_obj['ansible_facts'] = self.isam_server.facts
             return ret_obj
         except ImportError as e:
-            raise AnsibleConnectionFailure('Error> action belongs to a module that is not found!', isam_module, e)
+            raise AnsibleConnectionFailure('Error> action ' + module_name + '.' + method_name + ' belongs to a module that is not found!', isam_module, e)
         except AttributeError as e:
-            raise AnsibleConnectionFailure('Error> invalid action was specified, method not found in module!',
+            raise AnsibleConnectionFailure('Error> invalid action ' + module_name + '.' + method_name + ' was specified, method not found in module!',
                                            isam_module, e)
         except TypeError as e:
             raise AnsibleConnectionFailure(
-                'Error> action does not have the right set of arguments or there is a code bug! Options: ' + options,
+                'Error> action ' + module_name + '.' + method_name + ' does not have the right set of arguments or there is a code bug! Options: ' + options,
                 isam_module, e)
         except IBMError as e:
             raise AnsibleConnectionFailure("Error> IBMError, action: {0} Exception: {1}".format(isam_module, e), options,

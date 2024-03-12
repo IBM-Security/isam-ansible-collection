@@ -10,17 +10,17 @@ jobs:
     strategy:
       matrix:
         python-version:
-          - 3.6
-          - 3.8
+          - default
           - 3.9
+          - 3.11
         ansible-core-version:
-          - stable-2.11
-          - stable-2.12
           - stable-2.14
+          - stable-2.15
+          - stable-2.16
     runs-on: ubuntu-latest
     steps:
       - name: Perform sanity testing with ansible-test
-        uses: ansible-community/ansible-test-gh-action@v1.12.0
+        uses: ansible-community/ansible-test-gh-action@v1.14.1
         with:
           pull-request-change-detection: true
           target-python-version: ${{ matrix.python-version }}

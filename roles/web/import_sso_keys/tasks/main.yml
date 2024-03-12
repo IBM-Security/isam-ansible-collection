@@ -10,7 +10,9 @@
     isamapi:
       id: "{{ item.file | basename }}"
       filename: "{{ homedir }}/{{ item.file }}"
-  when: item.file is defined and (item.file | basename) == name
+  when:
+    - item.file is defined
+    - (item.file | basename) == sso_key_name
   with_items: "{{ sso_keys }}"
   loop_control:
     label: "{ id: \"{{ item.file | basename }}\", filename: \"{{ homedir }}/{{ item.file }}\" }"
