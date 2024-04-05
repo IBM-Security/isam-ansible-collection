@@ -188,12 +188,16 @@ class Connection(NetworkConnectionBase):
             #    adminProxyApplianceShortName=adminProxyApplianceShortName)
             #    pass
             try:
+                self.queue_message(
+                    'vv',
+                    'TEST')
                 self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port, verify=verify)
+
             except Exception as e:
                 # Assume this is the old ibmsecurity code, without the verify option
                 # Will throw an error (not sure which)
                 self.queue_message(
-                    'v',
+                    'log',
                     f"Upgrade your ibmsecurity python module ! \n{e}")
                 self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port)
 
