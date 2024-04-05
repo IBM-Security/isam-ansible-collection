@@ -104,11 +104,13 @@ DOCUMENTATION = """
           vars:
             - name: ansible_persistent_log_messages
         verify_connection:
-          type: boolean
+          type: string
+          required: False
           description:
             - If V(False), SSL certificate will not be validated for connection to the LMI
             - This should only set to V(false) used on personally controlled sites using self-signed certificates.
-          default: False
+            - Set to V(True) for using your default trust store
+            - Set to the path of the public key , in case of self signed certificates
           ini:
             - section: isam
               key: verify_connection
@@ -116,6 +118,7 @@ DOCUMENTATION = """
             - name: IBMSECLIB_VERIFY_CONNECTION
           vars:
             - name: ibmseclib_verify_connection
+          version_added: 2024.4.0
 
 """
 import importlib
