@@ -86,6 +86,76 @@ ansible_isam_port="443"
 - Please submit a pull request on so we can merge your roles into
   the collection.
 
+### 7) TLS Secure connections
+
+Using ibmsecurity v2024.4.5+ enables secure TLS connections.
+
+```ini
+[isam]
+validate_certs = True
+verify_ca_path = /<path_to_pem>/isamAppliance.pem
+```
+
+You can retrieve the certificate of the LMI and store it to use as `verify_ca_path`
+
+    openssl s_client -connect ${HOSTNAME}:${PORT} </dev/null 2>/dev/null | openssl x509 -outform pem > isamAppliance.pem
+
+The best solution is to get a signed certificate from a Certificate Authority that is trusted within your organization's default ca settings.
+In that case, simply setting validate_certs to True is sufficient.
+
+```ini
+[isam]
+validate_certs = True
+```
+
+#### Generate a self signed certificate (development)
+
+Prepare a 'san.cnf' file.
+You could add multiple IP.x addresses in it if you want.
+You can also use DNS.x hostnames instead.
+
+```ini
+[req]
+default_bits  = 2048
+distinguished_name = req_distinguished_name
+req_extensions = req_ext
+x509_extensions = v3_req
+prompt = no
+[req_distinguished_name]
+countryName = US
+stateOrProvinceName = N/A
+localityName = N/A
+organizationName = Self-signed certificate
+commonName = ISVA_LMI
+[req_ext]
+subjectAltName = @alt_names
+[v3_req]
+subjectAltName = @alt_names
+[alt_names]
+IP.1 = 192.168.42.2
+IP.2 = 192.168.42.3
+```
+
+Using openssl, you can then generate a certificate and public key, and convert it to pkcs12 format .
+
+```bash
+# generate key & cert
+openssl req -x509 -nodes -days 1730 -newkey rsa:2048 -keyout isamlmi_key.pem -out isamlmi_cert.pem -config san.cnf
+
+# extract public key
+openssl x509 -pubkey -noout -in isamlmi_cert.pem > isamAppliance.pem
+
+# turn into a pkcs12
+openssl pkcs12 -export -in isamlmi_cert.pem -inkey isamlmi_key.pem -out isamlmi.p12 -passout pass:<some password>
+```
+
+You can now use the `isamlmi.p12` certificate as your management ssl certificate (for instance , by using Ansible)
+
+```bash
+ansible-playbook ibm.isam.base.configure_management_ssl.yml -e update_management_ssl_cert_cert="$(pwd)/files/isamlmi.p12" -e update_management_ssl_cert_pwd=<password> -i <your inventory>
+```
+
+
 ## Using execution environments (ansible-navigator and/or AAP)
 
 To use the ibm.isam collection with execution environments, you may need to create a custom Execution Environment first.

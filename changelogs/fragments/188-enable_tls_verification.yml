@@ -5,3 +5,7 @@ minor_changes:
 
 major_changes:
   - plugins/connection/isam.py - add verify ssl certificate.  This requires ibmsecurity version
+
+add object.playbook:
+  - name: base.configure_management_ssl.yml
+    description: Playbook to set management ssl certificate
