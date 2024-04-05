@@ -105,7 +105,6 @@ DOCUMENTATION = """
             - name: ansible_persistent_log_messages
         verify_tls:
           type: boolean
-          required: False
           default: False
           description:
             - If V(False), SSL certificate will not be validated for connection to the LMI
@@ -120,7 +119,7 @@ DOCUMENTATION = """
           type: string
           required: False
           description:
-            - If this has a value, verify_tls will also be set to V(True)
+            - If this has a value (a path or true/True), verify_tls will also be set to V(True)
             - This should only contain the path to the public key for the tls connection to the LMI if you're using self-signed certificates
             - Otherwise, this value should not be set
             - If the environment variable is true or false, it's going to override verify_tls as well
@@ -132,6 +131,7 @@ DOCUMENTATION = """
           vars:
             - name: ibmseclib_verify_connection
           version_added: 2024.4.0
+
 """
 import importlib
 
