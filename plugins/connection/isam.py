@@ -103,6 +103,19 @@ DOCUMENTATION = """
             - name: ANSIBLE_PERSISTENT_LOG_MESSAGES
           vars:
             - name: ansible_persistent_log_messages
+        verify_connection:
+          type: boolean
+          description:
+            - If V(False), SSL certificate will not be validated for connection to the LMI
+            - This should only set to V(false) used on personally controlled sites using self-signed certificates.
+          default: False
+          ini:
+            - section: isam
+              key: verify_connection
+          env:
+            - name: IBMSECLIB_VERIFY_CONNECTION
+          vars:
+            - name: ibmseclib_verify_connection
 
 """
 import importlib
@@ -148,6 +161,7 @@ class Connection(NetworkConnectionBase):
             port = self.get_option('port') or 443
             user = self.get_option('user')
             passwd = self.get_option('password')
+            verify = self.get_option('verify_connection')
 
             self.queue_message(
                 'vvv',
@@ -173,7 +187,16 @@ class Connection(NetworkConnectionBase):
             #    hostname=appliance, adminProxyProtocol=adminProxyProtocol, adminProxyPort=adminProxyPort,
             #    adminProxyApplianceShortName=adminProxyApplianceShortName)
             #    pass
-            self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port)
+            try:
+                self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port, verify=verify)
+            except Exception as e:
+                # Assume this is the old ibmsecurity code, without the verify option
+                # Will throw an error (not sure which)
+                self.queue_message(
+                    'log',
+                    f"Upgrade your ibmsecurity python module ! \n{e}")
+                self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port)
+
             self._sub_plugin = {'name': 'isam_server', 'obj': self.isam_server}
 
             self._connected = True
@@ -218,8 +241,7 @@ class Connection(NetworkConnectionBase):
                 'Error> action ' + module_name + '.' + method_name + ' does not have the right set of arguments or there is a code bug! Options: ' + options,
                 isam_module, e)
         except IBMError as e:
-            raise AnsibleConnectionFailure("Error> IBMError, action: {0} Exception: {1}".format(isam_module, e), options,
-                                           e)
+            raise AnsibleConnectionFailure("Error> IBMError, action: {0} Exception: {1}".format(isam_module, e), options, e)
 
     def call_isam_admin(self, adminDomain, isamuser, isampwd, commands):
         """
