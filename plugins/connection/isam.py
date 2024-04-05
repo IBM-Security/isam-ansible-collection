@@ -103,33 +103,7 @@ DOCUMENTATION = """
             - name: ANSIBLE_PERSISTENT_LOG_MESSAGES
           vars:
             - name: ansible_persistent_log_messages
-        validate_certs:
-          type: bool
-          default: false
-          description:
-            - If V(false), SSL certificate will not be validated for connection to the LMI
-            - This should only set to V(false) used on personally controlled sites using self-signed certificates.
-          ini:
-            - section: isam
-              key: validate_certs
-          vars:
-            - name: isam_validate_certs
-          version_added: '2024.4.0'
-        verify_ca_path:
-          type: str
-          required: false
-          description:
-            - If this has a value (a path or true/True), verify_tls will also be set to V(True)
-            - PEM formatted file that contains a CA certificate to be used for validation for the tls connection to the LMI
-            - If the environment variable is true or false, it's going to override verify_tls as well
-          ini:
-            - section: isam
-              key: verify_ca_path
-          env:
-            - name: IBMSECLIB_VERIFY_CONNECTION
-          vars:
-            - name: ibmseclib_verify_connection
-          version_added: '2024.4.0'
+
 
 """
 import importlib
