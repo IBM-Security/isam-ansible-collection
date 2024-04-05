@@ -105,9 +105,9 @@ DOCUMENTATION = """
             - name: ansible_persistent_log_messages
         validate_certs:
           type: bool
-          default: False
+          default: false
           description:
-            - If V(False), SSL certificate will not be validated for connection to the LMI
+            - If V(false), SSL certificate will not be validated for connection to the LMI
             - This should only set to V(false) used on personally controlled sites using self-signed certificates.
           ini:
             - section: isam
@@ -117,7 +117,7 @@ DOCUMENTATION = """
           version_added: '2024.4.0'
         verify_ca_path:
           type: str
-          required: False
+          required: false
           description:
             - If this has a value (a path or true/True), verify_tls will also be set to V(True)
             - PEM formatted file that contains a CA certificate to be used for validation for the tls connection to the LMI
