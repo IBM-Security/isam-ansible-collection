@@ -103,7 +103,18 @@ DOCUMENTATION = """
             - name: ANSIBLE_PERSISTENT_LOG_MESSAGES
           vars:
             - name: ansible_persistent_log_messages
-
+        validate_certs:
+          type: bool
+          default: false
+          description: []
+          vars:
+            - name: isam_validate_certs
+          version_added: '2024.4.0'
+        verify_ca_path:
+          type: str
+          required: false
+          description: []
+          version_added: '2024.4.0'
 
 """
 import importlib
@@ -151,7 +162,7 @@ class Connection(NetworkConnectionBase):
             passwd = self.get_option('password')
             verify_ca_path = self.get_option('verify_ca_path')
             verify = self.get_option('validate_certs')
-
+            self.queue_message('log', f'Verify certificates {verify}')
             if verify_ca_path is not None:
                 if verify_ca_path.lower() in ["true", "yes"]:
                     if verify_ca_path.lower() == "true":
