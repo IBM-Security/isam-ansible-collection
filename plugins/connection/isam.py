@@ -188,9 +188,6 @@ class Connection(NetworkConnectionBase):
             #    adminProxyApplianceShortName=adminProxyApplianceShortName)
             #    pass
             try:
-                self.queue_message(
-                    'vv',
-                    'TEST')
                 self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port, verify=verify)
 
             except Exception as e:
@@ -198,8 +195,9 @@ class Connection(NetworkConnectionBase):
                 # Will throw an error (not sure which)
                 self.queue_message(
                     'warning',
-                    f"Upgrade your ibmsecurity python module ! \n{e}")
+                    f"Upgrade your ibmsecurity python module ! \n\nSkipped error is : {e}")
                 self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port)
+                pass
 
             self._sub_plugin = {'name': 'isam_server', 'obj': self.isam_server}
 
