@@ -129,7 +129,6 @@ try:
     # from ibmsecurity.appliance.isamappliance_adminproxy import ISAMApplianceAdminProxy  #  TODO: this is not used currently
     from ibmsecurity.appliance.ibmappliance import IBMError
     from ibmsecurity.user.applianceuser import ApplianceUser
-
     HAS_IBMSECURITY = True
 except ImportError:
     HAS_IBMSECURITY = False
@@ -162,7 +161,7 @@ class Connection(NetworkConnectionBase):
             passwd = self.get_option('password')
             verify_ca_path = self.get_option('verify_ca_path')
             verify = self.get_option('validate_certs')
-            self.queue_message('log', f'Verify certificates {verify}')
+            self.queue_message('vvv', f'Verify certificates {verify}')
             if verify_ca_path is not None:
                 if verify_ca_path.lower() in ["true", "yes"]:
                     if verify_ca_path.lower() == "true":
