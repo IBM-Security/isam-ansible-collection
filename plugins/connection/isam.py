@@ -195,7 +195,10 @@ class Connection(NetworkConnectionBase):
                 # Will throw an error (not sure which)
                 self.queue_message(
                     'warning',
-                    f"Upgrade your ibmsecurity python module ! \n\nSkipped error is : {e}")
+                    'Upgrade your ibmsecurity python module to 2024.4.5.0 or higher')
+                self.queue_message(
+                    'warning',
+                    f'This error is skipped (backward compatibility): {e}')
                 self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port)
                 pass
 
