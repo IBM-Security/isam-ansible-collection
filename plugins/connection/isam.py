@@ -193,7 +193,7 @@ class Connection(NetworkConnectionBase):
                 # Assume this is the old ibmsecurity code, without the verify option
                 # Will throw an error (not sure which)
                 self.queue_message(
-                    'log',
+                    'v',
                     f"Upgrade your ibmsecurity python module ! \n{e}")
                 self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port)
 
