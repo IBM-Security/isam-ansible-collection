@@ -1,0 +1,7 @@
+---
+minor_changes:
+  - refactor naming to YYYY.MM.xx (still semantic versioning)
+  - base/set_management_ssl_cert - remove default LOG value
+
+major_changes:
+  - plugins/connection/isam.py - add verify ssl certificate.  This requires ibmsecurity version
