@@ -103,25 +103,24 @@ DOCUMENTATION = """
             - name: ANSIBLE_PERSISTENT_LOG_MESSAGES
           vars:
             - name: ansible_persistent_log_messages
-        verify_tls:
-          type: boolean
+        validate_certs:
+          type: bool
           default: False
           description:
             - If V(False), SSL certificate will not be validated for connection to the LMI
             - This should only set to V(false) used on personally controlled sites using self-signed certificates.
           ini:
             - section: isam
-              key: verify_tls
+              key: validate_certs
           vars:
-            - name: isam_verify_tls
-          version_added: 2024.4.0
+            - name: isam_validate_certs
+          version_added: '2024.4.0'
         verify_ca_path:
-          type: string
+          type: str
           required: False
           description:
             - If this has a value (a path or true/True), verify_tls will also be set to V(True)
-            - This should only contain the path to the public key for the tls connection to the LMI if you're using self-signed certificates
-            - Otherwise, this value should not be set
+            - PEM formatted file that contains a CA certificate to be used for validation for the tls connection to the LMI
             - If the environment variable is true or false, it's going to override verify_tls as well
           ini:
             - section: isam
@@ -130,7 +129,7 @@ DOCUMENTATION = """
             - name: IBMSECLIB_VERIFY_CONNECTION
           vars:
             - name: ibmseclib_verify_connection
-          version_added: 2024.4.0
+          version_added: '2024.4.0'
 
 """
 import importlib
@@ -177,7 +176,7 @@ class Connection(NetworkConnectionBase):
             user = self.get_option('user')
             passwd = self.get_option('password')
             verify_ca_path = self.get_option('verify_ca_path')
-            verify = self.get_option('verify_tls')
+            verify = self.get_option('validate_certs')
 
             if verify_ca_path is not None:
                 if verify_ca_path.lower() in ["true", "yes"]:
