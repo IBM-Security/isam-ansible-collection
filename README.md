@@ -108,6 +108,28 @@ In that case, simply setting validate_certs to True is sufficient.
 validate_certs = True
 ```
 
+#### Setting up your Ansible Execution Environment's python
+
+When using an Ansible Execution Environment, the behaviour of the Python Requests module with TLS may become tricky.
+
+You can check what CA bundle Python will use by default.
+
+```bash
+Python 3.9.18 (main, Sep 22 2023, 17:58:34)
+>>> import certifi
+>>> certifi.where()
+'/home/tbosmans/venv/lib64/python3.9/site-packages/certifi/cacert.pem'
+```
+
+The default path will probably point to a keystore within site-packages.
+The problem with that truststore, is that is likely not updated with any trusts you need to add (eg. certificates from you private Certificate Authority)
+
+So you then have a couple of options:
+
+- replace that cacert.pem in your Execution environment with a trust store that contains your certificates
+- configure `verify_ca_path` in ansible.cfg (through ansible-builder or in ansible.cfg in your project directory)
+- configure an environment variable during build (`REQUESTS_CA_BUNDLE`) that points to the container's system ca bundle.  This is the recommended approach.
+
 #### Generate a self signed certificate (development)
 
 Prepare a 'san.cnf' file.
@@ -263,6 +285,9 @@ If this fails with errors indication that the `ibmsecurity` module is missing, y
 ### 5) Prepare a custom execution environment
 
 You can build a custom execution environment, that contains the python prerequisites for the ibm.isam collection.
+
+You may also need to add custom CA trusts to the execution environment (eg. from your private Certificate Authority),
+and you likely want to set the `REQUESTS_CA_BUNDLE` environment variable.
 
 ### 6) Run it on Ansible Automation Platform
 
