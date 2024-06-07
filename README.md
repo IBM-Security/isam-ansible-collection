@@ -111,6 +111,8 @@ validate_certs = True
 #### Setting up your Ansible Execution Environment's python
 
 When using an Ansible Execution Environment, the behaviour of the Python Requests module with TLS may become tricky.
+Where the Python configuration in a virtual environment may use your certificates correctly, that is most likely not the case in a container.
+
 
 You can check what CA bundle Python will use by default.
 
