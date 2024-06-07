@@ -103,6 +103,33 @@ DOCUMENTATION = """
             - name: ANSIBLE_PERSISTENT_LOG_MESSAGES
           vars:
             - name: ansible_persistent_log_messages
+        validate_certs:
+          type: bool
+          default: False
+          description:
+            - If V(false), SSL certificate will not be validated for connection to the LMI
+            - This should only set to V(false) used on personally controlled sites using self-signed certificates.
+          ini:
+            - section: isam
+              key: validate_certs
+          vars:
+            - name: isam_validate_certs
+          version_added: '2024.4.0'
+        verify_ca_path:
+          type: str
+          required: False
+          description:
+            - If this has a value (a path or true/True), verify_tls will also be set to V(True)
+            - PEM formatted file that contains a CA certificate to be used for validation for the tls connection to the LMI
+            - If the environment variable is true or false, it's going to override verify_tls as well
+          ini:
+            - section: isam
+              key: verify_ca_path
+          env:
+            - name: IBMSECLIB_VERIFY_CONNECTION
+          vars:
+            - name: ibmseclib_verify_connection
+          version_added: '2024.4.0'
 
 """
 import importlib
@@ -117,7 +144,6 @@ try:
     # from ibmsecurity.appliance.isamappliance_adminproxy import ISAMApplianceAdminProxy  #  TODO: this is not used currently
     from ibmsecurity.appliance.ibmappliance import IBMError
     from ibmsecurity.user.applianceuser import ApplianceUser
-
     HAS_IBMSECURITY = True
 except ImportError:
     HAS_IBMSECURITY = False
@@ -148,6 +174,15 @@ class Connection(NetworkConnectionBase):
             port = self.get_option('port') or 443
             user = self.get_option('user')
             passwd = self.get_option('password')
+            verify_ca_path = self.get_option('verify_ca_path')
+            verify = self.get_option('validate_certs')
+            self.queue_message('v', f'Verify certificates {verify}')
+            if verify_ca_path is not None:
+                if verify_ca_path.lower() in ["true", "yes"]:
+                    if verify_ca_path.lower() == "true":
+                        verify = True
+                else:
+                    verify = verify_ca_path
 
             self.queue_message(
                 'vvv',
@@ -157,6 +192,7 @@ class Connection(NetworkConnectionBase):
                                                                                            )
             )
             # Create appliance object to be used for all calls
+            # TODO: add cert authentication
             if user == '' or user is None:
                 u = ApplianceUser(password=passwd)
             else:
@@ -173,7 +209,25 @@ class Connection(NetworkConnectionBase):
             #    hostname=appliance, adminProxyProtocol=adminProxyProtocol, adminProxyPort=adminProxyPort,
             #    adminProxyApplianceShortName=adminProxyApplianceShortName)
             #    pass
-            self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port)
+            try:
+                if not verify:
+                    self.queue_message(
+                        'warning',
+                        'The LMI connected using an insecure TLS connection.')
+                self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port, verify=verify)
+
+            except Exception as e:
+                # Assume this is the old ibmsecurity code, without the verify option
+                # Will throw an error (not sure which)
+                self.queue_message(
+                    'warning',
+                    'Upgrade your ibmsecurity python module to 2024.4.5.0 or higher')
+                self.queue_message(
+                    'warning',
+                    f'This error is skipped (backward compatibility): {e}')
+                self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port)
+                pass
+
             self._sub_plugin = {'name': 'isam_server', 'obj': self.isam_server}
 
             self._connected = True
@@ -207,6 +261,7 @@ class Connection(NetworkConnectionBase):
             if ret_obj is None:
                 ret_obj = {}
             ret_obj['ansible_facts'] = self.isam_server.facts
+            ret_obj.pop('rsp', None)  # This parameter may contain object that can't be handled atm
             return ret_obj
         except ImportError as e:
             raise AnsibleConnectionFailure('Error> action ' + module_name + '.' + method_name + ' belongs to a module that is not found!', isam_module, e)
@@ -218,8 +273,9 @@ class Connection(NetworkConnectionBase):
                 'Error> action ' + module_name + '.' + method_name + ' does not have the right set of arguments or there is a code bug! Options: ' + options,
                 isam_module, e)
         except IBMError as e:
-            raise AnsibleConnectionFailure("Error> IBMError, action: {0} Exception: {1}".format(isam_module, e), options,
-                                           e)
+            raise AnsibleConnectionFailure("Error> IBMError, action: {0} Exception: {1}".format(isam_module, e), options, e)
+        except Exception as e:
+            raise AnsibleConnectionFailure("Error> Something went wrong here: action: {0} Exception: {1}".format(isam_module, e), options, e)
 
     def call_isam_admin(self, adminDomain, isamuser, isampwd, commands):
         """
