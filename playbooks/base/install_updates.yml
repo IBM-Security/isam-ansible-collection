@@ -1,0 +1,26 @@
+---
+# Install Updates
+#   Example:
+# updates:
+#  - file: 'isva_10.0.7.0_20231130-1943.pkg'
+#    version: 10.0.7.0
+#    date: '2023-11-30-1943'
+#    name: isva
+#    type: firmware
+#
+- hosts: "{{ hosts | default('all')}}"
+  gather_facts: no
+  tasks:
+    - name: install the last entry in updates
+      import_role:
+        name: ibm.isam.base.install_update
+      vars:
+        name: "{{ item.name|default('isva') }}" # Before 10.0.4, this is Firmware
+        type: "{{ item.type|default('firmware') }}"
+        version: "{{ item.version }}"
+        release_date: "{{ item.date }}"
+      loop: "{{ updates|last }}"
+      when:
+        - updates is defined
+        - item.version is defined
+      tags: install_update
