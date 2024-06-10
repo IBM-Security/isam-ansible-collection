@@ -8,10 +8,10 @@ galaxy_info:
   min_ansible_version: 2.2
 
   galaxy_tags:
-  - isam
-  - ibm
-  - import
-  - sso_key
+    - isam
+    - ibm
+    - import
+    - ssokey
 
 dependencies:
-  - ibm.isam.common_handlers
+  - role: ibm.isam.common_handlers

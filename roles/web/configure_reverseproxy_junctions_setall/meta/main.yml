@@ -1,17 +1,17 @@
 galaxy_info:
   author: IBM
-  description: Role to configure reverse proxy junctions
+  description: Role to configure reverse proxy junctions in 1 go
   company: IBM
 
   license: Apache
 
-  min_ansible_version: 2.2
+  min_ansible_version: 2.9
 
   galaxy_tags:
     - isam
     - ibm
     - configure
-    - reverse_proxy_junctions
+    - junctions
 
 dependencies:
   - role: ibm.isam.common_handlers

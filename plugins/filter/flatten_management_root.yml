@@ -1,0 +1,61 @@
+DOCUMENTATION:
+  name: flatten_management_root
+  author: IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>
+  version_added: 'historical'
+  short_description: Flatten isva management root object
+  description:
+    - Flatten a management root object as obtained from the ISVA Rest API
+    - The return value is a dict
+    - No options
+  options:
+
+EXAMPLES: |
+  #   flatten: '{{ {
+  #           "children": [
+  #               {
+  #                   "children": [
+  #                       {
+  #                           "id": 25,
+  #                           "name": "file-test1.txt",
+  #                           "type": "File",
+  #                           "version": "1522092718"
+  #                       },
+  #                       {
+  #                           "children": [
+  #                               {
+  #                                   "id": 27,
+  #                                   "name": "sub-file-test1.txt",
+  #                                   "type": "File",
+  #                                   "version": "1522096401"
+  #                               }
+  #                           ],
+  #                           "id": 28,
+  #                           "name": "dir1",
+  #                           "type": "Directory",
+  #                           "version": "1522187109"
+  #                       }
+  #                   ],
+  #                   "id": 29,
+  #                   "name": "C",
+  #                   "type": "Directory",
+  #                   "version": "1522187109"
+  #               },
+  #               {
+  #                   "children": [],
+  #                   "id": 30,
+  #                   "name": "de",
+  #                   "type": "Directory",
+  #                   "version": "1522187109"
+  #               }
+  #           ],
+  #           "id": 31,
+  #           "name": "errors",
+  #           "type": "Directory",
+  #           "version": "1522187109"
+  #       }|flatten_management_root }}'
+  #
+  #
+RETURN:
+  _value:
+    description: A list of dictionaries
+    type: list

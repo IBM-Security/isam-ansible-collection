@@ -9,8 +9,8 @@ namespace: ibm
 # The name of the collection. Has the same character restrictions as 'namespace'
 name: isam
 
-# The version of the collection. Must be compatible with semantic versioning
-version: 1.0.29
+# The version of the collection. Must be compatible with semantic versioning - use YYYY.MM.xx (where xx is a number, starting at 0)
+version: 2024.6.0
 
 # The path to the Markdown (.md) readme file. This path is relative to the root of the collection
 readme: README.md
@@ -18,7 +18,7 @@ readme: README.md
 # A list of the collection's content authors. Can be just the name or in the format 'Full Name <email> (url)
 # @nicks:irc/im.site#channel'
 authors:
-  - IBM Security Orchestration <secorch@us.ibm.com>
+  - IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>
 
 ### OPTIONAL but strongly recommended
 
@@ -47,6 +47,7 @@ tags:
 # L(specifiers,https://python-semanticversion.readthedocs.io/en/latest/#requirement-specification). Multiple version
 # range specifiers can be set and are separated by ','
 dependencies: {}
+
 # The URL of the originating SCM repository
 repository: https://github.com/IBM-Security/isam-ansible-collection
 

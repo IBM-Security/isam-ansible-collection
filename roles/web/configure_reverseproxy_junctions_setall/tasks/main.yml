@@ -1,33 +1,21 @@
 ---
-
-# main task to configure reverse proxy instances
-
 - name: Help INFO (-e help=true)
   pause:
     echo: yes
     prompt: |
       NAME
-        configure_reverseproxy_junctions
+        web.configure_reverseproxy_junctions_setall
 
       DESCRIPTION
-        Role to configure reverse proxy junctions
+        Role to configure reverse proxy junctions and servers
+        This is a lot faster when there are no changes
 
       STEPS
-        1) Configure reverse proxy junctions per instance [-e inst_name=<instance> -e junction_point=</jct_point>]
-        1.a) Create junction with 1st junction server
-        1.b) Add junction servers
-        1.c) Delete junction servers that are missing in the inventory [-e delete_junction_server=True]
-        2) Delete junctions that are missing in the inventory [-e delete_junctions=True]
+        1) Configure reverse proxy junctions and servers
         3) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] ibm.isam.web.configure_reverseproxy_junctions.yml // create and add all inventory defined junctions
-        ansible-playbook -i [...] ibm.isam.web.configure_reverseproxy_junctions.yml -e delete_junction_server=True -e delete_junctions=True // create, add all inventory defined junctions and delete all junction servers or junctions that are missing from inventory
-        ansible-playbook -i [...] ibm.isam.web.configure_reverseproxy_junctions.yml -e inst_name=default // create and add inventory defined junctions for instance default only
-        ansible-playbook -i [...] ibm.isam.web.configure_reverseproxy_junctions.yml -e junction_point=/jct1 // do all tasks only if junction equals /jct1
-        ansible-playbook -i [...] ibm.isam.web.configure_reverseproxy_junctions.yml -e junction_point=/jct2 -e delete_junction_server=True -e delete_junctions=True // if junction_point renamed in inventory to /jct2, then this command can reconfigure that junction server under the new name
-        ansible-playbook -i [...] ibm.isam.web.configure_reverseproxy_junctions.yml -e junction_point=/jct1 -e force=True // re-configure junction /jct1
-        ansible-playbook -i [...] ibm.isam.web.configure_reverseproxy_junctions.yml -e control_setall_junctions=True # Use the faster mode
+        ansible-playbook -i [...] ibm.isam.web.configure_reverseproxy_junctions_setall.yml
 
       INVENTORY
       ==========
@@ -47,9 +35,9 @@
               transparent_path_junction: "yes"                          # Specifies whether a transparent path junction is created. Valid value is "yes" or "no". This parameter is not valid for virtual junctions.
               basic_auth_mode: filter                                   # Defines how the Reverse Proxy server passes client identity information in HTTP basic authentication (BA) headers to the back-end server. The value is one of: filter (default), ignore, supply, gso.
               remote_http_header:                                       # Controls the insertion of Security Verify Access specific client identity information in HTTP headers across the junction. The value is an array containing a combination of: iv-user, iv-user-l, iv-groups, iv-creds or all. Note: This is an array of elements.
-                - iv_user
-                - iv_creds
-                - iv_user_l
+                - iv-user
+                - iv-creds
+                - iv-user-l
               scripting_support: "yes"                                  # Supplies junction identification in a cookie to handle script-generated server-relative URLs.
               stateful_junction: "yes"
               junction_hard_limit: 80                                   # Defines the hard limit percentage for consumption of worker threads. Valid value is an integer from "0" to "100".
@@ -103,30 +91,7 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: Include over all instances and junctions
-  include_tasks: include_junctions.yml
-  with_subelements:
-    - "{{ instances }}"
-    - junctions
-    - skip_missing: True
-  when:
-    - not (control_setall_junctions|bool)
-    - item[1].junction_point == (junction_point | default(item[1].junction_point))
-    - item[0].inst_name == (inst_name | default(item[0].inst_name))
-
-  loop_control:
-    label: "{inst_name: {{ item[0].inst_name }}, junction_point: {{ item[1].junction_point }}}"
-
-- name: Include to delete undefined junctions [-e delete_junctions=True]
-  include_tasks: include_delete_junctions.yml
-  loop: "{{ instances }}"
-  when:
-    - not (control_setall_junctions|bool)
-    - (delete_junctions | bool)
-  loop_control:
-    label: "{inst_name: {{ item.inst_name }}, delete_junctions: {{ delete_junctions }}}"
-
-- name: Create all junctions and servers (set_all)
+- name: "Create junctions and servers"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -137,6 +102,5 @@
   loop_control:
     label: "Processing junctions {{ item.junctions | default([]) | map(attribute='junction_point') | join(', ') }} for {{ item.inst_name|default('') }}"
   when:
-    - control_setall_junctions|bool
     - item.junctions is defined
   register: ret_obj

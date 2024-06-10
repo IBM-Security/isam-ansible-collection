@@ -1,7 +1,8 @@
 # default values for import sso key files
 sso_keys: []
 
-name: "{{ item.file | basename }}"
+# breaking change
+sso_key_name: "{{ item.file | basename }}"
 
 # Default homedir.  This defaults to inventory_dir for backwards compatibility reasons,
 #  even though the inventory_dir should NEVER be used to store files (should basically only contain files that can be parsed by an inventory_plugin)

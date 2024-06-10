@@ -19,15 +19,18 @@ exclude_paths:
   - roles/aac/disable_authentication_policies/molecule/default/check_for_all_false_status.yml
   - roles/aac/disable_authentication_policies/molecule/default/check_for_all_true_status.yml
   - playbooks/base_site.yml
+  - playbooks/vmware
 
 # parseable: true
 # quiet: true
 # strict: true
-# verbosity: 1
+verbosity: 1
 
 # Mock modules or roles in order to pass ansible-playbook --syntax-check
 mock_modules:
   - ibm.isam.isam
+  - community.vmware.vmware_guest
+  - community.vmware.vmware_vm_info
 
 mock_roles:
   - mocked_role

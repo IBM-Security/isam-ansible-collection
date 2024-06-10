@@ -1,2 +1,3 @@
+certifi
 ibmsecurity
 python_ldap

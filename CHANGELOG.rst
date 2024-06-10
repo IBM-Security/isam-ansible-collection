@@ -4,6 +4,50 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v1.1.1
+======
+
+Release Summary
+---------------
+
+Changes related to publishing the collection to red hat automation hub
+
+Minor Changes
+-------------
+
+- add documentation to filter plugins - required to pass red hat verification
+- configure_reverseproxy_junctions - lint issues meta
+- configure_reverseproxy_junctions_setall - lint issues meta
+- web/import_sso_keys - lint problem reserved name `name`, indentation, meta
+
+v1.1.0
+======
+
+Release Summary
+---------------
+
+| Release Date: 2024-02-27
+| Faster idempotent role to set junctions (only faster when the junctions already exist)
+| New parameters in set_admin_cfg
+| Some minor changes.
+
+Minor Changes
+-------------
+
+- ibm.isam.delete_junction - sync from isam-ansible-roles
+- ibm.isam.set_admin_cfg - add 16 parameters
+- ibm.isam.web.configure_reverseproxy_junctions - use new set_all() for junctions and junction_servers from the original role (using a variable)
+- isam connection plugin - add module_name to errors
+
+New Playbooks
+-------------
+
+- ibm.isam.web.configure_reverseproxy_junctions_setall.yml - Playbook for the new role
+
+New Roles
+---------
+
+- ibm.isam.web.configure_reverseproxy_junctions_setall - Role to use the new set_all() for junctions and servers
 
 v1.0.29
 =======

@@ -1,7 +1,7 @@
 ---
 - name: Update management ssl certificate
   ibm.isam.isam:
-    log: "{{ log_level | default('INFO') }}"
+    log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.management_ssl_certificate.set
     isamapi:

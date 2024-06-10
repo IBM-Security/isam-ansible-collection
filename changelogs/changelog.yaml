@@ -194,3 +194,50 @@ releases:
         name: get_memory_statistics
         namespace: null
     release_date: '2023-07-28'
+  1.1.0:
+    changes:
+      minor_changes:
+      - ibm.isam.delete_junction - sync from isam-ansible-roles
+      - ibm.isam.set_admin_cfg - add 16 parameters
+      - ibm.isam.web.configure_reverseproxy_junctions - use new set_all() for junctions
+        and junction_servers from the original role (using a variable)
+      - isam connection plugin - add module_name to errors
+      release_summary: '| Release Date: 2024-02-27
+
+        | Faster idempotent role to set junctions (only faster when the junctions
+        already exist)
+
+        | New parameters in set_admin_cfg
+
+        | Some minor changes.
+
+        '
+    fragments:
+    - 183-new_parameters_in_set_admin_cfg.yml
+    - 29-sync_roles_from_isam-ansible-roles.yml
+    - faster_reverseproxy_junction_creation.yml
+    - release_summary.yml
+    objects:
+      playbook:
+      - description: Playbook for the new role
+        name: web.configure_reverseproxy_junctions_setall.yml
+        namespace: null
+      role:
+      - description: Role to use the new set_all() for junctions and servers
+        name: web.configure_reverseproxy_junctions_setall
+        namespace: null
+    release_date: '2024-03-01'
+  1.1.1:
+    changes:
+      minor_changes:
+      - add documentation to filter plugins - required to pass red hat verification
+      - configure_reverseproxy_junctions - lint issues meta
+      - configure_reverseproxy_junctions_setall - lint issues meta
+      - web/import_sso_keys - lint problem reserved name `name`, indentation, meta
+      release_summary: 'Changes related to publishing the collection to red hat automation
+        hub
+
+        '
+    fragments:
+    - ansible_lint.yml
+    release_date: '2024-03-07'

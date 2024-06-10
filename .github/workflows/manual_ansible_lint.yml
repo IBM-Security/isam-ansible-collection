@@ -1,0 +1,24 @@
+name: Manual Ansible Lint
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on: workflow_dispatch
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build-and-test:
+    strategy:
+      matrix:
+        python-version:
+          - default
+#          - 3.9
+#          - 3.11
+        ansible-core-version:
+#          - stable-2.14
+#          - stable-2.15
+          - stable-2.16
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@v6 # or version tag instead of 'main'
