@@ -1,6 +1,9 @@
 ---
-# Install Updates
+# Install Updates using the same syntax as upload_updates.yml
+#   This will take the last item in the `updates` list to install.
+#
 #   Example:
+#
 # updates:
 #  - file: 'isva_10.0.7.0_20231130-1943.pkg'
 #    version: 10.0.7.0
