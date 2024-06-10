@@ -1,0 +1,7 @@
+---
+minor_changes:
+  - ibm.isam.base.install_fixpacks - fix
+
+add object.playbook:
+  - name: install_updates.yml
+    description: Add playbook that uses the same syntax as upload_updates.yml
