@@ -1,25 +1,28 @@
 ---
-- name: Install multiple fixpacks [fix_packs]
-  ibm.isam.isam:
-    log: "{{ log_level | default(omit) }}"
-    force: "{{ force | default(omit) }}"
-    action: ibmsecurity.isam.base.fixpack.install
-    isamapi:
-      file: "{{ homedir+'/'+item.file }}"
-  when: item is defined and item.file is defined and file == item.file and filename == ( item.file | basename )
-  with_items: "{{ fix_packs }}"
-  register: result
-  failed_when: result.rc not in ["0"]
+# - name: Install multiple fixpacks [fix_packs]
+#  ibm.isam.isam:
+#    log: "{{ log_level | default(omit) }}"
+#    force: "{{ force | default(omit) }}"
+#    action: ibmsecurity.isam.base.fixpack.install
+#    isamapi:
+#      file: "{{ item.file }}"
+#  when:
+#    - item is defined
+#    - item.file is defined
+#    - file == item.file
+#    - filename == ( item.file | basename )
+#  with_items: "{{ fix_packs }}"
+#  register: result
+#  failed_when: result.rc != 0
+#  loop_control:
+#    label: "(file=\"{{ item.file }}\")"
+- name: Install multiple fixpacks
+  ansible.builtin.include_tasks: include_installfixpack.yml
+  loop: "{{ fix_packs }}"
   loop_control:
-    label: '(file="{{ item.file }}")'
-
-- name: Install single fixpack file [fix_pack_file]
-  ibm.isam.isam:
-    log: "{{ log_level | default(omit) }}"
-    force: "{{ force | default(omit) }}"
-    action: ibmsecurity.isam.base.fixpack.install
-    isamapi:
-      file: "{{ homedir +'/'+ fix_pack_file }}"
-  when: fix_pack_file is defined
-  register: result
-  failed_when: result.rc not in ["0"]
+    label: "{{ item.filename | default('') }} - {{ item.file | default('') }}"
+  when:
+    - item is defined
+    - item.file is defined
+    - file == item.file
+    - filename == ( item.file | basename )
