@@ -10,5 +10,7 @@ filename: "{{ item.file | basename }}"
 #  even though the inventory_dir should NEVER be used to store files (should basically only contain files that can be parsed by an inventory_plugin)
 #  a better default value for homedir, would be playbook_dir:
 #       `homedir: "{{ playbook_dir }}"`
-#  so this is a variable
+#  or set it to the empty string, to use item.file
+#       `homedir: ""`
+#
 homedir: "{{ inventory_dir }}"
