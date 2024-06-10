@@ -19,7 +19,7 @@
         type: "{{ item.type|default('firmware') }}"
         version: "{{ item.version }}"
         release_date: "{{ item.date }}"
-      loop: "[{{ updates|last }}]"
+      loop: "{{ updates|map('last')|list }}"
       loop_control:
         label: "install {{ item.type|default('firmware') }} - {{ item.version }}"
       when:
