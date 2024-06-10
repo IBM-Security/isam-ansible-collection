@@ -12,17 +12,14 @@
   gather_facts: no
   tasks:
     - name: install the last entry in updates
-      include_role:
+      import_role:
         name: ibm.isam.base.install_update
       vars:
-        name: "{{ item.name|default('isva') }}" # Before 10.0.4, this is Firmware
-        type: "{{ item.type|default('firmware') }}"
-        version: "{{ item.version }}"
-        release_date: "{{ item.date }}"
-      loop: "{{ updates|map('last')|list }}"
-      loop_control:
-        label: "install {{ item.type|default('firmware') }} - {{ item.version }}"
+        name: "{{ updates[-1].name|default('isva') }}" # Before 10.0.4, this is Firmware
+        type: "{{ updates[-1].type|default('firmware') }}"
+        version: "{{ updates[-1].version }}"
+        release_date: "{{ updates[-1].date }}"
       when:
         - updates is defined
-        - item.version is defined
+        - updates[-1].version is defined
       tags: install_update
