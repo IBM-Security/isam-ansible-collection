@@ -1,5 +1,5 @@
 ---
-- name: Install single fixpack {{ item.filename }}
+- name: Install single fixpack {{ item.file }}
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
