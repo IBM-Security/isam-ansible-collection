@@ -241,3 +241,30 @@ releases:
     fragments:
     - ansible_lint.yml
     release_date: '2024-03-07'
+  2024.6.0:
+    changes:
+      major_changes:
+      - plugins/connection/isam.py - add verify ssl certificate.  This requires ibmsecurity
+        version v2024.4.5+.
+      minor_changes:
+      - base/set_management_ssl_cert - remove default LOG value
+      - change versioning method to YYYY.MM.xx
+      - documentation updates
+      - documentation updates
+      - ibm.isam.base.install_fixpacks - fix
+      - refactor naming to YYYY.MM.xx (still semantic versioning)
+      release_summary: '| Enable use of TLS for the LMI
+
+        '
+    fragments:
+    - 188-enable_tls_verification.yml
+    - 189-use-of-baseinstall_fixpacks-role-fails.yml
+    objects:
+      playbook:
+      - description: Playbook to set management ssl certificate
+        name: base.configure_management_ssl.yml
+        namespace: null
+      - description: Add playbook that uses the same syntax as upload_updates.yml
+        name: install_updates.yml
+        namespace: null
+    release_date: '2024-06-11'

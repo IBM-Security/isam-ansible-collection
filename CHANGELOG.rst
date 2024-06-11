@@ -4,6 +4,35 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v2024.6.0
+=========
+
+Release Summary
+---------------
+
+| Enable use of TLS for the LMI
+
+Major Changes
+-------------
+
+- plugins/connection/isam.py - add verify ssl certificate.  This requires ibmsecurity version v2024.4.5+.
+
+Minor Changes
+-------------
+
+- base/set_management_ssl_cert - remove default LOG value
+- change versioning method to YYYY.MM.xx
+- documentation updates
+- documentation updates
+- ibm.isam.base.install_fixpacks - fix
+- refactor naming to YYYY.MM.xx (still semantic versioning)
+
+New Playbooks
+-------------
+
+- ibm.isam.base.configure_management_ssl.yml - Playbook to set management ssl certificate
+- ibm.isam.install_updates.yml - Add playbook that uses the same syntax as upload_updates.yml
+
 v1.1.1
 ======
 
