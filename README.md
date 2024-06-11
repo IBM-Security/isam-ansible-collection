@@ -291,6 +291,10 @@ You can build a custom execution environment, that contains the python prerequis
 You may also need to add custom CA trusts to the execution environment (eg. from your private Certificate Authority),
 and you likely want to set the `REQUESTS_CA_BUNDLE` environment variable.
 
+**note** : adding that environment variable, effectively enables TLS verification in some cases, which may not (yet) be the expected behaviour.
+
+Alternatively, you can override the cacert.pem that comes with the `certifi` package in your execution environment.
+
 ### 6) Run it on Ansible Automation Platform
 
 In Ansible Automation Platform, you need to define the custom execution environment you prepared earlier.
