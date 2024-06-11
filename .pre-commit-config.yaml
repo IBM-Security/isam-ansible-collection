@@ -19,12 +19,12 @@ repos:
     hooks:
       - id: ansible-test
         name: Run ansible-test
-        entry: ansible-test sanity --allow-disabled --verbose
+        entry: ansible-test sanity --verbose --allow-disabled
         language: python
         require_serial: true
         additional_dependencies:
           - ansible-core
 #  - repo: https://github.com/ansible/ansible-lint # Don't do that in pre-commit, it takes too long.
-#    rev: v24.2.0 # put latest release tag from https://github.com/ansible/ansible-lint/releases/
+#    rev: v24.6.0 # put latest release tag from https://github.com/ansible/ansible-lint/releases/
 #    hooks:
 #      - id: ansible-lint
