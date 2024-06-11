@@ -1,6 +1,7 @@
 ---
 minor_changes:
   - ibm.isam.base.install_fixpacks - fix
+  - documentation updates
 
 add object.playbook:
   - name: install_updates.yml
