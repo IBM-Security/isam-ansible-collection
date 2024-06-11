@@ -1,0 +1,24 @@
+---
+- name: Install single fixpack {{ item.file }}
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.base.fixpack.install
+    isamapi:
+      file: "{{ (homedir=='')|ternary('',homedir + '/') }}{{ item.file }}"
+  register: fpresult
+  failed_when: fpresult.rc != 0
+
+- name: Wait for system to become responsive again (should be almost immediately)
+  vars:
+    ansible_connection: local
+  ansible.builtin.wait_for:
+    host: "{{ ansible_host | default(inventory_hostname) }}"
+    port: "{{ lmi_port | default(443) }}"
+    delay: 20
+    sleep: 5
+    timeout: 300
+  when:
+    - fpresult.changed
+    - fpresult.rc == 0
+    - not ansible_check_mode
