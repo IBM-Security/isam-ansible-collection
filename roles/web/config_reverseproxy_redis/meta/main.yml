@@ -5,7 +5,7 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: 2.11
+  min_ansible_version: '2.11'
 
   galaxy_tags:
   - isam
