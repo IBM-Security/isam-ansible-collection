@@ -1,7 +1,7 @@
 ---
 - name: Converge
   hosts: all
-  gather_facts: no
+  gather_facts: false
   vars:
     molecule_name: not used
     molecule_file: "{{ homedir }}/files/ltpa.key"
