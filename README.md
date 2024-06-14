@@ -94,9 +94,10 @@ ansible_isam_port="443"
 - Please submit a pull request on so we can merge your roles into
   the collection.
 
-### 7) TLS Secure connections
+### 7) TLS Secure connections (v2.0.0 +)
 
 Using ibmsecurity v2024.4.5+ enables secure TLS connections.
+This collection starts using that in version 2.0.0.
 
 ```ini
 [isam]
