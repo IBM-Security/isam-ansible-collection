@@ -1,4 +1,0 @@
-plugins/modules/isam.py validate-modules:missing-gplv3-license
-plugins/modules/isamadmin.py validate-modules:missing-gplv3-license
-plugins/modules/isamcompare.py validate-modules:missing-gplv3-license
-molecule/175_base_verify_inventorydir_change/files/ssl/Default_Trust_ISRG_Root_X1.cer line-endings
