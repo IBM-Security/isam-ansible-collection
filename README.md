@@ -12,7 +12,7 @@ Documentation for installing and using this collection.
 
 Instructions for installing ibm.isam:
 
-**Recommended**: Create a python virtual environment and activate it before executing
+**Recommended :** Create a python virtual environment and activate it before executing
             subsequent steps.
 
 ### 1) Install the following packages (use the latest available version)
