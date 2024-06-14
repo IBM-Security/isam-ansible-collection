@@ -3,11 +3,15 @@ default_stages:
   - commit
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
+      - id: check-yaml
       - id: trailing-whitespace
       - id: end-of-file-fixer
-      - id: check-yaml
+      - id: mixed-line-ending
+      - id: debug-statements
+      - id: check-executables-have-shebangs
+      - id: fix-byte-order-marker
       - id: check-builtin-literals
       - id: requirements-txt-fixer
   #     - id: check-json
@@ -15,12 +19,12 @@ repos:
     hooks:
       - id: ansible-test
         name: Run ansible-test
-        entry: ansible-test sanity --allow-disabled -v
+        entry: ansible-test sanity --verbose --allow-disabled
         language: python
         require_serial: true
         additional_dependencies:
           - ansible-core
 #  - repo: https://github.com/ansible/ansible-lint # Don't do that in pre-commit, it takes too long.
-#    rev: v24.2.0 # put latest release tag from https://github.com/ansible/ansible-lint/releases/
+#    rev: v24.6.0 # put latest release tag from https://github.com/ansible/ansible-lint/releases/
 #    hooks:
 #      - id: ansible-lint

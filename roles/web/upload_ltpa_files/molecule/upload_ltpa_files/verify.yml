@@ -3,7 +3,7 @@
 
 - name: Verify
   hosts: all
-  gather_facts: no
+  gather_facts: false
   vars:
     molecule_name: test2
   tasks:
@@ -14,7 +14,7 @@
         get_access_policies:
           - name: "{{ molecule_name }}"
 
-    - name: "Assert that attribute {{ molecule_name }} is added"
+    - name: "Assert attribute {{ molecule_name }}"
       assert:
         that:
           - ret_obj.results.0.data.name is defined
