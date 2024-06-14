@@ -4,7 +4,7 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
-v2024.6.0
+v2.0.0
 =========
 
 Release Summary
@@ -25,7 +25,6 @@ Minor Changes
 - documentation updates
 - documentation updates
 - ibm.isam.base.install_fixpacks - fix
-- refactor naming to YYYY.MM.xx (still semantic versioning)
 
 New Playbooks
 -------------
