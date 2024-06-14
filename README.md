@@ -1,22 +1,18 @@
 # Ansible Collection - ibm.isam
 
-Documentation for the collection.
+Documentation for installing and using this collection.
 
-This is still a work in progress. README files in this collection were copied
-from roles repository and need to be edited.
+## Requirements
 
-Support for ISAMProxy will be added in due course of time.
-
-Requirements:
-
-  * ibmsecurity 2020.05.01.1 or higher (for TLS verification of the LMI connection by the isam ansible connection, use 2024.4.5 or higher)
-  * Ansible 2.15 or higher
-  * Python v3.7 or higher
+- ibmsecurity 2020.05.01.1 or higher (for TLS verification of the LMI connection by the isam ansible connection, use 2024.4.5 or higher)
+- Ansible 2.15 or higher
+- Python v3.7 or higher
 
 ## Using ansible-playbook
 
 Instructions for installing ibm.isam:
-  * Recommended: Create a python virtual environment and activate it before executing
+
+**Recommended**: Create a python virtual environment and activate it before executing
             subsequent steps.
 
 ### 1) Install the following packages (use the latest available version)
@@ -29,26 +25,33 @@ Instructions for installing ibm.isam:
 ### 2) Install collection using ansible galaxy:
 
 - Example command to install:
-  `ansible-galaxy collection install ibm.isam`
+
+   `ansible-galaxy collection install ibm.isam`
+
 - Example command to upgrade to the latest version:
-  `ansible-galaxy collection install ibm.isam --force`
+
+   `ansible-galaxy collection install ibm.isam --force`
 
 ### 3) Local install if firewall issues occurs
 
 Python packages can be downloaded from pypi.org as tar.gz files and copied to server for installation.
 
-* Link to download ibmsecurity package:
+- Link to download ibmsecurity package:
+
      https://pypi.org/project/ibmsecurity/#files
-* Example command to install package:
-     pip3 install <tar.gz downloaded>
+
+- Example command to install package:
+
+    `pip3 install <tar.gz downloaded>`
 
 Ansible collection can also be downloaded as a file and installed:
 
-* Link to download ibm.isam:
-     https://galaxy.ansible.com/ibm/isam
-* Example command to install collection:
+- Link to download ibm.isam:
+    https://galaxy.ansible.com/ibm/isam
+- Example command to install collection:
      ansible-galaxy collection install <tar.gz downloaded>
-* Note: you may need to download dependent python packages needed.
+
+**Note:** you may need to download dependent python packages needed.
 
 ### 4) Update existing playbooks to work with collection:
 
@@ -184,7 +187,6 @@ You can now use the `isamlmi.p12` certificate as your management ssl certificate
 ansible-playbook ibm.isam.base.configure_management_ssl.yml -e update_management_ssl_cert_cert="$(pwd)/files/isamlmi.p12" -e update_management_ssl_cert_pwd=<password> -i <your inventory>
 ```
 
-
 ## Using execution environments (ansible-navigator and/or AAP)
 
 To use the ibm.isam collection with execution environments, you may need to create a custom Execution Environment first.
@@ -215,7 +217,6 @@ Below is an example:
 ---
 ansible-navigator:
   ansible:
-#    cmdline: --extra-vars comment=snapshot
     config:
       help: false
       path: ./ansible.cfg
@@ -235,7 +236,6 @@ ansible-navigator:
     enabled: true
     environment-variables:
       pass: []
-#    image: yourcustom-ee:latest
     pull:
       policy: tag
   logging:
@@ -320,8 +320,11 @@ Then reference that playbook in your Job template, and run it.
 ### 7) Next steps
 
 #### Vaults
+
 To use ansible vaults with ansible-navigator, there's a couple of options.
+
 Take a look at the documentation here : <https://ansible-navigator.readthedocs.io/faq/#how-can-i-use-a-vault-password-with-ansible-navigator>
 
 #### Miscellaneous
+
 The playbooks in the collection can be used as examples to create your own specific deployments of IBM Verify Access using Ansible !
