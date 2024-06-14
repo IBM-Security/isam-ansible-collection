@@ -8,21 +8,26 @@ from roles repository and need to be edited.
 Support for ISAMProxy will be added in due course of time.
 
 Requirements:
-  * ibmsecurity 2020-05-01-1 or higher
-  * Ansible 2.9 or higher
-  * Python v3.6 or higher
+
+  * ibmsecurity 2020.05.01.1 or higher (for TLS verification of the LMI connection by the isam ansible connection, use 2024.4.5 or higher)
+  * Ansible 2.15 or higher
+  * Python v3.7 or higher
 
 ## Using ansible-playbook
+
 Instructions for installing ibm.isam:
   * Recommended: Create a python virtual environment and activate it before executing
             subsequent steps.
+
 ### 1) Install the following packages (use the latest available version)
+
 - ansible (`pip install ansible`)
 - ibmsecurity (`pip install ibmsecurity`)
 - Note: Multiple dependent packages will install when you execute 'pip install'
         of the above packages.
 
 ### 2) Install collection using ansible galaxy:
+
 - Example command to install:
   `ansible-galaxy collection install ibm.isam`
 - Example command to upgrade to the latest version:
