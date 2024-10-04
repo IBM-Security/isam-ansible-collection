@@ -29,8 +29,11 @@
   when: help is defined
 
 - name: Configure the extensions
-  include_tasks:
-    name: singleextension.yml
+  ansible.builtin.include_tasks:
+    file: singleextension.yml
+    apply:
+      tags:
+        - extensions
   loop: "{{ isam_extensions }}"
   loop_control:
     loop_var: extension_item
