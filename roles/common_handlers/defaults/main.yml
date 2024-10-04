@@ -1,4 +1,16 @@
 ---
-
 docker_publish_changes: false
 start_config_wait_time: 600
+
+# Default homedir.  This defaults to inventory_dir for backwards compatibility reasons,
+#  even though the inventory_dir should NEVER be used to store files (should basically only contain files that can be parsed by an inventory_plugin)
+#  a better default value for homedir, would be root_playbook_dir (see next variable):
+#       homedir: "{{ root_playbook_dir }}"
+#
+homedir: "{{ inventory_dir }}"
+
+# This is the default variable to indicate the root playbook dir (meaning, the project directory)
+# We can use this instead of `playbook_dir`, because for playbooks in the collection, that will be a location in the collection.
+# You need to overwrite this, to use it effectively !
+# For instance `ansible-playbook ... -e root_playbook_dir=${pwd}
+root_playbook_dir: "{{ playbook_dir }}"
