@@ -1,0 +1,6 @@
+add object.role:
+  - name: base.configure_extensions
+    description: Role to configure extensions
+add object.playbook:
+  - name: base.configure_extensions.yml
+    description: Playbook for the new role extensions
