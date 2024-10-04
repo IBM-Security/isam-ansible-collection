@@ -1,0 +1,63 @@
+---
+# main task to configure dns
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_extensions
+
+      DESCRIPTION
+        Role to configure extensions on the appliance
+
+      STEPS
+        1) Configure extensions
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.base.configure_extensions.yml
+
+      INVENTORY
+      ==========
+      isam_extensions:
+        - file_extension1.ext
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Configure the extensions
+  block:
+    # This step verifies whether a given Plugin jar file is valid extension or not
+    - name: Verify extension to be uploaded
+      ibm.isam.isam:
+        log: "{{ log_level | default('INFO') }}"
+        force: "{{ force | default(False) }}"
+        action: ibmsecurity.isam.aac.extensions.verify
+        isamapi:
+          filename: "{{ item }}"
+      notify: Commit Changes
+
+    # Uploading an extension is a two step process, 1. is to create an extension
+    - name: Create an extension
+      ibm.isam.isam:
+        log: "{{ log_level | default('INFO') }}"
+        force: "{{ force | default(False) }}"
+        action: ibmsecurity.isam.aac.extensions.create
+        isamapi:
+          filename: "{{ item }}"
+      notify: Commit Changes
+    # 2. Upload the plugin jar file
+    - name: Upload extension bundle
+      ibm.isam.isam:
+        log: "{{ log_level | default('INFO') }}"
+        force: "{{ force | default(False) }}"
+        action: ibmsecurity.isam.aac.extensions.import_bundle
+        isamapi:
+          filename: "{{ upload_extension_filename }}"
+      notify: Commit Changes
+  loop: "{{ isam_extensions }}"
+  when:
+    - isam_extensions|length>0
