@@ -20,7 +20,8 @@
       INVENTORY
       ==========
       isam_extensions:
-        - file_extension1.ext
+        - extension: "{{ root_playbook_dir }}/files/extensions/containerExtIAG.ext"
+        - extension: "{{ root_playbook_dir }}/files/extensions/containerExtISVAOP.ext"
 
       INTERACTION
         ENTER         = continue
