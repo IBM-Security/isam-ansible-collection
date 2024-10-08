@@ -8,7 +8,8 @@
         configure_extensions
 
       DESCRIPTION
-        Role to configure extensions on the appliance
+        Role to configure extensions on the appliance.
+        This not fully idempotent.  Don't use extId to only do "install".
 
       STEPS
         1) Configure extensions
@@ -21,7 +22,9 @@
       ==========
       isam_extensions:
         - extension: "{{ root_playbook_dir }}/files/extensions/containerExtIAG.ext"
+          extId: containerExtIAG
         - extension: "{{ root_playbook_dir }}/files/extensions/containerExtISVAOP.ext"
+          extId: containerExtISVAOP
 
       INTERACTION
         ENTER         = continue
