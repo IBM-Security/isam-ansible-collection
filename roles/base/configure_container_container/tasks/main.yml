@@ -75,3 +75,19 @@
     loop_var: container_item
   when:
     - isam_containers|length>0
+    - container_item.container_action|default("set") in ["set","update","add"]
+
+- name: Delete Container Extensions containers
+  ansible.builtin.include_tasks:
+    file: singlecontainerdelete.yml
+    apply:
+      tags:
+        - containers
+        - delete
+  loop: "{{ isam_containers }}"
+  loop_control:
+    loop_var: container_item
+  when:
+    - isam_containers|length>0
+    - container_item.container_action is defined
+    - container_item.container_action == "delete"
