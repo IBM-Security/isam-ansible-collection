@@ -1,0 +1,24 @@
+---
+isam_containers:
+  - name: iag1
+    image: "icr.io/ibmappgateway/ibm-application-gateway:23.10"
+    type: "ibm-application-gateway"
+    ports:
+      - name: https
+        value: "0.0.0.0:30443"
+      - name: http
+        value: "0.0.0.0:30080"
+    volumes:
+      - name: "configuration"
+        volume_name: "config.volume"
+  - name: iag2
+    image: "icr.io/ibmappgateway/ibm-application-gateway:23.10"
+    type: "ibm-application-gateway"
+    ports:
+      - name: https
+        value: "0.0.0.0:31443"
+      - name: http
+        value: "0.0.0.0:31080"
+    volumes:
+      - name: "configuration"
+        volume_name: "config.volume.2"

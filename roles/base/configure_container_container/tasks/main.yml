@@ -1,0 +1,77 @@
+---
+# main task to configure dns
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_container_container
+
+      DESCRIPTION
+        Role to configure image for the Container Extension
+
+      STEPS
+        1) Configure extensions
+
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.base.configure_extensions.yml
+
+      INVENTORY
+      ==========
+      isam_extensions:
+
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+#
+# Multiple steps here
+#   - create volumes
+#   - get images
+#   - create deployments
+#
+- name: Create Container Volumes
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.container_ext.volume.set
+    isamapi:
+      name: "{{ _role_item.volume_name }}"
+  tags:
+    - volumes
+  loop: "{{ isam_containers|map(attribute='volumes')|list|flatten }}"
+  loop_control:
+    label: "Volume: {{ _role_item.volume_name|default('') }}"
+    loop_var: _role_item
+  when:
+    - _role_item is defined
+
+- name: Pull images
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.container_ext.image.set
+    isamapi:
+      image: "{{ _role_item }}"
+  tags:
+    - images
+  loop: "{{ isam_containers|map(attribute='image')|list|flatten|unique }}"
+  loop_control:
+    label: "Image: {{ _role_item.volume_name|default('') }}"
+    loop_var: _role_item
+  when:
+    - _role_item is defined
+
+- name: Configure Container Extensions containers
+  ansible.builtin.include_tasks:
+    file: singlecontainer.yml
+    apply:
+      tags:
+        - containers
+  loop: "{{ isam_containers }}"
+  loop_control:
+    loop_var: container_item
+  when:
+    - isam_containers|length>0

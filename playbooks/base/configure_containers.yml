@@ -1,0 +1,8 @@
+---
+# Configure
+#   configure extensions
+- hosts: "{{ hosts | default('all')}}"
+  gather_facts: no
+  roles:
+    - role: ibm.isam.base.configure_container_container
+      tags: container

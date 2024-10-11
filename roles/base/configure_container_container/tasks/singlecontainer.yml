@@ -1,0 +1,17 @@
+---
+- name: Create or update container {{ container_item.name }}
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.container_ext.container.set
+    isamapi:
+       name: "{{ container_item.name }}"
+       image: "{{ container_item.image }}"
+       type: "{{ container_item.type }}"
+       ports: "{{ container_item.ports }}"
+       volumes: "{{ container_item.volumes }}"
+       env: "{{ container_item.env|default(omit) }}"
+       logging: "{{ container_item.logging|default(omit) }}"
+       command: "{{ container_item.command|default(omit) }}"
+       args: "{{ container_item.args|default(omit) }}"
+       replace: "{{ container_item.replace|default(omit) }}"
