@@ -1,6 +1,6 @@
 ---
 # Configure
-#   configure extensions
+#   configure extensions - is a prereq for containers
 - hosts: "{{ hosts | default('all')}}"
   gather_facts: no
   roles:
