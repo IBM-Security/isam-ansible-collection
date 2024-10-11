@@ -3,7 +3,7 @@
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
-    action: ibmsecurity.isam.container_ext.container.set
+    action: ibmsecurity.isam.base.container_ext.container.{{ container_item.container_action|default('set') }}
     isamapi:
        name: "{{ container_item.name }}"
        image: "{{ container_item.image }}"

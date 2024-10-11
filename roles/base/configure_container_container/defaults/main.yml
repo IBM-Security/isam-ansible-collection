@@ -11,6 +11,7 @@ isam_containers:
     volumes:
       - name: "configuration"
         volume_name: "config.volume"
+    container_action: set
   - name: iag2
     image: "icr.io/ibmappgateway/ibm-application-gateway:23.10"
     type: "ibm-application-gateway"
@@ -22,3 +23,4 @@ isam_containers:
     volumes:
       - name: "configuration"
         volume_name: "config.volume.2"
+    container_action: set
