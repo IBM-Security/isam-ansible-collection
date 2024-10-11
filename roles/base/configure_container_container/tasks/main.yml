@@ -59,7 +59,7 @@
     - images
   loop: "{{ isam_containers|map(attribute='image')|list|flatten|unique }}"
   loop_control:
-    label: "Image: {{ _role_item.volume_name|default('') }}"
+    label: "Image: {{ _role_item|default('') }}"
     loop_var: _role_item
   when:
     - _role_item is defined
