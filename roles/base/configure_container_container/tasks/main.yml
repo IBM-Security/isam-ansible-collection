@@ -73,6 +73,7 @@
   loop: "{{ isam_containers }}"
   loop_control:
     loop_var: container_item
+    label: "Creating - {{ container_item.name|default('skip') }}"
   when:
     - isam_containers|length>0
     - container_item.container_action|default("set") in ["set","update","add"]
@@ -87,6 +88,7 @@
   loop: "{{ isam_containers }}"
   loop_control:
     loop_var: container_item
+    label: "Deleting - {{ container_item.name|default('skip') }}"
   when:
     - isam_containers|length>0
     - container_item.container_action is defined
