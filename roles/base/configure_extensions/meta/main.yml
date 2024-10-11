@@ -15,7 +15,6 @@ galaxy_info:
   - isam
   - ibm
   - extension
-  - aac
   - upload
 
 dependencies:
