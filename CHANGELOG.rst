@@ -10,9 +10,9 @@ v2.1.0
 Release Summary
 ---------------
 
-Role and playbook to enable the (Container) extensions
-First Role and playbook to configure a Container on the ISVA Container extension (IAG or ISVAOP)
-This requires ibmsecurity >= 2024.11.10.0
+| Role and playbook to enable the (Container) extensions
+| First Role and playbook to configure a Container on the ISVA Container extension (IAG or ISVAOP)
+| This requires ibmsecurity >= 2024.11.10.0
 
 Minor Changes
 -------------
