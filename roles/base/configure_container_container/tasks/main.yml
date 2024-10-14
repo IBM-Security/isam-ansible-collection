@@ -8,17 +8,34 @@
         configure_container_container
 
       DESCRIPTION
-        Role to configure image for the Container Extension
+        Role to configure containers.
+        This is a very simple implementation, that allows to start a container deployment
+
+        Other roles are in the making to work with images, repositories and operations.
 
       STEPS
-        1) Configure extensions
+        1) Configure volumes used in the container
+        2) Pull image references in the container deployment
+        3) Start container deployment (container_action=set)
+        4) Delete containers (container_action=delete)
 
       EXAMPLES
-        ansible-playbook -i [...] ibm.isam.base.configure_extensions.yml
+        ansible-playbook -i [...] ibm.isam.base.configure_container.yml
 
       INVENTORY
       ==========
-      isam_extensions:
+      isam_containers:
+        - name: iag1
+          image: "icr.io/ibmappgateway/ibm-application-gateway:23.10"
+          type: "ibm-application-gateway"
+          ports:
+            - name: https
+              value: "0.0.0.0:30443"
+            - name: http
+              value: "0.0.0.0:30080"
+          volumes:
+            - name: "configuration"
+              volume_name: "config.volume"
 
 
       INTERACTION
@@ -26,12 +43,7 @@
         Ctrl+C + 'C'  = continue
         Ctrl+C + 'A'  = abort
   when: help is defined
-#
-# Multiple steps here
-#   - create volumes
-#   - get images
-#   - create deployments
-#
+
 - name: Create Container Volumes
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
