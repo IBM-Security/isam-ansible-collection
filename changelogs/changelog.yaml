@@ -267,3 +267,30 @@ releases:
         name: install_updates.yml
         namespace: null
     release_date: '2024-06-11'
+  2.1.0:
+    changes:
+      minor_changes:
+      - common_handlers - add homedir and root_playbook_dir shared default variables
+      release_summary: |
+        Role and playbook to enable the (Container) extensions
+        First role and playbook to configure a Container on the ISVA Container extension
+        (IAG or ISVAOP)
+        This requires ibmsecurity >= 2024.11.10.0
+    fragments:
+    - extensions.yml
+    objects:
+      playbook:
+      - description: Playbook for the new role containers
+        name: base.configure_containers.yml
+        namespace: null
+      - description: Playbook for the new role extensions
+        name: base.configure_extensions.yml
+        namespace: null
+      role:
+      - description: Role to configure containers for use with Container extension
+        name: base.configure_container_container
+        namespace: null
+      - description: Role to configure extensions
+        name: base.configure_extensions
+        namespace: null
+    release_date: '2024-10-14'
