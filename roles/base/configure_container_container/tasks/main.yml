@@ -48,7 +48,7 @@
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
-    action: ibmsecurity.isam.base.container_ext.volume.set
+    action: ibmsecurity.isam.base.container_ext.volume.add # set does not exist (yet)
     isamapi:
       name: "{{ _role_item.volume_name }}"
   tags:
