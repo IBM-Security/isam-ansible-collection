@@ -28,7 +28,9 @@
 
 - ansible.builtin.include_tasks: compare_base.yml
   with_items: "{{ execute_compare_mga_or_fed_features }}"
-  when: (execute_compare_fed and ('federation' in inventory_web_runtime['ansible_facts']['activations'])) or (execute_compare_mga and ('mga' in inventory_web_runtime['ansible_facts']['activations']))
+  when:
+    - execute_compare_fed
+    - ('federation' in inventory_web_runtime['ansible_facts']['activations'])) or (execute_compare_mga and ('mga' in inventory_web_runtime['ansible_facts']['activations']))
 
 # Compare runtime configuration files of an appliance
 - ansible.builtin.include_tasks: compare_runtime_config.yml
@@ -46,7 +48,10 @@
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.instance.get
-  when: execute_compare_reverseproxy and inventory_web_runtime['data']['modecode'] != '-1' and ('wga' in inventory_web_runtime['ansible_facts']['activations'])
+  when:
+    - execute_compare_reverseproxy
+    - inventory_web_runtime['data']['modecode'] != '-1'
+    - ('wga' in inventory_web_runtime['ansible_facts']['activations'])
   ignore_errors: true
   run_once: true
   register: master_rps

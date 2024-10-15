@@ -60,8 +60,7 @@
     isamapi: "{{ item.mmfa_configuration | ibm.isam.exclude('mmfa_action') | combine({ 'instance_id': item.inst_name }) }}"
   loop: "{{ instances }}"
   loop_control:
-    label: "{ 'instance_id': '{{ item.inst_name }} {{ (', ' + \"'mmfa_action'\" + ': ' + item.mmfa_configuration.mmfa_action) if item.mmfa_configuration is defined
-      }} }"
+    label: "{ 'instance_id': '{{ item.inst_name }}', 'mmfa_action': {{ item.mmfa_configuration.mmfa_action|default('') }} }"
   when:
     - item.inst_name == inst_name
     - item.mmfa_configuration is defined
