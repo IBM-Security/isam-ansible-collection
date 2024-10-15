@@ -4,7 +4,7 @@
 # -e update_management_ssl_cert_pwd=passw0rd
 - name: Set management ssl
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Set management ssl certificate"
       import_role:

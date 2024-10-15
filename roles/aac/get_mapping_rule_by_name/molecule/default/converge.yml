@@ -1,7 +1,7 @@
 ---
 - name: Converge - get mapping rule by name
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Include get_mapping_rule_by_Name"
       ansible.builtin.include_role:

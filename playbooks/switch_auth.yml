@@ -3,7 +3,7 @@
 
 - name: Switch Appliance Authentication to use AD
   hosts: all
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.switch_auth
       tags: ["switch", "authentication"]

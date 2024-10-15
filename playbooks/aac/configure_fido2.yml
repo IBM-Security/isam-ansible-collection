@@ -1,8 +1,9 @@
 ---
 # Configure
 #   configure fido2
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: configure fido2
+  hosts: "{{ hosts | default('all')}}"
+  gather_facts: False
   roles:
     - role: ibm.isam.aac.configure_fido2
       tags: configure_fido2

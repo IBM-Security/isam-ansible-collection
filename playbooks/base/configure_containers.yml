@@ -2,7 +2,7 @@
 # Configure
 #   configure containers
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.base.configure_container_container
       tags: container

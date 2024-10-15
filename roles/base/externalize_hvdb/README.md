@@ -23,7 +23,7 @@ externalize_hvdb_oracle_connection_string: 'jdbc:oracle:thin:@//oracle.server.co
 `
 - hosts: "all"
   connection: local
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: Configure external runtime database for oracle
       tags: ["oracle"]

@@ -2,7 +2,7 @@
 # Set
 #   Set host entries
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.base.set_host_records
       tags: set_host_records

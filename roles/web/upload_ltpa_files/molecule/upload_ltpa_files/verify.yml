@@ -3,7 +3,7 @@
 
 - name: Verify
   hosts: all
-  gather_facts: false
+  gather_facts: False
   vars:
     molecule_name: test2
   tasks:

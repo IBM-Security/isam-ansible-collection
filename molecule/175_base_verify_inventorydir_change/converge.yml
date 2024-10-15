@@ -1,7 +1,7 @@
 ---
 - name: Converge
   hosts: all
-  gather_facts: no
+  gather_facts: False
   vars:
     homedir: "{{ playbook_dir }}" # this is this directory for molecule
 

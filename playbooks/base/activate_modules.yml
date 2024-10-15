@@ -2,7 +2,7 @@
 # activate_modules
 #   activate multiple modules in ISAM
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.base.activate_modules
       tags: activate_modules

@@ -15,7 +15,7 @@
 #          #        enabled: true
 # Attention: commented out or missing addresses will be deleted by this role
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.base.delete_interfaces
       tags: delete_interfaces

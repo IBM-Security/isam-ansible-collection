@@ -4,7 +4,7 @@
 #       set_ldap_user_pwd_id: easuser
 #       set_ldap_user_pwd_password: "{{ easuser_password }}"
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.set_ldap_user_pw
       tags: set_ldap_user_pw

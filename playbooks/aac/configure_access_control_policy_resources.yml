@@ -7,7 +7,7 @@
 #         resourceUri: /index.html
 #         policyType: application
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.aac.configure_access_control_policy_resources
       tags: configure_access_control_policy_resources

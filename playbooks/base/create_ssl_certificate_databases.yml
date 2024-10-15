@@ -3,7 +3,7 @@
 # playbook for creating certificate databases
 
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.base.create_ssl_certificate_databases
       tags: create_ssl_certificate_databases

@@ -2,7 +2,7 @@
 
 - name: Verify - add user registry
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - ansible.builtin.include_vars:
         file: "../../vars/main.yml"

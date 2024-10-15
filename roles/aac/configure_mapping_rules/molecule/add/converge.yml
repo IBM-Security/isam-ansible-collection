@@ -3,7 +3,7 @@
 # that contains the mapping rule file
 - name: Converge - add mapping rules
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: load variables
       ansible.builtin.include_vars:

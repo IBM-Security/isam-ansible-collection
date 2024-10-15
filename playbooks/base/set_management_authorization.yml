@@ -1,7 +1,7 @@
 ---
 #   configure appliance management authorization
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.base.set_management_authorization
       tags: management_authorization

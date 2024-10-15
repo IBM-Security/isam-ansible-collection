@@ -8,7 +8,7 @@
 
 - name: Upgrade all Appliances to a given Firmware Level
   hosts: all
-  gather_facts: no
+  gather_facts: False
   roles:
     # Install Firmware
     - role: ibm.isam.install_firmware

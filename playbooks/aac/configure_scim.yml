@@ -2,7 +2,7 @@
 # Configure
 #   configure scim
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.aac.configure_scim
       tags: configure_scim

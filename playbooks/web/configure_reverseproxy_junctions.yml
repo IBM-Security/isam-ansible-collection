@@ -2,7 +2,7 @@
 # Configure
 #   configure reverse proxy junctions
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.web.configure_reverseproxy_junctions
       tags: configure_reverseproxy_junctions

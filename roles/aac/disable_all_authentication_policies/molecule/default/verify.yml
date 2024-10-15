@@ -2,7 +2,7 @@
 
 - name: Verify if all authentication policies were disabled
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Retrieve all authentication policies"
       include_role:

@@ -11,7 +11,7 @@
 #      size: "{{ item.size }}"
 
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.base.generate_self_signed_certificates
       tags: generate_self_signed_certificates

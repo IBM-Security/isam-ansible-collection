@@ -50,7 +50,7 @@ Example Playbook
 
 - hosts: "all"
   connection: local
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: Add network bonding for configured interface
       tags: ["bonding"]

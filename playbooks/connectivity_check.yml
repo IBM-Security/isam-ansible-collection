@@ -8,7 +8,7 @@
 - name: preparation
   hosts: all
   connection: local
-  gather_facts: false
+  gather_facts: False
   tags:
     - connectivity
     - first_steps

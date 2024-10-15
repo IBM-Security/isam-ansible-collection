@@ -2,7 +2,7 @@
 # Configure
 #   configure static routes
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.base.configure_static_routes
       tags: configure_static_routes

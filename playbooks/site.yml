@@ -3,7 +3,7 @@
 
 - name: Apply Common Configuration to all Appliances
   hosts: all
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.first_steps
       tags: ["first", "steps"]
@@ -65,7 +65,7 @@
 
 - name: Setup Primary Appliance
   hosts: primary
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.config_policyserver
       tags: ["policyserver", "config"]
@@ -82,7 +82,7 @@
 
 - name: Setup Restricted Appliances
   hosts: restricted
-  gather_facts: no
+  gather_facts: False
   vars:
     reverseproxy_instance_name: "default"
   roles:
@@ -102,7 +102,7 @@
 
 - name: Setup Primary Appliance
   hosts: primary
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.execute_pdadmin
       tags: ["pdadmin", "object", "create"]
@@ -113,7 +113,7 @@
 
 - name: Setup Restricted Appliances
   hosts: restricted
-  gather_facts: no
+  gather_facts: False
   vars:
     reverseproxy_instance_name: "default"
   roles:

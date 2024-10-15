@@ -4,7 +4,7 @@
 
 - name: Verify - update access policy
   hosts: all
-  gather_facts: no
+  gather_facts: False
   vars:
     molecule_name: test2
     molecule_update_file: /location/of/the/updated_file.js

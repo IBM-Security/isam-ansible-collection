@@ -2,7 +2,7 @@
 # Configure
 #   configure server connections
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.aac.configure_server_connections
       tags: configure_server_connections

@@ -5,7 +5,7 @@
 #     dynurl_files
 #       - file: uploads/dynurl/dynurl.conf
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.web.upload_dynurl_files
       tags: upload_dynurl_files

@@ -4,7 +4,7 @@
 #
 - name: Apply Common Configuration to all Appliances
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: first steps
       include_role:

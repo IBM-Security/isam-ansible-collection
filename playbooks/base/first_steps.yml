@@ -1,7 +1,7 @@
 ---
 
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+  gather_facts: False
   roles:
     - role: ibm.isam.base.first_steps
       tags: first_steps

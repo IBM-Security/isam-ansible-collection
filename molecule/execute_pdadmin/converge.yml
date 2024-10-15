@@ -1,7 +1,7 @@
 ---
 - name: PDadmin
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Execute pdadmin"
       vars:

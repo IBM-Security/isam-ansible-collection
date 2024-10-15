@@ -1,7 +1,7 @@
 ---
 - name: Converge - test add with create_api_protection_definitions
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Include create api_protection_definitions"
       ansible.builtin.include_role:

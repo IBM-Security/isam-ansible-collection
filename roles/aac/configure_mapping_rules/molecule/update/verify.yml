@@ -4,7 +4,7 @@
 
 - name: Verify - update mapping rules
   hosts: all
-  gather_facts: no
+  gather_facts: False
 
   tasks:
     - name: load variables

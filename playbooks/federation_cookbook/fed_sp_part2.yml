@@ -1,7 +1,7 @@
 ---
 - name: Federation Cookbook SP Part 2 (Ch 9 to 21)
   hosts: all
-  gather_facts: no
+  gather_facts: False
   vars:
     homedir: "/home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook"
   tasks:

@@ -3,7 +3,7 @@
 
 - name: Run PDAdmin command(s) against an appliance
   hosts: all:!restricted
-  gather_facts: no
+  gather_facts: False
   vars:
     pdadmin_commands: "{{ lookup('file', pdadmin_file) }}"
   roles:

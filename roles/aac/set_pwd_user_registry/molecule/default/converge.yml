@@ -1,7 +1,7 @@
 ---
 - name: Converge
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Set user password using set_pwd_user_registry"
       ansible.builtin.include_role:

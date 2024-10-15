@@ -1,7 +1,7 @@
 ---
 - name: Converge - testing disable all authentication policies
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Testing disable all authentication policies except for whitelisted policies"
       ansible.builtin.include_role:
