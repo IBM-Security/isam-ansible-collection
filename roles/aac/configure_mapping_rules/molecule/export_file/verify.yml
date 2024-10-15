@@ -5,7 +5,7 @@
   gather_facts: no
   tasks:
     - name: load variables
-      include_vars:
+      ansible.builtin.include_vars::
         file: "../vars/vars.yml"
 
     - name: "check if file exists"

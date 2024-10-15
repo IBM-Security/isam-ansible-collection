@@ -5,7 +5,7 @@
   gather_facts: no
 
   tasks:
-    - include_vars:
+    - ansible.builtin.include_vars::
         file: "../../vars/main.yml"
         name: inventory
 

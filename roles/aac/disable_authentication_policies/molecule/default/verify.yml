@@ -7,7 +7,7 @@
     true_list: {}
     false_list: {}
   tasks:
-    - include_vars:
+    - ansible.builtin.include_vars::
         file: "../../vars/main.yml"
         name: inventory
 

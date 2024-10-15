@@ -8,7 +8,7 @@
     homedir: "{{ playbook_dir }}" # this is this directory for molecule
   tasks:
     - name: load variables
-      include_vars:
+      ansible.builtin.include_vars::
         file: "../vars/vars.yml"
 
     - name: Test configure runtime template root

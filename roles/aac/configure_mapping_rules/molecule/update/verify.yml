@@ -8,7 +8,7 @@
 
   tasks:
     - name: load variables
-      include_vars:
+      ansible.builtin.include_vars::
         file: "../vars/vars.yml"
 
     - name: read content from file

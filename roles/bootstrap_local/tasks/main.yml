@@ -1,6 +1,6 @@
 ---
 - name: tasks file for bootstrap_local
-  include_vars: "{{ ansible_os_family }}.yml"
+  ansible.builtin.include_vars:: "{{ ansible_os_family }}.yml"
 
 - name: Check if there is a vm with the destination name already exist
   ansible.builtin.stat: path={{ BS_vm_path_root }}/{{ BS_vm_hostname }}{{ BS_vm_dir_suffix }}/{{ BS_vm_hostname }}.vmx
