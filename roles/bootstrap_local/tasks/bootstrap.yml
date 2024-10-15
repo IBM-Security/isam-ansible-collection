@@ -61,18 +61,30 @@
 - ansible.builtin.debug: var=shell_out
 
 - name: copy template
-  template: src="{{ role_path }}/templates/app-metadata" dest="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata"
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/app-metadata"
+    dest: "{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata"
   register: cmd_out
-- ansible.builtin.debug: var=cmd_out
+
+- name: debug cmd_out
+  ansible.builtin.debug:
+    var: cmd_out
 
 - name: create metadata ISO
-  shell: "{{ BS_mkisofs }} {{ BS_mkisoflags }} {{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata.iso {{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata  >/dev/null 2>&1"
+  ansible.builtin.shell: "{{ BS_mkisofs }} {{ BS_mkisoflags }} {{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata.iso {{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata >/dev/null 2>&1"
   register: shell_out
   changed_when: true
-- ansible.builtin.debug: var=shell_out
+
+- name: debug shell_out
+  ansible.builtin.debug:
+    var: shell_out
 
 - name: replace the ISO image file entry in vmx
-  ansible.builtin.lineinfile: dest={{ BS_vm_vmx }} regexp='^sata0:1.fileName' line='sata0:1.fileName="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata.iso"' backrefs=yes
+  ansible.builtin.lineinfile:
+    dest: "{{ BS_vm_vmx }}"
+    regexp: '^sata0:1.fileName'
+    line: 'sata0:1.fileName="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata.iso"'
+    backrefs: yes
   register: cmd_out
 - ansible.builtin.debug: var=cmd_out
 
