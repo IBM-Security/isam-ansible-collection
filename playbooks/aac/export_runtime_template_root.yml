@@ -3,7 +3,7 @@
 #   export runtime template root
 #   Example:
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.aac.export_runtime_template_root
       tags: export_runtime_template_root

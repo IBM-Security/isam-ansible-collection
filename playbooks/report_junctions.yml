@@ -1,12 +1,11 @@
 ---
-
 # Create a Report on Junctions
 
 - name: Create a report on all Junctions
   hosts: all
-  no_log: True
+  no_log: true
   vars:
-    log_level: "CRITICAL"
+    log_level: CRITICAL
   roles:
     - role: ibm.isam.get_reverseproxies
 
@@ -15,5 +14,5 @@
     - role: ibm.isam.get_junction_details
 
     - role: ibm.isam.gen_report
-      gen_report_template: "report_junctions.template"
+      gen_report_template: report_junctions.template
       gen_report_dir: "~"

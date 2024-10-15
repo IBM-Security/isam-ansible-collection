@@ -2,7 +2,7 @@
 # Configure
 #   configure certificate requests
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.base.configure_certificate_requests
       tags: configure_certificate_requests

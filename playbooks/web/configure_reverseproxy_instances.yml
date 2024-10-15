@@ -2,7 +2,7 @@
 # Configure
 #   configure reverse proxy instances
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.web.configure_reverseproxy_instances
       tags: configure_reverseproxy_instances

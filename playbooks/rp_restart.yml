@@ -2,9 +2,9 @@
 # Restart reverse proxy that need it, pass variable force as True to force restarts
 - name: Restart Reverse Proxy
   hosts: all
-  gather_facts: False
+  gather_facts: false
   tasks:
     - ansible.builtin.debug: msg="Trigger Reverse Proxy restarts"
-      changed_when: True
+      changed_when: true
       notify:
-        - 'ibm.isam.common_handlers: Restart Reverse Proxy'
+        - "ibm.isam.common_handlers: Restart Reverse Proxy"

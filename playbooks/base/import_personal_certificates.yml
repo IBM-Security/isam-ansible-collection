@@ -1,5 +1,4 @@
 ---
-
 # main task for importing personal certificates
 # Example inventory:
 #     import_personal_certs:
@@ -9,7 +8,7 @@
 #         password: "{{ personal_cert_password }}"
 
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.base.import_personal_certificates
       tags: import_personal_certificates

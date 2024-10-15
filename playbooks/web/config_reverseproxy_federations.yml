@@ -2,7 +2,7 @@
 # configure
 #   configure reverse proxy federations
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.web.config_reverseproxy_federations
       tags: config_reverseproxy_federations

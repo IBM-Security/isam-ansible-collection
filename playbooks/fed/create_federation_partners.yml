@@ -23,7 +23,7 @@
 #                 preauthorizedScope:
 #                   - openid
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.fed.create_federation_partners
       tags: create_federation_partners

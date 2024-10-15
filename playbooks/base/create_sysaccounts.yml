@@ -2,7 +2,7 @@
 # Create
 #   create sysaccounts
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.base.create_sysaccounts
       tags: create_sysaccounts

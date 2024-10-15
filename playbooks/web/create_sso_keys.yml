@@ -2,7 +2,7 @@
 # create
 #   Create sso key file
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.web.create_sso_keys
       tags: create_sso_keys

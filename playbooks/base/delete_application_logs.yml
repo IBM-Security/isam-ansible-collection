@@ -3,7 +3,7 @@
 # eg.:
 # -e path=federation/runtime -e name=trace
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.base.delete_application_logs
       tags: delete_application_logs

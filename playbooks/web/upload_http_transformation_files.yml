@@ -5,7 +5,7 @@
 #     http_transformations
 #       - file: uploads/http_transformations/default.xslt
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.web.upload_http_transformation_files
       tags: upload_http_transformation_files

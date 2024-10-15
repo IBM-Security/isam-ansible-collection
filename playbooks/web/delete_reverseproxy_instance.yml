@@ -2,7 +2,7 @@
 # delete
 #   delete single reverse proxy instance
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.web.delete_reverseproxy_instance
       tags: delete_reverseproxy_instance

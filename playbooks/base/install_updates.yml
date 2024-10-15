@@ -12,7 +12,7 @@
 #    type: firmware
 #
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   tasks:
     - name: install the last entry in updates
       import_role:

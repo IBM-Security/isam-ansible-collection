@@ -1,28 +1,28 @@
 ---
 - name: Federation Cookbook IdP Part 1 (Ch 4 to 8)
   hosts: all
-  gather_facts: False
+  gather_facts: false
   vars:
-    homedir: "/home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook"
+    homedir: /home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook
   tasks:
     - ansible.builtin.include_vars:
-        file: "fed_cookbook_idp_vars.yml"
+        file: fed_cookbook_idp_vars.yml
         name: inventory
 
-    - name: "4.2 Enable NTP"
+    - name: 4.2 Enable NTP
       include_role:
         name: ibm.isam.config_ntp
       vars:
         config_ntp_ntp_servers: "{{ inventory.ntpServers }}"
         config_ntp_timeZone: "{{ inventory.timeZone }}"
 
-    - name: "4.3 Product Activation"
+    - name: 4.3 Product Activation
       include_role:
         name: ibm.isam.base.activate_modules
       vars:
         activation_keys: "{{ inventory.activation_keys }}"
 
-    - name: "4.4 Configure Runtime Interfaces"
+    - name: 4.4 Configure Runtime Interfaces
       include_role:
         name: ibm.isam.base.add_interfaces
       vars:
@@ -34,13 +34,13 @@
                 allowManagement: "{{ inventory.allowManagement }}"
                 enabled: "{{ inventory.enabled }}"
 
-    - name: "4.5 Update Hosts File on the Appliance"
+    - name: 4.5 Update Hosts File on the Appliance
       include_role:
         name: ibm.isam.base.set_host_records
       vars:
         - host_records: "{{ inventory.host_records }}"
 
-    - name: "4.6 Configure ISAM Runtime Component on the Appliance"
+    - name: 4.6 Configure ISAM Runtime Component on the Appliance
       include_role:
         name: ibm.isam.web.configure_policyserver
       vars:
@@ -54,7 +54,7 @@
               ssl_compliance: "{{ inventory.ssl_compliance }}"
         - policyserver_connection_inactivity: "{{ inventory.policyserver_connection_inactivity }}"
 
-    - name: "5.1 Create new Reverse Proxy"
+    - name: 5.1 Create new Reverse Proxy
       include_role:
         name: ibm.isam.create_reverseproxy
       vars:
@@ -71,28 +71,28 @@
         create_reverseproxy_nw_interface_yn: "{{ inventory.nw_interface_yn }}"
         create_reverseproxy_ip_address: "{{ inventory.ip_address }}"
 
-    - name: "5.2 Modify Reverse Proxy Instance Settings"
+    - name: 5.2 Modify Reverse Proxy Instance Settings
       include_role:
         name: ibm.isam.set_reverseproxy_conf
       vars:
         set_reverseproxy_conf_entries: "{{ inventory.set_reverseproxy_conf_entries }}"
         set_reverseproxy_conf_reverseproxy_id: "{{ inventory.inst_name }}"
 
-    - name: "5.2 Restart Reverse Proxy Instance"
+    - name: 5.2 Restart Reverse Proxy Instance
       include_role:
         name: ibm.isam.execute_rp_op
       vars:
         execute_rp_op_ids: "{{ inventory.execute_rp_op_ids }}"
         execute_rp_op_operation: "{{ inventory.execute_rp_op_operation }}"
 
-    - name: "6.1 Upload keystore files"
+    - name: 6.1 Upload keystore files
       include_role:
         name: ibm.isam.import_certificate_db
       vars:
         import_certificate_db_kdb: "{{ homedir }}/{{ inventory.import_certificate_db_kdb }}"
         import_certificate_db_sth: "{{ homedir }}/{{ inventory.import_certificate_db_sth }}"
 
-    - name: "6.2 Upload mapping rules"
+    - name: 6.2 Upload mapping rules
       include_role:
         name: ibm.isam.aac.configure_mapping_rules
       vars:
@@ -116,16 +116,16 @@
             filename: "{{ homedir }}/{{ inventory.ipfed }}"
             mapping_id: "{{ ret_obj.data }}"
 
-    - name: "6.4 Export meta-data"
+    - name: 6.4 Export meta-data
       include_role:
         name: ibm.isam.fed.export_metadata
       vars:
         - export_metadata_name: "{{ inventory.fed_name }}"
         - export_metadata_filename: "{{ homedir }}/{{ inventory.export_metadata_filename }}"
 
-#8 Configure Reverse Proxy for Federation
-  # 8.1 ISAM Configuration for the IdP
-    - name: "8.1.1 Configure Reverse Proxy for IdP"
+    #8 Configure Reverse Proxy for Federation
+    # 8.1 ISAM Configuration for the IdP
+    - name: 8.1.1 Configure Reverse Proxy for IdP
       include_role:
         name: ibm.isam.config_reverseproxy_federation
       vars:
@@ -136,7 +136,7 @@
         config_reverseproxy_federation_reuse_certs: "{{ inventory.config_reverseproxy_federation_reuse_certs }}"
         config_reverseproxy_federation_reuse_acls: "{{ inventory.config_reverseproxy_federation_reuse_acls }}"
 
-    - name: "8.1.2 Environment-specific configuration"
+    - name: 8.1.2 Environment-specific configuration
       include_role:
         name: ibm.isam.set_reverseproxy_conf
       vars:

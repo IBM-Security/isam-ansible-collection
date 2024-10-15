@@ -8,7 +8,7 @@
 - name: preparation
   hosts: all
   connection: local
-  gather_facts: False
+  gather_facts: false
   tags:
     - connectivity
     - first_steps
@@ -26,8 +26,8 @@
       ansible.builtin.pip:
         name: ibmsecurity
       delegate_to: localhost
-      run_once: True
-      ignore_errors: True
+      run_once: true
+      ignore_errors: true
       when:
         - lookup('ansible.builtin.env', 'container')|default(None)
 
@@ -42,12 +42,12 @@
     - first_steps
   tasks:
     - name: show python version
-      run_once: True
+      run_once: true
       ansible.builtin.debug:
         var: ansible_python_version
 
     - name: show ansible version
-      run_once: True
+      run_once: true
       ansible.builtin.debug:
         var: ansible_version
 

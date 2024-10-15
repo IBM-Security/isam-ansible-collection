@@ -6,7 +6,7 @@
 # ! This operation restarts the appliance and might leave your network unprotected for several minutes.
 # ! Are you sure you want to back up the active partition?
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.base.backup_firmware
       tags: backup_firmware

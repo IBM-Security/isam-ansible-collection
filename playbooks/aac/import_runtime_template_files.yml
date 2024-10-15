@@ -13,7 +13,7 @@
 #         filename: uploads/template_files/s
 #         name: success_response.html
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.import_runtime_template_file
       tags: import_runtime_template_file

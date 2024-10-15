@@ -3,10 +3,10 @@
   hosts: all
   roles:
     - role: ibm.isam.add_sysaccount_group
-      tags: ["system account", "group"]
+      tags: [system account, group]
 
 - name: Create user account
   hosts: all
   roles:
     - role: ibm.isam.add_sysaccount_user
-      tags: ["system account", "user"]
+      tags: [system account, user]

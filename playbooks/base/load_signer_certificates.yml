@@ -2,7 +2,7 @@
 # load_signer_certificates
 #   load signer certificates into corresponding certificate store
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.base.load_signer_certificates
       tags: load_signer_certificates

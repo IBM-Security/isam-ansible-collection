@@ -17,7 +17,7 @@
 #               contractType: ADMINISTRATIVE
 #               definitionName: oauth-provider
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.aac.create_api_protection_clients
       tags: create_api_protection_clients

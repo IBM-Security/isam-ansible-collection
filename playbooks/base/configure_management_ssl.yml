@@ -4,8 +4,8 @@
 # -e update_management_ssl_cert_pwd=passw0rd
 - name: Set management ssl
   hosts: all
-  gather_facts: False
+  gather_facts: false
   tasks:
-    - name: "Set management ssl certificate"
+    - name: Set management ssl certificate
       import_role:
         name: ibm.isam.base.set_management_ssl_cert

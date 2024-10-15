@@ -9,7 +9,7 @@
 #         description: "authentication policy 1"
 #         enabled: "True"
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.aac.configure_authentication_policies
       tags: create_authentication_policies

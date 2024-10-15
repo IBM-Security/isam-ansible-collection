@@ -2,7 +2,7 @@
 # Configure
 #   configure mapping rules
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.aac.configure_mapping_rules
       tags: configure_mapping_rules

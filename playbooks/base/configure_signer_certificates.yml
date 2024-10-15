@@ -2,7 +2,7 @@
 # Configure
 #   configure signer certificates
 - hosts: "{{ hosts | default('all')}}"
-  gather_facts: False
+  gather_facts: false
   roles:
     - role: ibm.isam.base.configure_signer_certificates
       tags: configure_signer_certificates
