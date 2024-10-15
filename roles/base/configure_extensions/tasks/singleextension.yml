@@ -1,5 +1,5 @@
 ---
-- name: Create or update extension {{ extension_item.extension }}
+- name: singleextension | create or update extension {{ extension_item.extension }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
