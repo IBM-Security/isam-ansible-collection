@@ -2,7 +2,7 @@
 
 galaxy_info:
   author: IBM
-  description: Retreive an Authentication Policy by Name
+  description: Retrieve an Authentication Policy by Name
   company: IBM
 
   # If the issue tracker for your role is not on github, uncomment the
