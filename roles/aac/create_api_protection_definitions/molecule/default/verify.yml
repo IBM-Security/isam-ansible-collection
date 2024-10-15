@@ -9,7 +9,7 @@
         name: inventory
 
     - name: "Include get_api_protection_definitions"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_api_protection_definitions"
       vars:
         get_api_protection_definitions: "{{ inventory.definitions }}"

@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: "Include get_mapping_rule_by_Name"
-      include_role:
+      ansible.builtin.include_role:
         name: get_mapping_rule_by_name
       vars:
         get_mapping_rule_names:

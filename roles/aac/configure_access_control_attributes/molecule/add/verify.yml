@@ -10,7 +10,7 @@
         name: inventory
 
     - name: "Include get_access_control_attributes"
-      include_role:
+      ansible.builtin.include_role:
         name: get_access_control_attributes
       vars:
         get_access_control_attributes:

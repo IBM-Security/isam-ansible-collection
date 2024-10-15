@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: "Include get_access_control_policies"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_access_control_policies"
       vars:
         get_access_control_policies:

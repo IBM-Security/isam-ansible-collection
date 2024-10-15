@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: "Get an Server Connections by Name"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_server_connections_by_name"
       vars:
         get_server_connections_names:

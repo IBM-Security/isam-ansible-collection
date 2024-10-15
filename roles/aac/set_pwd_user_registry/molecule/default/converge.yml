@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: "Set user password using set_pwd_user_registry"
-      include_role:
+      ansible.builtin.include_role:
         name: "ibm.isam.aac.set_pwd_user_registry"
       vars:
         user_registry_id: "testuser1"

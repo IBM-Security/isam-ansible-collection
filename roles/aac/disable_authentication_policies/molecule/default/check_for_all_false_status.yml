@@ -1,6 +1,6 @@
 ---
 - name: Get the policy
-  include_role:
+  ansible.builtin.include_role:
     name: get_authentication_policies_by_name
   vars:
     get_authentication_policies:

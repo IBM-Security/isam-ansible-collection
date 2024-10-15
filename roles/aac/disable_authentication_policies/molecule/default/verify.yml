@@ -12,7 +12,7 @@
         name: inventory
 
     - name: "Retrieve all authentication policies"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_all_authentication_policies"
 
     - name: set fact

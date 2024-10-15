@@ -6,7 +6,7 @@
 
   tasks:
     - name: "Get advanced configuration by key - basicLdapUser.ldap.maxBinds"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_advanced_configurations_by_key"
       vars:
         get_advanced_configuration_keys:

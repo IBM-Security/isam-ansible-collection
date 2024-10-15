@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: "Testing update - create_obligation"
-      include_role:
+      ansible.builtin.include_role:
         name: create_obligation
       vars:
         authentication_obligations:

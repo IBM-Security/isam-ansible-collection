@@ -6,7 +6,7 @@
     - ibm.isam
   tasks:
     - name: "Test delete using delete_attribute role"
-      include_role:
+      ansible.builtin.include_role:
         name: delete_attribute
       vars:
         accesscontrol_delete_attributes:

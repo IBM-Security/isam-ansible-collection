@@ -12,5 +12,5 @@
         file: "../vars/vars.yml"
 
     - name: Test configure runtime template root
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.aac.configure_runtime_template_root

@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: "Testing add - configure_user_registry"
-      include_role:
+      ansible.builtin.include_role:
         name: configure_user_registry
       vars:
         user_registry:

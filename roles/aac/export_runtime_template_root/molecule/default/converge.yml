@@ -8,5 +8,5 @@
         file: "../vars/main.yml"
 
     - name: "Testing export runtime template root"
-      include_role:
+      ansible.builtin.include_role:
         name: "export_runtime_template_root"

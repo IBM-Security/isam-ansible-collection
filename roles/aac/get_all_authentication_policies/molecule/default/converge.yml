@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: "Get all Authentication Policies"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_all_authentication_policies"
       vars:
         get_all_authentication_policies:

@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: "Get all user registries"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_all_user_registry"
       register: ret_obj
 

@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: "Testing update advanced configurations"
-      include_role:
+      ansible.builtin.include_role:
         name: update_advanced_configurations
       vars:
         advanced_configurations:

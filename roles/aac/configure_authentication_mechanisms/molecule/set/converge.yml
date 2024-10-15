@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: "Testing set - configure_authentication_mechanisms"
-      include_role:
+      ansible.builtin.include_role:
         name: "configure_authentication_mechanisms"
       vars:
         authentication_mechanisms:

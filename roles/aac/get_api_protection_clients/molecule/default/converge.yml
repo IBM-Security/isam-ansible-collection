@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: "Include get_api_protection_client"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_api_protection_clients"
       vars:
         get_api_protection_clients: "{{ clients }}"

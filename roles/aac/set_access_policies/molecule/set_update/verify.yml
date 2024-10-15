@@ -14,7 +14,7 @@
         file_content: "{{ lookup('file', molecule_update_file) | regex_replace('\\r|\\n', '') }}"
 
     - name: "Get the mapping rule {{ molecule_name }}"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_access_policies_by_name"
       vars:
         get_access_policies:

@@ -11,7 +11,7 @@
         file: "../vars/vars.yml"
 
     - name: "Testing delete - configure_mapping_rules"
-      include_role:
+      ansible.builtin.include_role:
         name: configure_mapping_rules
       vars:
         mapping_rules:

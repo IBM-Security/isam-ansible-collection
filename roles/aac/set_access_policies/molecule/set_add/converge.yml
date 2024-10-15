@@ -7,7 +7,7 @@
     molecule_file: /location/of/the/file.js
   tasks:
     - name: "Test add using set_access_policies role"
-      include_role:
+      ansible.builtin.include_role:
         name: "set_access_policies"
       vars:
         access_policies:

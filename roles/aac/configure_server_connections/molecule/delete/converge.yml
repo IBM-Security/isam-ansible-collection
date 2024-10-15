@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: "Testing delete - configure_server_connection"
-      include_role:
+      ansible.builtin.include_role:
         name: configure_server_connections
       vars:
         server_connections:
