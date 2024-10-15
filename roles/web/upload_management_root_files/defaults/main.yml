@@ -1,12 +1,5 @@
 ---
 # Default variables for uploading management root files
 management_root_files: []
-name: "{{ item.file | basename }}"
+web_management_root_name: "{{ item.file | basename }}"
 inst_name: "{{ item.instance_id }}"
-
-# Default homedir.  This defaults to inventory_dir for backwards compatibility reasons,
-#  even though the inventory_dir should NEVER be used to store files (should basically only contain files that can be parsed by an inventory_plugin)
-#  a better default value for homedir, would be playbook_dir:
-#       homedir: "{{ playbook_dir }}"
-#  so this is a varialb
-homedir: "{{ inventory_dir }}"
