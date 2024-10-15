@@ -31,13 +31,13 @@
               json_query('[*].name') }}"
 
     - name: Debug defined policies after json_query
-      debug:
+      ansible.builtin.debug:
         msg: "{{ filtered_definedPolicies| default([]) | to_nice_yaml }}"
         verbosity: 2
       when: filtered_definedPolicies is defined
 
     - name: Debug authentication policies
-      debug:
+      ansible.builtin.debug:
         msg: "{{ filtered_authentication_policies| default([]) | to_nice_yaml }}"
         verbosity: 2
       when: filtered_authentication_policies is defined
@@ -48,7 +48,7 @@
                                  difference(filtered_authentication_policies) }}"
 
     - name: Debug the outcome of the difference.  These policies will be disabled.
-      debug:
+      ansible.builtin.debug:
         msg: "{{ filtered_difference| default([]) | to_nice_yaml }}"
       when: filtered_difference is defined
 
@@ -58,7 +58,7 @@
         - wrong_policy_status is not defined
       loop: "{{ filtered_authentication_policies }}"
 
-    - debug:
+    - ansible.builtin.debug:
         var: policy_enabled_status_result
 
     - name: "Check to see if enabled status is as expected on disabled policies"

@@ -6,7 +6,7 @@
     - ibm.isam
   tasks:
     - name: debug
-      debug:
+      ansible.builtin.debug:
         msg: "To test add using export_application_logs role:
           'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name default'"
 

@@ -12,7 +12,7 @@
   register: ret_obj
 
 - name: Output of cli command execution
-  debug:
+  ansible.builtin.debug:
     msg: "{{ ret_obj['data']['output'].split('\n') }}"
   when:
     - cli_command is defined
@@ -23,7 +23,7 @@
     - not ansible_check_mode
 
 - name: Error Messages if cli command failed
-  debug:
+  ansible.builtin.debug:
     msg: "{{ ret_obj['log'].split('\n') }}"
   when:
     - cli_command is defined

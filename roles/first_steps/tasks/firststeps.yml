@@ -32,7 +32,7 @@
   when: first_steps_fips
 
 - name: Debug
-  debug:
+  ansible.builtin.debug:
      var: ret_obj
 
 # Restart after FIPS if needed
@@ -73,7 +73,7 @@
   register: ret_obj
 
 - name: debug
-  debug:
+  ansible.builtin.debug:
     var: ret_obj
 
 - name: set password

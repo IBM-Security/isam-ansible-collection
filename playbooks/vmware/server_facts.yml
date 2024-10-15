@@ -18,5 +18,5 @@
       delegate_to: localhost
       register: vmfacts
 
-    - debug:
+    - ansible.builtin.debug:
         var: vmfacts.virtual_machines

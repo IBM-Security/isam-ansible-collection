@@ -4,5 +4,5 @@
   collections:
     - ibm.isam
   tasks:
-    - debug:
+    - ansible.builtin.debug:
         msg: "Molecule Default"

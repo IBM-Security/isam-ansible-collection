@@ -14,7 +14,7 @@
       vars:
         get_api_protection_clients: "{{ inventory.clients }}"
 
-    - debug:
+    - ansible.builtin.debug:
         var: ret_obj
 
     - name: "Assert that the client {{ inventory.client_name }} was added"

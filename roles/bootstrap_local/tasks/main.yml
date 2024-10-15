@@ -6,7 +6,7 @@
   ansible.builtin.stat: path={{ BS_vm_path_root }}/{{ BS_vm_hostname }}{{ BS_vm_dir_suffix }}/{{ BS_vm_hostname }}.vmx
   register: vmxfile
   ignore_errors: true
-- debug: var=vmxfile
+- ansible.builtin.debug: var=vmxfile
 
 - name: bootstrap a new vm if vmx file does not exist
   include_tasks: bootstrap.yml
@@ -20,20 +20,20 @@
   changed_when: False
   register: shell_out
   ignore_errors: true
-- debug: var=shell_out
+- ansible.builtin.debug: var=shell_out
 
 - name: set fact about target vm running
   set_fact:
     vm_running: true
   when: "shell_out.rc == 0"
-- debug: var=vm_running
+- ansible.builtin.debug: var=vm_running
 
 # start the vm if it is not running
 - name: if vmx file exists but it is not running, start it up
   command: "{{ BS_vmrun }} {{ BS_vmrunflags }} start {{ BS_vm_vmx }}"
   register: shell_out
   when: vm_running is not defined
-- debug: var=shell_out
+- ansible.builtin.debug: var=shell_out
 
 - name: wait for system up, the speed depends on whether cold start or resume
   wait_for:

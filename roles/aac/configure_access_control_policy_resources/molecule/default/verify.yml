@@ -17,7 +17,7 @@
           - server: "{{ inventory.server }}"
             resourceUri: "{{ inventory.resourceUri }}"
 
-    - debug:
+    - ansible.builtin.debug:
         msg: "{{ ret_obj.results.0.data.policies }}"
 
     - name: "set fact"
@@ -44,7 +44,7 @@
         listb: "{{ listb }} + ['{{ item.name }} {{ item.type }}']"
       with_items: "{{ ret_obj.results.0.data.policies }}"
 
-    - debug:
+    - ansible.builtin.debug:
         var: listb
 
     - name: "Assert {{ inventory.server }} and resourceUri {{ inventory.resourceUri }} was added"

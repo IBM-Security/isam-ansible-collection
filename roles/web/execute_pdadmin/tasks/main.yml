@@ -74,7 +74,7 @@
     - enable_ansible_merge_vars|bool
 
 - name: Debug pd_admin_varstomerge before merge [-vv]
-  debug:
+  ansible.builtin.debug:
     var: pd_admin_varstomerge
     verbosity: 2
 
@@ -97,7 +97,7 @@
     - pd_admin_varstomerge is defined
 
 - name: debug the pdadmin commands after merge [-vv]
-  debug:
+  ansible.builtin.debug:
     var: pdadmin_commands
     verbosity: 2
 
@@ -116,7 +116,7 @@
   register: ret_obj
 
 - name: Output of PDAdmin command execution
-  debug:
+  ansible.builtin.debug:
     msg: "{{ ret_obj.data.result.split('\n') if (ret_obj is defined and ret_obj.data is defined) else 'VARIABLE IS NOT DEFINED!' }}"
   when:
     - not ansible_check_mode

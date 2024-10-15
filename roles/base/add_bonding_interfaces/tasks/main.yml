@@ -13,7 +13,7 @@
   register: ret_obj
 
 - name: Debug output of lookup interface
-  debug:
+  ansible.builtin.debug:
     msg: "{{ item.uuid + ' for label ' + item.item.label }}"
     verbosity: 3
   loop: "{{ ret_obj.results | flatten }}"

@@ -14,7 +14,7 @@
       vars:
         get_api_protection_clients: "{{ inventory.molecule_clients }}"
 
-    - debug:
+    - ansible.builtin.debug:
         var: ret_obj
 
     - name: "Assert that policy {{ inventory.molecule_client_name }} is added"

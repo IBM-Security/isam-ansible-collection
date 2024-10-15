@@ -12,5 +12,5 @@
             resourceUri: "{{ resourceUri }}"
             policies: "{{ policies }}"
 
-    - debug:
+    - ansible.builtin.debug:
         var: ret_obj

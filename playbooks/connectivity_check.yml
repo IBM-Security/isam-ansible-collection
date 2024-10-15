@@ -15,7 +15,7 @@
     - ee
   tasks:
     - name: debug container environment variable (-vv)
-      debug:
+      ansible.builtin.debug:
         verbosity: 2
         msg:
           #- "{{ lookup('ansible.builtin.env', 'CONTAINER_NAME')|default('No container') }}"
@@ -43,36 +43,36 @@
   tasks:
     - name: show python version
       run_once: True
-      debug:
+      ansible.builtin.debug:
         var: ansible_python_version
 
     - name: show ansible version
       run_once: True
-      debug:
+      ansible.builtin.debug:
         var: ansible_version
 
     - name: show ansible_host (required)
-      debug:
+      ansible.builtin.debug:
         var: ansible_host
       failed_when:
         - ansible_host is not defined
 
     - name: show ansible_isam_port (required)
-      debug:
+      ansible.builtin.debug:
         var: ansible_isam_port
       failed_when:
         - ansible_isam_port is not defined
 
     - name: show ansible_connection - should be ibm.isam.isam
-      debug:
+      ansible.builtin.debug:
         var: ansible_connection
 
     - name: show ansible_isam_username (required)
-      debug:
+      ansible.builtin.debug:
         var: ansible_isam_username
 
     - name: is ansible_isam_password set ? (required)
-      debug:
+      ansible.builtin.debug:
         msg: "{{ (ansible_isam_password|default(False))|ternary('ansible_isam_password is defined', 'ansible_isam_password is NOT defined') }}"
       failed_when:
         - ansible_isam_password is not defined
@@ -94,5 +94,5 @@
         name: ibm.isam.get_firmware
 
     - name: Show ISAM version
-      debug:
+      ansible.builtin.debug:
         msg: "Version: {{ ansible_facts.version | default('unknown or failed to retrieve facts') }}"

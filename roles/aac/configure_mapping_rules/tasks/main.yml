@@ -57,7 +57,7 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-# - debug: msg="{{ item.category }} | {{ category }}"
+# - ansible.builtin.debug: msg="{{ item.category }} | {{ category }}"
 #   loop: "{{ mapping_rules }}"
 
 - name: "Configure mapping rules [-e rule_action=[set|] -e rule_name=<name> -e category=[AuthSvc|Decision|FIDO2||InfoMap|OAUTH|OIDC|OTP|SAML2|SAML2_0|SAML2_0_EXT|WSFED|...] -e file=<path/to/upload/file>]"

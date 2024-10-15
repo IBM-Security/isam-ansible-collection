@@ -9,5 +9,5 @@
       vars:
         get_api_protection_definitions: "{{ definitions }}"
 
-    - debug:
+    - ansible.builtin.debug:
         var: ret_obj

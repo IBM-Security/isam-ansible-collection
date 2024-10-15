@@ -6,7 +6,7 @@
   gather_facts: no
   tasks:
 
-  - debug:
+  - ansible.builtin.debug:
       msg: "{{ ret_obj }}"
 
   - name: Example assertion

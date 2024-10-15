@@ -53,7 +53,7 @@
 
   tasks:
     - name: debug
-      debug:
+      ansible.builtin.debug:
         var: playbook_dir
 
     - name: "Test upload using ltpa role"

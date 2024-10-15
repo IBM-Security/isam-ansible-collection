@@ -9,7 +9,7 @@
     action: ibmsecurity.isam.aac.authentication.policies.get_all
   register: authPolicies
 
-- debug: msg="{{ authPolicies.data }}"
+- ansible.builtin.debug: msg="{{ authPolicies.data }}"
 - name: Disable all authentication mechanisms
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"

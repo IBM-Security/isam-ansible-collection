@@ -9,5 +9,5 @@
       vars:
         get_api_protection_clients: "{{ clients }}"
 
-    - debug:
+    - ansible.builtin.debug:
         var: ret_obj
