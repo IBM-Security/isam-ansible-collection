@@ -11,7 +11,7 @@
   register: ret_obj
 
 - name: Get date from {{ archive_logs_grace_days }} days ago
-  command: "python -c \"import datetime;print (datetime.datetime.now()-datetime.timedelta(days={{ archive_logs_grace_days }})).date()\""
+  ansible.builtin.command: "python -c \"import datetime;print (datetime.datetime.now()-datetime.timedelta(days={{ archive_logs_grace_days }})).date()\""
   register: past_dt
   changed_when: False
 

@@ -26,13 +26,13 @@
 - ansible.builtin.debug: var=cmd_out
 
 - name: create VM disk
-  command: "{{ BS_vmdiskmgr }} -c -a lsilogic -s {{ BS_vm_hdd_size }}GB -t 0 {{ BS_vm_vmdk }}"
+  ansible.builtin.command: "{{ BS_vmdiskmgr }} -c -a lsilogic -s {{ BS_vm_hdd_size }}GB -t 0 {{ BS_vm_vmdk }}"
   register: cmd_out
   changed_when: true
 - ansible.builtin.debug: var=cmd_out
 
 - name: install ISAM ISO from image {{ BS_appliance_iso }}
-  command: "{{ BS_vmrun }} {{ BS_vmrunflags }} start {{ BS_vm_vmx }}"
+  ansible.builtin.command: "{{ BS_vmrun }} {{ BS_vmrunflags }} start {{ BS_vm_vmx }}"
   register: shell_out
   changed_when: true
 - ansible.builtin.debug: var=shell_out
@@ -81,7 +81,7 @@
 - ansible.builtin.debug: var=shell_out
 
 - name: replace the ISO image file entry in vmx
-  lineinfile: dest={{ BS_vm_vmx }}
+  ansible.builtin.lineinfile: dest={{ BS_vm_vmx }}
               regexp='^sata0:1.fileName'
               line='sata0:1.fileName="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata.iso"'
               backrefs=yes
@@ -89,13 +89,13 @@
 - ansible.builtin.debug: var=cmd_out
 
 - name: boot up again with bootstrap ISO
-  command: "{{ BS_vmrun }} {{ BS_vmrunflags }} start {{ BS_vm_vmx }}"
+  ansible.builtin.command: "{{ BS_vmrun }} {{ BS_vmrunflags }} start {{ BS_vm_vmx }}"
   register: shell_out
   changed_when: true
 - ansible.builtin.debug: var=shell_out
 
 - name: wait for LMI up
-  command: 'curl -k -v -s -u "admin:admin" -H "Accept:application/json" https://"{{ BS_vm_mgmt_ip }}"'
+  ansible.builtin.command: 'curl -k -v -s -u "admin:admin" -H "Accept:application/json" https://"{{ BS_vm_mgmt_ip }}"'
   register: result
   until: result.stdout.find("302 Found") != -1
   retries: 50
@@ -103,7 +103,7 @@
   changed_when: false
 
 - name: take care of vmx file to remove ISO image
-  lineinfile: dest={{ BS_vm_vmx }}
+  ansible.builtin.lineinfile: dest={{ BS_vm_vmx }}
               regexp='^sata0:1.present'
               line='sata0:1.present="FALSE"'
               backrefs=yes
@@ -111,7 +111,7 @@
 - ansible.builtin.debug: var=cmd_out
 
 - name: take care of vmx file to remove ISO image
-  lineinfile: dest={{ BS_vm_vmx }}
+  ansible.builtin.lineinfile: dest={{ BS_vm_vmx }}
               regexp='^sata0:1.fileName'
               line='sata0:1.fileName='
               backrefs=yes
@@ -119,7 +119,7 @@
 - ansible.builtin.debug: var=cmd_out
 
 - name: take care of vmx file to remove ISO image
-  lineinfile: dest={{ BS_vm_vmx }}
+  ansible.builtin.lineinfile: dest={{ BS_vm_vmx }}
               regexp='^sata0:1.startConnected'
               line='sata0:1.startConnected=FALSE'
               backrefs=yes
@@ -127,7 +127,7 @@
 - ansible.builtin.debug: var=cmd_out
 
 - name: take a snapshot as baseline
-  command: "{{ BS_vmrun }} {{ BS_vmrunflags }} snapshot {{ BS_vm_vmx }} baseline"
+  ansible.builtin.command: "{{ BS_vmrun }} {{ BS_vmrunflags }} snapshot {{ BS_vm_vmx }} baseline"
   register: shell_out
   changed_when: true
 - ansible.builtin.debug: var=shell_out

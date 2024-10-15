@@ -30,7 +30,7 @@
 
 # start the vm if it is not running
 - name: if vmx file exists but it is not running, start it up
-  command: "{{ BS_vmrun }} {{ BS_vmrunflags }} start {{ BS_vm_vmx }}"
+  ansible.builtin.command: "{{ BS_vmrun }} {{ BS_vmrunflags }} start {{ BS_vm_vmx }}"
   register: shell_out
   when: vm_running is not defined
 - ansible.builtin.debug: var=shell_out

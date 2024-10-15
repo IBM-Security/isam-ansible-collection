@@ -5,12 +5,12 @@
   vars:
     homedir: ""
   tasks:
-    - include_vars:
+    - ansible.builtin.include_vars:
         file: "../vars/fed_cookbook_idp_vars.yml"
         name: inventory
 
     - name: "4.2 Enable NTP"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.config_ntp
       vars:
         config_ntp_ntp_servers: "{{ inventory.ntpServers }}"
@@ -18,13 +18,13 @@
         config_ntp_enableNtp: "{{ inventory.enableNtp }}"
 
     - name: "4.3 Product Activation"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.base.activate_modules
       vars:
         activation_keys: "{{ inventory.activation_keys }}"
 
     - name: "4.4 Configure Runtime Interfaces"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.base.add_interfaces
       vars:
         interfaces:
