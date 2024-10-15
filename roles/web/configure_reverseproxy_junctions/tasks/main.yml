@@ -104,7 +104,7 @@
   when: help is defined
 
 - name: Include over all instances and junctions
-  include_tasks: include_junctions.yml
+  ansible.builtin.include_tasks: include_junctions.yml
   with_subelements:
     - "{{ instances }}"
     - junctions
@@ -118,7 +118,7 @@
     label: "{inst_name: {{ item[0].inst_name }}, junction_point: {{ item[1].junction_point }}}"
 
 - name: Include to delete undefined junctions [-e delete_junctions=True]
-  include_tasks: include_delete_junctions.yml
+  ansible.builtin.include_tasks: include_delete_junctions.yml
   loop: "{{ instances }}"
   when:
     - not (control_setall_junctions|bool)

@@ -107,7 +107,7 @@
     - tmpl_action == 'export_zip' or tmpl_action == 'None'
 
 - name: "Export all runtime template root files [-e tmpl_action=export_zip -e skip_exports=True/False]"
-  include_tasks: include_export_runtime_template_root.yml
+  ansible.builtin.include_tasks: include_export_runtime_template_root.yml
   when:
     - item.tmpl_action == 'export_zip'
     - not (skip_exports | bool)
@@ -115,7 +115,7 @@
   loop: "{{ runtime_template_root }}"
 
 - name: "Sync runtime template root [local => server] [-e tmpl_action=sync_up -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]"
-  include_tasks: include_sync_runtime_template_root.yml
+  ansible.builtin.include_tasks: include_sync_runtime_template_root.yml
   when:
     - item.tmpl_action == 'sync_up'
     - item.target == target
@@ -189,7 +189,7 @@
   notify: Commit Changes
 
 - name: "Import runtime template zip files [-e tmpl_action=import_zip -e skip_imports=True/False]"
-  include_tasks: include_import_runtime_template_root.yml
+  ansible.builtin.include_tasks: include_import_runtime_template_root.yml
   when:
     - item.tmpl_action == 'import_zip'
     - not (skip_imports | bool)

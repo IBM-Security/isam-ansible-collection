@@ -1,8 +1,8 @@
 ---
 
 - name: Include Create Junctions
-  include_tasks: include_create_junctions.yml
+  ansible.builtin.include_tasks: include_create_junctions.yml
 
 - name: "Include to delete undefined junction server hostnames [-e delete_junction_server=True]"
-  include_tasks: include_delete_junction_server_hostnames.yml
+  ansible.builtin.include_tasks: include_delete_junction_server_hostnames.yml
   when: (delete_junction_server | bool )

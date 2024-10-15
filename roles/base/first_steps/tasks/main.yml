@@ -55,7 +55,7 @@
   delay: "{{ first_steps_delay }}"
 
 # Go through basic set up to accept license and set up FIPS only needed
-- include_tasks: firststeps.yml
+- ansible.builtin.include_tasks: firststeps.yml
   when:
     - result is defined
     - result.status == 200

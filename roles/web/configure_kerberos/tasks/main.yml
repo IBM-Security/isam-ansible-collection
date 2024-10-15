@@ -136,7 +136,7 @@
     label: "{ \"realm\": \"{{ item.0.realm }}\", \"subsection\": \"{{ item.1.name if (item.1.name is defined) }}\" }"
   notify: Commit Changes
 
-- include_tasks: include_create_realms_subsections_2nd_level.yml
+- ansible.builtin.include_tasks: include_create_realms_subsections_2nd_level.yml
   when:
     - subsections_1st_level.1.name is defined
     - subsections_1st_level.0.realm == realm
@@ -175,7 +175,7 @@
     label: "{ \"realm\": \"{{ item.0.realm }}\", \"propname\": \"{{ item.1.propname if (item.1.propname is defined) }}\", \"propvalue\": \"{{ item.1.propvalue if (item.1.propvalue is defined) }}\" }"
   notify: Commit Changes
 
-- include_tasks: include_configure_subsections_properties_1st_level.yml
+- ansible.builtin.include_tasks: include_configure_subsections_properties_1st_level.yml
   when:
     - subsections_1st_level.1.name is defined
     - subsections_1st_level.0.realm == realm

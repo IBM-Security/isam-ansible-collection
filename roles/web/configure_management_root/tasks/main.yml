@@ -109,7 +109,7 @@
       )
 
 - name: "Export all management root files from instances in inventory [-e mgmt_action=export_zip -e inst_name=<instance>]"
-  include_tasks: include_export_management_root.yml
+  ansible.builtin.include_tasks: include_export_management_root.yml
   when:
     - item.1.mgmt_action == 'export_zip'
     - item.0.inst_name == inst_name
@@ -123,7 +123,7 @@
     label: "{{ item.1 }}"
 
 - name: "Sync management root [local => server] [-e mgmt_action=sync_up -e inst_name=<instance> -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]"
-  include_tasks: include_sync_management_root.yml
+  ansible.builtin.include_tasks: include_sync_management_root.yml
   when:
     - item.1.mgmt_action == 'sync_up'
     - item.0.inst_name == inst_name
@@ -219,7 +219,7 @@
   notify: Commit Changes
 
 - name: Include delete management root contents
-  include_tasks: include_delete_management_root_contents.yml
+  ansible.builtin.include_tasks: include_delete_management_root_contents.yml
   when:
     - item.1.mgmt_action == 'delete'
     - item.1.targets is defined
@@ -239,7 +239,7 @@
     label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action|default('') }} {{ item.1.type|default('file') }} {{ item.1.targets|default('') }}"
 
 - name: "Import management root zip files [-e mgmt_action=import_zip -e inst_name=<instance> -e skip_imports=True/False]"
-  include_tasks: include_import_management_root.yml
+  ansible.builtin.include_tasks: include_import_management_root.yml
   when:
     - item.1.mgmt_action == 'import_zip'
     - item.0.inst_name == inst_name

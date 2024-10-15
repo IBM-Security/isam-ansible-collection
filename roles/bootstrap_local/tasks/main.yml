@@ -9,7 +9,7 @@
 - ansible.builtin.debug: var=vmxfile
 
 - name: bootstrap a new vm if vmx file does not exist
-  include_tasks: bootstrap.yml
+  ansible.builtin.include_tasks: bootstrap.yml
   when: not vmxfile.stat.exists
 
 - name: Check if there is a vm with the destination name already running
