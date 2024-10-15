@@ -12,16 +12,17 @@
   ignore_errors: true
 
 - name: delete if the target VM directory exists
-  file: path="{{ BS_vm_dest_dir }}" state=absent
+  ansible.builtin.file: path="{{ BS_vm_dest_dir }}" state=absent
   when: vmdir.stat.exists
 
 - name: create target VM directory
-  file: path="{{ BS_vm_dest_dir }}" state=directory mode=0755
+  ansible.builtin.file: path="{{ BS_vm_dest_dir }}" state=directory mode=0755
   register: shell_out
+
 - ansible.builtin.debug: var=shell_out
 
 - name: copy vmx file to target VM directory
-  template: src="{{ role_path }}/templates/isam9_sample.vmx" dest="{{ BS_vm_vmx }}"
+  ansible.builtin.template: src="{{ role_path }}/templates/isam9_sample.vmx" dest="{{ BS_vm_vmx }}"
   register: cmd_out
 - ansible.builtin.debug: var=cmd_out
 
@@ -38,11 +39,11 @@
 - ansible.builtin.debug: var=shell_out
 
 - name: waiting for VM to install isam image and shutdown
-  shell: set -o pipefail &&  while ( {{ BS_vmrun }} {{ BS_vmrunflags }} list | grep -q {{ BS_vm_vmx }} ); do echo -n . ; sleep 1; done
+  ansible.builtin.shell: set -o pipefail &&  while ( {{ BS_vmrun }} {{ BS_vmrunflags }} list | grep -q {{ BS_vm_vmx }} ); do echo -n . ; sleep 1; done
   register: shell_out
 
 - name: wait for VM process to end
-  shell: set -o pipefail &&  while ( ps -ef | grep {{ BS_vm_vmx }} | grep -q -v grep ); do echo -n . ; sleep 1; done
+  ansible.builtin.shell: set -o pipefail &&  while ( ps -ef | grep {{ BS_vm_vmx }} | grep -q -v grep ); do echo -n . ; sleep 1; done
   register: shell_out
   changed_when: false
 
@@ -52,7 +53,7 @@
   ignore_errors: true
 
 - name: clean tmp dir and file
-  file: path="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata" state=absent path="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata.iso" state=absent
+  ansible.builtin.file: path="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata" state=absent path="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata.iso" state=absent
   when: tmpdir.stat.exists
 
 - name: create tmp dir
@@ -84,7 +85,7 @@
     dest: "{{ BS_vm_vmx }}"
     regexp: '^sata0:1.fileName'
     line: 'sata0:1.fileName="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata.iso"'
-    backrefs: yes
+    backrefs: true
   register: cmd_out
 - ansible.builtin.debug: var=cmd_out
 
