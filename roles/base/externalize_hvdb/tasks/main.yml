@@ -20,4 +20,4 @@
   when: externalize_hvdb_hvdb_db_type == "db2"
 
 # Commit all changes made to date
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers

@@ -25,7 +25,7 @@
   when: firmware.stat.exists
 
 # Make sure all handlers are flushed before Firmware Upgrade is done
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers
 
 - name: Firmware install of {{ install_firmware_version }}
   ibm.isam.isam:
@@ -42,4 +42,4 @@
   notify: Await Appliance LMI Response
 
 # Flush Handler to wait for appliance reboot
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers

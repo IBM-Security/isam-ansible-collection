@@ -115,4 +115,4 @@
   when:
     - _instances is defined
 
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers

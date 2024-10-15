@@ -19,4 +19,4 @@
    - Commit Changes
 
 # Commit cluster changes before proceeding
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers

@@ -36,7 +36,7 @@
 - ansible.builtin.debug: var=shell_out
 
 - name: wait for system up, the speed depends on whether cold start or resume
-  wait_for:
+  ansible.builtin.wait_for:
      host: "{{ BS_vm_mgmt_ip }}"
      port: 443
      delay: 5

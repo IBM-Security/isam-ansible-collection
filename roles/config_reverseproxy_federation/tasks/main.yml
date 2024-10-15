@@ -1,5 +1,5 @@
 # Commit all changes made to date before configuring federation into reverse proxy
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers
 
 - name: Lookup a Federation ID - {{ config_reverseproxy_federation_name }}
   ibm.isam.isam:

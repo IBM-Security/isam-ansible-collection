@@ -11,4 +11,4 @@
 
 # Commit changes and restart reverse proxy - changes need to take effect for next steps
 # Espcially if common web root is required to be setup
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers

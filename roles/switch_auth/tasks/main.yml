@@ -16,7 +16,7 @@
 - ansible.builtin.include_tasks: mgmt_authz.yml
 
 # Commit changes before next step
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers
 
 # Setup Roles
 - ansible.builtin.include_tasks: config_roles.yml

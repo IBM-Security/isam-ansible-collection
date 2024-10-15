@@ -55,4 +55,4 @@
   - Commit Changes
 
 # Commit the certificate database changes
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers

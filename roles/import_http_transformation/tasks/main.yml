@@ -11,4 +11,4 @@
   - Commit Changes
 
 # Commit changes - changes need to take effect for next steps
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers

@@ -12,4 +12,4 @@
   notify: Commit Changes
 
 # Commit all changes made to date
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers

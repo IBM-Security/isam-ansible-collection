@@ -29,7 +29,7 @@
 
 # Commit and Restart may cause LMI to restart - so wait to be safe
 - name: Await Appliance Commit LMI Response
-  wait_for:
+  ansible.builtin.wait_for:
     delay: 60
     timeout: "{{ start_config_wait_time }}"
     state: started
@@ -99,7 +99,7 @@
     action: ibmsecurity.isam.base.lmi.restart
 
 - name: Await Appliance LMI Response
-  wait_for:
+  ansible.builtin.wait_for:
     delay: 60
     timeout: "{{ start_config_wait_time }}"
     state: started

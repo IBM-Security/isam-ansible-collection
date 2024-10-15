@@ -6,4 +6,4 @@
 - ansible.builtin.include_tasks: config_basic_user.yml
 
  # Commit Runtime changes
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers

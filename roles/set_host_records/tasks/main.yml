@@ -11,4 +11,4 @@
   notify: Commit Changes
 
   # Commit all changes made until now
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers

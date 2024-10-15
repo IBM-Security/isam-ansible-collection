@@ -33,7 +33,7 @@
   notify: Commit Changes
 
 # Commit changes before proceeding
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers
 
 # Export the newly created failover key for reuse
 - name: Export failover key

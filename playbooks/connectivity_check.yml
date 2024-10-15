@@ -80,7 +80,7 @@
     - name: check for open port 443
       tags:
         - lmi
-      wait_for:
+      ansible.builtin.wait_for:
         host: "{{ ansible_host|default(inventory_hostname) }}"
         port: 443
         state: started

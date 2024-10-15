@@ -48,7 +48,7 @@
 
 # reset connection that new_password can be used for the commit changes request
 - name: Reset connection
-  meta: reset_connection
+  ansible.builtin.meta: reset_connection
 
 - name: Commit Changes
   vars:

@@ -8,4 +8,4 @@
 - ansible.builtin.include_tasks: config_adv_tune_parms.yml
 
 # Commit all changes made to date
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers

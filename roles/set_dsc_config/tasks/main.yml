@@ -22,4 +22,4 @@
     - Commit Changes
 
  # Commit activation of module before doing anything else
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers
