@@ -46,7 +46,7 @@
   delegate_to: localhost
   loop: "{{ export_personal_certificates }}"
   loop_control:
-    label: "{{ (homedir +'/'+ item.file|default('')) | dirname }}"
+    label: "{{ (homedir +'/'+ item.file | default('')) | dirname }}"
   when:
     - item.file is defined
     - not (skip_exports | bool)
@@ -73,7 +73,7 @@
   when:
     - not (skip_exports | bool)
 
-- name: Export single certificate to {{ homedir +'/'+ file|default('') }} [-e file=<path/to/download/certificate> -e kdb_id=<kdb> -e cert_id=<cert>]
+- name: Export single certificate to {{ homedir +'/'+ file | default('') }} [-e file=<path/to/download/certificate> -e kdb_id=<kdb> -e cert_id=<cert>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

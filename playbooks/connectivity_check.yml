@@ -18,8 +18,8 @@
       ansible.builtin.debug:
         verbosity: 2
         msg:
-          # - "{{ lookup('ansible.builtin.env', 'CONTAINER_NAME')|default('No container') }}"
-          - "{{ lookup('ansible.builtin.env', 'container')|default('No container') }}"
+          # - "{{ lookup('ansible.builtin.env', 'CONTAINER_NAME') | default('No container') }}"
+          - "{{ lookup('ansible.builtin.env', 'container') | default('No container') }}"
       delegate_to: localhost
 
     - name: Install specified python requirements (only in a container)
@@ -29,7 +29,7 @@
       run_once: true
       ignore_errors: true
       when:
-        - lookup('ansible.builtin.env', 'container')|default(None)
+        - lookup('ansible.builtin.env', 'container') | default(None)
 
 - name: connectivity check - must have ansible_connection set to ibm.isam.isam
   hosts: all
@@ -73,7 +73,7 @@
 
     - name: is ansible_isam_password set ? (required)
       ansible.builtin.debug:
-        msg: "{{ (ansible_isam_password|default(False))|ternary('ansible_isam_password is defined', 'ansible_isam_password is NOT defined') }}"
+        msg: "{{ (ansible_isam_password | default(False))|ternary('ansible_isam_password is defined', 'ansible_isam_password is NOT defined') }}"
       failed_when:
         - ansible_isam_password is not defined
 
@@ -81,7 +81,7 @@
       tags:
         - lmi
       ansible.builtin.wait_for:
-        host: "{{ ansible_host|default(inventory_hostname) }}"
+        host: "{{ ansible_host | default(inventory_hostname) }}"
         port: 443
         state: started
         connect_timeout: 2

@@ -151,7 +151,7 @@
     isamapi:
       path: "{{ (item.target | dirname ) }}"
       name: "{{ (item.target | basename ) }}"
-      filename: "{{ lookup('fileglob', item.file|default('/') ) }}"
+      filename: "{{ lookup('fileglob', item.file | default('/') ) }}"
   when:
     - item.tmpl_action == 'upload'
     - item.type == 'file'

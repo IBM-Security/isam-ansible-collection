@@ -77,7 +77,7 @@
       is defined) else {}) | combine({ 'filename': homedir +'/'+ item.filename } if (item.filename is defined) else {}) }}"
   loop: "{{ signer_certificates }}"
   loop_control:
-    label: "kdb: {{ item.kdb_id }} - {{ item.label|default('') }} - {{ item.cert_id|default('') }} - {{ item.cert|default('') }}"
+    label: "kdb: {{ item.kdb_id }} - {{ item.label|default('') }} - {{ item.cert_id | default('') }} - {{ item.cert | default('') }}"
   when:
     - item.cert_action == cert_action
     - item.kdb_id == kdb_id

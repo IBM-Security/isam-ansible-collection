@@ -15,7 +15,7 @@
   when:
     - item.filename is defined
   loop_control:
-    label: "{'kdb_id': '{{ item.kdb_id }}', 'cert_id': '{{ item.cert_id }}', 'filename': '{{ item.filename|default('') }}'}"
+    label: "{'kdb_id': '{{ item.kdb_id }}', 'cert_id': '{{ item.cert_id }}', 'filename': '{{ item.filename | default('') }}'}"
 
 - name: Extract certificates
   ibm.isam.isam:

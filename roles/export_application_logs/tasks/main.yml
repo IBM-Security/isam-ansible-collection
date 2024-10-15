@@ -14,7 +14,7 @@
 
 - name: Temporary variable
   set_fact:
-    uniquedirs: "{{ (uniquedirs|default([]) + [{'path': item.path}])|unique }}"
+    uniquedirs: "{{ (uniquedirs | default([]) + [{'path': item.path}])|unique }}"
   loop: "{{ logs.data }}"
   loop_control:
     label: Adding {{ item.path }}...
@@ -31,7 +31,7 @@
     recurse: true
     group: "{{ logs_group | default(omit) }}"
     mode: "{{ logs_mode | default(omit) }}"
-  loop: "{{ uniquedirs|default([]) }}"
+  loop: "{{ uniquedirs | default([]) }}"
   loop_control:
     label: Make sure directory exists for {{ item.path }}
 - name: Get application log files
@@ -41,7 +41,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.application_logs.export_file
     isamapi:
-      file_path: "{{ (item.path|default('') == '') | ternary(item.name, item.path + '/' + item.name) }}"
+      file_path: "{{ (item.path | default('') == '') | ternary(item.name, item.path + '/' + item.name) }}"
       filename: "{{ logs_export_dir }}/{{ inventory_hostname }}/{{ item.path  | default('') }}/{{ item.name }}"
   when:
     - logs.data is defined

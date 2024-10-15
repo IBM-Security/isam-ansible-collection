@@ -88,7 +88,7 @@
     label: Creating - {{ container_item.name | default('skip') }}
   when:
     - isam_containers|length>0
-    - container_item.container_action|default("set") in ["set","update","add"]
+    - container_item.container_action | default("set") in ["set","update","add"]
 
 - name: Delete Container Extensions containers
   ansible.builtin.include_tasks:

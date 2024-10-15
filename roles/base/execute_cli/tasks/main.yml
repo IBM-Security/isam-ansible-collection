@@ -5,7 +5,7 @@
     action: ibmsecurity.isam.base.cli.execute
     isamapi:
       command: "{{ cli_command }}"
-      input: "{{ cli_input|default(omit) }}"
+      input: "{{ cli_input | default(omit) }}"
   when:
     - cli_command is defined
   ignore_errors: true

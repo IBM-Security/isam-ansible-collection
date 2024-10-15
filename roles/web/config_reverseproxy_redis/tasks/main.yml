@@ -59,14 +59,14 @@
     action: ibmsecurity.isam.web.global_settings.redis_configuration.collections.set
     isamapi:
       name: "{{ item.name }}"
-      max_pooled_connections: "{{ item.max_pooled_connections|default(omit) }}"
-      idle_timeout: "{{ item.idle_timeout|default(omit) }}"
-      connect_timeout: "{{ item.connect_timeout|default(omit) }}"
-      io_timeout: "{{ item.io_timeout|default(omit) }}"
-      health_check_interval: "{{ item.health_check_interval|default(omit) }}"
-      servers: "{{ item.servers|default(omit) }}"
-      cross_domain_support: "{{ item.cross_domain_support|default(omit) }}"
-      matching_hosts: "{{ item.matching_hosts|default(omit) }}"
+      max_pooled_connections: "{{ item.max_pooled_connections | default(omit) }}"
+      idle_timeout: "{{ item.idle_timeout | default(omit) }}"
+      connect_timeout: "{{ item.connect_timeout | default(omit) }}"
+      io_timeout: "{{ item.io_timeout | default(omit) }}"
+      health_check_interval: "{{ item.health_check_interval | default(omit) }}"
+      servers: "{{ item.servers | default(omit) }}"
+      cross_domain_support: "{{ item.cross_domain_support | default(omit) }}"
+      matching_hosts: "{{ item.matching_hosts | default(omit) }}"
   when:
     - item.name is defined
   loop: "{{ redis_collections }}"
@@ -84,7 +84,7 @@
       input_data: "{{ item.redis_collections }}"
   loop: "{{ instances }}"
   loop_control:
-    label: "{{ item.inst_name|default('') }} : redis collections : {{ (item.redis_collections|default([]))|join(',') }} "
+    label: "{{ item.inst_name | default('') }} : redis collections : {{ (item.redis_collections | default([]))|join(',') }} "
   when:
     - instances is defined
     - item.inst_name is defined
@@ -94,12 +94,12 @@
 
 - name: prepare enabling/disabling dsess ({{ dsess_enabled }})
   set_fact:
-    _instances: "{{ (_instances|default([])) + [{ 'inst_name': item.inst_name,
+    _instances: "{{ (_instances | default([])) + [{ 'inst_name': item.inst_name,
                                                   'entries': ((dsess_enabled|bool)|ternary(_dsess_redis_entries_enable,_dsess_redis_entries_disable))}
       ]}}"
   loop: "{{ instances }}"
   loop_control:
-    label: Processing {{ item.inst_name|default('not set') }}
+    label: Processing {{ item.inst_name | default('not set') }}
   when:
     - instances is defined
     - item.inst_name is defined

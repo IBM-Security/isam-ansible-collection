@@ -133,7 +133,7 @@
     isamapi: "{{ {'junctions': item.junctions} | combine({'reverseproxy_id': item.inst_name}) }}"
   loop: "{{ instances }}"
   loop_control:
-    label: Processing junctions {{ item.junctions | default([]) | map(attribute='junction_point') | join(', ') }} for {{ item.inst_name|default('') }}
+    label: Processing junctions {{ item.junctions | default([]) | map(attribute='junction_point') | join(', ') }} for {{ item.inst_name | default('') }}
   when:
     - control_setall_junctions|bool
     - item.junctions is defined

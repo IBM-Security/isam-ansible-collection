@@ -18,8 +18,8 @@
       import_role:
         name: ibm.isam.base.install_update
       vars:
-        name: "{{ updates[-1].name|default('isva') }}" # Before 10.0.4, this is Firmware
-        type: "{{ updates[-1].type|default('firmware') }}"
+        name: "{{ updates[-1].name | default('isva') }}" # Before 10.0.4, this is Firmware
+        type: "{{ updates[-1].type | default('firmware') }}"
         version: "{{ updates[-1].version }}"
         release_date: "{{ updates[-1].date }}"
       when:

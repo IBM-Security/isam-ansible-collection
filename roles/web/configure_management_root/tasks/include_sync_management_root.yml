@@ -69,11 +69,11 @@
   vars:
     filter_current_management_root: "[? inst_name == '{{ item.0.inst_name }}'].management_root"
   set_fact:
-    management_root_ori: "{{ (hostvars[inventory_hostname].instances|default({}) | json_query(filter_current_management_root))|default([]) }}"
+    management_root_ori: "{{ (hostvars[inventory_hostname].instances | default({}) | json_query(filter_current_management_root)) | default([]) }}"
 
 - name: "[sync_up] Combine the variables"
   set_fact:
-    management_root: "{{ (management_root_ori=='')|ternary([],management_root_ori) + directory_updates|default([]) + file_updates|default([]) }}"
+    management_root: "{{ (management_root_ori=='')|ternary([],management_root_ori) + directory_updates|default([]) + file_updates | default([]) }}"
 
 - name: "[sync_up] Create management root directories"
   ibm.isam.isam:
@@ -87,11 +87,11 @@
   when:
     - sync_create.type is defined
     - sync_create.target is defined
-    - sync_create.mgmt_action|default('create') == 'create'
+    - sync_create.mgmt_action | default('create') == 'create'
     - sync_create.type == 'directory'
   with_items: "{{ management_root }}"
   loop_control:
-    label: "{ 'mgmt_action': \"{{ sync_create.mgmt_action|default('create') }}\", 'inst_name': \"{{ item.0.inst_name }}\", 'target': \"{{ sync_create.target | default(None)
+    label: "{ 'mgmt_action': \"{{ sync_create.mgmt_action | default('create') }}\", 'inst_name': \"{{ item.0.inst_name }}\", 'target': \"{{ sync_create.target | default(None)
       }}\", 'type': \"{{ sync_create.type | default(None) }}\")"
     loop_var: sync_create
   notify: Commit Changes
@@ -109,11 +109,11 @@
     - sync_upload.type is defined
     - sync_upload.target is defined
     - sync_upload.file is defined
-    - sync_upload.mgmt_action|default('create') == 'upload'
+    - sync_upload.mgmt_action | default('create') == 'upload'
     - sync_upload.type == 'file'
   with_items: "{{ management_root }}"
   loop_control:
-    label: "{ 'mgmt_action': \"{{ sync_upload.mgmt_action|default('create') }}\", 'inst_name': \"{{ item.0.inst_name }}\", 'filename': \"{{ (sync_upload.target|default('none')
+    label: "{ 'mgmt_action': \"{{ sync_upload.mgmt_action|default('create') }}\", 'inst_name': \"{{ item.0.inst_name }}\", 'filename': \"{{ (sync_upload.target | default('none')
       | basename) }}\", 'target': \"{{ (sync_upload.target | default('none')) | dirname }}\", 'type': \"{{ sync_upload.type | default(None) }}\")"
     loop_var: sync_upload
   notify: Commit Changes

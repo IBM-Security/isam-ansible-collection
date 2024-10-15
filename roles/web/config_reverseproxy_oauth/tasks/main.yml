@@ -57,7 +57,7 @@
     isamapi: "{{ item.oauth_configuration | ibm.isam.exclude('oauth_action') | combine({ 'instance_id': item.inst_name }) }}"
   loop: "{{ instances }}"
   loop_control:
-    label: "{ 'instance_id': '{{ item.inst_name }}', 'oauth_action': ' +  {{ item.oauth_configuration.oauth_action|default('') }} }"
+    label: "{ 'instance_id': '{{ item.inst_name }}', 'oauth_action': ' +  {{ item.oauth_configuration.oauth_action | default('') }} }"
   when:
     - item.inst_name == inst_name
     - item.oauth_configuration is defined
