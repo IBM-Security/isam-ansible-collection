@@ -1,6 +1,4 @@
 # This file contains ignores rule violations for ansible-lint
-.ansible-lint yaml[comments]
-galaxy.yml yaml[comments]
 molecule/175_base_verify_inventorydir_change/converge.yml var-naming[no-role-prefix]
 molecule/175_base_verify_inventorydir_change/converge.yml yaml[comments]
 molecule/175_base_verify_inventorydir_change/converge.yml yaml[indentation]
