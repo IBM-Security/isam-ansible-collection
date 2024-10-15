@@ -1,3 +1,4 @@
+---
 # Provide a list of pdadmin commands to execute
 #execute_pdadmin_commands:
 #  - "acl show default-management"
@@ -11,4 +12,4 @@
 #execute_pdadmin_isampwd: "passw0rd"
 
 # Use Default domain, override as needed
-execute_pdadmin_domain: "Default"
+execute_pdadmin_domain: Default

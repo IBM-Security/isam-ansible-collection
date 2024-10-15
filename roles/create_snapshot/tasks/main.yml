@@ -1,3 +1,4 @@
+---
 - name: Snapshot of Appliance
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

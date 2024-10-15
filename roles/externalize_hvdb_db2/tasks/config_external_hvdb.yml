@@ -1,3 +1,4 @@
+---
 - name: Configure External HVDB (using DB2 databases)
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

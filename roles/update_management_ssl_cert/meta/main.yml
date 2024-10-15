@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: IFC
   description: >
@@ -8,7 +9,7 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: '2.2'
+  min_ansible_version: "2.2"
   platforms:
     - name: Fedora
       versions:
@@ -23,10 +24,10 @@ galaxy_info:
         - 6
 
   galaxy_tags:
-  - isam
-  - ibm
-  - snapshot
-  - create
+    - isam
+    - ibm
+    - snapshot
+    - create
 
 dependencies:
   - ibm.isam.common_handlers

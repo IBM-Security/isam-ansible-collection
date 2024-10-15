@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: IBM
   description: Role to update file in Management Root of Reverse Proxy
@@ -5,7 +6,7 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: '2.2'
+  min_ansible_version: "2.2"
   platforms:
     - name: Fedora
       versions:
@@ -20,11 +21,11 @@ galaxy_info:
         - 6
 
   galaxy_tags:
-  - isam
-  - ibm
-  - upload
-  - aac
-  - mappingrule
+    - isam
+    - ibm
+    - upload
+    - aac
+    - mappingrule
 
 dependencies:
   - ibm.isam.common_handlers

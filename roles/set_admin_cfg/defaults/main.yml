@@ -1,35 +1,36 @@
+---
 # Set tkey/value for admin config
-set_admin_cfg_oldPassword: null
-set_admin_cfg_newPassword: null
-set_admin_cfg_minHeapSize: null
-set_admin_cfg_maxHeapSize: null
+set_admin_cfg_oldPassword:
+set_admin_cfg_newPassword:
+set_admin_cfg_minHeapSize:
+set_admin_cfg_maxHeapSize:
 set_admin_cfg_sessionTimeout: 30
-set_admin_cfg_httpPort: null
-set_admin_cfg_httpsPort: null
-set_admin_cfg_minThreads: null
-set_admin_cfg_maxThreads: null
-set_admin_cfg_maxPoolSize: null
-set_admin_cfg_lmiDebuggingEnabled: null
-set_admin_cfg_consoleLogLevel: null
-set_admin_cfg_acceptClientCerts: null
-set_admin_cfg_validateClientCertIdentity: null
-set_admin_cfg_excludeCsrfChecking: null
-set_admin_cfg_enableSSLv3: null
-set_admin_cfg_maxFiles: null
-set_admin_cfg_maxFileSize: null
-set_admin_cfg_enabledTLS: null
-set_admin_cfg_sshdPort: null
-set_admin_cfg_sessionCachePurge: null
-set_admin_cfg_sessionInactivityTimeout: null
-set_admin_cfg_sshdClientAliveInterval: null
-set_admin_cfg_swapFileSize: null
-set_admin_cfg_httpProxy: null
-set_admin_cfg_enabledServerProtocols: null
-set_admin_cfg_loginHeader: null
-set_admin_cfg_loginMessage: null
-set_admin_cfg_pendingChangesLifetime: null
-set_admin_cfg_baSessionTimeout: null
-set_admin_cfg_httpsProxy: null
-set_admin_cfg_accessLogFormat: null
-set_admin_cfg_lmiMessageTimeout: null
-set_admin_cfg_validVerifyDomains: null
+set_admin_cfg_httpPort:
+set_admin_cfg_httpsPort:
+set_admin_cfg_minThreads:
+set_admin_cfg_maxThreads:
+set_admin_cfg_maxPoolSize:
+set_admin_cfg_lmiDebuggingEnabled:
+set_admin_cfg_consoleLogLevel:
+set_admin_cfg_acceptClientCerts:
+set_admin_cfg_validateClientCertIdentity:
+set_admin_cfg_excludeCsrfChecking:
+set_admin_cfg_enableSSLv3:
+set_admin_cfg_maxFiles:
+set_admin_cfg_maxFileSize:
+set_admin_cfg_enabledTLS:
+set_admin_cfg_sshdPort:
+set_admin_cfg_sessionCachePurge:
+set_admin_cfg_sessionInactivityTimeout:
+set_admin_cfg_sshdClientAliveInterval:
+set_admin_cfg_swapFileSize:
+set_admin_cfg_httpProxy:
+set_admin_cfg_enabledServerProtocols:
+set_admin_cfg_loginHeader:
+set_admin_cfg_loginMessage:
+set_admin_cfg_pendingChangesLifetime:
+set_admin_cfg_baSessionTimeout:
+set_admin_cfg_httpsProxy:
+set_admin_cfg_accessLogFormat:
+set_admin_cfg_lmiMessageTimeout:
+set_admin_cfg_validVerifyDomains:

@@ -1,3 +1,4 @@
+---
 # main task to create federation partners
 #   Example: OIDC connect provider and Test-App partner
 #     federations:
@@ -25,18 +26,12 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.fed.partners.set
-    isamapi: "{{
-          { 'federation_name': item.0.name,
-            'partner_name': item.1.name,
-            'enabled': item.1.enabled
-          }
-          | combine({ 'role': item.1.role } if (item.1.role is defined) else {})
-          | combine({ 'configuration': item.1.configuration } if (item.1.configuration is defined) else {})
-    }}"
+    isamapi: "{{ { 'federation_name': item.0.name, 'partner_name': item.1.name, 'enabled': item.1.enabled } | combine({ 'role': item.1.role } if (item.1.role is defined)
+      else {}) | combine({ 'configuration': item.1.configuration } if (item.1.configuration is defined) else {}) }}"
   with_subelements:
     - "{{ federations }}"
     - partners
-    - skip_missing: True
+    - skip_missing: true
   when: item.0.name == fed_name and partner_name == item.1.name
   notify: Commit Changes
   loop_control:

@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: IBM
   description: Role that configure a reverse proxy for OAuth
@@ -5,7 +6,7 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: '2.2'
+  min_ansible_version: "2.2"
   platforms:
     - name: Fedora
       versions:
@@ -20,11 +21,11 @@ galaxy_info:
         - 6
 
   galaxy_tags:
-  - isam
-  - ibm
-  - reverseproxy
-  - oauth
-  - configuration
+    - isam
+    - ibm
+    - reverseproxy
+    - oauth
+    - configuration
 
 dependencies:
   - ibm.isam.common_handlers

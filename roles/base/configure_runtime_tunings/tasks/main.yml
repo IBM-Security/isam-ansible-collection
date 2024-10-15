@@ -1,10 +1,9 @@
 ---
-
 # main task to configure runtime tuning parameters
 
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         configure_runtime_tunings
@@ -45,7 +44,7 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.base.runtime.tuning_parameters.{{ item.runtime_action }}"
+    action: ibmsecurity.isam.base.runtime.tuning_parameters.{{ item.runtime_action }}
     isamapi: "{{ item | ibm.isam.exclude('runtime_action') }}"
   when:
     - item.option == option

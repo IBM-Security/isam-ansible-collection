@@ -1,3 +1,4 @@
+---
 # Commit all changes made to date before configuring federation into reverse proxy
 - ansible.builtin.meta: flush_handlers
 

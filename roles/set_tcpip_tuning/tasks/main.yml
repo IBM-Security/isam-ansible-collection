@@ -1,3 +1,4 @@
+---
 # TCP/IP tuning as documented here: https://www-01.ibm.com/support/docview.wss?uid=swg21960611
 
 - name: Configure TCP Ephemeral Port Range Tuning
@@ -8,7 +9,7 @@
     isamapi:
       key: sysctl.net.ipv4.ip_local_port_range
       value: "{{ set_tcpip_tuning_ip_local_port_range }}"
-      comment: "TCP Ephemeral Port Range Tuning"
+      comment: TCP Ephemeral Port Range Tuning
   notify:
     - Commit Changes
     - Reboot Appliance
@@ -21,7 +22,7 @@
     isamapi:
       key: sysctl.net.ipv4.tcp_fin_timeout
       value: "{{ set_tcpip_tuning_tcp_fin_timeout }}"
-      comment: "TCP Time Wait Tuning"
+      comment: TCP Time Wait Tuning
   notify:
     - Commit Changes
     - Reboot Appliance
@@ -34,7 +35,7 @@
     isamapi:
       key: sysctl.net.ipv4.tcp_tw_reuse
       value: "{{ set_tcpip_tuning_tcp_tw_reuse }}"
-      comment: "TCP Time Wait Socket Reuse"
+      comment: TCP Time Wait Socket Reuse
   notify:
     - Commit Changes
     - Reboot Appliance
@@ -47,7 +48,7 @@
     isamapi:
       key: sysctl.net.ipv4.tcp_tw_recycle
       value: "{{ set_tcpip_tuning_tcp_tw_recycle }}"
-      comment: "TCP Time Wait Recycle"
+      comment: TCP Time Wait Recycle
   notify:
     - Commit Changes
     - Reboot Appliance

@@ -1,3 +1,4 @@
+---
 - name: Snapshot Appliance Before Activating
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"

@@ -1,3 +1,4 @@
+---
 - name: Extract Self-Signed Certs from HVDB Database into keystore {{ item }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

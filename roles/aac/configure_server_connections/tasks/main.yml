@@ -1,10 +1,9 @@
 ---
-
 # main task to configure server connections
 
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         configure_server_connections
@@ -242,24 +241,21 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: "Configure server connections [-e class=[ldap|ci|isamruntime|jdbc|smtp|ws] -e connection_action=[get|set|delete] -e connection_name=<name_of_connection> -e ignore_password_for_idempotency=[True|False]]"
+- name: Configure server connections [-e class=[ldap|ci|isamruntime|jdbc|smtp|ws] -e connection_action=[get|set|delete] -e connection_name=<name_of_connection> -e
+    ignore_password_for_idempotency=[True|False]]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.aac.server_connections.{{ item.class }}.{{ item.connection_action }}"
-    isamapi: "{{ item
-                 | ibm.isam.exclude('class')
-                 | ibm.isam.exclude('connection_action')
-                 | combine({'ignore_password_for_idempotency': (ignore_password_for_idempotency | bool) } if ((ignore_password_for_idempotency | bool) and (item.connection_action == 'set' or item.connection_action == 'update')) else {})
-              }}"
+    action: ibmsecurity.isam.aac.server_connections.{{ item.class }}.{{ item.connection_action }}
+    isamapi: "{{ item | ibm.isam.exclude('class') | ibm.isam.exclude('connection_action') | combine({'ignore_password_for_idempotency': (ignore_password_for_idempotency
+      | bool) } if ((ignore_password_for_idempotency | bool) and (item.connection_action == 'set' or item.connection_action == 'update')) else {}) }}"
   when:
     - item.class is defined
     - item.connection_action is defined
     - item.connection_action == connection_action
     - item.class == class
     - item.name == connection_name
-    - (item.type is defined and item.type == type)
-      or item.type is not defined
+    - (item.type is defined and item.type == type) or item.type is not defined
   loop: "{{ server_connections }}"
   loop_control:
     label: "{{ item | ibm.isam.exclude('connection') | ibm.isam.exclude('connectionManager')  }}"

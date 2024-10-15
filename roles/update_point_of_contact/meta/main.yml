@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: IFC
   description: Role that adds or updates an existing Point of Contact configuration
@@ -5,7 +6,7 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: '2.2'
+  min_ansible_version: "2.2"
   platforms:
     - name: Fedora
       versions:
@@ -20,10 +21,10 @@ galaxy_info:
         - 6
 
   galaxy_tags:
-  - isam
-  - ibm
-  - pointofcontact
-  - set
+    - isam
+    - ibm
+    - pointofcontact
+    - set
 
 dependencies:
   - ibm.isam.common_handlers

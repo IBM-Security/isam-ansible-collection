@@ -1,3 +1,4 @@
+---
 - name: Get the certificate databases
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

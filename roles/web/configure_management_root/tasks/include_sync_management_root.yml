@@ -25,8 +25,8 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.{{ local.element.type }}.delete
     isamapi:
-        instance_id: "{{ item.0.inst_name }}"
-        id: "{{ local.element.path }}"
+      instance_id: "{{ item.0.inst_name }}"
+      id: "{{ local.element.path }}"
   when:
     - local.stat is defined
     - not local.stat.exists
@@ -91,7 +91,8 @@
     - sync_create.type == 'directory'
   with_items: "{{ management_root }}"
   loop_control:
-    label: "{ 'mgmt_action': \"{{ sync_create.mgmt_action|default('create') }}\", 'inst_name': \"{{ item.0.inst_name }}\", 'target': \"{{ sync_create.target | default(None) }}\", 'type': \"{{ sync_create.type | default(None) }}\")"
+    label: "{ 'mgmt_action': \"{{ sync_create.mgmt_action|default('create') }}\", 'inst_name': \"{{ item.0.inst_name }}\", 'target': \"{{ sync_create.target | default(None)
+      }}\", 'type': \"{{ sync_create.type | default(None) }}\")"
     loop_var: sync_create
   notify: Commit Changes
 
@@ -112,6 +113,7 @@
     - sync_upload.type == 'file'
   with_items: "{{ management_root }}"
   loop_control:
-    label: "{ 'mgmt_action': \"{{ sync_upload.mgmt_action|default('create') }}\", 'inst_name': \"{{ item.0.inst_name }}\", 'filename': \"{{ (sync_upload.target|default('none') | basename) }}\", 'target': \"{{ (sync_upload.target | default('none')) | dirname }}\", 'type': \"{{ sync_upload.type | default(None) }}\")"
+    label: "{ 'mgmt_action': \"{{ sync_upload.mgmt_action|default('create') }}\", 'inst_name': \"{{ item.0.inst_name }}\", 'filename': \"{{ (sync_upload.target|default('none')
+      | basename) }}\", 'target': \"{{ (sync_upload.target | default('none')) | dirname }}\", 'type': \"{{ sync_upload.type | default(None) }}\")"
     loop_var: sync_upload
   notify: Commit Changes

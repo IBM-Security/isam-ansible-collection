@@ -1,3 +1,4 @@
+---
 # Example to add an LDAP group to the Security Administrator management authorization role group
 # - name: set management authorization role group
 #   include_role:

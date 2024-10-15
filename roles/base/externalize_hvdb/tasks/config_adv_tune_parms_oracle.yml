@@ -1,3 +1,4 @@
+---
 - name: Configure Oracle connection string for hvdb
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -6,7 +7,7 @@
     isamapi:
       key: isam_cluster.hvdb.properties.URL
       value: "{{ externalize_hvdb_oracle_connection_string }}"
-      comment: "ISAM Cluster hvdb jdbc URL"
+      comment: ISAM Cluster hvdb jdbc URL
   when: externalize_hvdb_oracle_connection_string is defined and externalize_hvdb_hvdb_db_type == "oracle"
   notify:
     - Commit Changes
@@ -21,8 +22,8 @@
     action: ibmsecurity.isam.base.advanced_tuning_parameters.set
     isamapi:
       key: lmi.jvm_option.
-      value: "-Doracle.jdbc.Trace=true"
-      comment: "Enable LMI Trace for oracle"
+      value: -Doracle.jdbc.Trace=true
+      comment: Enable LMI Trace for oracle
   when: externalize_hvdb_oracle_connection_string is defined and externalize_hvdb_hvdb_db_type == "oracle" and debug_oracle_enable_lmi_trace
   notify:
     - Commit Changes
@@ -49,8 +50,8 @@
     action: ibmsecurity.isam.base.advanced_tuning_parameters.set
     isamapi:
       key: runtime_profile.jvm_option.
-      value: '-Doracle.jdbc.Trace=true'
-      comment: "Enable runtime Trace for oracle"
+      value: -Doracle.jdbc.Trace=true
+      comment: Enable runtime Trace for oracle
   when: externalize_hvdb_config_oracle_connection_string is defined and externalize_hvdb_hvdb_db_type == "oracle" and debug_oracle_enable_runtime_trace
   notify:
     - Commit Changes

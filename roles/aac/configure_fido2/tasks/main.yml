@@ -2,7 +2,7 @@
 # main task to configure fido2
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         configure_fido2
@@ -107,24 +107,16 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.aac.fido2.{{ item.fido2_action }}"
-    isamapi: "{{ item
-      | ibm.isam.exclude('fido2_action')
-      | combine({ 'filename': homedir + '/' + item.filename } if (item.filename is defined) else {})
-    }}"
+    action: ibmsecurity.isam.aac.fido2.{{ item.fido2_action }}
+    isamapi: "{{ item | ibm.isam.exclude('fido2_action') | combine({ 'filename': homedir + '/' + item.filename } if (item.filename is defined) else {}) }}"
   when:
     - item.fido2_action is defined
     - item.fido2_action == fido2_action
   loop: "{{ fido2_configurations }}"
   loop_control:
-    label: "{{
-      { 'fido2_action': item.fido2_action }
-      | combine({ 'name': item.name } if (item.name is defined) else {})
-      | combine({ 'username': item.username } if (item.username is defined) else {})
-      | combine({ 'rpId': item.rpId } if (item.rpId is defined) else {})
-      | combine({ 'id': item.id } if (item.id is defined) else {})
-      | combine({ 'credentialId': item.credentialId } if (item.credentialId is defined) else {})
-      | combine({ 'filename': homedir +'/'+ item.filename } if (item.filename is defined) else {})
-    }}"
+    label: "{{ { 'fido2_action': item.fido2_action } | combine({ 'name': item.name } if (item.name is defined) else {}) | combine({ 'username': item.username } if
+      (item.username is defined) else {}) | combine({ 'rpId': item.rpId } if (item.rpId is defined) else {}) | combine({ 'id': item.id } if (item.id is defined) else
+      {}) | combine({ 'credentialId': item.credentialId } if (item.credentialId is defined) else {}) | combine({ 'filename': homedir +'/'+ item.filename } if (item.filename
+      is defined) else {}) }}"
   notify: Commit Changes
   register: ret_obj

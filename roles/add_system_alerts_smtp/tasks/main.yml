@@ -5,12 +5,12 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.system_alerts.email.add
     isamapi:
-      name: "Email Alert to {{ add_system_alerts_smtpServer }}"
+      name: Email Alert to {{ add_system_alerts_smtpServer }}
       smtpServer: "{{ add_system_alerts_smtpServer }}"
       smtpPort: "{{ add_system_alerts_smtpPort }}"
       from_email: "{{ add_system_alerts_from_email }}"
       to_email: "{{ add_system_alerts_to_email }}"
-      comment: "Email Alert to {{ add_system_alerts_smtpServer }}"
+      comment: Email Alert to {{ add_system_alerts_smtpServer }}
   when: add_system_alerts_smtpServer is defined
   register: alertObj
   notify: Commit Changes

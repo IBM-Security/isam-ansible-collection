@@ -6,12 +6,12 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: '2.2'
+  min_ansible_version: "2.2"
 
   galaxy_tags:
-  - isam
-  - ibm
-  - change_admin_password
+    - isam
+    - ibm
+    - change_admin_password
 
 dependencies:
   - ibm.isam.common_handlers

@@ -1,5 +1,6 @@
+---
 # Default name of keystore to contains CAs of federated directory(s)
-config_fed_dir_kdb_name: "fed_dir"
+config_fed_dir_kdb_name: fed_dir
 
 # Note: Provide either config_fed_dir_client_cert_label for self-signed certs or config_fed_dir_ca_certandlabel
 #       which lists CA certs to be imported.
@@ -7,7 +8,7 @@ config_fed_dir_kdb_name: "fed_dir"
 #config_fed_dir_ca_certandlabel:
 #  - { 'cert': "/tmp/cacerts/xyz.cer", 'label': "Verisign CA"}
 # Default description of keystore to contains CAs of federated directory(s)
-config_fed_dir_description: "Contains CA or Self-Signed Certificate of Federated Directory"
+config_fed_dir_description: Contains CA or Self-Signed Certificate of Federated Directory
 
 # Provide details of the LDAP server to federate to
 #config_fed_dir_id
@@ -18,9 +19,9 @@ config_fed_dir_description: "Contains CA or Self-Signed Certificate of Federated
 #config_fed_dir_bind_pwd:
 
 # Default to using SSL for all LDAP calls - override if needed
-config_fed_dir_use_ssl: True
+config_fed_dir_use_ssl: true
 # No need to pass cert label if CA certificates are loaded - including for self-signed certs
-config_fed_dir_client_cert_label: null
+config_fed_dir_client_cert_label:
 
 # Please provide suffix in this format
 #config_fed_dir_suffix:

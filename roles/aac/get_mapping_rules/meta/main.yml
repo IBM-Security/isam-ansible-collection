@@ -1,13 +1,12 @@
 ---
 galaxy_info:
   author: IBM
-  description: "Role that searches for a Mapping Rule (for ID lookup) and
-                returns mapping_rules_obj"
+  description: Role that searches for a Mapping Rule (for ID lookup) and returns mapping_rules_obj
   company: IBM
 
   license: Apache
 
-  min_ansible_version: '2.7'
+  min_ansible_version: "2.7"
 
   platforms:
     - name: Fedora

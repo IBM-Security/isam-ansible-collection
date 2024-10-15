@@ -1,6 +1,6 @@
+---
 # Default variables to configure signer certificates
 signer_certificates: []
-
 # default variables to limit execution at runtime
 cert_action: "{{ item.cert_action }}"
 kdb_id: "{{ item.kdb_id }}"

@@ -1,5 +1,4 @@
 ---
-
 - name: Compare {{ item }}
   ibm.isam.isamcompare:
     appliance1: "{{ inventory_hostname }}"

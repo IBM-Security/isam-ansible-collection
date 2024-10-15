@@ -1,9 +1,8 @@
 ---
-
 # main task to configure dns
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         configure_static_routes
@@ -50,7 +49,7 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.base.network.static_routes.{{ item.route_action }}"
+    action: ibmsecurity.isam.base.network.static_routes.{{ item.route_action }}
     isamapi: "{{ item | ibm.isam.exclude('route_action') }}"
   when:
     - item is defined

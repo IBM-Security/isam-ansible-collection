@@ -1,2 +1,3 @@
+---
 # default variable to filter restart of reverse proxy instances at runtime
 inst_name: "{{ item.id }}"

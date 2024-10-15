@@ -4,7 +4,7 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.aac.user_registry.user.get"
+    action: ibmsecurity.isam.aac.user_registry.user.get
     isamapi:
       id: "{{ item.id }}"
   when: item is defined

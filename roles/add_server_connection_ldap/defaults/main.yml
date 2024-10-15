@@ -9,4 +9,4 @@
 # ldap_server_connection_connection_manager: {"connectTimeout": 300}
 
 # Comment to be used for creating a snapshot file
-add_server_connection_ldap_comment: "Automated Snapshot Before Adding LDAP Server Connection"
+add_server_connection_ldap_comment: Automated Snapshot Before Adding LDAP Server Connection

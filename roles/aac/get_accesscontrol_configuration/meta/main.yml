@@ -7,15 +7,15 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: '2.5'
+  min_ansible_version: "2.5"
 
   galaxy_tags:
-  - v1.0.0
-  - isam
-  - ibm
-  - configure
-  - access_control_policies
-  - aac
+    - v1.0.0
+    - isam
+    - ibm
+    - configure
+    - access_control_policies
+    - aac
 
 dependencies:
   - ibm.isam.common_handlers

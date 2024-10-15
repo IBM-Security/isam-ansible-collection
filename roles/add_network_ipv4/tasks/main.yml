@@ -1,12 +1,11 @@
 ---
-
 - name: Snapshot Appliance as Backup
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.snapshots.create
     isamapi:
-      comment: 'Execute Snapshot as Backup - before adding ipv4 {{ add_network_ipv4_address }}'
+      comment: Execute Snapshot as Backup - before adding ipv4 {{ add_network_ipv4_address }}
   when: add_network_ipv4_address is defined
 
 - name: Add IPv4 Address to Interface {{ add_network_ipv4_label }}

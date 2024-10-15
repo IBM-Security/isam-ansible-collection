@@ -1,3 +1,4 @@
+---
 - name: Run PDAdmin commands
   ibm.isam.isamadmin:
     log: "{{ log_level | default('INFO') }}"

@@ -9,4 +9,4 @@
 # activate_module_code: 'xxxx-xxxx-xxxx...'
 
 # Comment to be used for creating a snapshot file
-activate_module_comment: "Automated Snapshot Before Activating {{ activate_module_id }}"
+activate_module_comment: Automated Snapshot Before Activating {{ activate_module_id }}

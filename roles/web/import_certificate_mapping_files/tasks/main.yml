@@ -1,3 +1,4 @@
+---
 # main task to import certificate mapping files
 # Example:
 #   certificate_mapping_files:
@@ -13,5 +14,5 @@
   when: item.file is defined and (item.file | basename) == name
   with_items: "{{ certificate_mapping_files }}"
   loop_control:
-    label: "{ id: \"{{ item.file | basename }}\", filename: \"{{ homedir }}/{{ item.file }}\" }"
+    label: '{ id: "{{ item.file | basename }}", filename: "{{ homedir }}/{{ item.file }}" }'
   notify: Commit Changes

@@ -1,7 +1,7 @@
 ---
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         create_reverseproxy_instances
@@ -60,5 +60,5 @@
   with_items: "{{ instances }}"
   when: item.configuration is defined and item.inst_name == inst_name
   loop_control:
-   label: "{'inst_name': {{ item.inst_name }}{{ (', ' + \"'ip_address'\" + ': ' + item.configuration.ip_address)  if item.configuration.ip_address is defined }}}"
+    label: "{'inst_name': {{ item.inst_name }}{{ (', ' + \"'ip_address'\" + ': ' + item.configuration.ip_address)  if item.configuration.ip_address is defined }}}"
   notify: Commit Changes

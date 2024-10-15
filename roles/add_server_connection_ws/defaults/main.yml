@@ -7,4 +7,4 @@
 # ws_server_connection_locked: false
 
 # Comment to be used for creating a snapshot file
-add_server_connection_ws_comment: "Automated Snapshot Before Adding Web Service Connection"
+add_server_connection_ws_comment: Automated Snapshot Before Adding Web Service Connection

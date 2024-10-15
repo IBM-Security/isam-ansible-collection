@@ -1,5 +1,4 @@
 ---
-
 # main task to configure access control attributes
 # example:
 #   access_control_attributes:

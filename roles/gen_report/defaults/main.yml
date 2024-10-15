@@ -1,5 +1,6 @@
+---
 # Provide the directory where to create the report, defaults to current directory
-gen_report_dir: "."
+gen_report_dir: .
 
 # Provide the template to use for generating report
 # See files sub-directory for a list of valid templates

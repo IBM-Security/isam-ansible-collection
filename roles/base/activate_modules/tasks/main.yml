@@ -1,8 +1,7 @@
 ---
-
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         activate_modules

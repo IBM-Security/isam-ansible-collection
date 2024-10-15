@@ -1,7 +1,7 @@
 ---
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         configure_interfaces
@@ -50,19 +50,15 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.base.network.{{ configure_interfaces_action }}.add"
-    isamapi: "{{
-      { 'address': item.1.address }
-      | combine({ 'label': item.0.label } if (item.0.label is defined) else {})
-      | combine({ 'maskOrPrefix': item.1.maskOrPrefix } if (item.1.maskOrPrefix is defined) else {})
-      | combine({ 'overrideSubnetChecking': item.1.overrideSubnetChecking } if (item.1.overrideSubnetChecking is defined) else {})
-      | combine({ 'enabled': item.1.enabled } if (item.1.enabled is defined) else {})
-      | combine({ 'allowManagement': item.1.allowManagement } if (item.1.allowManagement is defined) else {})
-    }}"
+    action: ibmsecurity.isam.base.network.{{ configure_interfaces_action }}.add
+    isamapi: "{{ { 'address': item.1.address } | combine({ 'label': item.0.label } if (item.0.label is defined) else {}) | combine({ 'maskOrPrefix': item.1.maskOrPrefix
+      } if (item.1.maskOrPrefix is defined) else {}) | combine({ 'overrideSubnetChecking': item.1.overrideSubnetChecking } if (item.1.overrideSubnetChecking is defined)
+      else {}) | combine({ 'enabled': item.1.enabled } if (item.1.enabled is defined) else {}) | combine({ 'allowManagement': item.1.allowManagement } if (item.1.allowManagement
+      is defined) else {}) }}"
   when: item.0.label == label and item.1.address == address
   loop: "{{ interfaces | subelements('addresses', {'skip_missing': True}) }}"
   loop_control:
-    label: "Processing interface {{ item.0.label }} and IP address {{ item.1.address }}"
+    label: Processing interface {{ item.0.label }} and IP address {{ item.1.address }}
   notify: Commit Changes
 
 - name: Get all interfaces
@@ -85,7 +81,7 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.base.network.{{ configure_interfaces_action }}.delete"
+    action: ibmsecurity.isam.base.network.{{ configure_interfaces_action }}.delete
     isamapi:
       label: "{{ item.0.label }}"
       address: "{{ item.1 }}"

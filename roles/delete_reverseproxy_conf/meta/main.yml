@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: IBM
   description: Role to delete entry from reverse proxy configuration file
@@ -5,7 +6,7 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: '2.2'
+  min_ansible_version: "2.2"
   platforms:
     - name: Fedora
       versions:
@@ -20,12 +21,12 @@ galaxy_info:
         - 6
 
   galaxy_tags:
-  - isam
-  - ibm
-  - reverseproxy
-  - web
-  - configuration
-  - delete
+    - isam
+    - ibm
+    - reverseproxy
+    - web
+    - configuration
+    - delete
 
 dependencies:
   - ibm.isam.common_handlers

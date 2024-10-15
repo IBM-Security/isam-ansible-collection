@@ -1,14 +1,14 @@
 ---
 - name: Lookup interfaces
   ibm.isam.isam:
-      log: "{{ log_level | default(omit) }}"
-      force: "{{ force | default(omit) }}"
-      action: ibmsecurity.isam.base.network.interfaces._get_interface
-      isamapi:
-        label: "{{ item.bondedTo | default(omit) }}"
-        vlanId: "{{ item.vlandId | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.base.network.interfaces._get_interface
+    isamapi:
+      label: "{{ item.bondedTo | default(omit) }}"
+      vlanId: "{{ item.vlandId | default(omit) }}"
   with_items:
-      - "{{ interfaces }}"
+    - "{{ interfaces }}"
   when: interfaces is defined and item.bondingMode is defined and item.bondingMode == 'slave'
   register: ret_obj
 
@@ -18,7 +18,7 @@
     verbosity: 3
   loop: "{{ ret_obj.results | flatten }}"
   loop_control:
-      label: "{{ item.uuid | default('skipped...') }}"
+    label: "{{ item.uuid | default('skipped...') }}"
   when: ret_obj is defined and item.uuid is defined
 
 - name: Update bonding master
@@ -27,13 +27,13 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.network.{{ add_interfaces_action }}.update
     isamapi:
-     comment: "{{ item.comment }}"
-     bondingMode: "{{ item.bondingMode | default(omit) }}"
-     label: "{{ item.label }}"
-     name: "{{ item.name | default('') }}"
-     enabled: True
+      comment: "{{ item.comment }}"
+      bondingMode: "{{ item.bondingMode | default(omit) }}"
+      label: "{{ item.label }}"
+      name: "{{ item.name | default('') }}"
+      enabled: true
   with_items:
-      - "{{ interfaces }}"
+    - "{{ interfaces }}"
   when: interfaces is defined and item.bondingMode is defined and item.bondingMode != 'slave'
   notify: Commit Changes
 
@@ -43,14 +43,14 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.network.{{ add_interfaces_action }}.update
     isamapi:
-     comment: "{{ item.item.comment | default(omit) }}"
-     bondingMode: "{{ item.item.bondingMode | default(omit) }}"
-     bondedTo: "{{ item.uuid }}"
-     label: "{{ item.item.label }}"
-     name: "{{ item.item.name | default('') }}"
-     enabled: True
+      comment: "{{ item.item.comment | default(omit) }}"
+      bondingMode: "{{ item.item.bondingMode | default(omit) }}"
+      bondedTo: "{{ item.uuid }}"
+      label: "{{ item.item.label }}"
+      name: "{{ item.item.name | default('') }}"
+      enabled: true
   loop: "{{ ret_obj.results | flatten }}"
   loop_control:
-      label: "{{ item.uuid | default('skipped...') }}"
+    label: "{{ item.uuid | default('skipped...') }}"
   when: ret_obj is defined and item.uuid is defined
   notify: Commit Changes

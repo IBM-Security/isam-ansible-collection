@@ -1,2 +1,3 @@
+---
 # Default sets replication to True
-set_runtime_replication_replicating: True
+set_runtime_replication_replicating: true

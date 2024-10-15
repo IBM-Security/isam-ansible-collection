@@ -1,8 +1,7 @@
 ---
-
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         config_reverseproxy_federations
@@ -54,15 +53,15 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.web.reverse_proxy.federation_configuration.{{ item.1.fed_action }}"
+    action: ibmsecurity.isam.web.reverse_proxy.federation_configuration.{{ item.1.fed_action }}
     isamapi: "{{ item.1 | ibm.isam.exclude('fed_action') | combine({ 'instance_id': item.0.inst_name }) }}"
   when:
     - item.0.inst_name == inst_name
   with_subelements:
     - "{{ instances }}"
     - federation_configurations
-    - skip_missing: True
+    - skip_missing: true
   loop_control:
     label: "{{ item.1 | ibm.isam.exclude('password') | combine({ 'instance_id': item.0.inst_name }) }}"
   notify:
-  - Commit Changes
+    - Commit Changes

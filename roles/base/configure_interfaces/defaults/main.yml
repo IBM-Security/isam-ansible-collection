@@ -2,7 +2,6 @@
 
 # default variables to configure interfaces on appliances
 interfaces: []
-
 # possible values: [interfaces_ipv4, interfaces_ipv6, interfaces_vlan]
 configure_interfaces_action: interfaces_ipv4
 

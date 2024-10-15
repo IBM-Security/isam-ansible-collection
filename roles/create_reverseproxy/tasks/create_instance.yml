@@ -1,3 +1,4 @@
+---
 # The facts from this task will be used to determine if the next task can be run
 - name: Get the activations on the appliance
   ibm.isam.isam:

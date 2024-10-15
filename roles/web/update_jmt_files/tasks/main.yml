@@ -13,7 +13,7 @@
       jmt_config_data: "{{ lookup('file', homedir + '/' + item.file) | replace('\n', '\\n') | replace('\"','\\\"') }}"
   loop: "{{ jmt_files }}"
   loop_control:
-    label: "Upload {{ item.file|default(None) }}"
+    label: Upload {{ item.file|default(None) }}
   when:
     - item.file is defined
     - (item.file | basename) == name

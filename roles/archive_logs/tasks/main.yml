@@ -1,5 +1,4 @@
 ---
-
 - name: List all the logs from reverse proxy {{ archive_logs_instance_id }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -11,9 +10,9 @@
   register: ret_obj
 
 - name: Get date from {{ archive_logs_grace_days }} days ago
-  ansible.builtin.command: "python -c \"import datetime;print (datetime.datetime.now()-datetime.timedelta(days={{ archive_logs_grace_days }})).date()\""
+  ansible.builtin.command: python -c "import datetime;print (datetime.datetime.now()-datetime.timedelta(days={{ archive_logs_grace_days }})).date()"
   register: past_dt
-  changed_when: False
+  changed_when: false
 
 - name: Export logs from reverse proxy {{ archive_logs_instance_id }}
   ibm.isam.isam:

@@ -1,4 +1,4 @@
 ---
 
 # Provide a system account group
-add_sysaccount_group: null
+add_sysaccount_group:

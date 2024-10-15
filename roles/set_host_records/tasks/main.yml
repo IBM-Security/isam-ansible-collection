@@ -1,3 +1,4 @@
+---
 - name: Set Host Records
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -10,5 +11,5 @@
   with_items: "{{ set_host_records }}"
   notify: Commit Changes
 
-  # Commit all changes made until now
+# Commit all changes made until now
 - ansible.builtin.meta: flush_handlers

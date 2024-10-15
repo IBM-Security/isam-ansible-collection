@@ -1,5 +1,4 @@
 ---
-
 # main task to update advanced configurations
 - name: Update advanced configurations
   ibm.isam.isam:

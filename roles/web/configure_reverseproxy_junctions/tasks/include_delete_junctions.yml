@@ -1,6 +1,5 @@
 ---
-
-- name: "Get junctions for {{ item.inst_name }}"
+- name: Get junctions for {{ item.inst_name }}
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

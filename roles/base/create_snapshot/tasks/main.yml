@@ -1,9 +1,8 @@
 ---
-
 # main task to create snapshots
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         create_snapshot
@@ -30,7 +29,7 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: "Snapshot Appliance [-e comment=<snapshots_comment>]"
+- name: Snapshot Appliance [-e comment=<snapshots_comment>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

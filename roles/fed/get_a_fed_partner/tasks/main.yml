@@ -1,6 +1,6 @@
 ---
 # tasks file for get_a_fed_partner
-- name: "Get a federation partner by name"
+- name: Get a federation partner by name
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"

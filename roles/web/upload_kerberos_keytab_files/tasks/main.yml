@@ -22,8 +22,7 @@
     adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
     adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
     adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName:
-      "{{ adminProxyApplianceShortName | default(omit) }}"
+    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
     omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
     username: "{{ username }}"
     password: "{{ password }}"

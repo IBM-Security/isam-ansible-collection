@@ -1,10 +1,10 @@
+---
 # Default variables for configuration of reverse proxy junctions
 instances: []
-
 # Configuration entry to control, if not listed junction servers should be deleted on the server
 delete_junction_server: false
 delete_junctions: false
 force: false
 
 # Control of using set_all instead of looping through junctions
-control_setall_junctions: False
+control_setall_junctions: false

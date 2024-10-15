@@ -1,10 +1,9 @@
 ---
-
 # main task to configure advanced tuning parameters
 
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         configure_advanced_tuning_parameters
@@ -40,7 +39,7 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.base.advanced_tuning_parameters.{{ item.tuning_action }}"
+    action: ibmsecurity.isam.base.advanced_tuning_parameters.{{ item.tuning_action }}
     isamapi: "{{ item | ibm.isam.exclude('tuning_action') }}"
   loop: "{{ advanced_tuning_parameters }}"
   when:

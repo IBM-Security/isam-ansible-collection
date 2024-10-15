@@ -13,7 +13,7 @@
 - name: Get Last Boot Timestamp
   ibm.isam.isam:
     action: ibmsecurity.isam.base.firmware.get
-  check_mode: no
+  check_mode: false
   register: ret_obj
 
 - name: Extract Last Boot Timestamp
@@ -33,12 +33,12 @@
 
 - name: Debug
   ansible.builtin.debug:
-     var: ret_obj
+    var: ret_obj
 
 # Restart after FIPS if needed
 - name: Restart after enabling FIPS
   ibm.isam.isam:
-      action: ibmsecurity.isam.base.fips.restart
+    action: ibmsecurity.isam.base.fips.restart
   when:
     - first_steps_fips
     - ret_obj.data.reboot is defined
@@ -78,10 +78,10 @@
 
 - name: set password
   ibm.isam.isam:
-      action: ibmsecurity.isam.base.admin.set_pw
-      isamapi:
-          'oldPassword': 'admin'
-          'sessionTimeout': "{{ lmi_session_timeout }}"
+    action: ibmsecurity.isam.base.admin.set_pw
+    isamapi:
+      oldPassword: admin
+      sessionTimeout: "{{ lmi_session_timeout }}"
   when: first_steps_admin_pwd
 
 - name: Get LMI Last Restart Timestamp
@@ -89,7 +89,7 @@
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.lmi.get
-  check_mode: no
+  check_mode: false
   register: ret_obj
 
 - name: Extract LMI Restart Timestamp
@@ -106,15 +106,15 @@
 
 - name: Wait for 1 minute
   ansible.builtin.pause:
-      minutes: 1
+    minutes: 1
   when: not ansible_check_mode
 
 - name: Wait for LMI to Respond
   ibm.isam.isam:
-      action: ibmsecurity.isam.base.lmi.await_startup
-      isamapi:
-          start_time: "{{ old_start_time }}"
-          wait_time: "{{ start_config_wait_time }}"
+    action: ibmsecurity.isam.base.lmi.await_startup
+    isamapi:
+      start_time: "{{ old_start_time }}"
+      wait_time: "{{ start_config_wait_time }}"
   retries: 5
   delay: 30
   ignore_errors: true

@@ -1,6 +1,6 @@
+---
 # default values for import certificate mapping files
 certificate_mapping_files: []
-
 name: "{{ item.file | basename }}"
 
 # Default homedir.  This defaults to inventory_dir for backwards compatibility reasons,

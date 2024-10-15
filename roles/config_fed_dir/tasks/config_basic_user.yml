@@ -1,3 +1,4 @@
+---
 - name: Update Runtime ldap.conf for Basic User Support
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -9,14 +10,14 @@
       entry_id: "{{ item.entry }}"
       value_id: "{{ item.value }}"
   with_items:
-  - resource: "ldap.conf"
-    stanza: "ldap"
-    entry: "basic-user-support"
-    value: "{{ config_fed_dir_basic_user_support | default('yes') }}"
-  - resource: "ldap.conf"
-    stanza: "ldap"
-    entry: "basic-user-pwd-policy"
-    value: "{{ config_fed_dir_basic_user_pwd_policy | default('no') }}"
+    - resource: ldap.conf
+      stanza: ldap
+      entry: basic-user-support
+      value: "{{ config_fed_dir_basic_user_support | default('yes') }}"
+    - resource: ldap.conf
+      stanza: ldap
+      entry: basic-user-pwd-policy
+      value: "{{ config_fed_dir_basic_user_pwd_policy | default('no') }}"
   notify:
-  - Commit Changes
-  - Restart Web Runtime
+    - Commit Changes
+    - Restart Web Runtime

@@ -1,3 +1,4 @@
+---
 # Provide the following values for this role to work
 # Available Group Types: LDAP or Local
 set_role_group_type: ldap

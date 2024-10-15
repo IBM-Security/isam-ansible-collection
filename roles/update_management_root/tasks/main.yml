@@ -1,3 +1,4 @@
+---
 - name: Update Management Root Files in {{ update_management_root_instance_id }} from {{ update_management_root_zip_filename | basename }} archive
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -8,7 +9,7 @@
       filename: "{{ update_management_root_zip_filename }}"
   when: update_management_root_instance_id is defined and update_management_root_zip_filename is defined
   notify:
-  - Commit Changes
+    - Commit Changes
 
 - name: Update Management Root Files in {{ update_management_root_instance_id }} from individual updates
   ibm.isam.isam:
@@ -22,7 +23,7 @@
   with_items: "{{ update_management_root_idandfilename }}"
   when: update_management_root_idandfilename is defined and update_management_root_instance_id is defined
   notify:
-  - Commit Changes
+    - Commit Changes
 
 - name: Delete Management Root 'errors' Directories in {{ update_management_root_instance_id }} for locale {{ update_management_root_locale_exclusion }}
   ibm.isam.isam:
@@ -31,11 +32,11 @@
     action: ibmsecurity.isam.web.reverse_proxy.management_root.directory.delete
     isamapi:
       instance_id: "{{ update_management_root_instance_id }}"
-      id: "errors/{{ item }}"
+      id: errors/{{ item }}
   with_items: "{{ update_management_root_locale_exclusion }}"
   when: update_management_root_locale_exclusion is defined
   notify:
-  - Commit Changes
+    - Commit Changes
 
 - name: Delete Management Root 'management' Directories in {{ update_management_root_instance_id }} for locale {{ update_management_root_locale_exclusion }}
   ibm.isam.isam:
@@ -44,8 +45,8 @@
     action: ibmsecurity.isam.web.reverse_proxy.management_root.directory.delete
     isamapi:
       instance_id: "{{ update_management_root_instance_id }}"
-      id: "management/{{ item }}"
+      id: management/{{ item }}
   with_items: "{{ update_management_root_locale_exclusion }}"
   when: update_management_root_locale_exclusion is defined
   notify:
-  - Commit Changes
+    - Commit Changes

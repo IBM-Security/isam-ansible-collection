@@ -1,10 +1,9 @@
 ---
-
 # main task to configure authentication mechanisms
 
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         configure_authentication_mechanisms
@@ -126,11 +125,11 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: "Configure authentication mechanisms [ -e mechanism_action=[get|set|delete] -e mechanism_name=name_of_the_auch_mech]"
+- name: Configure authentication mechanisms [ -e mechanism_action=[get|set|delete] -e mechanism_name=name_of_the_auch_mech]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.aac.authentication.mechanisms.{{ item.mechanism_action }}"
+    action: ibmsecurity.isam.aac.authentication.mechanisms.{{ item.mechanism_action }}
     isamapi: "{{ item | ibm.isam.exclude('mechanism_action') }}"
   loop: "{{ authentication_mechanisms }}"
   when:

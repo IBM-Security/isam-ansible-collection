@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: IBM
   description: Role to set keystore description
@@ -5,7 +6,7 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: '2.2'
+  min_ansible_version: "2.2"
   platforms:
     - name: Fedora
       versions:
@@ -20,10 +21,10 @@ galaxy_info:
         - 6
 
   galaxy_tags:
-  - isam
-  - ibm
-  - keystore
-  - description
+    - isam
+    - ibm
+    - keystore
+    - description
 
 dependencies:
-- common_handlers
+  - common_handlers

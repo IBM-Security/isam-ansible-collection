@@ -2,7 +2,6 @@
 
 # Default variables to configure http transformation rules
 http_transformations: []
-
 # Default variable to skip certain tasks
 skip_exports: false
 

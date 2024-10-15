@@ -2,7 +2,7 @@
 # main task to import signer certificates
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         import_signer_certificates
@@ -32,7 +32,7 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: "Import signer certificates [-e kdb_id=<kdb> -e label=<label>]"
+- name: Import signer certificates [-e kdb_id=<kdb> -e label=<label>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

@@ -9,15 +9,15 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.application_logs.get_all
     isamapi:
-      flat_details: yes
+      flat_details: true
   register: logs
 
 - name: Temporary variable
   set_fact:
-     uniquedirs: "{{ (uniquedirs|default([]) + [{'path': item.path}])|unique }}"
+    uniquedirs: "{{ (uniquedirs|default([]) + [{'path': item.path}])|unique }}"
   loop: "{{ logs.data }}"
   loop_control:
-     label: "Adding {{ item.path }}..."
+    label: Adding {{ item.path }}...
   when:
     - logs.data is defined
     - item.path is defined
@@ -33,7 +33,7 @@
     mode: "{{ logs_mode | default(omit) }}"
   loop: "{{ uniquedirs|default([]) }}"
   loop_control:
-    label: "Make sure directory exists for {{ item.path }}"
+    label: Make sure directory exists for {{ item.path }}
 - name: Get application log files
   ignore_errors: true
   ibm.isam.isam:
@@ -44,8 +44,8 @@
       file_path: "{{ (item.path|default('') == '') | ternary(item.name, item.path + '/' + item.name) }}"
       filename: "{{ logs_export_dir }}/{{ inventory_hostname }}/{{ item.path  | default('') }}/{{ item.name }}"
   when:
-     - logs.data is defined
-     - path == item.path
+    - logs.data is defined
+    - path == item.path
   loop: "{{ logs.data }}"
   loop_control:
-     label: "Export {{ logs_export_dir }}/{{ inventory_hostname }}/{{ item.path  | default('') }}/{{ item.name }}"
+    label: Export {{ logs_export_dir }}/{{ inventory_hostname }}/{{ item.path  | default('') }}/{{ item.name }}

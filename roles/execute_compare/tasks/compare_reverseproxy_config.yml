@@ -1,7 +1,5 @@
 ---
-
-- name: Compare Reverse Proxy->
-        {{ reverseproxy.id }} Management Root Directories/Files
+- name: Compare Reverse Proxy-> {{ reverseproxy.id }} Management Root Directories/Files
   ibm.isam.isamcompare:
     appliance1: "{{ inventory_hostname }}"
     appliance2: "{{ master_hostname }}"

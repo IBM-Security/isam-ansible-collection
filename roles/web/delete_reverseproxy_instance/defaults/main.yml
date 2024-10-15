@@ -1,3 +1,4 @@
+---
 # Default variables to delete a single reverseproxy instance
 
 admin_id: sec_master

@@ -1,7 +1,7 @@
 ---
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         configure_management_root
@@ -83,7 +83,8 @@
 #    - (not (skip_exports | bool)) or
 #      (not (skip_export | bool))
 
-- name: "Export single management root from one instance [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance> -e skip_export=True/False -e skip_exports=True/False]"
+- name: Export single management root from one instance [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance> -e skip_export=True/False
+    -e skip_exports=True/False]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -96,19 +97,9 @@
     - file != ''
     - inst_name is defined
     - inst_name != ''
-    - (
-        (
-          mgmt_action == 'export_zip' and
-          not (skip_export | bool)
-        )
-        or
-        (
-          mgmt_action == 'None' and
-          not (skip_export | bool)
-        )
-      )
+    - ( ( mgmt_action == 'export_zip' and not (skip_export | bool) ) or ( mgmt_action == 'None' and not (skip_export | bool) ) )
 
-- name: "Export all management root files from instances in inventory [-e mgmt_action=export_zip -e inst_name=<instance>]"
+- name: Export all management root files from instances in inventory [-e mgmt_action=export_zip -e inst_name=<instance>]
   ansible.builtin.include_tasks: include_export_management_root.yml
   when:
     - item.1.mgmt_action == 'export_zip'
@@ -118,11 +109,12 @@
   with_subelements:
     - "{{ instances }}"
     - management_root
-    - skip_missing: True
+    - skip_missing: true
   loop_control:
     label: "{{ item.1 }}"
 
-- name: "Sync management root [local => server] [-e mgmt_action=sync_up -e inst_name=<instance> -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]"
+- name: Sync management root [local => server] [-e mgmt_action=sync_up -e inst_name=<instance> -e target=<directory_on_server> -e directory=<directory_on_local> -e
+    skip_sync=True/False]
   ansible.builtin.include_tasks: include_sync_management_root.yml
   when:
     - item.1.mgmt_action == 'sync_up'
@@ -133,11 +125,11 @@
   with_subelements:
     - "{{ instances }}"
     - management_root
-    - skip_missing: True
+    - skip_missing: true
   loop_control:
     label: "{{ item.1 }}"
 
-- name: "Create management root directories [-e mgmt_action=create -e inst_name=<instance> -e target=<directory_on_server> ]"
+- name: Create management root directories [-e mgmt_action=create -e inst_name=<instance> -e target=<directory_on_server> ]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -152,17 +144,16 @@
     - item.1.target is defined
     - item.1.target == target
     - item.0.inst_name == inst_name
-    - mgmt_action == 'create' or
-      mgmt_action == 'None'
+    - mgmt_action == 'create' or mgmt_action == 'None'
   with_subelements:
     - "{{ instances }}"
     - management_root
-    - skip_missing: True
+    - skip_missing: true
   loop_control:
     label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action|default('') }} {{ item.1.type|default('file') }} {{ item.1.target|default('') }}"
   notify: Commit Changes
 
-- name: "Upload management root files [-e mgmt_action=upload -e inst_name=<instance> -e target=<target> -e file=</path/to/file.txt>]"
+- name: Upload management root files [-e mgmt_action=upload -e inst_name=<instance> -e target=<target> -e file=</path/to/file.txt>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -180,21 +171,21 @@
     - item.0.inst_name == inst_name
     - item.1.target == target
     - item.1.file == file
-    - mgmt_action == 'upload' or
-      mgmt_action == 'None'
+    - mgmt_action == 'upload' or mgmt_action == 'None'
   with_subelements:
     - "{{ instances }}"
     - management_root
-    - skip_missing: True
+    - skip_missing: true
   loop_control:
-    label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action|default('') }} {{ item.1.type|default('file') }} {{ item.1.target|default('') }} {{ item.1.file|default('') }}"
+    label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action|default('') }} {{ item.1.type|default('file') }} {{ item.1.target|default('') }} {{ item.1.file|default('')
+      }}"
   notify: Commit Changes
 
-- name: "Delete management root file/directory [-e mgmt_action=delete -e inst_name=<instance> -e target=<file/directory_to_delete>]"
+- name: Delete management root file/directory [-e mgmt_action=delete -e inst_name=<instance> -e target=<file/directory_to_delete>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.web.reverse_proxy.management_root.{{ item.1.type }}.delete"
+    action: ibmsecurity.isam.web.reverse_proxy.management_root.{{ item.1.type }}.delete
     isamapi:
       id: "{{ item.1.target }}"
       instance_id: "{{ item.0.inst_name }}"
@@ -202,18 +193,14 @@
     - item.1.mgmt_action == 'delete'
     - item.1.target is defined
     - item.1.type is defined
-    - (
-        item.1.type == 'file' or
-        item.1.type == 'directory'
-      )
+    - ( item.1.type == 'file' or item.1.type == 'directory' )
     - item.0.inst_name == inst_name
     - item.1.target == target
-    - mgmt_action == 'delete' or
-      mgmt_action == 'None'
+    - mgmt_action == 'delete' or mgmt_action == 'None'
   with_subelements:
     - "{{ instances }}"
     - management_root
-    - skip_missing: True
+    - skip_missing: true
   loop_control:
     label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action|default('') }} {{ item.1.type|default('file') }} {{ item.1.target|default('') }}"
   notify: Commit Changes
@@ -224,44 +211,30 @@
     - item.1.mgmt_action == 'delete'
     - item.1.targets is defined
     - item.1.type is defined
-    - (
-        item.1.type == 'file' or
-        item.1.type == 'directory'
-      )
+    - ( item.1.type == 'file' or item.1.type == 'directory' )
     - item.0.inst_name == inst_name
-    - mgmt_action == 'delete' or
-      mgmt_action == 'None'
+    - mgmt_action == 'delete' or mgmt_action == 'None'
   with_subelements:
     - "{{ instances }}"
     - management_root
-    - skip_missing: True
+    - skip_missing: true
   loop_control:
     label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action|default('') }} {{ item.1.type|default('file') }} {{ item.1.targets|default('') }}"
 
-- name: "Import management root zip files [-e mgmt_action=import_zip -e inst_name=<instance> -e skip_imports=True/False]"
+- name: Import management root zip files [-e mgmt_action=import_zip -e inst_name=<instance> -e skip_imports=True/False]
   ansible.builtin.include_tasks: include_import_management_root.yml
   when:
     - item.1.mgmt_action == 'import_zip'
     - item.0.inst_name == inst_name
-    - (
-        (
-          mgmt_action == 'import_zip' and
-          not (skip_imports | bool)
-        )
-        or
-        (
-          mgmt_action == 'None' and
-          not (skip_imports | bool)
-        )
-      )
+    - ( ( mgmt_action == 'import_zip' and not (skip_imports | bool) ) or ( mgmt_action == 'None' and not (skip_imports | bool) ) )
   with_subelements:
     - "{{ instances }}"
     - management_root
-    - skip_missing: True
+    - skip_missing: true
   loop_control:
     label: "{{ item.1|default('') }}"
 
-- name: "Import a single runtime template zip file [-e mgmt_action=import_zip -e file=<file/to/import/management_root.zip> -e skip_imports=True/False -e skip_import=True/False]"
+- name: Import a single runtime template zip file [-e mgmt_action=import_zip -e file=<file/to/import/management_root.zip> -e skip_imports=True/False -e skip_import=True/False]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

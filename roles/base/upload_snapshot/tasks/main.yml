@@ -2,7 +2,7 @@
 # main task to upload a snapshot
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         upload_snapshot
@@ -29,7 +29,7 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: "Upload a snapshot [-e file=</path/to/upload/file.zip> -e comment=<optional_comment>]"
+- name: Upload a snapshot [-e file=</path/to/upload/file.zip> -e comment=<optional_comment>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

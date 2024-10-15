@@ -1,3 +1,4 @@
+---
 # The following fact is allow start_config notifier to restart reverse proxy in question
 - name: Set the reverse proxy instance name for handler to work
   set_fact:

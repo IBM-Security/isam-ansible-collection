@@ -1,3 +1,4 @@
+---
 # main task to backup appliance firmware
 - name: Swap active partition of appliance firmware
   ibm.isam.isam:

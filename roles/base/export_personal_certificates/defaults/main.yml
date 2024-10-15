@@ -1,7 +1,6 @@
 ---
 # Default variables for exporting personal certificates from databases
 export_personal_certificates: []
-
 # skip multiple exports
 skip_exports: false
 

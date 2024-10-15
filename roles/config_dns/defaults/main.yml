@@ -1,7 +1,8 @@
+---
 # Override the values provided here as needed in group_vars or when invoking this role
-config_dns_primaryServer: null
-config_dns_secondaryServer: null
-config_dns_tertiaryServer: null
-config_dns_auto: False
-config_dns_autoFromInterface: null
-config_dns_searchDomains: null
+config_dns_primaryServer:
+config_dns_secondaryServer:
+config_dns_tertiaryServer:
+config_dns_auto: false
+config_dns_autoFromInterface:
+config_dns_searchDomains:

@@ -1,6 +1,6 @@
+---
 # Default variables for updating jmt files
 jmt_files: []
-
 name: "{{ item.file | basename }}"
 
 # Default homedir.  This defaults to inventory_dir for backwards compatibility reasons,

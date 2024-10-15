@@ -1,3 +1,4 @@
+---
 # Create a certificate database for the federated directory CAs and populate with CA
 - ansible.builtin.include_tasks: cert_db.yml
 # Configure the federated directory into Web Runtime ldap.conf

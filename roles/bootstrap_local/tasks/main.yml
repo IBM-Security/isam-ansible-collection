@@ -17,7 +17,7 @@
     set -o pipefail && \
     {{ BS_vmrun }} {{ BS_vmrunflags }} list | \
     grep -q {{ BS_vm_path_root }}/{{ BS_vm_hostname }}{{ BS_vm_dir_suffix }}/{{ BS_vm_hostname }}.vmx
-  changed_when: False
+  changed_when: false
   register: shell_out
   ignore_errors: true
 - ansible.builtin.debug: var=shell_out
@@ -25,7 +25,7 @@
 - name: set fact about target vm running
   set_fact:
     vm_running: true
-  when: "shell_out.rc == 0"
+  when: shell_out.rc == 0
 - ansible.builtin.debug: var=vm_running
 
 # start the vm if it is not running
@@ -37,8 +37,8 @@
 
 - name: wait for system up, the speed depends on whether cold start or resume
   ansible.builtin.wait_for:
-     host: "{{ BS_vm_mgmt_ip }}"
-     port: 443
-     delay: 5
-     state: started
+    host: "{{ BS_vm_mgmt_ip }}"
+    port: 443
+    delay: 5
+    state: started
   when: vm_running is not defined

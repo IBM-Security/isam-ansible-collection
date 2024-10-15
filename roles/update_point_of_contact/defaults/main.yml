@@ -1,13 +1,14 @@
+---
 # Provide the following values
 #update_point_of_contact_name:
 
 # Optional values
-update_point_of_contact_description: null
-update_point_of_contact_authenticateCallbacks: null
-update_point_of_contact_authnPolicyCallbacks: null
-update_point_of_contact_localIdCallbacks: null
-update_point_of_contact_signInCallbacks: null
-update_point_of_contact_signOutCallbacks: null
+update_point_of_contact_description:
+update_point_of_contact_authenticateCallbacks:
+update_point_of_contact_authnPolicyCallbacks:
+update_point_of_contact_localIdCallbacks:
+update_point_of_contact_signInCallbacks:
+update_point_of_contact_signOutCallbacks:
 
 #  This is a sample role usage that creates a new Point Of Contact profile that replicates the default existing "Access Manager Username and extended attributes" profile
 #

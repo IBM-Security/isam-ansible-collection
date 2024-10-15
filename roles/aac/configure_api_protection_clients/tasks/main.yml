@@ -1,5 +1,4 @@
 ---
-
 # main task to add or update api protection client
 #   Example:
 #     api_protection:
@@ -26,7 +25,7 @@
   with_subelements:
     - "{{ api_protection.definitions | default([])}}"
     - clients
-    - skip_missing: True
+    - skip_missing: true
   loop_control:
     label: "{ 'definitionName': {{ item.0.name }}, 'client_name': {{ item.1.name }} }"
   notify: Commit Changes

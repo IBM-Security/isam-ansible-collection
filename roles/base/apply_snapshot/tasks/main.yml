@@ -1,9 +1,8 @@
 ---
-
 # main task to apply a snapshot
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         apply_snapshot
@@ -30,7 +29,7 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: "Apply a snapshot [-e comment=<unique_comment_to_identify_snapshot> -e id=<id_1>]"
+- name: Apply a snapshot [-e comment=<unique_comment_to_identify_snapshot> -e id=<id_1>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

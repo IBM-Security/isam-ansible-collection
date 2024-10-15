@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: IBM
   description: Role to import personal certificates to a keystore
@@ -5,14 +6,14 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: '2.2'
+  min_ansible_version: "2.2"
 
   galaxy_tags:
-  - isam
-  - ibm
-  - certificates
-  - import
-  - personal_certificates
+    - isam
+    - ibm
+    - certificates
+    - import
+    - personal_certificates
 
 dependencies:
   - ibm.isam.common_handlers

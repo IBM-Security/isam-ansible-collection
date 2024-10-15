@@ -1,3 +1,4 @@
+---
 # Import CA certificates for HVDB Database
 - ansible.builtin.include_tasks: import_CA.yml
 

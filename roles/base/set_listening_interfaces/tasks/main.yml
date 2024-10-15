@@ -1,10 +1,9 @@
 ---
-
 # main task to set listening interfaces
 
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         set_listening_interfaces

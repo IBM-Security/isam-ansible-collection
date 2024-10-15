@@ -1,3 +1,4 @@
+---
 - name: Update Hostname for Appliance to {{ set_network_hostname_hostname }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

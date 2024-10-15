@@ -8,7 +8,7 @@ molecule_connection:
   bindDN: cn=root
   bindPwd: test
   hostName: ldap.ibm.com
-  hostPort: '389'
+  hostPort: "389"
   ssl: false
 molecule_connectionManager:
   maxPoolSize: 0

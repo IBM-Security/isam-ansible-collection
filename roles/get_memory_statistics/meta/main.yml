@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: IBM
   description: Role that gets all statistics for an appliance
@@ -12,7 +13,7 @@ galaxy_info:
   # - CC-BY
   license: license (GPLv2, CC-BY, etc)
 
-  min_ansible_version: '2.9'
+  min_ansible_version: "2.9"
 
   #
   # Below are all platforms currently available. Just uncomment
@@ -22,8 +23,7 @@ galaxy_info:
   platforms:
     - name: GenericLinux
       versions:
-      - all
-
+        - all
 
   galaxy_tags:
     # List tags for your role here, one per line. A tag is
@@ -33,10 +33,10 @@ galaxy_info:
     #
     # NOTE: A tag is limited to a single word comprised of
     # alphanumeric characters. Maximum 20 tags per role.
-  - isam
-  - ibm
-  - statistics
-  - get
+    - isam
+    - ibm
+    - statistics
+    - get
 
 dependencies:
   # List your role dependencies here, one per line.

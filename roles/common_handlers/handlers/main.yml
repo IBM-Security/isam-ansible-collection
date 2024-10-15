@@ -1,5 +1,4 @@
 ---
-
 # Important: The order of handlers is crucial. See documentation:
 #   http://docs.ansible.com/ansible/glossary.html#notify
 # <cut>Handlers are run in the order they are listed, not in the order that they are notified.</cut>
@@ -14,7 +13,7 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.appliance.commit
-  listen: "Commit Changes"
+  listen: Commit Changes
 
 - name: Publish Changes (docker)
   ibm.isam.isam:
@@ -25,7 +24,7 @@
   when:
     - '"model" in ansible_facts and ansible_facts.model == "Docker"'
     - docker_publish_changes == true
-  listen: "Commit Changes"
+  listen: Commit Changes
 
 # Commit and Restart may cause LMI to restart - so wait to be safe
 - name: Await Appliance Commit LMI Response
@@ -41,7 +40,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.runtime.process.execute
     isamapi:
-      operation: "restart"
+      operation: restart
 
 # This is a two part handler - first one gets all reverse proxies, second one restarts all of them
 # Get all reverse proxies in appliance - also set changed flag to trigegr next handler
@@ -51,7 +50,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.instance.get
   notify: Restart all Reverse Proxys - checks if flagged for restart
-  changed_when: True
+  changed_when: true
   register: reverseproxy_list
 
 # Note: Restart function will only restart if required - set force to True to avoid that kind of check
@@ -62,7 +61,7 @@
     action: ibmsecurity.isam.web.reverse_proxy.instance.execute
     isamapi:
       id: "{{ item.id }}"
-      operation: "restart"
+      operation: restart
   when: reverseproxy_list is defined and 'data' in reverseproxy_list
   with_items: "{{ reverseproxy_list['data'] }}"
 
@@ -72,7 +71,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.runtime.process.execute
     isamapi:
-      operation: "reload"
+      operation: reload
   when: not ansible_check_mode
 
 - name: Restart AAC Runtime
@@ -81,7 +80,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.runtime.process.execute
     isamapi:
-      operation: "restart"
+      operation: restart
   when: not ansible_check_mode
 
 - name: Reboot Appliance

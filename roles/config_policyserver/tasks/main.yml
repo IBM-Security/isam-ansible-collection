@@ -1,3 +1,4 @@
+---
 - name: Snapshot Appliance Before Configuring Policy Server
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -39,11 +40,11 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.runtime.configuration.entry.update
     isamapi:
-      resource_id: "ldap.conf"
-      stanza_id: "ldap"
-      entry_id: "connection-inactivity"
+      resource_id: ldap.conf
+      stanza_id: ldap
+      entry_id: connection-inactivity
       value_id: "{{ config_policyserver_connection_inactivity }}"
   when: not ansible_check_mode
   notify:
-  - Commit Changes
-  - Restart Web Runtime
+    - Commit Changes
+    - Restart Web Runtime

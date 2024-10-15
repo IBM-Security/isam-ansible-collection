@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: IBM
   description: Role to upload url mapping (dynurl)
@@ -5,7 +6,7 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: '2.2'
+  min_ansible_version: "2.2"
   platforms:
     - name: Fedora
       versions:
@@ -20,11 +21,11 @@ galaxy_info:
         - 6
 
   galaxy_tags:
-  - isam
-  - ibm
-  - upload
-  - web
-  - dynurl
+    - isam
+    - ibm
+    - upload
+    - web
+    - dynurl
 
 dependencies:
   - ibm.isam.common_handlers

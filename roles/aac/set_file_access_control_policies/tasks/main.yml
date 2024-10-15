@@ -1,5 +1,4 @@
 ---
-
 # Role to set policy based on policy file
 
 - name: Create Policy based on policy files
@@ -17,6 +16,6 @@
       new_name: "{{ item.name | default(omit) }}"
   loop: "{{ accesscontrol_policies }}"
   loop_control:
-    label: "Configuring {{ item.name }} with policy file {{ item.policy_file | default('skipping - no file defined ...') }}"
+    label: Configuring {{ item.name }} with policy file {{ item.policy_file | default('skipping - no file defined ...') }}
   when: item.policy_file is defined
   notify: Commit Changes

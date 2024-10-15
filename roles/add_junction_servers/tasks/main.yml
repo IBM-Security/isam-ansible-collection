@@ -1,5 +1,4 @@
 ---
-
 - name: Add Additional Server/Port to existing Junction
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

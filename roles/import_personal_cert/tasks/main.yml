@@ -1,3 +1,4 @@
+---
 - name: Importing Personal Certificate - {{ import_personal_cert_label }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -12,4 +13,4 @@
     - import_personal_cert_label is defined
     - import_personal_cert_cert is defined
   notify:
-  - Commit Changes
+    - Commit Changes

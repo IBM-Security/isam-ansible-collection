@@ -1,3 +1,4 @@
+---
 # main task to configure sts chains
 #   Example: STSUU to LTPA Token
 #     sts_chains:
@@ -44,8 +45,10 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.fed.sts.module_chains.set
     isamapi: "{{ item }}"
-  when: item.name == name and item.chainName == chainName and item.requestType == item.requestType and item.issuer.address == issuer.address and item.appliesTo.address == appliesTo.address
+  when: item.name == name and item.chainName == chainName and item.requestType == item.requestType and item.issuer.address == issuer.address and item.appliesTo.address
+    == appliesTo.address
   with_items: "{{ sts_chains }}"
   notify: Commit Changes
   loop_control:
-    label: "{ name: {{ item.name }}, chainName: {{ item.chainName }}, requestType: {{ item.requestType }}, issuer.address: {{ item.issuer.address }}, appliesTo.address: {{ item.appliesTo.address }}}"
+    label: "{ name: {{ item.name }}, chainName: {{ item.chainName }}, requestType: {{ item.requestType }}, issuer.address: {{ item.issuer.address }}, appliesTo.address:
+      {{ item.appliesTo.address }}}"

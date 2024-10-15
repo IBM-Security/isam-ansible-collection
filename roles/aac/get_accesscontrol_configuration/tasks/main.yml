@@ -1,5 +1,4 @@
 ---
-
 - name: Get all Access Control Policies
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
@@ -10,17 +9,17 @@
 
 - name: Set variable get_accesscontrolpolicies for use by rest of playbook
   set_fact:
-       get_accesscontrolpolicies: "{{ ret_obj.data | default([]) }}"
-       unique_code: "{{ 10000 | random }}"
+    get_accesscontrolpolicies: "{{ ret_obj.data | default([]) }}"
+    unique_code: "{{ 10000 | random }}"
 
 - name: Make sure destination directory "{{ access_control_output_dir }}/{{ unique_code }}" exists
   become: "{{ access_control_output_become | default(false) }}"
   file:
-     path: "{{ access_control_output_dir }}/{{ unique_code }}"
-     state: directory
-     mode: "{{ access_control_output_export_mode }}"
-     group: "{{ access_control_output_export_group }}"
-     recurse: true
+    path: "{{ access_control_output_dir }}/{{ unique_code }}"
+    state: directory
+    mode: "{{ access_control_output_export_mode }}"
+    group: "{{ access_control_output_export_group }}"
+    recurse: true
 
 - name: Create a file with the output "{{ access_control_output_dir }}/{{ unique_code }}/access_control_policies.yaml"
   copy:
@@ -33,11 +32,11 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.policies.export_xacml
     isamapi:
-           name: "{{ item.name }}"
-           filename: "{{ access_control_output_dir }}/{{ unique_code }}/{{ item.name.split(' ') | join('_') }}.xml"
+      name: "{{ item.name }}"
+      filename: "{{ access_control_output_dir }}/{{ unique_code }}/{{ item.name.split(' ') | join('_') }}.xml"
   loop: "{{ get_accesscontrolpolicies }}"
   loop_control:
-      label: "EXPORT: {{ access_control_output_dir }}/{{ unique_code }}/{{ item.name.split(' ') | join('_') }}.xml"
+    label: "EXPORT: {{ access_control_output_dir }}/{{ unique_code }}/{{ item.name.split(' ') | join('_') }}.xml"
   when: get_accesscontrolpolicies is defined
 
 - name: Get all Access Control Policy Resources
@@ -50,7 +49,7 @@
 
 - name: Set variable get_accesscontrolpolicyresources for use by rest of playbook
   set_fact:
-       get_accesscontrolpolicyresources: "{{ ret_obj.data | default([]) }}"
+    get_accesscontrolpolicyresources: "{{ ret_obj.data | default([]) }}"
 
 - name: Create a file with the output "{{ access_control_output_dir }}/{{ unique_code }}/access_control_policyresources.yaml"
   copy:
@@ -63,7 +62,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.policy_attachments.authenticate
     isamapi:
-           domain: "{{ webseal_domain }}"
+      domain: "{{ webseal_domain }}"
   register: ret_obj
 
 - name: Create a file with the output
@@ -77,15 +76,15 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.policy_attachments.get_attachments
     isamapi:
-           server: "{{ item.server }}"
-           resourceUri: "{{ item.resourceUri }}"
+      server: "{{ item.server }}"
+      resourceUri: "{{ item.resourceUri }}"
   loop: "{{ get_accesscontrolpolicyresources }}"
   when: get_accesscontrolpolicyresources is defined and get_accesscontrolpolicyresources != []
   register: ret_obj_loop
 
 - name: Set variable get_accesscontrolpolicyattachments for use by rest of playbook
   set_fact:
-       get_accesscontrolpolicyattachments: "{{ ret_obj_loop | default([]) | json_query('results[*].item') }}"
+    get_accesscontrolpolicyattachments: "{{ ret_obj_loop | default([]) | json_query('results[*].item') }}"
 
 - name: Create a file with the output
   copy:

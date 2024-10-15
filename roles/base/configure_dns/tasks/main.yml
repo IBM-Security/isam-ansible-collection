@@ -1,9 +1,8 @@
 ---
-
 # main task to configure dns
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         configure_dns
@@ -51,7 +50,7 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.base.network.dns.set"
+    action: ibmsecurity.isam.base.network.dns.set
     isamapi: "{{ dns }}"
   when: dns is defined
   notify: Commit Changes

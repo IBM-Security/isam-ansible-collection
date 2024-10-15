@@ -8,4 +8,4 @@
 #   - {"id": "default-saml2_0", "mode": "issue", "prefix": "my-saml2_0"}
 
 # Comment to be used for creating a snapshot file
-add_chain_template_comment: "Automated Snapshot Before Adding Chain Template"
+add_chain_template_comment: Automated Snapshot Before Adding Chain Template

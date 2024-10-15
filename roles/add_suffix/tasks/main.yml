@@ -1,3 +1,4 @@
+---
 - name: Add a Suffix to Embedded LDAP - {{ add_suffix_name }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

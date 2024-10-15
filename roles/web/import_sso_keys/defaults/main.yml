@@ -1,6 +1,6 @@
+---
 # default values for import sso key files
 sso_keys: []
-
 # breaking change
 sso_key_name: "{{ item.file | basename }}"
 

@@ -1,7 +1,6 @@
 ---
 # Default variables for configuration of mapping rules
 mapping_rules: []
-
 # Default variables to filter for configuration of specific mapping rules at runtime
 rule_name: "{{ item.name }}"
 category: "{{ item.category if item.category is defined }}"

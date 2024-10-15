@@ -6,7 +6,7 @@
     action: ibmsecurity.isam.base.extensions.set
     isamapi:
       extension: "{{ extension_item.extension }}"
-      extId: "{{ extension_item.extId|default(omit) }}"
-      config_data: "{{ extension_item.config_data|default(omit) }}"
-      third_party_package: "{{ extension_item.third_party_package|default(omit) }}"
+      extId: "{{ extension_item.extId | default(omit) }}"
+      config_data: "{{ extension_item.config_data | default(omit) }}"
+      third_party_package: "{{ extension_item.third_party_package | default(omit) }}"
 #  notify: Commit Changes

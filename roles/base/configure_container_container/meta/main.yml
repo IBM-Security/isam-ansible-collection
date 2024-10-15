@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: IBM
   description: Role to configure containers
@@ -5,18 +6,18 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: '2.16'
+  min_ansible_version: "2.16"
   platforms:
     - name: GenericLinux
       versions:
         - all
 
   galaxy_tags:
-  - isam
-  - ibm
-  - extension
-  - container_extension
-  - upload
+    - isam
+    - ibm
+    - extension
+    - container_extension
+    - upload
 
 dependencies:
   - ibm.isam.common_handlers

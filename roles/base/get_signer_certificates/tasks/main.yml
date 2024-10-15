@@ -1,3 +1,4 @@
+---
 - name: Get the signer certificates
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

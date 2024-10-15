@@ -2,7 +2,7 @@
 path: "{{ item.path }}"
 # you can set the default export_dir to {{ inventory_dir }}
 # you shouldn't do that, use a different export directory, eg. ~/isam_logs
-logs_export_dir: "/tmp/isam/exports"
+logs_export_dir: /tmp/isam/exports
 # use become to create directory structure
 logs_become: false
 # set group ownership for the created directories

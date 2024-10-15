@@ -5,4 +5,4 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.container_ext.container.{{ container_item.container_action }}
     isamapi:
-       name: "{{ container_item.name }}"
+      name: "{{ container_item.name }}"

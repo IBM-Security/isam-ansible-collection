@@ -1,7 +1,7 @@
 ---
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         config_reverseproxy_redis
@@ -94,13 +94,11 @@
 
 - name: prepare enabling/disabling dsess ({{ dsess_enabled }})
   set_fact:
-    _instances: "{{ (_instances|default([])) + [{
-          'inst_name': item.inst_name,
-          'entries': ((dsess_enabled|bool)|ternary(_dsess_redis_entries_enable,_dsess_redis_entries_disable))}
+    _instances: "{{ (_instances|default([])) + [{ 'inst_name': item.inst_name, 'entries': ((dsess_enabled|bool)|ternary(_dsess_redis_entries_enable,_dsess_redis_entries_disable))}
       ]}}"
   loop: "{{ instances }}"
   loop_control:
-    label: "Processing {{ item.inst_name|default('not set') }}"
+    label: Processing {{ item.inst_name|default('not set') }}
   when:
     - instances is defined
     - item.inst_name is defined

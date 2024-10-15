@@ -2,7 +2,7 @@
 # main task to configure certificate requests
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         configure_certificate_requests
@@ -61,20 +61,15 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: "Configure certificate requests [-e cert_action=[get_all|get|add|export_cert|delete] -e kdb_id=<kdb>]"
+- name: Configure certificate requests [-e cert_action=[get_all|get|add|export_cert|delete] -e kdb_id=<kdb>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.base.ssl_certificates.certificate_requests.{{ item.cert_action }}"
-    isamapi: "{{
-      { 'kdb_id': item.kdb_id }
-      | combine({ 'label': item.label } if (item.label is defined) else {})
-      | combine({ 'cert_id': item.cert_id } if (item.cert_id is defined) else {})
-      | combine({ 'dn': item.dn } if (item.dn is defined) else {})
-      | combine({ 'size': item.size } if (item.size is defined) else {})
-      | combine({ 'signature_algorithm': item.signature_algorithm } if (item.signature_algorithm is defined) else {})
-      | combine({ 'filename': homedir+'/'+item.filename } if (item.filename is defined) else {})
-    }}"
+    action: ibmsecurity.isam.base.ssl_certificates.certificate_requests.{{ item.cert_action }}
+    isamapi: "{{ { 'kdb_id': item.kdb_id } | combine({ 'label': item.label } if (item.label is defined) else {}) | combine({ 'cert_id': item.cert_id } if (item.cert_id
+      is defined) else {}) | combine({ 'dn': item.dn } if (item.dn is defined) else {}) | combine({ 'size': item.size } if (item.size is defined) else {}) | combine({
+      'signature_algorithm': item.signature_algorithm } if (item.signature_algorithm is defined) else {}) | combine({ 'filename': homedir+'/'+item.filename } if (item.filename
+      is defined) else {}) }}"
   loop: "{{ certificate_requests }}"
   when:
     - item.cert_action == cert_action

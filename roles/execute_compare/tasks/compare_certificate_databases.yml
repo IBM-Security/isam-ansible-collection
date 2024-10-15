@@ -1,5 +1,4 @@
 ---
-
 - name: Compare Certificate Database->{{ cert_db.id }} Signer Certificates
   ibm.isam.isamcompare:
     appliance1: "{{ inventory_hostname }}"

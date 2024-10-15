@@ -2,4 +2,4 @@
 # vars file for get_access_control_policy_attachments
 
 server: "1"
-resourceUri: "/testdefinition"
+resourceUri: /testdefinition

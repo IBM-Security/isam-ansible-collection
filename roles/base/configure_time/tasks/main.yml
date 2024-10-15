@@ -1,9 +1,8 @@
 ---
-
 # main task to configure time
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         configure_time

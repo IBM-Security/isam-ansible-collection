@@ -2,7 +2,7 @@
 # main task to configure http transformation rules
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         configure_http_transformation_rules
@@ -63,7 +63,7 @@
 - name: Make sure all local download directory exists
   file:
     path: "{{ (homedir +'/'+ item.filename) | dirname }}"
-    recurse: yes
+    recurse: true
     state: directory
   delegate_to: localhost
   loop: "{{ http_transformation_rules }}"
@@ -71,21 +71,20 @@
     label: "{{ ((homedir +'/'+ item.filename) | dirname) if item.filename is defined else 'Skipping' }}"
   when:
     - not (skip_exports | bool)
-    - item.transformation_action == 'export_file' or
-      item.transformation_action == 'export_template_file'
+    - item.transformation_action == 'export_file' or item.transformation_action == 'export_template_file'
     - item.filename is defined
 
-- name: "Configure http transformation rules [-e transformation_action=[add|delete|rename|update|export_file|export_template_file|import_file|get_all|get|get_template] -e id=<http_transformation_name> -e filename=<path/to/import/or/export/file.xslt>]"
+- name: Configure http transformation rules [-e transformation_action=[add|delete|rename|update|export_file|export_template_file|import_file|get_all|get|get_template]
+    -e id=<http_transformation_name> -e filename=<path/to/import/or/export/file.xslt>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.web.http_transformation.{{ item.transformation_action }}"
-    isamapi: "{{ item | ibm.isam.exclude('transformation_action') | combine({'filename': (homedir+'/'+item.filename)} if (item.filename is defined) else {}) | default(omit) }}"
+    action: ibmsecurity.isam.web.http_transformation.{{ item.transformation_action }}
+    isamapi: "{{ item | ibm.isam.exclude('transformation_action') | combine({'filename': (homedir+'/'+item.filename)} if (item.filename is defined) else {}) | default(omit)
+      }}"
   loop: "{{ http_transformation_rules }}"
   when:
     - item.transformation_action == transformation_action
-    - (item.id is defined and item.id == id) or
-      (item.id is not defined)
-    - (item.filename is defined and item.filename == filename) or
-      (item.filename is not defined)
+    - (item.id is defined and item.id == id) or (item.id is not defined)
+    - (item.filename is defined and item.filename == filename) or (item.filename is not defined)
   notify: Commit Changes

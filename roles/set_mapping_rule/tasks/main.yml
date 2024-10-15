@@ -1,3 +1,4 @@
+---
 - name: Set a Mapping Rule - {{ set_mapping_rule_name }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -11,5 +12,5 @@
       upload_filename: "{{ set_mapping_rule_upload_filename | default(None) }}"
   when: set_mapping_rule_name is defined and set_mapping_rule_category is defined
   notify:
-  - Commit Changes
-  - Reload Liberty Runtime
+    - Commit Changes
+    - Reload Liberty Runtime

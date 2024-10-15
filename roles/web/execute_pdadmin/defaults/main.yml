@@ -4,7 +4,6 @@ admin_domain: Default
 
 # Initialize pdadmin_commands
 pdadmin_commands: []
-
 # Disable merging and/or sorting of pdadmin_commands variables by default
 enable_ansible_merge_vars: false
 enable_ansible_merge_vars_sorted: false

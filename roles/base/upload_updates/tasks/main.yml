@@ -13,7 +13,7 @@
     - filename == ( item.file | basename )
   loop: "{{ updates }}"
   loop_control:
-    label: '(file="{{ item.file }}")'
+    label: (file="{{ item.file }}")
 
 - name: Upload single update file [update_file]
   ibm.isam.isam:

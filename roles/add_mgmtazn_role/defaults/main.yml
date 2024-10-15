@@ -6,4 +6,4 @@
 #   - Role 2
 
 # Comment to be used for creating a snapshot file
-add_mgmtazn_role_comment: "Automated Snapshot Before Adding Management Authorization Roles"
+add_mgmtazn_role_comment: Automated Snapshot Before Adding Management Authorization Roles

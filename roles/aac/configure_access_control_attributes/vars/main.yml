@@ -1,14 +1,12 @@
 ---
-category: 'Subject'
-datatype: 'String'
-update_description: 'testing 555'
-issuer: ''
-matcher: '1'
-predefined: False
-storageDomain: {'behavior': False,
-                'device': False,
-                'session': False}
-type: {'policy': False, 'risk': False}
-name: 'atestattr2'
-add_description: "new comments"
-attributeURI: 'urn:ibm:security:subject:atestattr2'
+category: Subject
+datatype: String
+update_description: testing 555
+issuer: ""
+matcher: "1"
+predefined: false
+storageDomain: { behavior: false, device: false, session: false }
+type: { policy: false, risk: false }
+name: atestattr2
+add_description: new comments
+attributeURI: urn:ibm:security:subject:atestattr2

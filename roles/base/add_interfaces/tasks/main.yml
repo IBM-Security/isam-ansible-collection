@@ -17,7 +17,7 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.base.network.{{ add_interfaces_action }}.add"
+    action: ibmsecurity.isam.base.network.{{ add_interfaces_action }}.add
     isamapi:
       label: "{{ item.0.label }}"
       address: "{{ item.1.address }}"
@@ -27,5 +27,5 @@
       overrideSubnetChecking: "{{ item.1.overrideSubnetChecking | default(False) }}"
   loop: "{{ interfaces | subelements('addresses', {'skip_missing': True}) }}"
   loop_control:
-    label: "Processing interface {{ item.0.label }} and ip address {{ item.1.address }}"
+    label: Processing interface {{ item.0.label }} and ip address {{ item.1.address }}
   notify: Commit Changes

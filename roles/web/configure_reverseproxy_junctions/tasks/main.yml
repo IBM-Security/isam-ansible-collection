@@ -1,10 +1,9 @@
 ---
-
 # main task to configure reverse proxy instances
 
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
-    echo: yes
+    echo: true
     prompt: |
       NAME
         configure_reverseproxy_junctions
@@ -108,7 +107,7 @@
   with_subelements:
     - "{{ instances }}"
     - junctions
-    - skip_missing: True
+    - skip_missing: true
   when:
     - not (control_setall_junctions|bool)
     - item[1].junction_point == (junction_point | default(item[1].junction_point))
@@ -131,11 +130,10 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.junctions.set_all
-    isamapi:
-      "{{ {'junctions': item.junctions} | combine({'reverseproxy_id': item.inst_name}) }}"
+    isamapi: "{{ {'junctions': item.junctions} | combine({'reverseproxy_id': item.inst_name}) }}"
   loop: "{{ instances }}"
   loop_control:
-    label: "Processing junctions {{ item.junctions | default([]) | map(attribute='junction_point') | join(', ') }} for {{ item.inst_name|default('') }}"
+    label: Processing junctions {{ item.junctions | default([]) | map(attribute='junction_point') | join(', ') }} for {{ item.inst_name|default('') }}
   when:
     - control_setall_junctions|bool
     - item.junctions is defined
