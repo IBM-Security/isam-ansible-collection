@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: false
   vars:
-    homedir: ""
+    homedir: "."
   tasks:
     - ansible.builtin.include_vars:
         file: "../vars/fed_cookbook_idp_vars.yml"
