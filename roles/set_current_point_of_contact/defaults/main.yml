@@ -1,5 +1,5 @@
 # Provide the following values for the role to work, policy can be extracted using LMI
-#set_current_point_of_contact_name:
+# set_current_point_of_contact_name:
 
 # Default Options for name are:
 #    Access Manager Credential

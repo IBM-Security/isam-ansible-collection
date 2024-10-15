@@ -60,7 +60,7 @@
 #    - Restart AAC Runtime
 #    - Restart LMI
 #
-#- name: Configure ConfigDB retryInterval for DB2 Client Re-route
+# - name: Configure ConfigDB retryInterval for DB2 Client Re-route
 #  ibm.isam.isam:
 #    log: "{{ log_level | default('INFO') }}"
 #    force: "{{ force | default(False) }}"

@@ -1,7 +1,7 @@
 ---
 # Please provide the following two variables at the very minimum
-#config_reverseproxy_federation_name:
-#config_reverseproxy_federation_instance_id:
+# config_reverseproxy_federation_name:
+# config_reverseproxy_federation_instance_id:
 
 # The following shoul be overriden as needed
 config_reverseproxy_federation_hostname: localhost
