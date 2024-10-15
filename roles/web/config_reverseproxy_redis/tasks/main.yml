@@ -16,7 +16,7 @@
 
       EXAMPLES
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_redis.yml # do all steps
-        ansible-playbook -i [...] ibm.isam.web.configure_redis.yml -e dsess_enabled=False #Disable redis
+        ansible-playbook -i [...] ibm.isam.web.configure_redis.yml -e dsess_enabled=False # Disable redis
 
       INVENTORY
       ==========

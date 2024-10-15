@@ -89,7 +89,7 @@
             - key: U2F.attestationEnforcement
               value: Required # options: [Required | Optional ]
             - key: U2F.attestationSource
-              value: '' #The keystore or key set to use for certificate attestation validation. Either the name of the keystore on the appliance, or the URL for a JSON Web Key Set
+              value: '' # The keystore or key set to use for certificate attestation validation. Either the name of the keystore on the appliance, or the URL for a JSON Web Key Set
             - key: U2F.attestationType
               value: None # options [ JWKS | KeyStore | None]
 

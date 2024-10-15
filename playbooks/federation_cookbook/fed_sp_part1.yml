@@ -85,7 +85,7 @@
         execute_rp_op_ids: "{{ inventory.execute_rp_op_ids }}"
         execute_rp_op_operation: "{{ inventory.execute_rp_op_operation }}"
 
-    #7 Create SAML 2.0 Service Provider federation
+    # 7 Create SAML 2.0 Service Provider federation
     - name: 7.1 Uploading keystore files
       include_role:
         name: ibm.isam.import_certificate_db
@@ -124,7 +124,7 @@
         - export_metadata_name: "{{ inventory.fed_name }}"
         - export_metadata_filename: "{{ homedir }}/{{ inventory.export_metadata_filename }}"
 
-    #8.2 ISAM Configuration for SP
+    # 8.2 ISAM Configuration for SP
     - name: 8.2.1 Configure Reverse Proxy for SP
       include_role:
         name: ibm.isam.config_reverseproxy_federation

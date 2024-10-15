@@ -36,7 +36,7 @@
             reuse_certs: True
           [...]
           # or unconfigure aac for default: TBD. (currently ISVA REST API does not support unconfig for aac)
-          #aac_configuration:
+          # aac_configuration:
           #  aac_action: unconfig
       ==========
 

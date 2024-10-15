@@ -29,7 +29,7 @@
             stash: files/ssl/moleculestash/keystore.sth
           # Import certificate database from ZIP file
           # TODO: this fails
-          #- db_action: import_db
+          # - db_action: import_db
           #  kdb: molecule.p12  # required relative path + filename inside the ZIP
           #  stash: molecule.sth # required relative path + filename inside the ZIP
           #  zip: files/ssl/molecule_keystore.zip # file containing KDB and Stash file above

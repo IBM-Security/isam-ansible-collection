@@ -9,7 +9,7 @@
         file: fed_cookbook_idp_vars.yml
         name: inventory
 
-    #9 Configure Partners
+    # 9 Configure Partners
     - name: 9.1 Configuring Partner for the IdP - import metadata
       include_role:
         name: ibm.isam.fed.import_metadata
@@ -58,7 +58,7 @@
         set_partner_role: "{{ inventory.set_partner_role }}"
         set_partner_configuration: "{{ partner_configuration_json }}"
 
-    #10.3 Configure test user
+    # 10.3 Configure test user
     - name: 10.3 Configure test user - create test user
       include_role:
         name: ibm.isam.execute_pdadmin
@@ -81,7 +81,7 @@
       vars:
         ansible_python_interpreter: /usr/bin/python3
 
-    #12 Create OpenID Connect Provider
+    # 12 Create OpenID Connect Provider
     - name: "12.1 Create Federation: get mapping rule id"
       include_role:
         name: ibm.isam.search_mapping_rule
@@ -130,7 +130,7 @@
         set_partner_role: "{{ inventory.oidc_cloud_role }}"
         set_partner_configuration: "{{ inventory.oidc_cloud_partner_configuration }}"
 
-    #17 Introduction to the Security Token Service (STS)
+    # 17 Introduction to the Security Token Service (STS)
     - name: 17.1 Configuring the STSUU to STSUU Chain Template
       include_role:
         name: ibm.isam.fed.configure_sts_chain_templates
@@ -188,7 +188,7 @@
         user_registry_id: "{{ inventory.easuser_registry_id }}"
         user_registry_password: "{{ inventory.easuser_registry_password }}"
 
-    #18 Advanced Federation Mapping Rules
+    # 18 Advanced Federation Mapping Rules
     - name: 18.1 Using HttpClient from Javascript mapping rules - get mapping rule id
       include_role:
         name: ibm.isam.search_mapping_rule
@@ -223,7 +223,7 @@
         set_federation_configuration: "{{ inventory.update_federation_configuration }}"
         set_federation_templateName: ""
 
-    #18.3.2 Configuring the LDAP Attribute Map
+    # 18.3.2 Configuring the LDAP Attribute Map
     - name: 18.3.2.1 Configuring a Server Connection
       include_role:
         name: ibm.isam.aac.set_server_connection_ldap
@@ -324,7 +324,7 @@
       vars:
         sts_chains: "{{ new_modify_chain }}"
 
-    #19 STS Tokens on Reverse Proxy Junctions
+    # 19 STS Tokens on Reverse Proxy Junctions
     - name: 19.1 Create the ISAM Credential to SAML 2.0 STS Chain Template
       include_role:
         name: ibm.isam.fed.configure_sts_chain_templates

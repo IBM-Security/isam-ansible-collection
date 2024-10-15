@@ -39,7 +39,7 @@
             reuse_certs: True
           [...]
           # or unconfigure oauth for default: TBD. (currently ISVA REST API does not support unconfig for oauth)
-          #oauth_configuration:
+          # oauth_configuration:
           #  oauth_action: unconfig
       ==========
 

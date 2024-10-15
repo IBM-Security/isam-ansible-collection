@@ -123,7 +123,7 @@
         - export_metadata_name: "{{ inventory.fed_name }}"
         - export_metadata_filename: "{{ homedir }}/{{ inventory.export_metadata_filename }}"
 
-    #8 Configure Reverse Proxy for Federation
+    # 8 Configure Reverse Proxy for Federation
     # 8.1 ISAM Configuration for the IdP
     - name: 8.1.1 Configure Reverse Proxy for IdP
       include_role:

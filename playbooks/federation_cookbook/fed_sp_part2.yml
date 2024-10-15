@@ -57,7 +57,7 @@
         set_partner_role: "{{ inventory.set_partner_role }}"
         set_partner_configuration: "{{ partner_configuration_json }}"
 
-    #10 Configure test application and test user
+    # 10 Configure test application and test user
     - name: 10.1 Configure test application
       include_role:
         name: ibm.isam.update_advanced_configuration
@@ -103,7 +103,7 @@
         execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
         execute_pdadmin_commands: "{{ inventory.acl_pdadmin_commands }}"
 
-    #10.3 Configure test user
+    # 10.3 Configure test user
     - name: 10.3 Configure test user - create test user
       include_role:
         name: ibm.isam.execute_pdadmin
@@ -112,7 +112,7 @@
         execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
         execute_pdadmin_commands: "{{ inventory.test_user_pdadmin_commands }}"
 
-    #13 Create OpenID Connect Relying Party
+    # 13 Create OpenID Connect Relying Party
     - name: "13.1 Create Federation: get mapping rule id"
       include_role:
         name: ibm.isam.search_mapping_rule
@@ -171,7 +171,7 @@
         set_partner_role: "{{ inventory.oidc_google_role }}"
         set_partner_configuration: "{{ inventory.oidc_google_partner_configuration }}"
 
- #14 Additional Relying Party configuration
+ # 14 Additional Relying Party configuration
     - name: 14.1 Load OpenID Connect Provider SSL Certificates
       include_role:
         name: ibm.isam.base.load_signer_certificates
@@ -198,7 +198,7 @@
         execute_rp_op_ids: "{{ inventory.execute_rp_op_ids }}"
         execute_rp_op_operation: "{{ inventory.execute_rp_op_operation }}"
 
-    #20 Advanced External Authentication Interface Configuration for Service Providers
+    # 20 Advanced External Authentication Interface Configuration for Service Providers
     - name: "20.3 Scenario: USERNAME authentication"
       include_role:
         name: ibm.isam.set_current_point_of_contact

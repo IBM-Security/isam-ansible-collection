@@ -39,18 +39,18 @@
         - db_action: create
           kdb_name: Registry_Keystore
           # Following parameters are available but optional
-          #> type: kdb # optional, Default=kdb
-          #> token_label: None
-          #> passcode: None
-          #> hsm_type: None
-          #> ip: None
-          #> port: None
-          #> kneti_hash: None
-          #> esn: None
-          #> rfs: None
-          #> rfs_port: None
-          #> rfs_auth: None
-          #> safenet_pw: None
+          # > type: kdb # optional, Default=kdb
+          # > token_label: None
+          # > passcode: None
+          # > hsm_type: None
+          # > ip: None
+          # > port: None
+          # > kneti_hash: None
+          # > esn: None
+          # > rfs: None
+          # > rfs_port: None
+          # > rfs_auth: None
+          # > safenet_pw: None
         # Delete a certificate database
         - db_action: delete
           cert_dbase_id: Registry_Keystore

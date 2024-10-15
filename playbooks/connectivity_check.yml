@@ -18,7 +18,7 @@
       ansible.builtin.debug:
         verbosity: 2
         msg:
-          #- "{{ lookup('ansible.builtin.env', 'CONTAINER_NAME')|default('No container') }}"
+          # - "{{ lookup('ansible.builtin.env', 'CONTAINER_NAME')|default('No container') }}"
           - "{{ lookup('ansible.builtin.env', 'container')|default('No container') }}"
       delegate_to: localhost
 
