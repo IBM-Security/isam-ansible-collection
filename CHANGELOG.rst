@@ -4,8 +4,35 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v2.1.0
+======
+
+Release Summary
+---------------
+
+| Role and playbook to enable the (Container) extensions
+| First Role and playbook to configure a Container on the ISVA Container extension (IAG or ISVAOP)
+| This requires ibmsecurity >= 2024.11.10.0
+
+Minor Changes
+-------------
+
+- common_handlers - add homedir and root_playbook_dir shared default variables
+
+New Playbooks
+-------------
+
+- ibm.isam.base.configure_containers.yml - Playbook for the new role containers
+- ibm.isam.base.configure_extensions.yml - Playbook for the new role extensions
+
+New Roles
+---------
+
+- ibm.isam.base.configure_container_container - Role to configure containers for use with Container extension
+- ibm.isam.base.configure_extensions - Role to configure extensions
+
 v2.0.0
-=========
+======
 
 Release Summary
 ---------------

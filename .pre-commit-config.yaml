@@ -3,7 +3,7 @@ default_stages:
   - commit
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
       - id: check-yaml
       - id: trailing-whitespace
@@ -24,7 +24,8 @@ repos:
         require_serial: true
         additional_dependencies:
           - ansible-core
-#  - repo: https://github.com/ansible/ansible-lint # Don't do that in pre-commit, it takes too long.
-#    rev: v24.6.0 # put latest release tag from https://github.com/ansible/ansible-lint/releases/
-#    hooks:
-#      - id: ansible-lint
+  - repo: https://github.com/ansible/ansible-lint # Don't do that in pre-commit, it takes too long.
+    rev: v24.9.2 # put latest release tag from https://github.com/ansible/ansible-lint/releases/
+    hooks:
+      - id: ansible-lint
+        stages: [pre-push]

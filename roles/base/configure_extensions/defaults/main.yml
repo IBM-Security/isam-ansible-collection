@@ -1,0 +1,5 @@
+---
+isam_extensions: []
+# isam_extensions:
+#  - extension: "{{ root_playbook_dir }}/files/extensions/containerExtIAG.ext"
+#  - extension: "{{ root_playbook_dir }}/files/extensions/containerExtISVAOP.ext"

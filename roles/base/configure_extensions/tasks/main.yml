@@ -1,0 +1,46 @@
+---
+# main task to configure dns
+- name: Help INFO (-e help=true)
+  pause:
+    echo: yes
+    prompt: |
+      NAME
+        configure_extensions
+
+      DESCRIPTION
+        Role to configure extensions on the appliance.
+        This not fully idempotent.  Don't use extId to only do "install".
+
+      STEPS
+        1) Configure extensions
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.base.configure_extensions.yml
+
+      INVENTORY
+      ==========
+      isam_extensions:
+        - extension: "{{ root_playbook_dir }}/files/extensions/containerExtIAG.ext"
+          extId: containerExtIAG
+        - extension: "{{ root_playbook_dir }}/files/extensions/containerExtISVAOP.ext"
+          extId: containerExtISVAOP
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Configure the extensions
+  ansible.builtin.include_tasks:
+    file: singleextension.yml
+    apply:
+      tags:
+        - extensions
+  loop: "{{ isam_extensions }}"
+  loop_control:
+    loop_var: extension_item
+  when:
+    - isam_extensions|length>0
+    - extension_item.extension is defined
