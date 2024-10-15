@@ -8,7 +8,7 @@
         file: "../vars/main.yml"
 
     - name: "check if file exists"
-      stat:
+      ansible.builtin.stat:
         path: "{{ homedir }}/{{ file }}"
       register: export_file_result
 

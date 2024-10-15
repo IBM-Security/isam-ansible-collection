@@ -1,13 +1,13 @@
 ---
 # subtask file for isam-local-bootstrap
 - name: Check the ISAM ISO file exists
-  stat: path={{ BS_appliance_iso }}
+  ansible.builtin.stat: path={{ BS_appliance_iso }}
   register: isofile
   failed_when: not isofile.stat.exists
 - debug: var=isofile.stat.exists
 
 - name: Check if the target VM directory exists
-  stat: path={{ BS_vm_path_root }}/{{ BS_vm_hostname }}{{ BS_vm_dir_suffix }}
+  ansible.builtin.stat: path={{ BS_vm_path_root }}/{{ BS_vm_hostname }}{{ BS_vm_dir_suffix }}
   register: vmdir
   ignore_errors: true
 
@@ -55,7 +55,7 @@
   changed_when: false
 
 - name: check tmp dir
-  stat: path="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata"
+  ansible.builtin.stat: path="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata"
   register: tmpdir
   ignore_errors: true
 

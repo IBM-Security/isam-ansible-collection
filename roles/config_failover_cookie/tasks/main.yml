@@ -2,7 +2,7 @@
 
 # Check if the failover key already exixts
 - name: Check if Failover Cookie Already exists - {{ config_failover_cookie_filename }}
-  stat:
+  ansible.builtin.stat:
     path: "{{ config_failover_cookie_filename }}"
   when: config_failover_cookie_filename is defined
   register: failover

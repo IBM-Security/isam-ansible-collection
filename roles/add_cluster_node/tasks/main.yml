@@ -1,6 +1,6 @@
 ---
 - name: Check if Signature File Exists - {{ add_cluster_node_signature_file }}
-  stat:
+  ansible.builtin.stat:
     path: "{{ add_cluster_node_signature_file }}"
     get_checksum: False
     get_md5: False

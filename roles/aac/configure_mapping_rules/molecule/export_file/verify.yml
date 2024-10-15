@@ -9,7 +9,7 @@
         file: "../vars/vars.yml"
 
     - name: "check if file exists"
-      stat:
+      ansible.builtin.stat:
         path: "{{ molecule_export_file }}"
       register: export_file_result
 
