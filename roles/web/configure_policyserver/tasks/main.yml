@@ -1,5 +1,5 @@
 - name: Help INFO (-e help=true)
-  pause:
+  ansible.builtin.pause:
     echo: yes
     prompt: |
       NAME

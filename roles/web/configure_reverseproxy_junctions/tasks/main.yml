@@ -3,7 +3,7 @@
 # main task to configure reverse proxy instances
 
 - name: Help INFO (-e help=true)
-  pause:
+  ansible.builtin.pause:
     echo: yes
     prompt: |
       NAME

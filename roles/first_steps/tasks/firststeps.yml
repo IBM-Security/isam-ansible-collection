@@ -45,7 +45,7 @@
     - ret_obj.data.reboot
 
 - name: Pause for Reboot {{ fips_restart_wait_time }}mins
-  pause:
+  ansible.builtin.pause:
     minutes: "{{ fips_restart_wait_time }}"
   when:
     - first_steps_fips
@@ -105,7 +105,7 @@
   when: not ansible_check_mode
 
 - name: Wait for 1 minute
-  pause:
+  ansible.builtin.pause:
       minutes: 1
   when: not ansible_check_mode
 

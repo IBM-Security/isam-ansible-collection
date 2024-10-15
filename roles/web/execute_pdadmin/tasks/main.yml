@@ -1,7 +1,7 @@
 ---
 # main task to execute pdadmin commands
 - name: Help INFO (-e help=true)
-  pause:
+  ansible.builtin.pause:
     echo: true
     prompt: |
       NAME

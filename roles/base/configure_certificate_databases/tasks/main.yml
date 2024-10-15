@@ -1,7 +1,7 @@
 ---
 # main task to configure certificate databases
 - name: Help INFO (-e help=true)
-  pause:
+  ansible.builtin.pause:
     echo: yes
     prompt: |
       NAME
