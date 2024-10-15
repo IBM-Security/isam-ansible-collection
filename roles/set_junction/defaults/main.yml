@@ -1,10 +1,10 @@
 ---
 # The following need to be provided for this role to succeed
-#set_junction_junction_point:
-#set_junction_junction_type:
-#set_junction_reverseproxy_id:
-#set_junction_server_hostname:
-#set_junction_server_port:
+# set_junction_junction_point:
+# set_junction_junction_type:
+# set_junction_reverseproxy_id:
+# set_junction_server_hostname:
+# set_junction_server_port:
 
 # Provide these options values
 set_junction_basic_auth_mode:

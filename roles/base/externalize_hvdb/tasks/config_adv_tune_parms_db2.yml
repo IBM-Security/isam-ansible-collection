@@ -46,7 +46,7 @@
 
 # The following will not take effect since ConfigDB is not being externalized to DB2 database
 # Leaving it here for when a role to externalize config database is needed
-#- name: Configure ConfigDB maxRetries for DB2 Client Re-route
+# - name: Configure ConfigDB maxRetries for DB2 Client Re-route
 #  ibm.isam.isam:
 #    log: "{{ log_level | default('INFO') }}"
 #    force: "{{ force | default(False) }}"
@@ -60,7 +60,7 @@
 #    - Restart AAC Runtime
 #    - Restart LMI
 #
-#- name: Configure ConfigDB retryInterval for DB2 Client Re-route
+# - name: Configure ConfigDB retryInterval for DB2 Client Re-route
 #  ibm.isam.isam:
 #    log: "{{ log_level | default('INFO') }}"
 #    force: "{{ force | default(False) }}"

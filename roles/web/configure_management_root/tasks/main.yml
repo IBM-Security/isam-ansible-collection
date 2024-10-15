@@ -70,7 +70,7 @@
   when: help is defined
 
 # TODO: this is broken - does not work on Tower anyway
-#- name: Make sure local export directory exists
+# - name: Make sure local export directory exists
 #  local_action:
 #    module: file
 #    path: "{{ file | dirname }}"

@@ -5,7 +5,8 @@
   vars:
     homedir: ""
   tasks:
-    - ansible.builtin.include_vars:
+    - name: include vars
+      ansible.builtin.include_vars:
         file: "../vars/fed_cookbook_idp_vars.yml"
         name: inventory
 
@@ -25,19 +26,22 @@
     - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find validate module uuid"
       set_fact:
         saml_validate_uuid: "{{ item.prefix }}"
-      when: "{{ item.id == inventory.saml_validate_name }}"
+      when:
+        - item.id == inventory.saml_validate_name
       with_items: "{{ ret_obj.data.chainItems }}"
 
     - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find map module uuid"
       set_fact:
         saml_mapper_uuid: "{{ item.prefix }}"
-      when: "{{ item.id == inventory.saml_mapper_name }}"
+      when:
+        - item.id == inventory.saml_mapper_name
       with_items: "{{ ret_obj.data.chainItems }}"
 
     - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find issue module uuid"
       set_fact:
         saml_issue_uuid: "{{ item.prefix }}"
-      when: "{{ item.id == inventory.saml_issue_name }}"
+      when:
+        - item.id == inventory.saml_issue_name
       with_items: "{{ ret_obj.data.chainItems }}"
 
     - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - get saml20_ivc_to_saml20 mapping rule id"

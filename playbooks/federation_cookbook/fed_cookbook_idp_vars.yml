@@ -1,24 +1,24 @@
 ---
-#4.2 Enable NTP
+# 4.2 Enable NTP
 ntpServers: pool.ntp.org
 timeZone: America/Chicago
 
 # "4.3 Product Activation"
 activation_keys: [{ id: wga, code: !!null "" }, { id: mga, code: !!null "" }, { id: federation, code: !!null "" }]
-#4.4 Configure Runtime Interfaces
+# 4.4 Configure Runtime Interfaces
 label: "1.1"
 address: 192.168.42.102
 maskOrPrefix: "24"
 allowManagement: false
 enabled: true
 
-#4.5 Update Hosts File on the Appliance
+# 4.5 Update Hosts File on the Appliance
 host_records:
   - { addr: 192.168.42.101, hostnames: isam.myidp.ibm.com }
   - { addr: 192.168.42.102, hostnames: www.myidp.ibm.com }
   - { addr: 192.168.42.201, hostnames: isam.mysp.ibm.com }
   - { addr: 192.168.42.202, hostnames: www.mysp.ibm.com }
-#4.6 Configure ISAM Runtime Component on the Appliance
+# 4.6 Configure ISAM Runtime Component on the Appliance
 ssl_compliance: fips
 ps_mode: local
 admin_cert_lifetime: "1460"
@@ -27,7 +27,7 @@ ldap_pwd: passw0rd
 admin_pwd: Passw0rd
 policyserver_connection_inactivity: 0
 
-#5.1 Create new Reverse Proxy
+# 5.1 Create new Reverse Proxy
 https_port: "443"
 nw_interface_yn: yes
 https_yn: yes
@@ -40,7 +40,7 @@ listening_port: "7234"
 ssl_yn: no
 http_yn: no
 
-#5.2 Modify Reverse Proxy Instance Settings
+# 5.2 Modify Reverse Proxy Instance Settings
 set_reverseproxy_conf_entries:
   - { stanza_id: server, entries: [[web-host-name, www.myidp.ibm.com]] }
   - { stanza_id: step-up, entries: [[verify-step-up-user, no]] }
@@ -48,11 +48,11 @@ set_reverseproxy_conf_entries:
 execute_rp_op_ids: [id: default]
 execute_rp_op_operation: restart
 
-#6.1 Upload keystore files
+# 6.1 Upload keystore files
 import_certificate_db_kdb: providedfiles/myidpkeys/myidpkeys.kdb
 import_certificate_db_sth: providedfiles/myidpkeys/myidpkeys.sth
 
-#6.2 Upload mapping rules
+# 6.2 Upload mapping rules
 inventory_dir: providedfiles/mappingrules/idp
 mapping_rules:
   - { name: accesspolicy_prompt, category: SAML2_0, file: accesspolicy_prompt.js }
@@ -68,28 +68,28 @@ mapping_rules:
   - { name: saml20_to_saml20, category: SAML2_0, file: saml20_to_saml20.js }
   - { name: stsuutostsuu, category: SAML2_0, file: stsuutostsuu.js }
   - { name: ut_to_saml20, category: SAML2_0, file: ut_to_saml20.js }
-#6.3 Create Federation
+# 6.3 Create Federation
 search_mapping_rule_name: ip_saml20
 ipfed: providedfiles/ipfed.json
 fed_name: saml20idp
 protocol: SAML2_0
 role: ip
 
-#6.4 Export meta-data
+# 6.4 Export meta-data
 export_metadata_filename: providedfiles/Automation/tmp/ipmetadata.xml
 
-#- 8.1 ISAM Configuration for the IdP
+# - 8.1 ISAM Configuration for the IdP
 config_reverseproxy_federation_hostname: 127.0.0.1
 config_reverseproxy_federation_port: "443"
 config_reverseproxy_federation_reuse_certs: false
 config_reverseproxy_federation_reuse_acls: false
 
-#8.1.2 Environment-specific configuration
+# 8.1.2 Environment-specific configuration
 set_reverseproxy_conf_entries_8_1_2:
   - { stanza_id: TAM_CRED_ATTRS_SVC, entries: [[eperson, azn_cred_registry_id]] }
   - { stanza_id: 'junction:/isam', entries: [[reset-cookies-list, "*ac.uuid,*JSESSIONID"]] }
   - { stanza_id: "TAM_CRED_ATTRS_SVC:eperson", entries: [[emailAddress, mail], [firstName, cn], [lastName, sn]] }
-#9.1 Configuring Partner for the IdP
+# 9.1 Configuring Partner for the IdP
 import_metadata_filename: providedfiles/Automation/tmp/spmetadata.xml
 partner_name: SP Company
 configuration:
@@ -113,7 +113,7 @@ configuration:
 set_partner_enabled: true
 set_partner_role: sp
 
-#10.3 Configure test user
+# 10.3 Configure test user
 execute_pdadmin_isamuser: sec_master
 execute_pdadmin_isampwd: Passw0rd
 test_user_pdadmin_commands: ["user create testuser cn=testuser,dc=iswga Test User Passw0rd", user modify testuser account-valid yes]
@@ -122,14 +122,14 @@ ldap_server_uri: ldaps://192.168.42.101:636
 ldap_bind_dn: cn=root,secAuthority=default
 ldap_bind_pw: passw0rd
 ldap_attributes: { mail: testuser@mailinator.com, homePhone: 555-12345, displayName: Test User }
-#12 Create OpenID Connect Provider
+# 12 Create OpenID Connect Provider
 oidc_mapping_rule_name: OIDCIDToken
 ip_oidc_fed: providedfiles/ip_odic_fed.json
 oidc_fed_name: ISAMOP
 oidc_protocol: OIDC
 oidc_role: op
 
-#12.3.1 ISAM-to-ISAM partner
+# 12.3.1 ISAM-to-ISAM partner
 oidc_isam_partner_name: ISAM-to-ISAM
 oidc_isam_enabled: true
 oidc_isam_role: op
@@ -144,7 +144,7 @@ oidc_isam_partner_configuration:
     - "https://www.mysp.ibm.com/isam/oidcclient/redirect/amapp-runtime-ISAMRPCode"
   responseTypes: [code, id_token token]
   scope: [openid]
-#12.3.2 ISAM-to-Cloud partner
+# 12.3.2 ISAM-to-Cloud partner
 oidc_cloud_partner_name: ISAM-to-Cloud
 oidc_cloud_enabled: true
 oidc_cloud_role: op
@@ -157,7 +157,7 @@ oidc_cloud_partner_configuration:
     - "https://oidcdemoclient.mybluemix.net/oidcclient/redirect/isamClientID"
   responseTypes: [id_token token]
   scope: [openid]
-#17.1 Configuring the STSUU to STSUU Chain Template
+# 17.1 Configuring the STSUU to STSUU Chain Template
 sts_chain_templates:
   - name: STSUU to STSUU
     chainItems: [{ id: default-stsuu, mode: validate }, { id: default-map, mode: map }, { id: default-stsuu, mode: issue }]
@@ -174,7 +174,7 @@ sts_chain:
   requestType: "http://schemas.xmlsoap.org/ws/2005/02/trust/Validate"
   signResponses: false
   validateRequests: false
-#17.3 Allowing access to the STS via the ISAM Reverse Proxy
+# 17.3 Allowing access to the STS via the ISAM Reverse Proxy
 sts_pdadmin_commands:
   - acl create sts-unauth
   - acl modify sts-unauth set group iv-admin TcmdbsvaBRrxl
@@ -184,11 +184,11 @@ sts_pdadmin_commands:
   - acl modify sts-unauth set unauthenticated Tr
   - acl attach /WebSEAL/isam.myidp.ibm.com-default/isam/TrustServer/SecurityTokenService sts-unauth
   - acl attach /WebSEAL/isam.myidp.ibm.com-default/isam/TrustServerWST13/services/RequestSecurityToken sts-unauth
-#"17.4 Updating the easuser password"
+# "17.4 Updating the easuser password"
 easuser_registry_id: easuser
 easuser_registry_password: Passw0rd
 
-#18.1 Using HttpClient from Javascript mapping rules
+# 18.1 Using HttpClient from Javascript mapping rules
 set_federation_name: saml20idp
 set_federation_protocol: SAML2_0
 set_federation_role: ip
@@ -198,7 +198,7 @@ set_federation_configuration:
   pointOfContactUrl: "https://www.myidp.ibm.com/isam/sps"
   extensionMapping: { activeDelegateId: skip-extension-map }
   singleSignOnService: [binding: post, binding: redirect]
-#18.2 Using the external http callout mapping module
+# 18.2 Using the external http callout mapping module
 update_federation_configuration:
   companyName: IdP Company
   pointOfContactUrl: "https://www.myidp.ibm.com/isam/sps"
@@ -215,7 +215,7 @@ update_federation_configuration:
       sslKeyStore: pdsrv
       uri: "https://localhost/TrustServer/SecurityTokenService"
   singleSignOnService: [binding: post, binding: redirect]
-#18.3.2.1 Configuring a Server Connection
+# 18.3.2.1 Configuring a Server Connection
 set_ldap_server_connection_name: localldap
 set_ldap_server_connection_connection:
   bindDN: cn=root,secAuthority=Default
@@ -227,7 +227,7 @@ set_ldap_server_connection_connection:
   sslTruststore: ""
 set_ldap_server_connection_description: Local LDAP Server
 set_ldap_server_connection_manager: { connectTimeout: 20 }
-#18.3.2.2 Configuring Attribute Sources
+# 18.3.2.2 Configuring Attribute Sources
 attribute_sources:
   - attribute_source_name: LDAPDisplayName
     attribute_source_type: ldap
@@ -247,7 +247,7 @@ attribute_sources:
       - { key: selector, value: "homePhone,displayName" }
       - { key: searchFilter, value: (objectclass=*) }
       - { key: baseDN, value: "{BASE_DN}" }
-#18.3.4 Configuring the STS chain for LDAP Attribute Map
+# 18.3.4 Configuring the STS chain for LDAP Attribute Map
 sts_ldap_templates:
   - name: STSUULDAPAttributeMapper
     chainItems:
@@ -272,7 +272,7 @@ update_sts_chain:
   requestType: "http://schemas.xmlsoap.org/ws/2005/02/trust/Validate"
   signResponses: false
   validateRequests: false
-#19.1 Create the ISAM Credential to SAML 2.0 STS Chain Template
+# 19.1 Create the ISAM Credential to SAML 2.0 STS Chain Template
 saml_sts_templates:
   - name: IVCredToSAML20JunctionExample
     chainItems: [{ id: default-ivc, mode: validate }, { id: default-map, mode: map }, { id: default-saml2_0, mode: issue }]
@@ -294,7 +294,7 @@ saml_sts_chain:
   tokenType: "http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0"
   signResponses: false
   validateRequests: false
-#19.3 Update the reverse proxy configuration file
+# 19.3 Update the reverse proxy configuration file
 set_reverseproxy_conf_entries_19_3:
   - stanza_id: tfim-cluster:samljct
     entries:
@@ -318,9 +318,9 @@ set_reverseproxy_conf_entries_19_3:
       - [always-send-tokens, "true"]
       - [one-time-token, "true"]
       - [token-collection-size, "1"]
-#19.4 Create the /samljct Junction
+# 19.4 Create the /samljct Junction
 samljct_pdadmin_commands: [server task default-webseald-isam.myidp.ibm.com create -t ssl -h localhost -p 443 -Y /samljct]
-#19.5 Enable the demonstration application
+# 19.5 Enable the demonstration application
 update_advanced_configuration_key: live.demos.enabled
 update_advanced_configuration_value: "true"
 update_advanced_configuration_sensitive: false
@@ -344,13 +344,13 @@ demo_pdadmin_commands:
 web_username: sec_master
 web_password: Passw0rd
 
-#21.1 Replace login.html on the identity provider
+# 21.1 Replace login.html on the identity provider
 update_management_root_idandfilename:
   - id: management/C/login.html
     filename: /home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook/providedfiles/Automation/pages/saml20/login.html
 update_management_root_instance_id: default
 
-#21.2 Configure authentication macros in the federation runtime
+# 21.2 Configure authentication macros in the federation runtime
 new_point_of_contact_name: PartnerID Macro + Access Manager Username and extended attributes
 new_point_of_contact_authenticateCallbacks:
   - index: 0

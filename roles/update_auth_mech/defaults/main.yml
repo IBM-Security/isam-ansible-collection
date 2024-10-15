@@ -1,9 +1,9 @@
 ---
 # AT a minimum provide the following
-#update_auth_mech_name:
-#update_auth_mech_uri: urn:ibm:security:authentication:asf:mechanism:<name>
+# update_auth_mech_name:
+# update_auth_mech_uri: urn:ibm:security:authentication:asf:mechanism:<name>
 # Note: Please be sure to provide the name of the Mechanism Type (Id lookup will happen automatically)
-#update_auth_mech_typeName: null
+# update_auth_mech_typeName: null
 update_auth_mech_description:
 update_auth_mech_attributes:
 update_auth_mech_properties:

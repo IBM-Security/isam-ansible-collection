@@ -1,7 +1,7 @@
 ---
 # Provide the following minimal values to setup Local Policy Server with Local Embedded LDAP
-#config_policyserver_admin_pwd: "<pwd>"
-#config_policyserver_ldap_pwd: "<pwd>"
+# config_policyserver_admin_pwd: "<pwd>"
+# config_policyserver_ldap_pwd: "<pwd>"
 # Usually a good idea to clean the embedded LDAP before configuring to avoid issues
 config_policyserver_clean_ldap: true
 

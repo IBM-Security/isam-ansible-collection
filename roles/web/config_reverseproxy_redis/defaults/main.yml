@@ -9,7 +9,7 @@ _dsess_redis_entries_enable:
     entries:
       - [dsess-enabled, "yes"]
       - [dsess-server-type, redis]
-#this is the version to disable redis (dsess_enabled = False)
+# this is the version to disable redis (dsess_enabled = False)
 _dsess_redis_entries_disable:
   - method: set
     stanza_id: session

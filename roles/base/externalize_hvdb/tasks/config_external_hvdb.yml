@@ -1,5 +1,5 @@
 ---
-#def set(isamAppliance, primary_master='127.0.0.1', secondary_master=None, master_ere=None, tertiary_master=None,
+# def set(isamAppliance, primary_master='127.0.0.1', secondary_master=None, master_ere=None, tertiary_master=None,
 #        quaternary_master=None, dsc_external_clients=False, dsc_port=None, dsc_use_ssl=None, dsc_ssl_keyfile=None,
 #        dsc_ssl_label=None, dsc_worker_threads=64, dsc_maximum_session_lifetime=3600, dsc_client_grace_period=600,
 #        hvdb_embedded=True, hvdb_max_size=40, hvdb_db_type=None, hvdb_address=None, hvdb_port=None, hvdb_user=None,
