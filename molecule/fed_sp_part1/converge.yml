@@ -1,7 +1,7 @@
 ---
 - name: Converge Federation SP Part 1
   hosts: all
-  gather_facts: False
+  gather_facts: false
   vars:
     homedir: ""
   tasks:

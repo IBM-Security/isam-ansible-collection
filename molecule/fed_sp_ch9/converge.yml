@@ -1,7 +1,7 @@
 ---
 - name: Federation Cookbook SP Ch. 9
   hosts: all
-  gather_facts: False
+  gather_facts: false
   vars:
     homedir: ""
   tasks:

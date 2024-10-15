@@ -3,7 +3,7 @@
 # TODO: verify is not configured
 - name: Verify
   hosts: all
-  gather_facts: False
+  gather_facts: false
   vars:
     molecule_name: test2
   tasks:

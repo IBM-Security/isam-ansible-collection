@@ -1,7 +1,7 @@
 ---
 - name: Converge
   hosts: all
-  gather_facts: False
+  gather_facts: false
   vars:
     homedir: "{{ playbook_dir }}" # this is this directory for molecule
     molecule_file: "files/ltpa.key"

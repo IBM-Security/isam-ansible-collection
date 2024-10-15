@@ -1,7 +1,7 @@
 ---
 - name: Federation Cookbook IdP Part 1 Ch. 5
   hosts: all
-  gather_facts: False
+  gather_facts: false
   vars:
     homedir: ""
   tasks:
