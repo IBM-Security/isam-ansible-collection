@@ -90,7 +90,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.management_root.all.export_zip
     isamapi:
-      filename: "{{ homedir +'/'+ file }}"
+      filename: "{{ homedir + '/' + file }}"
       instance_id: "{{ inst_name }}"
   when:
     - file is defined
