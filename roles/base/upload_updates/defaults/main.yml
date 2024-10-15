@@ -4,12 +4,3 @@ updates: []
 # limit the to be installed fix packs at runtime
 file: "{{ item.file }}"
 filename: "{{ item.file | basename }}"
-
-# Default homedir.  This defaults to inventory_dir for backwards compatibility reasons,
-#  even though the inventory_dir should NEVER be used to store files (should basically only contain files that can be parsed by an inventory_plugin)
-#  a better default value for homedir, would be playbook_dir:
-#       `homedir: "{{ playbook_dir }}"`
-#  or set it to the empty string, to use item.file
-#       `homedir: ""`
-#
-homedir: "{{ inventory_dir }}"

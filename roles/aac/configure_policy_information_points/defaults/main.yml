@@ -1,9 +1,3 @@
 ---
 # Default variables to configure policy information points
 policy_information_points: []
-# Default homedir.  This defaults to inventory_dir for backwards compatibility reasons,
-#  even though the inventory_dir should NEVER be used to store files (should basically only contain files that can be parsed by an inventory_plugin)
-#  a better default value for homedir, would be playbook_dir:
-#       homedir: "{{ playbook_dir }}"
-#  so this is a varialb
-homedir: "{{ inventory_dir }}"

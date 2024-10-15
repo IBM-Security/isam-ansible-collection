@@ -15,4 +15,4 @@ galaxy_info:
     - sso_key
 
 dependencies:
-  - ibm.isam.common_handlers
+  - role: ibm.isam.common_handlers

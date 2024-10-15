@@ -1,9 +1,2 @@
 ---
 # Default variables for export of runtime template root content
-
-# Default homedir.  This defaults to inventory_dir for backwards compatibility reasons,
-#  even though the inventory_dir should NEVER be used to store files (should basically only contain files that can be parsed by an inventory_plugin)
-#  a better default value for homedir, would be playbook_dir:
-#       homedir: "{{ playbook_dir }}"
-#
-homedir: "{{ inventory_dir }}"
