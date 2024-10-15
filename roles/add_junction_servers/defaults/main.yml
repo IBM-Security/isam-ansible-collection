@@ -2,10 +2,10 @@
 
 # The following need to be provided for this role to succeed
 # add_junction_servers_junction_point:
-#add_junction_servers_junction_type:
-#add_junction_servers_reverseproxy_id:
+# add_junction_servers_junction_type:
+# add_junction_servers_reverseproxy_id:
 # The following variable needs to be of the format (provide multiple server/ports as needed in the list)
-#add_junction_servers
+# add_junction_servers
 #  - server: "newsrv.ibm.com"
 #    port: 8443
 

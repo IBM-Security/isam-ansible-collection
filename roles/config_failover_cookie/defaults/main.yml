@@ -1,12 +1,12 @@
 ---
 # Provide name of failover cookie identifier
-#config_failover_cookie_id:
+# config_failover_cookie_id:
 
 # Either create a directory with following convention or override where the key lives
 # config_failover_cookie_filename: "<fully qualified path>/{{ config_failover_cookie_id }}"
 
 # Provide name of domain at which to create the cookie
-#config_failover_cookie_domain:
+# config_failover_cookie_domain:
 config_failover_cookie_enable_failover_cookie_for_domain: "yes"
 
 # Standard values to overide as needed

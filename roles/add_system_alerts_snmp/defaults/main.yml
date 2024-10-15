@@ -1,6 +1,6 @@
 ---
 
-#Provide a valid SNMP collector server name
+# Provide a valid SNMP collector server name
 add_system_alerts_snmp_trapAddress:
 add_system_alerts_snmp_trapPort: 162
 add_system_alerts_snmp_trapCommunity:

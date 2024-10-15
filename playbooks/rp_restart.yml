@@ -4,7 +4,9 @@
   hosts: all
   gather_facts: false
   tasks:
-    - ansible.builtin.debug: msg="Trigger Reverse Proxy restarts"
+    - name: Debug
+      ansible.builtin.debug:
+        msg: "Trigger Reverse Proxy restarts"
       changed_when: true
       notify:
         - "ibm.isam.common_handlers: Restart Reverse Proxy"

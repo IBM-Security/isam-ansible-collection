@@ -41,20 +41,20 @@ externalize_hvdb_db2_keystores:
   - lmi_trust_store
 # Note: Provide either externalize_hvdb_db2_ca_label for self-signed certs or externalize_hvdb_db2_ca_certandlabel
 #       which lists CA certs to be imported.
-#externalize_hvdb_db2_ca_label: "HVDB_DB2_CA"
-#externalize_hvdb_db2_ca_certandlabel:
+# externalize_hvdb_db2_ca_label: "HVDB_DB2_CA"
+# externalize_hvdb_db2_ca_certandlabel:
 #  - { 'cert': "/tmp/cacerts/verisign.cer", 'label': "Verisign CA"}
 
 # The following values have to be provided for this role to succeed
 # Primary DB2 Server
-#externalize_hvdb_db2_hvdb_address:
-#externalize_hvdb_db2_hvdb_port:
+# externalize_hvdb_db2_hvdb_address:
+# externalize_hvdb_db2_hvdb_port:
 # Secondary DB2 Server
-#externalize_hvdb_db2_hvdb_db2_alt_address:
-#externalize_hvdb_db2_hvdb_db2_alt_port:
+# externalize_hvdb_db2_hvdb_db2_alt_address:
+# externalize_hvdb_db2_hvdb_db2_alt_port:
 # DB2 Database Name and Userid to Connect
-#externalize_hvdb_db2_hvdb_db_name:
-#externalize_hvdb_db2_hvdb_user:
+# externalize_hvdb_db2_hvdb_db_name:
+# externalize_hvdb_db2_hvdb_user:
 
 # Advanced Tuning Parameters to ensure DB2 fails over consistently
 externalize_hvdb_db2_tcp_retries2: 5

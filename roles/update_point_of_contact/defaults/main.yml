@@ -1,6 +1,6 @@
 ---
 # Provide the following values
-#update_point_of_contact_name:
+# update_point_of_contact_name:
 
 # Optional values
 update_point_of_contact_description:
@@ -12,7 +12,7 @@ update_point_of_contact_signOutCallbacks:
 
 #  This is a sample role usage that creates a new Point Of Contact profile that replicates the default existing "Access Manager Username and extended attributes" profile
 #
-#- role: ibm.isam.update_point_of_contact
+# - role: ibm.isam.update_point_of_contact
 #  update_point_of_contact_name: A new Point of Contact profile"
 #  update_point_of_contact_authenticateCallbacks: [{"index":0,"parameters":[{"name":"authentication.macros","value":""},{"name":"fim.user.request.header.name","value":"iv-user"}],"moduleReferenceId":"websealPocAuthenticateCallback"}]
 #  update_point_of_contact_authnPolicyCallbacks: [{"index":0,"parameters":[{"name":"SPS.http.request.claims.filter.spec","value":"cookies=*:headers=*"},{"name":"SPS.http.request.claims.enabled","value":"false"},{"name":"authentication.type","value":"COMPLEMENTARY"},{"name":"authentication.level","value":"1"},{"name":"authentication.mode","value":"INDIVIDUAL"},{"name":"allow.authentication.policy.request.overrides","value":"false"}],"moduleReferenceId":"genericPocAuthnPolicyCallback"}]
