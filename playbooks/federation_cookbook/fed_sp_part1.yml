@@ -5,7 +5,7 @@
   vars:
     homedir: "/home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook"
   tasks:
-    - ansible.builtin.include_vars::
+    - ansible.builtin.include_vars:
         file: "fed_cookbook_sp_vars.yml"
         name: inventory
 

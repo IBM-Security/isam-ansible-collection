@@ -5,7 +5,7 @@
   vars:
     homedir: ""
   tasks:
-    - ansible.builtin.include_vars::
+    - ansible.builtin.include_vars:
         file: "../vars/fed_cookbook_sp_vars.yml"
         name: inventory
 

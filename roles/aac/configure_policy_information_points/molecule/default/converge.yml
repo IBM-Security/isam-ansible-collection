@@ -6,7 +6,7 @@
     - ibm.isam
   tasks:
     - name: load variables
-      ansible.builtin.include_vars::
+      ansible.builtin.include_vars:
         file: "../vars/main.yml"
 
     - name: "Testing configure pip"

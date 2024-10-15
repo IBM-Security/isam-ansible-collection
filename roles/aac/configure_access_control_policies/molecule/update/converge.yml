@@ -6,7 +6,7 @@
     - ibm.isam
   tasks:
     - name: include variables
-      ansible.builtin.include_vars::
+      ansible.builtin.include_vars:
         file: "../vars/main.yml"
 
     - name: "Add policy using configure_access_contorl_policies"

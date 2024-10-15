@@ -5,7 +5,7 @@
   gather_facts: no
   tasks:
     - name: load variables
-      ansible.builtin.include_vars::
+      ansible.builtin.include_vars:
         file: "../vars/vars.yml"
 
     - name: "Get the mapping rule {{ molecule_name }}"
