@@ -1,7 +1,8 @@
+---
 DOCUMENTATION:
   name: include_only
   author: IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>
-  version_added: 'historical'
+  version_added: historical
   short_description: Include
   description:
     - filter takes a list 'a' and removes every tuple if the first value in the tuple matches a string 'b'
