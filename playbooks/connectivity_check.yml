@@ -77,7 +77,7 @@
       failed_when:
         - ansible_isam_password is not defined
 
-    - name: check for open port 443
+    - name: Check for open port 443
       tags:
         - lmi
       ansible.builtin.wait_for:
@@ -89,7 +89,7 @@
       delegate_to: localhost
       ignore_errors: true
 
-    - name: any call to isam will do (so ansible_facts is available)
+    - name: Any call to isam will do (so ansible_facts is available)
       import_role:
         name: ibm.isam.get_firmware
 
