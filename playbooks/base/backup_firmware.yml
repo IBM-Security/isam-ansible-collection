@@ -5,7 +5,8 @@
 # ! The system format formats the inactive partition while you are backing up the current partition. All data on the inactive partition is lost.
 # ! This operation restarts the appliance and might leave your network unprotected for several minutes.
 # ! Are you sure you want to back up the active partition?
-- hosts: "{{ hosts | default('all')}}"
+- name: Backup active partition
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.backup_firmware

@@ -1,6 +1,5 @@
 ---
 # Configure
-#   configure cluster
 #   Example: External ISAM HVDB (DB2)
 #    cluster:
 #     hvdb_db_type: db2
@@ -11,7 +10,8 @@
 #     hvdb_password: test
 #     hvdb_db_name: ISAM_HVDB
 #     hvdb_db_secure: false
-- hosts: "{{ hosts | default('all')}}"
+- name: Configure cluster
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.configure_cluster

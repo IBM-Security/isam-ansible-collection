@@ -1,7 +1,7 @@
 ---
 # Configure
-#   configure runtime tuning parameters
-- hosts: "{{ hosts | default('all')}}"
+- name: Configure runtime tuning parameters
+  hosts: "{{ hosts | default('all')}}"
   serial: "{{ serial | default('100%')}}"
   gather_facts: false
   roles:

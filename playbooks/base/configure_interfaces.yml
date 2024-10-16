@@ -1,7 +1,8 @@
 ---
 # Configure
 #   configure interfaces of ISAM appliances
-- hosts: "{{ hosts | default('all')}}"
+- name: Configure interfaces of ISAM appliances
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.configure_interfaces

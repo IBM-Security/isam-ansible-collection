@@ -1,7 +1,7 @@
 ---
 # Create
-#   configure appliance hostname
-- hosts: "{{ hosts | default('all')}}"
+- name: Configure appliance hostname
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.set_network_hostname

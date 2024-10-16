@@ -8,8 +8,8 @@
 #      expire: "{{ item.expire }}"
 #      default: "{{ item.default }}"
 #      size: "{{ item.size }}"
-
-- hosts: "{{ hosts | default('all')}}"
+- name: Generate self signed certificates
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.generate_self_signed_certificates

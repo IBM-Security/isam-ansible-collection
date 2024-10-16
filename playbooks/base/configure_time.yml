@@ -1,7 +1,7 @@
 ---
 # Configure
-#   configure time for appliance
-- hosts: "{{ hosts | default('all')}}"
+- name: Configure time for appliance
+  hosts: "{{ hosts | default('all')}}"
   roles:
     - role: ibm.isam.base.configure_time
       tags: configure_time

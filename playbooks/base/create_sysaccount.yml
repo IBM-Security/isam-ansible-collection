@@ -1,7 +1,7 @@
 ---
 # Create
-#   configure appliance sysaccounts
-- hosts: "{{ hosts | default('all')}}"
+- name: Configure appliance sysaccounts
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.create_sysaccounts
