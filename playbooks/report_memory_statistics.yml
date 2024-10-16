@@ -11,8 +11,10 @@
     gen_report_dir: "~"
     gen_report_output_format: csv
   tasks:
-    - import_role:
+    - name: Get memory statistics
+      import_role:
         name: ibm.isam.get_memory_statistics
 
-    - import_role:
+    - name: Generate report
+      import_role:
         name: ibm.isam.gen_report
