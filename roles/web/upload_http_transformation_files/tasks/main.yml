@@ -12,5 +12,6 @@
       id: "{{ item.file | basename }}"
       filename: "{{ homedir }}/{{ item.file }}"
   with_items: "{{ http_transformations }}"
-  when: (item.file | basename) == name
+  when:
+    - item.file is defined
   notify: Commit Changes
