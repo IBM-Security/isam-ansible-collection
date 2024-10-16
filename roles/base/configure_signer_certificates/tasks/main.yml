@@ -71,10 +71,10 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.ssl_certificates.signer_certificate.{{ item.cert_action }}
-    isamapi: "{{ { 'kdb_id': item.kdb_id } | combine({ 'label': item.label } if (item.label is defined) else {}) | combine({ 'cert': homedir +'/'+ item.cert } if
+    isamapi: "{{ { 'kdb_id': item.kdb_id } | combine({ 'label': item.label } if (item.label is defined) else {}) | combine({ 'cert': homedir + '/' + item.cert } if
       (item.cert is defined) else {}) | combine({ 'cert_id': item.cert_id } if (item.cert_id is defined) else {}) | combine({ 'server': item.server } if (item.server
       is defined) else {}) | combine({ 'port': item.port } if (item.port is defined) else {}) | combine({ 'check_remote': item.check_remote } if (item.check_remote
-      is defined) else {}) | combine({ 'filename': homedir +'/'+ item.filename } if (item.filename is defined) else {}) }}"
+      is defined) else {}) | combine({ 'filename': homedir + '/' + item.filename } if (item.filename is defined) else {}) }}"
   loop: "{{ signer_certificates }}"
   loop_control:
     label: "kdb: {{ item.kdb_id }} - {{ item.label|default('') }} - {{ item.cert_id | default('') }} - {{ item.cert | default('') }}"

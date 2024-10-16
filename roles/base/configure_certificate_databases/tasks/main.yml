@@ -96,9 +96,9 @@
       item.rfs } if (item.rfs is defined) else {}) | combine({ 'rfs_port': item.rfs_port } if (item.rfs_port is defined) else {}) | combine({ 'rfs_auth': item.rfs_auth
       } if (item.rfs_auth is defined) else {}) | combine({ 'safenet_pw': item.safenet_pw } if (item.safenet_pw is defined) else {}) | combine({ 'kdb_name': item.kdb_name
       } if (item.kdb_name is defined) else {}) | combine({ 'cert_id': item.cert_id } if (item.cert_id is defined) else {}) | combine({ 'new_name': item.new_name }
-      if (item.new_name is defined) else {}) | combine({ 'description': item.description } if (item.description is defined) else {}) | combine({ 'filename': homedir+'/'+item.filename
-      } if (item.filename is defined) else {}) | combine({ 'kdb': homedir+'/'+item.kdb } if (item.kdb is defined) else {}) | combine({ 'stash': homedir+'/'+ item.stash
-      } if (item.stash is defined) else {}) | combine({ 'zip': homedir +'/'+ item.zip } if (item.zip is defined) else {}) }}"
+      if (item.new_name is defined) else {}) | combine({ 'description': item.description } if (item.description is defined) else {}) | combine({ 'filename': homedir+ '/' +item.filename
+      } if (item.filename is defined) else {}) | combine({ 'kdb': homedir+ '/' +item.kdb } if (item.kdb is defined) else {}) | combine({ 'stash': homedir+ '/' + item.stash
+      } if (item.stash is defined) else {}) | combine({ 'zip': homedir + '/' + item.zip } if (item.zip is defined) else {}) }}"
   loop: "{{ certificate_databases }}"
   when:
     - item.db_action == db_action

@@ -92,11 +92,11 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.ssl_certificates.personal_certificate.{{ item.cert_action }}
-    isamapi: "{{ { 'kdb_id': item.kdb_id } | combine({ 'label': item.label } if (item.label is defined) else {}) | combine({ 'cert': homedir +'/'+ item.cert } if
+    isamapi: "{{ { 'kdb_id': item.kdb_id } | combine({ 'label': item.label } if (item.label is defined) else {}) | combine({ 'cert': homedir + '/' + item.cert } if
       (item.cert is defined) else {}) | combine({ 'cert_id': item.cert_id } if (item.cert_id is defined) else {}) | combine({ 'dn': item.dn } if (item.dn is defined)
       else {}) | combine({ 'expire': item.expire } if (item.expire is defined) else {}) | combine({ 'size': item.size } if (item.size is defined) else {}) | combine({
       'default': item.default } if (item.default is defined) else {}) | combine({ 'password': item.password } if (item.password is defined) else {}) | combine({ 'signature_algorithm':
-      item.signature_algorithm } if (item.signature_algorithm is defined) else {}) | combine({ 'filename': homedir +'/'+ item.filename } if (item.filename is defined)
+      item.signature_algorithm } if (item.signature_algorithm is defined) else {}) | combine({ 'filename': homedir + '/' + item.filename } if (item.filename is defined)
       else {}) }}"
   loop: "{{ personal_certificates }}"
   when:

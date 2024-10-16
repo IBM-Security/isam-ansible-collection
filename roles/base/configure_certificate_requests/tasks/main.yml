@@ -68,7 +68,7 @@
     action: ibmsecurity.isam.base.ssl_certificates.certificate_requests.{{ item.cert_action }}
     isamapi: "{{ { 'kdb_id': item.kdb_id } | combine({ 'label': item.label } if (item.label is defined) else {}) | combine({ 'cert_id': item.cert_id } if (item.cert_id
       is defined) else {}) | combine({ 'dn': item.dn } if (item.dn is defined) else {}) | combine({ 'size': item.size } if (item.size is defined) else {}) | combine({
-      'signature_algorithm': item.signature_algorithm } if (item.signature_algorithm is defined) else {}) | combine({ 'filename': homedir+'/'+item.filename } if (item.filename
+      'signature_algorithm': item.signature_algorithm } if (item.signature_algorithm is defined) else {}) | combine({ 'filename': homedir+ '/' +item.filename } if (item.filename
       is defined) else {}) }}"
   loop: "{{ certificate_requests }}"
   when:

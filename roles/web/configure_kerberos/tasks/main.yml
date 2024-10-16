@@ -86,7 +86,7 @@
     action: ibmsecurity.isam.web.kerberos_configuration.keyfiles.import_keytab
     isamapi:
       id: "{{ item.file | basename }}"
-      file: "{{ homedir +'/'+ item.file }}"
+      file: "{{ homedir + '/' + item.file }}"
   when:
     - item.file is defined
     - (item.file | basename) == keytab_file

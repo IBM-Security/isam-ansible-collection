@@ -1,5 +1,5 @@
 ---
-- name: set embedded ldap password admin
+- name: Set embedded ldap password admin
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

@@ -32,7 +32,7 @@
 
 - name: Make sure local download directory exists
   file:
-    path: "{{ (homedir +'/'+ file) | dirname }}"
+    path: "{{ (homedir + '/' + file) | dirname }}"
     recurse: true
     state: directory
   delegate_to: localhost
@@ -50,7 +50,7 @@
       comment: "{{ comment | default(omit) }}"
       id: "{{ id | default(omit) }}"
       ids: "{{ ids | default(omit) }}"
-      filename: "{{ homedir +'/'+ file }}"
+      filename: "{{ homedir + '/' + file }}"
   when:
     - file is defined
     - comment is defined or id is defined or ids is defined

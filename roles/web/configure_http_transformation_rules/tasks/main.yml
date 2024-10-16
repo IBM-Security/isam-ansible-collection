@@ -62,13 +62,13 @@
 
 - name: Make sure all local download directory exists
   file:
-    path: "{{ (homedir +'/'+ item.filename) | dirname }}"
+    path: "{{ (homedir + '/' + item.filename) | dirname }}"
     recurse: true
     state: directory
   delegate_to: localhost
   loop: "{{ http_transformation_rules }}"
   loop_control:
-    label: "{{ ((homedir +'/'+ item.filename) | dirname) if item.filename is defined else 'Skipping' }}"
+    label: "{{ ((homedir + '/' + item.filename) | dirname) if item.filename is defined else 'Skipping' }}"
   when:
     - not (skip_exports | bool)
     - item.transformation_action == 'export_file' or item.transformation_action == 'export_template_file'
@@ -80,7 +80,7 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.http_transformation.{{ item.transformation_action }}
-    isamapi: "{{ item | ibm.isam.exclude('transformation_action') | combine({'filename': (homedir+'/'+item.filename)} if (item.filename is defined) else {}) | default(omit)
+    isamapi: "{{ item | ibm.isam.exclude('transformation_action') | combine({'filename': (homedir+ '/' +item.filename)} if (item.filename is defined) else {}) | default(omit)
       }}"
   loop: "{{ http_transformation_rules }}"
   when:

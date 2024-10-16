@@ -116,7 +116,7 @@
   loop_control:
     label: "{{ { 'fido2_action': item.fido2_action } | combine({ 'name': item.name } if (item.name is defined) else {}) | combine({ 'username': item.username } if
       (item.username is defined) else {}) | combine({ 'rpId': item.rpId } if (item.rpId is defined) else {}) | combine({ 'id': item.id } if (item.id is defined) else
-      {}) | combine({ 'credentialId': item.credentialId } if (item.credentialId is defined) else {}) | combine({ 'filename': homedir +'/'+ item.filename } if (item.filename
+      {}) | combine({ 'credentialId': item.credentialId } if (item.credentialId is defined) else {}) | combine({ 'filename': homedir + '/' + item.filename } if (item.filename
       is defined) else {}) }}"
   notify: Commit Changes
   register: ret_obj
