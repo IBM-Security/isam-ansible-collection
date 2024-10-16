@@ -1,0 +1,17 @@
+---
+minor_changes:
+  - multiple roles - remove homedir from defaults (is now in common_handlers)
+  - refactoring - galaxy meta - multiple changes
+  - refactoring - jinja spacing
+  - refactoring - comments
+  - refactoring - truthy values
+  - refactoring - fqcn for ansible builtin modules
+  - refactoring - tasks must be named
+  - refactoring - plays must be named
+
+breaking_changes:
+  - web/upload_http_transformation_files - remove name variable (schema[vars] violation).  this means you can't target a single transformation rule anymore.
+  - web/upload_management_root_files - rename name variable (schema[vars]) - name -> web_management_root_name
+
+deprecated_features:
+  - create_sysaccount.yml - playbook is a duplicate of create_sysaccounts.yml and will be removed in a future release
