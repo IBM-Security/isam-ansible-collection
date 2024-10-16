@@ -78,6 +78,6 @@
     - item.registry_action == registry_action
   loop: "{{ user_registry }}"
   loop_control:
-    label: "{ 'registry_action': {{ item.registry_action }},  {'id': {{ item.id | default('No id') }} }"
+    label: "{ 'registry_action': {{ item.registry_action | default('Missing') }},  {'id': {{ item.id | default('No id') }} }"
   notify: Commit Changes
   register: ret_obj
