@@ -1,7 +1,8 @@
 ---
 # Compare all features of an appliance that does not need extra parameters
 # By default all features will be compared
-- ansible.builtin.include_tasks: compare_base.yml
+- name: Compare base include
+  ansible.builtin.include_tasks: compare_base.yml
   with_items: "{{ execute_compare_base_features }}"
   when: execute_compare_base
 
@@ -14,19 +15,22 @@
   run_once: true
   register: inventory_web_runtime
 
-- ansible.builtin.include_tasks: compare_base.yml
+- name: Compare base include wga
+  ansible.builtin.include_tasks: compare_base.yml
   with_items: "{{ execute_compare_wga_features }}"
   when: execute_compare_wga and ('wga' in inventory_web_runtime['ansible_facts']['activations'])
 
-- ansible.builtin.include_tasks: compare_base.yml
+- name: Compare base include mga
+  ansible.builtin.include_tasks: compare_base.yml
   with_items: "{{ execute_compare_mga_features }}"
   when: execute_compare_mga and ('mga' in inventory_web_runtime['ansible_facts']['activations'])
 
-- ansible.builtin.include_tasks: compare_base.yml
+- name: Compare base include fed
+  ansible.builtin.include_tasks: compare_base.yml
   with_items: "{{ execute_compare_fed_features }}"
   when: execute_compare_fed and ('federation' in inventory_web_runtime['ansible_facts']['activations'])
 
-- name: compare
+- name: Compare activations
   vars:
     execute_compare_activations: "{{ inventory_web_runtime['ansible_facts']['activations'] }}"
   ansible.builtin.include_tasks: compare_base.yml
@@ -35,8 +39,8 @@
     - execute_compare_fed
     - ('federation' in execute_compare_activations)) or (execute_compare_mga and ('mga' in execute_compare_activations))
 
-# Compare runtime configuration files of an appliance
-- ansible.builtin.include_tasks: compare_runtime_config.yml
+- name: Compare runtime configuration files of an appliance
+  ansible.builtin.include_tasks: compare_runtime_config.yml
   with_items:
     - pd.conf
     - ivmgrd.conf
