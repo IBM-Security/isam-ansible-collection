@@ -40,7 +40,7 @@
   set_fact:
     directory_update_item: "{{ {'mgmt_action': 'create', 'type': create.state, 'target': item.1.target +'/'+ create.path } }}"
   when: create.state == "directory"
-  with_filetree: "{{ homedir }}/{{ item.1.directory }}"
+  with_community.general.filetree: "{{ homedir }}/{{ item.1.directory }}"
   loop_control:
     loop_var: create
     label: "{'mgmt_action': 'create', 'type': \"{{ create.state }}\", 'target': \"{{ item.1.target +'/'+ create.path }}\" }"
@@ -55,7 +55,7 @@
     file_update_item: "{{ {'mgmt_action': 'upload', 'type': upload.state, 'target': item.1.target +'/'+ upload.path, 'file': upload.root +'/'+ upload.path} }}"
   when:
     - upload.state == "file"
-  with_filetree: "{{ homedir }}/{{ item.1.directory }}"
+  with_community.general.filetree: "{{ homedir }}/{{ item.1.directory }}"
   loop_control:
     loop_var: upload
     label: "{'mgmt_action': 'upload', 'target': \"{{ item.1.target +'/'+ upload.path }}\", 'file': \"{{ upload.root +'/'+ upload.path }}\"}"
