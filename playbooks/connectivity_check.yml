@@ -5,7 +5,7 @@
 # Note that you still may need to create a custom EE (for instance, if you cannot connect to the internet or your company's pip repository from the EE.)
 #  and that there may be other python modules that need to be included in the EE !
 #
-- name: preparation
+- name: Preparation
   hosts: all
   connection: local
   gather_facts: false
@@ -14,7 +14,7 @@
     - first_steps
     - ee
   tasks:
-    - name: debug container environment variable (-vv)
+    - name: Debug container environment variable (-vv)
       ansible.builtin.debug:
         verbosity: 2
         msg:
@@ -31,7 +31,7 @@
       when:
         - lookup('ansible.builtin.env', 'container') | default(None)
 
-- name: connectivity check - must have ansible_connection set to ibm.isam.isam
+- name: Connectivity check - must have ansible_connection set to ibm.isam.isam
   hosts: all
   collections:
     - ibm.isam
@@ -41,37 +41,37 @@
     - connectivity
     - first_steps
   tasks:
-    - name: show python version
+    - name: Show python version
       run_once: true
       ansible.builtin.debug:
         var: ansible_python_version
 
-    - name: show ansible version
+    - name: Show ansible version
       run_once: true
       ansible.builtin.debug:
         var: ansible_version
 
-    - name: show ansible_host (required)
+    - name: Show ansible_host (required)
       ansible.builtin.debug:
         var: ansible_host
       failed_when:
         - ansible_host is not defined
 
-    - name: show ansible_isam_port (required)
+    - name: Show ansible_isam_port (required)
       ansible.builtin.debug:
         var: ansible_isam_port
       failed_when:
         - ansible_isam_port is not defined
 
-    - name: show ansible_connection - should be ibm.isam.isam
+    - name: Show ansible_connection - should be ibm.isam.isam
       ansible.builtin.debug:
         var: ansible_connection
 
-    - name: show ansible_isam_username (required)
+    - name: Show ansible_isam_username (required)
       ansible.builtin.debug:
         var: ansible_isam_username
 
-    - name: is ansible_isam_password set ? (required)
+    - name: Is ansible_isam_password set ? (required)
       ansible.builtin.debug:
         msg: "{{ (ansible_isam_password | default(False))|ternary('ansible_isam_password is defined', 'ansible_isam_password is NOT defined') }}"
       failed_when:

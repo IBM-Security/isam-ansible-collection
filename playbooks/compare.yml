@@ -1,6 +1,5 @@
 ---
 # Compare appliances
-
 - name: Compare all aspects of appliance(s) with given Master
   hosts: all
   gather_facts: false
