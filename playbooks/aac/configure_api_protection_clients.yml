@@ -14,7 +14,8 @@
 #               companyName: IBM demo client for OAuth flows
 #               redirectUri: https://localhost
 #               contactType: ADMINISTRATIVE
-- hosts: "{{ hosts | default('all')}}"
+- name: Configure api protection definitions
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.aac.configure_api_protection_clients

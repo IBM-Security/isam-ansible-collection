@@ -1,6 +1,6 @@
 ---
 # Create
-#   create authentication mapping mechanisms
+#
 #   Example:
 #     authentication_mechanisms:
 #       - name: MappinRule1
@@ -12,7 +12,8 @@
 #             value: ""
 #           - key: infoMap.JSRule
 #             value: MappingRule1
-- hosts: "{{ hosts | default('all')}}"
+- name: Create authentication mapping mechanisms
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.aac.create_authentication_mechanisms

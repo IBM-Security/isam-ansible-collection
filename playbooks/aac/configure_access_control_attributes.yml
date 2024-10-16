@@ -1,6 +1,6 @@
 ---
 # Configure
-#   configure access control attributes
+#
 #   Example:
 #     access_control_attributes:
 #       - name: testAttribute
@@ -18,7 +18,8 @@
 #           device: false
 #           session: false
 #           behavior: false
-- hosts: "{{ hosts | default('all')}}"
+- name: Configure access control attributes
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.aac.configure_access_control_attributes

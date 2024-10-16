@@ -1,7 +1,7 @@
 ---
 # Configure
-#   configure server connections
-- hosts: "{{ hosts | default('all')}}"
+- name: Configure server connections
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.aac.configure_server_connections

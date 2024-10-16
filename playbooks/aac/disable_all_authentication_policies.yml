@@ -1,7 +1,8 @@
 ---
 # Disable
-#   disable all authentication policies
-- hosts: "{{ hosts | default('all')}}"
+#
+- name: Disable all authentication policies
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.aac.disable_all_authentication_policies

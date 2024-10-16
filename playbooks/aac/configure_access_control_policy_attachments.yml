@@ -9,7 +9,8 @@
 #         - name: test_access_policy
 #           type: policy
 #       action: set
-- hosts: "{{ hosts | default('all')}}"
+- name: Configure access control policy attachments
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.aac.configure_access_control_policy_attachments

@@ -1,6 +1,6 @@
 ---
 # Create
-#   create authentication policies
+#
 #   Example:
 #     authentication_policies:
 #       - name: authPolicy1
@@ -8,7 +8,8 @@
 #         uri: "urn:ibm:security:authentication:asf:authPolicy1"
 #         description: "authentication policy 1"
 #         enabled: "True"
-- hosts: "{{ hosts | default('all')}}"
+- name: Create authentication policies
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.aac.configure_authentication_policies

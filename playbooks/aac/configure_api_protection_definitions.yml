@@ -1,6 +1,6 @@
 ---
 # Configure
-#   configure api protection definitions
+#
 #   Example:
 #     api_protection:
 #       definitions:
@@ -9,7 +9,8 @@
 #           grantTypes:
 #             - AUTHORIZATION_CODE
 #           tcmBehavior: NEVER_PROMPT
-- hosts: "{{ hosts | default('all')}}"
+- name: Configure api protection definitions
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.aac.configure_api_protection_definitions

@@ -12,7 +12,8 @@
 #         path: C/authsvc/api
 #         filename: uploads/template_files/s
 #         name: success_response.html
-- hosts: "{{ hosts | default('all')}}"
+- name: Import runtime template files
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.import_runtime_template_file

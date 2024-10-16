@@ -27,7 +27,8 @@
 #       - key: otp.email.smtpHostname
 #         sensitive: false
 #         value: info@localhost
-- hosts: "{{ hosts | default('all')}}"
+- name: Configure advanced configurations
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.aac.update_advanced_configurations
