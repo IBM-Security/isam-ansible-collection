@@ -1,7 +1,8 @@
 ---
 # upload
 #   upload management root files
-- hosts: "{{ hosts | default('all')}}"
+- name: Upload management root files
+  hosts: "{{ hosts | default('all')}}"
   roles:
     - role: ibm.isam.web.configure_management_root
       tags: configure_management_root

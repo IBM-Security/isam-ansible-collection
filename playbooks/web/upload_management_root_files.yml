@@ -6,7 +6,8 @@
 #         -   instance_id: default
 #             filename: "uploads/management_root/management/C/example.html"
 #             target: "management/C/example.html"
-- hosts: "{{ hosts | default('all')}}"
+- name: Upload management root files
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.web.upload_management_root_files

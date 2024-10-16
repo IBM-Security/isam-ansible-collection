@@ -1,10 +1,11 @@
 ---
 # upload
-#   upload dynurl files
+#
 #   Example:
 #     dynurl_files
 #       - file: uploads/dynurl/dynurl.conf
-- hosts: "{{ hosts | default('all')}}"
+- name: Upload dynurl files
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.web.upload_dynurl_files

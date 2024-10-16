@@ -4,7 +4,8 @@
 #   Example:
 #     jmt_files
 #       - file: uploads/ltpa/default.ltpa
-- hosts: "{{ hosts | default('all')}}"
+- name: Upload ltpa files
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.web.upload_ltpa_files

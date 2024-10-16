@@ -1,10 +1,11 @@
 ---
 # upload
-#   upload http transformation files
+#
 #   Example:
 #     http_transformations
 #       - file: uploads/http_transformations/default.xslt
-- hosts: "{{ hosts | default('all')}}"
+- name: Upload http transformation files
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.web.upload_http_transformation_files

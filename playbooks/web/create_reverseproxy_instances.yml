@@ -1,7 +1,7 @@
 ---
 # create_reverseproxy_instances
-#   create multiple reverse proxy instances
-- hosts: "{{ hosts | default('all')}}"
+- name: Create multiple reverse proxy instances
+  hosts: "{{ hosts | default('all')}}"
   gather_facts: false
   roles:
     - role: ibm.isam.web.create_reverseproxy_instances
