@@ -3,675 +3,407 @@ molecule/175_base_verify_inventorydir_change/converge.yml var-naming[no-role-pre
 molecule/175_base_verify_inventorydir_change/converge.yml yaml[comments]
 molecule/175_base_verify_inventorydir_change/converge.yml yaml[indentation]
 molecule/175_base_verify_inventorydir_change/converge.yml yaml[line-length]
-molecule/175_base_verify_inventorydir_change/converge.yml yaml[truthy]
+
 molecule/175_base_verify_inventorydir_change/verify.yml name[template]
-molecule/175_base_verify_inventorydir_change/verify.yml yaml[truthy]
 molecule/175_web_verify_inventorydir_change/converge.yml name[casing]
 molecule/175_web_verify_inventorydir_change/converge.yml var-naming[no-role-prefix]
 molecule/175_web_verify_inventorydir_change/converge.yml yaml[indentation]
-molecule/175_web_verify_inventorydir_change/converge.yml yaml[truthy]
 molecule/175_web_verify_inventorydir_change/prepare.yml yaml[indentation]
-molecule/175_web_verify_inventorydir_change/prepare.yml yaml[truthy]
 molecule/175_web_verify_inventorydir_change/verify.yml name[template]
-molecule/175_web_verify_inventorydir_change/verify.yml yaml[truthy]
+
 molecule/default/converge.yml name[missing]
-molecule/default/molecule.yml yaml[truthy]
 molecule/default/verify.yml yaml[indentation]
 molecule/execute_pdadmin/converge.yml role-name[path]
 molecule/execute_pdadmin/converge.yml var-naming[no-role-prefix]
-molecule/execute_pdadmin/converge.yml yaml[truthy]
 molecule/execute_pdadmin/verify.yml yaml[indentation]
 molecule/fed_idp_ch10/converge.yml name[missing]
-molecule/fed_idp_ch10/converge.yml yaml[truthy]
+
 molecule/fed_idp_ch10/verify.yml yaml[indentation]
-molecule/fed_idp_ch12/converge.yml jinja[spacing]
 molecule/fed_idp_ch12/converge.yml name[missing]
 molecule/fed_idp_ch12/converge.yml var-naming[no-role-prefix]
-molecule/fed_idp_ch12/converge.yml yaml[truthy]
 molecule/fed_idp_ch12/verify.yml yaml[indentation]
-molecule/fed_idp_ch17/converge.yml jinja[spacing]
 molecule/fed_idp_ch17/converge.yml name[missing]
-molecule/fed_idp_ch17/converge.yml no-jinja-when
 molecule/fed_idp_ch17/converge.yml var-naming[no-role-prefix]
-molecule/fed_idp_ch17/converge.yml yaml[truthy]
+
 molecule/fed_idp_ch17/verify.yml yaml[indentation]
-molecule/fed_idp_ch18/converge.yml jinja[spacing]
 molecule/fed_idp_ch18/converge.yml name[missing]
-molecule/fed_idp_ch18/converge.yml no-jinja-when
 molecule/fed_idp_ch18/converge.yml var-naming[no-role-prefix]
 molecule/fed_idp_ch18/converge.yml var-naming[pattern]
 molecule/fed_idp_ch18/converge.yml yaml[brackets]
-molecule/fed_idp_ch18/converge.yml yaml[truthy]
+
 molecule/fed_idp_ch18/verify.yml yaml[indentation]
-molecule/fed_idp_ch19/converge.yml jinja[spacing]
 molecule/fed_idp_ch19/converge.yml name[missing]
-molecule/fed_idp_ch19/converge.yml no-jinja-when
 molecule/fed_idp_ch19/converge.yml var-naming[no-role-prefix]
 molecule/fed_idp_ch19/converge.yml yaml[brackets]
-molecule/fed_idp_ch19/converge.yml yaml[truthy]
+
 molecule/fed_idp_ch19/verify.yml yaml[indentation]
 molecule/fed_idp_ch21/converge.yml name[missing]
 molecule/fed_idp_ch21/converge.yml var-naming[pattern]
-molecule/fed_idp_ch21/converge.yml yaml[truthy]
+
 molecule/fed_idp_ch21/verify.yml yaml[indentation]
 molecule/fed_idp_ch4/converge.yml jinja[spacing]
 molecule/fed_idp_ch4/converge.yml name[missing]
 molecule/fed_idp_ch4/converge.yml schema[playbook]
-molecule/fed_idp_ch4/converge.yml yaml[truthy]
+
 molecule/fed_idp_ch4/verify.yml yaml[indentation]
 molecule/fed_idp_ch5/converge.yml name[missing]
-molecule/fed_idp_ch5/converge.yml yaml[truthy]
+
 molecule/fed_idp_ch5/verify.yml yaml[indentation]
 molecule/fed_idp_ch6/converge.yml jinja[spacing]
 molecule/fed_idp_ch6/converge.yml name[missing]
 molecule/fed_idp_ch6/converge.yml schema[playbook]
-molecule/fed_idp_ch6/converge.yml yaml[truthy]
+
 molecule/fed_idp_ch6/verify.yml yaml[indentation]
 molecule/fed_idp_ch8/converge.yml name[missing]
-molecule/fed_idp_ch8/converge.yml yaml[truthy]
+
 molecule/fed_idp_ch8/verify.yml yaml[indentation]
 molecule/fed_idp_ch9/converge.yml name[missing]
 molecule/fed_idp_ch9/converge.yml var-naming[pattern]
-molecule/fed_idp_ch9/converge.yml yaml[truthy]
+
 molecule/fed_idp_ch9/verify.yml yaml[indentation]
 molecule/fed_idp_part1/converge.yml jinja[spacing]
 molecule/fed_idp_part1/converge.yml name[missing]
 molecule/fed_idp_part1/converge.yml schema[playbook]
 molecule/fed_idp_part1/converge.yml yaml[colons]
-molecule/fed_idp_part1/converge.yml yaml[truthy]
 molecule/fed_idp_part1/verify.yml yaml[indentation]
 molecule/fed_idp_part2/converge.yml jinja[spacing]
 molecule/fed_idp_part2/converge.yml name[missing]
-molecule/fed_idp_part2/converge.yml no-jinja-when
 molecule/fed_idp_part2/converge.yml var-naming[no-role-prefix]
 molecule/fed_idp_part2/converge.yml var-naming[pattern]
-molecule/fed_idp_part2/converge.yml yaml[truthy]
 molecule/fed_idp_part2/verify.yml yaml[indentation]
 molecule/fed_sp_ch10/converge.yml name[missing]
-molecule/fed_sp_ch10/converge.yml yaml[truthy]
 molecule/fed_sp_ch10/verify.yml yaml[indentation]
 molecule/fed_sp_ch13/converge.yml jinja[spacing]
 molecule/fed_sp_ch13/converge.yml name[missing]
 molecule/fed_sp_ch13/converge.yml var-naming[no-role-prefix]
-molecule/fed_sp_ch13/converge.yml yaml[truthy]
 molecule/fed_sp_ch13/verify.yml yaml[indentation]
 molecule/fed_sp_ch14/converge.yml name[missing]
 molecule/fed_sp_ch14/converge.yml var-naming[no-role-prefix]
-molecule/fed_sp_ch14/converge.yml yaml[truthy]
 molecule/fed_sp_ch14/verify.yml yaml[indentation]
 molecule/fed_sp_ch20/converge.yml name[missing]
 molecule/fed_sp_ch20/converge.yml var-naming[pattern]
-molecule/fed_sp_ch20/converge.yml yaml[truthy]
 molecule/fed_sp_ch20/verify.yml yaml[indentation]
 molecule/fed_sp_ch4/converge.yml jinja[spacing]
 molecule/fed_sp_ch4/converge.yml name[missing]
 molecule/fed_sp_ch4/converge.yml schema[playbook]
-molecule/fed_sp_ch4/converge.yml yaml[truthy]
+
 molecule/fed_sp_ch4/verify.yml yaml[indentation]
 molecule/fed_sp_ch5/converge.yml name[missing]
-molecule/fed_sp_ch5/converge.yml yaml[truthy]
+
 molecule/fed_sp_ch5/verify.yml yaml[indentation]
 molecule/fed_sp_ch7/converge.yml jinja[spacing]
 molecule/fed_sp_ch7/converge.yml name[missing]
 molecule/fed_sp_ch7/converge.yml schema[playbook]
-molecule/fed_sp_ch7/converge.yml yaml[truthy]
+
 molecule/fed_sp_ch7/verify.yml yaml[indentation]
 molecule/fed_sp_ch8/converge.yml name[missing]
-molecule/fed_sp_ch8/converge.yml yaml[truthy]
+
 molecule/fed_sp_ch8/verify.yml yaml[indentation]
 molecule/fed_sp_ch9/converge.yml name[missing]
 molecule/fed_sp_ch9/converge.yml var-naming[pattern]
-molecule/fed_sp_ch9/converge.yml yaml[truthy]
+
 molecule/fed_sp_ch9/verify.yml yaml[indentation]
 molecule/fed_sp_part1/converge.yml jinja[spacing]
 molecule/fed_sp_part1/converge.yml name[missing]
 molecule/fed_sp_part1/converge.yml schema[playbook]
-molecule/fed_sp_part1/converge.yml yaml[truthy]
+
 molecule/fed_sp_part1/verify.yml yaml[indentation]
 molecule/fed_sp_part2/converge.yml jinja[spacing]
 molecule/fed_sp_part2/converge.yml name[missing]
 molecule/fed_sp_part2/converge.yml var-naming[no-role-prefix]
 molecule/fed_sp_part2/converge.yml var-naming[pattern]
-molecule/fed_sp_part2/converge.yml yaml[truthy]
-molecule/fed_sp_part2/verify.yml yaml[indentation]
+
 molecule/vars/fed_cookbook_idp_vars.yml var-naming[pattern]
 molecule/vars/fed_cookbook_idp_vars.yml var-naming[read-only]
 molecule/vars/fed_cookbook_idp_vars.yml yaml[brackets]
 molecule/vars/fed_cookbook_idp_vars.yml yaml[line-length]
-molecule/vars/fed_cookbook_idp_vars.yml yaml[truthy]
+
 molecule/vars/fed_cookbook_sp_vars.yml var-naming[pattern]
 molecule/vars/fed_cookbook_sp_vars.yml var-naming[read-only]
 molecule/vars/fed_cookbook_sp_vars.yml yaml[brackets]
-molecule/vars/fed_cookbook_sp_vars.yml yaml[truthy]
-playbooks/aac/configure_access_control_attributes.yml name[play]
-playbooks/aac/configure_access_control_attributes.yml yaml[truthy]
-playbooks/aac/configure_access_control_policies.yml name[play]
+
 playbooks/aac/configure_access_control_policies.yml yaml[line-length]
-playbooks/aac/configure_access_control_policies.yml yaml[truthy]
-playbooks/aac/configure_access_control_policy_attachments.yml name[play]
-playbooks/aac/configure_access_control_policy_attachments.yml yaml[truthy]
-playbooks/aac/configure_access_control_policy_resources.yml name[play]
-playbooks/aac/configure_access_control_policy_resources.yml yaml[truthy]
-playbooks/aac/configure_advanced_configurations.yml name[play]
-playbooks/aac/configure_advanced_configurations.yml yaml[truthy]
-playbooks/aac/configure_api_protection_clients.yml name[play]
-playbooks/aac/configure_api_protection_clients.yml yaml[truthy]
-playbooks/aac/configure_api_protection_definitions.yml name[play]
-playbooks/aac/configure_api_protection_definitions.yml yaml[truthy]
-playbooks/aac/configure_authentication_mechanisms.yml name[play]
-playbooks/aac/configure_authentication_mechanisms.yml yaml[truthy]
-playbooks/aac/configure_authentication_policies.yml name[play]
-playbooks/aac/configure_authentication_policies.yml yaml[truthy]
-playbooks/aac/configure_fido2.yml name[play]
-playbooks/aac/configure_fido2.yml yaml[truthy]
-playbooks/aac/configure_mapping_rules.yml name[play]
-playbooks/aac/configure_mapping_rules.yml yaml[truthy]
-playbooks/aac/configure_policy_information_points.yml name[play]
-playbooks/aac/configure_policy_information_points.yml yaml[truthy]
-playbooks/aac/configure_runtime_template_root.yml name[play]
-playbooks/aac/configure_scim.yml name[play]
-playbooks/aac/configure_scim.yml yaml[truthy]
-playbooks/aac/configure_server_connections.yml name[play]
-playbooks/aac/configure_server_connections.yml yaml[truthy]
-playbooks/aac/configure_user_registry.yml name[play]
-playbooks/aac/create_api_protection_clients.yml name[play]
-playbooks/aac/create_api_protection_clients.yml yaml[truthy]
-playbooks/aac/create_api_protection_definitions.yml name[play]
-playbooks/aac/create_api_protection_definitions.yml yaml[truthy]
-playbooks/aac/create_authentication_mechanisms.yml name[play]
-playbooks/aac/create_authentication_mechanisms.yml yaml[truthy]
-playbooks/aac/create_authentication_policies.yml name[play]
-playbooks/aac/create_authentication_policies.yml yaml[truthy]
-playbooks/aac/create_runtime_template_directories.yml name[play]
-playbooks/aac/create_runtime_template_directories.yml yaml[truthy]
-playbooks/aac/disable_all_authentication_policies.yml name[play]
-playbooks/aac/disable_all_authentication_policies.yml yaml[truthy]
-playbooks/aac/export_runtime_template_root.yml name[play]
-playbooks/aac/export_runtime_template_root.yml yaml[truthy]
-playbooks/aac/import_runtime_template_files.yml name[play]
-playbooks/aac/import_runtime_template_files.yml yaml[truthy]
-playbooks/base/activate_modules.yml name[play]
-playbooks/base/activate_modules.yml yaml[truthy]
-playbooks/base/add_interfaces.yml name[play]
-playbooks/base/add_interfaces.yml yaml[truthy]
-playbooks/base/apply_snapshot.yml name[play]
-playbooks/base/apply_snapshot.yml yaml[truthy]
-playbooks/base/backup_firmware.yml name[play]
-playbooks/base/backup_firmware.yml yaml[truthy]
-playbooks/base/change_admin_password.yml name[play]
-playbooks/base/change_admin_password.yml yaml[truthy]
-playbooks/base/configure_advanced_tuning_parameters.yml name[play]
-playbooks/base/configure_advanced_tuning_parameters.yml yaml[truthy]
-playbooks/base/configure_certificate_databases.yml name[play]
-playbooks/base/configure_certificate_databases.yml yaml[truthy]
-playbooks/base/configure_certificate_requests.yml name[play]
-playbooks/base/configure_certificate_requests.yml yaml[truthy]
-playbooks/base/configure_cluster.yml name[play]
-playbooks/base/configure_cluster.yml yaml[truthy]
-playbooks/base/configure_dhcp.yml name[play]
-playbooks/base/configure_dhcp.yml yaml[truthy]
-playbooks/base/configure_dns.yml name[play]
-playbooks/base/configure_dns.yml yaml[truthy]
-playbooks/base/configure_interfaces.yml name[play]
-playbooks/base/configure_interfaces.yml yaml[truthy]
-playbooks/base/configure_management_ssl.yml yaml[truthy]
-playbooks/base/configure_personal_certificates.yml name[play]
-playbooks/base/configure_personal_certificates.yml yaml[truthy]
-playbooks/base/configure_runtime_tunings.yml name[play]
-playbooks/base/configure_runtime_tunings.yml yaml[truthy]
-playbooks/base/configure_signer_certificates.yml name[play]
-playbooks/base/configure_signer_certificates.yml yaml[truthy]
-playbooks/base/configure_static_routes.yml name[play]
-playbooks/base/configure_static_routes.yml yaml[truthy]
-playbooks/base/configure_sysaccounts.yml name[play]
-playbooks/base/configure_sysaccounts.yml yaml[truthy]
-playbooks/base/configure_time.yml name[play]
-playbooks/base/create_snapshot.yml name[play]
-playbooks/base/create_snapshot.yml yaml[truthy]
-playbooks/base/create_ssl_certificate_databases.yml name[play]
-playbooks/base/create_ssl_certificate_databases.yml yaml[truthy]
-playbooks/base/create_sysaccount.yml name[play]
-playbooks/base/create_sysaccount.yml yaml[truthy]
-playbooks/base/create_sysaccounts.yml name[play]
-playbooks/base/create_sysaccounts.yml yaml[truthy]
-playbooks/base/delete_application_logs.yml name[play]
-playbooks/base/delete_application_logs.yml yaml[truthy]
-playbooks/base/delete_interfaces.yml name[play]
-playbooks/base/delete_interfaces.yml yaml[truthy]
-playbooks/base/delete_snapshots.yml name[play]
-playbooks/base/delete_snapshots.yml yaml[truthy]
-playbooks/base/download_snapshots.yml name[play]
-playbooks/base/export_application_logs.yml name[play]
-playbooks/base/export_application_logs.yml yaml[truthy]
-playbooks/base/export_personal_certificates.yml name[play]
-playbooks/base/export_personal_certificates.yml yaml[truthy]
-playbooks/base/extract_certificates.yml name[play]
-playbooks/base/extract_certificates.yml yaml[truthy]
-playbooks/base/first_steps.yml name[play]
-playbooks/base/first_steps.yml yaml[truthy]
-playbooks/base/generate_self_signed_certificates.yml name[play]
-playbooks/base/generate_self_signed_certificates.yml yaml[truthy]
-playbooks/base/import_personal_certificates.yml name[play]
-playbooks/base/import_personal_certificates.yml yaml[truthy]
-playbooks/base/import_signer_certificates.yml name[play]
-playbooks/base/import_signer_certificates.yml yaml[truthy]
-playbooks/base/install_fixpacks.yml name[play]
-playbooks/base/install_fixpacks.yml yaml[truthy]
-playbooks/base/install_update.yml name[play]
-playbooks/base/install_update.yml yaml[truthy]
-playbooks/base/install_updates.yml jinja[spacing]
-playbooks/base/install_updates.yml name[casing]
-playbooks/base/install_updates.yml name[play]
-playbooks/base/install_updates.yml var-naming[no-reserved]
-playbooks/base/install_updates.yml var-naming[no-role-prefix]
-playbooks/base/install_updates.yml yaml[truthy]
-playbooks/base/load_signer_certificates.yml name[play]
-playbooks/base/load_signer_certificates.yml yaml[truthy]
-playbooks/base/publish.yml name[play]
-playbooks/base/publish.yml yaml[truthy]
-playbooks/base/set_dns.yml name[play]
-playbooks/base/set_dns.yml yaml[truthy]
-playbooks/base/set_host_records.yml name[play]
-playbooks/base/set_host_records.yml yaml[truthy]
-playbooks/base/set_hostname.yml name[play]
-playbooks/base/set_hostname.yml yaml[truthy]
-playbooks/base/set_listening_interfaces.yml name[play]
-playbooks/base/set_listening_interfaces.yml yaml[truthy]
-playbooks/base/set_management_authorization.yml name[play]
-playbooks/base/set_management_authorization.yml yaml[truthy]
-playbooks/base/set_password_sysaccounts.yml name[play]
-playbooks/base/set_password_sysaccounts.yml yaml[truthy]
-playbooks/base/swap_firmware.yml name[play]
-playbooks/base/swap_firmware.yml yaml[truthy]
-playbooks/base/upload_snapshot.yml name[play]
-playbooks/base/upload_updates.yml name[play]
-playbooks/base/upload_updates.yml yaml[truthy]
-playbooks/change_passwords.yml name[play]
+
 playbooks/change_passwords.yml var-naming[no-role-prefix]
 playbooks/change_passwords.yml var-naming[pattern]
 playbooks/change_passwords.yml yaml[commas]
 playbooks/change_passwords.yml yaml[line-length]
-playbooks/change_passwords.yml yaml[truthy]
-playbooks/compare.yml yaml[truthy]
+
 playbooks/connectivity_check.yml jinja[spacing]
 playbooks/connectivity_check.yml name[casing]
-playbooks/connectivity_check.yml yaml[truthy]
-playbooks/export_logs.yml yaml[truthy]
-playbooks/fed/configure_mapping_rules.yml name[play]
-playbooks/fed/configure_mapping_rules.yml yaml[truthy]
-playbooks/fed/configure_sts_chain_templates.yml name[play]
-playbooks/fed/configure_sts_chain_templates.yml yaml[truthy]
-playbooks/fed/configure_sts_chains.yml name[play]
-playbooks/fed/configure_sts_chains.yml yaml[truthy]
-playbooks/fed/create_federation_partners.yml name[play]
-playbooks/fed/create_federation_partners.yml yaml[truthy]
-playbooks/fed/create_federations.yml name[play]
-playbooks/fed/create_federations.yml yaml[truthy]
-playbooks/fed/set_current_poc_profile.yml name[play]
-playbooks/fed/set_current_poc_profile.yml yaml[truthy]
-playbooks/fed/set_user_registry_user_pw.yml name[play]
-playbooks/fed/set_user_registry_user_pw.yml yaml[truthy]
+
 playbooks/federation_cookbook/fed_cookbook_idp_vars.yml yaml[brackets]
 playbooks/federation_cookbook/fed_cookbook_idp_vars.yml yaml[indentation]
 playbooks/federation_cookbook/fed_cookbook_idp_vars.yml yaml[line-length]
-playbooks/federation_cookbook/fed_cookbook_idp_vars.yml yaml[truthy]
 playbooks/federation_cookbook/fed_cookbook_sp_vars.yml yaml[brackets]
 playbooks/federation_cookbook/fed_cookbook_sp_vars.yml yaml[indentation]
 playbooks/federation_cookbook/fed_cookbook_sp_vars.yml yaml[line-length]
-playbooks/federation_cookbook/fed_cookbook_sp_vars.yml yaml[truthy]
 playbooks/federation_cookbook/fed_idp_part1.yml jinja[spacing]
-playbooks/federation_cookbook/fed_idp_part1.yml name[missing]
 playbooks/federation_cookbook/fed_idp_part1.yml schema[playbook]
-playbooks/federation_cookbook/fed_idp_part1.yml yaml[truthy]
 playbooks/federation_cookbook/fed_idp_part2.yml jinja[spacing]
 playbooks/federation_cookbook/fed_idp_part2.yml name[missing]
-playbooks/federation_cookbook/fed_idp_part2.yml no-jinja-when
+
 playbooks/federation_cookbook/fed_idp_part2.yml var-naming[no-role-prefix]
 playbooks/federation_cookbook/fed_idp_part2.yml var-naming[pattern]
 playbooks/federation_cookbook/fed_idp_part2.yml yaml[brackets]
 playbooks/federation_cookbook/fed_idp_part2.yml yaml[indentation]
-playbooks/federation_cookbook/fed_idp_part2.yml yaml[truthy]
+
 playbooks/federation_cookbook/fed_sp_part1.yml jinja[spacing]
-playbooks/federation_cookbook/fed_sp_part1.yml name[missing]
 playbooks/federation_cookbook/fed_sp_part1.yml schema[playbook]
-playbooks/federation_cookbook/fed_sp_part1.yml yaml[truthy]
+
 playbooks/federation_cookbook/fed_sp_part2.yml jinja[spacing]
-playbooks/federation_cookbook/fed_sp_part2.yml name[missing]
 playbooks/federation_cookbook/fed_sp_part2.yml var-naming[no-role-prefix]
 playbooks/federation_cookbook/fed_sp_part2.yml var-naming[pattern]
 playbooks/federation_cookbook/fed_sp_part2.yml yaml[indentation]
-playbooks/federation_cookbook/fed_sp_part2.yml yaml[truthy]
-playbooks/install_firmware.yml yaml[truthy]
-playbooks/install_fixpack.yml yaml[truthy]
-playbooks/isamcfg.yml yaml[truthy]
-playbooks/pdadmin.yml yaml[truthy]
+
 playbooks/report_cpu_statistics.yml var-naming[no-role-prefix]
-playbooks/report_cpu_statistics.yml yaml[truthy]
-playbooks/report_fix_levels.yml yaml[truthy]
-playbooks/report_junctions.yml yaml[truthy]
-playbooks/report_memory_statistics.yml name[missing]
-playbooks/report_memory_statistics.yml yaml[truthy]
-playbooks/revert.yml yaml[truthy]
-playbooks/rp_archive_logs.yml yaml[truthy]
-playbooks/rp_conf_update.yml yaml[truthy]
-playbooks/rp_operation.yml yaml[truthy]
-playbooks/rp_restart.yml name[missing]
-playbooks/rp_restart.yml no-free-form
-playbooks/rp_restart.yml yaml[truthy]
+
 playbooks/site.yml var-naming[no-role-prefix]
 playbooks/site.yml var-naming[pattern]
 playbooks/site.yml yaml[indentation]
-playbooks/site.yml yaml[truthy]
+
 playbooks/switch_auth.yml var-naming[no-role-prefix]
 playbooks/switch_auth.yml yaml[commas]
-playbooks/switch_auth.yml yaml[truthy]
-playbooks/system_alerts.yml yaml[truthy]
-playbooks/web/config_reverseproxy_aac.yml name[play]
-playbooks/web/config_reverseproxy_aac.yml yaml[truthy]
-playbooks/web/config_reverseproxy_federations.yml name[play]
-playbooks/web/config_reverseproxy_federations.yml yaml[truthy]
-playbooks/web/config_reverseproxy_mmfa.yml name[play]
-playbooks/web/config_reverseproxy_mmfa.yml yaml[truthy]
-playbooks/web/config_reverseproxy_oauth.yml name[play]
-playbooks/web/config_reverseproxy_oauth.yml yaml[truthy]
-playbooks/web/configure_federated_directories.yml name[play]
-playbooks/web/configure_federated_directories.yml yaml[truthy]
-playbooks/web/configure_http_transformation_rules.yml name[play]
-playbooks/web/configure_http_transformation_rules.yml yaml[truthy]
-playbooks/web/configure_kerberos.yml name[play]
-playbooks/web/configure_kerberos.yml yaml[truthy]
-playbooks/web/configure_management_root.yml name[play]
-playbooks/web/configure_policyserver.yml name[play]
-playbooks/web/configure_policyserver.yml yaml[truthy]
-playbooks/web/configure_redis.yml name[casing]
-playbooks/web/configure_redis.yml name[play]
-playbooks/web/configure_redis.yml yaml[truthy]
-playbooks/web/configure_reverseproxy_instances.yml name[play]
-playbooks/web/configure_reverseproxy_instances.yml yaml[truthy]
-playbooks/web/configure_reverseproxy_junctions.yml name[play]
-playbooks/web/configure_reverseproxy_junctions.yml yaml[truthy]
-playbooks/web/configure_reverseproxy_junctions_setall.yml name[play]
-playbooks/web/configure_reverseproxy_junctions_setall.yml yaml[truthy]
-playbooks/web/configure_runtime_components.yml name[play]
-playbooks/web/configure_runtime_components.yml yaml[truthy]
-playbooks/web/create_reverseproxy_instances.yml name[play]
-playbooks/web/create_reverseproxy_instances.yml yaml[truthy]
-playbooks/web/create_sso_keys.yml name[play]
-playbooks/web/create_sso_keys.yml yaml[truthy]
-playbooks/web/delete_reverseproxy_instance.yml name[play]
-playbooks/web/delete_reverseproxy_instance.yml yaml[truthy]
-playbooks/web/execute_pdadmin.yml name[play]
-playbooks/web/execute_pdadmin.yml yaml[truthy]
-playbooks/web/export_sso_keys.yml name[play]
-playbooks/web/export_sso_keys.yml yaml[truthy]
-playbooks/web/import_certificate_mapping_files.yml name[play]
-playbooks/web/import_certificate_mapping_files.yml yaml[truthy]
-playbooks/web/import_keytab_files.yml name[play]
-playbooks/web/import_keytab_files.yml yaml[truthy]
-playbooks/web/import_sso_keys.yml name[play]
-playbooks/web/import_sso_keys.yml yaml[truthy]
-playbooks/web/restart_reverseproxy_instances.yml name[play]
-playbooks/web/restart_reverseproxy_instances.yml yaml[truthy]
-playbooks/web/set_embedded_ldap_admin_pw.yml name[play]
-playbooks/web/set_embedded_ldap_admin_pw.yml yaml[truthy]
-playbooks/web/set_runtime_components.yml name[play]
-playbooks/web/set_runtime_components.yml yaml[truthy]
-playbooks/web/update_jmt_files.yml name[play]
-playbooks/web/update_jmt_files.yml yaml[truthy]
-playbooks/web/upload_dynurl_files.yml name[play]
-playbooks/web/upload_dynurl_files.yml yaml[truthy]
-playbooks/web/upload_http_transformation_files.yml name[play]
-playbooks/web/upload_http_transformation_files.yml yaml[truthy]
-playbooks/web/upload_jmt_files.yml name[play]
-playbooks/web/upload_jmt_files.yml yaml[truthy]
-playbooks/web/upload_ltpa_files.yml name[play]
-playbooks/web/upload_ltpa_files.yml yaml[truthy]
-playbooks/web/upload_management_root_files.yml name[play]
-playbooks/web/upload_management_root_files.yml yaml[truthy]
-playbooks/web/upload_personal_certificate.yml name[play]
-playbooks/web/upload_personal_certificate.yml yaml[truthy]
-playbooks/web/upload_runtime_components.yml name[play]
-playbooks/web/upload_runtime_components.yml yaml[truthy]
+
 plugins/modules/isam.py yaml[colons]
 plugins/modules/isamadmin.py yaml[colons]
 plugins/modules/isamcompare.py yaml[colons]
 roles/aac/configure_access_control_attributes/molecule/add/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_access_control_attributes/molecule/add/converge.yml yaml[truthy]
-roles/aac/configure_access_control_attributes/molecule/add/verify.yml name[missing]
+
 roles/aac/configure_access_control_attributes/molecule/add/verify.yml name[template]
 roles/aac/configure_access_control_attributes/molecule/add/verify.yml var-naming[no-role-prefix]
-roles/aac/configure_access_control_attributes/molecule/add/verify.yml yaml[truthy]
+
 roles/aac/configure_access_control_attributes/molecule/default/converge.yml name[missing]
-roles/aac/configure_access_control_attributes/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/configure_access_control_attributes/molecule/default/verify.yml yaml[indentation]
-roles/aac/configure_access_control_attributes/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/configure_access_control_attributes/molecule/update/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_access_control_attributes/molecule/update/converge.yml yaml[truthy]
+
 roles/aac/configure_access_control_attributes/molecule/update/verify.yml name[missing]
-roles/aac/configure_access_control_attributes/molecule/update/verify.yml yaml[truthy]
+
 roles/aac/configure_access_control_attributes/vars/main.yml schema[vars]
 roles/aac/configure_access_control_attributes/vars/main.yml var-naming[no-reserved]
 roles/aac/configure_access_control_attributes/vars/main.yml var-naming[no-role-prefix]
 roles/aac/configure_access_control_attributes/vars/main.yml var-naming[pattern]
-roles/aac/configure_access_control_attributes/vars/main.yml yaml[truthy]
+
 roles/aac/configure_access_control_policies/molecule/add/converge.yml name[casing]
 roles/aac/configure_access_control_policies/molecule/add/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_access_control_policies/molecule/add/converge.yml yaml[truthy]
+
 roles/aac/configure_access_control_policies/molecule/add/verify.yml name[missing]
 roles/aac/configure_access_control_policies/molecule/add/verify.yml name[template]
 roles/aac/configure_access_control_policies/molecule/add/verify.yml var-naming[no-role-prefix]
-roles/aac/configure_access_control_policies/molecule/add/verify.yml yaml[truthy]
+
 roles/aac/configure_access_control_policies/molecule/default/converge.yml name[missing]
-roles/aac/configure_access_control_policies/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/configure_access_control_policies/molecule/default/verify.yml yaml[indentation]
-roles/aac/configure_access_control_policies/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/configure_access_control_policies/molecule/update/converge.yml jinja[spacing]
 roles/aac/configure_access_control_policies/molecule/update/converge.yml name[casing]
-roles/aac/configure_access_control_policies/molecule/update/converge.yml yaml[truthy]
+
 roles/aac/configure_access_control_policies/molecule/update/verify.yml name[missing]
-roles/aac/configure_access_control_policies/molecule/update/verify.yml yaml[truthy]
+
 roles/aac/configure_access_control_policies/molecule/vars/main.yml schema[vars]
 roles/aac/configure_access_control_policies/molecule/vars/main.yml var-naming[no-reserved]
 roles/aac/configure_access_control_policies/molecule/vars/main.yml var-naming[no-role-prefix]
 roles/aac/configure_access_control_policies/molecule/vars/main.yml yaml[line-length]
 roles/aac/configure_access_control_policies/tasks/main.yml yaml[line-length]
-roles/aac/configure_access_control_policy_attachments/molecule/add/converge.yml yaml[truthy]
+
 roles/aac/configure_access_control_policy_attachments/molecule/add/verify.yml name[casing]
 roles/aac/configure_access_control_policy_attachments/molecule/add/verify.yml name[missing]
 roles/aac/configure_access_control_policy_attachments/molecule/add/verify.yml name[template]
-roles/aac/configure_access_control_policy_attachments/molecule/add/verify.yml yaml[truthy]
+
 roles/aac/configure_access_control_policy_attachments/molecule/default/converge.yml name[missing]
-roles/aac/configure_access_control_policy_attachments/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/configure_access_control_policy_attachments/molecule/default/verify.yml yaml[indentation]
-roles/aac/configure_access_control_policy_attachments/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/configure_access_control_policy_attachments/molecule/force_remove/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_access_control_policy_attachments/molecule/force_remove/converge.yml yaml[truthy]
+
 roles/aac/configure_access_control_policy_attachments/molecule/force_remove/verify.yml name[casing]
 roles/aac/configure_access_control_policy_attachments/molecule/force_remove/verify.yml name[missing]
 roles/aac/configure_access_control_policy_attachments/molecule/force_remove/verify.yml name[template]
-roles/aac/configure_access_control_policy_attachments/molecule/force_remove/verify.yml yaml[truthy]
-roles/aac/configure_access_control_policy_attachments/molecule/remove/converge.yml yaml[truthy]
+
+
 roles/aac/configure_access_control_policy_attachments/molecule/remove/verify.yml name[casing]
 roles/aac/configure_access_control_policy_attachments/molecule/remove/verify.yml name[missing]
 roles/aac/configure_access_control_policy_attachments/molecule/remove/verify.yml name[template]
-roles/aac/configure_access_control_policy_attachments/molecule/remove/verify.yml yaml[truthy]
-roles/aac/configure_access_control_policy_attachments/molecule/set/converge.yml yaml[truthy]
+
+
 roles/aac/configure_access_control_policy_attachments/molecule/set/verify.yml name[casing]
 roles/aac/configure_access_control_policy_attachments/molecule/set/verify.yml name[missing]
 roles/aac/configure_access_control_policy_attachments/molecule/set/verify.yml name[template]
-roles/aac/configure_access_control_policy_attachments/molecule/set/verify.yml yaml[truthy]
+
 roles/aac/configure_access_control_policy_attachments/vars/main.yml var-naming[no-role-prefix]
 roles/aac/configure_access_control_policy_attachments/vars/main.yml var-naming[pattern]
 roles/aac/configure_access_control_policy_resources/molecule/default/converge.yml name[missing]
 roles/aac/configure_access_control_policy_resources/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_access_control_policy_resources/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/configure_access_control_policy_resources/molecule/default/verify.yml name[casing]
 roles/aac/configure_access_control_policy_resources/molecule/default/verify.yml name[missing]
 roles/aac/configure_access_control_policy_resources/molecule/default/verify.yml name[template]
 roles/aac/configure_access_control_policy_resources/molecule/default/verify.yml var-naming[no-role-prefix]
-roles/aac/configure_access_control_policy_resources/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/configure_access_control_policy_resources/vars/main.yml var-naming[no-role-prefix]
 roles/aac/configure_api_protection_clients/defaults/main.yml var-naming[no-role-prefix]
 roles/aac/configure_api_protection_clients/molecule/add/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_api_protection_clients/molecule/add/converge.yml yaml[truthy]
+
 roles/aac/configure_api_protection_clients/molecule/add/verify.yml name[missing]
 roles/aac/configure_api_protection_clients/molecule/add/verify.yml name[template]
 roles/aac/configure_api_protection_clients/molecule/add/verify.yml var-naming[no-role-prefix]
-roles/aac/configure_api_protection_clients/molecule/add/verify.yml yaml[truthy]
+
 roles/aac/configure_api_protection_clients/molecule/default/converge.yml name[missing]
-roles/aac/configure_api_protection_clients/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/configure_api_protection_clients/molecule/default/verify.yml yaml[indentation]
-roles/aac/configure_api_protection_clients/molecule/default/verify.yml yaml[truthy]
-roles/aac/configure_api_protection_clients/molecule/update/converge.yml yaml[truthy]
+
+
 roles/aac/configure_api_protection_clients/molecule/update/verify.yml name[missing]
 roles/aac/configure_api_protection_clients/molecule/update/verify.yml name[template]
-roles/aac/configure_api_protection_clients/molecule/update/verify.yml yaml[truthy]
+
 roles/aac/configure_api_protection_clients/tasks/main.yml jinja[spacing]
-roles/aac/configure_api_protection_clients/tasks/main.yml yaml[truthy]
+
 roles/aac/configure_api_protection_clients/vars/main.yml schema[vars]
 roles/aac/configure_api_protection_clients/vars/main.yml var-naming[no-role-prefix]
 roles/aac/configure_api_protection_clients/vars/main.yml var-naming[pattern]
 roles/aac/configure_api_protection_definitions/defaults/main.yml schema[vars]
-roles/aac/configure_api_protection_definitions/molecule/add/converge.yml yaml[truthy]
+
 roles/aac/configure_api_protection_definitions/molecule/add/verify.yml name[missing]
 roles/aac/configure_api_protection_definitions/molecule/add/verify.yml name[template]
-roles/aac/configure_api_protection_definitions/molecule/add/verify.yml yaml[truthy]
+
 roles/aac/configure_api_protection_definitions/molecule/default/converge.yml name[missing]
-roles/aac/configure_api_protection_definitions/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/configure_api_protection_definitions/molecule/default/verify.yml yaml[indentation]
-roles/aac/configure_api_protection_definitions/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/configure_api_protection_definitions/molecule/update/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_api_protection_definitions/molecule/update/converge.yml yaml[truthy]
+
 roles/aac/configure_api_protection_definitions/molecule/update/verify.yml name[missing]
 roles/aac/configure_api_protection_definitions/molecule/update/verify.yml name[template]
 roles/aac/configure_api_protection_definitions/molecule/update/verify.yml var-naming[no-role-prefix]
-roles/aac/configure_api_protection_definitions/molecule/update/verify.yml yaml[truthy]
+
 roles/aac/configure_api_protection_definitions/vars/main.yml var-naming[no-role-prefix]
 roles/aac/configure_api_protection_definitions/vars/main.yml var-naming[pattern]
 roles/aac/configure_authentication_mechanisms/defaults/main.yml var-naming[no-role-prefix]
 roles/aac/configure_authentication_mechanisms/molecule/default/converge.yml name[missing]
-roles/aac/configure_authentication_mechanisms/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/configure_authentication_mechanisms/molecule/default/verify.yml yaml[indentation]
-roles/aac/configure_authentication_mechanisms/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/configure_authentication_mechanisms/molecule/delete/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_authentication_mechanisms/molecule/delete/converge.yml yaml[truthy]
+
 roles/aac/configure_authentication_mechanisms/molecule/delete/verify.yml name[missing]
 roles/aac/configure_authentication_mechanisms/molecule/delete/verify.yml name[template]
 roles/aac/configure_authentication_mechanisms/molecule/delete/verify.yml var-naming[no-role-prefix]
-roles/aac/configure_authentication_mechanisms/molecule/delete/verify.yml yaml[truthy]
+
 roles/aac/configure_authentication_mechanisms/molecule/set/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_authentication_mechanisms/molecule/set/converge.yml yaml[truthy]
+
 roles/aac/configure_authentication_mechanisms/molecule/set/verify.yml name[missing]
 roles/aac/configure_authentication_mechanisms/molecule/set/verify.yml name[template]
-roles/aac/configure_authentication_mechanisms/molecule/set/verify.yml yaml[truthy]
+
 roles/aac/configure_authentication_mechanisms/tasks/main.yml jinja[spacing]
 roles/aac/configure_authentication_mechanisms/tasks/main.yml yaml[line-length]
-roles/aac/configure_authentication_mechanisms/tasks/main.yml yaml[truthy]
+
 roles/aac/configure_authentication_mechanisms/vars/main.yml var-naming[no-role-prefix]
 roles/aac/configure_authentication_mechanisms/vars/main.yml var-naming[pattern]
 roles/aac/configure_authentication_policies/defaults/main.yml var-naming[no-role-prefix]
 roles/aac/configure_authentication_policies/molecule/add/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_authentication_policies/molecule/add/converge.yml yaml[truthy]
+
 roles/aac/configure_authentication_policies/molecule/add/verify.yml name[missing]
 roles/aac/configure_authentication_policies/molecule/add/verify.yml name[template]
-roles/aac/configure_authentication_policies/molecule/add/verify.yml yaml[truthy]
+
 roles/aac/configure_authentication_policies/molecule/default/converge.yml name[missing]
-roles/aac/configure_authentication_policies/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/configure_authentication_policies/molecule/default/verify.yml yaml[indentation]
-roles/aac/configure_authentication_policies/molecule/default/verify.yml yaml[truthy]
-roles/aac/configure_authentication_policies/molecule/set_add/converge.yml yaml[truthy]
+
+
 roles/aac/configure_authentication_policies/molecule/set_add/verify.yml name[missing]
 roles/aac/configure_authentication_policies/molecule/set_add/verify.yml name[template]
-roles/aac/configure_authentication_policies/molecule/set_add/verify.yml yaml[truthy]
-roles/aac/configure_authentication_policies/molecule/update/converge.yml yaml[truthy]
+
+
 roles/aac/configure_authentication_policies/molecule/update/verify.yml name[missing]
 roles/aac/configure_authentication_policies/molecule/update/verify.yml name[template]
 roles/aac/configure_authentication_policies/molecule/update/verify.yml var-naming[no-role-prefix]
-roles/aac/configure_authentication_policies/molecule/update/verify.yml yaml[truthy]
+
 roles/aac/configure_authentication_policies/tasks/main.yml jinja[spacing]
 roles/aac/configure_authentication_policies/tasks/main.yml yaml[line-length]
-roles/aac/configure_authentication_policies/tasks/main.yml yaml[truthy]
+
 roles/aac/configure_authentication_policies/vars/main.yml schema[vars]
 roles/aac/configure_authentication_policies/vars/main.yml var-naming[pattern]
 roles/aac/configure_fido2/defaults/main.yml var-naming[no-role-prefix]
 roles/aac/configure_fido2/meta/main.yml yaml[indentation]
 roles/aac/configure_fido2/molecule/default/converge.yml name[casing]
-roles/aac/configure_fido2/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/configure_fido2/molecule/default/verify.yml yaml[indentation]
-roles/aac/configure_fido2/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/configure_fido2/molecule/vars/main.yml var-naming[no-role-prefix]
 roles/aac/configure_fido2/molecule/vars/main.yml yaml[line-length]
 roles/aac/configure_fido2/tasks/main.yml jinja[spacing]
 roles/aac/configure_fido2/tasks/main.yml yaml[line-length]
-roles/aac/configure_fido2/tasks/main.yml yaml[truthy]
+
 roles/aac/configure_mapping_rules/defaults/main.yml var-naming[no-role-prefix]
-roles/aac/configure_mapping_rules/meta/main.yml schema[meta]
+
 roles/aac/configure_mapping_rules/molecule/add/converge.yml name[casing]
 roles/aac/configure_mapping_rules/molecule/add/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_mapping_rules/molecule/add/converge.yml yaml[truthy]
+
 roles/aac/configure_mapping_rules/molecule/add/verify.yml name[casing]
 roles/aac/configure_mapping_rules/molecule/add/verify.yml name[template]
 roles/aac/configure_mapping_rules/molecule/add/verify.yml var-naming[no-role-prefix]
-roles/aac/configure_mapping_rules/molecule/add/verify.yml yaml[truthy]
+
 roles/aac/configure_mapping_rules/molecule/default/converge.yml name[missing]
-roles/aac/configure_mapping_rules/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/configure_mapping_rules/molecule/default/verify.yml yaml[indentation]
-roles/aac/configure_mapping_rules/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/configure_mapping_rules/molecule/delete/converge.yml name[casing]
 roles/aac/configure_mapping_rules/molecule/delete/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_mapping_rules/molecule/delete/converge.yml yaml[truthy]
+
 roles/aac/configure_mapping_rules/molecule/delete/verify.yml name[casing]
 roles/aac/configure_mapping_rules/molecule/delete/verify.yml name[template]
 roles/aac/configure_mapping_rules/molecule/delete/verify.yml var-naming[no-role-prefix]
-roles/aac/configure_mapping_rules/molecule/delete/verify.yml yaml[truthy]
+
 roles/aac/configure_mapping_rules/molecule/export_file/converge.yml name[casing]
-roles/aac/configure_mapping_rules/molecule/export_file/converge.yml yaml[truthy]
+
 roles/aac/configure_mapping_rules/molecule/export_file/verify.yml name[casing]
-roles/aac/configure_mapping_rules/molecule/export_file/verify.yml yaml[truthy]
+
 roles/aac/configure_mapping_rules/molecule/import_file/converge.yml name[casing]
 roles/aac/configure_mapping_rules/molecule/import_file/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_mapping_rules/molecule/import_file/converge.yml yaml[truthy]
+
 roles/aac/configure_mapping_rules/molecule/import_file/verify.yml name[casing]
 roles/aac/configure_mapping_rules/molecule/import_file/verify.yml name[template]
 roles/aac/configure_mapping_rules/molecule/import_file/verify.yml var-naming[no-role-prefix]
-roles/aac/configure_mapping_rules/molecule/import_file/verify.yml yaml[truthy]
+
 roles/aac/configure_mapping_rules/molecule/set/converge.yml name[casing]
 roles/aac/configure_mapping_rules/molecule/set/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_mapping_rules/molecule/set/converge.yml yaml[truthy]
+
 roles/aac/configure_mapping_rules/molecule/set/verify.yml name[casing]
 roles/aac/configure_mapping_rules/molecule/set/verify.yml name[template]
-roles/aac/configure_mapping_rules/molecule/set/verify.yml yaml[truthy]
+
 roles/aac/configure_mapping_rules/molecule/update/converge.yml name[casing]
 roles/aac/configure_mapping_rules/molecule/update/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_mapping_rules/molecule/update/converge.yml yaml[truthy]
+
 roles/aac/configure_mapping_rules/molecule/update/verify.yml name[casing]
 roles/aac/configure_mapping_rules/molecule/update/verify.yml name[template]
 roles/aac/configure_mapping_rules/molecule/update/verify.yml var-naming[no-role-prefix]
-roles/aac/configure_mapping_rules/molecule/update/verify.yml yaml[truthy]
+
 roles/aac/configure_mapping_rules/molecule/upload/converge.yml name[casing]
 roles/aac/configure_mapping_rules/molecule/upload/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_mapping_rules/molecule/upload/converge.yml yaml[truthy]
+
 roles/aac/configure_mapping_rules/molecule/upload/verify.yml name[casing]
 roles/aac/configure_mapping_rules/molecule/upload/verify.yml name[template]
-roles/aac/configure_mapping_rules/molecule/upload/verify.yml yaml[truthy]
+
 roles/aac/configure_mapping_rules/molecule/vars/vars.yml var-naming[no-role-prefix]
 roles/aac/configure_mapping_rules/tasks/main.yml yaml[line-length]
-roles/aac/configure_mapping_rules/tasks/main.yml yaml[truthy]
+
 roles/aac/configure_policy_information_points/defaults/main.yml var-naming[no-role-prefix]
 roles/aac/configure_policy_information_points/molecule/default/converge.yml name[casing]
-roles/aac/configure_policy_information_points/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/configure_policy_information_points/molecule/default/verify.yml yaml[indentation]
-roles/aac/configure_policy_information_points/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/configure_policy_information_points/molecule/vars/main.yml var-naming[no-role-prefix]
 roles/aac/configure_policy_information_points/tasks/main.yml jinja[spacing]
-roles/aac/configure_policy_information_points/tasks/main.yml yaml[truthy]
+
 roles/aac/configure_runtime_template_root/defaults/main.yml jinja[spacing]
 roles/aac/configure_runtime_template_root/defaults/main.yml var-naming[no-role-prefix]
 roles/aac/configure_runtime_template_root/meta/main.yml yaml[indentation]
 roles/aac/configure_runtime_template_root/molecule/default/converge.yml name[casing]
-roles/aac/configure_runtime_template_root/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/configure_runtime_template_root/molecule/default/verify.yml yaml[indentation]
-roles/aac/configure_runtime_template_root/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/configure_runtime_template_root/molecule/vars/vars.yml var-naming[no-role-prefix]
 roles/aac/configure_runtime_template_root/tasks/include_export_runtime_template_root.yml name[prefix]
 roles/aac/configure_runtime_template_root/tasks/include_import_runtime_template_root.yml name[prefix]
@@ -681,162 +413,162 @@ roles/aac/configure_runtime_template_root/tasks/include_sync_runtime_template_ro
 roles/aac/configure_runtime_template_root/tasks/include_sync_runtime_template_root.yml schema[moves]
 roles/aac/configure_runtime_template_root/tasks/include_sync_runtime_template_root.yml yaml[indentation]
 roles/aac/configure_runtime_template_root/tasks/include_sync_runtime_template_root.yml yaml[line-length]
-roles/aac/configure_runtime_template_root/tasks/include_sync_runtime_template_root.yml yaml[truthy]
+
 roles/aac/configure_runtime_template_root/tasks/main.yml deprecated-local-action
 roles/aac/configure_runtime_template_root/tasks/main.yml jinja[spacing]
 roles/aac/configure_runtime_template_root/tasks/main.yml name[template]
 roles/aac/configure_runtime_template_root/tasks/main.yml yaml[line-length]
-roles/aac/configure_runtime_template_root/tasks/main.yml yaml[truthy]
+
 roles/aac/configure_scim/defaults/main.yml var-naming[no-role-prefix]
 roles/aac/configure_scim/meta/main.yml yaml[indentation]
 roles/aac/configure_server_connections/defaults/main.yml schema[vars]
 roles/aac/configure_server_connections/defaults/main.yml var-naming[no-keyword]
 roles/aac/configure_server_connections/defaults/main.yml var-naming[no-role-prefix]
 roles/aac/configure_server_connections/molecule/default/converge.yml name[missing]
-roles/aac/configure_server_connections/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/configure_server_connections/molecule/default/verify.yml yaml[indentation]
-roles/aac/configure_server_connections/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/configure_server_connections/molecule/delete/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_server_connections/molecule/delete/converge.yml yaml[truthy]
+
 roles/aac/configure_server_connections/molecule/delete/verify.yml name[missing]
 roles/aac/configure_server_connections/molecule/delete/verify.yml name[template]
-roles/aac/configure_server_connections/molecule/delete/verify.yml yaml[truthy]
+
 roles/aac/configure_server_connections/molecule/set/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_server_connections/molecule/set/converge.yml yaml[truthy]
+
 roles/aac/configure_server_connections/molecule/set/verify.yml name[missing]
 roles/aac/configure_server_connections/molecule/set/verify.yml name[template]
 roles/aac/configure_server_connections/molecule/set/verify.yml var-naming[no-role-prefix]
-roles/aac/configure_server_connections/molecule/set/verify.yml yaml[truthy]
+
 roles/aac/configure_server_connections/tasks/main.yml jinja[spacing]
 roles/aac/configure_server_connections/tasks/main.yml yaml[line-length]
-roles/aac/configure_server_connections/tasks/main.yml yaml[truthy]
+
 roles/aac/configure_server_connections/vars/main.yml var-naming[no-role-prefix]
 roles/aac/configure_server_connections/vars/main.yml var-naming[pattern]
 roles/aac/configure_user_registry/defaults/main.yml var-naming[no-role-prefix]
 roles/aac/configure_user_registry/molecule/add/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_user_registry/molecule/add/converge.yml yaml[truthy]
+
 roles/aac/configure_user_registry/molecule/add/verify.yml name[missing]
 roles/aac/configure_user_registry/molecule/add/verify.yml name[template]
 roles/aac/configure_user_registry/molecule/add/verify.yml var-naming[no-role-prefix]
-roles/aac/configure_user_registry/molecule/add/verify.yml yaml[truthy]
+
 roles/aac/configure_user_registry/molecule/default/converge.yml name[missing]
-roles/aac/configure_user_registry/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/configure_user_registry/molecule/default/verify.yml yaml[indentation]
-roles/aac/configure_user_registry/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/configure_user_registry/molecule/delete/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_user_registry/molecule/delete/converge.yml yaml[truthy]
+
 roles/aac/configure_user_registry/molecule/delete/verify.yml jinja[spacing]
 roles/aac/configure_user_registry/molecule/delete/verify.yml name[casing]
 roles/aac/configure_user_registry/molecule/delete/verify.yml name[missing]
 roles/aac/configure_user_registry/molecule/delete/verify.yml name[template]
-roles/aac/configure_user_registry/molecule/delete/verify.yml no-jinja-when
-roles/aac/configure_user_registry/molecule/delete/verify.yml yaml[truthy]
+
+
 roles/aac/configure_user_registry/molecule/set_pw/converge.yml var-naming[no-role-prefix]
-roles/aac/configure_user_registry/molecule/set_pw/converge.yml yaml[truthy]
+
 roles/aac/configure_user_registry/molecule/set_pw/verify.yml yaml[indentation]
-roles/aac/configure_user_registry/molecule/set_pw/verify.yml yaml[truthy]
-roles/aac/configure_user_registry/tasks/main.yml yaml[truthy]
+
+
 roles/aac/configure_user_registry/vars/main.yml var-naming[no-role-prefix]
 roles/aac/create_api_protection_clients/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/create_api_protection_clients/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/create_api_protection_clients/molecule/default/verify.yml name[missing]
 roles/aac/create_api_protection_clients/molecule/default/verify.yml name[template]
-roles/aac/create_api_protection_clients/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/create_api_protection_clients/vars/main.yml var-naming[no-role-prefix]
 roles/aac/create_api_protection_clients/vars/main.yml var-naming[pattern]
 roles/aac/create_api_protection_definitions/defaults/main.yml schema[vars]
 roles/aac/create_api_protection_definitions/defaults/main.yml var-naming[no-reserved]
 roles/aac/create_api_protection_definitions/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/create_api_protection_definitions/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/create_api_protection_definitions/molecule/default/verify.yml name[missing]
 roles/aac/create_api_protection_definitions/molecule/default/verify.yml name[template]
-roles/aac/create_api_protection_definitions/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/create_api_protection_definitions/vars/main.yml var-naming[no-role-prefix]
 roles/aac/create_api_protection_definitions/vars/main.yml var-naming[pattern]
 roles/aac/create_authentication_mechanisms/defaults/main.yml var-naming[no-role-prefix]
 roles/aac/create_authentication_mechanisms/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/create_authentication_mechanisms/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/create_authentication_mechanisms/molecule/default/verify.yml name[missing]
 roles/aac/create_authentication_mechanisms/molecule/default/verify.yml name[template]
 roles/aac/create_authentication_mechanisms/molecule/default/verify.yml var-naming[no-role-prefix]
-roles/aac/create_authentication_mechanisms/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/create_authentication_mechanisms/vars/main.yml schema[vars]
 roles/aac/create_authentication_mechanisms/vars/main.yml var-naming[no-reserved]
 roles/aac/create_authentication_mechanisms/vars/main.yml var-naming[no-role-prefix]
 roles/aac/create_authentication_mechanisms/vars/main.yml var-naming[pattern]
 roles/aac/create_obligation/defaults/main.yml var-naming[no-role-prefix]
-roles/aac/create_obligation/meta/main.yml schema[meta]
+
 roles/aac/create_obligation/molecule/add/converge.yml var-naming[no-role-prefix]
-roles/aac/create_obligation/molecule/add/converge.yml yaml[truthy]
+
 roles/aac/create_obligation/molecule/add/verify.yml name[missing]
 roles/aac/create_obligation/molecule/add/verify.yml name[template]
-roles/aac/create_obligation/molecule/add/verify.yml yaml[truthy]
+
 roles/aac/create_obligation/molecule/default/converge.yml name[missing]
-roles/aac/create_obligation/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/create_obligation/molecule/default/verify.yml yaml[indentation]
-roles/aac/create_obligation/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/create_obligation/molecule/update/converge.yml var-naming[no-role-prefix]
-roles/aac/create_obligation/molecule/update/converge.yml yaml[truthy]
+
 roles/aac/create_obligation/molecule/update/verify.yml name[missing]
 roles/aac/create_obligation/molecule/update/verify.yml name[template]
 roles/aac/create_obligation/molecule/update/verify.yml var-naming[no-role-prefix]
-roles/aac/create_obligation/molecule/update/verify.yml yaml[truthy]
+
 roles/aac/create_obligation/vars/main.yml schema[vars]
 roles/aac/create_obligation/vars/main.yml var-naming[pattern]
 roles/aac/delete_attribute/defaults/main.yml var-naming[no-role-prefix]
-roles/aac/delete_attribute/meta/main.yml schema[meta]
+
 roles/aac/delete_attribute/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/delete_attribute/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/delete_attribute/molecule/default/verify.yml name[missing]
 roles/aac/delete_attribute/molecule/default/verify.yml name[template]
-roles/aac/delete_attribute/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/delete_attribute/vars/main.yml schema[vars]
-roles/aac/disable_all_authentication_policies/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/disable_all_authentication_policies/molecule/default/verify.yml jinja[spacing]
 roles/aac/disable_all_authentication_policies/molecule/default/verify.yml literal-compare
-roles/aac/disable_all_authentication_policies/molecule/default/verify.yml no-jinja-when
-roles/aac/disable_all_authentication_policies/molecule/default/verify.yml yaml[truthy]
+
+
 roles/aac/disable_all_authentication_policies/tasks/main.yml name[missing]
 roles/aac/disable_all_authentication_policies/tasks/main.yml no-free-form
 roles/aac/disable_all_authentication_policies/tasks/main.yml var-naming[pattern]
-roles/aac/disable_all_authentication_policies/tasks/main.yml yaml[truthy]
+
 roles/aac/disable_authentication_policies/defaults/main.yml var-naming[no-role-prefix]
-roles/aac/disable_authentication_policies/meta/main.yml schema[meta]
-roles/aac/disable_authentication_policies/molecule/default/converge.yml yaml[truthy]
+
+
 roles/aac/disable_authentication_policies/molecule/default/verify.yml jinja[spacing]
 roles/aac/disable_authentication_policies/molecule/default/verify.yml name[casing]
 roles/aac/disable_authentication_policies/molecule/default/verify.yml name[missing]
 roles/aac/disable_authentication_policies/molecule/default/verify.yml var-naming[pattern]
-roles/aac/disable_authentication_policies/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/disable_authentication_policies/tasks/main.yml jinja[spacing]
 roles/aac/disable_authentication_policies/tasks/main.yml var-naming[pattern]
 roles/aac/disable_authentication_policies/vars/main.yml var-naming[no-role-prefix]
 roles/aac/export_runtime_template_root/defaults/main.yml var-naming[no-role-prefix]
 
 roles/aac/export_runtime_template_root/molecule/default/converge.yml name[missing]
-roles/aac/export_runtime_template_root/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/export_runtime_template_root/molecule/default/verify.yml name[casing]
 roles/aac/export_runtime_template_root/molecule/default/verify.yml name[missing]
-roles/aac/export_runtime_template_root/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/export_runtime_template_root/molecule/vars/main.yml var-naming[no-role-prefix]
 roles/aac/get_access_control_attributes/molecule/default/converge.yml name[missing]
 roles/aac/get_access_control_attributes/molecule/default/converge.yml var-naming[no-reserved]
 roles/aac/get_access_control_attributes/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/get_access_control_attributes/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/get_access_control_attributes/molecule/default/verify.yml yaml[indentation]
 roles/aac/get_access_control_attributes/vars/main.yml schema[vars]
 roles/aac/get_access_control_policies/molecule/default/converge.yml name[missing]
 roles/aac/get_access_control_policies/molecule/default/converge.yml var-naming[no-reserved]
 roles/aac/get_access_control_policies/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/get_access_control_policies/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/get_access_control_policies/molecule/default/verify.yml yaml[indentation]
 roles/aac/get_access_control_policies/vars/main.yml schema[vars]
 roles/aac/get_access_control_policy_attachments/molecule/default/converge.yml name[missing]
 roles/aac/get_access_control_policy_attachments/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/get_access_control_policy_attachments/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/get_access_control_policy_attachments/molecule/default/verify.yml name[missing]
 roles/aac/get_access_control_policy_attachments/molecule/default/verify.yml yaml[indentation]
-roles/aac/get_access_control_policy_attachments/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/get_access_control_policy_attachments/vars/main.yml var-naming[no-role-prefix]
 roles/aac/get_access_control_policy_attachments/vars/main.yml var-naming[pattern]
 roles/aac/get_accesscontrol_configuration/defaults/main.yml var-naming[no-role-prefix]
@@ -844,29 +576,29 @@ roles/aac/get_accesscontrol_configuration/meta/main.yml yaml[indentation]
 roles/aac/get_accesscontrol_configuration/tasks/main.yml name[template]
 roles/aac/get_accesscontrol_configuration/tasks/main.yml yaml[indentation]
 roles/aac/get_all_authentication_policies/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/get_all_authentication_policies/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/get_all_authentication_policies/molecule/default/verify.yml yaml[indentation]
 roles/aac/get_all_authentication_policies/vars/main.yml schema[vars]
 roles/aac/get_all_user_registry/molecule/default/converge.yml name[missing]
 roles/aac/get_all_user_registry/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/get_all_user_registry/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/get_all_user_registry/molecule/default/verify.yml yaml[indentation]
 roles/aac/get_api_protection_clients/molecule/default/converge.yml name[missing]
 roles/aac/get_api_protection_clients/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/get_api_protection_clients/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/get_api_protection_clients/molecule/default/verify.yml yaml[indentation]
-roles/aac/get_api_protection_clients/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/get_api_protection_clients/vars/main.yml var-naming[no-role-prefix]
 roles/aac/get_api_protection_definitions/molecule/default/converge.yml name[missing]
 roles/aac/get_api_protection_definitions/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/get_api_protection_definitions/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/get_api_protection_definitions/molecule/default/verify.yml yaml[indentation]
-roles/aac/get_api_protection_definitions/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/get_api_protection_definitions/vars/main.yml var-naming[no-role-prefix]
 roles/aac/get_authentication_mechanisms/molecule/default/converge.yml name[missing]
 roles/aac/get_authentication_mechanisms/molecule/default/converge.yml var-naming[no-reserved]
 roles/aac/get_authentication_mechanisms/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/get_authentication_mechanisms/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/get_authentication_mechanisms/molecule/default/verify.yml yaml[indentation]
 roles/aac/get_authentication_mechanisms/tasks/main.yml jinja[spacing]
 roles/aac/get_authentication_mechanisms/vars/main.yml schema[vars]
@@ -874,274 +606,274 @@ roles/aac/get_authentication_mechanisms/vars/main.yml var-naming[no-reserved]
 roles/aac/get_authentication_policies_by_name/molecule/default/converge.yml name[missing]
 roles/aac/get_authentication_policies_by_name/molecule/default/converge.yml var-naming[no-reserved]
 roles/aac/get_authentication_policies_by_name/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/get_authentication_policies_by_name/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/get_authentication_policies_by_name/molecule/default/verify.yml yaml[indentation]
 roles/aac/get_authentication_policies_by_name/tasks/main.yml jinja[spacing]
 roles/aac/get_authentication_policies_by_name/vars/main.yml schema[vars]
-roles/aac/get_mapping_rule_by_name/meta/main.yml schema[meta]
+
 roles/aac/get_mapping_rule_by_name/molecule/default/converge.yml name[missing]
 roles/aac/get_mapping_rule_by_name/molecule/default/converge.yml var-naming[no-reserved]
 roles/aac/get_mapping_rule_by_name/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/get_mapping_rule_by_name/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/get_mapping_rule_by_name/molecule/default/verify.yml yaml[indentation]
 roles/aac/get_mapping_rule_by_name/vars/main.yml schema[vars]
-roles/aac/get_mapping_rules/meta/main.yml schema[meta]
+
 roles/aac/get_obligations_by_name/molecule/default/converge.yml var-naming[no-reserved]
 roles/aac/get_obligations_by_name/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/get_obligations_by_name/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/get_obligations_by_name/molecule/default/verify.yml yaml[indentation]
 roles/aac/get_obligations_by_name/vars/main.yml schema[vars]
 roles/aac/get_server_connections_by_name/molecule/default/converge.yml name[missing]
 roles/aac/get_server_connections_by_name/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/get_server_connections_by_name/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/get_server_connections_by_name/molecule/default/verify.yml yaml[indentation]
 roles/aac/get_server_connections_by_name/tasks/main.yml jinja[spacing]
 roles/aac/get_server_connections_by_name/vars/main.yml schema[vars]
 roles/aac/get_server_connections_by_name/vars/main.yml var-naming[no-role-prefix]
 roles/aac/get_user_registry_by_id/molecule/default/converge.yml name[missing]
 roles/aac/get_user_registry_by_id/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/get_user_registry_by_id/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/get_user_registry_by_id/molecule/default/verify.yml yaml[indentation]
 roles/aac/get_user_registry_by_id/tasks/main.yml jinja[spacing]
 roles/aac/get_user_registry_by_id/vars/main.yml var-naming[no-role-prefix]
 roles/aac/set_access_policies/defaults/main.yml var-naming[no-role-prefix]
-roles/aac/set_access_policies/meta/main.yml schema[meta]
+
 roles/aac/set_access_policies/molecule/default/converge.yml name[missing]
-roles/aac/set_access_policies/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/set_access_policies/molecule/default/verify.yml yaml[indentation]
-roles/aac/set_access_policies/molecule/default/verify.yml yaml[truthy]
-roles/aac/set_access_policies/molecule/set_add/converge.yml yaml[truthy]
+
+
 roles/aac/set_access_policies/molecule/set_add/verify.yml name[template]
-roles/aac/set_access_policies/molecule/set_add/verify.yml yaml[truthy]
+
 roles/aac/set_access_policies/molecule/set_update/converge.yml var-naming[no-role-prefix]
-roles/aac/set_access_policies/molecule/set_update/converge.yml yaml[truthy]
+
 roles/aac/set_access_policies/molecule/set_update/verify.yml jinja[spacing]
 roles/aac/set_access_policies/molecule/set_update/verify.yml name[casing]
 roles/aac/set_access_policies/molecule/set_update/verify.yml name[template]
 roles/aac/set_access_policies/molecule/set_update/verify.yml var-naming[no-role-prefix]
-roles/aac/set_access_policies/molecule/set_update/verify.yml yaml[truthy]
+
 roles/aac/set_accesscontrol_policyattachment/defaults/main.yml var-naming[no-role-prefix]
 roles/aac/set_accesscontrol_policyattachment/meta/main.yml yaml[indentation]
 roles/aac/set_accesscontrol_policyattachment/tasks/main.yml yaml[indentation]
 roles/aac/set_file_access_control_policies/molecule/add/converge.yml var-naming[no-role-prefix]
-roles/aac/set_file_access_control_policies/molecule/add/converge.yml yaml[truthy]
+
 roles/aac/set_file_access_control_policies/molecule/add/verify.yml name[missing]
 roles/aac/set_file_access_control_policies/molecule/add/verify.yml name[template]
-roles/aac/set_file_access_control_policies/molecule/add/verify.yml yaml[truthy]
+
 roles/aac/set_file_access_control_policies/molecule/default/converge.yml name[missing]
-roles/aac/set_file_access_control_policies/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/set_file_access_control_policies/molecule/default/verify.yml yaml[indentation]
-roles/aac/set_file_access_control_policies/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/set_file_access_control_policies/molecule/update/converge.yml jinja[spacing]
 roles/aac/set_file_access_control_policies/molecule/update/converge.yml var-naming[no-role-prefix]
-roles/aac/set_file_access_control_policies/molecule/update/converge.yml yaml[truthy]
+
 roles/aac/set_file_access_control_policies/molecule/update/verify.yml name[missing]
-roles/aac/set_file_access_control_policies/molecule/update/verify.yml yaml[truthy]
+
 roles/aac/set_file_access_control_policies/vars/main.yml var-naming[no-role-prefix]
 roles/aac/set_pwd_user_registry/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/set_pwd_user_registry/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/set_pwd_user_registry/molecule/default/verify.yml yaml[indentation]
-roles/aac/set_pwd_user_registry/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/update_advanced_configurations/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/update_advanced_configurations/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/update_advanced_configurations/molecule/default/verify.yml var-naming[no-role-prefix]
-roles/aac/update_advanced_configurations/molecule/default/verify.yml yaml[truthy]
+
 roles/aac/update_api_protection_clients/defaults/main.yml var-naming[no-role-prefix]
 roles/aac/update_api_protection_clients/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/aac/update_api_protection_clients/molecule/default/converge.yml yaml[truthy]
+
 roles/aac/update_api_protection_clients/molecule/default/verify.yml var-naming[no-role-prefix]
-roles/aac/update_api_protection_clients/molecule/default/verify.yml yaml[truthy]
-roles/activate_module/meta/main.yml schema[meta]
+
+
 roles/activate_module/meta/main.yml yaml[indentation]
 roles/activate_module/tasks/main.yml name[missing]
 roles/activate_module/tasks/main.yml name[template]
-roles/add_attribute_source/meta/main.yml schema[meta]
+
 roles/add_attribute_source/meta/main.yml yaml[indentation]
-roles/add_chain_template/meta/main.yml schema[meta]
+
 roles/add_chain_template/meta/main.yml yaml[indentation]
 
-roles/add_cluster_node/defaults/main.yml yaml[truthy]
-roles/add_cluster_node/meta/main.yml schema[meta]
+
+
 roles/add_cluster_node/meta/main.yml yaml[indentation]
 roles/add_cluster_node/tasks/main.yml name[casing]
 roles/add_cluster_node/tasks/main.yml name[missing]
 roles/add_cluster_node/tasks/main.yml yaml[indentation]
-roles/add_cluster_node/tasks/main.yml yaml[truthy]
 
-roles/add_federation/meta/main.yml schema[meta]
+
+
 roles/add_federation/meta/main.yml yaml[indentation]
 
-roles/add_junction/meta/main.yml schema[meta]
+
 roles/add_junction/meta/main.yml yaml[indentation]
 
-roles/add_junction_servers/meta/main.yml schema[meta]
+
 roles/add_junction_servers/meta/main.yml yaml[indentation]
-roles/add_mgmtazn_role/meta/main.yml schema[meta]
+
 roles/add_mgmtazn_role/meta/main.yml yaml[indentation]
 roles/add_module_chain/defaults/main.yml yaml[line-length]
-roles/add_module_chain/meta/main.yml schema[meta]
+
 roles/add_module_chain/meta/main.yml yaml[indentation]
 roles/add_network_ipv4/defaults/main.yml var-naming[pattern]
-roles/add_network_ipv4/defaults/main.yml yaml[truthy]
-roles/add_network_ipv4/meta/main.yml schema[meta]
+
+
 roles/add_network_ipv4/meta/main.yml yaml[indentation]
 roles/add_oauth_client/defaults/main.yml var-naming[pattern]
-roles/add_oauth_client/meta/main.yml schema[meta]
+
 roles/add_oauth_client/meta/main.yml yaml[indentation]
 roles/add_oauth_client/tasks/main.yml yaml[indentation]
 roles/add_oauth_definition/defaults/main.yml var-naming[pattern]
-roles/add_oauth_definition/defaults/main.yml yaml[truthy]
-roles/add_oauth_definition/meta/main.yml schema[meta]
+
+
 roles/add_oauth_definition/meta/main.yml yaml[indentation]
 roles/add_oauth_definition/tasks/main.yml yaml[indentation]
 
-roles/add_partner/meta/main.yml schema[meta]
+
 roles/add_partner/meta/main.yml yaml[indentation]
 roles/add_partner/tasks/main.yml name[template]
 roles/add_partner/tasks/main.yml yaml[indentation]
 
-roles/add_reverseproxy_conf/meta/main.yml schema[meta]
+
 roles/add_reverseproxy_conf/meta/main.yml yaml[indentation]
 roles/add_reverseproxy_conf/tasks/main.yml yaml[indentation]
-roles/add_runtime_listening_interface/meta/main.yml schema[meta]
+
 roles/add_runtime_listening_interface/meta/main.yml yaml[indentation]
 roles/add_server_connection_ldap/defaults/main.yml yaml[line-length]
-roles/add_server_connection_ldap/meta/main.yml schema[meta]
+
 roles/add_server_connection_ldap/meta/main.yml yaml[indentation]
-roles/add_server_connection_ws/meta/main.yml schema[meta]
+
 roles/add_server_connection_ws/meta/main.yml yaml[indentation]
 roles/add_static_route/defaults/main.yml var-naming[pattern]
-roles/add_static_route/defaults/main.yml yaml[truthy]
 
-roles/add_suffix/meta/main.yml schema[meta]
+
+
 roles/add_suffix/meta/main.yml yaml[indentation]
 roles/add_sysaccount_group/defaults/main.yml var-naming[no-role-prefix]
-roles/add_sysaccount_group/meta/main.yml schema[meta]
+
 roles/add_sysaccount_group/meta/main.yml yaml[indentation]
 roles/add_sysaccount_user/defaults/main.yml var-naming[no-role-prefix]
-roles/add_sysaccount_user/meta/main.yml schema[meta]
+
 roles/add_sysaccount_user/meta/main.yml yaml[indentation]
 roles/add_system_alerts_rsyslog/defaults/main.yml var-naming[pattern]
 
-roles/add_system_alerts_rsyslog/defaults/main.yml yaml[truthy]
-roles/add_system_alerts_rsyslog/meta/main.yml schema[meta]
+
+
 roles/add_system_alerts_rsyslog/meta/main.yml yaml[indentation]
 roles/add_system_alerts_rsyslog/tasks/main.yml var-naming[pattern]
 roles/add_system_alerts_smtp/defaults/main.yml var-naming[no-role-prefix]
 roles/add_system_alerts_smtp/defaults/main.yml var-naming[pattern]
 
-roles/add_system_alerts_smtp/meta/main.yml schema[meta]
+
 roles/add_system_alerts_smtp/meta/main.yml yaml[indentation]
 roles/add_system_alerts_smtp/tasks/main.yml var-naming[pattern]
 roles/add_system_alerts_snmp/defaults/main.yml var-naming[pattern]
 
-roles/add_system_alerts_snmp/defaults/main.yml yaml[truthy]
-roles/add_system_alerts_snmp/meta/main.yml schema[meta]
+
+
 roles/add_system_alerts_snmp/meta/main.yml yaml[indentation]
 roles/add_system_alerts_snmp/tasks/main.yml var-naming[pattern]
-roles/archive_logs/defaults/main.yml yaml[truthy]
-roles/archive_logs/meta/main.yml schema[meta]
+
+
 roles/archive_logs/meta/main.yml yaml[indentation]
 roles/archive_logs/tasks/main.yml jinja[spacing]
 roles/archive_logs/tasks/main.yml name[template]
-roles/archive_logs/tasks/main.yml yaml[truthy]
-roles/authenticate_policy_attachments/meta/main.yml schema[meta]
+
+
 roles/authenticate_policy_attachments/meta/main.yml yaml[indentation]
 roles/authenticate_policy_attachments/tasks/main.yml name[casing]
 roles/base/activate_modules/defaults/main.yml var-naming[no-role-prefix]
 roles/base/activate_modules/meta/main.yml yaml[indentation]
 roles/base/activate_modules/tasks/main.yml name[missing]
-roles/base/activate_modules/tasks/main.yml yaml[truthy]
+
 roles/base/add_bonding_interfaces/defaults/main.yml var-naming[no-role-prefix]
 roles/base/add_bonding_interfaces/meta/main.yml yaml[indentation]
 roles/base/add_bonding_interfaces/tasks/main.yml yaml[indentation]
-roles/base/add_bonding_interfaces/tasks/main.yml yaml[truthy]
+
 roles/base/add_interfaces/defaults/main.yml var-naming[no-role-prefix]
 roles/base/add_interfaces/meta/main.yml yaml[indentation]
 roles/base/apply_snapshot/meta/main.yml yaml[indentation]
-roles/base/apply_snapshot/tasks/main.yml yaml[truthy]
+
 roles/base/backup_firmware/meta/main.yml yaml[indentation]
-roles/base/backup_firmware/tasks/main.yml yaml[truthy]
+
 roles/base/change_admin_password/meta/main.yml yaml[indentation]
 roles/base/change_admin_password/tasks/main.yml yaml[line-length]
-roles/base/change_admin_password/tasks/main.yml yaml[truthy]
+
 roles/base/configure_advanced_tuning_parameters/defaults/main.yml var-naming[no-role-prefix]
 roles/base/configure_advanced_tuning_parameters/meta/main.yml yaml[indentation]
-roles/base/configure_advanced_tuning_parameters/tasks/main.yml yaml[truthy]
+
 roles/base/configure_certificate_databases/defaults/main.yml var-naming[no-role-prefix]
 roles/base/configure_certificate_databases/meta/main.yml yaml[indentation]
 roles/base/configure_certificate_databases/tasks/main.yml jinja[spacing]
 roles/base/configure_certificate_databases/tasks/main.yml yaml[line-length]
-roles/base/configure_certificate_databases/tasks/main.yml yaml[truthy]
+
 roles/base/configure_certificate_requests/defaults/main.yml var-naming[no-role-prefix]
 roles/base/configure_certificate_requests/meta/main.yml yaml[indentation]
 roles/base/configure_certificate_requests/tasks/main.yml jinja[spacing]
 roles/base/configure_certificate_requests/tasks/main.yml yaml[line-length]
-roles/base/configure_certificate_requests/tasks/main.yml yaml[truthy]
+
 roles/base/configure_cluster/meta/main.yml yaml[indentation]
 roles/base/configure_dhcp/defaults/main.yml var-naming[no-role-prefix]
 roles/base/configure_dhcp/meta/main.yml yaml[indentation]
 roles/base/configure_dhcp/tasks/main.yml jinja[spacing]
-roles/base/configure_dhcp/tasks/main.yml yaml[truthy]
+
 roles/base/configure_dns/meta/main.yml yaml[indentation]
-roles/base/configure_dns/tasks/main.yml yaml[truthy]
+
 roles/base/configure_interfaces/defaults/main.yml var-naming[no-role-prefix]
 roles/base/configure_interfaces/meta/main.yml yaml[indentation]
 roles/base/configure_interfaces/tasks/main.yml key-order[task]
 roles/base/configure_interfaces/tasks/main.yml name[missing]
 roles/base/configure_interfaces/tasks/main.yml yaml[line-length]
-roles/base/configure_interfaces/tasks/main.yml yaml[truthy]
+
 roles/base/configure_personal_certificates/defaults/main.yml var-naming[no-role-prefix]
 roles/base/configure_personal_certificates/meta/main.yml yaml[indentation]
 roles/base/configure_personal_certificates/tasks/main.yml jinja[spacing]
 roles/base/configure_personal_certificates/tasks/main.yml yaml[line-length]
-roles/base/configure_personal_certificates/tasks/main.yml yaml[truthy]
+
 roles/base/configure_runtime_tunings/defaults/main.yml var-naming[no-role-prefix]
 roles/base/configure_runtime_tunings/meta/main.yml yaml[indentation]
-roles/base/configure_runtime_tunings/tasks/main.yml yaml[truthy]
+
 roles/base/configure_signer_certificates/defaults/main.yml var-naming[no-role-prefix]
 roles/base/configure_signer_certificates/meta/main.yml yaml[indentation]
 roles/base/configure_signer_certificates/tasks/main.yml jinja[spacing]
 roles/base/configure_signer_certificates/tasks/main.yml yaml[line-length]
-roles/base/configure_signer_certificates/tasks/main.yml yaml[truthy]
+
 roles/base/configure_static_routes/defaults/main.yml var-naming[no-role-prefix]
 roles/base/configure_static_routes/meta/main.yml yaml[indentation]
-roles/base/configure_static_routes/tasks/main.yml yaml[truthy]
+
 roles/base/configure_sysaccounts/defaults/main.yml var-naming[no-role-prefix]
 roles/base/configure_sysaccounts/meta/main.yml yaml[indentation]
 roles/base/configure_sysaccounts/tasks/main.yml yaml[line-length]
-roles/base/configure_sysaccounts/tasks/main.yml yaml[truthy]
+
 roles/base/configure_time/meta/main.yml yaml[indentation]
-roles/base/configure_time/tasks/main.yml yaml[truthy]
+
 roles/base/create_snapshot/meta/main.yml yaml[indentation]
-roles/base/create_snapshot/tasks/main.yml yaml[truthy]
+
 roles/base/create_ssl_certificate_databases/defaults/main.yml var-naming[no-role-prefix]
 roles/base/create_ssl_certificate_databases/meta/main.yml yaml[indentation]
 roles/base/create_ssl_certificate_databases/tasks/main.yml yaml[line-length]
-roles/base/create_ssl_certificate_databases/tasks/main.yml yaml[truthy]
+
 roles/base/create_sysaccounts/defaults/main.yml var-naming[no-role-prefix]
 roles/base/create_sysaccounts/meta/main.yml yaml[indentation]
-roles/base/create_sysaccounts/tasks/main.yml yaml[truthy]
+
 roles/base/delete_application_logs/defaults/main.yml schema[vars]
 roles/base/delete_application_logs/defaults/main.yml var-naming[no-role-prefix]
 roles/base/delete_application_logs/meta/main.yml yaml[indentation]
 roles/base/delete_application_logs/tasks/main.yml jinja[spacing]
 roles/base/delete_application_logs/tasks/main.yml yaml[indentation]
-roles/base/delete_application_logs/tasks/main.yml yaml[truthy]
+
 roles/base/delete_interfaces/defaults/main.yml var-naming[no-role-prefix]
 roles/base/delete_interfaces/meta/main.yml yaml[indentation]
 roles/base/delete_interfaces/tasks/main.yml name[casing]
 roles/base/delete_interfaces/tasks/main.yml yaml[indentation]
 roles/base/delete_snapshots/meta/main.yml yaml[indentation]
 roles/base/delete_snapshots/tasks/main.yml yaml[line-length]
-roles/base/delete_snapshots/tasks/main.yml yaml[truthy]
+
 roles/base/download_snapshots/meta/main.yml yaml[indentation]
 roles/base/download_snapshots/tasks/main.yml jinja[spacing]
 roles/base/download_snapshots/tasks/main.yml yaml[line-length]
-roles/base/download_snapshots/tasks/main.yml yaml[truthy]
+
 roles/base/execute_cli/defaults/main.yml var-naming[no-role-prefix]
 
-roles/base/execute_cli/meta/main.yml schema[meta]
+
 roles/base/execute_cli/meta/main.yml yaml[indentation]
 roles/base/execute_cli/tasks/main.yml jinja[spacing]
 roles/base/export_personal_certificates/defaults/main.yml var-naming[no-role-prefix]
@@ -1150,11 +882,11 @@ roles/base/export_personal_certificates/tasks/main.yml jinja[spacing]
 roles/base/export_personal_certificates/tasks/main.yml name[template]
 roles/base/export_personal_certificates/tasks/main.yml yaml[indentation]
 roles/base/export_personal_certificates/tasks/main.yml yaml[line-length]
-roles/base/export_personal_certificates/tasks/main.yml yaml[truthy]
+
 roles/base/externalize_hvdb/defaults/main.yml var-naming[no-role-prefix]
 
 roles/base/externalize_hvdb/defaults/main.yml yaml[line-length]
-roles/base/externalize_hvdb/defaults/main.yml yaml[truthy]
+
 roles/base/externalize_hvdb/meta/main.yml yaml[indentation]
 roles/base/externalize_hvdb/tasks/config_adv_tune_parms_db2.yml name[prefix]
 
@@ -1175,7 +907,7 @@ roles/base/first_steps/tasks/main.yml jinja[spacing]
 roles/base/first_steps/tasks/main.yml name[missing]
 roles/base/first_steps/tasks/main.yml yaml[indentation]
 roles/base/first_steps/tasks/main.yml yaml[line-length]
-roles/base/first_steps/tasks/main.yml yaml[truthy]
+
 roles/base/generate_self_signed_certificates/defaults/main.yml var-naming[no-role-prefix]
 roles/base/generate_self_signed_certificates/meta/main.yml yaml[indentation]
 roles/base/get_certificate_databases/meta/main.yml yaml[indentation]
@@ -1189,7 +921,7 @@ roles/base/import_personal_certificates/meta/main.yml yaml[indentation]
 roles/base/import_signer_certificates/defaults/main.yml var-naming[no-role-prefix]
 roles/base/import_signer_certificates/meta/main.yml yaml[indentation]
 roles/base/import_signer_certificates/tasks/main.yml jinja[spacing]
-roles/base/import_signer_certificates/tasks/main.yml yaml[truthy]
+
 roles/base/install_fixpacks/defaults/main.yml var-naming[no-role-prefix]
 roles/base/install_fixpacks/meta/main.yml yaml[indentation]
 roles/base/install_fixpacks/tasks/include_installfixpack.yml jinja[spacing]
@@ -1198,34 +930,34 @@ roles/base/install_update/meta/main.yml yaml[indentation]
 roles/base/load_signer_certificates/defaults/main.yml var-naming[no-role-prefix]
 roles/base/load_signer_certificates/meta/main.yml yaml[indentation]
 roles/base/load_signer_certificates/tasks/main.yml yaml[line-length]
-roles/base/load_signer_certificates/tasks/main.yml yaml[truthy]
+
 roles/base/publish/meta/main.yml yaml[indentation]
-roles/base/publish/tasks/main.yml yaml[truthy]
+
 roles/base/set_host_records/defaults/main.yml var-naming[no-role-prefix]
 roles/base/set_host_records/meta/main.yml yaml[indentation]
-roles/base/set_host_records/tasks/main.yml yaml[truthy]
+
 roles/base/set_listening_interfaces/defaults/main.yml var-naming[no-role-prefix]
 roles/base/set_listening_interfaces/meta/main.yml yaml[indentation]
-roles/base/set_listening_interfaces/tasks/main.yml yaml[truthy]
+
 roles/base/set_management_authorization/defaults/main.yml var-naming[no-role-prefix]
-roles/base/set_management_authorization/defaults/main.yml yaml[truthy]
+
 roles/base/set_management_authorization/meta/main.yml yaml[indentation]
 roles/base/set_management_ssl_cert/meta/main.yml yaml[indentation]
 roles/base/set_password_sysaccounts/defaults/main.yml var-naming[no-role-prefix]
 roles/base/set_password_sysaccounts/meta/main.yml yaml[indentation]
-roles/base/set_password_sysaccounts/tasks/main.yml yaml[truthy]
+
 roles/base/swap_firmware/meta/main.yml yaml[indentation]
 roles/base/upload_snapshot/defaults/main.yml var-naming[no-role-prefix]
 roles/base/upload_snapshot/meta/main.yml yaml[indentation]
 roles/base/upload_snapshot/tasks/main.yml jinja[spacing]
 roles/base/upload_snapshot/tasks/main.yml yaml[line-length]
-roles/base/upload_snapshot/tasks/main.yml yaml[truthy]
+
 roles/base/upload_updates/defaults/main.yml var-naming[no-role-prefix]
 roles/base/upload_updates/meta/main.yml yaml[indentation]
 roles/base/upload_updates/tasks/main.yml jinja[spacing]
 roles/bootstrap_local/.travis.yml yaml[indentation]
 roles/bootstrap_local/defaults/main.yml var-naming[pattern]
-roles/bootstrap_local/meta/main.yml schema[meta]
+
 
 roles/bootstrap_local/tasks/bootstrap.yml command-instead-of-module
 roles/bootstrap_local/tasks/bootstrap.yml name[missing]
@@ -1235,25 +967,25 @@ roles/bootstrap_local/tasks/main.yml name[casing]
 roles/bootstrap_local/tasks/main.yml name[missing]
 roles/bootstrap_local/tasks/main.yml no-free-form
 roles/bootstrap_local/tasks/main.yml yaml[indentation]
-roles/bootstrap_local/tasks/main.yml yaml[truthy]
+
 roles/bootstrap_local/vars/Darwin.yml var-naming[pattern]
 roles/bootstrap_local/vars/Linux.yml var-naming[pattern]
 roles/bootstrap_local/vars/main.yml var-naming[pattern]
 roles/common_handlers/defaults/main.yml var-naming[no-role-prefix]
 roles/common_handlers/handlers/main.yml literal-compare
-roles/common_handlers/handlers/main.yml yaml[truthy]
+
 roles/config_dns/defaults/main.yml var-naming[pattern]
-roles/config_dns/defaults/main.yml yaml[truthy]
-roles/config_dns/meta/main.yml schema[meta]
+
+
 roles/config_dns/meta/main.yml yaml[indentation]
 
-roles/config_failover_cookie/meta/main.yml schema[meta]
+
 roles/config_failover_cookie/meta/main.yml yaml[indentation]
 roles/config_failover_cookie/tasks/main.yml name[missing]
 roles/config_failover_cookie/tasks/main.yml yaml[indentation]
 
-roles/config_fed_dir/defaults/main.yml yaml[truthy]
-roles/config_fed_dir/meta/main.yml schema[meta]
+
+
 roles/config_fed_dir/meta/main.yml yaml[indentation]
 roles/config_fed_dir/tasks/cert_db.yml name[missing]
 roles/config_fed_dir/tasks/cert_db.yml name[prefix]
@@ -1264,55 +996,55 @@ roles/config_fed_dir/tasks/config_fed_dir.yml name[prefix]
 roles/config_fed_dir/tasks/config_fed_dir.yml yaml[indentation]
 roles/config_fed_dir/tasks/main.yml name[missing]
 roles/config_ntp/defaults/main.yml var-naming[pattern]
-roles/config_ntp/meta/main.yml schema[meta]
+
 roles/config_ntp/meta/main.yml yaml[indentation]
 roles/config_policy_attachments/defaults/main.yml var-naming[pattern]
 
-roles/config_policy_attachments/meta/main.yml schema[meta]
+
 roles/config_policy_attachments/meta/main.yml yaml[indentation]
 
-roles/config_policyserver/defaults/main.yml yaml[truthy]
-roles/config_policyserver/meta/main.yml schema[meta]
+
+
 roles/config_policyserver/meta/main.yml yaml[indentation]
 roles/config_policyserver/tasks/main.yml name[missing]
 roles/config_policyserver/tasks/main.yml yaml[indentation]
 
-roles/config_reverseproxy_aac/defaults/main.yml yaml[truthy]
-roles/config_reverseproxy_aac/meta/main.yml schema[meta]
+
+
 roles/config_reverseproxy_aac/meta/main.yml yaml[indentation]
 roles/config_reverseproxy_aac/tasks/main.yml name[missing]
 roles/config_reverseproxy_aac/tasks/main.yml name[template]
 
-roles/config_reverseproxy_federation/defaults/main.yml yaml[truthy]
-roles/config_reverseproxy_federation/meta/main.yml schema[meta]
+
+
 roles/config_reverseproxy_federation/meta/main.yml yaml[indentation]
 roles/config_reverseproxy_federation/tasks/main.yml name[missing]
 roles/config_reverseproxy_federation/tasks/main.yml name[template]
 
-roles/config_reverseproxy_oauth/defaults/main.yml yaml[truthy]
-roles/config_reverseproxy_oauth/meta/main.yml schema[meta]
+
+
 roles/config_reverseproxy_oauth/meta/main.yml yaml[indentation]
 roles/config_reverseproxy_oauth/tasks/main.yml name[missing]
 roles/config_reverseproxy_oauth/tasks/main.yml name[template]
-roles/config_snmp_monitoring/meta/main.yml schema[meta]
+
 roles/config_snmp_monitoring/meta/main.yml yaml[indentation]
 
-roles/config_snmp_monitoring_v3/meta/main.yml schema[meta]
+
 roles/config_snmp_monitoring_v3/meta/main.yml yaml[indentation]
-roles/create_keystore/defaults/main.yml yaml[truthy]
-roles/create_keystore/meta/main.yml schema[meta]
+
+
 roles/create_keystore/meta/main.yml yaml[indentation]
 
-roles/create_mgmt_root_dir/meta/main.yml schema[meta]
+
 roles/create_mgmt_root_dir/meta/main.yml yaml[indentation]
 roles/create_mgmt_root_dir/tasks/main.yml yaml[indentation]
 
 roles/create_mgmt_root_file/defaults/main.yml yaml[line-length]
-roles/create_mgmt_root_file/meta/main.yml schema[meta]
+
 roles/create_mgmt_root_file/meta/main.yml yaml[indentation]
 roles/create_mgmt_root_file/tasks/main.yml yaml[indentation]
 roles/create_reverseproxy/defaults/main.yml var-naming[no-role-prefix]
-roles/create_reverseproxy/meta/main.yml schema[meta]
+
 roles/create_reverseproxy/meta/main.yml yaml[indentation]
 roles/create_reverseproxy/tasks/create_instance.yml name[missing]
 roles/create_reverseproxy/tasks/create_instance.yml name[prefix]
@@ -1320,25 +1052,25 @@ roles/create_reverseproxy/tasks/main.yml name[missing]
 roles/create_reverseproxy/tasks/setup_common_root.yml name[prefix]
 roles/create_reverseproxy/tasks/setup_common_root.yml yaml[indentation]
 roles/create_runtime_template_directories/defaults/main.yml var-naming[no-role-prefix]
-roles/create_runtime_template_directories/meta/main.yml schema[meta]
+
 roles/create_runtime_template_directories/meta/main.yml yaml[indentation]
 roles/create_snapshot/defaults/main.yml var-naming[no-role-prefix]
-roles/create_snapshot/meta/main.yml schema[meta]
+
 roles/create_snapshot/meta/main.yml yaml[indentation]
-roles/delete_activation/meta/main.yml schema[meta]
+
 roles/delete_activation/meta/main.yml yaml[indentation]
 roles/delete_activation/tasks/main.yml name[template]
 roles/delete_activation/tasks/main.yml yaml[indentation]
-roles/delete_junction/meta/main.yml schema[meta]
 
-roles/delete_mgmt_root_file/meta/main.yml schema[meta]
+
+
 roles/delete_mgmt_root_file/meta/main.yml yaml[indentation]
 roles/delete_mgmt_root_file/tasks/main.yml yaml[indentation]
 
-roles/delete_reverseproxy_conf/meta/main.yml schema[meta]
+
 roles/delete_reverseproxy_conf/meta/main.yml yaml[indentation]
 roles/delete_reverseproxy_conf/tasks/main.yml yaml[indentation]
-roles/execute_compare/meta/main.yml schema[meta]
+
 roles/execute_compare/tasks/compare_base.yml name[prefix]
 roles/execute_compare/tasks/compare_base.yml no-free-form
 roles/execute_compare/tasks/compare_certificate_databases.yml name[prefix]
@@ -1349,34 +1081,34 @@ roles/execute_compare/tasks/compare_runtime_config.yml name[prefix]
 roles/execute_compare/tasks/compare_runtime_config.yml no-free-form
 roles/execute_compare/tasks/main.yml name[missing]
 
-roles/execute_pdadmin/meta/main.yml schema[meta]
+
 roles/execute_pdadmin/meta/main.yml yaml[indentation]
 roles/execute_pdadmin/tasks/main.yml no-free-form
-roles/execute_rp_op/meta/main.yml schema[meta]
+
 roles/execute_rp_op/meta/main.yml yaml[indentation]
 roles/execute_rp_op/tasks/main.yml name[template]
 roles/export_application_logs/defaults/main.yml var-naming[no-role-prefix]
 
-roles/export_application_logs/meta/main.yml schema[meta]
+
 roles/export_application_logs/meta/main.yml yaml[indentation]
 roles/export_application_logs/molecule/default/converge.yml name[casing]
 roles/export_application_logs/molecule/default/converge.yml var-naming[no-role-prefix]
-roles/export_application_logs/molecule/default/converge.yml yaml[truthy]
+
 
 roles/export_application_logs/molecule/default/verify.yml name[casing]
 roles/export_application_logs/molecule/default/verify.yml yaml[indentation]
-roles/export_application_logs/molecule/default/verify.yml yaml[truthy]
+
 roles/export_application_logs/tasks/main.yml jinja[spacing]
 roles/export_application_logs/tasks/main.yml name[template]
 roles/export_application_logs/tasks/main.yml yaml[indentation]
-roles/export_application_logs/tasks/main.yml yaml[truthy]
 
-roles/export_cluster_sign/meta/main.yml schema[meta]
+
+
 roles/export_cluster_sign/meta/main.yml yaml[indentation]
 roles/externalize_hvdb_db2/defaults/main.yml var-naming[pattern]
 
-roles/externalize_hvdb_db2/defaults/main.yml yaml[truthy]
-roles/externalize_hvdb_db2/meta/main.yml schema[meta]
+
+
 roles/externalize_hvdb_db2/meta/main.yml yaml[indentation]
 roles/externalize_hvdb_db2/tasks/config_adv_tune_parms.yml name[prefix]
 
@@ -1395,7 +1127,7 @@ roles/fed/configure_sts_chains/meta/main.yml yaml[indentation]
 roles/fed/configure_sts_chains/tasks/main.yml yaml[line-length]
 roles/fed/create_federation_partners/defaults/main.yml var-naming[no-role-prefix]
 roles/fed/create_federation_partners/meta/main.yml yaml[indentation]
-roles/fed/create_federation_partners/tasks/main.yml yaml[truthy]
+
 roles/fed/create_federations/meta/main.yml yaml[indentation]
 roles/fed/create_federations/tasks/main.yml jinja[spacing]
 roles/fed/get_federation_partners/meta/main.yml yaml[indentation]
@@ -1406,300 +1138,262 @@ roles/fed/set_runtime_certificates/meta/main.yml yaml[indentation]
 roles/fed/set_runtime_certificates/tasks/main.yml name[missing]
 roles/first_steps/defaults/main.yml var-naming[no-role-prefix]
 roles/first_steps/defaults/main.yml var-naming[pattern]
-roles/first_steps/defaults/main.yml yaml[truthy]
-roles/first_steps/meta/main.yml schema[meta]
+
+
 roles/first_steps/meta/main.yml yaml[indentation]
 roles/first_steps/tasks/firststeps.yml name[prefix]
 roles/first_steps/tasks/firststeps.yml yaml[indentation]
-roles/first_steps/tasks/firststeps.yml yaml[truthy]
+
 roles/first_steps/tasks/main.yml jinja[spacing]
 roles/first_steps/tasks/main.yml name[missing]
-roles/first_steps/tasks/main.yml yaml[truthy]
+
 roles/first_steps/tasks/skip_fs.yml name[missing]
-roles/gen_report/meta/main.yml schema[meta]
+
 roles/gen_report/meta/main.yml yaml[indentation]
 roles/gen_report/tasks/main.yml yaml[line-length]
-roles/gen_report/tasks/main.yml yaml[truthy]
+
 roles/get_cpu_statistics/defaults/main.yml var-naming[no-role-prefix]
-roles/get_cpu_statistics/meta/main.yml schema[meta]
+
 
 roles/get_cpu_statistics/meta/main.yml yaml[indentation]
-roles/get_federation/meta/main.yml schema[meta]
+
 roles/get_federation/meta/main.yml yaml[indentation]
-roles/get_firmware/meta/main.yml schema[meta]
+
 roles/get_firmware/meta/main.yml yaml[indentation]
-roles/get_fixpack/meta/main.yml schema[meta]
+
 roles/get_fixpack/meta/main.yml yaml[indentation]
-roles/get_junction_details/meta/main.yml schema[meta]
+
 roles/get_junction_details/meta/main.yml yaml[indentation]
-roles/get_junctions/meta/main.yml schema[meta]
+
 roles/get_junctions/meta/main.yml yaml[indentation]
 roles/get_memory_statistics/defaults/main.yml var-naming[no-role-prefix]
 roles/get_memory_statistics/meta/main.yml yaml[indentation]
-roles/get_reverseproxies/meta/main.yml schema[meta]
+
 roles/get_reverseproxies/meta/main.yml yaml[indentation]
-roles/import_ca_certs/meta/main.yml schema[meta]
+
 roles/import_ca_certs/meta/main.yml yaml[indentation]
 roles/import_ca_certs/tasks/main.yml yaml[indentation]
 
-roles/import_certificate_db/meta/main.yml schema[meta]
+
 roles/import_certificate_db/meta/main.yml yaml[indentation]
 roles/import_certificate_db/tasks/main.yml yaml[indentation]
-roles/import_client_cert_mapping/meta/main.yml schema[meta]
+
 roles/import_client_cert_mapping/meta/main.yml yaml[indentation]
 roles/import_client_cert_mapping/tasks/main.yml name[missing]
 roles/import_client_cert_mapping/tasks/main.yml yaml[indentation]
 
-roles/import_http_transformation/meta/main.yml schema[meta]
+
 roles/import_http_transformation/meta/main.yml yaml[indentation]
 roles/import_http_transformation/tasks/main.yml name[missing]
 roles/import_http_transformation/tasks/main.yml yaml[indentation]
 
-roles/import_management_root/meta/main.yml schema[meta]
+
 roles/import_management_root/meta/main.yml yaml[indentation]
 roles/import_management_root/tasks/main.yml yaml[indentation]
 
-roles/import_personal_cert/meta/main.yml schema[meta]
+
 roles/import_personal_cert/meta/main.yml yaml[indentation]
 roles/import_personal_cert/tasks/main.yml yaml[indentation]
 roles/import_runtime_template_file/defaults/main.yml var-naming[no-role-prefix]
-roles/import_runtime_template_file/meta/main.yml schema[meta]
+
 roles/import_runtime_template_file/meta/main.yml yaml[indentation]
 
-roles/import_url_mapping/meta/main.yml schema[meta]
+
 roles/import_url_mapping/meta/main.yml yaml[indentation]
 roles/import_url_mapping/tasks/main.yml name[missing]
 
-roles/install_firmware/meta/main.yml schema[meta]
+
 roles/install_firmware/meta/main.yml yaml[indentation]
 roles/install_firmware/tasks/main.yml name[missing]
-roles/install_firmware/tasks/main.yml yaml[truthy]
 
-roles/install_fixpack/meta/main.yml schema[meta]
+
+
 roles/install_fixpack/meta/main.yml yaml[indentation]
 roles/install_fixpack/tasks/main.yml jinja[spacing]
 
-roles/install_license/meta/main.yml schema[meta]
+
 roles/install_license/meta/main.yml yaml[indentation]
 roles/install_license/tasks/main.yml name[missing]
 
-roles/load_signer_cert/meta/main.yml schema[meta]
+
 roles/load_signer_cert/meta/main.yml yaml[indentation]
 roles/load_signer_cert/tasks/main.yml name[missing]
-roles/sanity_checks/meta/main.yml schema[meta]
+
 roles/sanity_checks/meta/main.yml yaml[indentation]
-roles/sanity_checks/tasks/main.yml yaml[truthy]
-roles/search_attribute_source/meta/main.yml schema[meta]
+
+
 roles/search_attribute_source/meta/main.yml yaml[indentation]
-roles/search_mapping_rule/meta/main.yml schema[meta]
+
 roles/search_mapping_rule/meta/main.yml yaml[indentation]
 
-roles/set_access_control_policy/defaults/main.yml yaml[truthy]
-roles/set_access_control_policy/meta/main.yml schema[meta]
+
+
 roles/set_access_control_policy/meta/main.yml yaml[indentation]
 
-roles/set_access_policy/meta/main.yml schema[meta]
+
 roles/set_access_policy/meta/main.yml yaml[indentation]
 roles/set_admin_cfg/defaults/main.yml var-naming[pattern]
-roles/set_admin_cfg/meta/main.yml schema[meta]
+
 roles/set_admin_cfg/meta/main.yml yaml[indentation]
-roles/set_admin_pw/meta/main.yml schema[meta]
+
 roles/set_admin_pw/meta/main.yml yaml[indentation]
 roles/set_admin_pw/tasks/main.yml name[casing]
-roles/set_advanced_tuning_parameter/meta/main.yml schema[meta]
+
 roles/set_advanced_tuning_parameter/meta/main.yml yaml[indentation]
-roles/set_attribute_source/meta/main.yml schema[meta]
-roles/set_audit_configuration/defaults/main.yml yaml[truthy]
-roles/set_audit_configuration/meta/main.yml schema[meta]
+
+
+
 roles/set_audit_configuration/meta/main.yml yaml[indentation]
 
-roles/set_auth_mech/defaults/main.yml yaml[truthy]
-roles/set_auth_mech/meta/main.yml schema[meta]
+
+
 roles/set_auth_mech/meta/main.yml yaml[indentation]
 
-roles/set_auth_policy/meta/main.yml schema[meta]
+
 roles/set_auth_policy/meta/main.yml yaml[indentation]
-roles/set_cert_replication/defaults/main.yml yaml[truthy]
-roles/set_cert_replication/meta/main.yml schema[meta]
+
+
 roles/set_cert_replication/meta/main.yml yaml[indentation]
-roles/set_cluster_config/defaults/main.yml yaml[truthy]
-roles/set_cluster_config/meta/main.yml schema[meta]
+
+
 roles/set_cluster_config/meta/main.yml yaml[indentation]
 roles/set_cluster_config/tasks/main.yml name[missing]
 
-roles/set_current_point_of_contact/meta/main.yml schema[meta]
+
 roles/set_current_point_of_contact/meta/main.yml yaml[indentation]
-roles/set_dsc_config/meta/main.yml schema[meta]
+
 roles/set_dsc_config/meta/main.yml yaml[indentation]
 roles/set_dsc_config/tasks/main.yml name[missing]
 
-roles/set_federation/meta/main.yml schema[meta]
+
 roles/set_federation/meta/main.yml yaml[indentation]
 
-roles/set_host_records/meta/main.yml schema[meta]
+
 roles/set_host_records/meta/main.yml yaml[indentation]
 roles/set_host_records/tasks/main.yml name[missing]
 
-roles/set_junction/meta/main.yml schema[meta]
+
 roles/set_junction/meta/main.yml yaml[indentation]
-roles/set_keystore_desc/meta/main.yml schema[meta]
+
 roles/set_keystore_desc/meta/main.yml yaml[indentation]
-roles/set_ldap_root_pw/meta/main.yml schema[meta]
+
 roles/set_ldap_root_pw/meta/main.yml yaml[indentation]
 roles/set_ldap_root_pw/tasks/main.yml name[casing]
 roles/set_ldap_user_attr/.travis.yml yaml[indentation]
 roles/set_ldap_user_attr/defaults/main.yml var-naming[no-role-prefix]
 roles/set_ldap_user_attr/defaults/main.yml yaml[indentation]
-roles/set_ldap_user_attr/meta/main.yml schema[meta]
+
 
 roles/set_ldap_user_attr/tasks/main.yml name[casing]
 roles/set_ldap_user_attr/tasks/main.yml yaml[indentation]
 
-roles/set_ldap_user_pw/meta/main.yml schema[meta]
+
 roles/set_ldap_user_pw/meta/main.yml yaml[indentation]
 roles/set_ldap_user_pw/tasks/main.yml name[casing]
 
-roles/set_mapping_rule/meta/main.yml schema[meta]
+
 roles/set_mapping_rule/meta/main.yml yaml[indentation]
 roles/set_mapping_rule/tasks/main.yml yaml[indentation]
 
-roles/set_mgmtazn_role_feature/meta/main.yml schema[meta]
+
 roles/set_mgmtazn_role_feature/meta/main.yml yaml[indentation]
 roles/set_mgmtazn_role_feature/tasks/main.yml yaml[indentation]
 
-roles/set_mgmtazn_role_group/meta/main.yml schema[meta]
+
 roles/set_mgmtazn_role_group/meta/main.yml yaml[indentation]
 roles/set_mgmtazn_role_group/tasks/main.yml yaml[indentation]
-roles/set_network_hostname/meta/main.yml schema[meta]
+
 roles/set_network_hostname/meta/main.yml yaml[indentation]
 roles/set_network_ipv4_dhcp/defaults/main.yml var-naming[pattern]
-roles/set_network_ipv4_dhcp/defaults/main.yml yaml[truthy]
-roles/set_network_ipv4_dhcp/meta/main.yml schema[meta]
+
+
 roles/set_network_ipv4_dhcp/meta/main.yml yaml[indentation]
 roles/set_oauth_client/defaults/main.yml var-naming[pattern]
-roles/set_oauth_client/meta/main.yml schema[meta]
+
 roles/set_oauth_client/meta/main.yml yaml[indentation]
 roles/set_oauth_client/tasks/main.yml yaml[indentation]
 roles/set_oauth_definition/defaults/main.yml var-naming[pattern]
-roles/set_oauth_definition/defaults/main.yml yaml[truthy]
-roles/set_oauth_definition/meta/main.yml schema[meta]
+
+
 roles/set_oauth_definition/meta/main.yml yaml[indentation]
 roles/set_oauth_definition/tasks/main.yml yaml[indentation]
 
-roles/set_partner/meta/main.yml schema[meta]
+
 roles/set_partner/meta/main.yml yaml[indentation]
 roles/set_partner/tasks/main.yml yaml[indentation]
 
-roles/set_reverseproxy_conf/meta/main.yml schema[meta]
+
 roles/set_reverseproxy_conf/meta/main.yml yaml[indentation]
 roles/set_reverseproxy_conf/tasks/main.yml yaml[indentation]
-roles/set_role_group/meta/main.yml schema[meta]
+
 roles/set_role_group/meta/main.yml yaml[indentation]
 roles/set_role_user/defaults/main.yml var-naming[no-role-prefix]
-roles/set_role_user/meta/main.yml schema[meta]
-roles/set_role_user/meta/main.yml yaml[indentation]
 
-roles/set_rsyslog_forwarder/defaults/main.yml yaml[truthy]
-roles/set_rsyslog_forwarder/meta/main.yml schema[meta]
+roles/set_role_user/meta/main.yml yaml[indentation]
 roles/set_rsyslog_forwarder/meta/main.yml yaml[indentation]
 roles/set_rsyslog_forwarder/tasks/main.yml jinja[spacing]
 roles/set_rsyslog_forwarder/tasks/main.yml name[template]
-
-roles/set_rsyslog_forwarder_sources/meta/main.yml schema[meta]
 roles/set_rsyslog_forwarder_sources/meta/main.yml yaml[indentation]
 roles/set_rsyslog_forwarder_sources/tasks/main.yml jinja[spacing]
 roles/set_rsyslog_forwarder_sources/tasks/main.yml name[template]
-roles/set_runtime_replication/defaults/main.yml yaml[truthy]
-roles/set_runtime_replication/meta/main.yml schema[meta]
 roles/set_runtime_replication/meta/main.yml yaml[indentation]
-
-roles/set_runtime_tuning_parameter/meta/main.yml schema[meta]
 roles/set_runtime_tuning_parameter/meta/main.yml yaml[indentation]
-roles/set_tcpip_tuning/meta/main.yml schema[meta]
+
 roles/set_tcpip_tuning/meta/main.yml yaml[indentation]
 
-roles/switch_auth/defaults/main.yml yaml[truthy]
-roles/switch_auth/meta/main.yml schema[meta]
 roles/switch_auth/meta/main.yml yaml[indentation]
 roles/switch_auth/tasks/cert.yml name[prefix]
 roles/switch_auth/tasks/config_roles.yml name[prefix]
 roles/switch_auth/tasks/main.yml name[missing]
 roles/switch_auth/tasks/mgmt_auth.yml name[prefix]
 roles/switch_auth/tasks/mgmt_authz.yml name[prefix]
-
-roles/update_advanced_configuration/meta/main.yml schema[meta]
 roles/update_advanced_configuration/meta/main.yml yaml[indentation]
-
-roles/update_auth_mech/meta/main.yml schema[meta]
 roles/update_auth_mech/meta/main.yml yaml[indentation]
-
-roles/update_management_root/meta/main.yml schema[meta]
 roles/update_management_root/meta/main.yml yaml[indentation]
 roles/update_management_root/tasks/main.yml name[template]
 roles/update_management_root/tasks/main.yml yaml[indentation]
-roles/update_management_ssl_cert/meta/main.yml schema[meta]
 roles/update_management_ssl_cert/meta/main.yml yaml[indentation]
 roles/update_network_interface_vlan/defaults/main.yml var-naming[pattern]
-roles/update_network_interface_vlan/defaults/main.yml yaml[truthy]
-roles/update_network_interface_vlan/meta/main.yml schema[meta]
 roles/update_network_interface_vlan/meta/main.yml yaml[indentation]
 roles/update_network_interface_vlan/tasks/main.yml name[template]
 roles/update_network_ipv4/defaults/main.yml var-naming[pattern]
-roles/update_network_ipv4/defaults/main.yml yaml[truthy]
-roles/update_network_ipv4/meta/main.yml schema[meta]
 roles/update_network_ipv4/meta/main.yml yaml[indentation]
 roles/update_point_of_contact/defaults/main.yml var-naming[pattern]
-
 roles/update_point_of_contact/defaults/main.yml yaml[line-length]
-roles/update_point_of_contact/meta/main.yml schema[meta]
 roles/update_point_of_contact/meta/main.yml yaml[indentation]
-
-roles/update_reverseproxy_conf/meta/main.yml schema[meta]
 roles/update_reverseproxy_conf/meta/main.yml yaml[indentation]
 roles/update_reverseproxy_conf/tasks/main.yml yaml[indentation]
 roles/update_static_route/defaults/main.yml var-naming[pattern]
-roles/update_static_route/defaults/main.yml yaml[truthy]
-roles/update_static_route/meta/main.yml schema[meta]
-roles/update_static_route/meta/main.yml yaml[indentation]
-roles/upload_extension/meta/main.yml schema[meta]
-roles/upload_extension/meta/main.yml yaml[indentation]
-roles/upload_ltpa_key/meta/main.yml schema[meta]
-roles/upload_ltpa_key/meta/main.yml yaml[indentation]
-
-roles/upload_mapping_rule/meta/main.yml schema[meta]
 roles/upload_mapping_rule/meta/main.yml yaml[indentation]
 roles/web/config_reverseproxy_aac/meta/main.yml yaml[indentation]
 roles/web/config_reverseproxy_aac/tasks/main.yml jinja[spacing]
-roles/web/config_reverseproxy_aac/tasks/main.yml yaml[truthy]
 roles/web/config_reverseproxy_federations/defaults/main.yml var-naming[no-role-prefix]
 roles/web/config_reverseproxy_federations/meta/main.yml yaml[indentation]
 roles/web/config_reverseproxy_federations/tasks/main.yml yaml[indentation]
 roles/web/config_reverseproxy_federations/tasks/main.yml yaml[line-length]
-roles/web/config_reverseproxy_federations/tasks/main.yml yaml[truthy]
 roles/web/config_reverseproxy_mmfa/meta/main.yml yaml[indentation]
 roles/web/config_reverseproxy_mmfa/tasks/main.yml jinja[spacing]
-roles/web/config_reverseproxy_mmfa/tasks/main.yml yaml[truthy]
 roles/web/config_reverseproxy_oauth/defaults/main.yml var-naming[no-role-prefix]
 roles/web/config_reverseproxy_oauth/meta/main.yml yaml[indentation]
 roles/web/config_reverseproxy_oauth/tasks/main.yml jinja[spacing]
-roles/web/config_reverseproxy_oauth/tasks/main.yml yaml[truthy]
+
 roles/web/config_reverseproxy_redis/defaults/main.yml var-naming[no-role-prefix]
 
-roles/web/config_reverseproxy_redis/defaults/main.yml yaml[truthy]
+
 roles/web/config_reverseproxy_redis/meta/main.yml yaml[indentation]
 roles/web/config_reverseproxy_redis/tasks/main.yml jinja[spacing]
 roles/web/config_reverseproxy_redis/tasks/main.yml name[casing]
 roles/web/config_reverseproxy_redis/tasks/main.yml name[missing]
 roles/web/config_reverseproxy_redis/tasks/main.yml role-name[path]
 roles/web/config_reverseproxy_redis/tasks/main.yml var-naming[no-role-prefix]
-roles/web/config_reverseproxy_redis/tasks/main.yml yaml[truthy]
+
 roles/web/configure_federated_directories/defaults/main.yml var-naming[no-role-prefix]
 roles/web/configure_federated_directories/meta/main.yml yaml[indentation]
 roles/web/configure_http_transformation_rules/defaults/main.yml var-naming[no-role-prefix]
 roles/web/configure_http_transformation_rules/meta/main.yml yaml[indentation]
 roles/web/configure_http_transformation_rules/tasks/main.yml jinja[spacing]
 roles/web/configure_http_transformation_rules/tasks/main.yml yaml[line-length]
-roles/web/configure_http_transformation_rules/tasks/main.yml yaml[truthy]
+
 roles/web/configure_kerberos/defaults/main.yml var-naming[no-role-prefix]
 roles/web/configure_kerberos/defaults/main.yml yaml[line-length]
 roles/web/configure_kerberos/meta/main.yml yaml[indentation]
@@ -1710,7 +1404,7 @@ roles/web/configure_kerberos/tasks/include_create_realms_subsections_2nd_level.y
 roles/web/configure_kerberos/tasks/main.yml jinja[spacing]
 roles/web/configure_kerberos/tasks/main.yml name[missing]
 roles/web/configure_kerberos/tasks/main.yml yaml[line-length]
-roles/web/configure_kerberos/tasks/main.yml yaml[truthy]
+
 roles/web/configure_management_root/defaults/main.yml var-naming[no-role-prefix]
 roles/web/configure_management_root/meta/main.yml yaml[indentation]
 roles/web/configure_management_root/tasks/include_delete_management_root_contents.yml name[prefix]
@@ -1719,20 +1413,19 @@ roles/web/configure_management_root/tasks/include_import_management_root.yml nam
 roles/web/configure_management_root/tasks/include_sync_management_root.yml deprecated-local-action
 roles/web/configure_management_root/tasks/include_sync_management_root.yml jinja[spacing]
 roles/web/configure_management_root/tasks/include_sync_management_root.yml name[prefix]
-roles/web/configure_management_root/tasks/include_sync_management_root.yml schema[moves]
 roles/web/configure_management_root/tasks/include_sync_management_root.yml yaml[indentation]
 roles/web/configure_management_root/tasks/include_sync_management_root.yml yaml[line-length]
 
 roles/web/configure_management_root/tasks/main.yml yaml[line-length]
-roles/web/configure_management_root/tasks/main.yml yaml[truthy]
+
 roles/web/configure_policyserver/meta/main.yml yaml[indentation]
-roles/web/configure_policyserver/tasks/main.yml yaml[truthy]
+
 roles/web/configure_reverseproxy_instances/defaults/main.yml var-naming[no-role-prefix]
 roles/web/configure_reverseproxy_instances/meta/main.yml yaml[indentation]
 roles/web/configure_reverseproxy_instances/tasks/main.yml yaml[line-length]
-roles/web/configure_reverseproxy_instances/tasks/main.yml yaml[truthy]
+
 roles/web/configure_reverseproxy_junctions/defaults/main.yml var-naming[no-role-prefix]
-roles/web/configure_reverseproxy_junctions/defaults/main.yml yaml[truthy]
+
 roles/web/configure_reverseproxy_junctions/tasks/include_create_junctions.yml literal-compare
 roles/web/configure_reverseproxy_junctions/tasks/include_create_junctions.yml name[prefix]
 roles/web/configure_reverseproxy_junctions/tasks/include_create_junctions.yml yaml[line-length]
@@ -1741,11 +1434,9 @@ roles/web/configure_reverseproxy_junctions/tasks/include_delete_junctions.yml na
 roles/web/configure_reverseproxy_junctions/tasks/include_junctions.yml name[prefix]
 roles/web/configure_reverseproxy_junctions/tasks/main.yml jinja[spacing]
 roles/web/configure_reverseproxy_junctions/tasks/main.yml yaml[line-length]
-roles/web/configure_reverseproxy_junctions/tasks/main.yml yaml[truthy]
 roles/web/configure_reverseproxy_junctions_setall/defaults/main.yml var-naming[no-role-prefix]
 roles/web/configure_reverseproxy_junctions_setall/tasks/main.yml jinja[spacing]
 roles/web/configure_reverseproxy_junctions_setall/tasks/main.yml yaml[line-length]
-roles/web/configure_reverseproxy_junctions_setall/tasks/main.yml yaml[truthy]
 roles/web/configure_runtime_components/defaults/main.yml var-naming[no-role-prefix]
 roles/web/configure_runtime_components/meta/main.yml yaml[indentation]
 roles/web/configure_runtime_components/tasks/main.yml jinja[spacing]
@@ -1754,13 +1445,11 @@ roles/web/create_reverseproxy_instances/meta/main.yml yaml[indentation]
 roles/web/create_reverseproxy_instances/tasks/main.yml jinja[spacing]
 roles/web/create_reverseproxy_instances/tasks/main.yml yaml[indentation]
 roles/web/create_reverseproxy_instances/tasks/main.yml yaml[line-length]
-roles/web/create_reverseproxy_instances/tasks/main.yml yaml[truthy]
 roles/web/create_sso_keys/defaults/main.yml var-naming[no-role-prefix]
 roles/web/create_sso_keys/meta/main.yml yaml[indentation]
 roles/web/delete_reverseproxy_instance/defaults/main.yml var-naming[no-role-prefix]
 roles/web/delete_reverseproxy_instance/meta/main.yml yaml[indentation]
 roles/web/delete_reverseproxy_instance/tasks/main.yml yaml[line-length]
-roles/web/delete_reverseproxy_instance/tasks/main.yml yaml[truthy]
 roles/web/execute_pdadmin/defaults/main.yml var-naming[no-role-prefix]
 roles/web/execute_pdadmin/tasks/main.yml jinja[spacing]
 roles/web/execute_pdadmin/tasks/main.yml name[casing]
@@ -1772,39 +1461,30 @@ roles/web/import_certificate_mapping_files/defaults/main.yml var-naming[no-role-
 roles/web/import_certificate_mapping_files/meta/main.yml yaml[indentation]
 roles/web/import_certificate_mapping_files/tasks/main.yml jinja[spacing]
 roles/web/import_sso_keys/defaults/main.yml var-naming[no-role-prefix]
-roles/web/merge_keytabs/meta/main.yml schema[meta]
-roles/web/merge_keytabs/tasks/main.yml yaml[truthy]
+
 roles/web/restart_reverseproxy_instances/defaults/main.yml var-naming[no-role-prefix]
 roles/web/restart_reverseproxy_instances/meta/main.yml yaml[indentation]
 roles/web/restart_reverseproxy_instances/tasks/main.yml yaml[line-length]
-roles/web/restart_reverseproxy_instances/tasks/main.yml yaml[truthy]
+
 roles/web/set_embedded_ldap_admin_pw/meta/main.yml yaml[indentation]
 roles/web/set_embedded_ldap_admin_pw/tasks/main.yml name[casing]
 roles/web/set_runtime_components/meta/main.yml yaml[indentation]
-roles/web/update_jmt_files/defaults/main.yml schema[vars]
 roles/web/update_jmt_files/defaults/main.yml var-naming[no-role-prefix]
-roles/web/update_jmt_files/meta/main.yml yaml[indentation]
-roles/web/update_jmt_files/tasks/main.yml jinja[spacing]
-roles/web/upload_dynurl_files/defaults/main.yml schema[vars]
 roles/web/upload_dynurl_files/defaults/main.yml var-naming[no-role-prefix]
-roles/web/upload_dynurl_files/meta/main.yml yaml[indentation]
-roles/web/upload_http_transformation_files/defaults/main.yml schema[vars]
 roles/web/upload_http_transformation_files/defaults/main.yml var-naming[no-role-prefix]
-roles/web/upload_http_transformation_files/meta/main.yml yaml[indentation]
 roles/web/upload_jmt_files/defaults/main.yml var-naming[no-role-prefix]
 roles/web/upload_jmt_files/meta/main.yml yaml[indentation]
 roles/web/upload_kerberos_keytab_files/defaults/main.yml var-naming[no-role-prefix]
-roles/web/upload_kerberos_keytab_files/meta/main.yml schema[meta]
-roles/web/upload_ltpa_files/defaults/main.yml schema[vars]
 roles/web/upload_ltpa_files/defaults/main.yml var-naming[no-reserved]
 roles/web/upload_ltpa_files/defaults/main.yml var-naming[no-role-prefix]
 roles/web/upload_ltpa_files/molecule/upload_ltpa_files/converge.yml var-naming[no-role-prefix]
 roles/web/upload_ltpa_files/molecule/upload_ltpa_files/verify.yml var-naming[no-role-prefix]
-roles/web/upload_management_root_files/defaults/main.yml schema[vars]
 roles/web/upload_management_root_files/defaults/main.yml var-naming[no-role-prefix]
-roles/web/upload_management_root_files/meta/main.yml yaml[indentation]
 roles/web/upload_runtime_components/defaults/main.yml var-naming[no-role-prefix]
 # new
 roles/base/configure_extensions/tasks/singleextension.yml name[casing]
-roles/execute_compare/tasks/main.yml name[casing]
+roles/base/configure_container_container/tasks/singlecontainer.yml name[casing]
+roles/base/configure_container_container/tasks/singlecontainerdelete.yml name[casing]
 roles/bootstrap_local/tasks/bootstrap.yml yaml[line-length]
+playbooks/federation_cookbook/fed_cookbook_idp_vars.yml yaml[truthy]
+playbooks/federation_cookbook/fed_cookbook_sp_vars.yml yaml[truthy]
