@@ -147,7 +147,8 @@
     - name: 17.2 Configuring the STS Test Module Chain - set fact to save stsuu template id
       set_fact:
         stsuu_id: "{{ item.prefix }}"
-      when: "{{ item.id == inventory.sts_template_content_id }}"
+      when:
+        - item.id == inventory.sts_template_content_id
       with_items: "{{ ret_obj.data.chainItems }}"
 
     - name: 17.2 Configuring the STS Test Module Chain - get mapping rule id
@@ -255,13 +256,16 @@
     - name: 18.3.4 Modify STS Test Module Chain - set fact to save ip_pre_ldap uuid
       set_fact:
         pre_mapper_uuid: "{{ item.prefix }}"
-      when: "{{ pre_mapper_uuid is not defined and item.id == inventory.mapper_name }}"
+      when:
+        - pre_mapper_uuid is not defined
+        - item.id == inventory.mapper_name
       with_items: "{{ ret_obj.data.chainItems }}"
 
     - name: 18.3.4 Modify STS Test Module Chain - set fact to save ip_post_ldap uuid
       set_fact:
         post_mapper_uuid: "{{ item.prefix }}"
-      when: "{{ item.id == inventory.mapper_name }}"
+      when:
+        - item.id == inventory.mapper_name
       with_items: "{{ ret_obj.data.chainItems }}"
 
     - name: 18.3.4 Modify STS Test Module Chain - get ip_pre_ldap mapping rule id
@@ -341,19 +345,22 @@
     - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find validate module uuid
       set_fact:
         saml_validate_uuid: "{{ item.prefix }}"
-      when: "{{ item.id == inventory.saml_validate_name }}"
+      when:
+        - item.id == inventory.saml_validate_name
       with_items: "{{ ret_obj.data.chainItems }}"
 
     - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find map module uuid
       set_fact:
         saml_mapper_uuid: "{{ item.prefix }}"
-      when: "{{ item.id == inventory.saml_mapper_name }}"
+      when:
+        - item.id == inventory.saml_mapper_name
       with_items: "{{ ret_obj.data.chainItems }}"
 
     - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find issue module uuid
       set_fact:
         saml_issue_uuid: "{{ item.prefix }}"
-      when: "{{ item.id == inventory.saml_issue_name }}"
+      when:
+        - item.id == inventory.saml_issue_name
       with_items: "{{ ret_obj.data.chainItems }}"
 
     - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - get saml20_ivc_to_saml20 mapping rule id
