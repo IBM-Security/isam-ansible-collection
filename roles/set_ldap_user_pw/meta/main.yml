@@ -3,9 +3,12 @@ galaxy_info:
   author: IBM
   company: IBM
 
+  description: Set users ldap password
+
   license: Apache
 
   min_ansible_version: "2.2"
+
   platforms:
     - name: GenericLinux
       versions:

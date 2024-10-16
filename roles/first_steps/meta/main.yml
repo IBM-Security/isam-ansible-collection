@@ -12,7 +12,7 @@ galaxy_info:
     - name: GenericLinux
       versions:
         - all
-        -
+
   galaxy_tags:
     - isam
     - ibm
