@@ -78,7 +78,6 @@
     - item.registry_action == registry_action
   loop: "{{ user_registry }}"
   loop_control:
-    label: "{ 'registry_action': {{ item.registry_action }} {{ (', ' + \"'id'\" + ': ' + item.id) if item.id is defined }} {{ (', ' + \"'password'\" + ': ********')
-      if item.password is defined }} }"
+    label: "{ 'registry_action': {{ item.registry_action }},  {'id': {{ item.id | default('No id') }} }"
   notify: Commit Changes
   register: ret_obj
