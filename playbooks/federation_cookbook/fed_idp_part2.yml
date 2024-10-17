@@ -26,27 +26,27 @@
         get_a_fed_partner_partner_name: "{{ inventory.partner_name }}"
 
     - name: 9.1 Configuring Partner for the IdP - update signatureSettings in temp partner json
-      set_fact:
+      ansible.builtin.set_fact:
         partner_signatureSettings_json: "{{  ret_obj.data.configuration.signatureSettings | combine(inventory.configuration.signatureSettings) }}"
 
     - name: 9.1 Configuring Partner for the IdP - create new_signatureSettings_json
-      set_fact:
+      ansible.builtin.set_fact:
         new_signatureSettings: { signatureSettings: "{{ partner_signatureSettings_json }}" }
 
     - name: 9.1 Configuring Partner for the IdP - update encryptionSettings in temp partner json
-      set_fact:
+      ansible.builtin.set_fact:
         partner_encryptionSettings_json: "{{  ret_obj.data.configuration.encryptionSettings | combine(inventory.configuration.encryptionSettings) }}"
 
     - name: 9.1 Configuring Partner for the IdP - create new_encryptionSettings_json
-      set_fact:
+      ansible.builtin.set_fact:
         new_encryptionSettings: { encryptionSettings: "{{ partner_encryptionSettings_json }}" }
 
     - name: 9.1 Configuring Partner for the IdP - update signatureSettings in the new configuration json
-      set_fact:
+      ansible.builtin.set_fact:
         partner_configuration_json: "{{  ret_obj.data.configuration | combine(new_encryptionSettings) }}"
 
     - name: 9.1 Configuring Partner for the IdP - update signatureSettings in the new configuration json
-      set_fact:
+      ansible.builtin.set_fact:
         partner_configuration_json: "{{  partner_configuration_json | combine(new_signatureSettings) }}"
 
     - name: 9.1 Configuring Partner for the IdP - update federation partner configuration json
@@ -145,7 +145,7 @@
         sts_template_name: "{{ inventory.sts_template_name }}"
 
     - name: 17.2 Configuring the STS Test Module Chain - set fact to save stsuu template id
-      set_fact:
+      ansible.builtin.set_fact:
         stsuu_id: "{{ item.prefix }}"
       when:
         - item.id == inventory.sts_template_content_id
@@ -158,7 +158,7 @@
         search_mapping_rule_name: "{{ inventory.sts_template_content_rule_name }}"
 
     - name: 17.2 Configuring the STS Test Module Chain - create properties obj
-      set_fact:
+      ansible.builtin.set_fact:
         chain_properties:
           properties:
             self:
@@ -166,7 +166,7 @@
               - { name: "{{ stsuu_id }}.map.rule.reference.ids", value: ["{{ ret_obj.data }}"] }
 
     - name: 17.2 Configuring the STS Test Module Chain - create properties obj
-      set_fact:
+      ansible.builtin.set_fact:
         new_sts_chain: ["{{ inventory.sts_chain | combine(chain_properties) }}"]
 
     - name: 17.2 Configuring the STS Test Module Chain
@@ -198,11 +198,11 @@
         search_mapping_rule_name: "{{ inventory.update_mapping_rule_name }}"
 
     - name: 18.1 Using HttpClient from Javascript mapping rules - create mapping obj
-      set_fact:
+      ansible.builtin.set_fact:
         id_mapping_obj: { identityMapping: { activeDelegateId: default-map, properties: { identityMappingRuleReference: "{{ ret_obj.data }}" } } }
 
     - name: 18.1 Using HttpClient from Javascript mapping rules - create updated config obj
-      set_fact:
+      ansible.builtin.set_fact:
         update_config_obj: "{{ inventory.set_federation_configuration | combine(id_mapping_obj) }}"
 
     - name: 18.1 Using HttpClient from Javascript mapping rules
@@ -254,7 +254,7 @@
         sts_template_name: "{{ inventory.modify_sts_template_name }}"
 
     - name: 18.3.4 Modify STS Test Module Chain - set fact to save ip_pre_ldap uuid
-      set_fact:
+      ansible.builtin.set_fact:
         pre_mapper_uuid: "{{ item.prefix }}"
       when:
         - pre_mapper_uuid is not defined
@@ -262,7 +262,7 @@
       with_items: "{{ ret_obj.data.chainItems }}"
 
     - name: 18.3.4 Modify STS Test Module Chain - set fact to save ip_post_ldap uuid
-      set_fact:
+      ansible.builtin.set_fact:
         post_mapper_uuid: "{{ item.prefix }}"
       when:
         - item.id == inventory.mapper_name
@@ -275,7 +275,7 @@
         search_mapping_rule_name: "{{ inventory.ip_pre_ldap_rule_name }}"
 
     - name: 18.3.4 Modify STS Test Module Chain - set fact to save ip_pre_ldap id
-      set_fact:
+      ansible.builtin.set_fact:
         pre_mapper_id: "{{ ret_obj.data }}"
 
     - name: 18.3.4 Modify STS Test Module Chain - get ip_post_ldap mapping rule id
@@ -285,7 +285,7 @@
         search_mapping_rule_name: "{{ inventory.ip_post_ldap_rule_name }}"
 
     - name: 18.3.4 Modify STS Test Module Chain - set fact to save stsuu template id
-      set_fact:
+      ansible.builtin.set_fact:
         post_mapper_id: "{{ ret_obj.data }}"
 
     - name: 18.3.4 Modify STS Test Module Chain - search attribute phone id
@@ -295,7 +295,7 @@
         search_attribute_source_name: "{{ inventory.attribute_source_phone }}"
 
     - name: 18.3.4 Modify STS Test Module Chain - set fact to save attribute phone id
-      set_fact:
+      ansible.builtin.set_fact:
         phone_id: "{{ search_attribute_source_register.data }}"
 
     - name: 18.3.4 Modify STS Test Module Chain - search attribute name id
@@ -305,11 +305,11 @@
         search_attribute_source_name: "{{ inventory.attribute_source_name }}"
 
     - name: 18.3.4 Modify STS Test Module Chain - set fact to save attribute name id
-      set_fact:
+      ansible.builtin.set_fact:
         name_id: "{{ search_attribute_source_register.data }}"
 
     - name: 18.3.4 Modify STS Test Module Chain - create properties obj
-      set_fact:
+      ansible.builtin.set_fact:
         chain_properties:
           properties:
             attributeMapping: { map: [{ name: phone, source: "{{ phone_id }}" }, { name: displayName, source: "{{ name_id }}" }] }
@@ -320,7 +320,7 @@
               - { name: "{{ post_mapper_uuid }}.map.rule.reference.ids", value: ["{{ post_mapper_id }}"] }
 
     - name: 18.3.4 Modify STS Test Module Chain - create properties obj
-      set_fact:
+      ansible.builtin.set_fact:
         new_modify_chain: ["{{ inventory.update_sts_chain | combine(chain_properties) }}"]
 
     - name: 18.3.4 Modify STS Test Module Chain
@@ -343,21 +343,21 @@
         sts_template_name: "{{ inventory.IVCredToSAML20JunctionExample_name }}"
 
     - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find validate module uuid
-      set_fact:
+      ansible.builtin.set_fact:
         saml_validate_uuid: "{{ item.prefix }}"
       when:
         - item.id == inventory.saml_validate_name
       with_items: "{{ ret_obj.data.chainItems }}"
 
     - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find map module uuid
-      set_fact:
+      ansible.builtin.set_fact:
         saml_mapper_uuid: "{{ item.prefix }}"
       when:
         - item.id == inventory.saml_mapper_name
       with_items: "{{ ret_obj.data.chainItems }}"
 
     - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find issue module uuid
-      set_fact:
+      ansible.builtin.set_fact:
         saml_issue_uuid: "{{ item.prefix }}"
       when:
         - item.id == inventory.saml_issue_name
@@ -370,11 +370,11 @@
         search_mapping_rule_name: "{{ inventory.saml20_ivc_to_saml20_name }}"
 
     - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save saml20_ivc_to_saml20 id
-      set_fact:
+      ansible.builtin.set_fact:
         saml20_ivc_to_saml20_id: "{{ ret_obj.data }}"
 
     - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - create properties obj
-      set_fact:
+      ansible.builtin.set_fact:
         chain_properties:
           properties:
             partner:
@@ -408,7 +408,7 @@
               - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.posttime.valid", value: ["3600"] }
 
     - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - create properties obj
-      set_fact:
+      ansible.builtin.set_fact:
         new_saml_chain: ["{{ inventory.saml_sts_chain | combine(chain_properties) }}"]
 
     - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain
@@ -494,7 +494,7 @@
         get_point_of_contact_name: "{{ inventory.get_point_of_contact_name }}"
 
     - name: 21.2 Configure authentication macros in the federation runtime - remove special chars
-      set_fact:
+      ansible.builtin.set_fact:
         new_description: "{{ ret_obj.data.description | replace('\n', '')| replace('\t', '') }}"
 
     - name: 21.2 Configure authentication macros in the federation runtime - create new poc

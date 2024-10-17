@@ -296,7 +296,7 @@ saml_sts_chain:
   validateRequests: false
 # 19.3 Update the reverse proxy configuration file
 set_reverseproxy_conf_entries_19_3:
-  - stanza_id: tfim-cluster:samljct
+  - stanza_id: 'tfim-cluster:samljct'
     entries:
       - [server, "9,https://localhost:443/TrustServerWST13/services/RequestSecurityToken"]
       - [ssl-keyfile, pdsrv.kdb]
@@ -306,7 +306,7 @@ set_reverseproxy_conf_entries_19_3:
       - [timeout, "240"]
       - [basic-auth-user, easuser]
       - [basic-auth-passwd, Passw0rd]
-  - stanza_id: tfimsso:/samljct
+  - stanza_id: 'tfimsso:/samljct'
     entries:
       - [token-type, "http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0"]
       - [applies-to, "http://appliesto/saml20"]

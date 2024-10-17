@@ -25,27 +25,27 @@
         get_a_fed_partner_partner_name: "{{ inventory.partner_name }}"
 
     - name: 9.2 Configuring Partner for the IdP - update signatureSettings in temp partner json
-      set_fact:
+      ansible.builtin.set_fact:
         partner_signatureSettings_json: "{{  ret_obj.data.configuration.signatureSettings | combine(inventory.configuration.signatureSettings) }}"
 
     - name: 9.2 Configuring Partner for the IdP - create new_signatureSettings_json
-      set_fact:
+      ansible.builtin.set_fact:
         new_signatureSettings: { signatureSettings: "{{ partner_signatureSettings_json }}" }
 
     - name: 9.2 Configuring Partner for the IdP - update encryptionSettings in temp partner json
-      set_fact:
+      ansible.builtin.set_fact:
         partner_encryptionSettings_json: "{{  ret_obj.data.configuration.encryptionSettings | combine(inventory.configuration.encryptionSettings) }}"
 
     - name: 9.2 Configuring Partner for the IdP - create new_encryptionSettings_json
-      set_fact:
+      ansible.builtin.set_fact:
         new_encryptionSettings: { encryptionSettings: "{{ partner_encryptionSettings_json }}" }
 
     - name: 9.2 Configuring Partner for the IdP - update signatureSettings in the new configuration json
-      set_fact:
+      ansible.builtin.set_fact:
         partner_configuration_json: "{{  ret_obj.data.configuration | combine(new_encryptionSettings) }}"
 
     - name: 9.2 Configuring Partner for the IdP - update signatureSettings in the new configuration json
-      set_fact:
+      ansible.builtin.set_fact:
         partner_configuration_json: "{{  partner_configuration_json | combine(new_signatureSettings) }}"
 
     - name: 9.2 Configuring Partner for the IdP - update federation partner configuration json
@@ -225,11 +225,11 @@
         search_mapping_rule_name: "{{ inventory.saml20_dynamic_group_name }}"
 
     - name: "20.5 Scenario: EXTUSER authentication - create mapping obj"
-      set_fact:
+      ansible.builtin.set_fact:
         id_mapping_obj: { identityMapping: { activeDelegateId: default-map, properties: { identityMappingRuleReference: "{{ ret_obj.data }}" } } }
 
     - name: "20.5 Scenario: EXTUSER authentication - create updated config obj"
-      set_fact:
+      ansible.builtin.set_fact:
         update_config_obj: "{{ inventory.set_federation_configuration | combine(id_mapping_obj) }}"
 
     - name: "20.5 Scenario: EXTUSER authentication - update the federation"

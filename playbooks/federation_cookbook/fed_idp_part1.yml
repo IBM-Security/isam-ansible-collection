@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: false
   vars:
-    homedir: "."
+    homedir: .
   tasks:
     - name: Include vars
       ansible.builtin.include_vars:
@@ -46,13 +46,13 @@
         name: ibm.isam.web.configure_policyserver
       vars:
         policyserver_runtime:
-            configuration:
-              admin_pwd: "{{ inventory.admin_pwd }}"
-              ps_mode: "{{ inventory.ps_mode }}"
-              user_registry: "{{ inventory.user_registry }}"
-              ldap_pwd: "{{ inventory.ldap_pwd }}"
-              admin_cert_lifetime: "{{ inventory.admin_cert_lifetime}}"
-              ssl_compliance: "{{ inventory.ssl_compliance }}"
+          configuration:
+            admin_pwd: "{{ inventory.admin_pwd }}"
+            ps_mode: "{{ inventory.ps_mode }}"
+            user_registry: "{{ inventory.user_registry }}"
+            ldap_pwd: "{{ inventory.ldap_pwd }}"
+            admin_cert_lifetime: "{{ inventory.admin_cert_lifetime }}"
+            ssl_compliance: "{{ inventory.ssl_compliance }}"
         policyserver_connection_inactivity: "{{ inventory.policyserver_connection_inactivity }}"
 
     - name: 5.1 Create new Reverse Proxy
@@ -111,7 +111,7 @@
         name: ibm.isam.fed.set_federation_from_file
       vars:
         set_federation_from_file:
-          - name: "{{ inventory.fed_name}}"
+          - name: "{{ inventory.fed_name }}"
             protocol: "{{ inventory.protocol }}"
             role: "{{ inventory.role }}"
             filename: "{{ homedir }}/{{ inventory.ipfed }}"
