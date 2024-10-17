@@ -35,7 +35,7 @@
           - "lmiAdminPwd={{ inventory.lmiAdminPwd }}"
           - "websealHostNameAndPort={{ inventory.websealHostNameAndPort }}"
           - "acUuidCookieName={{ inventory.acUuidCookieName }}"
-      uri:
+      ansible.builtin.uri:
         validate_certs: false
         url: "{{ inventory.url }}"
         method: POST

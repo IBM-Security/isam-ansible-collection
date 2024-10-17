@@ -121,6 +121,6 @@
   when: not ansible_check_mode
 
 - name: Fail Appliance if Running in Check Mode
-  fail:
+  ansible.builtin.fail:
     msg: Appliance does not have First Steps Executed. No task will run successfully so failing.
   when: ansible_check_mode

@@ -161,7 +161,7 @@
           - "lmiAdminPwd={{ inventory.lmiAdminPwd }}"
           - "websealHostNameAndPort={{ inventory.websealHostNameAndPort }}"
           - "acUuidCookieName={{ inventory.acUuidCookieName }}"
-      uri:
+      ansible.builtin.uri:
         validate_certs: false
         url_username: "{{ inventory.web_username }}"
         url_password: "{{ inventory.web_password }}"
