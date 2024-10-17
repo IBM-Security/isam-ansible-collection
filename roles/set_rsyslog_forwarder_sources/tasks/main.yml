@@ -5,11 +5,11 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.remote_syslog.forwarder_sources.set
     isamapi:
-      server: "{{ item.server   }}"
-      port: "{{ item.port     }}"
+      server: "{{ item.server }}"
+      port: "{{ item.port }}"
       protocol: "{{ item.protocol }}"
-      name: "{{ item.name     }}"
-      tag: "{{ item.tag      }}"
+      name: "{{ item.name }}"
+      tag: "{{ item.tag }}"
       facility: "{{ item.facility }}"
       severity: "{{ item.severity }}"
   when: set_rsyslog_forwarder_sources is defined

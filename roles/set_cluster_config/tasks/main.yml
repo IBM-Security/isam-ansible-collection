@@ -56,4 +56,5 @@
     - Restart AAC Runtime
 
  # Commit activation of module before doing anything else
-- ansible.builtin.meta: flush_handlers
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

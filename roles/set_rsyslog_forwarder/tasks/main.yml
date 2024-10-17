@@ -5,16 +5,16 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.remote_syslog.forwarder.set
     isamapi:
-      server: "{{ item.server   }}"
-      port: "{{ item.port     }}"
+      server: "{{ item.server }}"
+      port: "{{ item.port }}"
       protocol: "{{ item.protocol }}"
-      debug: "{{ set_rsyslog_forwarder_debug               }}"
-      keyfile: "{{ set_rsyslog_forwarder_keyfile             }}"
-      ca_certificate: "{{ set_rsyslog_forwarder_ca_certificate      }}"
-      client_certificate: "{{ set_rsyslog_forwarder_client_certificate  }}"
-      permitted_peers: "{{ set_rsyslog_forwarder_permitted_peers     }}"
+      debug: "{{ set_rsyslog_forwarder_debug }}"
+      keyfile: "{{ set_rsyslog_forwarder_keyfile }}"
+      ca_certificate: "{{ set_rsyslog_forwarder_ca_certificate }}"
+      client_certificate: "{{ set_rsyslog_forwarder_client_certificate }}"
+      permitted_peers: "{{ set_rsyslog_forwarder_permitted_peers }}"
       sources: []
-      format: "{{ set_rsyslog_forwarder_format     }}"
+      format: "{{ set_rsyslog_forwarder_format }}"
   when: set_rsyslog_forwarder is defined
   with_items: "{{ set_rsyslog_forwarder }}"
   notify: Commit Changes

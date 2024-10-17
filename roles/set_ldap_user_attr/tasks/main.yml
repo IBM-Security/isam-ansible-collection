@@ -1,7 +1,7 @@
 ---
 # tasks file for set_ldap_user_attr
 # modify ldap
-- name: modify user LDAP attributes
+- name: Modify user LDAP attributes
   ibm.isam.ldap_attr:
     dn: "{{ item.0.dn }}"
     name: "{{ item.1.name }}"
