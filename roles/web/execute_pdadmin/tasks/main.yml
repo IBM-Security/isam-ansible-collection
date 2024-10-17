@@ -80,7 +80,7 @@
 
 - name: Merge the pdadmin_commands [unsorted]
   ansible.builtin.set_fact:
-    pdadmin_commands: "{{ pdadmin_commands | default([])  + lookup('vars', item) }}"
+    pdadmin_commands: "{{ pdadmin_commands | default([]) + lookup('vars', item) }}"
   loop: "{{ pd_admin_varstomerge }}"
   when:
     - enable_ansible_merge_vars|bool
@@ -89,7 +89,7 @@
 
 - name: Merge the pdadmin_commands [sorted]
   ansible.builtin.set_fact:
-    pdadmin_commands: "{{ pdadmin_commands | default([])  + lookup('vars', item) }}"
+    pdadmin_commands: "{{ pdadmin_commands | default([]) + lookup('vars', item) }}"
   loop: "{{ pd_admin_varstomerge | sort }}"
   when:
     - enable_ansible_merge_vars|bool
