@@ -13,7 +13,7 @@
 #           - key: infoMap.JSRule
 #             value: MappingRule1
 - name: Create authentication mapping mechanisms
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.aac.create_authentication_mechanisms

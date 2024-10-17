@@ -3,7 +3,7 @@
 #      updates:
 #        - file: uploads/updates/90x.pkg
 - name: Upload updates
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.upload_updates

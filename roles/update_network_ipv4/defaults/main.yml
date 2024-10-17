@@ -11,5 +11,4 @@ update_network_ipv4_allowManagement: false
 update_network_ipv4_enabled: true
 update_network_ipv4_overrideSubnetChecking: false
 update_network_ipv4_vlanId:
-
 update_network_ipv4_comment: Execute Snapshot as Backup - before updating ipv4 {{ update_network_ipv4_address }}

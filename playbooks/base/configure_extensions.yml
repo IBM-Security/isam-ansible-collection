@@ -2,7 +2,7 @@
 # Configure
 #   configure extensions - is a prereq for containers
 - name: Configure extensions
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.configure_extensions

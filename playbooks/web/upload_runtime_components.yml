@@ -5,7 +5,7 @@
 #     runtime_components:
 #       - migrate_file: "{{ inventory_dir }}/uploads/runtime/ldap/ldap.conf"
 - name: Upload runtime components
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.web.upload_runtime_components

@@ -31,7 +31,7 @@
   when: help is defined
 
 - name: Make sure local download directory exists
-  file:
+  ansible.builtin.file:
     path: "{{ (homedir + '/' + file) | dirname }}"
     recurse: true
     state: directory

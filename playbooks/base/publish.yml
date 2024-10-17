@@ -1,7 +1,7 @@
 ---
 # publish docker changes
 - name: Publish Docker changes
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   connection: local
   gather_facts: false
   roles:

@@ -10,7 +10,7 @@
 #           type: policy
 #       action: set
 - name: Configure access control policy attachments
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.aac.configure_access_control_policy_attachments

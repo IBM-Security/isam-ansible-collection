@@ -14,7 +14,7 @@
 
 - name: Temporary variable filter by path
   ansible.builtin.set_fact:
-    uniquedirs: "{{ (uniquedirs | default([]) + [{'name': item.name, 'id': item.id, 'path': item.path}])|unique }}"
+    uniquedirs: "{{ (uniquedirs | default([]) + [{'name': item.name, 'id': item.id, 'path': item.path}]) | unique }}"
   loop: "{{ logs.data }}"
   loop_control:
     label: Adding {{ item.path }}/{{ item.name }}

@@ -6,7 +6,7 @@
 #       federated_directories:
 #
 - name: Configure federated directories
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.web.configure_federated_directories

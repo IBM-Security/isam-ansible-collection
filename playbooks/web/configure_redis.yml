@@ -1,7 +1,7 @@
 ---
 # playbook to configure redis for webseal
 - name: Configure Redis for WebSEAL
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   tags:
     - redis

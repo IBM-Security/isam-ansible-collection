@@ -1,6 +1,6 @@
 ---
 - name: Configure dns servers
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.config_dns

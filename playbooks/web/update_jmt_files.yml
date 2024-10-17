@@ -5,7 +5,7 @@
 #     jmt_files
 #       - file: uploads/jmt/jmt.conf
 - name: Update jmt files
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.web.update_jmt_files

@@ -73,7 +73,7 @@
 
 - name: "[sync_up] Combine the variables"
   ansible.builtin.set_fact:
-    management_root: "{{ (management_root_ori=='')|ternary([],management_root_ori) + directory_updates|default([]) + file_updates | default([]) }}"
+    management_root: "{{ (management_root_ori=='') | ternary([],management_root_ori) + directory_updates | default([]) + file_updates | default([]) }}"
 
 - name: "[sync_up] Create management root directories"
   ibm.isam.isam:
@@ -113,7 +113,7 @@
     - sync_upload.type == 'file'
   with_items: "{{ management_root }}"
   loop_control:
-    label: "{ 'mgmt_action': \"{{ sync_upload.mgmt_action|default('create') }}\", 'inst_name': \"{{ item.0.inst_name }}\", 'filename': \"{{ (sync_upload.target | default('none')
-      | basename) }}\", 'target': \"{{ (sync_upload.target | default('none')) | dirname }}\", 'type': \"{{ sync_upload.type | default(None) }}\")"
+    label: "{ 'mgmt_action': \"{{ sync_upload.mgmt_action|default('create') }}\", 'inst_name': \"{{ item.0.inst_name }}\", 'filename': \"{{ (sync_upload.target |
+      default('none') | basename) }}\", 'target': \"{{ (sync_upload.target | default('none')) | dirname }}\", 'type': \"{{ sync_upload.type | default(None) }}\")"
     loop_var: sync_upload
   notify: Commit Changes

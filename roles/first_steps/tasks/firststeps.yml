@@ -72,11 +72,11 @@
     action: ibmsecurity.isam.base.setup_complete.set
   register: ret_obj
 
-- name: debug
+- name: Debug
   ansible.builtin.debug:
     var: ret_obj
 
-- name: set password
+- name: Set password
   ibm.isam.isam:
     action: ibmsecurity.isam.base.admin.set_pw
     isamapi:

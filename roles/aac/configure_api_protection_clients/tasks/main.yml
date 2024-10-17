@@ -23,7 +23,7 @@
     isamapi: "{{ item.1 | combine({ 'definitionName': item.0.name }) }}"
   when: item.1.name == client_name
   with_subelements:
-    - "{{ api_protection.definitions | default([])}}"
+    - "{{ api_protection.definitions | default([]) }}"
     - clients
     - skip_missing: true
   loop_control:

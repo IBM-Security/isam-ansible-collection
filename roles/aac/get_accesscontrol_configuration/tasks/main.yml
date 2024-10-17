@@ -14,7 +14,7 @@
 
 - name: Make sure destination directory "{{ access_control_output_dir }}/{{ unique_code }}" exists
   become: "{{ access_control_output_become | default(false) }}"
-  file:
+  ansible.builtin.file:
     path: "{{ access_control_output_dir }}/{{ unique_code }}"
     state: directory
     mode: "{{ access_control_output_export_mode }}"

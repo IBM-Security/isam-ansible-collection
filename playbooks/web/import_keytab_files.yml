@@ -7,7 +7,7 @@
 #        -  id: keytab2.tab
 #           file: /path/to/keytab2.tab
 - name: Import kerberos keytab files
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.web.upload_kerberos_keytab_files

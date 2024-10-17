@@ -24,7 +24,7 @@
 #             properties:
 #               identityMappingRuleReference: "5"
 - name: Create federations
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.fed.create_federations

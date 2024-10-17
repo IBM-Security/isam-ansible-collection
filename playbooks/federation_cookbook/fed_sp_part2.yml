@@ -125,7 +125,7 @@
         name: ibm.isam.fed.set_federation_from_file
       vars:
         set_federation_from_file:
-          - name: "{{ inventory.oidc_fed_name}}"
+          - name: "{{ inventory.oidc_fed_name }}"
             protocol: "{{ inventory.oidc_protocol }}"
             role: "{{ inventory.oidc_role }}"
             filename: "{{ homedir }}/{{ inventory.sp_oidc_fed }}"

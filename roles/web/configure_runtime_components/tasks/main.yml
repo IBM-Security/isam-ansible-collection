@@ -22,7 +22,7 @@
     )
   loop_control:
     label: "( method: [{{ item.method }}], resource_id: [{{ item.resource_id }}], stanza_id: [{{ item.stanza_id }}], entries: [{{ item.entries | default('None') }}],
-              entry_id: [{{ item.entry_id | default('None') }}], value_id: [{{ item.value_id | default('None') }}])"
+      entry_id: [{{ item.entry_id | default('None') }}], value_id: [{{ item.value_id | default('None') }}])"
   notify:
     - Commit Changes
     - Restart Web Runtime

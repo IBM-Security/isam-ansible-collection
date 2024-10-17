@@ -7,7 +7,6 @@
 update_static_route_new_address:
 update_static_route_new_label:
 update_static_route_new_vlanId:
-
 # Override the rest as needed
 update_static_route_enabled: true
 update_static_route_maskOrPrefix:

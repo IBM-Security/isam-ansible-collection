@@ -33,7 +33,6 @@ externalize_hvdb_db2_cfgdb_driver_type:
 externalize_hvdb_db2_cfgdb_solid_tc:
 externalize_hvdb_db2_cfgdb_fs:
 externalize_hvdb_db2_dsc_trace_level:
-
 # The following are default keystores used by AAC Runtime and LMI (usually there should not be a need to change this)
 # Both these keystores need the CA certs
 externalize_hvdb_db2_keystores:

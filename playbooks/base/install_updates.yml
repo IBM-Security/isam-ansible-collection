@@ -12,7 +12,7 @@
 #    type: firmware
 #
 - name: Install firmware updates
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   tasks:
     - name: Install the last entry in updates

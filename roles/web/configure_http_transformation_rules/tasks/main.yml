@@ -80,7 +80,7 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.http_transformation.{{ item.transformation_action }}
-    isamapi: "{{ item | ibm.isam.exclude('transformation_action') | combine({'filename': (homedir+ '/' +item.filename)} if (item.filename is defined) else {}) | default(omit)
+    isamapi: "{{ item | ibm.isam.exclude('transformation_action') | combine({'filename': (homedir + '/' + item.filename)} if (item.filename is defined) else {}) | default(omit)
       }}"
   loop: "{{ http_transformation_rules }}"
   when:

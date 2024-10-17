@@ -66,8 +66,8 @@
   with_filetree: "{{ homedir }}/{{ item.directory }}"
   loop_control:
     loop_var: upload
-    label: "{{ {'tmpl_action': 'upload', 'type': upload.state | default(''), 'target': (item.target+ '/' + upload.path) if (item.target != '') else (upload.path), 'file':
-      upload.src | default('n/a') } }}"
+    label: "{{ {'tmpl_action': 'upload', 'type': upload.state | default(''), 'target': (item.target+ '/' + upload.path) if (item.target != '') else (upload.path),
+      'file': upload.src | default('n/a') } }}"
   register: file_update_result
 
 - name: "[sync_up] consolidate update items in a list of updates [files]"

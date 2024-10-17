@@ -33,9 +33,6 @@
 
 - name: Connectivity check - must have ansible_connection set to ibm.isam.isam
   hosts: all
-  collections:
-    - ibm.isam
-    - ansible.legacy
   gather_facts: true
   tags:
     - connectivity
@@ -73,7 +70,7 @@
 
     - name: Is ansible_isam_password set ? (required)
       ansible.builtin.debug:
-        msg: "{{ (ansible_isam_password | default(False))|ternary('ansible_isam_password is defined', 'ansible_isam_password is NOT defined') }}"
+        msg: "{{ (ansible_isam_password | default(False)) | ternary('ansible_isam_password is defined', 'ansible_isam_password is NOT defined') }}"
       failed_when:
         - ansible_isam_password is not defined
 

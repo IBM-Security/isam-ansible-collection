@@ -1,7 +1,7 @@
 ---
 # Configure
 - name: Configure dns settings
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.configure_dns

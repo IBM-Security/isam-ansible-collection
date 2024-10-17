@@ -9,7 +9,7 @@
 #       release_date: 2018-11-19
 #
 - name: Install firmware update
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.install_update

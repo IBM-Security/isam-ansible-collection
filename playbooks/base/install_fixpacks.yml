@@ -5,7 +5,7 @@
 #        - file: uploads/fix_packs/90x_IFx.fixpack
 #
 - name: Install fixpacks
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.install_fixpacks

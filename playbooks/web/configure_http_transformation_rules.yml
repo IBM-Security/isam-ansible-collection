@@ -1,7 +1,7 @@
 ---
 # configure
 - name: Configure http transformation rules
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.web.configure_http_transformation_rules

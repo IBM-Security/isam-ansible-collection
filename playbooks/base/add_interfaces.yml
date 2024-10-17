@@ -14,7 +14,7 @@
 #                     allowManagement: false
 #                     enabled: true
 - name: Add interfaces
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.add_interfaces

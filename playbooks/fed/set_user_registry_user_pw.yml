@@ -4,7 +4,7 @@
 #       set_ldap_user_pwd_id: easuser
 #       set_ldap_user_pwd_password: "{{ easuser_password }}"
 - name: Set user registry user password
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.set_ldap_user_pw

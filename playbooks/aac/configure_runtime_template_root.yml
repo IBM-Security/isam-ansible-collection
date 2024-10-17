@@ -1,7 +1,7 @@
 ---
 # configure
 - name: Configure runtime template root
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   roles:
     - role: ibm.isam.aac.configure_runtime_template_root
       tags: configure_runtime_template_root

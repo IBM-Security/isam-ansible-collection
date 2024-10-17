@@ -19,7 +19,7 @@
 #           session: false
 #           behavior: false
 - name: Configure access control attributes
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.aac.configure_access_control_attributes

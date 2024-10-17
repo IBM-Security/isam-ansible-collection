@@ -1,7 +1,7 @@
 ---
 # Download
 - name: Download snapshots
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   roles:
     - role: ibm.isam.base.download_snapshots
       tags: snapshot

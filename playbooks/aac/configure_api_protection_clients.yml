@@ -15,7 +15,7 @@
 #               redirectUri: https://localhost
 #               contactType: ADMINISTRATIVE
 - name: Configure api protection definitions
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.aac.configure_api_protection_clients

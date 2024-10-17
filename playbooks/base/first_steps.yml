@@ -1,6 +1,6 @@
 ---
 - name: First Steps
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.first_steps

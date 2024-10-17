@@ -14,7 +14,7 @@
 
 - name: Temporary variable
   ansible.builtin.set_fact:
-    uniquedirs: "{{ (uniquedirs | default([]) + [{'path': item.path}])|unique }}"
+    uniquedirs: "{{ (uniquedirs | default([]) + [{'path': item.path}]) | unique }}"
   loop: "{{ logs.data }}"
   loop_control:
     label: Adding {{ item.path }}...
@@ -25,7 +25,7 @@
 
 - name: Make sure the underlying directories {{ logs_export_dir }}/{{ inventory_hostname }} exist
   become: "{{ logs_become | default(false) }}"
-  file:
+  ansible.builtin.file:
     path: "{{ logs_export_dir }}/{{ inventory_hostname }}/{{ item.path }}"
     state: directory
     recurse: true

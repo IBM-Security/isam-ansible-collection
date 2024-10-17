@@ -51,7 +51,7 @@
               ps_mode:    "{{ inventory.ps_mode }}"
               user_registry: "{{ inventory.user_registry }}"
               ldap_pwd: "{{ inventory.ldap_pwd }}"
-              admin_cert_lifetime:    "{{ inventory.admin_cert_lifetime}}"
+              admin_cert_lifetime:    "{{ inventory.admin_cert_lifetime }}"
               ssl_compliance:  "{{ inventory.ssl_compliance }}"
         - policyserver_connection_inactivity: "{{ inventory.policyserver_connection_inactivity }}"
 
@@ -112,7 +112,7 @@
         name: ibm.isam.fed.set_federation_from_file
       vars:
         set_federation_from_file:
-          - name: "{{ inventory.fed_name}}"
+          - name: "{{ inventory.fed_name }}"
             protocol: "{{ inventory.protocol }}"
             role: "{{ inventory.role }}"
             filename: "{{ homedir }}/{{ inventory.ipfed }}"

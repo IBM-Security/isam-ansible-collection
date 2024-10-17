@@ -35,7 +35,7 @@
         name: ibm.isam.fed.set_federation_from_file
       vars:
         set_federation_from_file:
-          - name: "{{ inventory.fed_name}}"
+          - name: "{{ inventory.fed_name }}"
             protocol: "{{ inventory.protocol }}"
             role: "{{ inventory.role }}"
             filename: "{{ homedir }}/{{ inventory.spfed }}"

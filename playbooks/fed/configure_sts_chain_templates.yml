@@ -13,7 +13,7 @@
 #           - id: default-ltpa
 #             mode: issue
 - name: Configure sts chain templates
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.fed.configure_sts_chain_templates
