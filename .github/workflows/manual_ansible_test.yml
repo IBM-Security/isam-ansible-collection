@@ -14,7 +14,6 @@ jobs:
           - 3.9
           - 3.11
         ansible-core-version:
-          - stable-2.14
           - stable-2.15
           - stable-2.16
     runs-on: ubuntu-latest
