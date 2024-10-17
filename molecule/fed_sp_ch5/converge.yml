@@ -10,7 +10,7 @@
         name: inventory
 
     - name: "5.1 Create new Reverse Proxy"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.create_reverseproxy
       vars:
         create_reverseproxy_inst_name: "{{ inventory.inst_name }}"
@@ -27,14 +27,14 @@
         create_reverseproxy_ip_address: "{{ inventory.ip_address }}"
 
     - name: "5.2 Modify Reverse Proxy Instance Settings"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.set_reverseproxy_conf
       vars:
         set_reverseproxy_conf_entries: "{{ inventory.set_reverseproxy_conf_entries }}"
         set_reverseproxy_conf_reverseproxy_id: "{{ inventory.inst_name }}"
 
     - name: "5.2 Restart Reverse Proxy Instance"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.execute_rp_op
       vars:
         execute_rp_op_ids: "{{ inventory.execute_rp_op_ids }}"

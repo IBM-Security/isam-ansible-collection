@@ -12,7 +12,7 @@
     # 8 Configure Reverse Proxy for Federation
     # 8.1 ISAM Configuration for the IdP
     - name: "8.1.1 Configure Reverse Proxy for IdP"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.config_reverseproxy_federation
       vars:
         config_reverseproxy_federation_name: "{{ inventory.fed_name }}"
@@ -23,7 +23,7 @@
         config_reverseproxy_federation_reuse_acls: "{{ inventory.config_reverseproxy_federation_reuse_acls }}"
 
     - name: "8.1.2 Environment-specific configuration"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.set_reverseproxy_conf
       vars:
         set_reverseproxy_conf_entries: "{{ inventory.set_reverseproxy_conf_entries_8_1_2 }}"

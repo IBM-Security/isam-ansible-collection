@@ -10,5 +10,5 @@
         file: "../vars/main.yml"
 
     - name: "Testing configure pip"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.aac.configure_policy_information_points

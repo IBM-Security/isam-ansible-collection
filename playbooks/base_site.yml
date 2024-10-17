@@ -7,7 +7,7 @@
   gather_facts: False
   tasks:
     - name: first steps
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.base.first_steps
       tags: ["first", "steps"]
       vars:

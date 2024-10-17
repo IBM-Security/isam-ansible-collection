@@ -6,7 +6,7 @@
     - ibm.isam
   tasks:
     - name: "Test add using configure_access_control_attributes role"
-      include_role:
+      ansible.builtin.include_role:
         name: "configure_access_control_attributes"
       vars:
         access_control_attributes:

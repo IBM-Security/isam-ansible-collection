@@ -109,7 +109,7 @@
 - name: Enable/disable Redis enabled distributed session
   vars:
     instances: "{{ _instances }}"
-  include_role:
+  ansible.builtin.include_role:
     name: web/configure_reverseproxy_instances
   when:
     - _instances is defined

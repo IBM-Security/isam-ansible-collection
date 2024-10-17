@@ -6,5 +6,5 @@
     - name: "Execute pdadmin"
       vars:
         enable_ansible_merge_vars: true
-      include_role:
+      ansible.builtin.include_role:
         name: web/execute_pdadmin

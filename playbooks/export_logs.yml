@@ -6,5 +6,5 @@
     - ibm.isam
   tasks:
     - name: Export application logs
-      include_role:
+      ansible.builtin.include_role:
         name: export_application_logs

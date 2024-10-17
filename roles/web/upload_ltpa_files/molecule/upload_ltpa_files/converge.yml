@@ -7,7 +7,7 @@
     molecule_file: "{{ homedir }}/files/ltpa.key"
   tasks:
     - name: "Test upload using ltpa role"
-      include_role:
+      ansible.builtin.include_role:
         name: "ibm.isam.web.upload_ltpa_files"
       vars:
         ltpa_files:

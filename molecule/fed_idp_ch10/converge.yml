@@ -11,7 +11,7 @@
 
     # 10.3 Configure test user
     - name: "10.3 Configure test user - create test user"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.execute_pdadmin
       vars:
         execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"

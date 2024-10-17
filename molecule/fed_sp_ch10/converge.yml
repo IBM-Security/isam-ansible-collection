@@ -11,7 +11,7 @@
 
     # 10 Configure test application and test user
     - name: "10.1 Configure test application"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.update_advanced_configuration
       vars:
         update_advanced_configuration_key: "{{ inventory.update_advanced_configuration_key }}"
@@ -19,7 +19,7 @@
         update_advanced_configuration_sensitive: "{{ inventory.update_advanced_configuration_sensitive }}"
 
     - name: "10.2 Authorize Access to Mobile Demo Application - setup acls"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.execute_pdadmin
       vars:
         execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
@@ -48,7 +48,7 @@
       ignore_errors: yes
 
     - name: "10.2 Authorize Access to Mobile Demo Application - update acls"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.execute_pdadmin
       vars:
         execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
@@ -57,7 +57,7 @@
 
     # 10.3 Configure test user
     - name: "10.3 Configure test user - create test user"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.execute_pdadmin
       vars:
         execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"

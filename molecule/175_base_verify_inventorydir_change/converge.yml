@@ -7,7 +7,7 @@
 
   tasks:
     - name: Test configure certificate databases
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.base.configure_certificate_databases
       vars:
         certificate_databases:
@@ -45,7 +45,7 @@
           - db_action: delete
             cert_dbase_id: New_Registry_Keystore
     - name: Test configure personal certificates
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.base.configure_personal_certificates
       vars:
         personal_certificates:
@@ -93,7 +93,7 @@
             cert_id: runtime
 
     - name: Test export personal certificates
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.base.export_personal_certificates
       vars:
         export_personal_certificates:
@@ -102,7 +102,7 @@
            file: files/ssl/isva1005.exported.cert
 
     - name: Test extract certificates
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.base.extract_certificates
       vars:
         extract_certificates:
@@ -112,7 +112,7 @@
             password: passw0rd
 
     - name: Test certificate requests
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.base.configure_certificate_requests
       vars:
         certificate_requests:
@@ -131,7 +131,7 @@
             filename: files/out/certificate_request.csr # absolute or relative path supported
 
     - name: "Test configure signer certificates"
-      include_role:
+      ansible.builtin.include_role:
         name: "ibm.isam.base.configure_signer_certificates"
       vars:
         signer_certificates:
@@ -165,7 +165,7 @@
             cert_id: runtime
 
     - name: "Test import signer certificates"
-      include_role:
+      ansible.builtin.include_role:
         name: "ibm.isam.base.import_signer_certificates"
       vars:
         import_signer_certificates:

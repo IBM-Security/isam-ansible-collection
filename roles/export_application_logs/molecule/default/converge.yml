@@ -14,5 +14,5 @@
       vars:
 
         path: lmt/logs
-      include_role:
+      ansible.builtin.include_role:
         name: export_application_logs

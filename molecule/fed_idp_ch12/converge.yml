@@ -11,13 +11,13 @@
 
     # 12 Create OpenID Connect Provider
     - name: "12.1 Create Federation: get mapping rule id"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.search_mapping_rule
       vars:
         search_mapping_rule_name: "{{ inventory.oidc_mapping_rule_name }}"
 
     - name: "12.1 Create Federation: create the federation"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.fed.set_federation_from_file
       vars:
         set_federation_from_file:
@@ -28,7 +28,7 @@
             mapping_id: "{{ ret_obj.data }}"
 
     - name: "12.2 Configure Reverse Proxy for IdP"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.config_reverseproxy_federation
       vars:
         config_reverseproxy_federation_name: "{{ inventory.oidc_fed_name }}"
@@ -39,7 +39,7 @@
         config_reverseproxy_federation_reuse_acls: "{{ inventory.config_reverseproxy_federation_reuse_acls }}"
 
     - name: "12.3.1 ISAM-to-ISAM partner"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.set_partner
       vars:
         set_partner_federation_name: "{{ inventory.oidc_fed_name }}"
@@ -49,7 +49,7 @@
         set_partner_configuration: "{{ inventory.oidc_isam_partner_configuration }}"
 
     - name: "12.3.2 ISAM-to-Cloud partner"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.set_partner
       vars:
         set_partner_federation_name: "{{ inventory.oidc_fed_name }}"
