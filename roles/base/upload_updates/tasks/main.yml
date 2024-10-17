@@ -21,5 +21,5 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.available_updates.upload
     isamapi:
-      file: "{{ ((homedir=='') | ternary('',homedir+'/')) + update_file }}"
+      file: "{{ ((homedir == '') | ternary('', homedir + '/')) + update_file }}"
   when: update_file is defined

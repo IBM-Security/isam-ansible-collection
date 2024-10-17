@@ -51,10 +51,10 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.aac_configuration.{{ item.aac_configuration.aac_action }}
-    isamapi: "{{ item.aac_configuration | ibm.isam.exclude('aac_action') | combine({ 'instance_id': item.inst_name }) }}"
+    isamapi: "{{ item.aac_configuration | ibm.isam.exclude('aac_action') | combine({'instance_id': item.inst_name}) }}"
   loop: "{{ instances }}"
   loop_control:
-    label: "{ instance_id: {{ item.inst_name }}, aac_action: {{ item.aac_configuration.aac_action | default('') }} }"
+    label: "{instance_id: {{ item.inst_name }}, aac_action: {{ item.aac_configuration.aac_action | default('') }}}"
   when:
     - item.inst_name == inst_name
     - item.aac_configuration is defined

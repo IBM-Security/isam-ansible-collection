@@ -89,12 +89,12 @@
     - instances is defined
     - item.inst_name is defined
     - item.redis_collections is defined
-    - item.redis_collections|length > 0
+    - item.redis_collections | length > 0
   notify: Commit Changes
 
 - name: prepare enabling/disabling dsess ({{ dsess_enabled }})
   ansible.builtin.set_fact:
-    _instances: "{{ (_instances | default([])) + [{ 'inst_name': item.inst_name, 'entries': ((dsess_enabled|bool) | ternary(_dsess_redis_entries_enable,_dsess_redis_entries_disable))}
+    _instances: "{{ (_instances | default([])) + [{ 'inst_name': item.inst_name, 'entries': ((dsess_enabled | bool) | ternary(_dsess_redis_entries_enable, _dsess_redis_entries_disable))}
       ] }}"
   loop: "{{ instances }}"
   loop_control:
@@ -103,7 +103,7 @@
     - instances is defined
     - item.inst_name is defined
     - item.redis_collections is defined
-    - item.redis_collections|length > 0
+    - item.redis_collections | length > 0
 
 - name: Enable/disable Redis enabled distributed session
   vars:

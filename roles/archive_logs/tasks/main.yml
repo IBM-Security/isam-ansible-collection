@@ -26,11 +26,11 @@
     - archive_logs_export
     - archive_logs_instance_id is defined
     - item['id'].startswith(archive_logs_filter)
-    - item['id'][dt_start|int:dt_end|int] < past_dt.stdout
+    - item['id'][dt_start | int:dt_end | int] < past_dt.stdout
   with_items: "{{ ret_obj['data'] }}"
   vars:
     dt_start: "{{ archive_logs_filter | length }}"
-    dt_end: "{{ dt_start|int + 10 }}"
+    dt_end: "{{ dt_start | int + 10 }}"
 
 - name: Delete logs from reverse proxy {{ archive_logs_instance_id }}
   ibm.isam.isam:
@@ -44,8 +44,8 @@
     - archive_logs_delete | bool
     - archive_logs_instance_id is defined
     - item['id'].startswith(archive_logs_filter)
-    - item['id'][dt_start|int:dt_end|int] < past_dt.stdout
+    - item['id'][dt_start | int:dt_end | int] < past_dt.stdout
   with_items: "{{ ret_obj['data'] }}"
   vars:
     dt_start: "{{ archive_logs_filter | length }}"
-    dt_end: "{{ dt_start|int + 10 }}"
+    dt_end: "{{ dt_start | int + 10 }}"

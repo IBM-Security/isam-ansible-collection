@@ -39,7 +39,7 @@
     action: ibmsecurity.isam.base.ssl_certificates.signer_certificate.import_cert
     isamapi:
       kdb_id: "{{ item.kdb_id }}"
-      cert: "{{ homedir+ '/' +item.cert }}"
+      cert: "{{ homedir + '/' + item.cert }}"
       label: "{{ item.label }}"
   loop: "{{ import_signer_certificates }}"
   when:

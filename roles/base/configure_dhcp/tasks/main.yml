@@ -50,7 +50,7 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.network.{{ configure_dhcp_action }}.set_dhcp
-    isamapi: "{{ item.dhcp | combine({ 'label': item.label }) }}"
+    isamapi: "{{ item.dhcp | combine({'label': item.label}) }}"
   with_items: "{{ interfaces }}"
   when:
     - item.dhcp is defined

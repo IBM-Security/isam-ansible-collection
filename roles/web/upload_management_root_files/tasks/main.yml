@@ -18,6 +18,6 @@
   when:
     - item.target is defined
     - item.file is defined
-    - (item.file|basename) == web_management_root_name
+    - (item.file | basename) == web_management_root_name
     - item.instance_id == inst_name
   notify: Commit Changes

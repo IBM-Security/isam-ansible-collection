@@ -57,10 +57,10 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.mmfa_configuration.{{ item.mmfa_configuration.mmfa_action }}
-    isamapi: "{{ item.mmfa_configuration | ibm.isam.exclude('mmfa_action') | combine({ 'instance_id': item.inst_name }) }}"
+    isamapi: "{{ item.mmfa_configuration | ibm.isam.exclude('mmfa_action') | combine({'instance_id': item.inst_name}) }}"
   loop: "{{ instances }}"
   loop_control:
-    label: "{ 'instance_id': '{{ item.inst_name }}', 'mmfa_action': {{ item.mmfa_configuration.mmfa_action | default('') }} }"
+    label: "{'instance_id': '{{ item.inst_name }}', 'mmfa_action': {{ item.mmfa_configuration.mmfa_action | default('') }}}"
   when:
     - item.inst_name == inst_name
     - item.mmfa_configuration is defined

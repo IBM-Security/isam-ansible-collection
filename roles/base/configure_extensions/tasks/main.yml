@@ -42,5 +42,5 @@
   loop_control:
     loop_var: extension_item
   when:
-    - isam_extensions|length>0
+    - isam_extensions | length>0
     - extension_item.extension is defined

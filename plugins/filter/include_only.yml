@@ -17,10 +17,10 @@ DOCUMENTATION:
 
 EXAMPLES: |
   # include_only
-  include: "{{ [['test','value'], ['another','value']] | ibm.isam.include_only('test') }}"
+  include: "{{ [['test', 'value'], ['another', 'value']] | ibm.isam.include_only('test') }}"
 
   returns:
-    {"include_only": [['test','value']]}
+    {"include_only": [['test', 'value']]}
 
 
 RETURN:

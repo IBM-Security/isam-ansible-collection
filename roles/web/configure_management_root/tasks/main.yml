@@ -137,7 +137,7 @@
     isamapi:
       instance_id: "{{ item.0.inst_name }}"
       id: "{{ item.1.target.split('/')[0] }}"
-      name: "{{ item.1.target | regex_replace(item.1.target.split('/')[0]+'/','') }}"
+      name: "{{ item.1.target | regex_replace(item.1.target.split('/')[0] + '/', '') }}"
   when:
     - item.1.mgmt_action == 'create'
     - item.1.type == 'directory'
@@ -150,7 +150,7 @@
     - management_root
     - skip_missing: true
   loop_control:
-    label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action|default('') }} {{ item.1.type|default('file') }} {{ item.1.target | default('') }}"
+    label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action | default('') }} {{ item.1.type | default('file') }} {{ item.1.target | default('') }}"
   notify: Commit Changes
 
 - name: Upload management root files [-e mgmt_action=upload -e inst_name=<instance> -e target=<target> -e file=</path/to/file.txt>]
@@ -177,7 +177,7 @@
     - management_root
     - skip_missing: true
   loop_control:
-    label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action|default('') }} {{ item.1.type|default('file') }} {{ item.1.target|default('') }} {{ item.1.file | default('')
+    label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action | default('') }} {{ item.1.type | default('file') }} {{ item.1.target | default('') }} {{ item.1.file | default('')
       }}"
   notify: Commit Changes
 
@@ -202,7 +202,7 @@
     - management_root
     - skip_missing: true
   loop_control:
-    label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action|default('') }} {{ item.1.type|default('file') }} {{ item.1.target | default('') }}"
+    label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action | default('') }} {{ item.1.type | default('file') }} {{ item.1.target | default('') }}"
   notify: Commit Changes
 
 - name: Include delete management root contents
@@ -219,7 +219,7 @@
     - management_root
     - skip_missing: true
   loop_control:
-    label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action|default('') }} {{ item.1.type|default('file') }} {{ item.1.targets | default('') }}"
+    label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action | default('') }} {{ item.1.type | default('file') }} {{ item.1.targets | default('') }}"
 
 - name: Import management root zip files [-e mgmt_action=import_zip -e inst_name=<instance> -e skip_imports=True/False]
   ansible.builtin.include_tasks: include_import_management_root.yml

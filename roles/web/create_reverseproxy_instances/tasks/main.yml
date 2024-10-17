@@ -56,7 +56,7 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.instance.add
-    isamapi: "{{ item.configuration | combine({ 'inst_name': item.inst_name }) }}"
+    isamapi: "{{ item.configuration | combine({'inst_name': item.inst_name}) }}"
   with_items: "{{ instances }}"
   when: item.configuration is defined and item.inst_name == inst_name
   loop_control:

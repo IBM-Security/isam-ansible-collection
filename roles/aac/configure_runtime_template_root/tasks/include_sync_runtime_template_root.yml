@@ -12,15 +12,15 @@
   failed_when: (ret_obj.msg is defined and '500' in ret_obj.msg)
 
 - name: "[sync_up] Check local file"
-  local_action:
-    module: stat
-    path: "{{ homedir }}/{{ item.directory }}/{{ element.path | regex_replace(item.target,'') }}"
+  ansible.builtin.stat:
+    path: "{{ homedir }}/{{ item.directory }}/{{ element.path | regex_replace(item.target, '') }}"
   loop: "{{ (ret_obj.data.contents if (ret_obj.data is defined and ret_obj.data.contents is defined) else (ret_obj.data if (ret_obj.data is defined) else ([]))) |
     ibm.isam.flatten_management_root }}"
   loop_control:
     loop_var: element
     label: '{ path: "{{ element.path }}", type: "{{ element.type }}", name: "{{ element.name }}"}'
   register: locals
+  delegate_to: localhost
 
 - name: "[sync_up] Delete missing local files on the server"
   ibm.isam.isam:
@@ -43,36 +43,36 @@
 
 - name: "[sync_up] list of directory update items"
   ansible.builtin.set_fact:
-    directory_update_item: "{{ {'tmpl_action': 'create', 'type': create.state, 'path': ((item.target+ '/' +create.path) | dirname) if (item.target != '') else (create.path
+    directory_update_item: "{{ {'tmpl_action': 'create', 'type': create.state, 'path': ((item.target + '/' + create.path) | dirname) if (item.target != '') else (create.path
       | dirname), 'name': (create.path | basename) } }}"
   when: create.state == "directory"
   with_filetree: "{{ homedir }}/{{ item.directory }}"
   loop_control:
     loop_var: create
-    label: "{{ {'tmpl_action': 'create', 'type': create.state, 'path': ((item.target+ '/' +create.path) | dirname) if (item.target != '') else (create.path | dirname),
+    label: "{{ {'tmpl_action': 'create', 'type': create.state, 'path': ((item.target + '/' + create.path) | dirname) if (item.target != '') else (create.path | dirname),
       'name': (create.path | basename) } }}"
   register: directory_update_result
 
 - name: "[sync_up] consolidate update items in a list of updates [directory]"
   ansible.builtin.set_fact:
-    directory_updates: "{{ directory_update_result.results | selectattr('ansible_facts','defined') | map(attribute='ansible_facts.directory_update_item') | list }}"
+    directory_updates: "{{ directory_update_result.results | selectattr('ansible_facts', 'defined') | map(attribute='ansible_facts.directory_update_item') | list }}"
 
 - name: "[sync_up] list of file update items"
   ansible.builtin.set_fact:
-    file_update_item: "{{ {'tmpl_action': 'upload', 'target': (item.target+ '/' + upload.path) if (item.target != '') else (upload.path), 'type': upload.state, 'file':
+    file_update_item: "{{ {'tmpl_action': 'upload', 'target': (item.target + '/' + upload.path) if (item.target != '') else (upload.path), 'type': upload.state, 'file':
       upload.src } }}"
   when:
     - upload.state == "file"
   with_filetree: "{{ homedir }}/{{ item.directory }}"
   loop_control:
     loop_var: upload
-    label: "{{ {'tmpl_action': 'upload', 'type': upload.state | default(''), 'target': (item.target+ '/' + upload.path) if (item.target != '') else (upload.path),
+    label: "{{ {'tmpl_action': 'upload', 'type': upload.state | default(''), 'target': (item.target + '/' + upload.path) if (item.target != '') else (upload.path),
       'file': upload.src | default('n/a') } }}"
   register: file_update_result
 
 - name: "[sync_up] consolidate update items in a list of updates [files]"
   ansible.builtin.set_fact:
-    file_updates: "{{ file_update_result.results | selectattr('ansible_facts','defined') | map(attribute='ansible_facts.file_update_item') | list }}"
+    file_updates: "{{ file_update_result.results | selectattr('ansible_facts', 'defined') | map(attribute='ansible_facts.file_update_item') | list }}"
 
 - name: "[sync_up] Define dynamic runtime template containing directories and files to be created/uploaded"
   ansible.builtin.set_fact:

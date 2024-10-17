@@ -71,7 +71,7 @@
   ansible.builtin.set_fact:
     pd_admin_varstomerge: "{{ lookup('varnames', '.+pdadmin_commands__to_merge$', wantlist=True) }}"
   when:
-    - enable_ansible_merge_vars|bool
+    - enable_ansible_merge_vars | bool
 
 - name: Debug pd_admin_varstomerge before merge [-vv]
   ansible.builtin.debug:
@@ -83,8 +83,8 @@
     pdadmin_commands: "{{ pdadmin_commands | default([]) + lookup('vars', item) }}"
   loop: "{{ pd_admin_varstomerge }}"
   when:
-    - enable_ansible_merge_vars|bool
-    - not enable_ansible_merge_vars_sorted|bool
+    - enable_ansible_merge_vars | bool
+    - not enable_ansible_merge_vars_sorted | bool
     - pd_admin_varstomerge is defined
 
 - name: Merge the pdadmin_commands [sorted]
@@ -92,8 +92,8 @@
     pdadmin_commands: "{{ pdadmin_commands | default([]) + lookup('vars', item) }}"
   loop: "{{ pd_admin_varstomerge | sort }}"
   when:
-    - enable_ansible_merge_vars|bool
-    - enable_ansible_merge_vars_sorted|bool
+    - enable_ansible_merge_vars | bool
+    - enable_ansible_merge_vars_sorted | bool
     - pd_admin_varstomerge is defined
 
 - name: debug the pdadmin commands after merge [-vv]

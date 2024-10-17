@@ -136,5 +136,5 @@
     - item.mechanism_action == mechanism_action
     - item.name == mechanism_name
   loop_control:
-    label: "{{ item | ibm.isam.exclude('properties') | ibm.isam.exclude('attributes')  }}"
+    label: "{{ item | ibm.isam.exclude('properties') | ibm.isam.exclude('attributes') }}"
   notify: Commit Changes
