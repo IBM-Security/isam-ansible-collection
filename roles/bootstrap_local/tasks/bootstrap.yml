@@ -11,91 +11,92 @@
   register: vmdir
   ignore_errors: true
 
-- name: delete if the target VM directory exists
+- name: Delete if the target VM directory exists
   ansible.builtin.file: path="{{ BS_vm_dest_dir }}" state=absent
   when: vmdir.stat.exists
 
-- name: create target VM directory
+- name: Create target VM directory
   ansible.builtin.file: path="{{ BS_vm_dest_dir }}" state=directory mode=0755
   register: shell_out
 
 - ansible.builtin.debug: var=shell_out
 
-- name: copy vmx file to target VM directory
+- name: Copy vmx file to target VM directory
   ansible.builtin.template: src="{{ role_path }}/templates/isam9_sample.vmx" dest="{{ BS_vm_vmx }}"
   register: cmd_out
 - ansible.builtin.debug: var=cmd_out
 
-- name: create VM disk
+- name: Create VM disk
   ansible.builtin.command: "{{ BS_vmdiskmgr }} -c -a lsilogic -s {{ BS_vm_hdd_size }}GB -t 0 {{ BS_vm_vmdk }}"
   register: cmd_out
   changed_when: true
 - ansible.builtin.debug: var=cmd_out
 
-- name: install ISAM ISO from image {{ BS_appliance_iso }}
+- name: Install ISAM ISO from image {{ BS_appliance_iso }}
   ansible.builtin.command: "{{ BS_vmrun }} {{ BS_vmrunflags }} start {{ BS_vm_vmx }}"
   register: shell_out
   changed_when: true
 - ansible.builtin.debug: var=shell_out
 
-- name: waiting for VM to install isam image and shutdown
+- name: Waiting for VM to install isam image and shutdown
   ansible.builtin.shell: set -o pipefail &&  while ( {{ BS_vmrun }} {{ BS_vmrunflags }} list | grep -q {{ BS_vm_vmx }} ); do echo -n . ; sleep 1; done
   register: shell_out
 
-- name: wait for VM process to end
+- name: Wait for VM process to end
   ansible.builtin.shell: set -o pipefail &&  while ( ps -ef | grep {{ BS_vm_vmx }} | grep -q -v grep ); do echo -n . ; sleep 1; done
   register: shell_out
   changed_when: false
 
-- name: check tmp dir
+- name: Check tmp dir
   ansible.builtin.stat: path="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata"
   register: tmpdir
   ignore_errors: true
 
-- name: clean tmp dir and file
+- name: Clean tmp dir and file
   ansible.builtin.file: path="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata" state=absent path="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata.iso" state=absent
   when: tmpdir.stat.exists
 
-- name: create tmp dir
-  file: path="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata" state=directory mode=0755
+- name: Create tmp dir
+  ansible.builtin.file: path="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata" state=directory mode=0755
   register: shell_out
 - ansible.builtin.debug: var=shell_out
 
-- name: copy template
+- name: Copy template
   ansible.builtin.template:
     src: "{{ role_path }}/templates/app-metadata"
     dest: "{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata"
   register: cmd_out
 
-- name: debug cmd_out
+- name: Debug cmd_out
   ansible.builtin.debug:
     var: cmd_out
 
-- name: create metadata ISO
-  ansible.builtin.shell: "{{ BS_mkisofs }} {{ BS_mkisoflags }} {{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata.iso {{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata >/dev/null 2>&1"
+- name: Create metadata ISO
+  ansible.builtin.shell: "{{ BS_mkisofs }} {{ BS_mkisoflags }} {{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata.iso {{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata >/dev/null
+    2>&1"
   register: shell_out
   changed_when: true
 
-- name: debug shell_out
+- name: Debug shell_out
   ansible.builtin.debug:
     var: shell_out
 
-- name: replace the ISO image file entry in vmx
+- name: Replace the ISO image file entry in vmx
   ansible.builtin.lineinfile:
     dest: "{{ BS_vm_vmx }}"
-    regexp: '^sata0:1.fileName'
-    line: 'sata0:1.fileName="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata.iso"'
+    regexp: ^sata0:1.fileName
+    line: sata0:1.fileName="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata.iso"
     backrefs: true
   register: cmd_out
 - ansible.builtin.debug: var=cmd_out
 
-- name: boot up again with bootstrap ISO
+- name: Boot up again with bootstrap ISO
   ansible.builtin.command: "{{ BS_vmrun }} {{ BS_vmrunflags }} start {{ BS_vm_vmx }}"
   register: shell_out
   changed_when: true
 - ansible.builtin.debug: var=shell_out
 
-- name: wait for LMI up
+- name: Wait for LMI up
   ansible.builtin.command: curl -k -v -s -u "admin:admin" -H "Accept:application/json" https://"{{ BS_vm_mgmt_ip }}"
   register: result
   until: result.stdout.find("302 Found") != -1
@@ -103,22 +104,22 @@
   delay: 5
   changed_when: false
 
-- name: take care of vmx file to remove ISO image
+- name: Take care of vmx file to remove ISO image
   ansible.builtin.lineinfile: dest={{ BS_vm_vmx }} regexp='^sata0:1.present' line='sata0:1.present="FALSE"' backrefs=yes
   register: cmd_out
 - ansible.builtin.debug: var=cmd_out
 
-- name: take care of vmx file to remove ISO image
+- name: Take care of vmx file to remove ISO image
   ansible.builtin.lineinfile: dest={{ BS_vm_vmx }} regexp='^sata0:1.fileName' line='sata0:1.fileName=' backrefs=yes
   register: cmd_out
 - ansible.builtin.debug: var=cmd_out
 
-- name: take care of vmx file to remove ISO image
+- name: Take care of vmx file to remove ISO image
   ansible.builtin.lineinfile: dest={{ BS_vm_vmx }} regexp='^sata0:1.startConnected' line='sata0:1.startConnected=FALSE' backrefs=yes
   register: cmd_out
 - ansible.builtin.debug: var=cmd_out
 
-- name: take a snapshot as baseline
+- name: Take a snapshot as baseline
   ansible.builtin.command: "{{ BS_vmrun }} {{ BS_vmrunflags }} snapshot {{ BS_vm_vmx }} baseline"
   register: shell_out
   changed_when: true
