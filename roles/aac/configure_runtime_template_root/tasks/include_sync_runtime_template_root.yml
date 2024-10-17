@@ -38,7 +38,7 @@
   loop: "{{ locals.results }}"
   loop_control:
     loop_var: local
-    label: "{{ item.target | default('.')  + '/' + local.element.path }}"
+    label: "{{ item.target | default('.') + '/' + local.element.path }}"
   notify: Commit Changes
 
 - name: "[sync_up] list of directory update items"
