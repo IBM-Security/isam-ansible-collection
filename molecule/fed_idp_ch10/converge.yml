@@ -19,7 +19,7 @@
         execute_pdadmin_commands: "{{ inventory.test_user_pdadmin_commands }}"
 
     - name: "10.3 Add attributes to test user in ldap"
-      ldap_attr:
+      ibm.isam.ldap_attr:
         validate_certs: false
         dn: "{{ inventory.test_user_dn }}"
         name: "{{ item.key }}"
