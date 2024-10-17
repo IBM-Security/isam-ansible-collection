@@ -8,3 +8,6 @@ gen_report_template: report_fix_levels.template
 
 # output format (html or csv)
 gen_report_output_format: html
+
+# set mode, default is o=rwx,g=rx,o=
+# gen_report_mode: '0770'
