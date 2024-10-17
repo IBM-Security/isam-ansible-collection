@@ -5,7 +5,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.available_updates.upload
     isamapi:
-      file: "{{ ((homedir=='') | ternary('',homedir+'/')) + item.file }}"
+      file: "{{ ((homedir == '') | ternary('', homedir + '/')) + item.file }}"
   when:
     - item is defined
     - item.file is defined

@@ -1,8 +1,8 @@
 ---
 # Configure
 - name: Configure runtime tuning parameters
-  hosts: "{{ hosts | default('all')}}"
-  serial: "{{ serial | default('100%')}}"
+  hosts: "{{ hosts | default('all') }}"
+  serial: "{{ serial | default('100%') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.configure_runtime_tunings

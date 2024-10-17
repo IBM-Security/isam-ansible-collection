@@ -3,7 +3,7 @@
 # eg.:
 # -e path=federation/runtime -e name=trace
 - name: Delete application log files
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.delete_application_logs

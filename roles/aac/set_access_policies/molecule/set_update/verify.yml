@@ -24,7 +24,7 @@
       ansible.builtin.set_fact:
         returned_content: "{{ ret_obj.results.0.data.properties.content | regex_replace('\\r|\\n', '') }}"
 
-    - name: "Assert that the mapping rule {{ molecule_name}} was updated"
+    - name: "Assert that the mapping rule {{ molecule_name }} was updated"
       assert:
         that:
           - ret_obj.results.0.data.name is defined

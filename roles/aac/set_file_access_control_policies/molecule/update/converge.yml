@@ -11,6 +11,6 @@
           - name: "{{ molecule_name }}"
             attributesrequired: "{{ molecule_attributesrequired }}"
             policy_file: "{{ molecule_updated_policy_file }}"
-            description: "{{ molecule_update_description}}"
+            description: "{{ molecule_update_description }}"
             dialect: "{{ molecule_dialect }}"
             predefined: "{{ molecule_predefined }}"

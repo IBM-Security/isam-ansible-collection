@@ -2,7 +2,7 @@
 # Configure
 #   configure certificate databases
 - name: Configure certificate databases
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.configure_certificate_databases

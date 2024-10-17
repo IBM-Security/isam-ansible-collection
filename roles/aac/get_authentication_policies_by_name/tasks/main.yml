@@ -7,5 +7,5 @@
     action: ibmsecurity.isam.aac.authentication.policies.get
     isamapi: "{{ item }}"
   when: item is defined
-  with_items: "{{ get_authentication_policies}}"
+  with_items: "{{ get_authentication_policies }}"
   register: ret_obj

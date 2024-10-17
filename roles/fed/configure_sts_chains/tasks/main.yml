@@ -51,4 +51,4 @@
   notify: Commit Changes
   loop_control:
     label: "{ name: {{ item.name }}, chainName: {{ item.chainName }}, requestType: {{ item.requestType }}, issuer.address: {{ item.issuer.address }}, appliesTo.address:
-      {{ item.appliesTo.address }}}"
+      {{ item.appliesTo.address } }}"

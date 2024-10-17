@@ -17,6 +17,6 @@
           - name: "{{ name }}"
             attributesrequired: "{{ attributesrequired }}"
             policy: "{{ policy }}"
-            description: "{{ update_description}}"
+            description: "{{ update_description }}"
             dialect: "{{ dialect }}"
             predefined: "{{ predefined }}"

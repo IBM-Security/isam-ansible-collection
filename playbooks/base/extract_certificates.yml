@@ -7,7 +7,7 @@
 #      password: "{{ item.password }}"
 #      filename: "{{ inventory_dir }}/{{ item.filename }}"
 - name: Extract certificates
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.extract_certificates

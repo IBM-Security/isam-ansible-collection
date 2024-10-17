@@ -7,7 +7,7 @@
 #         cert: "uploads/ssl/wildcard.test.net.p12"
 #         password: "{{ personal_cert_password }}"
 - name: Import personal certificates
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.import_personal_certificates

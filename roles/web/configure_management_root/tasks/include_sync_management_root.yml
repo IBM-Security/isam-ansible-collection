@@ -9,8 +9,7 @@
   register: ret_obj
 
 - name: "[sync_up] Check local file"
-  local_action:
-    module: stat
+  ansible.builtin.stat:
     path: "{{ homedir }}/{{ item.1.directory }}{{ element.path | regex_replace(item.1.target,'') }}"
   when: (element.path | regex_search('^'+item.1.target)) == item.1.target
   with_items: "{{ ret_obj.data | ibm.isam.flatten_management_root }}"
@@ -18,6 +17,7 @@
     loop_var: element
     label: '{ inst_name="{{ item.0.inst_name }}", path: "{{ element.path }}", type: "{{ element.type }}", name: "{{ element.name }}"}'
   register: locals
+  delegate_to: localhost
 
 - name: "[sync_up] Delete missing local files on the server"
   ibm.isam.isam:
@@ -73,7 +73,7 @@
 
 - name: "[sync_up] Combine the variables"
   ansible.builtin.set_fact:
-    management_root: "{{ (management_root_ori=='') | ternary([],management_root_ori) + directory_updates | default([]) + file_updates | default([]) }}"
+    management_root: "{{ (management_root_ori == '') | ternary([],management_root_ori) + directory_updates | default([]) + file_updates | default([]) }}"
 
 - name: "[sync_up] Create management root directories"
   ibm.isam.isam:

@@ -8,5 +8,5 @@
     isamapi:
       name: "{{ item.name }}"
   when: item is defined
-  with_items: "{{ get_server_connections_names}}"
+  with_items: "{{ get_server_connections_names }}"
   register: ret_obj

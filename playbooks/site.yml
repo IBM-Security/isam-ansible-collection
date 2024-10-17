@@ -69,10 +69,10 @@
   roles:
     - role: ibm.isam.config_policyserver
       tags: [policyserver, config]
-      config_policyserver_admin_pwd: "{{sec_master_pwd}}"
+      config_policyserver_admin_pwd: "{{ sec_master_pwd }}"
       config_policyserver_ldap_pwd: passw0rd
     - role: ibm.isam.set_cluster_config
-      set_cluster_config_primary_master: "{{ ipv4_1_1_ip_address}}"
+      set_cluster_config_primary_master: "{{ ipv4_1_1_ip_address }}"
     - role: ibm.isam.set_cert_replication
       tags: [certificate, replication]
     - role: ibm.isam.set_runtime_replication
@@ -96,7 +96,7 @@
       tags: [reverseproxy, create]
       create_reverseproxy_host: "{{ appliance_name.split('.')[0] }}"
       create_reverseproxy_inst_name: "{{ reverseproxy_instance_name }}"
-      create_reverseproxy_ip_address: "{{ ipv4_1_2_ip_address}}"
+      create_reverseproxy_ip_address: "{{ ipv4_1_2_ip_address }}"
       create_reverseproxy_admin_id: "{{ sec_master_id }}"
       create_reverseproxy_admin_pwd: "{{ sec_master_pwd }}"
 
@@ -108,8 +108,8 @@
       tags: [pdadmin, object, create]
       execute_pdadmin_commands:
         - object create /WebSEAL/ibm "Common Web Root for all Reverse Proxies" 5 ispolicyattachable yes
-      execute_pdadmin_isamuser: "{{sec_master_id}}"
-      execute_pdadmin_isampwd: "{{sec_master_pwd}}"
+      execute_pdadmin_isamuser: "{{ sec_master_id }}"
+      execute_pdadmin_isampwd: "{{ sec_master_pwd }}"
 
 - name: Setup Restricted Appliances
   hosts: restricted

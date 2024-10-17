@@ -9,6 +9,6 @@
   roles:
     - role: ibm.isam.execute_pdadmin
       execute_pdadmin_domain: Default
-      execute_pdadmin_commands: "{{pdadmin_commands}}"
-      execute_pdadmin_isamuser: "{{sec_master_id}}"
-      execute_pdadmin_isampwd: "{{sec_master_pwd}}"
+      execute_pdadmin_commands: "{{ pdadmin_commands }}"
+      execute_pdadmin_isamuser: "{{ sec_master_id }}"
+      execute_pdadmin_isampwd: "{{ sec_master_pwd }}"

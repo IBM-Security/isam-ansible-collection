@@ -10,4 +10,4 @@ configure_interfaces_delete_missing: false
 
 # limit at runtime for particular variables otherwise use loop variables
 label: "{{ item.0.label }}"
-address: "{{ item.1.address if item.1.address is defined else item.1}}"
+address: "{{ item.1.address if item.1.address is defined else item.1 }}"

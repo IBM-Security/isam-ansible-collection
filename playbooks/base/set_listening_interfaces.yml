@@ -1,7 +1,7 @@
 ---
 # Set
 - name: Set listening interfaces
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.set_listening_interfaces

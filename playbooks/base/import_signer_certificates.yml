@@ -1,7 +1,7 @@
 ---
 # Import
 - name: Import signer certificates into certificate database
-  hosts: "{{ hosts | default('all')}}"
+  hosts: "{{ hosts | default('all') }}"
   gather_facts: false
   roles:
     - role: ibm.isam.base.import_signer_certificates
