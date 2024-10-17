@@ -1,5 +1,5 @@
 ---
-- name: Compare Web Runtime {{ resource_id }} stanzas/entries
+- name: Compare stanzas/entries for Web Runtime {{ resource_id }}
   ibm.isam.isamcompare:
     appliance1: "{{ inventory_hostname }}"
     appliance2: "{{ master_hostname }}"

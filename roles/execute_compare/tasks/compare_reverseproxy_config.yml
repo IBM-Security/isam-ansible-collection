@@ -1,5 +1,5 @@
 ---
-- name: Compare Reverse Proxy-> {{ reverseproxy.id }} Management Root Directories/Files
+- name: Compare Management Root Directories/Files for Reverse Proxy -> {{ reverseproxy.id }}
   ibm.isam.isamcompare:
     appliance1: "{{ inventory_hostname }}"
     appliance2: "{{ master_hostname }}"
@@ -24,7 +24,7 @@
   ignore_errors: true
   when: ret_obj['failed'] is true
 
-- name: Compare Reverse Proxy->{{ reverseproxy.id }} Junctions
+- name: Compare Junctions for Reverse Proxy->{{ reverseproxy.id }}
   ibm.isam.isamcompare:
     appliance1: "{{ inventory_hostname }}"
     appliance2: "{{ master_hostname }}"
@@ -49,7 +49,7 @@
   ignore_errors: true
   when: ret_obj['failed'] is true
 
-- name: Compare Reverse Proxy->{{ reverseproxy.id }} stanza/entries
+- name: Compare stanza/entries for Reverse Proxy->{{ reverseproxy.id }}
   ibm.isam.isamcompare:
     appliance1: "{{ inventory_hostname }}"
     appliance2: "{{ master_hostname }}"

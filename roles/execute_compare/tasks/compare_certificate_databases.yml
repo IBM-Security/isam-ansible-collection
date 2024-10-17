@@ -1,5 +1,5 @@
 ---
-- name: Compare Certificate Database->{{ cert_db.id }} Signer Certificates
+- name: Compare Signer Certificates in Certificate Database {{ cert_db.id }}
   ibm.isam.isamcompare:
     appliance1: "{{ inventory_hostname }}"
     appliance2: "{{ master_hostname }}"
@@ -24,7 +24,7 @@
   ignore_errors: true
   when: ret_obj['failed'] is true
 
-- name: Compare Certificate Database->{{ cert_db.id }} Personal Certificates
+- name: Compare Personal Certificates in Certificate Database {{ cert_db.id }}
   ibm.isam.isamcompare:
     appliance1: "{{ inventory_hostname }}"
     appliance2: "{{ master_hostname }}"
