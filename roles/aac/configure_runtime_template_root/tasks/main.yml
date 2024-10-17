@@ -81,8 +81,7 @@
   when: help is defined
 
 - name: Make sure local export directory exists
-  local_action:
-    module: file
+  ansible.builtin.file:
     path: "{{ (homedir + '/' + file) | dirname }}"
     recurse: true
     state: directory
@@ -91,6 +90,7 @@
     - file != ''
     - tmpl_action == 'export_zip'
     - (not (skip_exports | bool)) or (not (skip_export | bool))
+  delegate_to: localhost
 
 - name: Export single runtime template root to {{ homedir + '/' + file }} [-e tmpl_action=export_zip -e file=</path/to/export/file.zip> -e skip_export=True/False
     -e skip_exports=True/False]
@@ -149,9 +149,9 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.runtime_template.file.import_file
     isamapi:
-      path: "{{ (item.target | dirname ) }}"
-      name: "{{ (item.target | basename ) }}"
-      filename: "{{ lookup('fileglob', item.file | default('/') ) }}"
+      path: "{{ (item.target | dirname) }}"
+      name: "{{ (item.target | basename) }}"
+      filename: "{{ lookup('fileglob', item.file | default('/')) }}"
   when:
     - item.tmpl_action == 'upload'
     - item.type == 'file'

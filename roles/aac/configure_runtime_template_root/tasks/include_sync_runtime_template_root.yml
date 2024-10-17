@@ -38,19 +38,19 @@
   loop: "{{ locals.results }}"
   loop_control:
     loop_var: local
-    label: (file={{ (item.target + '/' + local.element.path) if (item.target != '') else (local.element.path) }})
+    label: "{{ item.target | default('.')  + '/' + local.element.path }}"
   notify: Commit Changes
 
 - name: "[sync_up] list of directory update items"
   ansible.builtin.set_fact:
     directory_update_item: "{{ {'tmpl_action': 'create', 'type': create.state, 'path': ((item.target + '/' + create.path) | dirname) if (item.target != '') else (create.path
-      | dirname), 'name': (create.path | basename) } }}"
+      | dirname), 'name': (create.path | basename)} }}"
   when: create.state == "directory"
   with_filetree: "{{ homedir }}/{{ item.directory }}"
   loop_control:
     loop_var: create
     label: "{{ {'tmpl_action': 'create', 'type': create.state, 'path': ((item.target + '/' + create.path) | dirname) if (item.target != '') else (create.path | dirname),
-      'name': (create.path | basename) } }}"
+      'name': (create.path | basename)} }}"
   register: directory_update_result
 
 - name: "[sync_up] consolidate update items in a list of updates [directory]"
@@ -60,14 +60,13 @@
 - name: "[sync_up] list of file update items"
   ansible.builtin.set_fact:
     file_update_item: "{{ {'tmpl_action': 'upload', 'target': (item.target + '/' + upload.path) if (item.target != '') else (upload.path), 'type': upload.state, 'file':
-      upload.src } }}"
+      upload.src} }}"
   when:
     - upload.state == "file"
   with_filetree: "{{ homedir }}/{{ item.directory }}"
   loop_control:
     loop_var: upload
-    label: "{{ {'tmpl_action': 'upload', 'type': upload.state | default(''), 'target': (item.target + '/' + upload.path) if (item.target != '') else (upload.path),
-      'file': upload.src | default('n/a') } }}"
+    label: "upload {{ upload.state | default('') }}, target: {{ item.target | default('') + '/' + upload.path }}, file: {{ upload.src | default('n/a') }}"
   register: file_update_result
 
 - name: "[sync_up] consolidate update items in a list of updates [files]"

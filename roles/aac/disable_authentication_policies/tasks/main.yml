@@ -20,17 +20,17 @@
 - name: Do the list magic. Combine the explicit whitelist with the authentication policies you defined elsewhere
   ansible.builtin.set_fact:
     filtered_definedPolicies: "{{ definedPolicies.data | json_query('[*].name') }}"
-    filtered_authentication_policies: "{{ authentication_policies | union( whitelist_authentication_policies ) | json_query('[*].name') }}"
+    filtered_authentication_policies: "{{ authentication_policies | union(whitelist_authentication_policies) | json_query('[*].name') }}"
 
 - name: Debug defined policies after json_query
   ansible.builtin.debug:
-    msg: "{{ filtered_definedPolicies| default([]) | to_nice_yaml }}"
+    msg: "{{ filtered_definedPolicies | default([]) | to_nice_yaml }}"
     verbosity: 2
   when: filtered_definedPolicies is defined
 
 - name: Debug authentication policies
   ansible.builtin.debug:
-    msg: "{{ filtered_authentication_policies| default([]) | to_nice_yaml }}"
+    msg: "{{ filtered_authentication_policies | default([]) | to_nice_yaml }}"
     verbosity: 2
   when: filtered_authentication_policies is defined
 
@@ -40,7 +40,7 @@
 
 - name: Debug the outcome of the difference.  These policies will be disabled.
   ansible.builtin.debug:
-    msg: "{{ filtered_difference| default([]) | to_nice_yaml }}"
+    msg: "{{ filtered_difference | default([]) | to_nice_yaml }}"
   when: filtered_difference is defined
 
 - name: Disable authentication policies that are not whitelisted

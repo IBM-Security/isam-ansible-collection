@@ -247,8 +247,8 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.server_connections.{{ item.class }}.{{ item.connection_action }}
-    isamapi: "{{ item | ibm.isam.exclude('class') | ibm.isam.exclude('connection_action') | combine({'ignore_password_for_idempotency': (ignore_password_for_idempotency
-      | bool) } if ((ignore_password_for_idempotency | bool) and (item.connection_action == 'set' or item.connection_action == 'update')) else {}) }}"
+    isamapi: "{{ item | ibm.isam.exclude('class') | ibm.isam.exclude('connection_action') | combine({'ignore_password_for_idempotency': (ignore_password_for_idempotency | bool)}
+              if ((ignore_password_for_idempotency | bool) and (item.connection_action == 'set' or item.connection_action == 'update')) else {}) }}"
   when:
     - item.class is defined
     - item.connection_action is defined
@@ -258,5 +258,5 @@
     - (item.type is defined and item.type == type) or item.type is not defined
   loop: "{{ server_connections }}"
   loop_control:
-    label: "{{ item | ibm.isam.exclude('connection') | ibm.isam.exclude('connectionManager')  }}"
+    label: "{{ item | ibm.isam.exclude('connection') | ibm.isam.exclude('connectionManager') }}"
   notify: Commit Changes

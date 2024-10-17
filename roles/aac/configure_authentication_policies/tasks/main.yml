@@ -76,7 +76,7 @@
       combine({'dialect': item.dialect} if (item.dialect is defined) else {}) |
       combine({'enabled': item.enabled} if (item.enabled is defined) else {}) |
       combine({'uri': item.uri} if (item.uri is defined) else {}) |
-      combine({'policy': (item.policy | ibm.isam.to_xml | regex_replace('\"', '\\\"')) } if (item.policy is defined) else {}) }}"
+      combine({'policy': (item.policy | ibm.isam.to_xml | regex_replace('\"', '\\\"'))} if (item.policy is defined) else {}) }}"
   loop: "{{ authentication_policies }}"
   when:
     - item.policy_action is defined

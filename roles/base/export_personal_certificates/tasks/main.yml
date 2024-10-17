@@ -51,8 +51,7 @@
     - item.file is defined
     - not (skip_exports | bool)
 
-- name: "Make sure single local download directory exists: {{ ((file if(file is defined and (file | regex_search('^/')) == '/') else (inventory_dir + '/' + file)
-    | dirname) if(file is defined) else 'Skipping') }}"
+- name: "Make sure single local download directory exists: {{ (homedir + '/' + file) | dirname }}"
   ansible.builtin.file:
     path: "{{ (homedir + '/' + file) | dirname }}"
     recurse: true

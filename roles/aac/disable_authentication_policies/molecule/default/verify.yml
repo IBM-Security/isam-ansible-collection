@@ -32,13 +32,13 @@
 
     - name: Debug defined policies after json_query
       ansible.builtin.debug:
-        msg: "{{ filtered_definedPolicies| default([]) | to_nice_yaml }}"
+        msg: "{{ filtered_definedPolicies | default([]) | to_nice_yaml }}"
         verbosity: 2
       when: filtered_definedPolicies is defined
 
     - name: Debug authentication policies
       ansible.builtin.debug:
-        msg: "{{ filtered_authentication_policies| default([]) | to_nice_yaml }}"
+        msg: "{{ filtered_authentication_policies | default([]) | to_nice_yaml }}"
         verbosity: 2
       when: filtered_authentication_policies is defined
 
@@ -49,7 +49,7 @@
 
     - name: Debug the outcome of the difference.  These policies will be disabled.
       ansible.builtin.debug:
-        msg: "{{ filtered_difference| default([]) | to_nice_yaml }}"
+        msg: "{{ filtered_difference | default([]) | to_nice_yaml }}"
       when: filtered_difference is defined
 
     - name: "Check to see if enabled status is as expected on whitelisted policies"
