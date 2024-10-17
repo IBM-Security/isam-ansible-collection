@@ -7,5 +7,5 @@
   gather_facts: false
   tasks:
     - name: Set management ssl certificate
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.base.set_management_ssl_cert

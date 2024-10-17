@@ -7,9 +7,9 @@
     - redis
   tasks:
     - name: Configure redis
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.web.config_reverseproxy_redis
 
     - name: Restart reverse proxies (if necessary)
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.web.restart_reverseproxy_instances

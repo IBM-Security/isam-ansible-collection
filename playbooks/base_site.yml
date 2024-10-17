@@ -14,19 +14,19 @@
         first_steps_fips: False
         first_steps_admin_pwd: False
     - name: network
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.base.configure_interfaces
       tags: ["ipv4"]
       when:
         - interfaces is defined
     - name: network dhcp
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.base.configure_dhcp
       tags: ["dhcp"]
       when:
         - interfaces is defined
     - name: set hostname
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.set_network_hostname
       tags: ["hostname"]
       vars:

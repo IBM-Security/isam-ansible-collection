@@ -22,7 +22,7 @@
     recurse: true
 
 - name: Create a file with the output "{{ access_control_output_dir }}/{{ unique_code }}/access_control_policies.yaml"
-  copy:
+  ansible.builtin.copy:
     content: "{{ get_accesscontrolpolicies | to_nice_yaml }}"
     dest: "{{ access_control_output_dir }}/{{ unique_code }}/access_control_policies.yaml"
 
@@ -52,7 +52,7 @@
     get_accesscontrolpolicyresources: "{{ ret_obj.data | default([]) }}"
 
 - name: Create a file with the output "{{ access_control_output_dir }}/{{ unique_code }}/access_control_policyresources.yaml"
-  copy:
+  ansible.builtin.copy:
     content: "{{ get_accesscontrolpolicyresources | to_nice_yaml }}"
     dest: "{{ access_control_output_dir }}/{{ unique_code }}/access_control_policyresources.yaml"
 
@@ -66,7 +66,7 @@
   register: ret_obj
 
 - name: Create a file with the output
-  copy:
+  ansible.builtin.copy:
     content: "{{ ret_obj.data | default([]) | to_nice_yaml }}"
     dest: "{{ access_control_output_dir }}/{{ unique_code }}/authenticate.yaml"
 
@@ -87,6 +87,6 @@
     get_accesscontrolpolicyattachments: "{{ ret_obj_loop | default([]) | json_query('results[*].item') }}"
 
 - name: Create a file with the output
-  copy:
+  ansible.builtin.copy:
     content: "{{ get_accesscontrolpolicyattachments | to_nice_yaml }}"
     dest: "{{ access_control_output_dir }}/{{ unique_code }}/access_control_policyattachments.yaml"

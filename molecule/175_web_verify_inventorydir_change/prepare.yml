@@ -27,9 +27,9 @@
             ip_address: "0.0.0.0"
   tasks:
     - name: "Prepare policy server"
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.web.configure_policyserver
 
     - name: "Create reverse proxy (listen on port 444 at {{ ansible_host }}"
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.web.create_reverseproxy_instances

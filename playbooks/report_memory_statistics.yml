@@ -12,9 +12,9 @@
     gen_report_output_format: csv
   tasks:
     - name: Get memory statistics
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.get_memory_statistics
 
     - name: Generate report
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.gen_report

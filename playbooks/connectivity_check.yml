@@ -90,7 +90,7 @@
       ignore_errors: true
 
     - name: Any call to isam will do (so ansible_facts is available)
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.get_firmware
 
     - name: Show ISAM version
