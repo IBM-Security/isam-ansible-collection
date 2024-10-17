@@ -7,7 +7,7 @@
       - name: "{{ item }}"
 
 - name: Check the enable status for policy
-  set_fact:
+  ansible.builtin.set_fact:
     wrong_policy_status: "true"
     wrong_policy_name: "{{ item }}"
   when:

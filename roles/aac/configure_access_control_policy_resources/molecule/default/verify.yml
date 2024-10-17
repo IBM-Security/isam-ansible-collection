@@ -21,26 +21,26 @@
         msg: "{{ ret_obj.results.0.data.policies }}"
 
     - name: "set fact"
-      set_fact:
+      ansible.builtin.set_fact:
         json_subset:
           - input1: "{{ inventory.policies }}"
           - input2: "{{ ret_obj.results.0.data.policies }}"
 
     - name: "set fact"
-      set_fact:
+      ansible.builtin.set_fact:
         lista: []
 
     - name: "set fact"
-      set_fact:
+      ansible.builtin.set_fact:
         listb: []
 
     - name: "set fact"
-      set_fact:
+      ansible.builtin.set_fact:
         lista: "{{ lista }} + ['{{ item.name }} {{ item.type }}']"
       with_items: "{{ inventory.policies }}"
 
     - name: "set fact"
-      set_fact:
+      ansible.builtin.set_fact:
         listb: "{{ listb }} + ['{{ item.name }} {{ item.type }}']"
       with_items: "{{ ret_obj.results.0.data.policies }}"
 

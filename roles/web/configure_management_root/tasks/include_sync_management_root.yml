@@ -37,7 +37,7 @@
     label: '{ instance_id="{{ item.0.inst_name }}", path="{{ local.element.path }}"}'
 
 - name: "[sync_up] list of directory update items"
-  set_fact:
+  ansible.builtin.set_fact:
     directory_update_item: "{{ {'mgmt_action': 'create', 'type': create.state, 'target': item.1.target + '/' + create.path } }}"
   when: create.state == "directory"
   with_community.general.filetree: "{{ homedir }}/{{ item.1.directory }}"
@@ -47,11 +47,11 @@
   register: directory_update_result
 
 - name: "[sync_up] consolidate update items in a list of updates [directory]"
-  set_fact:
+  ansible.builtin.set_fact:
     directory_updates: "{{ directory_update_result.results | selectattr('ansible_facts','defined') | map(attribute='ansible_facts.directory_update_item') | list }}"
 
 - name: "[sync_up] list of file update items"
-  set_fact:
+  ansible.builtin.set_fact:
     file_update_item: "{{ {'mgmt_action': 'upload', 'type': upload.state, 'target': item.1.target + '/' + upload.path, 'file': upload.root + '/' + upload.path} }}"
   when:
     - upload.state == "file"
@@ -62,17 +62,17 @@
   register: file_update_result
 
 - name: "[sync_up] Consolidate update items in a list of updates [file]"
-  set_fact:
+  ansible.builtin.set_fact:
     file_updates: "{{ file_update_result.results | selectattr('ansible_facts','defined') | map(attribute='ansible_facts.file_update_item') | list }}"
 
 - name: "[sync_up] Define dynamic management_root containing directories and files to be created/uploaded for {{ item.0.inst_name }}"
   vars:
     filter_current_management_root: "[? inst_name == '{{ item.0.inst_name }}'].management_root"
-  set_fact:
+  ansible.builtin.set_fact:
     management_root_ori: "{{ (hostvars[inventory_hostname].instances | default({}) | json_query(filter_current_management_root)) | default([]) }}"
 
 - name: "[sync_up] Combine the variables"
-  set_fact:
+  ansible.builtin.set_fact:
     management_root: "{{ (management_root_ori=='')|ternary([],management_root_ori) + directory_updates|default([]) + file_updates | default([]) }}"
 
 - name: "[sync_up] Create management root directories"

@@ -13,7 +13,7 @@
   register: logs
 
 - name: Temporary variable
-  set_fact:
+  ansible.builtin.set_fact:
     uniquedirs: "{{ (uniquedirs | default([]) + [{'path': item.path}])|unique }}"
   loop: "{{ logs.data }}"
   loop_control:

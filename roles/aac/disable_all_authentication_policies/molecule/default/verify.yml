@@ -9,7 +9,7 @@
         name: "get_all_authentication_policies"
 
     - name: "Check each policy's status"
-      set_fact:
+      ansible.builtin.set_fact:
         enabled: "true"
       when: "{{ item.enabled == true }}"
       with_items: "{{ ret_obj.data }}"

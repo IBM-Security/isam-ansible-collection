@@ -13,7 +13,7 @@
         name: "get_all_user_registry"
 
     - name: look for the id
-      set_fact:
+      ansible.builtin.set_fact:
         check_exist: "id exist"
       with_items: "{{ ret_obj.data }}"
       when: "{{ inventory.id in item.id }}"

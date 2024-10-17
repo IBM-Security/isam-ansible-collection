@@ -18,20 +18,20 @@
             resourceUri: "{{ inventory.resourceUri }}"
 
     - name: "set fact lista"
-      set_fact:
+      ansible.builtin.set_fact:
         lista: []
 
     - name: "set fact listb"
-      set_fact:
+      ansible.builtin.set_fact:
         listb: []
 
     - name: "set fact lista with items from inventory"
-      set_fact:
+      ansible.builtin.set_fact:
         lista: "{{ lista }} + ['{{ item.name }} {{ item.type }}']"
       with_items: "{{ inventory.attachments }}"
 
     - name: "set fact lista with items from inventory"
-      set_fact:
+      ansible.builtin.set_fact:
         listb: "{{ listb }} + ['{{ item.name }} {{ item.type }}']"
       with_items: "{{ ret_obj.results.0.data.policies }}"
 

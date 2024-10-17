@@ -17,7 +17,7 @@
   register: ret_obj
 
 - name: Extract Last Boot Timestamp
-  set_fact:
+  ansible.builtin.set_fact:
     last_boot: "{{ ret_obj.data[0].last_boot }}"
 
 # set up LMI FIPS
@@ -93,7 +93,7 @@
   register: ret_obj
 
 - name: Extract LMI Restart Timestamp
-  set_fact:
+  ansible.builtin.set_fact:
     old_start_time: "{{ ret_obj.data[0].start_time }}"
   when: not ansible_check_mode
 

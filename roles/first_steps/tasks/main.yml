@@ -15,11 +15,11 @@
   register: result
 
 - name: Assume First Steps Executed
-  set_fact:
+  ansible.builtin.set_fact:
     firststeps: skip_fs.yml
 
 - name: Initiate logic if First Steps Required
-  set_fact:
+  ansible.builtin.set_fact:
     firststeps: firststeps.yml
   when: result is defined and result.status == 200 and result.json.sla is defined
 

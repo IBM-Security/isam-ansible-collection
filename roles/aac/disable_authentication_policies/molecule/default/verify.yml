@@ -16,13 +16,13 @@
         name: "get_all_authentication_policies"
 
     - name: set fact
-      set_fact:
+      ansible.builtin.set_fact:
         authentication_policies: "{{ inventory.authentication_policies }}"
         whitelist_authentication_policies: "{{ inventory.whitelist_authentication_policies }}"
 
     - name: "Do the list magic. Combine the explicit whitelist with the
              authentication policies you defined elsewhere"
-      set_fact:
+      ansible.builtin.set_fact:
         filtered_definedPolicies:
           "{{ ret_obj.data | json_query('[*].name') }}"
         filtered_authentication_policies:
@@ -43,7 +43,7 @@
       when: filtered_authentication_policies is defined
 
     - name: Do the list magic.  The outcome is all policies to disable
-      set_fact:
+      ansible.builtin.set_fact:
         filtered_difference: "{{ filtered_definedPolicies |
                                  difference(filtered_authentication_policies) }}"
 

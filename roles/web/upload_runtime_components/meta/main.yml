@@ -12,7 +12,7 @@ galaxy_info:
     - isam
     - ibm
     - upload
-    - runtime components
+    - runtime_components
 
 dependencies:
   - ibm.isam.common_handlers

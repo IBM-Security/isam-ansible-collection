@@ -38,7 +38,7 @@
   register: ret_obj
 
 - name: Set variable ret_attachments for use by rest of playbook
-  set_fact:
+  ansible.builtin.set_fact:
     ret_attachments: "{{ ret_obj.data | default([]) }}"
 
 - name: Publish attachments that require publishing

@@ -93,7 +93,7 @@
   notify: Commit Changes
 
 - name: prepare enabling/disabling dsess ({{ dsess_enabled }})
-  set_fact:
+  ansible.builtin.set_fact:
     _instances: "{{ (_instances | default([])) + [{ 'inst_name': item.inst_name,
                                                   'entries': ((dsess_enabled|bool)|ternary(_dsess_redis_entries_enable,_dsess_redis_entries_disable))}
       ]}}"

@@ -68,7 +68,7 @@
   when: help is defined
 
 - name: Locate pdadmin_commands to merge
-  set_fact:
+  ansible.builtin.set_fact:
     pd_admin_varstomerge: "{{ lookup('varnames', '.+pdadmin_commands__to_merge$', wantlist=True) }}"
   when:
     - enable_ansible_merge_vars|bool
@@ -79,7 +79,7 @@
     verbosity: 2
 
 - name: Merge the pdadmin_commands [unsorted]
-  set_fact:
+  ansible.builtin.set_fact:
     pdadmin_commands: "{{ pdadmin_commands | default([])  + lookup('vars', item) }}"
   loop: "{{ pd_admin_varstomerge }}"
   when:
@@ -88,7 +88,7 @@
     - pd_admin_varstomerge is defined
 
 - name: Merge the pdadmin_commands [sorted]
-  set_fact:
+  ansible.builtin.set_fact:
     pdadmin_commands: "{{ pdadmin_commands | default([])  + lookup('vars', item) }}"
   loop: "{{ pd_admin_varstomerge | sort }}"
   when:

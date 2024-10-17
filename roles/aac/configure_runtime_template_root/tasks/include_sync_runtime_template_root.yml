@@ -42,7 +42,7 @@
   notify: Commit Changes
 
 - name: "[sync_up] list of directory update items"
-  set_fact:
+  ansible.builtin.set_fact:
     directory_update_item: "{{ {'tmpl_action': 'create', 'type': create.state, 'path': ((item.target+ '/' +create.path) | dirname) if (item.target != '') else (create.path
       | dirname), 'name': (create.path | basename) } }}"
   when: create.state == "directory"
@@ -54,11 +54,11 @@
   register: directory_update_result
 
 - name: "[sync_up] consolidate update items in a list of updates [directory]"
-  set_fact:
+  ansible.builtin.set_fact:
     directory_updates: "{{ directory_update_result.results | selectattr('ansible_facts','defined') | map(attribute='ansible_facts.directory_update_item') | list }}"
 
 - name: "[sync_up] list of file update items"
-  set_fact:
+  ansible.builtin.set_fact:
     file_update_item: "{{ {'tmpl_action': 'upload', 'target': (item.target+ '/' + upload.path) if (item.target != '') else (upload.path), 'type': upload.state, 'file':
       upload.src } }}"
   when:
@@ -71,9 +71,9 @@
   register: file_update_result
 
 - name: "[sync_up] consolidate update items in a list of updates [files]"
-  set_fact:
+  ansible.builtin.set_fact:
     file_updates: "{{ file_update_result.results | selectattr('ansible_facts','defined') | map(attribute='ansible_facts.file_update_item') | list }}"
 
 - name: "[sync_up] Define dynamic runtime template containing directories and files to be created/uploaded"
-  set_fact:
+  ansible.builtin.set_fact:
     runtime_template_root: "{{ hostvars[inventory_hostname].runtime_template_root + directory_updates + file_updates }}"

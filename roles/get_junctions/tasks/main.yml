@@ -11,5 +11,5 @@
   with_items: "{{ reverseproxy_ret_obj['data'] | default([]) }}"
 
 - name: Set variable for use by rest of playbook
-  set_fact:
+  ansible.builtin.set_fact:
     junction_ret_obj: "{{ ret_obj }}"

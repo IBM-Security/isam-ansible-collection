@@ -11,7 +11,7 @@
         file: "../vars/vars.yml"
 
     - name: read content from file
-      set_fact:
+      ansible.builtin.set_fact:
         file_content: "{{ lookup('file', molecule_import_file) | regex_replace('\\r|\\n', '') }}"
 
     - name: "Get the mapping rule {{ molecule_name }}"
@@ -22,7 +22,7 @@
           - name: "{{ molecule_name }}"
 
     - name: remove newline from returned content
-      set_fact:
+      ansible.builtin.set_fact:
         returned_content: "{{ ret_obj.results.0.data.content | regex_replace('\\r|\\n', '') }}"
 
     - name: "Assert that the mapping rule {{ molecule_name }} was imported"

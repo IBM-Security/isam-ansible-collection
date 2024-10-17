@@ -23,7 +23,7 @@
 - ansible.builtin.debug: var=shell_out
 
 - name: set fact about target vm running
-  set_fact:
+  ansible.builtin.set_fact:
     vm_running: true
   when: shell_out.rc == 0
 - ansible.builtin.debug: var=vm_running

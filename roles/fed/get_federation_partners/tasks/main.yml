@@ -9,5 +9,5 @@
   register: ret_obj
 
 - name: Set variable for use by rest of playbook
-  set_fact:
+  ansible.builtin.set_fact:
     get_federation_partners_ret_obj: "{{ ret_obj['data'] }}"
