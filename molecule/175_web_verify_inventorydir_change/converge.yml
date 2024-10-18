@@ -52,62 +52,62 @@
       - file: files/certificate_mappings/cert_map.xsl
 
   tasks:
-    - name: debug
+    - name: Debug
       ansible.builtin.debug:
         var: playbook_dir
 
-    - name: "Test upload using ltpa role"
+    - name: Test upload using ltpa role
       ansible.builtin.include_role:
-        name: "ibm.isam.web.upload_ltpa_files"
+        name: ibm.isam.web.upload_ltpa_files
       vars:
         ltpa_files:
           - file: "{{ molecule_file }}"
 
-    - name: "Test upload management root files"
+    - name: Test upload management root files
       ansible.builtin.include_role:
-        name: "ibm.isam.web.upload_management_root_files"
+        name: ibm.isam.web.upload_management_root_files
       vars:
         management_root_files:
           - instance_id: default
             file: "files/management_root/management/C/molecule.html"
             target: "management/C/molecule.html"
 
-    - name: "Test configure management root files"
+    - name: Test configure management root files
       ansible.builtin.include_role:
-        name: "ibm.isam.web.configure_management_root"
+        name: ibm.isam.web.configure_management_root
 
-    - name: "Test configure http transformation rules"
+    - name: Test configure http transformation rules
       ansible.builtin.include_role:
-        name: "ibm.isam.web.configure_http_transformation_rules"
+        name: ibm.isam.web.configure_http_transformation_rules
 
-    - name: "Test import certificate mapping files"
+    - name: Test import certificate mapping files
       ansible.builtin.include_role:
-        name: "ibm.isam.web.import_certificate_mapping_files"
+        name: ibm.isam.web.import_certificate_mapping_files
 
-    - name: "Test import sso keys"
+    - name: Test import sso keys
       vars:
         sso_keys:
           - file: files/sso_keys/failover.key
       ansible.builtin.include_role:
-        name: "ibm.isam.web.import_sso_keys"
+        name: ibm.isam.web.import_sso_keys
 
-    - name: "Test export sso keys"
+    - name: Test export sso keys
       vars:
         sso_keys:
           - file: files/out/failover.key
       ansible.builtin.include_role:
-        name: "ibm.isam.web.export_sso_keys"
+        name: ibm.isam.web.export_sso_keys
 
-    - name: "Test upload junction mapping tables"
+    - name: Test upload junction mapping tables
       vars:
          jmt_files:
            - file: files/jmt/jmt2.conf
       ansible.builtin.include_role:
-        name: "ibm.isam.web.upload_jmt_files"
+        name: ibm.isam.web.upload_jmt_files
 
-    - name: "Test update junction mapping tables"
+    - name: Test update junction mapping tables
       vars:
          jmt_files:
            - file: files/jmt/jmt.conf
       ansible.builtin.include_role:
-        name: "ibm.isam.web.update_jmt_files"
+        name: ibm.isam.web.update_jmt_files

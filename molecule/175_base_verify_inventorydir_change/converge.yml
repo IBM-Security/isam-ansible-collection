@@ -125,13 +125,14 @@
             size: '2048'
             signature_algorithm: 'SHA512WithRSA'
           # Exporting a certificate request from a certificate database.
-          # This certificate must be signed by CA and re-importet through personal certificate receive method (see configure_personal_certificates role/playbook)
+          # This certificate must be signed by CA and re-importet through personal certificate receive method
+          # (see configure_personal_certificates role/playbook)
           - cert_action: export_cert
             kdb_id: pdsrv
             cert_id: CN=weblinux.Raleigh.ibm.com,O=ibm,OU=IBMHTTP Server,L=RTP,ST=NC,C=US
             filename: files/out/certificate_request.csr # absolute or relative path supported
 
-    - name: "Test configure signer certificates"
+    - name: Test configure signer certificates
       ansible.builtin.include_role:
         name: "ibm.isam.base.configure_signer_certificates"
       vars:
@@ -154,7 +155,8 @@
             label: runtime
             server: localhost
             port: 443
-            check_remote: False # check_remote controls if ansible should check remote certificate by retrieving it or simply by checking for existence of the label in the kdb
+            check_remote: False # check_remote controls if ansible should check remote certificate by retrieving it or
+                                # simply by checking for existence of the label in the kdb
           # export a certificate to local directory
           - cert_action: export_cert
             kdb_id: pdsrv
@@ -165,7 +167,7 @@
             kdb_id: pdsrv
             cert_id: runtime
 
-    - name: "Test import signer certificates"
+    - name: Test import signer certificates
       ansible.builtin.include_role:
         name: "ibm.isam.base.import_signer_certificates"
       vars:
