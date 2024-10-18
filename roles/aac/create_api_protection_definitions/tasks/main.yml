@@ -16,5 +16,7 @@
     action: ibmsecurity.isam.aac.api_protection.definitions.add
     isamapi: "{{ item }}"
   with_items: "{{ api_protection_definitions }}"
-  when: item.name == name
+  when:
+    - item is defined
+    - item.name is defined
   notify: Commit Changes
