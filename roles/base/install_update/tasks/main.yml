@@ -5,12 +5,12 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.available_updates.install
     isamapi:
-      name: "{{ name }}"
-      type: "{{ type }}"
-      version: "{{ version }}"
-      release_date: "{{ release_date }}"
+      name: "{{ update_name }}"
+      type: "{{ update_type }}"
+      version: "{{ update_version }}"
+      release_date: "{{ update_release_date }}"
   when:
-    - name is defined
-    - type is defined
-    - version is defined
-    - release_date is defined
+    - update_name is defined
+    - update_type is defined
+    - update_version is defined
+    - update_release_date is defined
