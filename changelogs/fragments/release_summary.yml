@@ -1,4 +1,0 @@
----
-release_summary: |
-  | Refactoring based on results from `ansible-lint`
-  | This is necessary to pass Red Hat's certification for collections.

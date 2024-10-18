@@ -4,15 +4,74 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v2.2.0
+======
+
+Release Summary
+---------------
+
+| Refactoring based on results from `ansible-lint`
+| This is necessary to pass Red Hat's certification for collections.
+
+Minor Changes
+-------------
+
+- multiple roles - remove homedir from defaults (is now in common_handlers)
+- refactoring - comments
+- refactoring - fqcn for ansible builtin modules
+- refactoring - galaxy meta - multiple changes
+- refactoring - increase ansible-lint profile to `moderate`
+- refactoring - jinja spacing
+- refactoring - plays must be named
+- refactoring - tasks must be named
+- refactoring - truthy values
+- refactoring - update some of the molecule tests
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- aac/configure_server_connections - remove class variable (schema[vars] violation).  Use a jinja filter instead
+- aac/create_api_protection_definitions - remove name variable (schema[vars] violation).  Use a jinja filter instead
+- base.install_update - rename reserved variable names (add prefix `update_`)
+- base/install_update.yml - rename reserved variable names (name, type, version, release_date)
+- web/upload_http_transformation_files - remove name variable (schema[vars] violation).  Use a jinja filter instead
+- web/upload_ltpa_files - remove name variable (schema[vars] violation).  Use a jinja filter instead
+- web/upload_management_root_files - rename name variable (schema[vars]) - name -> web_management_root_name
+
+Deprecated Features
+-------------------
+
+- create_sysaccount.yml - playbook is a duplicate of create_sysaccounts.yml and will be removed in a future release
+
+Bugfixes
+--------
+
+- removed or moved a number of role vars, since they have a very high precedence and can cause unexpected issues
+
+New Playbooks
+-------------
+
+- ibm.isam.web.configure_reverseproxy_wafcrssetup.yml - Playbook to update WAF crssetup
+- ibm.isam.web.get_reverseproxy_stanza.yml - Playbook to get a specific stanza configuration
+
+New Roles
+---------
+
+- ibm.isam.web.config_reverseproxy_waf_crssetup - Role to add or update the WAF crssetup file
+- ibm.isam.web.delete_admin_credential_apiac_policies - Role to delete an admin credential for apiac policies
+- ibm.isam.web.get_reverseproxy_stanza - Role to get reverse proxy stanzas
+- ibm.isam.web.store_admin_credential_apiac_policies - Role to store the admin credential prior to running other apiac commands
+
 v2.1.0
 ======
 
 Release Summary
 ---------------
 
-| Role and playbook to enable the (Container) extensions
-| First Role and playbook to configure a Container on the ISVA Container extension (IAG or ISVAOP)
-| This requires ibmsecurity >= 2024.11.10.0
+Role and playbook to enable the (Container) extensions
+First role and playbook to configure a Container on the ISVA Container extension
+(IAG or ISVAOP)
+This requires ibmsecurity >= 2024.11.10.0
 
 Minor Changes
 -------------
