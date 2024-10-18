@@ -117,6 +117,11 @@ In that case, simply setting validate_certs to True is sufficient.
 validate_certs = True
 ```
 
+You can override the standard setting (from ansible.cfg) using a variable `isam_validate_certs'.
+So for instance, to do the initial setup of your appliance, you could use
+
+    ansible-navigator run .... -e "isam_validate_certs=false"
+
 #### Setting up your Ansible Execution Environment's python
 
 When using an Ansible Execution Environment, the behaviour of the Python Requests module with TLS may become tricky.
