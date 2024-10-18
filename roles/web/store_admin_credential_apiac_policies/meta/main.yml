@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: IBM
+  description: Role to store the admin credential prior to running other apiac commands
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: "2.14"
+
+  galaxy_tags:
+    - isam
+    - ibm
+    - store
+    - apiac
+    - web
+    - credential
+
+dependencies:
+  - role: ibm.isam.common_handlers
