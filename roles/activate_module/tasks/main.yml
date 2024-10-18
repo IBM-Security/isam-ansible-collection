@@ -7,7 +7,7 @@
     isamapi:
       comment: "{{ activate_module_comment }}"
 
-- name: Activate {{ activate_module_id }} Module
+- name: Activate Module {{ activate_module_id }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
@@ -15,8 +15,11 @@
     isamapi:
       id: "{{ activate_module_id }}"
       code: "{{ activate_module_code }}"
-  when: activate_module_id is defined and activate_module_code is defined
+  when:
+    - activate_module_id is defined
+    - activate_module_code is defined
   notify: Commit Changes
 
  # Commit activation of module before doing anything else
-- ansible.builtin.meta: flush_handlers
+- name: Meta flush handlers
+  ansible.builtin.meta: flush_handlers

@@ -6,7 +6,10 @@
     isampwd: "{{ execute_pdadmin_isampwd }}"
     isamdomain: "{{ execute_pdadmin_domain }}"
     commands: "{{ execute_pdadmin_commands }}"
-  when: execute_pdadmin_commands is defined and execute_pdadmin_isamuser is defined and execute_pdadmin_isampwd is defined
+  when:
+    - execute_pdadmin_commands is defined
+    - execute_pdadmin_isamuser is defined
+    - execute_pdadmin_isampwd is defined
   ignore_errors: true
   register: ret_obj
 

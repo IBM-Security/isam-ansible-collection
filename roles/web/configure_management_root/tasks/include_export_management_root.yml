@@ -1,5 +1,5 @@
 ---
-- name: "Export management root from instance[{{ item.0.inst_name }}] to file: [{{ item.1.file }}]"
+- name: Export management root from instance {{ item.0.inst_name + " - to file " + item.1.file }}
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

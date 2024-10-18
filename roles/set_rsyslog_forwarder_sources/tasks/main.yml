@@ -1,5 +1,5 @@
 ---
-- name: Set Remote Syslog Forwarder Sources {{ set_rsyslog_forwarder_sources_server }}:{{ set_rsyslog_forwarder_sources_port }}
+- name: Set Remote Syslog Forwarder Sources {{ set_rsyslog_forwarder_sources_server + ' - ' + set_rsyslog_forwarder_sources_port }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"

@@ -1,5 +1,5 @@
 ---
-- name: "Import management root zip files inst_name: [{{ item.0.inst_name }}] from file: [{{ item.1.file }}]"
+- name: Import management root zip files inst_name {{ item.0.inst_name + " - to file " + item.1.file }}
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

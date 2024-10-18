@@ -44,7 +44,7 @@
     - ret_obj.data.reboot is defined
     - ret_obj.data.reboot
 
-- name: Pause for Reboot {{ fips_restart_wait_time }}mins
+- name: Pause for Reboot (minutes) {{ fips_restart_wait_time }}
   ansible.builtin.pause:
     minutes: "{{ fips_restart_wait_time }}"
   when:

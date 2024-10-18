@@ -14,8 +14,8 @@
         2) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/web/create_reverseproxy_instances.yml
-        ansible-playbook -i [...] playbooks/ansible_collections/web/create_reverseproxy_instances.yml -e inst_name=default // limit the creation of reverse proxy instances at runtime
+        ansible-playbook -i [...] ibm.isam.web.create_reverseproxy_instances.yml
+        ansible-playbook -i [...] ibm.isam.web.create_reverseproxy_instances.yml -e inst_name=default
 
       INVENTORY
       ==========
