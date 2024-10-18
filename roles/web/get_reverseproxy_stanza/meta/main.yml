@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: IBM
+  description: Role to retrieve stanza configuration
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: "2.15"
+
+  galaxy_tags:
+    - isam
+    - ibm
+    - get
+    - reverse_proxy
+
+dependencies:
+  - role: ibm.isam.common_handlers
