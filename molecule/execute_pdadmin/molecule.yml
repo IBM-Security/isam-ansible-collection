@@ -1,4 +1,7 @@
 ---
+driver:
+  name: default
+
 scenario:
   name: execute_pdadmin
   test_sequence:
