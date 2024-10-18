@@ -16,20 +16,20 @@
         - inst_name: default
           configuration:
             host: "{{ inventory_hostname }}"
-            listening_port: 7234
+            listening_port: 7239
             admin_id: sec_master
             admin_pwd: "passw0rd"
             http_yn: 'no'
             http_port: 80
             https_yn: 'yes'
-            https_port: 444
+            https_port: 8444
             nw_interface_yn: 'yes'
             ip_address: "0.0.0.0"
   tasks:
-    - name: "Prepare policy server"
+    - name: Prepare policy server
       ansible.builtin.import_role:
         name: ibm.isam.web.configure_policyserver
 
-    - name: "Create reverse proxy (listen on port 444 at {{ ansible_host }}"
+    - name: Create reverse proxy - listen on port 8444 at {{ ansible_host }}
       ansible.builtin.import_role:
         name: ibm.isam.web.create_reverseproxy_instances
