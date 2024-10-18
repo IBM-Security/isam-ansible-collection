@@ -1,7 +1,0 @@
----
-
-authentication_policies: []
-whitelist_authentication_policies:
-  - name: Consent Register Device
-  - name: QR Code Login Initiate
-  - name: MMFA User Presence Authentication

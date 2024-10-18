@@ -2,7 +2,7 @@
 
 galaxy_info:
   author: IBM
-  description: Retreive an Server Connection by Name
+  description: Retreive a Server Connection by Name
   company: IBM
 
   # If the issue tracker for your role is not on github, uncomment the

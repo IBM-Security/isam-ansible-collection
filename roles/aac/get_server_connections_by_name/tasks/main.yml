@@ -7,6 +7,8 @@
     action: ibmsecurity.isam.aac.server_connections.{{ item.type }}.get
     isamapi:
       name: "{{ item.name }}"
-  when: item is defined
+  when:
+    - item is defined
+    - item.name is defined
   with_items: "{{ get_server_connections_names }}"
   register: ret_obj

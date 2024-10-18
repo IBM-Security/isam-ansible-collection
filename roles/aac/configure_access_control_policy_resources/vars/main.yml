@@ -1,4 +1,0 @@
----
-server: isam907-test2
-resourceUri: /testresources
-policies: [{ name: testapi3, type: definition }]
