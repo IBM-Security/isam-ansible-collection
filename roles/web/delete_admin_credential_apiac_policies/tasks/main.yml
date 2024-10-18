@@ -1,0 +1,7 @@
+---
+- name: Delete the stored admin credential
+  isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.api_access_control.utilities.credential.delete
+    isamapi:

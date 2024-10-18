@@ -1,0 +1,45 @@
+---
+- name: Help INFO (-e help=true)
+  ansible.builtin.pause:
+    echo: true
+    prompt: |
+      NAME
+        config_reverseproxy_waf_crssetup
+
+      DESCRIPTION
+        Role to configure the waf
+
+      STEPS
+        1) update configuration file
+
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.web.config_reverseproxy_waf_crssetup
+
+      INVENTORY
+      ==========
+
+      waf_crssetup:
+        filename: 'files/waf/crs-setup.conf'
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Debug
+  ansible.builtin.debug:
+    var: waf_crssetup.filename
+
+- name: Import CRS setup
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.global_settings.waf.import_file
+    isamapi:
+      id: crs-setup.conf
+      filename: "{{ waf_crssetup.filename }}"
+  when:
+    - waf_crssetup is defined
+    - waf_crssetup.filename is defined
+  notify: Commit Changes
