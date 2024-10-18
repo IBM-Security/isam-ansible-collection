@@ -66,10 +66,11 @@
             size: '2048'
             signature_algorithm: 'SHA512WithRSA'
           # Setting a personal certificate as default in a certificate database
-          - cert_action: set
-            kdb_id: pdsrv
-            cert_id: sample_label
-            default: 'yes' # optional default: 'no'
+          # This is deprecated in 10.0.8
+          #- cert_action: set
+          #  kdb_id: pdsrv
+          #  cert_id: sample_label
+          #  default: 'yes' # optional default: 'no'
           # Exporting a personal certificate from a certificate database
           - cert_action: export_cert
             kdb_id: pdsrv
