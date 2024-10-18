@@ -10,3 +10,5 @@ add object.role:
 add object.playbook:
   - name: web.configure_reverseproxy_wafcrssetup.yml
     description: Playbook to update WAF crssetup
+  - name: web.get_reverseproxy_stanza.yml
+    description: Playbook to get a specific stanza configuration

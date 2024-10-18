@@ -8,6 +8,8 @@ minor_changes:
   - refactoring - fqcn for ansible builtin modules
   - refactoring - tasks must be named
   - refactoring - plays must be named
+  - refactoring - increase ansible-lint profile to `moderate`
+  - refactoring - update some of the molecule tests
 
 bugfixes:
   - removed or moved a number of role vars, since they have a very high precedence and can cause unexpected issues
