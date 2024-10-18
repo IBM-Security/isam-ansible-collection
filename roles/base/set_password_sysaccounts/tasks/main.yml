@@ -1,7 +1,7 @@
 ---
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         set_password_sysaccounts
@@ -37,7 +37,9 @@
     action: ibmsecurity.isam.base.sysaccount.users.modify
     isamapi: "{{ item }}"
   with_items: "{{ sysaccounts }}"
-  when: item.id is defined and item.id == id
+  when:
+    - item.id is defined
+    - item.id == id
   loop_control:
-    label: "{'id': {{ item.id }}}"
+    label: "id: {{ item.id }}"
   notify: Commit Changes

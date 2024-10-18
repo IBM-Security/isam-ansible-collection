@@ -1,3 +1,4 @@
+---
 # Set existing stanza(s)/entries in reverse proxy config file
 - name: Set values into Reverse Proxy Configuration File
   ibm.isam.isam:
@@ -11,5 +12,5 @@
   with_items: "{{ set_reverseproxy_conf_entries }}"
   when: set_reverseproxy_conf_entries is defined and set_reverseproxy_conf_reverseproxy_id is defined
   notify:
-  - Commit Changes
-  - Restart Reverse Proxy
+    - Commit Changes
+    - Restart Reverse Proxy

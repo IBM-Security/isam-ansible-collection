@@ -1,36 +1,36 @@
 ---
 - name: Federation Cookbook SP Ch. 14
   hosts: all
-  gather_facts: no
+  gather_facts: false
   vars:
     homedir: ""
   tasks:
-    - include_vars:
+    - ansible.builtin.include_vars:
         file: "../vars/fed_cookbook_sp_vars.yml"
         name: inventory
 
     # 14 Additional Relying Party configuration
     - name: "14.1 Load OpenID Connect Provider SSL Certificates"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.base.load_signer_certificates
       vars:
         load_signer_certificates: "{{ inventory.load_signer_certificates }}"
 
     - name: "14.2 Set credential response header"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.set_current_point_of_contact
       vars:
         set_current_point_of_contact_name: "{{ inventory.set_current_point_of_contact_name }}"
 
     - name: "14.2.1 Add extra login links to login page"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.update_management_root
       vars:
         update_management_root_instance_id: "{{ inventory.update_management_root_instance_id }}"
         update_management_root_idandfilename: "{{ inventory.update_management_root_idandfilename }}"
 
     - name: "14.2.1 Restart Reverse Proxy Instance"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.execute_rp_op
       vars:
         execute_rp_op_ids: "{{ inventory.execute_rp_op_ids }}"

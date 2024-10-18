@@ -1,11 +1,12 @@
 ---
 # update
-#   update jmt files
+#
 #   Example:
 #     jmt_files
 #       - file: uploads/jmt/jmt.conf
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Update jmt files
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.web.update_jmt_files
       tags: update_jmt_files

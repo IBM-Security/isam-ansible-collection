@@ -4,9 +4,9 @@
   roles:
     # Assumes hostname and port are localhost and 443 respectively
     - role: ibm.isam.config_reverseproxy_aac
-      tags: ["reverseproxy", "aac", "config", "isamcfg"]
-      config_reverseproxy_aac_instance_id: "{{reverseproxy_instance_name | default('default')}}"
-      config_reverseproxy_aac_username: "{{aac_userid | default('easuser')}}"
-      config_reverseproxy_aac_password: "{{aac_password | default('passw0rd')}}"
-      config_reverseproxy_aac_reuse_certs: False
-      config_reverseproxy_aac_reuse_acls: False
+      tags: [reverseproxy, aac, config, isamcfg]
+      config_reverseproxy_aac_instance_id: "{{ reverseproxy_instance_name | default('default') }}"
+      config_reverseproxy_aac_username: "{{ aac_userid | default('easuser') }}"
+      config_reverseproxy_aac_password: "{{ aac_password | default('passw0rd') }}"
+      config_reverseproxy_aac_reuse_certs: false
+      config_reverseproxy_aac_reuse_acls: false

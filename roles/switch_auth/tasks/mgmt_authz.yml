@@ -1,3 +1,4 @@
+---
 - name: Enable Management Authorization (Role Based Access)
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

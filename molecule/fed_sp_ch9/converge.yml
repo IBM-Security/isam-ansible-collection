@@ -1,16 +1,16 @@
 ---
 - name: Federation Cookbook SP Ch. 9
   hosts: all
-  gather_facts: no
+  gather_facts: false
   vars:
     homedir: ""
   tasks:
-    - include_vars:
+    - ansible.builtin.include_vars:
         file: "../vars/fed_cookbook_sp_vars.yml"
         name: inventory
 
     - name: "9.2 Configuring Partner for the SP - import metadata"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.fed.import_metadata
       vars:
         import_metadata_federation_name: "{{ inventory.fed_name }}"
@@ -18,7 +18,7 @@
         import_metadata_partner_name: "{{ inventory.partner_name }}"
 
     - name: "9.2 Configuring Partner for the SP - get partner json"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.fed.get_a_fed_partner
       vars:
         get_a_fed_partner_federation_name: "{{ inventory.fed_name }}"
@@ -51,7 +51,7 @@
         partner_configuration_json: "{{  partner_configuration_json | combine(new_signatureSettings) }}"
 
     - name: "9.2 Configuring Partner for the IdP - update federation partner configuration json"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.set_partner
       vars:
         set_partner_federation_name: "{{ inventory.fed_name }}"

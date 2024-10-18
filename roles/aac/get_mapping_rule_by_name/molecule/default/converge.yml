@@ -1,15 +1,15 @@
 ---
 - name: Converge - get mapping rule by name
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Include get_mapping_rule_by_Name"
-      include_role:
+      ansible.builtin.include_role:
         name: get_mapping_rule_by_name
       vars:
         get_mapping_rule_names:
           - name: "{{ name }}"
         register: ret_obj
 
-    - debug:
+    - ansible.builtin.debug:
         var: ret_obj

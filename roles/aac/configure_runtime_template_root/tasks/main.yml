@@ -1,8 +1,8 @@
 ---
 # main task to configure runtime template root content
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         configure_runtime_template_root
@@ -81,19 +81,19 @@
   when: help is defined
 
 - name: Make sure local export directory exists
-  local_action:
-    module: file
+  ansible.builtin.file:
     path: "{{ (homedir + '/' + file) | dirname }}"
-    recurse: yes
+    recurse: true
     state: directory
   when:
     - file is defined
     - file != ''
     - tmpl_action == 'export_zip'
-    - (not (skip_exports | bool)) or
-      (not (skip_export | bool))
+    - (not (skip_exports | bool)) or (not (skip_export | bool))
+  delegate_to: localhost
 
-- name: "Export single runtime template root to {{ homedir + '/' + file }} [-e tmpl_action=export_zip -e file=</path/to/export/file.zip> -e skip_export=True/False -e skip_exports=True/False]"
+- name: Export single runtime template root to {{ homedir + '/' + file }} [-e tmpl_action=export_zip -e file=</path/to/export/file.zip> -e skip_export=True/False
+    -e skip_exports=True/False]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -106,26 +106,25 @@
     - not (skip_export | bool)
     - tmpl_action == 'export_zip' or tmpl_action == 'None'
 
-- name: "Export all runtime template root files [-e tmpl_action=export_zip -e skip_exports=True/False]"
-  include_tasks: include_export_runtime_template_root.yml
+- name: Export all runtime template root files [-e tmpl_action=export_zip -e skip_exports=True/False]
+  ansible.builtin.include_tasks: include_export_runtime_template_root.yml
   when:
     - item.tmpl_action == 'export_zip'
     - not (skip_exports | bool)
     - tmpl_action == 'export_zip' or tmpl_action == 'None'
   loop: "{{ runtime_template_root }}"
 
-- name: "Sync runtime template root [local => server] [-e tmpl_action=sync_up -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]"
-  include_tasks: include_sync_runtime_template_root.yml
+- name: Sync runtime template root [local => server] [-e tmpl_action=sync_up -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]
+  ansible.builtin.include_tasks: include_sync_runtime_template_root.yml
   when:
     - item.tmpl_action == 'sync_up'
     - item.target == target
     - item.directory == directory
-    - tmpl_action == 'sync_up' or
-      tmpl_action == 'None'
+    - tmpl_action == 'sync_up' or tmpl_action == 'None'
     - not (skip_sync | bool)
   loop: "{{ runtime_template_root }}"
 
-- name: "Create runtime template root directories [-e tmpl_action=create -e path=<path of file> -e dir_name=<name_of_directory>]"
+- name: Create runtime template root directories [-e tmpl_action=create -e path=<path of file> -e dir_name=<name_of_directory>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -140,20 +139,19 @@
     - item.path == path
     - item.name is defined
     - item.name == dir_name
-    - tmpl_action == 'create' or
-      tmpl_action == 'None'
+    - tmpl_action == 'create' or tmpl_action == 'None'
   with_items: "{{ runtime_template_root }}"
   notify: Commit Changes
 
-- name: "Upload runtime template root files [-e tmpl_action=upload -e target=<full_file_path_and_name_on_server> -e file=<file_to_upload>]"
+- name: Upload runtime template root files [-e tmpl_action=upload -e target=<full_file_path_and_name_on_server> -e file=<file_to_upload>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.runtime_template.file.import_file
     isamapi:
-      path: "{{ (item.target | dirname ) }}"
-      name: "{{ (item.target | basename ) }}"
-      filename: "{{ lookup('fileglob', item.file|default('/') ) }}"
+      path: "{{ (item.target | dirname) }}"
+      name: "{{ (item.target | basename) }}"
+      filename: "{{ lookup('fileglob', item.file | default('/')) }}"
   when:
     - item.tmpl_action == 'upload'
     - item.type == 'file'
@@ -161,16 +159,15 @@
     - item.file is defined
     - item.target == target
     - item.file == file
-    - tmpl_action == 'upload' or
-      tmpl_action == 'None'
+    - tmpl_action == 'upload' or tmpl_action == 'None'
   loop: "{{ runtime_template_root }}"
   notify: Commit Changes
 
-- name: "Delete runtime template root file/directory [-e tmpl_action=delete -e target=<file/directory_to_delete>]"
+- name: Delete runtime template root file/directory [-e tmpl_action=delete -e target=<file/directory_to_delete>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.aac.runtime_template.root.delete"
+    action: ibmsecurity.isam.aac.runtime_template.root.delete
     isamapi:
       id: "{{ item.target }}"
       type: "{{ item.type }}"
@@ -178,25 +175,21 @@
     - item.tmpl_action == 'delete'
     - item.target is defined
     - item.type is defined
-    - (
-        item.type == 'file' or
-        item.type == 'directory'
-      )
+    - ( item.type == 'file' or item.type == 'directory' )
     - item.target == target
-    - tmpl_action == 'delete' or
-      tmpl_action == 'None'
+    - tmpl_action == 'delete' or tmpl_action == 'None'
   loop: "{{ runtime_template_root }}"
   notify: Commit Changes
 
-- name: "Import runtime template zip files [-e tmpl_action=import_zip -e skip_imports=True/False]"
-  include_tasks: include_import_runtime_template_root.yml
+- name: Import runtime template zip files [-e tmpl_action=import_zip -e skip_imports=True/False]
+  ansible.builtin.include_tasks: include_import_runtime_template_root.yml
   when:
     - item.tmpl_action == 'import_zip'
     - not (skip_imports | bool)
     - tmpl_action == 'import_zip' or tmpl_action == 'None'
   with_items: "{{ runtime_template_root }}"
 
-- name: "Import a single runtime template zip file [-e tmpl_action=import_zip -e file=<file_to_import> -e skip_import=True/False -e skip_imports=True/False]"
+- name: Import a single runtime template zip file [-e tmpl_action=import_zip -e file=<file_to_import> -e skip_import=True/False -e skip_imports=True/False]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

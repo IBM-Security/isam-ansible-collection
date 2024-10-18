@@ -1,5 +1,4 @@
 ---
-
 # playbook for generating self signed certificates
 # Example inventory:
 #  generate_self_signed_certificates:
@@ -9,9 +8,9 @@
 #      expire: "{{ item.expire }}"
 #      default: "{{ item.default }}"
 #      size: "{{ item.size }}"
-
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Generate self signed certificates
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.base.generate_self_signed_certificates
       tags: generate_self_signed_certificates

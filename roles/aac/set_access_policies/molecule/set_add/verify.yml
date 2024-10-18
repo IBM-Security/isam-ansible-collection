@@ -3,12 +3,12 @@
 
 - name: Verify
   hosts: all
-  gather_facts: no
+  gather_facts: False
   vars:
     molecule_name: test2
   tasks:
     - name: "Include get_access_policies"
-      include_role:
+      ansible.builtin.include_role:
         name: get_access_policies_by_name
       vars:
         get_access_policies:

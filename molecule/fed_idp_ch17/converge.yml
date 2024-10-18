@@ -1,23 +1,23 @@
 ---
 - name: Federation Cookbook IdP Part 2 Ch. 17
   hosts: all
-  gather_facts: no
+  gather_facts: false
   vars:
     homedir: ""
   tasks:
-    - include_vars:
+    - ansible.builtin.include_vars:
         file: "../vars/fed_cookbook_idp_vars.yml"
         name: inventory
 
     # 17 Introduction to the Security Token Service (STS)
     - name: "17.1 Configuring the STSUU to STSUU Chain Template"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.fed.configure_sts_chain_templates
       vars:
         sts_chain_templates: "{{ inventory.sts_chain_templates }}"
 
     - name: "17.2 Configuring the STS Test Module Chain - search for the template id by name"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.fed.get_sts_chains
       vars:
         sts_template_name: "{{ inventory.sts_template_name }}"
@@ -29,7 +29,7 @@
       with_items: "{{ ret_obj.data.chainItems }}"
 
     - name: "17.2 Configuring the STS Test Module Chain - get mapping rule id"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.search_mapping_rule
       vars:
         search_mapping_rule_name: "{{ inventory.sts_template_content_rule_name }}"
@@ -54,13 +54,13 @@
         new_sts_chain: ["{{ inventory.sts_chain | combine(chain_properties) }}"]
 
     - name: "17.2 Configuring the STS Test Module Chain"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.fed.configure_sts_chains
       vars:
         sts_chains: "{{ new_sts_chain }}"
 
     - name: "17.3 Allowing access to the STS via the ISAM Reverse Proxy"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.execute_pdadmin
       vars:
         execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
@@ -68,7 +68,7 @@
         execute_pdadmin_commands: "{{ inventory.sts_pdadmin_commands }}"
 
     - name: "17.4 Updating the easuser password"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.aac.set_pwd_user_registry
       vars:
         user_registry_id: "{{ inventory.easuser_registry_id }}"

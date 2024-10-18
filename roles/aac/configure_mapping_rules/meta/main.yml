@@ -1,14 +1,13 @@
 ---
 galaxy_info:
-  role_name: isam.aac.configure_mapping_rules
-  namespace: ibm  # if absent, author is used instead
+  namespace: ibm # if absent, author is used instead
   author: IBM
   description: Role to configure mapping rules
   company: IBM
 
   license: Apache
 
-  min_ansible_version: '2.9'
+  min_ansible_version: "2.9"
 
   galaxy_tags:
     - isam

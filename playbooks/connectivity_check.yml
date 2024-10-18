@@ -5,7 +5,7 @@
 # Note that you still may need to create a custom EE (for instance, if you cannot connect to the internet or your company's pip repository from the EE.)
 #  and that there may be other python modules that need to be included in the EE !
 #
-- name: preparation
+- name: Preparation
   hosts: all
   connection: local
   gather_facts: false
@@ -14,74 +14,71 @@
     - first_steps
     - ee
   tasks:
-    - name: debug container environment variable (-vv)
-      debug:
+    - name: Debug container environment variable (-vv)
+      ansible.builtin.debug:
         verbosity: 2
         msg:
-          #- "{{ lookup('ansible.builtin.env', 'CONTAINER_NAME')|default('No container') }}"
-          - "{{ lookup('ansible.builtin.env', 'container')|default('No container') }}"
+          # - "{{ lookup('ansible.builtin.env', 'CONTAINER_NAME') | default('No container') }}"
+          - "{{ lookup('ansible.builtin.env', 'container') | default('No container') }}"
       delegate_to: localhost
 
     - name: Install specified python requirements (only in a container)
       ansible.builtin.pip:
         name: ibmsecurity
       delegate_to: localhost
-      run_once: True
-      ignore_errors: True
+      run_once: true
+      ignore_errors: true
       when:
-        - lookup('ansible.builtin.env', 'container')|default(None)
+        - lookup('ansible.builtin.env', 'container') | default(None)
 
-- name: connectivity check - must have ansible_connection set to ibm.isam.isam
+- name: Connectivity check - must have ansible_connection set to ibm.isam.isam
   hosts: all
-  collections:
-    - ibm.isam
-    - ansible.legacy
   gather_facts: true
   tags:
     - connectivity
     - first_steps
   tasks:
-    - name: show python version
-      run_once: True
-      debug:
+    - name: Show python version
+      run_once: true
+      ansible.builtin.debug:
         var: ansible_python_version
 
-    - name: show ansible version
-      run_once: True
-      debug:
+    - name: Show ansible version
+      run_once: true
+      ansible.builtin.debug:
         var: ansible_version
 
-    - name: show ansible_host (required)
-      debug:
+    - name: Show ansible_host (required)
+      ansible.builtin.debug:
         var: ansible_host
       failed_when:
         - ansible_host is not defined
 
-    - name: show ansible_isam_port (required)
-      debug:
+    - name: Show ansible_isam_port (required)
+      ansible.builtin.debug:
         var: ansible_isam_port
       failed_when:
         - ansible_isam_port is not defined
 
-    - name: show ansible_connection - should be ibm.isam.isam
-      debug:
+    - name: Show ansible_connection - should be ibm.isam.isam
+      ansible.builtin.debug:
         var: ansible_connection
 
-    - name: show ansible_isam_username (required)
-      debug:
+    - name: Show ansible_isam_username (required)
+      ansible.builtin.debug:
         var: ansible_isam_username
 
-    - name: is ansible_isam_password set ? (required)
-      debug:
-        msg: "{{ (ansible_isam_password|default(False))|ternary('ansible_isam_password is defined', 'ansible_isam_password is NOT defined') }}"
+    - name: Is ansible_isam_password set ? (required)
+      ansible.builtin.debug:
+        msg: "{{ (ansible_isam_password | default(False)) | ternary('ansible_isam_password is defined', 'ansible_isam_password is NOT defined') }}"
       failed_when:
         - ansible_isam_password is not defined
 
-    - name: check for open port 443
+    - name: Check for open port 443
       tags:
         - lmi
-      wait_for:
-        host: "{{ ansible_host|default(inventory_hostname) }}"
+      ansible.builtin.wait_for:
+        host: "{{ ansible_host | default(inventory_hostname) }}"
         port: 443
         state: started
         connect_timeout: 2
@@ -89,10 +86,10 @@
       delegate_to: localhost
       ignore_errors: true
 
-    - name: any call to isam will do (so ansible_facts is available)
-      import_role:
+    - name: Any call to isam will do (so ansible_facts is available)
+      ansible.builtin.import_role:
         name: ibm.isam.get_firmware
 
     - name: Show ISAM version
-      debug:
+      ansible.builtin.debug:
         msg: "Version: {{ ansible_facts.version | default('unknown or failed to retrieve facts') }}"

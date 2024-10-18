@@ -2,7 +2,6 @@
 
 # Default variables for configuration of authentication policies
 authentication_policies: []
-
 # Default variables for filtering
 policy_name: "{{ item.name }}"
 policy_action: "{{ item.policy_action }}"

@@ -1,8 +1,8 @@
 ---
 # main task to configure dns
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         configure_container_container
@@ -53,9 +53,9 @@
       name: "{{ _role_item.volume_name }}"
   tags:
     - volumes
-  loop: "{{ isam_containers|map(attribute='volumes')|list|flatten }}"
+  loop: "{{ isam_containers | map(attribute='volumes') | list | flatten }}"
   loop_control:
-    label: "Volume: {{ _role_item.volume_name|default('') }}"
+    label: "Volume: {{ _role_item.volume_name | default('') }}"
     loop_var: _role_item
   when:
     - _role_item is defined
@@ -69,9 +69,9 @@
       image: "{{ _role_item }}"
   tags:
     - images
-  loop: "{{ isam_containers|map(attribute='image')|list|flatten|unique }}"
+  loop: "{{ isam_containers | map(attribute='image') | list | flatten | unique }}"
   loop_control:
-    label: "Image: {{ _role_item|default('') }}"
+    label: "Image: {{ _role_item | default('') }}"
     loop_var: _role_item
   when:
     - _role_item is defined
@@ -85,10 +85,10 @@
   loop: "{{ isam_containers }}"
   loop_control:
     loop_var: container_item
-    label: "Creating - {{ container_item.name|default('skip') }}"
+    label: Creating - {{ container_item.name | default('skip') }}
   when:
-    - isam_containers|length>0
-    - container_item.container_action|default("set") in ["set","update","add"]
+    - isam_containers | length>0
+    - container_item.container_action | default("set") in ["set", "update", "add"]
 
 - name: Delete Container Extensions containers
   ansible.builtin.include_tasks:
@@ -100,8 +100,8 @@
   loop: "{{ isam_containers }}"
   loop_control:
     loop_var: container_item
-    label: "Deleting - {{ container_item.name|default('skip') }}"
+    label: Deleting - {{ container_item.name | default('skip') }}
   when:
-    - isam_containers|length>0
+    - isam_containers | length>0
     - container_item.container_action is defined
     - container_item.container_action == "delete"

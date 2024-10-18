@@ -1,7 +1,7 @@
 ---
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         web.configure_reverseproxy_junctions_setall
@@ -91,16 +91,15 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: "Create junctions and servers"
+- name: Create junctions and servers
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.junctions.set_all
-    isamapi:
-      "{{ {'junctions': item.junctions} | combine({'reverseproxy_id': item.inst_name}) }}"
+    isamapi: "{{ {'junctions': item.junctions} | combine({'reverseproxy_id': item.inst_name}) }}"
   loop: "{{ instances }}"
   loop_control:
-    label: "Processing junctions {{ item.junctions | default([]) | map(attribute='junction_point') | join(', ') }} for {{ item.inst_name|default('') }}"
+    label: Processing junctions {{ item.junctions | default([]) | map(attribute='junction_point') | join(', ') }} for {{ item.inst_name | default('') }}
   when:
     - item.junctions is defined
   register: ret_obj

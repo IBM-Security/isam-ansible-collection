@@ -1,11 +1,11 @@
 ---
 - name: Converge
   hosts: all
-  gather_facts: no
+  gather_facts: False
   collections:
     - ibm.isam
   tasks:
-    - debug:
+    - ansible.builtin.debug:
         msg: "To test add using set_file_access_control_policies role:
           'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name add'
           To test update using set_file_access_control_policies role:

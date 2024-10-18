@@ -2,11 +2,11 @@
 
 - name: Converge - testing export runtime template root
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
-    - include_vars:
+    - ansible.builtin.include_vars:
         file: "../vars/main.yml"
 
     - name: "Testing export runtime template root"
-      include_role:
+      ansible.builtin.include_role:
         name: "export_runtime_template_root"

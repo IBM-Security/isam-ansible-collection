@@ -1,3 +1,4 @@
+---
 - name: Delete {{ delete_activation_id }} Module - deactivate
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -7,5 +8,5 @@
       id: "{{ delete_activation_id }}"
   when: delete_activation_id is defined
   notify:
-  - Commit Changes
-  - Reboot Appliance
+    - Commit Changes
+    - Reboot Appliance

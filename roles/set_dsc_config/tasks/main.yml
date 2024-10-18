@@ -1,3 +1,4 @@
+---
 - name: Snapshot Appliance Before Configuring DSC
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -22,4 +23,4 @@
     - Commit Changes
 
  # Commit activation of module before doing anything else
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers

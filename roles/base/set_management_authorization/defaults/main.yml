@@ -1,2 +1,3 @@
+---
 # defaults for enabling management auth
-switch_auth_enable: True
+switch_auth_enable: true

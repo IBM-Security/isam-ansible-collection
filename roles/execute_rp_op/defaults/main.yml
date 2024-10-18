@@ -1,4 +1,5 @@
+---
 # Provide a list of reverse proxy IDs to process
 execute_rp_op_ids: []
 # Provide the operation to run against the reverse proxy (can be start, stop or restart)
-execute_rp_op_operation: "restart"
+execute_rp_op_operation: restart

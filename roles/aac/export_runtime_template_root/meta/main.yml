@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  #role_name: isam.aac.export_runtime_template_root
+  # role_name: isam.aac.export_runtime_template_root
   namespace: ibm
   author: IBM
   description: Role to export runtime template root content
@@ -8,7 +8,7 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: '2.9'
+  min_ansible_version: "2.9"
 
   galaxy_tags:
     - isam

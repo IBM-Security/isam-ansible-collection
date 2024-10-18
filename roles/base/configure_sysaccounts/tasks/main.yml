@@ -1,10 +1,9 @@
 ---
-
 # configure system accounts
 
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         configure_sysaccounts
@@ -41,11 +40,11 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: "Configure sysaccounts [-e id=<user> -e sysaccount_action=<create|delete|modify|...>]"
+- name: Configure sysaccounts [-e id=<user> -e sysaccount_action=<create|delete|modify|...>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.base.sysaccount.users.{{ item.sysaccount_action }}"
+    action: ibmsecurity.isam.base.sysaccount.users.{{ item.sysaccount_action }}
     isamapi: "{{ item | ibm.isam.exclude('sysaccount_action') }}"
   loop: "{{ sysaccounts }}"
   loop_control:

@@ -3,10 +3,10 @@
 
 - name: Verify
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
 
-  - debug:
+  - ansible.builtin.debug:
       msg: "{{ ret_obj }}"
 
   - name: Example assertion

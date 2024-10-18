@@ -2,14 +2,14 @@
 
 - name: Verify if all authentication policies were disabled
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Retrieve all authentication policies"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_all_authentication_policies"
 
     - name: "Check each policy's status"
-      set_fact:
+      ansible.builtin.set_fact:
         enabled: "true"
       when: "{{ item.enabled == true }}"
       with_items: "{{ ret_obj.data }}"

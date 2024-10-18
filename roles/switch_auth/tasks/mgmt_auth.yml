@@ -1,3 +1,4 @@
+---
 - name: Setup Management Authentication using AD
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

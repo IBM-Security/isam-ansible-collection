@@ -1,8 +1,8 @@
 ---
 # main task to configure certificate databases
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         configure_certificate_databases
@@ -39,18 +39,18 @@
         - db_action: create
           kdb_name: Registry_Keystore
           # Following parameters are available but optional
-          #> type: kdb # optional, Default=kdb
-          #> token_label: None
-          #> passcode: None
-          #> hsm_type: None
-          #> ip: None
-          #> port: None
-          #> kneti_hash: None
-          #> esn: None
-          #> rfs: None
-          #> rfs_port: None
-          #> rfs_auth: None
-          #> safenet_pw: None
+          # > type: kdb # optional, Default=kdb
+          # > token_label: None
+          # > passcode: None
+          # > hsm_type: None
+          # > ip: None
+          # > port: None
+          # > kneti_hash: None
+          # > esn: None
+          # > rfs: None
+          # > rfs_port: None
+          # > rfs_auth: None
+          # > safenet_pw: None
         # Delete a certificate database
         - db_action: delete
           cert_dbase_id: Registry_Keystore
@@ -83,36 +83,23 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: "Configure certificate databases [-e db_action=[get_all|get|create|delete|export_db|import_db|rename|set]]"
+- name: Configure certificate databases [-e db_action=[get_all|get|create|delete|export_db|import_db|rename|set]]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.base.ssl_certificates.certificate_databases.{{ item.db_action }}"
-    isamapi: "{{
-      {}
-      | combine({ 'cert_dbase_id': item.cert_dbase_id } if (item.cert_dbase_id is defined) else {})
-      | combine({ 'kdb_name': item.kdb_name } if (item.kdb_name is defined) else {})
-      | combine({ 'type': item.type } if (item.type is defined) else {})
-      | combine({ 'token_label': item.token_label } if (item.token_label is defined) else {})
-      | combine({ 'passcode': item.passcode } if (item.passcode is defined) else {})
-      | combine({ 'hsm_type': item.hsm_type } if (item.hsm_type is defined) else {})
-      | combine({ 'ip': item.ip } if (item.ip is defined) else {})
-      | combine({ 'port': item.port } if (item.port is defined) else {})
-      | combine({ 'kneti_hash': item.kneti_hash } if (item.kneti_hash is defined) else {})
-      | combine({ 'esn': item.esn } if (item.esn is defined) else {})
-      | combine({ 'rfs': item.rfs } if (item.rfs is defined) else {})
-      | combine({ 'rfs_port': item.rfs_port } if (item.rfs_port is defined) else {})
-      | combine({ 'rfs_auth': item.rfs_auth } if (item.rfs_auth is defined) else {})
-      | combine({ 'safenet_pw': item.safenet_pw } if (item.safenet_pw is defined) else {})
-      | combine({ 'kdb_name': item.kdb_name } if (item.kdb_name is defined) else {})
-      | combine({ 'cert_id': item.cert_id } if (item.cert_id is defined) else {})
-      | combine({ 'new_name': item.new_name } if (item.new_name is defined) else {})
-      | combine({ 'description': item.description } if (item.description is defined) else {})
-      | combine({ 'filename': homedir+'/'+item.filename } if (item.filename is defined) else {})
-      | combine({ 'kdb': homedir+'/'+item.kdb } if (item.kdb is defined) else {})
-      | combine({ 'stash': homedir+'/'+ item.stash } if (item.stash is defined) else {})
-      | combine({ 'zip': homedir +'/'+ item.zip } if (item.zip is defined) else {})
-    }}"
+    action: ibmsecurity.isam.base.ssl_certificates.certificate_databases.{{ item.db_action }}
+    isamapi: "{{ {} | combine({'cert_dbase_id': item.cert_dbase_id} if (item.cert_dbase_id is defined) else {}) | combine({'kdb_name': item.kdb_name} if (item.kdb_name
+      is defined) else {}) | combine({'type': item.type} if (item.type is defined) else {}) | combine({'token_label': item.token_label} if (item.token_label is
+      defined) else {}) | combine({'passcode': item.passcode} if (item.passcode is defined) else {}) | combine({'hsm_type': item.hsm_type}
+      if (item.hsm_type is defined) else {}) | combine({'ip': item.ip} if (item.ip is defined) else {}) | combine({'port': item.port}
+      if (item.port is defined) else {}) | combine({'kneti_hash': item.kneti_hash} if (item.kneti_hash is defined) else {}) | combine({'esn': item.esn}
+      if (item.esn is defined) else {}) | combine({'rfs': item.rfs} if (item.rfs is defined) else {}) | combine({'rfs_port': item.rfs_port}
+      if (item.rfs_port is defined) else {}) | combine({'rfs_auth': item.rfs_auth} if (item.rfs_auth is defined) else {}) | combine({'safenet_pw': item.safenet_pw}
+      if (item.safenet_pw is defined) else {}) | combine({'kdb_name': item.kdb_name} if (item.kdb_name is defined) else {}) | combine({'cert_id': item.cert_id}
+      if (item.cert_id is defined) else {}) | combine({'new_name': item.new_name} if (item.new_name is defined) else {}) | combine({'description': item.description}
+      if (item.description is defined) else {}) | combine({'filename': homedir + '/' + item.filename}
+      if (item.filename is defined) else {}) | combine({'kdb': homedir + '/' + item.kdb} if (item.kdb is defined) else {}) | combine({'stash': homedir + '/' + item.stash}
+      if (item.stash is defined) else {}) | combine({'zip': homedir + '/' + item.zip} if (item.zip is defined) else {}) }}"
   loop: "{{ certificate_databases }}"
   when:
     - item.db_action == db_action

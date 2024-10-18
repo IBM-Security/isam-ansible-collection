@@ -1,3 +1,4 @@
+---
 - name: Snapshot Appliance Before Installing Product Support License
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -17,4 +18,4 @@
   notify: Commit Changes
 
  # Commit license before doing anything else
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers

@@ -3,7 +3,7 @@
 
 - name: Update RP Entry
   hosts: boulder_primary
-  gather_facts: no
+  gather_facts: false
   roles:
     - role: ibm.isam.update_reverseproxy_conf
       update_reverseproxy_conf_reverseproxy_id: "{{ reverseproxy_instance_name | default('default') }}"

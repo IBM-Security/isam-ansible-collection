@@ -1,10 +1,10 @@
 ---
 - name: Converge
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Include get_access_control_policy_attachments"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_access_control_policy_attachments"
       vars:
         get_access_control_policy_attachments:
@@ -12,5 +12,5 @@
             resourceUri: "{{ resourceUri }}"
       register: ret_obj
 
-    - debug:
+    - ansible.builtin.debug:
         var: ret_obj

@@ -1,8 +1,8 @@
 ---
 # Delete
-#   delete snapshots
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Delete snapshots
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.base.delete_snapshots
       tags: snapshots

@@ -1,12 +1,12 @@
 ---
 - name: Converge
   hosts: all
-  gather_facts: no
+  gather_facts: False
   collections:
     - ibm.isam
   tasks:
     - name: debug
-      debug:
+      ansible.builtin.debug:
         msg: "To test add using export_application_logs role:
           'molecule --base-config <dir/molecule_config_file.yml> test --scenario-name default'"
 
@@ -14,5 +14,5 @@
       vars:
 
         path: lmt/logs
-      include_role:
+      ansible.builtin.include_role:
         name: export_application_logs

@@ -1,16 +1,16 @@
 ---
 
-#Provide a valid SNMP collector server name
-add_system_alerts_snmp_trapAddress: null
+# Provide a valid SNMP collector server name
+add_system_alerts_snmp_trapAddress:
 add_system_alerts_snmp_trapPort: 162
-add_system_alerts_snmp_trapCommunity: null
+add_system_alerts_snmp_trapCommunity:
 add_system_alerts_snmp_trapVersion: V1
-add_system_alerts_snmp_trapNotificationType: null
-add_system_alerts_snmp_authEnabled: True
+add_system_alerts_snmp_trapNotificationType:
+add_system_alerts_snmp_authEnabled: true
 add_system_alerts_snmp_authType: SHA
-add_system_alerts_snmp_authPassPhrase: null
-add_system_alerts_snmp_privEnabled: True
+add_system_alerts_snmp_authPassPhrase:
+add_system_alerts_snmp_privEnabled: true
 add_system_alerts_snmp_privType: AES
-add_system_alerts_snmp_privPassPhrase: null
-add_system_alerts_snmp_informSnmpEngineID: null
-add_system_alerts_snmp_informTimeout: null
+add_system_alerts_snmp_privPassPhrase:
+add_system_alerts_snmp_informSnmpEngineID:
+add_system_alerts_snmp_informTimeout:

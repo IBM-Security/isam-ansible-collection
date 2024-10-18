@@ -5,8 +5,9 @@
 # ! This operation restarts the system on the inactive partition.
 # ! This operation restarts the appliance and might leave your network unprotected for several minutes.
 # ! Are you sure you want to switch to the inactive partition?
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Swap to inactive partition
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.base.swap_firmware
       tags: swap_firmware

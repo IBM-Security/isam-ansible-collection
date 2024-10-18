@@ -1,15 +1,15 @@
 ---
 - name: Converge
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Get user registry by id"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_user_registry_by_id"
       vars:
         get_user_registry_ids:
           - id: "{{ id }}"
       register: ret_obj
 
-    - debug:
+    - ansible.builtin.debug:
         var: ret_obj

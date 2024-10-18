@@ -1,3 +1,4 @@
+---
 - name: Configure TCP Retries2 for DB2 Failovers
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -6,7 +7,7 @@
     isamapi:
       key: sysctl.net.ipv4.tcp_retries2
       value: "{{ externalize_hvdb_db2_tcp_retries2 }}"
-      comment: "TCP Tuning to allow for Quicker/Predictable DB2 Failovers"
+      comment: TCP Tuning to allow for Quicker/Predictable DB2 Failovers
   when: externalize_hvdb_db2_hvdb_address is defined and externalize_hvdb_hvdb_db_type == "db2"
   notify:
     - Commit Changes
@@ -21,7 +22,7 @@
     isamapi:
       key: isam_cluster.hvdb.properties.maxRetriesForClientReroute
       value: "{{ externalize_hvdb_db2_maxRetriesForClientReroute }}"
-      comment: "HVDB maxRetries for DB2 Client Re-route"
+      comment: HVDB maxRetries for DB2 Client Re-route
   when: externalize_hvdb_db2_hvdb_address is defined and externalize_hvdb_hvdb_db_type == "db2"
   notify:
     - Commit Changes
@@ -36,7 +37,7 @@
     isamapi:
       key: isam_cluster.hvdb.properties.retryIntervalForClientReroute
       value: "{{ externalize_hvdb_db2_retryIntervalForClientReroute }}"
-      comment: "HVDB retryInterval for DB2 Client Re-route"
+      comment: HVDB retryInterval for DB2 Client Re-route
   when: externalize_hvdb_db2_hvdb_address is defined and externalize_hvdb_hvdb_db_type == "db2"
   notify:
     - Commit Changes
@@ -45,7 +46,7 @@
 
 # The following will not take effect since ConfigDB is not being externalized to DB2 database
 # Leaving it here for when a role to externalize config database is needed
-#- name: Configure ConfigDB maxRetries for DB2 Client Re-route
+# - name: Configure ConfigDB maxRetries for DB2 Client Re-route
 #  ibm.isam.isam:
 #    log: "{{ log_level | default('INFO') }}"
 #    force: "{{ force | default(False) }}"
@@ -59,7 +60,7 @@
 #    - Restart AAC Runtime
 #    - Restart LMI
 #
-#- name: Configure ConfigDB retryInterval for DB2 Client Re-route
+# - name: Configure ConfigDB retryInterval for DB2 Client Re-route
 #  ibm.isam.isam:
 #    log: "{{ log_level | default('INFO') }}"
 #    force: "{{ force | default(False) }}"

@@ -2,7 +2,7 @@
 # Example:
 # - hosts: "all"
 #   connection: local
-#   gather_facts: no
+#   gather_facts: False
 #   tasks:
 #    - name: Upload keytabs
 #      tags: ["keytab"]
@@ -22,8 +22,7 @@
     adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
     adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
     adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName:
-      "{{ adminProxyApplianceShortName | default(omit) }}"
+    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
     omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
     username: "{{ username }}"
     password: "{{ password }}"

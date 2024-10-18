@@ -1,15 +1,15 @@
 ---
 - name: Converge
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Get an Authentication Mechanism by Name"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_authentication_mechanisms"
       vars:
         get_authentication_mechanisms:
           - name: "{{ name }}"
         register: ret_obj
 
-    - debug:
+    - ansible.builtin.debug:
         var: ret_obj

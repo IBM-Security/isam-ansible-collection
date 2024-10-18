@@ -73,8 +73,8 @@ options:
 EXAMPLES = '''
 - name: Configure access control attributes
   ibm.isam.isam:
-    log:       "{{ log_level | default(omit) }}"
-    force:     "{{ force | default(omit) }}"
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.attributes.get
     isamapi: "{{ item }}"
   when: item is defined

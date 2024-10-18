@@ -1,3 +1,4 @@
+---
 # main task to configure sts chain templates
 #   Example: STSUU to LTPA Token
 #     sts_chain_templates:

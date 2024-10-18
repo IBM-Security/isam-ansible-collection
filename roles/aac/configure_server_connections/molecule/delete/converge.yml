@@ -1,10 +1,10 @@
 ---
 - name: Converge - delete configured server connection
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Testing delete - configure_server_connection"
-      include_role:
+      ansible.builtin.include_role:
         name: configure_server_connections
       vars:
         server_connections:

@@ -1,3 +1,4 @@
+---
 - name: Create Directory in Management Root {{ create_mgmt_root_dir_name }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -9,4 +10,4 @@
       name: "{{ create_mgmt_root_dir_filename }}"
   when: create_mgmt_root_dir_filename is defined and create_mgmt_root_dir_instance_id is defined and create_mgmt_root_dir_id is defined
   notify:
-  - Commit Changes
+    - Commit Changes

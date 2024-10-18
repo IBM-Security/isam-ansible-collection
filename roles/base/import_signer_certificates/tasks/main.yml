@@ -1,8 +1,8 @@
 ---
 # main task to import signer certificates
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         import_signer_certificates
@@ -32,14 +32,14 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: "Import signer certificates [-e kdb_id=<kdb> -e label=<label>]"
+- name: Import signer certificates [-e kdb_id=<kdb> -e label=<label>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.ssl_certificates.signer_certificate.import_cert
     isamapi:
       kdb_id: "{{ item.kdb_id }}"
-      cert: "{{ homedir+'/'+item.cert }}"
+      cert: "{{ homedir + '/' + item.cert }}"
       label: "{{ item.label }}"
   loop: "{{ import_signer_certificates }}"
   when:

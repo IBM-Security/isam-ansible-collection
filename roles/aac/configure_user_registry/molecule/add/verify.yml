@@ -2,14 +2,14 @@
 
 - name: Verify - add user registry
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
-    - include_vars:
+    - ansible.builtin.include_vars:
         file: "../../vars/main.yml"
         name: inventory
 
     - name: "Get the user registry {{ inventory.id }}"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_user_registry_by_id"
       vars:
         get_user_registry_ids:

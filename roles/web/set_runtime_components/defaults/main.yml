@@ -1,3 +1,4 @@
+---
 # Default variables for setting runtime components
 policyserver_runtime:
   entries: []

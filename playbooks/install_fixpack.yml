@@ -5,9 +5,9 @@
 
 - name: Apply given Fixpack to all Appliances
   hosts: all
-  gather_facts: no
+  gather_facts: false
   roles:
     # Install Fixpack
     - role: ibm.isam.install_fixpack
-      install_fixpack_file: "/home/python/9021_IF1.fixpack"
+      install_fixpack_file: /home/python/9021_IF1.fixpack
       when: install_fixpack_file is defined

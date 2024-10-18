@@ -2,14 +2,14 @@
 
 - name: Verify the mapping rule was exported
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: load variables
-      include_vars:
+      ansible.builtin.include_vars:
         file: "../vars/vars.yml"
 
     - name: "check if file exists"
-      stat:
+      ansible.builtin.stat:
         path: "{{ molecule_export_file }}"
       register: export_file_result
 

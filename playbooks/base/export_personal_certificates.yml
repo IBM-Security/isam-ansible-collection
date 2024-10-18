@@ -1,9 +1,8 @@
 ---
-
 # playbook for exporting certificates
-
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Export personal certificates
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.base.export_personal_certificates
       tags: export_personal_certificates

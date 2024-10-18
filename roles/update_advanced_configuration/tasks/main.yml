@@ -1,3 +1,4 @@
+---
 - name: Update Advanced Configuration - {{ update_advanced_configuration_key }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

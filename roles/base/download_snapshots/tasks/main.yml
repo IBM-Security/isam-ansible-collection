@@ -1,9 +1,8 @@
 ---
-
 # main task to create snapshots
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         download_snapshots
@@ -32,16 +31,17 @@
   when: help is defined
 
 - name: Make sure local download directory exists
-  file:
-    path: "{{ (homedir +'/'+ file) | dirname }}"
-    recurse: yes
+  ansible.builtin.file:
+    path: "{{ (homedir + '/' + file) | dirname }}"
+    recurse: true
     state: directory
   delegate_to: localhost
   when:
     - file is defined
     - file != ''
 
-- name: "Download appliance snapshots [-e comment=<snapshot_containing_comment_text> -e id=<id_of_comment_to_download> -e ids=[<id_1>,<id_2>] -e file=<path/to/download/file.snapshot> ]"
+- name: Download appliance snapshots [-e comment=<snapshot_containing_comment_text> -e id=<id_of_comment_to_download> -e ids=[<id_1>,<id_2>] -e file=<path/to/download/file.snapshot>
+    ]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -50,9 +50,7 @@
       comment: "{{ comment | default(omit) }}"
       id: "{{ id | default(omit) }}"
       ids: "{{ ids | default(omit) }}"
-      filename: "{{ homedir +'/'+ file }}"
+      filename: "{{ homedir + '/' + file }}"
   when:
     - file is defined
-    - comment is defined or
-      id is defined or
-      ids is defined
+    - comment is defined or id is defined or ids is defined

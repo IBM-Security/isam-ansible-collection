@@ -1,8 +1,8 @@
 ---
 # create
-#   Create sso key file
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Create sso key file
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.web.create_sso_keys
       tags: create_sso_keys

@@ -1,17 +1,17 @@
 ---
 - name: Federation Cookbook IdP Part 2 Ch. 10
   hosts: all
-  gather_facts: no
+  gather_facts: false
   vars:
     homedir: ""
   tasks:
-    - include_vars:
+    - ansible.builtin.include_vars:
         file: "../vars/fed_cookbook_idp_vars.yml"
         name: inventory
 
     # 10.3 Configure test user
     - name: "10.3 Configure test user - create test user"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.execute_pdadmin
       vars:
         execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
@@ -19,7 +19,7 @@
         execute_pdadmin_commands: "{{ inventory.test_user_pdadmin_commands }}"
 
     - name: "10.3 Add attributes to test user in ldap"
-      ldap_attr:
+      ibm.isam.ldap_attr:
         validate_certs: false
         dn: "{{ inventory.test_user_dn }}"
         name: "{{ item.key }}"

@@ -1,10 +1,9 @@
 ---
-
 # The following need to be provided for role to work
 
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         create_sysaccounts
@@ -35,7 +34,7 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: "Create sysaccount [-e id=<user>]"
+- name: Create sysaccount [-e id=<user>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

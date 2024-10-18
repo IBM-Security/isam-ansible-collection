@@ -1,8 +1,8 @@
 ---
 # restart
-#   restart reverse proxy instance/s
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Restart reverse proxy instances
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.web.restart_reverseproxy_instances
       tags: restart_reverseproxy_instance

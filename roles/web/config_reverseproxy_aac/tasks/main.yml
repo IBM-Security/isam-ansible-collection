@@ -1,7 +1,7 @@
 ---
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         config_reverseproxy_aac
@@ -36,7 +36,7 @@
             reuse_certs: True
           [...]
           # or unconfigure aac for default: TBD. (currently ISVA REST API does not support unconfig for aac)
-          #aac_configuration:
+          # aac_configuration:
           #  aac_action: unconfig
       ==========
 
@@ -50,14 +50,11 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.web.reverse_proxy.aac_configuration.{{ item.aac_configuration.aac_action }}"
-    isamapi: "{{ item.aac_configuration | ibm.isam.exclude('aac_action') | combine({ 'instance_id': item.inst_name }) }}"
+    action: ibmsecurity.isam.web.reverse_proxy.aac_configuration.{{ item.aac_configuration.aac_action }}
+    isamapi: "{{ item.aac_configuration | ibm.isam.exclude('aac_action') | combine({'instance_id': item.inst_name}) }}"
   loop: "{{ instances }}"
   loop_control:
-    label: "{
-      'instance_id': '{{ item.inst_name }}'
-      {{ (', ' + \"'aac_action'\" + ': ' + item.aac_configuration.aac_action) if item.aac_configuration is defined }}
-    }"
+    label: "{instance_id: {{ item.inst_name }}, aac_action: {{ item.aac_configuration.aac_action | default('') }}}"
   when:
     - item.inst_name == inst_name
     - item.aac_configuration is defined

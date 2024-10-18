@@ -7,13 +7,13 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: '2.2'
+  min_ansible_version: "2.2"
 
   galaxy_tags:
-  - isam
-  - ibm
-  - download
-  - snapshot
+    - isam
+    - ibm
+    - download
+    - snapshot
 
 dependencies:
   - ibm.isam.common_handlers

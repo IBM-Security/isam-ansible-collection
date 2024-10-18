@@ -1,10 +1,10 @@
 ---
 - name: Converge - add
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Testing add - configure_authentication_mechanisms"
-      include_role:
+      ansible.builtin.include_role:
         name: "create_authentication_mechanisms"
       vars:
         authentication_mechanisms:

@@ -10,4 +10,4 @@
 #     runtime_listening_interface_secure: true
 
 # Comment to be used for creating a snapshot file
-add_runtime_listening_interface_comment: "Automated Snapshot Before Adding Runtime Listening Interfaces"
+add_runtime_listening_interface_comment: Automated Snapshot Before Adding Runtime Listening Interfaces

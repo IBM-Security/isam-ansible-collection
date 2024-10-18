@@ -3,13 +3,14 @@
 #   Example:
 #     cli:(-e name=Firmware -e type=firmware -e version=9.0.6 -e release_date=2018-11-19)
 #     inventory:
-#       name: Firmware
-#       type: firmware
-#       version: 9.0.6
-#       release_date: 2018-11-19
+#       update_name: Firmware
+#       update_type: firmware
+#       update_version: 9.0.6
+#       update_release_date: 2018-11-19
 #
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Install firmware update
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.base.install_update
       tags: install_update

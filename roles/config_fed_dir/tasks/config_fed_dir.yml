@@ -1,18 +1,19 @@
+---
 - name: Set the Certificate Database for LDAP Connections
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.runtime.configuration.entry.add
     isamapi:
-      resource_id: "ldap.conf"
-      stanza_id: "ldap"
+      resource_id: ldap.conf
+      stanza_id: ldap
       # Entries is an array of two tuple arrays
       entries:
-      - ["ssl-keyfile", "{{ config_fed_dir_kdb_name }}.kdb"]
+        - [ssl-keyfile, "{{ config_fed_dir_kdb_name }}.kdb"]
   when: config_fed_dir_id is defined
   notify:
-  - Commit Changes
-  - Restart Web Runtime
+    - Commit Changes
+    - Restart Web Runtime
 
 - name: Configure Federated Directory
   ibm.isam.isam:
@@ -30,8 +31,8 @@
       suffix: "{{ config_fed_dir_suffix }}"
   when: config_fed_dir_id is defined
   notify:
-  - Commit Changes
-  - Restart Web Runtime
+    - Commit Changes
+    - Restart Web Runtime
 
 - name: Set Replica Servers to Federated Directory Configuration
   ibm.isam.isam:
@@ -39,10 +40,10 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.runtime.configuration.entry.set
     isamapi:
-      resource_id: "ldap.conf"
-      stanza_id: "server:{{ config_fed_dir_id }}"
+      resource_id: ldap.conf
+      stanza_id: server:{{ config_fed_dir_id }}
       entries: "{{ config_fed_dir_replica }}"
   when: config_fed_dir_id is defined and config_fed_dir_replica is defined
   notify:
-  - Commit Changes
-  - Restart Web Runtime
+    - Commit Changes
+    - Restart Web Runtime

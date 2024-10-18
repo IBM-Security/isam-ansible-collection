@@ -1,3 +1,4 @@
+---
 - name: Import Client Certificate Mapping rule {{ import_client_cert_mapping_id }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -8,7 +9,7 @@
       filename: "{{ import_client_cert_mapping_filename }}"
   when: import_client_cert_mapping_filename is defined and import_client_cert_mapping_id is defined
   notify:
-  - Commit Changes
+    - Commit Changes
 
 # Commit changes - changes need to take effect for next steps
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers

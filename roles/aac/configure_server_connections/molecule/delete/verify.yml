@@ -2,15 +2,15 @@
 
 - name: Verify - set configure server connection
   hosts: all
-  gather_facts: no
+  gather_facts: False
 
   tasks:
-    - include_vars:
+    - ansible.builtin.include_vars:
         file: "../../vars/main.yml"
         name: inventory
 
     - name: "Get the server connection {{ inventory.molecule_name }}"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_server_connections_by_name"
       vars:
         get_server_connections_names:

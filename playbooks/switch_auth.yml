@@ -3,16 +3,16 @@
 
 - name: Switch Appliance Authentication to use AD
   hosts: all
-  gather_facts: no
+  gather_facts: false
   roles:
     - role: ibm.isam.switch_auth
-      tags: ["switch", "authentication"]
-      switch_auth_ldap_host: "ad.ibm.com"
+      tags: [switch, authentication]
+      switch_auth_ldap_host: ad.ibm.com
       switch_auth_ldap_port: 636
-      switch_auth_base_dn: "o=ibm,c=us"
+      switch_auth_base_dn: o=ibm,c=us
 
     # Modify a feature of default role "Security Administrator"
     - role: ibm.isam.set_mgmtazn_role_feature
-      tags: ["management", "authorization", "feature", "role", "set"]
+      tags: [management, authorization, feature, role, set]
       set_mgmtazn_role_features:
-        - {name: "Security Administrator", feature_name: "events.page_title",           access: "r"}
+        - { name: Security Administrator, feature_name: events.page_title, access: r }

@@ -1,6 +1,6 @@
 ---
 # configure
-#   configure sts chain templates:
+#
 #   Example: STSUU to LTPA Token
 #     sts_chain_templates:
 #       - name: STSUU_TO_LTPA_TEMPLATE
@@ -12,8 +12,9 @@
 #             mode: map
 #           - id: default-ltpa
 #             mode: issue
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Configure sts chain templates
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.fed.configure_sts_chain_templates
       tags: configure_sts_chain_templates

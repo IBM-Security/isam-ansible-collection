@@ -1,12 +1,12 @@
 ---
 - name: Converge
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Get all user registries"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_all_user_registry"
       register: ret_obj
 
-    - debug:
+    - ansible.builtin.debug:
         var: ret_obj

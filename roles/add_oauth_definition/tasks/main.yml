@@ -1,5 +1,4 @@
 ---
-
 - name: Add a new OAuth 2.0 Definition {{ add_oauth_definition_name }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -27,5 +26,5 @@
       accessPolicyName: "{{ add_oauth_definition_accessPolicyName }}"
   when: add_oauth_definition_name is defined
   notify:
-  - Commit Changes
-  - Reload Liberty Runtime
+    - Commit Changes
+    - Reload Liberty Runtime

@@ -1,10 +1,10 @@
 ---
 - name: Converge
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Get an Server Connections by Name"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_server_connections_by_name"
       vars:
         get_server_connections_names:
@@ -12,5 +12,5 @@
             name: "{{ name }}"
       register: ret_obj
 
-    - debug:
+    - ansible.builtin.debug:
         var: ret_obj

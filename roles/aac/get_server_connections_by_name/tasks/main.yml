@@ -4,9 +4,11 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.aac.server_connections.{{ item.type }}.get"
+    action: ibmsecurity.isam.aac.server_connections.{{ item.type }}.get
     isamapi:
       name: "{{ item.name }}"
-  when: item is defined
-  with_items: "{{ get_server_connections_names}}"
+  when:
+    - item is defined
+    - item.name is defined
+  with_items: "{{ get_server_connections_names }}"
   register: ret_obj

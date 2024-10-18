@@ -1,8 +1,8 @@
 ---
 # Configure
-#   configure policy information points
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Configure policy information points
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.aac.configure_policy_information_points
       tags: configure_policy_information_points

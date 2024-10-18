@@ -8,18 +8,18 @@
 # add_oauth_client_companyName
 
 # The following are valid defaults and can be overriden as needed
-add_oauth_client_redirectUri: null
-add_oauth_client_companyUrl: null
-add_oauth_client_contactPerson: null
-add_oauth_client_contactType: null
-add_oauth_client_email: null
-add_oauth_client_phone: null
-add_oauth_client_otherInfo: null
-add_oauth_client_extProperties: null
+add_oauth_client_redirectUri:
+add_oauth_client_companyUrl:
+add_oauth_client_contactPerson:
+add_oauth_client_contactType:
+add_oauth_client_email:
+add_oauth_client_phone:
+add_oauth_client_otherInfo:
+add_oauth_client_extProperties:
 # Might be best to override these - rather than allow them to randomly generate
-add_oauth_client_clientId: null
-add_oauth_client_clientSecret: null
-add_oauth_client_requirePkce: null
-add_oauth_client_encryptionDb: null
-add_oauth_client_encryptionCert: null
-add_oauth_client_jwksUri: null
+add_oauth_client_clientId:
+add_oauth_client_clientSecret:
+add_oauth_client_requirePkce:
+add_oauth_client_encryptionDb:
+add_oauth_client_encryptionCert:
+add_oauth_client_jwksUri:

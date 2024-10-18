@@ -1,3 +1,4 @@
+---
 - name: Configure Policy Attachments - {{ config_policy_attachments_name }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

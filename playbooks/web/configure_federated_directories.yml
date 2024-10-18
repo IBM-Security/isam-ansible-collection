@@ -1,12 +1,13 @@
 ---
 # configure
-#   configure federated directories
+#
 #   Example:
 #     policyserver_runtime:
 #       federated_directories:
 #
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Configure federated directories
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.web.configure_federated_directories
       tags: configure_federated_directories

@@ -1,8 +1,8 @@
 ---
-
 # Compare all features of an appliance that does not need extra parameters
 # By default all features will be compared
-- include_tasks: compare_base.yml
+- name: Compare base include
+  ansible.builtin.include_tasks: compare_base.yml
   with_items: "{{ execute_compare_base_features }}"
   when: execute_compare_base
 
@@ -15,38 +15,39 @@
   run_once: true
   register: inventory_web_runtime
 
-- include_tasks: compare_base.yml
+- name: Compare base include wga
+  ansible.builtin.include_tasks: compare_base.yml
   with_items: "{{ execute_compare_wga_features }}"
-  when: execute_compare_wga and
-        ('wga' in inventory_web_runtime['ansible_facts']['activations'])
+  when: execute_compare_wga and ('wga' in inventory_web_runtime['ansible_facts']['activations'])
 
-- include_tasks: compare_base.yml
+- name: Compare base include mga
+  ansible.builtin.include_tasks: compare_base.yml
   with_items: "{{ execute_compare_mga_features }}"
-  when: execute_compare_mga and
-        ('mga' in inventory_web_runtime['ansible_facts']['activations'])
+  when: execute_compare_mga and ('mga' in inventory_web_runtime['ansible_facts']['activations'])
 
-- include_tasks: compare_base.yml
+- name: Compare base include fed
+  ansible.builtin.include_tasks: compare_base.yml
   with_items: "{{ execute_compare_fed_features }}"
-  when: execute_compare_fed and
-        ('federation' in inventory_web_runtime['ansible_facts']['activations'])
+  when: execute_compare_fed and ('federation' in inventory_web_runtime['ansible_facts']['activations'])
 
-- include_tasks: compare_base.yml
+- name: Compare activations
+  vars:
+    execute_compare_activations: "{{ inventory_web_runtime['ansible_facts']['activations'] }}"
+  ansible.builtin.include_tasks: compare_base.yml
   with_items: "{{ execute_compare_mga_or_fed_features }}"
-  when: (execute_compare_fed and
-        ('federation' in inventory_web_runtime['ansible_facts']['activations']))
-        or (execute_compare_mga and
-              ('mga' in inventory_web_runtime['ansible_facts']['activations']))
+  when:
+    - execute_compare_fed
+    - ('federation' in execute_compare_activations)) or (execute_compare_mga and ('mga' in execute_compare_activations))
 
-# Compare runtime configuration files of an appliance
-- include_tasks: compare_runtime_config.yml
+- name: Compare runtime configuration files of an appliance
+  ansible.builtin.include_tasks: compare_runtime_config.yml
   with_items:
     - pd.conf
     - ivmgrd.conf
     - ldap.conf
   loop_control:
     loop_var: resource_id
-  when: execute_compare_web_runtime and
-        inventory_web_runtime['data']['modecode'] != '-1'
+  when: execute_compare_web_runtime and inventory_web_runtime['data']['modecode'] != '-1'
 
 # Get all reverse proxies in master appliance
 - name: Get all reverse proxies in {{ inventory_hostname }}
@@ -54,20 +55,19 @@
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.instance.get
-  when: execute_compare_reverseproxy and
-        inventory_web_runtime['data']['modecode'] != '-1' and
-        ('wga' in inventory_web_runtime['ansible_facts']['activations'])
+  when:
+    - execute_compare_reverseproxy
+    - inventory_web_runtime['data']['modecode'] != '-1'
+    - ('wga' in inventory_web_runtime['ansible_facts']['activations'])
   ignore_errors: true
   run_once: true
   register: master_rps
 
-- include_tasks: compare_reverseproxy_config.yml
+- ansible.builtin.include_tasks: compare_reverseproxy_config.yml
   with_items: "{{ master_rps['data'] }}"
   loop_control:
     loop_var: reverseproxy
-  when: execute_compare_reverseproxy and
-        inventory_web_runtime['data']['modecode'] != '-1' and
-        ('wga' in inventory_web_runtime['ansible_facts']['activations'])
+  when: execute_compare_reverseproxy and inventory_web_runtime['data']['modecode'] != '-1' and ('wga' in inventory_web_runtime['ansible_facts']['activations'])
 
 # Get all Certificate Databases in master appliance
 - name: Get all certificate stores in {{ inventory_hostname }}
@@ -80,7 +80,7 @@
   run_once: true
   register: master_cert_dbs
 
-- include_tasks: compare_certificate_databases.yml
+- ansible.builtin.include_tasks: compare_certificate_databases.yml
   with_items: "{{ master_cert_dbs['data'] }}"
   loop_control:
     loop_var: cert_db

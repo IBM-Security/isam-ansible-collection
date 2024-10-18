@@ -1,16 +1,16 @@
 ---
 - name: Converge
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Update policy using set_file_access_contorl_policies"
-      include_role:
+      ansible.builtin.include_role:
         name: "ibm.isam.aac.set_file_access_control_policies"
       vars:
         accesscontrol_policies:
           - name: "{{ molecule_name }}"
             attributesrequired: "{{ molecule_attributesrequired }}"
             policy_file: "{{ molecule_updated_policy_file }}"
-            description: "{{ molecule_update_description}}"
+            description: "{{ molecule_update_description }}"
             dialect: "{{ molecule_dialect }}"
             predefined: "{{ molecule_predefined }}"

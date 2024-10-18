@@ -1,8 +1,8 @@
 # Provide the name of the reverse proxy to update
-#delete_reverseproxy_conf_reverseproxy_id: "default"
+# delete_reverseproxy_conf_reverseproxy_id: "default"
 
 # Provide entries in the following format. Create an array for each value to be updated.
-#delete_reverseproxy_conf_entries:
+# delete_reverseproxy_conf_entries:
 #  - stanza_id: "server"
 #    entry_id: "worker-threads"
 #    value_id: "301"

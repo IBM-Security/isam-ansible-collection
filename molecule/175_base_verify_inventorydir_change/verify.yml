@@ -3,18 +3,18 @@
 # TODO: verify is not configured
 - name: Verify
   hosts: all
-  gather_facts: no
+  gather_facts: false
   vars:
     molecule_name: test2
   tasks:
-    - name: "Include get_access_policies"
-      include_role:
+    - name: Include get_access_policies
+      ansible.builtin.include_role:
         name: get_access_policies_by_name
       vars:
         get_access_policies:
           - name: "{{ molecule_name }}"
 
-    - name: "Assert that attribute {{ molecule_name }} is added"
+    - name: Assert that we added attribute {{ molecule_name }}
       assert:
         that:
           - ret_obj.results.0.data.name is defined

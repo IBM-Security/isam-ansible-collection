@@ -1,3 +1,4 @@
+---
 # main task to export sso key files
 # Example:
 #   sso_keys:
@@ -13,5 +14,5 @@
   when: item.file is defined
   with_items: "{{ sso_keys }}"
   loop_control:
-    label: "{ id: \"{{ item.file | basename }}\", filename: \"{{ homedir }}/{{ item.file }}\" }"
+    label: '{ id: "{{ item.file | basename }}", filename: "{{ homedir }}/{{ item.file }}" }'
   notify: Commit Changes

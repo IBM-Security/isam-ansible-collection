@@ -1,13 +1,13 @@
 ---
 # Configure
-#   configure mapping rules
 #   Example:
 #      mapping_rules:
 #       -   name: mapping_rule_1
 #           file: "uploads/mapping_rules/<file-name>.js"
 #           category: InfoMap
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Configure mapping rules
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.aac.configure_mapping_rules
       tags: configure_mapping_rules

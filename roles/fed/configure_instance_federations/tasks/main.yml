@@ -6,9 +6,8 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.federation_configuration.config
-    isamapi:
-      instanc
+    isamapi: instanc
   with_items: "{{ instances }}"
   when: import_personal_certs is defined
   notify:
-  - Commit Changes
+    - Commit Changes

@@ -1,13 +1,14 @@
 ---
 # Configure
-#   configure access control policy resources
+#
 #   Example:
 #     access_control_policy_resources:
 #       - server: /WebSEAL/default
 #         resourceUri: /index.html
 #         policyType: application
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Configure access control policy resources
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.aac.configure_access_control_policy_resources
       tags: configure_access_control_policy_resources

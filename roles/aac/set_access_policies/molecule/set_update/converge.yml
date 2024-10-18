@@ -1,13 +1,13 @@
 ---
 - name: Converge
   hosts: all
-  gather_facts: no
+  gather_facts: False
   vars:
     molecule_name: test2
     molecule_update_file: /location/of/the/updated_file.js
   tasks:
     - name: "Test add using set_access_policies role"
-      include_role:
+      ansible.builtin.include_role:
         name: "set_access_policies"
       vars:
         access_policies:

@@ -1,8 +1,8 @@
 ---
 # set
-#   Set default id and password for the embedded LDAP user
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Set default id and password for the embedded LDAP user
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.web.execute_pdadmin
       tags: execute_pdadmin

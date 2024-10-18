@@ -1,10 +1,9 @@
 ---
-
 # main task to configure dhcp on an interface
 
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         configure_dhcp
@@ -50,13 +49,13 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.base.network.{{ configure_dhcp_action }}.set_dhcp"
-    isamapi: "{{ item.dhcp | combine({ 'label': item.label })}}"
+    action: ibmsecurity.isam.base.network.{{ configure_dhcp_action }}.set_dhcp
+    isamapi: "{{ item.dhcp | combine({'label': item.label}) }}"
   with_items: "{{ interfaces }}"
   when:
     - item.dhcp is defined
     - item.label is defined
     - item.label == label
   loop_control:
-    label: "interface: [{{ item.label }}], dhcp: [{{ item.dhcp | default(none)}}]"
+    label: "interface: [{{ item.label }}], dhcp: [{{ item.dhcp | default(none) }}]"
   notify: Commit Changes

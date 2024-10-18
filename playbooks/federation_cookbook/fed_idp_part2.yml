@@ -1,59 +1,56 @@
 ---
 - name: Federation Cookbook IdP Part 2 (Ch 9 to 21)
   hosts: all
-  gather_facts: no
+  gather_facts: false
   vars:
-    homedir: "/home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook"
+    homedir: /home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook
   tasks:
-    - include_vars:
-        file: "fed_cookbook_idp_vars.yml"
+    - name: Include vars
+      ansible.builtin.include_vars:
+        file: fed_cookbook_idp_vars.yml
         name: inventory
 
-#9 Configure Partners
-    - name: "9.1 Configuring Partner for the IdP - import metadata"
-      include_role:
+    # 9 Configure Partners
+    - name: 9.1 Configuring Partner for the IdP - import metadata
+      ansible.builtin.include_role:
         name: ibm.isam.fed.import_metadata
       vars:
         import_metadata_federation_name: "{{ inventory.fed_name }}"
         import_metadata_filename: "{{ homedir }}/{{ inventory.import_metadata_filename }}"
 
-    - name: "9.1 Configuring Partner for the IdP - get partner json"
-      include_role:
+    - name: 9.1 Configuring Partner for the IdP - get partner json
+      ansible.builtin.include_role:
         name: ibm.isam.fed.get_a_fed_partner
       vars:
         get_a_fed_partner_federation_name: "{{ inventory.fed_name }}"
         get_a_fed_partner_partner_name: "{{ inventory.partner_name }}"
 
-    - name: "9.1 Configuring Partner for the IdP - update signatureSettings in temp partner json"
-      set_fact:
+    - name: 9.1 Configuring Partner for the IdP - update signatureSettings in temp partner json
+      ansible.builtin.set_fact:
         partner_signatureSettings_json: "{{  ret_obj.data.configuration.signatureSettings | combine(inventory.configuration.signatureSettings) }}"
 
-    - name: "9.1 Configuring Partner for the IdP - create new_signatureSettings_json"
-      set_fact:
-        new_signatureSettings: {
-                                  signatureSettings: '{{ partner_signatureSettings_json }}'
-                               }
+    - name: 9.1 Configuring Partner for the IdP - create new_signatureSettings_json
+      ansible.builtin.set_fact:
+        new_signatureSettings: { signatureSettings: "{{ partner_signatureSettings_json }}" }
 
-    - name: "9.1 Configuring Partner for the IdP - update encryptionSettings in temp partner json"
-      set_fact:
+    - name: 9.1 Configuring Partner for the IdP - update encryptionSettings in temp partner json
+      ansible.builtin.set_fact:
         partner_encryptionSettings_json: "{{  ret_obj.data.configuration.encryptionSettings | combine(inventory.configuration.encryptionSettings) }}"
 
-    - name: "9.1 Configuring Partner for the IdP - create new_encryptionSettings_json"
-      set_fact:
-        new_encryptionSettings: {
-                                  encryptionSettings: '{{ partner_encryptionSettings_json }}'
-                                }
+    - name: 9.1 Configuring Partner for the IdP - create new_encryptionSettings_json
+      ansible.builtin.set_fact:
+        new_encryptionSettings: { encryptionSettings: "{{ partner_encryptionSettings_json }}" }
 
-    - name: "9.1 Configuring Partner for the IdP - update signatureSettings in the new configuration json"
-      set_fact:
+    - name: 9.1 Configuring Partner for the IdP - update signatureSettings in the new configuration json
+      ansible.builtin.set_fact:
         partner_configuration_json: "{{  ret_obj.data.configuration | combine(new_encryptionSettings) }}"
 
-    - name: "9.1 Configuring Partner for the IdP - update signatureSettings in the new configuration json"
-      set_fact:
+    - name: 9.1 Configuring Partner for the IdP - update signatureSettings in the new configuration json
+      ansible.builtin.set_fact:
         partner_configuration_json: "{{  partner_configuration_json | combine(new_signatureSettings) }}"
 
-    - name: "9.1 Configuring Partner for the IdP - update federation partner configuration json"
-      include_role:
+    - name: 9.1 Configuring Partner for the IdP - update federation partner configuration json
+      ansible.builtin.include_role:
         name: ibm.isam.set_partner
       vars:
         set_partner_federation_name: "{{ inventory.fed_name }}"
@@ -62,17 +59,17 @@
         set_partner_role: "{{ inventory.set_partner_role }}"
         set_partner_configuration: "{{ partner_configuration_json }}"
 
-#10.3 Configure test user
-    - name: "10.3 Configure test user - create test user"
-      include_role:
+    # 10.3 Configure test user
+    - name: 10.3 Configure test user - create test user
+      ansible.builtin.include_role:
         name: ibm.isam.execute_pdadmin
       vars:
         execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
         execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
         execute_pdadmin_commands: "{{ inventory.test_user_pdadmin_commands }}"
 
-    - name: "10.3 Add attributes to test user in ldap"
-      ldap_attr:
+    - name: 10.3 Add attributes to test user in ldap
+      ibm.isam.ldap_attr:
         validate_certs: false
         dn: "{{ inventory.test_user_dn }}"
         name: "{{ item.key }}"
@@ -85,26 +82,26 @@
       vars:
         ansible_python_interpreter: /usr/bin/python3
 
-#12 Create OpenID Connect Provider
+    # 12 Create OpenID Connect Provider
     - name: "12.1 Create Federation: get mapping rule id"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.search_mapping_rule
       vars:
         search_mapping_rule_name: "{{ inventory.oidc_mapping_rule_name }}"
 
     - name: "12.1 Create Federation: create the federation"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.fed.set_federation_from_file
       vars:
         set_federation_from_file:
-          - name: "{{ inventory.oidc_fed_name}}"
+          - name: "{{ inventory.oidc_fed_name }}"
             protocol: "{{ inventory.oidc_protocol }}"
             role: "{{ inventory.oidc_role }}"
             filename: "{{ homedir }}/{{ inventory.ip_oidc_fed }}"
             mapping_id: "{{ ret_obj.data }}"
 
-    - name: "12.2 Configure Reverse Proxy for IdP"
-      include_role:
+    - name: 12.2 Configure Reverse Proxy for IdP
+      ansible.builtin.include_role:
         name: ibm.isam.config_reverseproxy_federation
       vars:
         config_reverseproxy_federation_name: "{{ inventory.oidc_fed_name }}"
@@ -114,8 +111,8 @@
         config_reverseproxy_federation_reuse_certs: "{{ inventory.config_reverseproxy_federation_reuse_certs }}"
         config_reverseproxy_federation_reuse_acls: "{{ inventory.config_reverseproxy_federation_reuse_acls }}"
 
-    - name: "12.3.1 ISAM-to-ISAM partner"
-      include_role:
+    - name: 12.3.1 ISAM-to-ISAM partner
+      ansible.builtin.include_role:
         name: ibm.isam.set_partner
       vars:
         set_partner_federation_name: "{{ inventory.oidc_fed_name }}"
@@ -124,8 +121,8 @@
         set_partner_role: "{{ inventory.oidc_isam_role }}"
         set_partner_configuration: "{{ inventory.oidc_isam_partner_configuration }}"
 
-    - name: "12.3.2 ISAM-to-Cloud partner"
-      include_role:
+    - name: 12.3.2 ISAM-to-Cloud partner
+      ansible.builtin.include_role:
         name: ibm.isam.set_partner
       vars:
         set_partner_federation_name: "{{ inventory.oidc_fed_name }}"
@@ -134,95 +131,82 @@
         set_partner_role: "{{ inventory.oidc_cloud_role }}"
         set_partner_configuration: "{{ inventory.oidc_cloud_partner_configuration }}"
 
-#17 Introduction to the Security Token Service (STS)
-    - name: "17.1 Configuring the STSUU to STSUU Chain Template"
-      include_role:
+    # 17 Introduction to the Security Token Service (STS)
+    - name: 17.1 Configuring the STSUU to STSUU Chain Template
+      ansible.builtin.include_role:
         name: ibm.isam.fed.configure_sts_chain_templates
       vars:
         sts_chain_templates: "{{ inventory.sts_chain_templates }}"
 
-    - name: "17.2 Configuring the STS Test Module Chain - search for the template id by name"
-      include_role:
+    - name: 17.2 Configuring the STS Test Module Chain - search for the template id by name
+      ansible.builtin.include_role:
         name: ibm.isam.fed.get_sts_chains
       vars:
         sts_template_name: "{{ inventory.sts_template_name }}"
 
-    - name: "17.2 Configuring the STS Test Module Chain - set fact to save stsuu template id"
-      set_fact:
+    - name: 17.2 Configuring the STS Test Module Chain - set fact to save stsuu template id
+      ansible.builtin.set_fact:
         stsuu_id: "{{ item.prefix }}"
-      when: "{{ item.id == inventory.sts_template_content_id }}"
+      when:
+        - item.id == inventory.sts_template_content_id
       with_items: "{{ ret_obj.data.chainItems }}"
 
-    - name: "17.2 Configuring the STS Test Module Chain - get mapping rule id"
-      include_role:
+    - name: 17.2 Configuring the STS Test Module Chain - get mapping rule id
+      ansible.builtin.include_role:
         name: ibm.isam.search_mapping_rule
       vars:
         search_mapping_rule_name: "{{ inventory.sts_template_content_rule_name }}"
 
-    - name: "17.2 Configuring the STS Test Module Chain - create properties obj"
-      set_fact:
+    - name: 17.2 Configuring the STS Test Module Chain - create properties obj
+      ansible.builtin.set_fact:
         chain_properties:
           properties:
-            {
-              self: [
-                { "name": "{{ stsuu_id }}.map.rule.type",
-                  "value": ["JAVASCRIPT"]
-                },
-                { "name": "{{ stsuu_id }}.map.rule.reference.ids",
-                  "value": ["{{ ret_obj.data }}"]
-                }
-              ]
-            }
+            self:
+              - { name: "{{ stsuu_id }}.map.rule.type", value: [JAVASCRIPT] }
+              - { name: "{{ stsuu_id }}.map.rule.reference.ids", value: ["{{ ret_obj.data }}"] }
 
-    - name: "17.2 Configuring the STS Test Module Chain - create properties obj"
-      set_fact:
+    - name: 17.2 Configuring the STS Test Module Chain - create properties obj
+      ansible.builtin.set_fact:
         new_sts_chain: ["{{ inventory.sts_chain | combine(chain_properties) }}"]
 
-    - name: "17.2 Configuring the STS Test Module Chain"
-      include_role:
+    - name: 17.2 Configuring the STS Test Module Chain
+      ansible.builtin.include_role:
         name: ibm.isam.fed.configure_sts_chains
       vars:
         sts_chains: "{{ new_sts_chain }}"
 
-    - name: "17.3 Allowing access to the STS via the ISAM Reverse Proxy"
-      include_role:
+    - name: 17.3 Allowing access to the STS via the ISAM Reverse Proxy
+      ansible.builtin.include_role:
         name: ibm.isam.execute_pdadmin
       vars:
         execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
         execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
         execute_pdadmin_commands: "{{ inventory.sts_pdadmin_commands }}"
 
-    - name: "17.4 Updating the easuser password"
-      include_role:
+    - name: 17.4 Updating the easuser password
+      ansible.builtin.include_role:
         name: ibm.isam.aac.set_pwd_user_registry
       vars:
         user_registry_id: "{{ inventory.easuser_registry_id }}"
         user_registry_password: "{{ inventory.easuser_registry_password }}"
 
-#18 Advanced Federation Mapping Rules
-    - name: "18.1 Using HttpClient from Javascript mapping rules - get mapping rule id"
-      include_role:
+    # 18 Advanced Federation Mapping Rules
+    - name: 18.1 Using HttpClient from Javascript mapping rules - get mapping rule id
+      ansible.builtin.include_role:
         name: ibm.isam.search_mapping_rule
       vars:
         search_mapping_rule_name: "{{ inventory.update_mapping_rule_name }}"
 
-    - name: "18.1 Using HttpClient from Javascript mapping rules - create mapping obj"
-      set_fact:
-        id_mapping_obj: {
-          identityMapping: {
-            activeDelegateId: "default-map",
-            properties: {
-              identityMappingRuleReference: "{{ ret_obj.data }}"
-            }
-          }
-        }
+    - name: 18.1 Using HttpClient from Javascript mapping rules - create mapping obj
+      ansible.builtin.set_fact:
+        id_mapping_obj: { identityMapping: { activeDelegateId: default-map, properties: { identityMappingRuleReference: "{{ ret_obj.data }}" } } }
 
-    - name: "18.1 Using HttpClient from Javascript mapping rules - create updated config obj"
-      set_fact:
+    - name: 18.1 Using HttpClient from Javascript mapping rules - create updated config obj
+      ansible.builtin.set_fact:
         update_config_obj: "{{ inventory.set_federation_configuration | combine(id_mapping_obj) }}"
 
-    - name: "18.1 Using HttpClient from Javascript mapping rules"
-      include_role:
+    - name: 18.1 Using HttpClient from Javascript mapping rules
+      ansible.builtin.include_role:
         name: ibm.isam.set_federation
       vars:
         set_federation_name: "{{ inventory.set_federation_name }}"
@@ -231,8 +215,8 @@
         set_federation_configuration: "{{ update_config_obj }}"
         set_federation_templateName: ""
 
-    - name: "18.2 Using the external http callout mapping module"
-      include_role:
+    - name: 18.2 Using the external http callout mapping module
+      ansible.builtin.include_role:
         name: ibm.isam.set_federation
       vars:
         set_federation_name: "{{ inventory.set_federation_name }}"
@@ -241,9 +225,9 @@
         set_federation_configuration: "{{ inventory.update_federation_configuration }}"
         set_federation_templateName: ""
 
-#18.3.2 Configuring the LDAP Attribute Map
-    - name: "18.3.2.1 Configuring a Server Connection"
-      include_role:
+    # 18.3.2 Configuring the LDAP Attribute Map
+    - name: 18.3.2.1 Configuring a Server Connection
+      ansible.builtin.include_role:
         name: ibm.isam.aac.set_server_connection_ldap
       vars:
         set_ldap_server_connection_name: "{{ inventory.set_ldap_server_connection_name }}"
@@ -251,324 +235,270 @@
         set_ldap_server_connection_description: "{{ inventory.set_ldap_server_connection_description }}"
         set_ldap_server_connection_manager: "{{ inventory.set_ldap_server_connection_manager }}"
 
-    - name: "18.3.2.2 Configuring Attribute Sources"
-      include_role:
+    - name: 18.3.2.2 Configuring Attribute Sources
+      ansible.builtin.include_role:
         name: ibm.isam.set_attribute_source
       vars:
         attribute_sources: "{{ inventory.attribute_sources }}"
 
-    - name: "18.3.4 Configuring the STS chain for LDAP Attribute Map"
-      include_role:
+    - name: 18.3.4 Configuring the STS chain for LDAP Attribute Map
+      ansible.builtin.include_role:
         name: ibm.isam.fed.configure_sts_chain_templates
       vars:
         sts_chain_templates: "{{ inventory.sts_ldap_templates }}"
 
-    - name: "18.3.4 Modify STS Test Module Chain - search for the template id by name"
-      include_role:
+    - name: 18.3.4 Modify STS Test Module Chain - search for the template id by name
+      ansible.builtin.include_role:
         name: ibm.isam.fed.get_sts_chains
       vars:
         sts_template_name: "{{ inventory.modify_sts_template_name }}"
 
-    - name: "18.3.4 Modify STS Test Module Chain - set fact to save ip_pre_ldap uuid"
-      set_fact:
+    - name: 18.3.4 Modify STS Test Module Chain - set fact to save ip_pre_ldap uuid
+      ansible.builtin.set_fact:
         pre_mapper_uuid: "{{ item.prefix }}"
-      when: "{{ pre_mapper_uuid is not defined and item.id == inventory.mapper_name }}"
+      when:
+        - pre_mapper_uuid is not defined
+        - item.id == inventory.mapper_name
       with_items: "{{ ret_obj.data.chainItems }}"
 
-    - name: "18.3.4 Modify STS Test Module Chain - set fact to save ip_post_ldap uuid"
-      set_fact:
+    - name: 18.3.4 Modify STS Test Module Chain - set fact to save ip_post_ldap uuid
+      ansible.builtin.set_fact:
         post_mapper_uuid: "{{ item.prefix }}"
-      when: "{{ item.id == inventory.mapper_name }}"
+      when:
+        - item.id == inventory.mapper_name
       with_items: "{{ ret_obj.data.chainItems }}"
 
-    - name: "18.3.4 Modify STS Test Module Chain - get ip_pre_ldap mapping rule id"
-      include_role:
+    - name: 18.3.4 Modify STS Test Module Chain - get ip_pre_ldap mapping rule id
+      ansible.builtin.include_role:
         name: ibm.isam.search_mapping_rule
       vars:
         search_mapping_rule_name: "{{ inventory.ip_pre_ldap_rule_name }}"
 
-    - name: "18.3.4 Modify STS Test Module Chain - set fact to save ip_pre_ldap id"
-      set_fact:
+    - name: 18.3.4 Modify STS Test Module Chain - set fact to save ip_pre_ldap id
+      ansible.builtin.set_fact:
         pre_mapper_id: "{{ ret_obj.data }}"
 
-    - name: "18.3.4 Modify STS Test Module Chain - get ip_post_ldap mapping rule id"
-      include_role:
+    - name: 18.3.4 Modify STS Test Module Chain - get ip_post_ldap mapping rule id
+      ansible.builtin.include_role:
         name: ibm.isam.search_mapping_rule
       vars:
         search_mapping_rule_name: "{{ inventory.ip_post_ldap_rule_name }}"
 
-    - name: "18.3.4 Modify STS Test Module Chain - set fact to save stsuu template id"
-      set_fact:
+    - name: 18.3.4 Modify STS Test Module Chain - set fact to save stsuu template id
+      ansible.builtin.set_fact:
         post_mapper_id: "{{ ret_obj.data }}"
 
-    - name: "18.3.4 Modify STS Test Module Chain - search attribute phone id"
-      include_role:
+    - name: 18.3.4 Modify STS Test Module Chain - search attribute phone id
+      ansible.builtin.include_role:
         name: ibm.isam.search_attribute_source
       vars:
         search_attribute_source_name: "{{ inventory.attribute_source_phone }}"
 
-    - name: "18.3.4 Modify STS Test Module Chain - set fact to save attribute phone id"
-      set_fact:
+    - name: 18.3.4 Modify STS Test Module Chain - set fact to save attribute phone id
+      ansible.builtin.set_fact:
         phone_id: "{{ search_attribute_source_register.data }}"
 
-    - name: "18.3.4 Modify STS Test Module Chain - search attribute name id"
-      include_role:
+    - name: 18.3.4 Modify STS Test Module Chain - search attribute name id
+      ansible.builtin.include_role:
         name: ibm.isam.search_attribute_source
       vars:
         search_attribute_source_name: "{{ inventory.attribute_source_name }}"
 
-    - name: "18.3.4 Modify STS Test Module Chain - set fact to save attribute name id"
-      set_fact:
+    - name: 18.3.4 Modify STS Test Module Chain - set fact to save attribute name id
+      ansible.builtin.set_fact:
         name_id: "{{ search_attribute_source_register.data }}"
 
-    - name: "18.3.4 Modify STS Test Module Chain - create properties obj"
-      set_fact:
+    - name: 18.3.4 Modify STS Test Module Chain - create properties obj
+      ansible.builtin.set_fact:
         chain_properties:
-          properties: {
-            attributeMapping: {
-              map: [{name: "phone", source: "{{ phone_id }}"}, {name: "displayName", source: "{{ name_id }}"}]
-            },
-            self: [ { "name": "{{ pre_mapper_uuid }}.map.rule.type",
-                      "value": ["JAVASCRIPT"]
-                    },
-                    { "name": "{{ pre_mapper_uuid }}.map.rule.reference.ids",
-                      "value": ["{{ pre_mapper_id }}"]
-                    },
-                    { "name": "{{ post_mapper_uuid }}.map.rule.type",
-                      "value": ["JAVASCRIPT"]
-                    },
-                    { "name": "{{ post_mapper_uuid }}.map.rule.reference.ids",
-                      "value": ["{{ post_mapper_id }}"]
-                    }
-                ]
-        }
+          properties:
+            attributeMapping: { map: [{ name: phone, source: "{{ phone_id }}" }, { name: displayName, source: "{{ name_id }}" }] }
+            self:
+              - { name: "{{ pre_mapper_uuid }}.map.rule.type", value: [JAVASCRIPT] }
+              - { name: "{{ pre_mapper_uuid }}.map.rule.reference.ids", value: ["{{ pre_mapper_id }}"] }
+              - { name: "{{ post_mapper_uuid }}.map.rule.type", value: [JAVASCRIPT] }
+              - { name: "{{ post_mapper_uuid }}.map.rule.reference.ids", value: ["{{ post_mapper_id }}"] }
 
-    - name: "18.3.4 Modify STS Test Module Chain - create properties obj"
-      set_fact:
+    - name: 18.3.4 Modify STS Test Module Chain - create properties obj
+      ansible.builtin.set_fact:
         new_modify_chain: ["{{ inventory.update_sts_chain | combine(chain_properties) }}"]
 
-    - name: "18.3.4 Modify STS Test Module Chain"
-      include_role:
+    - name: 18.3.4 Modify STS Test Module Chain
+      ansible.builtin.include_role:
         name: ibm.isam.fed.configure_sts_chains
       vars:
         sts_chains: "{{ new_modify_chain }}"
 
-#19 STS Tokens on Reverse Proxy Junctions
-    - name: "19.1 Create the ISAM Credential to SAML 2.0 STS Chain Template"
-      include_role:
+    # 19 STS Tokens on Reverse Proxy Junctions
+    - name: 19.1 Create the ISAM Credential to SAML 2.0 STS Chain Template
+      ansible.builtin.include_role:
         name: ibm.isam.fed.configure_sts_chain_templates
       vars:
         sts_chain_templates: "{{ inventory.saml_sts_templates }}"
 
-    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - find IVCredToSAML20JunctionExample template"
-      include_role:
+    - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - find IVCredToSAML20JunctionExample template
+      ansible.builtin.include_role:
         name: ibm.isam.fed.get_sts_chains
       vars:
         sts_template_name: "{{ inventory.IVCredToSAML20JunctionExample_name }}"
 
-    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find validate module uuid"
-      set_fact:
+    - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find validate module uuid
+      ansible.builtin.set_fact:
         saml_validate_uuid: "{{ item.prefix }}"
-      when: "{{ item.id == inventory.saml_validate_name }}"
+      when:
+        - item.id == inventory.saml_validate_name
       with_items: "{{ ret_obj.data.chainItems }}"
 
-    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find map module uuid"
-      set_fact:
+    - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find map module uuid
+      ansible.builtin.set_fact:
         saml_mapper_uuid: "{{ item.prefix }}"
-      when: "{{ item.id == inventory.saml_mapper_name }}"
+      when:
+        - item.id == inventory.saml_mapper_name
       with_items: "{{ ret_obj.data.chainItems }}"
 
-    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find issue module uuid"
-      set_fact:
+    - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save find issue module uuid
+      ansible.builtin.set_fact:
         saml_issue_uuid: "{{ item.prefix }}"
-      when: "{{ item.id == inventory.saml_issue_name }}"
+      when:
+        - item.id == inventory.saml_issue_name
       with_items: "{{ ret_obj.data.chainItems }}"
 
-    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - get saml20_ivc_to_saml20 mapping rule id"
-      include_role:
+    - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - get saml20_ivc_to_saml20 mapping rule id
+      ansible.builtin.include_role:
         name: ibm.isam.search_mapping_rule
       vars:
         search_mapping_rule_name: "{{ inventory.saml20_ivc_to_saml20_name }}"
 
-    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save saml20_ivc_to_saml20 id"
-      set_fact:
+    - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - set fact to save saml20_ivc_to_saml20 id
+      ansible.builtin.set_fact:
         saml20_ivc_to_saml20_id: "{{ ret_obj.data }}"
 
-    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - create properties obj"
-      set_fact:
+    - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - create properties obj
+      ansible.builtin.set_fact:
         chain_properties:
-          properties: {
-            partner: [{ "name": "{{ saml_validate_uuid }}.ivcred.verify.signatures",
-                        "value": ["false"]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.attribute.types",
-                        "value": ["*"]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.sign",
-                        "value": ["true"]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.SigningKeyIdentifier.db",
-                        "value": ["myidpkeys"]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.SigningKeyIdentifier.cert",
-                        "value": ["myidpkey"]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.subject.keyid",
-                        "value": ["true"]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.public.key",
-                        "value": ["true"]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.issuer.details",
-                        "value": ["true"]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.subject.name",
-                        "value": ["true"]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.cert.data",
-                        "value": ["true"]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.SignatureAlgorithm",
-                        "value": ["RSA-SHA512"]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.DigestAlgorithm",
-                        "value": ["SHA256"]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptionKeyIdentifier.db",
-                        "value": [""]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptionKeyIdentifier.cert",
-                        "value": [""]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptAssertions",
-                        "value": ["false"]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptAllAttributes",
-                        "value": ["false"]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptNameIdentifiers",
-                        "value": ["false"]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.BlockEncryptionAlgorithm",
-                        "value": ["TRIPLEDES"]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptionKeyTransportAlgorithm",
-                        "value": ["RSA-OAEP"]
-                      },
-                      { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.SubjectConfirmationMethod",
-                        "value": ["urn:oasis:names:tc:SAML:2.0:cm:bearer"]
-                      }
-                  ],
-            self: [ { "name": "{{ saml_mapper_uuid }}.map.rule.type",
-                      "value": ["JAVASCRIPT"]
-                    },
-                    { "name": "{{ saml_mapper_uuid }}.map.rule.reference.ids",
-                      "value": ["{{ saml20_ivc_to_saml20_id }}"]
-                    },
-                    { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.issuer",
-                      "value": ["https://www.myidp.ibm.com/isam/sps/saml20idp/saml20"]
-                    },
-                    { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.pretime.valid",
-                      "value": ["3600"]
-                    },
-                    { "name": "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.posttime.valid",
-                      "value": ["3600"]
-                    }
-                  ]
-            }
+          properties:
+            partner:
+              - { name: "{{ saml_validate_uuid }}.ivcred.verify.signatures", value: ["false"] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.attribute.types", value: ["*"] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.sign", value: ["true"] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.SigningKeyIdentifier.db", value: [myidpkeys] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.SigningKeyIdentifier.cert", value: [myidpkey] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.subject.keyid", value: ["true"] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.public.key", value: ["true"] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.issuer.details", value: ["true"] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.subject.name", value: ["true"] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.cert.data", value: ["true"] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.SignatureAlgorithm", value: [RSA-SHA512] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.DigestAlgorithm", value: [SHA256] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptionKeyIdentifier.db", value: [""] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptionKeyIdentifier.cert", value: [""] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptAssertions", value: ["false"] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptAllAttributes", value: ["false"] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptNameIdentifiers", value: ["false"] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.BlockEncryptionAlgorithm", value: [TRIPLEDES] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptionKeyTransportAlgorithm", value: [RSA-OAEP] }
+              - name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.SubjectConfirmationMethod"
+                value: ['urn:oasis:names:tc:SAML:2.0:cm:bearer']
+            self:
+              - { name: "{{ saml_mapper_uuid }}.map.rule.type", value: [JAVASCRIPT] }
+              - { name: "{{ saml_mapper_uuid }}.map.rule.reference.ids", value: ["{{ saml20_ivc_to_saml20_id }}"] }
+              - name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.issuer"
+                value: ["https://www.myidp.ibm.com/isam/sps/saml20idp/saml20"]
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.pretime.valid", value: ["3600"] }
+              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.posttime.valid", value: ["3600"] }
 
-    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - create properties obj"
-      set_fact:
+    - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - create properties obj
+      ansible.builtin.set_fact:
         new_saml_chain: ["{{ inventory.saml_sts_chain | combine(chain_properties) }}"]
 
-    - name: "19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain"
-      include_role:
+    - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain
+      ansible.builtin.include_role:
         name: ibm.isam.fed.configure_sts_chains
       vars:
         sts_chains: "{{ new_saml_chain }}"
 
-    - name: "19.3 Update the reverse proxy configuration file"
-      include_role:
+    - name: 19.3 Update the reverse proxy configuration file
+      ansible.builtin.include_role:
         name: ibm.isam.set_reverseproxy_conf
       vars:
         set_reverseproxy_conf_entries: "{{ inventory.set_reverseproxy_conf_entries_19_3 }}"
         set_reverseproxy_conf_reverseproxy_id: "{{ inventory.inst_name }}"
 
-    - name: "19.4 Create the /samljct Junction"
-      include_role:
+    - name: 19.4 Create the /samljct Junction
+      ansible.builtin.include_role:
         name: ibm.isam.execute_pdadmin
       vars:
         execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
         execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
         execute_pdadmin_commands: "{{ inventory.samljct_pdadmin_commands }}"
 
-    - name: "19.5 Enable the demonstration application"
-      include_role:
+    - name: 19.5 Enable the demonstration application
+      ansible.builtin.include_role:
         name: ibm.isam.update_advanced_configuration
       vars:
         update_advanced_configuration_key: "{{ inventory.update_advanced_configuration_key }}"
         update_advanced_configuration_value: "{{ inventory.update_advanced_configuration_value }}"
         update_advanced_configuration_sensitive: "{{ inventory.update_advanced_configuration_sensitive }}"
 
-    - name: "19.5 Enable the demonstration application - setup acls"
-      include_role:
+    - name: 19.5 Enable the demonstration application - setup acls
+      ansible.builtin.include_role:
         name: ibm.isam.execute_pdadmin
       vars:
         execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
         execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
         execute_pdadmin_commands: "{{ inventory.demo_pdadmin_commands }}"
 
-    - name: "19.5 Enable the demonstration application - update demo app settings"
+    - name: 19.5 Enable the demonstration application - update demo app settings
       vars:
         inputs:
-          - "acHostAndPort={{ inventory.acHostAndPort }}"
-          - "lmiHostAndPort={{ inventory.lmiHostAndPort }}"
-          - "lmiAdminId={{ inventory.lmiAdminId }}"
-          - "lmiAdminPwd={{ inventory.lmiAdminPwd }}"
-          - "websealHostNameAndPort={{ inventory.websealHostNameAndPort }}"
-          - "acUuidCookieName={{ inventory.acUuidCookieName }}"
-      uri:
+          - acHostAndPort={{ inventory.acHostAndPort }}
+          - lmiHostAndPort={{ inventory.lmiHostAndPort }}
+          - lmiAdminId={{ inventory.lmiAdminId }}
+          - lmiAdminPwd={{ inventory.lmiAdminPwd }}
+          - websealHostNameAndPort={{ inventory.websealHostNameAndPort }}
+          - acUuidCookieName={{ inventory.acUuidCookieName }}
+      ansible.builtin.uri:
         validate_certs: false
         url_username: "{{ inventory.web_username }}"
         url_password: "{{ inventory.web_password }}"
-        force_basic_auth: yes
+        force_basic_auth: true
         url: "{{ inventory.url }}"
         method: POST
-        return_content: yes
+        return_content: true
         body_format: form-urlencoded
         body: "{{ inputs | join('&') }}"
         headers:
           Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
       register: rest_post
-      ignore_errors: yes
+      ignore_errors: true
 
-    - name: "19.6 Authorize Access to Mobile Demo Application - update acls"
-      include_role:
+    - name: 19.6 Authorize Access to Mobile Demo Application - update acls
+      ansible.builtin.include_role:
         name: ibm.isam.execute_pdadmin
       vars:
         execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
         execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
         execute_pdadmin_commands: "{{ inventory.acl_pdadmin_commands }}"
 
-    - name: "21.1 Replace login.html on the identity provider"
-      include_role:
+    - name: 21.1 Replace login.html on the identity provider
+      ansible.builtin.include_role:
         name: ibm.isam.update_management_root
       vars:
         update_management_root_instance_id: "{{ inventory.update_management_root_instance_id }}"
         update_management_root_idandfilename: "{{ inventory.update_management_root_idandfilename }}"
 
-    - name: "21.2 Configure authentication macros in the federation runtime - get POC"
-      include_role:
+    - name: 21.2 Configure authentication macros in the federation runtime - get POC
+      ansible.builtin.include_role:
         name: ibm.isam.fed.get_point_of_contact
       vars:
         get_point_of_contact_name: "{{ inventory.get_point_of_contact_name }}"
 
-    - name: "21.2 Configure authentication macros in the federation runtime - remove special chars"
-      set_fact:
+    - name: 21.2 Configure authentication macros in the federation runtime - remove special chars
+      ansible.builtin.set_fact:
         new_description: "{{ ret_obj.data.description | replace('\n', '')| replace('\t', '') }}"
 
-    - name: "21.2 Configure authentication macros in the federation runtime - create new poc"
-      include_role:
+    - name: 21.2 Configure authentication macros in the federation runtime - create new poc
+      ansible.builtin.include_role:
         name: ibm.isam.update_point_of_contact
       vars:
         update_point_of_contact_name: "{{ inventory.new_point_of_contact_name }}"
@@ -579,8 +509,8 @@
         update_point_of_contact_signInCallbacks: "{{ ret_obj.data.signInCallbacks }}"
         update_point_of_contact_signOutCallbacks: "{{ ret_obj.data.signOutCallbacks }}"
 
-    - name: "21.2 Configure authentication macros in the federation runtime - set POC"
-      include_role:
+    - name: 21.2 Configure authentication macros in the federation runtime - set POC
+      ansible.builtin.include_role:
         name: ibm.isam.set_current_point_of_contact
       vars:
         set_current_point_of_contact_name: "{{ inventory.new_point_of_contact_name }}"

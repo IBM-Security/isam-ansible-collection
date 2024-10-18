@@ -1,8 +1,7 @@
 ---
-
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         activate_modules
@@ -55,4 +54,4 @@
     label: "{u'id': u'{{ item.id }}'}"
 
  # Commit activation of module before doing anything else
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers

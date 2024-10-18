@@ -2,6 +2,5 @@
 
 # Default variables for create ssl certificate database
 create_certificate_databases: []
-
 # limit execution at runtime to filter for kdb_name's
 kdb_name: "{{ item.kdb_name }}"

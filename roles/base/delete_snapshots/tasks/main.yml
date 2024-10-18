@@ -1,10 +1,9 @@
 ---
-
 # main task to delete snapshots
 
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         delete_snapshots
@@ -32,7 +31,7 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: "Delete one or multiple snapshots [-e comment=<comment> -e ids=\"['<id_1>','<id_2>']\"]"
+- name: Delete one or multiple snapshots [-e comment=<comment> -e ids="['<id_1>','<id_2>']"]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

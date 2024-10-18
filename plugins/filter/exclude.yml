@@ -1,7 +1,8 @@
+---
 DOCUMENTATION:
   name: exclude
   author: IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>
-  version_added: 'historical'
+  version_added: historical
   short_description: Exclude keys from a dictionary
   description:
     - Exclude keys from a dictionary

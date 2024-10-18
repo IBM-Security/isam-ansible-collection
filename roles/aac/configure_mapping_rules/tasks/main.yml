@@ -1,8 +1,8 @@
 ---
 # main task to configure mapping rules
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         configure_mapping_rules
@@ -57,28 +57,25 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-# - debug: msg="{{ item.category }} | {{ category }}"
+# - ansible.builtin.debug: msg="{{ item.category }} | {{ category }}"
 #   loop: "{{ mapping_rules }}"
 
-- name: "Configure mapping rules [-e rule_action=[set|] -e rule_name=<name> -e category=[AuthSvc|Decision|FIDO2||InfoMap|OAUTH|OIDC|OTP|SAML2|SAML2_0|SAML2_0_EXT|WSFED|...] -e file=<path/to/upload/file>]"
+- name: Configure mapping rules [-e rule_action=[set|] -e rule_name=<name> -e category=[AuthSvc|Decision|FIDO2||InfoMap|OAUTH|OIDC|OTP|SAML2|SAML2_0|SAML2_0_EXT|WSFED|...]
+    -e file=<path/to/upload/file>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.aac.mapping_rules.{{ item.rule_action }}"
-    isamapi: "{{
-      { 'name': item.name }
-      | combine({ 'category': item.category } if (item.category is defined and (item.rule_action=='set' or item.rule_action=='add')) else {})
-      | combine({ 'upload_filename': homedir +'/'+ item.file } if (item.file is defined and (item.rule_action=='set' or item.rule_action=='upload' or item.rule_action=='update' or item.rule_action=='add')) else {})
-      | combine({ 'content': (item.content | replace('\n','\\n') | regex_replace('\"', '\\\"')) } if (item.content is defined and (item.rule_action=='set' or item.rule_action=='add' or item.rule_action=='update')) else {})
-      | combine({ 'filename': (item.name) } if (item.content is defined and item.rule_action != 'export_file') else ({'filename': homedir +'/'+ item.filename } if(item.filename is defined and (item.rule_action=='set' or item.rule_action=='add' or item.rule_action=='export_file' or item.rule_action=='upload' or item.rule_action=='import_file')) else {}))
-    }}"
+    action: ibmsecurity.isam.aac.mapping_rules.{{ item.rule_action }}
+    isamapi: "{{ { 'name': item.name } | combine({ 'category': item.category } if (item.category is defined and (item.rule_action == 'set' or item.rule_action == 'add'))
+      else {}) | combine({ 'upload_filename': homedir + '/' + item.file } if (item.file is defined and (item.rule_action == 'set' or item.rule_action == 'upload' or item.rule_action == 'update'
+      or item.rule_action == 'add')) else {}) | combine({ 'content': (item.content | replace('\n', '\\n') | regex_replace('\"', '\\\"')) } if (item.content is defined
+      and (item.rule_action == 'set' or item.rule_action == 'add' or item.rule_action == 'update')) else {}) | combine({ 'filename': (item.name) } if (item.content is defined
+      and item.rule_action != 'export_file') else ({'filename': homedir + '/' + item.filename } if(item.filename is defined and (item.rule_action == 'set' or item.rule_action == 'add'
+      or item.rule_action == 'export_file' or item.rule_action == 'upload' or item.rule_action == 'import_file')) else {})) }}"
   when:
     - item.rule_action == rule_action
     - item.name == rule_name
-    - (item.file is defined and item.file == file)
-      or (item.content is defined and item.filename is defined)
-      or (item.name is defined and item.filename is defined)
-      or (item.category is defined and item.category == category)
-      or (item.name is defined and item.rule_action == 'delete')
+    - (item.file is defined and item.file == file) or (item.content is defined and item.filename is defined) or (item.name is defined and item.filename is defined)
+      or (item.category is defined and item.category == category) or (item.name is defined and item.rule_action == 'delete')
   loop: "{{ mapping_rules }}"
   notify: Commit Changes

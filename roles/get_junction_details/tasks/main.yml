@@ -1,3 +1,4 @@
+---
 - name: Get Junctions in Reverse Proxy
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -13,5 +14,5 @@
     - data
 
 - name: Set variable for use by rest of playbook
-  set_fact:
+  ansible.builtin.set_fact:
     junction_detail_ret_obj: "{{ ret_obj }}"

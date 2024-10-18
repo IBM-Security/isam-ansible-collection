@@ -1,3 +1,4 @@
+---
 - name: Update Static Route - {{ update_static_route_address }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

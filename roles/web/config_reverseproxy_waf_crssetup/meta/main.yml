@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: IBM
+  description: Role to update waf crs-setup
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: "2.14"
+
+  galaxy_tags:
+    - isam
+    - ibm
+    - configure
+    - waf
+
+dependencies:
+  - role: ibm.isam.common_handlers

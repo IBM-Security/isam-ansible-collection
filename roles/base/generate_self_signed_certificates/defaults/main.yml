@@ -1,2 +1,3 @@
+---
 # Default variables for generatin self signed certificates
 generate_self_signed_certificates: []

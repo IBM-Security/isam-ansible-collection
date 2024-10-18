@@ -24,4 +24,4 @@
 #         - PartnerPropertyValue1
 
 # Comment to be used for creating a snapshot file
-add_module_chain_comment: "Automated Snapshot Before Adding Module Chain"
+add_module_chain_comment: Automated Snapshot Before Adding Module Chain

@@ -1,3 +1,4 @@
+---
 - name: Create Certificate Database
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -15,7 +16,7 @@
     action: ibmsecurity.isam.base.ssl_certificates.certificate_databases.set
     isamapi:
       cert_id: "{{ switch_auth_key_database }}"
-      description: "SSL Store for LDAP to be used for Authentication to Appliance"
+      description: SSL Store for LDAP to be used for Authentication to Appliance
   when: switch_auth_key_database is defined
   notify: Commit Changes
 

@@ -18,8 +18,7 @@
     adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
     adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
     adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName:
-      "{{ adminProxyApplianceShortName | default(omit) }}"
+    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
     omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
     username: "{{ username }}"
     password: "{{ password }}"
@@ -29,7 +28,7 @@
     action: ibmsecurity.isam.web.kerberos_configuration.keyfiles.get
     isamapi:
   register: ret_obj
-  ignore_errors: True
+  ignore_errors: true
 
 # TODO: test if the keyfiles to merge are there
 # TODO: check if the combined keyfile is there (if there already, delete ?)
@@ -40,8 +39,7 @@
     adminProxyProtocol: "{{ adminProxyProtocol | default(omit) }}"
     adminProxyHostname: "{{ adminProxyHostname | default(omit) }}"
     adminProxyPort: "{{ adminProxyPort | default(omit) }}"
-    adminProxyApplianceShortName:
-      "{{ adminProxyApplianceShortName | default(omit) }}"
+    adminProxyApplianceShortName: "{{ adminProxyApplianceShortName | default(omit) }}"
     omitAdminProxy: "{{ omitAdminProxy | default(omit) }}"
     username: "{{ username }}"
     password: "{{ password }}"

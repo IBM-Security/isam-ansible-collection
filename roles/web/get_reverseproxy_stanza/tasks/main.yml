@@ -1,0 +1,47 @@
+---
+- name: Help INFO (-e help=true)
+  ansible.builtin.pause:
+    echo: true
+    prompt: |
+      NAME
+        get_reverseproxy_stanza
+
+      DESCRIPTION
+        Role to get a specific stanza for a reverse proxy instance
+
+      STEPS
+        1) get
+
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.web.get_reverseproxy_stanza.yml
+
+      INVENTORY
+      ==========
+      no inventory necessary
+
+      output is `reverseproxy_stanza`
+
+      To get the stanza content returned in a dictionary, use
+
+      `{{ reverseproxy_stanza.data }}`
+
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Get stanza for {{ inst_name }}
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.reverse_proxy.configuration.entry.get_all
+    isamapi:
+      reverseproxy_id: "{{ inst_name }}"
+      stanza_id: "{{ stanza_id }}"
+  when:
+    - inst_name is defined
+    - stanza_id is defined
+  register: reverseproxy_stanza

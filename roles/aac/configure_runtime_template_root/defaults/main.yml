@@ -2,9 +2,8 @@
 
 # Default variables for configuration of runtime template root content
 runtime_template_root: []
-
 # No filter at runtime on tmpl_action if none is defined. This will try every feasable action in the play
-tmpl_action: "None"
+tmpl_action: None
 
 # variables to control multiple tasks from play
 
@@ -15,25 +14,18 @@ delete_missing: false
 
 # control file import tasks
 skip_imports: false # whether to skip multiple file imports from inventory
-skip_import: "{{ skip_imports }}"  # whether to skip a single file import
+skip_import: "{{ skip_imports }}" # whether to skip a single file import
 
 # control file export tasks
 skip_exports: false # whether to skip multiple file exports from inventory
-skip_export: "{{ skip_exports }}"  # whether to skip a single file export
+skip_export: "{{ skip_exports }}" # whether to skip a single file export
 
 # skip slower sync task
 skip_sync: false
 
 path: "{{ item.path | default(omit) }}"
 dir_name: "{{ item.name | default(omit) }}"
-id: "{{ item.id | default(omit)}}"
-file: "{{ item.file|default('') }}"
+id: "{{ item.id | default(omit) }}"
+file: "{{ item.file | default('') }}"
 target: "{{ item.target | default(omit) }}"
 directory: "{{ item.directory | default(omit) }}"
-
-# Default homedir.  This defaults to inventory_dir for backwards compatibility reasons,
-#  even though the inventory_dir should NEVER be used to store files (should basically only contain files that can be parsed by an inventory_plugin)
-#  a better default value for homedir, would be playbook_dir:
-#       homedir: "{{ playbook_dir }}"
-#  so this is a varialb
-homedir: "{{ inventory_dir }}"

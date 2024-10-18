@@ -1,6 +1,5 @@
 ---
-
-- name: Compare Web Runtime {{ resource_id }} stanzas/entries
+- name: Compare stanzas/entries for Web Runtime {{ resource_id }}
   ibm.isam.isamcompare:
     appliance1: "{{ inventory_hostname }}"
     appliance2: "{{ master_hostname }}"
@@ -14,13 +13,13 @@
   register: ret_obj
 
 - name: Show Differences - values do not match!
-  debug: msg="{{ ret_obj['data']['difference'].split('\n') }}"
+  ansible.builtin.debug: msg="{{ ret_obj['data']['difference'].split('\n') }}"
   ignore_errors: true
   when:
     - ret_obj['data']['matches'] is defined
     - not ret_obj['data']['matches']
 
 - name: Show Log - command failed!
-  debug: msg="{{ ret_obj['log'].split('\n') }}"
+  ansible.builtin.debug: msg="{{ ret_obj['log'].split('\n') }}"
   ignore_errors: true
   when: ret_obj['failed'] is true

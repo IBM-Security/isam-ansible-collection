@@ -1,6 +1,8 @@
 ---
+driver:
+  name: default
+
 scenario:
-  name: fed_idp_part2
   test_sequence:
     - dependency
     - lint

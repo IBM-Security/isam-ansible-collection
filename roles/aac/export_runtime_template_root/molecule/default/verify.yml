@@ -2,13 +2,13 @@
 
 - name: Verify if all authentication policies were disabled
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
-    - include_vars:
+    - ansible.builtin.include_vars:
         file: "../vars/main.yml"
 
     - name: "check if file exists"
-      stat:
+      ansible.builtin.stat:
         path: "{{ homedir }}/{{ file }}"
       register: export_file_result
 

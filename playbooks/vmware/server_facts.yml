@@ -12,11 +12,11 @@
     - name: Gather all registered virtual machines
       community.vmware.vmware_vm_info:
         hostname: "{{ vcenter_hostname }}"
-        username: "{{vcenter_username}}"
-        password: "{{vcenter_password}}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
         validate_certs: false
       delegate_to: localhost
       register: vmfacts
 
-    - debug:
+    - ansible.builtin.debug:
         var: vmfacts.virtual_machines

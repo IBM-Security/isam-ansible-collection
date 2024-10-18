@@ -1,17 +1,17 @@
 ---
 - name: Federation Cookbook IdP Part 2 Ch. 18
   hosts: all
-  gather_facts: no
+  gather_facts: false
   vars:
     homedir: ""
   tasks:
-    - include_vars:
+    - ansible.builtin.include_vars:
         file: "../vars/fed_cookbook_idp_vars.yml"
         name: inventory
 
     # 18 Advanced Federation Mapping Rules
     - name: "18.1 Using HttpClient from Javascript mapping rules - get mapping rule id"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.search_mapping_rule
       vars:
         search_mapping_rule_name: "{{ inventory.update_mapping_rule_name }}"
@@ -33,7 +33,7 @@
         update_config_obj: "{{ inventory.set_federation_configuration | combine(id_mapping_obj) }}"
 
     - name: "18.1 Using HttpClient from Javascript mapping rules"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.set_federation
       vars:
         set_federation_name: "{{ inventory.set_federation_name }}"
@@ -43,7 +43,7 @@
         set_federation_templateName: ""
 
     - name: "18.2 Using the external http callout mapping module"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.set_federation
       vars:
         set_federation_name: "{{ inventory.set_federation_name }}"
@@ -54,7 +54,7 @@
 
     # 18.3.2 Configuring the LDAP Attribute Map
     - name: "18.3.2.1 Configuring a Server Connection"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.aac.set_server_connection_ldap
       vars:
         set_ldap_server_connection_name: "{{ inventory.set_ldap_server_connection_name }}"
@@ -63,19 +63,19 @@
         set_ldap_server_connection_manager: "{{ inventory.set_ldap_server_connection_manager }}"
 
     - name: "18.3.2.2 Configuring Attribute Sources"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.set_attribute_source
       vars:
         attribute_sources: "{{ inventory.attribute_sources }}"
 
     - name: "18.3.4 Configuring the STS chain for LDAP Attribute Map"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.fed.configure_sts_chain_templates
       vars:
         sts_chain_templates: "{{ inventory.sts_ldap_templates }}"
 
     - name: "18.3.4 Modify STS Test Module Chain - search for the template id by name"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.fed.get_sts_chains
       vars:
         sts_template_name: "{{ inventory.modify_sts_template_name }}"
@@ -93,7 +93,7 @@
       with_items: "{{ ret_obj.data.chainItems }}"
 
     - name: "18.3.4 Modify STS Test Module Chain - get ip_pre_ldap mapping rule id"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.search_mapping_rule
       vars:
         search_mapping_rule_name: "{{ inventory.ip_pre_ldap_rule_name }}"
@@ -103,7 +103,7 @@
         pre_mapper_id: "{{ ret_obj.data }}"
 
     - name: "18.3.4 Modify STS Test Module Chain - get ip_post_ldap mapping rule id"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.search_mapping_rule
       vars:
         search_mapping_rule_name: "{{ inventory.ip_post_ldap_rule_name }}"
@@ -113,7 +113,7 @@
         post_mapper_id: "{{ ret_obj.data }}"
 
     - name: "18.3.4 Modify STS Test Module Chain - search attribute phone id"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.search_attribute_source
       vars:
         search_attribute_source_name: "{{ inventory.attribute_source_phone }}"
@@ -123,7 +123,7 @@
         phone_id: "{{ search_attribute_source_register.data }}"
 
     - name: "18.3.4 Modify STS Test Module Chain - search attribute name id"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.search_attribute_source
       vars:
         search_attribute_source_name: "{{ inventory.attribute_source_name }}"
@@ -155,7 +155,7 @@
         new_modify_chain: ["{{ inventory.update_sts_chain | combine(chain_properties) }}"]
 
     - name: "18.3.4 Modify STS Test Module Chain"
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.fed.configure_sts_chains
       vars:
         sts_chains: "{{ new_modify_chain }}"

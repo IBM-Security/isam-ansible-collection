@@ -13,11 +13,11 @@
 - name: Get Last Boot Timestamp
   ibm.isam.isam:
     action: ibmsecurity.isam.base.firmware.get
-  check_mode: no
+  check_mode: false
   register: ret_obj
 
 - name: Extract Last Boot Timestamp
-  set_fact:
+  ansible.builtin.set_fact:
     last_boot: "{{ ret_obj.data[0].last_boot }}"
 
 # set up LMI FIPS
@@ -32,20 +32,20 @@
   when: first_steps_fips
 
 - name: Debug
-  debug:
-     var: ret_obj
+  ansible.builtin.debug:
+    var: ret_obj
 
 # Restart after FIPS if needed
 - name: Restart after enabling FIPS
   ibm.isam.isam:
-      action: ibmsecurity.isam.base.fips.restart
+    action: ibmsecurity.isam.base.fips.restart
   when:
     - first_steps_fips
     - ret_obj.data.reboot is defined
     - ret_obj.data.reboot
 
-- name: Pause for Reboot {{ fips_restart_wait_time }}mins
-  pause:
+- name: Pause for Reboot (minutes) {{ fips_restart_wait_time }}
+  ansible.builtin.pause:
     minutes: "{{ fips_restart_wait_time }}"
   when:
     - first_steps_fips
@@ -72,16 +72,16 @@
     action: ibmsecurity.isam.base.setup_complete.set
   register: ret_obj
 
-- name: debug
-  debug:
+- name: Debug
+  ansible.builtin.debug:
     var: ret_obj
 
-- name: set password
+- name: Set password
   ibm.isam.isam:
-      action: ibmsecurity.isam.base.admin.set_pw
-      isamapi:
-          'oldPassword': 'admin'
-          'sessionTimeout': "{{ lmi_session_timeout }}"
+    action: ibmsecurity.isam.base.admin.set_pw
+    isamapi:
+      oldPassword: admin
+      sessionTimeout: "{{ lmi_session_timeout }}"
   when: first_steps_admin_pwd
 
 - name: Get LMI Last Restart Timestamp
@@ -89,11 +89,11 @@
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.lmi.get
-  check_mode: no
+  check_mode: false
   register: ret_obj
 
 - name: Extract LMI Restart Timestamp
-  set_fact:
+  ansible.builtin.set_fact:
     old_start_time: "{{ ret_obj.data[0].start_time }}"
   when: not ansible_check_mode
 
@@ -105,22 +105,22 @@
   when: not ansible_check_mode
 
 - name: Wait for 1 minute
-  pause:
-      minutes: 1
+  ansible.builtin.pause:
+    minutes: 1
   when: not ansible_check_mode
 
 - name: Wait for LMI to Respond
   ibm.isam.isam:
-      action: ibmsecurity.isam.base.lmi.await_startup
-      isamapi:
-          start_time: "{{ old_start_time }}"
-          wait_time: "{{ start_config_wait_time }}"
+    action: ibmsecurity.isam.base.lmi.await_startup
+    isamapi:
+      start_time: "{{ old_start_time }}"
+      wait_time: "{{ start_config_wait_time }}"
   retries: 5
   delay: 30
   ignore_errors: true
   when: not ansible_check_mode
 
 - name: Fail Appliance if Running in Check Mode
-  fail:
+  ansible.builtin.fail:
     msg: Appliance does not have First Steps Executed. No task will run successfully so failing.
   when: ansible_check_mode

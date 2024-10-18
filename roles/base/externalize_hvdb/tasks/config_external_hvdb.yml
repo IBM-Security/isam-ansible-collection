@@ -1,12 +1,5 @@
-#def set(isamAppliance, primary_master='127.0.0.1', secondary_master=None, master_ere=None, tertiary_master=None,
-#        quaternary_master=None, dsc_external_clients=False, dsc_port=None, dsc_use_ssl=None, dsc_ssl_keyfile=None,
-#        dsc_ssl_label=None, dsc_worker_threads=64, dsc_maximum_session_lifetime=3600, dsc_client_grace_period=600,
-#        hvdb_embedded=True, hvdb_max_size=40, hvdb_db_type=None, hvdb_address=None, hvdb_port=None, hvdb_user=None,
-#        hvdb_driver_type=None, hvdb_solid_tc=None, cfgdb_embedded=True, cfgdb_db_type=None, cfgdb_address=None,
-#        cfgdb_db_name=None, cfgdb_db_secure=None, cfgdb_driver_type=None, cfgdb_solid_tc=None, first_port=2020,
-#        cfgdb_fs=None, dsc_trace_level=None, check_mode=False, force=False):
-
-- name: Configure External HVDB (using "{{ externalize_hvdb_hvdb_db_type }}" database type)
+---
+- name: Configure External HVDB for db type {{ externalize_hvdb_hvdb_db_type }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"

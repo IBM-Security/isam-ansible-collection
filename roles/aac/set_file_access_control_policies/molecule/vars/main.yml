@@ -1,0 +1,9 @@
+---
+molecule_policy_file: /location/of/the/policy/file.json
+molecule_updated_policy_file: /location/of/the/updated/policy/file.json
+molecule_attributesrequired: false
+molecule_add_description: ""
+molecule_update_description: updated comment
+molecule_dialect: urn:oasis:names:tc:xacml:2.0:policy:schema:os
+molecule_predefined: false
+molecule_name: test6

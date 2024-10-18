@@ -1,10 +1,10 @@
 ---
 - name: Converge - update
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Testing update - create_obligation"
-      include_role:
+      ansible.builtin.include_role:
         name: create_obligation
       vars:
         authentication_obligations:

@@ -1,7 +1,7 @@
 ---
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         restart_reverseproxy_instances

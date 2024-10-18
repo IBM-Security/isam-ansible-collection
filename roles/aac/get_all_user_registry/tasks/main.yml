@@ -4,6 +4,6 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.aac.user_registry.user.get_all"
+    action: ibmsecurity.isam.aac.user_registry.user.get_all
     isamapi:
   register: ret_obj

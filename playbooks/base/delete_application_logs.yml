@@ -1,9 +1,10 @@
 ---
-# main task to delete all appliaction log files, a contaisn filter for the name and a path parameter are available.
+# main task to delete all application log files, a contaisn filter for the name and a path parameter are available.
 # eg.:
 # -e path=federation/runtime -e name=trace
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Delete application log files
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.base.delete_application_logs
       tags: delete_application_logs

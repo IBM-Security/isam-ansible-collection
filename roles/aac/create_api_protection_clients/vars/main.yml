@@ -1,9 +1,0 @@
----
-
-definition_name: testapi1
-client_name: TestClient
-companyName: IBM demo client for OAuth flows
-redirectUri: https://localhost
-contactType: ADMINISTRATIVE
-clients:
-  - name: TestClient

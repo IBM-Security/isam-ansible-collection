@@ -1,29 +1,24 @@
+---
 galaxy_info:
   author: IBM
   company: IBM
 
+  description: Set root user ldap password
+
   license: Apache
 
-  min_ansible_version: '2.2'
+  min_ansible_version: "2.2"
   platforms:
-    - name: Fedora
+    - name: GenericLinux
       versions:
-        - 30
-        - 29
-        - 28
-        - 27
-    - name: EL
-      versions:
-        - 8
-        - 7
-        - 6
+        - all
 
   galaxy_tags:
-  - isam
-  - ibm
-  - embeddedldap
-  - root
-  - set
+    - isam
+    - ibm
+    - embeddedldap
+    - root
+    - set
 
 dependencies:
   - ibm.isam.common_handlers

@@ -2,14 +2,14 @@
 
 - name: Verify - add
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
-    - include_vars:
+    - ansible.builtin.include_vars:
         file: "../../vars/main.yml"
         name: inventory
 
     - name: "Get the obligation {{ inventory.name }}"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_obligations_by_name"
       vars:
         get_obligations_by_name:

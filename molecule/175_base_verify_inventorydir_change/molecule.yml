@@ -1,5 +1,8 @@
+---
+driver:
+  name: default
+
 scenario:
-  name: 175_base_verify_inventorydir_change
   test_sequence:
     - lint
     # - prepare

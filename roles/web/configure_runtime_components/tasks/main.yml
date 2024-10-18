@@ -9,9 +9,9 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.web.runtime.configuration.entry.{{ item.method }}"
+    action: ibmsecurity.isam.web.runtime.configuration.entry.{{ item.method }}
     isamapi: "{{ item | ibm.isam.exclude('method') }}"
-  with_items: "{{ policyserver_runtime.entries if (policyserver_runtime.entries is defined and (policyserver_runtime.entries != None)) else [] }}"
+  with_items: "{{ policyserver_runtime.entries | default([]) }}"
   when: >
     item.method is defined and
     item.resource_id == resource_id and
@@ -21,7 +21,9 @@
       (item.entry_id is defined)
     )
   loop_control:
-    label: "( method: [{{ item.method }}], resource_id: [{{ item.resource_id }}], stanza_id: [{{ item.stanza_id }}], entries: [{{ item.entries if item.entries is defined else 'None'}}], entry_id: [{{ item.entry_id if item.entry_id is defined else 'None'}}], value_id: [{{ item.value_id if item.value_id is defined else 'None'}}])"
+    label: "( method: [{{ item.method }}], resource_id: [{{ item.resource_id }}],
+      stanza_id: [{{ item.stanza_id }}], entries: [{{ item.entries | default('None') }}],
+      entry_id: [{{ item.entry_id | default('None') }}], value_id: [{{ item.value_id | default('None') }}])"
   notify:
     - Commit Changes
     - Restart Web Runtime

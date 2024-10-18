@@ -1,10 +1,8 @@
 ---
 - name: PDadmin
   hosts: all
-  gather_facts: no
+  gather_facts: false
   tasks:
-    - name: "Execute pdadmin"
-      vars:
-        enable_ansible_merge_vars: true
-      include_role:
-        name: web/execute_pdadmin
+    - name: Execute pdadmin
+      ansible.builtin.include_role:
+        name: ibm.isam.web.execute_pdadmin

@@ -16,6 +16,8 @@ Scenarios with ch# corresponds to individual chapters from the cookbook.
 If you would like to run all the chapters, then the sequence to run the playbooks is
 fed_idp_part1 -> fed_sp_part1 -> fed_sp_part1 -> fed_sp_part2
 
+The goal for the `web` scenario is to be able to test all reverse proxy related playbooks/roles, but it's a work in progress.
+
 Requirements
 ------------
 

@@ -1,3 +1,4 @@
+---
 # There should be just one "id" with value of "1" - this step is avoid hardcoding id
 - name: Query Existing Audit Configuration for "id"
   ibm.isam.isam:

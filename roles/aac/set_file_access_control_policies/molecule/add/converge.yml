@@ -1,10 +1,10 @@
 ---
 - name: Converge
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Add policy using set_file_acces_control_policies"
-      include_role:
+      ansible.builtin.include_role:
         name: "ibm.isam.aac.set_file_access_control_policies"
       vars:
         accesscontrol_policies:

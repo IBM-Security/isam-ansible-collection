@@ -1,10 +1,10 @@
 ---
 # create
-#   set point of contact profile:
+#
 #    set_current_point_of_contact_name: Non-Access Manager Username, Access Manager groups and extended attributes
-
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Set point of contact profile
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.set_current_point_of_contact
       tags: set_current_point_of_contact

@@ -1,8 +1,8 @@
 ---
 # main task for exporting certificates
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         export_personal_certificates
@@ -39,27 +39,27 @@
   when: help is defined
 
 - name: Make sure all local download directory exists
-  file:
-      path: "{{ (homedir +'/'+ item.file) | dirname }}"
-      recurse: yes
-      state: directory
+  ansible.builtin.file:
+    path: "{{ (homedir + '/' + item.file) | dirname }}"
+    recurse: true
+    state: directory
   delegate_to: localhost
   loop: "{{ export_personal_certificates }}"
   loop_control:
-    label: "{{ (homedir +'/'+ item.file|default('')) | dirname }}"
+    label: "{{ (homedir + '/' + item.file | default('')) | dirname }}"
   when:
     - item.file is defined
     - not (skip_exports | bool)
 
-- name: "Make sure single local download directory exists: {{ ((file if(file is defined and (file | regex_search('^/')) == '/') else (inventory_dir +'/'+ file) | dirname) if(file is defined) else 'Skipping') }}"
-  file:
-      path: "{{ (homedir +'/'+ file) | dirname }}"
-      recurse: yes
-      state: directory
+- name: "Make sure single local download directory exists: {{ (homedir + '/' + file) | dirname }}"
+  ansible.builtin.file:
+    path: "{{ (homedir + '/' + file) | dirname }}"
+    recurse: true
+    state: directory
   delegate_to: localhost
   when: file is defined
 
-- name: "Export certificates from inventory [-e file=<path/to/download/certificate> -e kdb_id=<kdb> -e cert_id=<cert>]"
+- name: Export certificates from inventory [-e file=<path/to/download/certificate> -e kdb_id=<kdb> -e cert_id=<cert>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -67,12 +67,12 @@
     isamapi:
       kdb_id: "{{ item.kdb_id }}"
       cert_id: "{{ item.cert_id }}"
-      filename: "{{ homedir +'/'+ item.file }}"
+      filename: "{{ homedir + '/' + item.file }}"
   loop: "{{ export_personal_certificates }}"
   when:
     - not (skip_exports | bool)
 
-- name: "Export single certificate to {{ homedir +'/'+ file|default('') }} [-e file=<path/to/download/certificate> -e kdb_id=<kdb> -e cert_id=<cert>]"
+- name: Export single certificate to {{ homedir + '/' + file | default('') }} [-e file=<path/to/download/certificate> -e kdb_id=<kdb> -e cert_id=<cert>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

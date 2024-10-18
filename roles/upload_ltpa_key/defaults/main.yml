@@ -1,3 +1,4 @@
+---
 # Provide the id and filename of the LTPA keys to upload
 # ltpa_keys:
 #   - ltpa_key_id: "LTPA Key 1"
@@ -6,4 +7,4 @@
 #     ltpa_key_keyfile: "ltpa-keyfile-2"
 
 # Comment to be used for creating a snapshot file
-upload_ltpa_key_comment: "Automated Snapshot Before Uploading LTPA Keys"
+upload_ltpa_key_comment: Automated Snapshot Before Uploading LTPA Keys

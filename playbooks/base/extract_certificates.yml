@@ -1,5 +1,4 @@
 ---
-
 # playbook for extracting certificates
 # Example inventory:
 #  extract_certificates:
@@ -7,9 +6,9 @@
 #      cert_id: "{{ item.cert_id }}"
 #      password: "{{ item.password }}"
 #      filename: "{{ inventory_dir }}/{{ item.filename }}"
-
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Extract certificates
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.base.extract_certificates
       tags: extract_certificates

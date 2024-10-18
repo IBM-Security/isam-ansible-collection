@@ -1,3 +1,4 @@
+---
 - name: Create File in Management Root {{ create_mgmt_root_file_name }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -14,4 +15,4 @@
     - create_mgmt_root_file_instance_id is defined
     - create_mgmt_root_file_id is defined
   notify:
-  - Commit Changes
+    - Commit Changes

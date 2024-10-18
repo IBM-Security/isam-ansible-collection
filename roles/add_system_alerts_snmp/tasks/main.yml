@@ -1,12 +1,11 @@
 ---
-
 - name: Configure System Alert to SNMP
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.system_alerts.snmp.add
     isamapi:
-      name: "SNMP Alert to {{ add_system_alerts_snmp_trapAddress }}"
+      name: SNMP Alert to {{ add_system_alerts_snmp_trapAddress }}
       trapAddress: "{{ add_system_alerts_snmp_trapAddress }}"
       trapCommunity: "{{ add_system_alerts_snmp_trapCommunity }}"
       trapNotificationType: "{{ add_system_alerts_snmp_trapNotificationType }}"
@@ -20,7 +19,7 @@
       privPassPhrase: "{{ add_system_alerts_snmp_privPassPhrase }}"
       informSnmpEngineID: "{{ add_system_alerts_snmp_informSnmpEngineID }}"
       informTimeout: "{{ add_system_alerts_snmp_informTimeout }}"
-      comment: "SNMP Alert to {{ add_system_alerts_snmp_trapAddress }}"
+      comment: SNMP Alert to {{ add_system_alerts_snmp_trapAddress }}
   when: add_system_alerts_snmp_trapAddress is defined
   register: alertObj
   notify: Commit Changes

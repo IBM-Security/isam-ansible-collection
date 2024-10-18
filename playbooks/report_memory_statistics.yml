@@ -2,17 +2,19 @@
 # Create a Report on Memory Usage
 - name: Get Memory Details
   hosts: all
-  no_log: False
+  no_log: false
   gather_facts: true
   vars:
-    log_level: "CRITICAL"
-    statistics_duration: "6d"
-    gen_report_template: "report_memory_statistics.csv"
+    log_level: CRITICAL
+    statistics_duration: 6d
+    gen_report_template: report_memory_statistics.csv
     gen_report_dir: "~"
     gen_report_output_format: csv
   tasks:
-    - import_role:
+    - name: Get memory statistics
+      ansible.builtin.import_role:
         name: ibm.isam.get_memory_statistics
 
-    - import_role:
+    - name: Generate report
+      ansible.builtin.import_role:
         name: ibm.isam.gen_report

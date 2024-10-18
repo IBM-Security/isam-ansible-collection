@@ -2,11 +2,11 @@
 
 - name: Verify - update advanced configuration
   hosts: all
-  gather_facts: no
+  gather_facts: False
 
   tasks:
     - name: "Get advanced configuration by key - basicLdapUser.ldap.maxBinds"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_advanced_configurations_by_key"
       vars:
         get_advanced_configuration_keys:

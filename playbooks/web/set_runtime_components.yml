@@ -1,13 +1,14 @@
 ---
 # set
-#   set runtime components
+#
 #   Example:
 #     policy_server_runtime:
 #       entries:
 #         - { resource_id: "ldap.conf", stanza_id: "bind-credentials", entry_id: "bind-dn", value_id: "{{ ldap_dn }}" }
 #         - { resource_id: "ldap.conf", stanza_id: "bind-credentials", entry_id: "bind-pwd", value_id: "{{ ldap_pwd }}" }
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Set runtime component
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.web.set_runtime_components
       tags: set_runtime_components

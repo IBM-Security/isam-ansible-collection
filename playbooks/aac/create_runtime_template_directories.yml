@@ -1,11 +1,12 @@
 ---
-# Create runtime template directory
+#
 #   Example:
 #    runtime_templates:
 #      - type: dir
 #        path: C/authsvc/api
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Create runtime template directory
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.create_runtime_template_directories
       tags: create_runtime_template_directories

@@ -1,8 +1,8 @@
 ---
 # Configure
-#   configure sysaccounts
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Configure sysaccounts
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.base.configure_sysaccounts
       tags: configure_sysaccounts

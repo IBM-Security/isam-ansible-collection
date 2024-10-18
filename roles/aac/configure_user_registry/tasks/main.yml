@@ -1,10 +1,9 @@
 ---
-
 # main task to configure user registry
 
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         configure_user_registry
@@ -72,17 +71,13 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.aac.user_registry.{{ item.registry_action }}"
+    action: ibmsecurity.isam.aac.user_registry.{{ item.registry_action }}
     isamapi: "{{ item | ibm.isam.exclude('registry_action') }}"
   when:
     - item.registry_action is defined
     - item.registry_action == registry_action
   loop: "{{ user_registry }}"
   loop_control:
-    label: "{
-      'registry_action': {{ item.registry_action }}
-      {{ (', ' + \"'id'\" + ': ' + item.id) if item.id is defined }}
-      {{ (', ' + \"'password'\" + ': ********') if item.password is defined }}
-    }"
+    label: "{ 'registry_action': {{ item.registry_action | default('Missing') }},  {'id': {{ item.id | default('No id') }} }"
   notify: Commit Changes
   register: ret_obj

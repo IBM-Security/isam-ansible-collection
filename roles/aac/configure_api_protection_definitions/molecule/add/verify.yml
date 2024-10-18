@@ -2,14 +2,14 @@
 
 - name: Verify
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
-    - include_vars:
+    - ansible.builtin.include_vars:
         file: "../../vars/main.yml"
         name: inventory
 
     - name: "Include get_api_protection_definitions"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_api_protection_definitions"
       vars:
         get_api_protection_definitions: "{{ inventory.molecule_definitions }}"

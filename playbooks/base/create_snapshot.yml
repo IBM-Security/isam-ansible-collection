@@ -1,8 +1,8 @@
 ---
 # Create
-#   create snapshot
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Create snapshot
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.base.create_snapshot
       tags: snapshot

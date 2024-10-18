@@ -1,3 +1,4 @@
+---
 # main task to import sso key files
 # Example:
 #   sso_keys:
@@ -15,5 +16,5 @@
     - (item.file | basename) == sso_key_name
   with_items: "{{ sso_keys }}"
   loop_control:
-    label: "{ id: \"{{ item.file | basename }}\", filename: \"{{ homedir }}/{{ item.file }}\" }"
+    label: '{ id: "{{ item.file | basename }}", filename: "{{ homedir }}/{{ item.file }}" }'
   notify: Commit Changes

@@ -1,13 +1,13 @@
 ---
 - name: Converge
   hosts: all
-  gather_facts: no
+  gather_facts: false
   vars:
     homedir: "{{ playbook_dir }}" # this is this directory for molecule
 
   tasks:
     - name: Test configure certificate databases
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.base.configure_certificate_databases
       vars:
         certificate_databases:
@@ -29,7 +29,7 @@
             stash: files/ssl/moleculestash/keystore.sth
           # Import certificate database from ZIP file
           # TODO: this fails
-          #- db_action: import_db
+          # - db_action: import_db
           #  kdb: molecule.p12  # required relative path + filename inside the ZIP
           #  stash: molecule.sth # required relative path + filename inside the ZIP
           #  zip: files/ssl/molecule_keystore.zip # file containing KDB and Stash file above
@@ -45,7 +45,7 @@
           - db_action: delete
             cert_dbase_id: New_Registry_Keystore
     - name: Test configure personal certificates
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.base.configure_personal_certificates
       vars:
         personal_certificates:
@@ -66,10 +66,11 @@
             size: '2048'
             signature_algorithm: 'SHA512WithRSA'
           # Setting a personal certificate as default in a certificate database
-          - cert_action: set
-            kdb_id: pdsrv
-            cert_id: sample_label
-            default: 'yes' # optional default: 'no'
+          # This is deprecated in 10.0.8
+          #- cert_action: set
+          #  kdb_id: pdsrv
+          #  cert_id: sample_label
+          #  default: 'yes' # optional default: 'no'
           # Exporting a personal certificate from a certificate database
           - cert_action: export_cert
             kdb_id: pdsrv
@@ -93,7 +94,7 @@
             cert_id: runtime
 
     - name: Test export personal certificates
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.base.export_personal_certificates
       vars:
         export_personal_certificates:
@@ -102,7 +103,7 @@
            file: files/ssl/isva1005.exported.cert
 
     - name: Test extract certificates
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.base.extract_certificates
       vars:
         extract_certificates:
@@ -112,7 +113,7 @@
             password: passw0rd
 
     - name: Test certificate requests
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.base.configure_certificate_requests
       vars:
         certificate_requests:
@@ -124,14 +125,15 @@
             size: '2048'
             signature_algorithm: 'SHA512WithRSA'
           # Exporting a certificate request from a certificate database.
-          # This certificate must be signed by CA and re-importet through personal certificate receive method (see configure_personal_certificates role/playbook)
+          # This certificate must be signed by CA and re-importet through personal certificate receive method
+          # (see configure_personal_certificates role/playbook)
           - cert_action: export_cert
             kdb_id: pdsrv
             cert_id: CN=weblinux.Raleigh.ibm.com,O=ibm,OU=IBMHTTP Server,L=RTP,ST=NC,C=US
             filename: files/out/certificate_request.csr # absolute or relative path supported
 
-    - name: "Test configure signer certificates"
-      include_role:
+    - name: Test configure signer certificates
+      ansible.builtin.include_role:
         name: "ibm.isam.base.configure_signer_certificates"
       vars:
         signer_certificates:
@@ -153,7 +155,8 @@
             label: runtime
             server: localhost
             port: 443
-            check_remote: False # check_remote controls if ansible should check remote certificate by retrieving it or simply by checking for existence of the label in the kdb
+            check_remote: False # check_remote controls if ansible should check remote certificate by retrieving it or
+                                # simply by checking for existence of the label in the kdb
           # export a certificate to local directory
           - cert_action: export_cert
             kdb_id: pdsrv
@@ -164,8 +167,8 @@
             kdb_id: pdsrv
             cert_id: runtime
 
-    - name: "Test import signer certificates"
-      include_role:
+    - name: Test import signer certificates
+      ansible.builtin.include_role:
         name: "ibm.isam.base.import_signer_certificates"
       vars:
         import_signer_certificates:

@@ -1,13 +1,6 @@
+---
 # Default variables to configure certificate requests
 certificate_requests: []
-
 # default variables to limit execution at runtime
 cert_action: "{{ item.cert_action }}"
 kdb_id: "{{ item.kdb_id }}"
-
-# Default homedir.  This defaults to inventory_dir for backwards compatibility reasons,
-#  even though the inventory_dir should NEVER be used to store files (should basically only contain files that can be parsed by an inventory_plugin)
-#  a better default value for homedir, would be playbook_dir:
-#       `homedir: "{{ playbook_dir }}"`
-#  so this is a variable
-homedir: "{{ inventory_dir }}"

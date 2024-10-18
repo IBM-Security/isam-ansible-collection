@@ -1,3 +1,4 @@
+---
 - name: Create Realms Subsection Properties (1st level) (-e kerberos_action=configure_properties)
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
@@ -13,10 +14,10 @@
     - property.propname == propname
     - property.propvalue == propvalue
     - subsections_1st_level.1.name == subsection
-    - kerberos_action == 'configure_properties' or
-      kerberos_action == 'all'
+    - kerberos_action == 'configure_properties' or kerberos_action == 'all'
   loop: "{{ subsections_1st_level.1.properties }}"
   loop_control:
     loop_var: property
-    label: "{ \"realm\": \"{{ subsections_1st_level.0.realm }}\", \"subsection\": \"{{ subsections_1st_level.1.name if (subsections_1st_level.1.name) }}\", \"propname\": \"{{ property.propname if (property.propname is defined) }}\", \"propvalue\": \"{{ property.propvalue if (property.propvalue is defined) }}\" }"
+    label: '{ "realm": "{{ subsections_1st_level.0.realm }}", "subsection": "{{ subsections_1st_level.1.name if (subsections_1st_level.1.name) }}", "propname": "{{
+      property.propname if (property.propname is defined) }}", "propvalue": "{{ property.propvalue if (property.propvalue is defined) }}" }'
   notify: Commit Changes

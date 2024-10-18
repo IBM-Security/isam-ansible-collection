@@ -2,27 +2,27 @@
 
 - name: Verify if all authentication policies were disabled
   hosts: all
-  gather_facts: no
+  gather_facts: False
   vars:
     true_list: {}
     false_list: {}
   tasks:
-    - include_vars:
+    - ansible.builtin.include_vars:
         file: "../../vars/main.yml"
         name: inventory
 
     - name: "Retrieve all authentication policies"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_all_authentication_policies"
 
     - name: set fact
-      set_fact:
+      ansible.builtin.set_fact:
         authentication_policies: "{{ inventory.authentication_policies }}"
         whitelist_authentication_policies: "{{ inventory.whitelist_authentication_policies }}"
 
     - name: "Do the list magic. Combine the explicit whitelist with the
              authentication policies you defined elsewhere"
-      set_fact:
+      ansible.builtin.set_fact:
         filtered_definedPolicies:
           "{{ ret_obj.data | json_query('[*].name') }}"
         filtered_authentication_policies:
@@ -31,38 +31,38 @@
               json_query('[*].name') }}"
 
     - name: Debug defined policies after json_query
-      debug:
-        msg: "{{ filtered_definedPolicies| default([]) | to_nice_yaml }}"
+      ansible.builtin.debug:
+        msg: "{{ filtered_definedPolicies | default([]) | to_nice_yaml }}"
         verbosity: 2
       when: filtered_definedPolicies is defined
 
     - name: Debug authentication policies
-      debug:
-        msg: "{{ filtered_authentication_policies| default([]) | to_nice_yaml }}"
+      ansible.builtin.debug:
+        msg: "{{ filtered_authentication_policies | default([]) | to_nice_yaml }}"
         verbosity: 2
       when: filtered_authentication_policies is defined
 
     - name: Do the list magic.  The outcome is all policies to disable
-      set_fact:
+      ansible.builtin.set_fact:
         filtered_difference: "{{ filtered_definedPolicies |
                                  difference(filtered_authentication_policies) }}"
 
     - name: Debug the outcome of the difference.  These policies will be disabled.
-      debug:
-        msg: "{{ filtered_difference| default([]) | to_nice_yaml }}"
+      ansible.builtin.debug:
+        msg: "{{ filtered_difference | default([]) | to_nice_yaml }}"
       when: filtered_difference is defined
 
     - name: "Check to see if enabled status is as expected on whitelisted policies"
-      include_tasks: check_for_all_true_status.yml
+      ansible.builtin.include_tasks: check_for_all_true_status.yml
       when:
         - wrong_policy_status is not defined
       loop: "{{ filtered_authentication_policies }}"
 
-    - debug:
+    - ansible.builtin.debug:
         var: policy_enabled_status_result
 
     - name: "Check to see if enabled status is as expected on disabled policies"
-      include_tasks: check_for_all_false_status.yml
+      ansible.builtin.include_tasks: check_for_all_false_status.yml
       when:
         - wrong_policy_status is not defined
       loop: "{{ filtered_difference }}"

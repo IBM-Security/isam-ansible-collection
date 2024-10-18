@@ -1,7 +1,8 @@
 ---
 # main task to export all appliaction log files
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Export application log files
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.export_application_logs
       tags: export_application_logs

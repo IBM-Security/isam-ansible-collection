@@ -3,14 +3,14 @@
 
 - name: Verify
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
-    - include_vars:
+    - ansible.builtin.include_vars:
         file: "../../vars/main.yml"
         name: inventory
 
     - name: "Include get_access_control_policy_attachments"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_access_control_policy_attachments"
       vars:
         get_access_control_policy_attachments:
@@ -18,20 +18,20 @@
             resourceUri: "{{ inventory.resourceUri }}"
 
     - name: "set fact"
-      set_fact:
+      ansible.builtin.set_fact:
         lista: []
 
     - name: "set fact"
-      set_fact:
+      ansible.builtin.set_fact:
         listb: []
 
     - name: "set fact"
-      set_fact:
+      ansible.builtin.set_fact:
         lista: "{{ lista }} + ['{{ item.name }} {{ item.type }}']"
       with_items: "{{ inventory.set_attachments }}"
 
     - name: "set fact"
-      set_fact:
+      ansible.builtin.set_fact:
         listb: "{{ listb }} + ['{{ item.name }} {{ item.type }}']"
       with_items: "{{ ret_obj.results.0.data.policies }}"
 

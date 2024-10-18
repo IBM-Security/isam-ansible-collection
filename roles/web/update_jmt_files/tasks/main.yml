@@ -10,11 +10,10 @@
     action: ibmsecurity.isam.web.junction_mapping.update
     isamapi:
       id: "{{ item.file | basename }}"
-      jmt_config_data: "{{ lookup('file', homedir + '/' + item.file) | replace('\n', '\\n') | replace('\"','\\\"') }}"
+      jmt_config_data: "{{ lookup('file', homedir + '/' + item.file) | replace('\n', '\\n') | replace('\"', '\\\"') }}"
   loop: "{{ jmt_files }}"
   loop_control:
-    label: "Upload {{ item.file|default(None) }}"
+    label: Upload {{ item.file | default(None) }}
   when:
     - item.file is defined
-    - (item.file | basename) == name
   notify: Commit Changes

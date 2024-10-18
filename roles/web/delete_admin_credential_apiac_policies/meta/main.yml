@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: IBM
+  description: Role to delete the admin credential after running other apiac commands
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: "2.15"
+
+  galaxy_tags:
+    - isam
+    - ibm
+    - delete
+    - apiac
+    - web
+    - credential
+
+dependencies:
+  - role: ibm.isam.common_handlers

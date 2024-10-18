@@ -1,7 +1,7 @@
 ---
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         create_reverseproxy_instances
@@ -14,8 +14,8 @@
         2) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/web/create_reverseproxy_instances.yml
-        ansible-playbook -i [...] playbooks/ansible_collections/web/create_reverseproxy_instances.yml -e inst_name=default // limit the creation of reverse proxy instances at runtime
+        ansible-playbook -i [...] ibm.isam.web.create_reverseproxy_instances.yml
+        ansible-playbook -i [...] ibm.isam.web.create_reverseproxy_instances.yml -e inst_name=default
 
       INVENTORY
       ==========
@@ -56,9 +56,9 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.instance.add
-    isamapi: "{{ item.configuration | combine({ 'inst_name': item.inst_name })}}"
+    isamapi: "{{ item.configuration | combine({'inst_name': item.inst_name}) }}"
   with_items: "{{ instances }}"
   when: item.configuration is defined and item.inst_name == inst_name
   loop_control:
-   label: "{'inst_name': {{ item.inst_name }}{{ (', ' + \"'ip_address'\" + ': ' + item.configuration.ip_address)  if item.configuration.ip_address is defined }}}"
+    label: "{'inst_name': {{ item.inst_name }}, 'ip_address': {{ item.configuration.ip_address | default('') }} }"
   notify: Commit Changes

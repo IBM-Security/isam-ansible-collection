@@ -1,0 +1,17 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  vars:
+    molecule_name: test2
+  tasks:
+    - name: Get reverse proxy stanza
+      ansible.builtin.include_role:
+        name: ibm.isam.web.get_reverseproxy_stanza
+      vars:
+        inst_name: default
+        stanza_id: acnt-mgt
+
+    - name: Debug
+      ansible.builtin.debug:
+        var: reverseproxy_stanza.data

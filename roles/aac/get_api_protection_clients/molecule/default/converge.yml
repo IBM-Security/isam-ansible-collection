@@ -1,13 +1,13 @@
 ---
 - name: Converge
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Include get_api_protection_client"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_api_protection_clients"
       vars:
         get_api_protection_clients: "{{ clients }}"
 
-    - debug:
+    - ansible.builtin.debug:
         var: ret_obj

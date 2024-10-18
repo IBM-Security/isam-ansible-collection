@@ -1,2 +1,3 @@
+---
 # default variables for policy server configuration
 policyserver_runtime: []

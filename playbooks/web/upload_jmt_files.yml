@@ -1,11 +1,12 @@
 ---
 # upload
-#   upload jmt files
+#
 #   Example:
 #     jmt_files
 #       - file: uploads/jmt/jmt.conf
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Upload jmt files
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.web.upload_jmt_files
       tags: upload_jmt_files

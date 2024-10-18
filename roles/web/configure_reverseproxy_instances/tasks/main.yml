@@ -1,7 +1,7 @@
 ---
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         configure_reverseproxy_instances
@@ -69,7 +69,8 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.web.reverse_proxy.configuration.{{ 'entry' if (item.1.entries is defined or item.1.entry_id is defined) else 'stanza'}}.{{ item.1.method }}"
+    action: ibmsecurity.isam.web.reverse_proxy.configuration.{{ 'entry' if (item.1.entries is defined or item.1.entry_id is defined) else 'stanza'}}.{{ item.1.method
+      }}
     isamapi: "{{ item.1 | ibm.isam.exclude('method') | combine({ 'reverseproxy_id': item.0.inst_name }) | ibm.isam.include_only(entry_id) }}"
   with_subelements:
     - "{{ instances }}"
@@ -77,11 +78,11 @@
     - skip_missing: true
   when:
     - item.0.inst_name == inst_name
-    - item.1.method|default('set') == method
+    - item.1.method | default('set') == method
     - item.1.stanza_id == stanza_id
-    - (item.1.entries is defined and ((item.1.entries | ibm.isam.include_only(entry_id)) != [])) or
-      (item.1.entry_id is defined and item.1.entry_id == entry_id and entry_id != '') or
-      (item.1.entries is not defined and item.1.entry_id is not defined and entry_id == '')
+    - (item.1.entries is defined and ((item.1.entries | ibm.isam.include_only(entry_id)) != [])) or (item.1.entry_id is defined and item.1.entry_id == entry_id and
+      entry_id != '') or (item.1.entries is not defined and item.1.entry_id is not defined and entry_id == '')
   loop_control:
-    label: "{'method': {{ item.1.method | default('set') }}, inst_name: {{ item.0.inst_name }}, stanza_id: {{ item.1.stanza_id }}, entries: {{ (item.1.entries|default([]) | list | map('first') | join(',') )}} }"
+    label: "{'method': {{ item.1.method | default('set') }}, inst_name: {{ item.0.inst_name }}, stanza_id: {{ item.1.stanza_id }}, entries: {{ (item.1.entries | default([])
+      | list | map('first') | join(',') ) }} }"
   notify: Commit Changes

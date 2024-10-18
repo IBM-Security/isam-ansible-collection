@@ -1,3 +1,4 @@
+---
 - name: Get Reverse Proxies
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -6,5 +7,5 @@
   register: ret_obj
 
 - name: Set variable for use by rest of playbook
-  set_fact:
+  ansible.builtin.set_fact:
     reverseproxy_ret_obj: "{{ ret_obj }}"

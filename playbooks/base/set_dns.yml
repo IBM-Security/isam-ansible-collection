@@ -1,8 +1,7 @@
 ---
-# Create
-#   configure dns servers
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Configure dns servers
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.config_dns
       tags: dns

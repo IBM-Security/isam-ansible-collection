@@ -1,3 +1,4 @@
+---
 - name: Import URL Mapping (dynurl) - {{ import_url_mapping_id }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -10,4 +11,4 @@
   notify: Commit Changes
 
 # Commit changes - changes need to take effect for next steps
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers

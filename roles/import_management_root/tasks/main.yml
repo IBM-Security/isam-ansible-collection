@@ -1,3 +1,4 @@
+---
 - name: Import Management Root Files into {{ import_management_root_instance_id }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -10,4 +11,4 @@
   with_items: "{{ import_management_root_idandfilename }}"
   when: import_management_root_idandfilename is defined and import_management_root_instance_id is defined
   notify:
-  - Commit Changes
+    - Commit Changes

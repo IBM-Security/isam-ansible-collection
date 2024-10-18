@@ -2,7 +2,7 @@
 DOCUMENTATION:
   name: to_nice_xml
   author: IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>
-  version_added: 'historical'
+  version_added: historical
   short_description: Transform yaml list e.g. (authentication policy) to nicely formatted xml
   description:
     - Transform yaml list to nice xml

@@ -2,12 +2,12 @@
 
 galaxy_info:
   author: IBM
-  description: Role to confiure access control policy attachments
+  description: Role to configure access control policy attachments
   company: IBM
 
   license: Apache
 
-  min_ansible_version: '2.2'
+  min_ansible_version: "2.2"
 
   galaxy_tags:
     - isam

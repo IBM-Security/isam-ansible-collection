@@ -1,8 +1,8 @@
 ---
 # Configure
-#   configure authentication mapping mechanisms
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Configure authentication mapping mechanisms
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.aac.configure_authentication_mechanisms
       tags: configure_authentication_mechanisms

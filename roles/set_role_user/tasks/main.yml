@@ -1,6 +1,7 @@
+---
 # Example to add an LDAP user to the Security Administrator management authorization role group
 # - name: set management authorization role user
-#   include_role:
+#   ansible.builtin.include_role:
 #     name: set_role_user
 #   vars:
 #     set_role_group_name: Security Administrator

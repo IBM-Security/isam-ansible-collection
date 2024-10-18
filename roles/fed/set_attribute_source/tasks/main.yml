@@ -6,7 +6,7 @@
     action: ibmsecurity.isam.base.snapshots.create
     isamapi:
       comment: "{{ add_attribute_source_comment }}"
-  when: add_attribute_source_snapshot|bool
+  when: add_attribute_source_snapshot | bool
 
 - name: Set Attribute Sources
   ibm.isam.isam:

@@ -4,29 +4,29 @@
 #
 - name: Apply Common Configuration to all Appliances
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: first steps
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.base.first_steps
       tags: ["first", "steps"]
       vars:
         first_steps_fips: False
         first_steps_admin_pwd: False
     - name: network
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.base.configure_interfaces
       tags: ["ipv4"]
       when:
         - interfaces is defined
     - name: network dhcp
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.base.configure_dhcp
       tags: ["dhcp"]
       when:
         - interfaces is defined
     - name: set hostname
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.set_network_hostname
       tags: ["hostname"]
       vars:

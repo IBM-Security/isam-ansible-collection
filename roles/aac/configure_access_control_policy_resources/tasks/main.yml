@@ -1,5 +1,4 @@
 ---
-
 # main task to configure access control policies
 # example:
 #   access_control_policy_resources:

@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: IBM
   description: Role that configures a Policy Server
@@ -5,14 +6,14 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: '2.2'
+  min_ansible_version: "2.2"
 
   galaxy_tags:
-  - isam
-  - ibm
-  - web
-  - runtime
-  - policyserver
+    - isam
+    - ibm
+    - web
+    - runtime
+    - policyserver
 
 dependencies:
   - role: ibm.isam.common_handlers

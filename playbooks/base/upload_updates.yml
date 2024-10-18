@@ -1,11 +1,10 @@
 ---
-# Add
-#   add interfaces by following inventory structure:
 #   Example:
 #      updates:
 #        - file: uploads/updates/90x.pkg
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Upload updates
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.base.upload_updates
       tags: upload_updates

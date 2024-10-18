@@ -5,7 +5,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.fixpack.install
     isamapi:
-      file: "{{ (homedir=='')|ternary('',homedir + '/') }}{{ item.file }}"
+      file: "{{ (homedir == '') | ternary('', homedir + '/') }}{{ item.file }}"
   register: fpresult
   failed_when: fpresult.rc != 0
 

@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: IBM
   description: Role that executes pdadmin commands against Policy Server
@@ -5,25 +6,17 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: '2.2'
+  min_ansible_version: "2.2"
   platforms:
-    - name: Fedora
+    - name: GenericLinux
       versions:
-        - 30
-        - 29
-        - 28
-        - 27
-    - name: EL
-      versions:
-        - 8
-        - 7
-        - 6
+        - all
 
   galaxy_tags:
-  - isam
-  - ibm
-  - policyserver
-  - pdadmin
+    - isam
+    - ibm
+    - policyserver
+    - pdadmin
 
 dependencies:
   - ibm.isam.common_handlers

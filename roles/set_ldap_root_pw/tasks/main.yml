@@ -1,4 +1,5 @@
-- name: set admin password
+---
+- name: Set admin password
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"

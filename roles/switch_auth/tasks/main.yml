@@ -1,3 +1,4 @@
+---
 # Execute steps to switch appliance to external LDAP based authentication
 
 - name: Snapshot Before Switch to External LDAP
@@ -6,17 +7,17 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.snapshots.create
     isamapi:
-      comment: "Snapshot Before Switch to External LDAP"
+      comment: Snapshot Before Switch to External LDAP
 
 # Create certificate database to store AD CA Certs
-- include_tasks: cert.yml
+- ansible.builtin.include_tasks: cert.yml
 # Switch appliance to AD Based Authentication
-- include_tasks: mgmt_auth.yml
+- ansible.builtin.include_tasks: mgmt_auth.yml
 # Enable Management Authorization (role based access)
-- include_tasks: mgmt_authz.yml
+- ansible.builtin.include_tasks: mgmt_authz.yml
 
 # Commit changes before next step
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers
 
 # Setup Roles
-- include_tasks: config_roles.yml
+- ansible.builtin.include_tasks: config_roles.yml

@@ -1,5 +1,0 @@
----
-# vars file for get_access_control_attribute
-
-name: testruntime
-type: isamruntime

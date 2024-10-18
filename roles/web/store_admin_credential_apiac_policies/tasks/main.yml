@@ -1,0 +1,27 @@
+---
+- name: Debug
+  isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.api_access_control.utilities.credential.get
+    isamapi:
+  register: credresult
+  when:
+    - (debug_verbosity | default(0)) | int > 1
+
+- name: Debug
+  ansible.builtin.debug:
+    verbosity: "{{ debug_verbosity | default(0) }}"
+    var: credresult.data
+  when:
+    - (debug_verbosity | default(0)) | int > 1
+
+- name: Store the admin credential for use with api access control
+  isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.api_access_control.utilities.credential.add
+    isamapi:
+      admin_id: "{{ admin_id }}"
+      admin_pwd: "{{ admin_pwd }}"
+      admin_domain: "{{ admin_domain }}"

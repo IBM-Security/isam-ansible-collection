@@ -1,14 +1,14 @@
+---
 DOCUMENTATION:
   name: flatten_management_root
   author: IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>
-  version_added: 'historical'
+  version_added: historical
   short_description: Flatten isva management root object
   description:
     - Flatten a management root object as obtained from the ISVA Rest API
     - The return value is a dict
     - No options
   options:
-
 EXAMPLES: |
   #   flatten: '{{ {
   #           "children": [

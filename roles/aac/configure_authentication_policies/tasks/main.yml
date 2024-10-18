@@ -1,10 +1,9 @@
 ---
-
 # main task to configure authentication policies
 
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         configure_authentication_policies
@@ -68,27 +67,21 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: "Configure authentication policies [-e policy_action=[get|set|delete]  -e policy_name=<policy-name>]"
+- name: Configure authentication policies [-e policy_action=[get|set|delete]  -e policy_name=<policy-name>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: "ibmsecurity.isam.aac.authentication.policies.{{ item.policy_action }}"
-    isamapi: "{{
-     { 'name': item.name }
-     | combine({ 'description': item.description } if (item.description is defined) else {})
-     | combine({ 'dialect': item.dialect } if (item.dialect is defined) else {})
-     | combine({ 'enabled': item.enabled } if (item.enabled is defined) else {})
-     | combine({ 'uri': item.uri } if (item.uri is defined) else {})
-     | combine({ 'policy': (item.policy | ibm.isam.to_xml | regex_replace('\"', '\\\"')) } if (item.policy is defined) else {})
-   }}"
+    action: ibmsecurity.isam.aac.authentication.policies.{{ item.policy_action }}
+    isamapi: "{{ {'name': item.name} | combine({'description': item.description} if (item.description is defined) else {}) |
+      combine({'dialect': item.dialect} if (item.dialect is defined) else {}) |
+      combine({'enabled': item.enabled} if (item.enabled is defined) else {}) |
+      combine({'uri': item.uri} if (item.uri is defined) else {}) |
+      combine({'policy': (item.policy | ibm.isam.to_xml | regex_replace('\"', '\\\"'))} if (item.policy is defined) else {}) }}"
   loop: "{{ authentication_policies }}"
   when:
     - item.policy_action is defined
     - item.policy_action == policy_action
     - item.name == policy_name
   loop_control:
-    label: "{
-        'policy_action': {{ item.policy_action }},
-        'name': {{ item.name }}
-    }"
+    label: "{'policy_action': {{ item.policy_action }}, 'name': {{ item.name }} }"
   notify: Commit Changes

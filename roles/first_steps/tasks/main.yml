@@ -1,27 +1,28 @@
+---
 - name: Check ISAM appliance for First Steps Execution
-  uri:
-    url: "https://{{ ansible_host|default(inventory_hostname) }}:{{ ansible_isam_port }}/lmi"
+  ansible.builtin.uri:
+    url: https://{{ ansible_host | default(inventory_hostname) }}:{{ ansible_isam_port }}/lmi
     user: admin
     password: "{{ first_steps_default_password }}"
     method: GET
-    return_content: yes
-    force_basic_auth: yes
+    return_content: true
+    force_basic_auth: true
     status_code: 200, 403
     validate_certs: false
     headers:
-      "Accept": "application/json"
-  check_mode: no
+      Accept: application/json
+  check_mode: false
   register: result
 
 - name: Assume First Steps Executed
-  set_fact:
-    firststeps: "skip_fs.yml"
+  ansible.builtin.set_fact:
+    firststeps: skip_fs.yml
 
 - name: Initiate logic if First Steps Required
-  set_fact:
-    firststeps: "firststeps.yml"
+  ansible.builtin.set_fact:
+    firststeps: firststeps.yml
   when: result is defined and result.status == 200 and result.json.sla is defined
 
 # Go through basic set up to accept license and set up FIPS only needed
-- include_tasks: "{{ firststeps }}"
+- ansible.builtin.include_tasks: "{{ firststeps }}"
 #  dynamic: true

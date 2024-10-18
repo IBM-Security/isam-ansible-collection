@@ -1,44 +1,44 @@
 ---
 - name: tasks file for bootstrap_local
-  include_vars: "{{ ansible_os_family }}.yml"
+  ansible.builtin.include_vars: "{{ ansible_os_family }}.yml"
 
 - name: Check if there is a vm with the destination name already exist
-  stat: path={{ BS_vm_path_root }}/{{ BS_vm_hostname }}{{ BS_vm_dir_suffix }}/{{ BS_vm_hostname }}.vmx
+  ansible.builtin.stat: path={{ BS_vm_path_root }}/{{ BS_vm_hostname }}{{ BS_vm_dir_suffix }}/{{ BS_vm_hostname }}.vmx
   register: vmxfile
   ignore_errors: true
-- debug: var=vmxfile
+- ansible.builtin.debug: var=vmxfile
 
 - name: bootstrap a new vm if vmx file does not exist
-  include_tasks: bootstrap.yml
+  ansible.builtin.include_tasks: bootstrap.yml
   when: not vmxfile.stat.exists
 
 - name: Check if there is a vm with the destination name already running
-  shell: |
+  ansible.builtin.shell: |
     set -o pipefail && \
     {{ BS_vmrun }} {{ BS_vmrunflags }} list | \
     grep -q {{ BS_vm_path_root }}/{{ BS_vm_hostname }}{{ BS_vm_dir_suffix }}/{{ BS_vm_hostname }}.vmx
-  changed_when: False
+  changed_when: false
   register: shell_out
   ignore_errors: true
-- debug: var=shell_out
+- ansible.builtin.debug: var=shell_out
 
 - name: set fact about target vm running
-  set_fact:
+  ansible.builtin.set_fact:
     vm_running: true
-  when: "shell_out.rc == 0"
-- debug: var=vm_running
+  when: shell_out.rc == 0
+- ansible.builtin.debug: var=vm_running
 
 # start the vm if it is not running
 - name: if vmx file exists but it is not running, start it up
-  command: "{{ BS_vmrun }} {{ BS_vmrunflags }} start {{ BS_vm_vmx }}"
+  ansible.builtin.command: "{{ BS_vmrun }} {{ BS_vmrunflags }} start {{ BS_vm_vmx }}"
   register: shell_out
   when: vm_running is not defined
-- debug: var=shell_out
+- ansible.builtin.debug: var=shell_out
 
 - name: wait for system up, the speed depends on whether cold start or resume
-  wait_for:
-     host: "{{ BS_vm_mgmt_ip }}"
-     port: 443
-     delay: 5
-     state: started
+  ansible.builtin.wait_for:
+    host: "{{ BS_vm_mgmt_ip }}"
+    port: 443
+    delay: 5
+    state: started
   when: vm_running is not defined

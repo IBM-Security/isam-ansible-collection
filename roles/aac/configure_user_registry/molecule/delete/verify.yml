@@ -2,18 +2,18 @@
 
 - name: Verify - delete user registry
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
-    - include_vars:
+    - ansible.builtin.include_vars:
         file: "../../vars/main.yml"
         name: inventory
 
     - name: "Get all user registry"
-      include_role:
+      ansible.builtin.include_role:
         name: "get_all_user_registry"
 
     - name: look for the id
-      set_fact:
+      ansible.builtin.set_fact:
         check_exist: "id exist"
       with_items: "{{ ret_obj.data }}"
       when: "{{ inventory.id in item.id }}"

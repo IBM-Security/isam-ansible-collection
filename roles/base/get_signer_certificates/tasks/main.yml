@@ -1,3 +1,4 @@
+---
 - name: Get the signer certificates
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -8,5 +9,5 @@
   register: ret_obj
 
 - name: set a fact to be used by other components
-  set_fact:
+  ansible.builtin.set_fact:
     get_signer_certificates_ret_obj: "{{ ret_obj['data'] }}"

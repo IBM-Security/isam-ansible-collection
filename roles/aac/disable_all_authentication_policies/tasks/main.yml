@@ -1,5 +1,4 @@
 ---
-
 # main task to disable all authentication policies
 
 - name: Retrieve authentication mechanisms
@@ -9,7 +8,11 @@
     action: ibmsecurity.isam.aac.authentication.policies.get_all
   register: authPolicies
 
-- debug: msg="{{ authPolicies.data }}"
+- name: Debug
+  ansible.builtin.debug:
+    msg: "{{ authPolicies.data }}"
+    verbosity: 1
+
 - name: Disable all authentication mechanisms
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
@@ -17,7 +20,7 @@
     action: ibmsecurity.isam.aac.authentication.policies.activate
     isamapi:
       name: "{{ item.name }}"
-      enabled: False
+      enabled: false
   with_items: "{{ authPolicies.data }}"
   when: item.name is defined
   loop_control:

@@ -5,14 +5,14 @@
     action: ibmsecurity.isam.base.cli.execute
     isamapi:
       command: "{{ cli_command }}"
-      input: "{{ cli_input|default(omit) }}"
+      input: "{{ cli_input | default(omit) }}"
   when:
     - cli_command is defined
   ignore_errors: true
   register: ret_obj
 
 - name: Output of cli command execution
-  debug:
+  ansible.builtin.debug:
     msg: "{{ ret_obj['data']['output'].split('\n') }}"
   when:
     - cli_command is defined
@@ -23,7 +23,7 @@
     - not ansible_check_mode
 
 - name: Error Messages if cli command failed
-  debug:
+  ansible.builtin.debug:
     msg: "{{ ret_obj['log'].split('\n') }}"
   when:
     - cli_command is defined

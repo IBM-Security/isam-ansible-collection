@@ -7,7 +7,7 @@
 #   add_network_ipv4_maskOrPrefix: "255.255.255.0" or "24"
 
 # Default values for adding an ipv4 address - override as needed
-add_network_ipv4_allowManagement: False
-add_network_ipv4_enabled: True
-add_network_ipv4_overrideSubnetChecking: False
-add_network_ipv4_vlanId: null
+add_network_ipv4_allowManagement: false
+add_network_ipv4_enabled: true
+add_network_ipv4_overrideSubnetChecking: false
+add_network_ipv4_vlanId:

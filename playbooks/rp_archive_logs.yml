@@ -3,9 +3,9 @@
 
 - name: Archive Reverse Proxy Logs
   hosts: all
-  gather_facts: no
+  gather_facts: false
   roles:
     - role: ibm.isam.archive_logs
       archive_logs_instance_id: "{{ reverseproxy_instance_name }}"
-      archive_logs_directory: "/tmp"
-      archive_logs_delete: False
+      archive_logs_directory: /tmp
+      archive_logs_delete: false

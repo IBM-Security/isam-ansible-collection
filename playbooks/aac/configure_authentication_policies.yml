@@ -1,8 +1,8 @@
 ---
 # Configure
-#   configure authentication mapping policies
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Configure authentication mapping policies
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.aac.configure_authentication_policies
       tags: configure_authentication_policies

@@ -1,3 +1,4 @@
+---
 - name: Set a Federation - {{ set_federation_name }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

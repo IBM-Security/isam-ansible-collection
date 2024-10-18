@@ -1,16 +1,16 @@
 ---
 - name: Converge - default
   hosts: all
-  gather_facts: no
+  gather_facts: False
   collections:
     - ibm.isam
   vars:
     homedir: "{{ playbook_dir }}" # this is this directory for molecule
   tasks:
     - name: load variables
-      include_vars:
+      ansible.builtin.include_vars:
         file: "../vars/vars.yml"
 
     - name: Test configure runtime template root
-      include_role:
+      ansible.builtin.include_role:
         name: ibm.isam.aac.configure_runtime_template_root

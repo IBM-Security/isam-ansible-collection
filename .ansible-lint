@@ -1,6 +1,6 @@
 ---
 # .ansible-lint
-profile: basic # min, basic, moderate,safety, shared, production
+profile: moderate # min, basic, moderate,safety, shared, production
 
 # Allows dumping of results in SARIF format
 # sarif_file: result.sarif
@@ -20,6 +20,7 @@ exclude_paths:
   - roles/aac/disable_authentication_policies/molecule/default/check_for_all_true_status.yml
   - playbooks/base_site.yml
   - playbooks/vmware
+  - molecule/
 
 # parseable: true
 # quiet: true
@@ -36,14 +37,16 @@ mock_roles:
   - mocked_role
   - author.role_name # old standalone galaxy role
   - fake_namespace.fake_collection.fake_role # role within a collection
+  - ibm.isam.common_handlers
 
 # Enable checking of loop variable prefixes in roles
-#loop_var_prefix: "^(__|{role}_)"
+# loop_var_prefix: "^(__|{role}_)"
 
 # Enforce variable names to follow pattern below, in addition to Ansible own
 # requirements, like avoiding python identifiers. To disable add `var-naming`
 # to skip_list.
-var_naming_pattern: ^[a-z_][a-z0-9_]*$
+# Updated naming pattern because we have variables that match variable names in the ISVA API.
+var_naming_pattern: ^[a-zA-Z_][a-zA-Z0-9_]*$
 
 use_default_rules: true
 # Load custom rules from this specific folder
@@ -68,10 +71,12 @@ enable_list:
   - empty-string-compare # opt-in
   - no-log-password # opt-in
   - no-same-owner # opt-in
-  - name[prefix] # opt-in
+  # - name[prefix] # opt-in
+  - galaxy-version-incorrect # opt-in
   # add yaml here if you want to avoid ignoring yaml checks when yamllint
   # library is missing. Normally its absence just skips using that rule.
   - yaml
+  - jinja
 # Report only a subset of tags and fully ignore any others
 # tags:
 #   - jinja[spacing]
@@ -81,6 +86,7 @@ warn_list:
   - skip_this_tag
   - experimental # experimental is included in the implicit list
   - var-naming
+  - meta-no-tags
   # - role-name
   # - yaml[document-start]  # you can also use sub-rule matches
 
@@ -93,7 +99,7 @@ warn_list:
 #   - all
 
 # Offline mode disables installation of requirements.yml and schema refreshing
-offline: false
+offline: true
 
 # Define required Ansible's variables to satisfy syntax check
 # extra_vars:
@@ -127,3 +133,11 @@ kinds:
 
 # Allow setting custom prefix for name[prefix] rule
 task_name_prefix: "{stem} | "
+# Complexity related settings
+
+# Limit the depth of the nested blocks:
+# max_block_depth: 20
+
+# Also recognize these versions of Ansible as supported:
+# supported_ansible_also:
+#   - "2.14"

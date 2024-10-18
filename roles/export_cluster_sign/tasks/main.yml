@@ -1,3 +1,4 @@
+---
 - name: Export cluster signature from Primary appliance
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

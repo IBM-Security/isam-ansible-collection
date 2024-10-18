@@ -1,8 +1,8 @@
 ---
 # export
-#   export sso key files
-- hosts: "{{ hosts | default('all')}}"
-  gather_facts: no
+- name: Export sso key files
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
   roles:
     - role: ibm.isam.web.export_sso_keys
       tags: export_sso_keys

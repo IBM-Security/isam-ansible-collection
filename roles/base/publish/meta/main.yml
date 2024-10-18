@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: IBM
   description: Role to publish snapshot from configuration container [docker]
@@ -5,13 +6,13 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: '2.2'
+  min_ansible_version: "2.2"
 
   galaxy_tags:
-  - isam
-  - ibm
-  - publish
-  - docker
+    - isam
+    - ibm
+    - publish
+    - docker
 
 dependencies:
   - ibm.isam.common_handlers

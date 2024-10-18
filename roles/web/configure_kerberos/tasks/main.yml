@@ -1,7 +1,7 @@
 ---
 - name: Help INFO (-e help=true)
-  pause:
-    echo: yes
+  ansible.builtin.pause:
+    echo: true
     prompt: |
       NAME
         configure_kerberos
@@ -86,15 +86,14 @@
     action: ibmsecurity.isam.web.kerberos_configuration.keyfiles.import_keytab
     isamapi:
       id: "{{ item.file | basename }}"
-      file: "{{ homedir +'/'+ item.file }}"
+      file: "{{ homedir + '/' + item.file }}"
   when:
     - item.file is defined
     - (item.file | basename) == keytab_file
-    - kerberos_action == 'import_keytabs' or
-      kerberos_action == 'all'
+    - kerberos_action == 'import_keytabs' or kerberos_action == 'all'
   loop: "{{ kerberos.keytab_files }}"
   loop_control:
-    label: "{ \"id\": \"{{ item.file | basename }}\", \"file\": \"{{ item.file }}\" }"
+    label: '{ "id": "{{ item.file | basename }}", "file": "{{ item.file }}" }'
   notify: Commit Changes
 
 - name: Create Realms (-e kerberos_action=create_realms)
@@ -107,11 +106,10 @@
   when:
     - item.realm is defined
     - item.realm == realm
-    - kerberos_action == 'create_realms' or
-      kerberos_action == 'all'
+    - kerberos_action == 'create_realms' or kerberos_action == 'all'
   with_items: "{{ kerberos.realms }}"
   loop_control:
-    label: "{ \"realm\": \"{{ item.realm }}\" }"
+    label: '{ "realm": "{{ item.realm }}" }'
   notify: Commit Changes
 
 - name: Create Realms Subsections (1st level) (-e kerberos_action=create_subsections)
@@ -126,26 +124,24 @@
     - item.1.name is defined
     - item.0.realm == realm
     - item.1.name == subsection
-    - kerberos_action == 'create_subsections' or
-      kerberos_action == 'all'
+    - kerberos_action == 'create_subsections' or kerberos_action == 'all'
   with_subelements:
     - "{{ kerberos.realms }}"
     - subsections
-    - skip_missing: True
+    - skip_missing: true
   loop_control:
-    label: "{ \"realm\": \"{{ item.0.realm }}\", \"subsection\": \"{{ item.1.name if (item.1.name is defined) }}\" }"
+    label: '{ "realm": "{{ item.0.realm }}", "subsection": "{{ item.1.name if (item.1.name is defined) }}" }'
   notify: Commit Changes
 
-- include_tasks: include_create_realms_subsections_2nd_level.yml
+- ansible.builtin.include_tasks: include_create_realms_subsections_2nd_level.yml
   when:
     - subsections_1st_level.1.name is defined
     - subsections_1st_level.0.realm == realm
-    - kerberos_action == 'create_subsections' or
-      kerberos_action == 'all'
+    - kerberos_action == 'create_subsections' or kerberos_action == 'all'
   with_subelements:
     - "{{ kerberos.realms }}"
     - subsections
-    - skip_missing: True
+    - skip_missing: true
   loop_control:
     loop_var: subsections_1st_level
 
@@ -165,26 +161,25 @@
     - item.1.propvalue == propvalue
     - subsection == ''
     - item.0.realm == realm
-    - kerberos_action == 'configure_properties' or
-      kerberos_action == 'all'
+    - kerberos_action == 'configure_properties' or kerberos_action == 'all'
   with_subelements:
     - "{{ kerberos.realms }}"
     - properties
-    - skip_missing: True
+    - skip_missing: true
   loop_control:
-    label: "{ \"realm\": \"{{ item.0.realm }}\", \"propname\": \"{{ item.1.propname if (item.1.propname is defined) }}\", \"propvalue\": \"{{ item.1.propvalue if (item.1.propvalue is defined) }}\" }"
+    label: '{ "realm": "{{ item.0.realm }}", "propname": "{{ item.1.propname if (item.1.propname is defined) }}", "propvalue": "{{ item.1.propvalue if (item.1.propvalue
+      is defined) }}" }'
   notify: Commit Changes
 
-- include_tasks: include_configure_subsections_properties_1st_level.yml
+- ansible.builtin.include_tasks: include_configure_subsections_properties_1st_level.yml
   when:
     - subsections_1st_level.1.name is defined
     - subsections_1st_level.0.realm == realm
-    - kerberos_action == 'configure_properties' or
-      kerberos_action == 'all'
+    - kerberos_action == 'configure_properties' or kerberos_action == 'all'
   with_subelements:
     - "{{ kerberos.realms }}"
     - subsections
-    - skip_missing: True
+    - skip_missing: true
   loop_control:
     loop_var: subsections_1st_level
 
@@ -202,8 +197,7 @@
     - item.value is defined
     - item.name == default_name
     - item.value == default_value
-    - kerberos_action == 'configure_defaults' or
-      kerberos_action == 'all'
+    - kerberos_action == 'configure_defaults' or kerberos_action == 'all'
   notify: Commit Changes
 
 - name: Configure Kerberos Domain Mapping (-e kerberos_action=configure_domains)
@@ -220,8 +214,7 @@
     - item.value is defined
     - item.name == domain_name
     - item.value == domain_value
-    - kerberos_action == 'configure_domains' or
-      kerberos_action == 'all'
+    - kerberos_action == 'configure_domains' or kerberos_action == 'all'
   notify: Commit Changes
 
 - name: Configure Kerberos CA Paths (-e kerberos_action=configure_ca_paths)
@@ -235,8 +228,7 @@
   when:
     - item.name is defined
     - item.name == ca_paths_name
-    - kerberos_action == 'configure_ca_paths' or
-      kerberos_action == 'all'
+    - kerberos_action == 'configure_ca_paths' or kerberos_action == 'all'
   notify: Commit Changes
 
 - name: Configure Kerberos CA Paths Properties (-e kerberos_action=configure_ca_paths)
@@ -251,7 +243,7 @@
   with_subelements:
     - "{{ kerberos.ca_paths }}"
     - properties
-    - skip_missing: True
+    - skip_missing: true
   when:
     - item.0.name is defined
     - item.1.server_realm is defined
@@ -259,6 +251,5 @@
     - item.0.name == client_realm
     - item.1.server_realm == server_realm
     - item.1.intermediate_realm == intermediate_realm
-    - kerberos_action == 'configure_ca_paths' or
-      kerberos_action == 'all'
+    - kerberos_action == 'configure_ca_paths' or kerberos_action == 'all'
   notify: Commit Changes

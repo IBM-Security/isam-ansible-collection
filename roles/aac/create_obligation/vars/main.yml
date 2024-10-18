@@ -1,6 +1,0 @@
----
-
-name: "TestObligation"
-description: "new description"
-obligationURI: "urn:ibm:security:obligation:TestObligation"
-update_description: "updated description"

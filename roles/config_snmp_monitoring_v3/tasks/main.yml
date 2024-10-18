@@ -1,3 +1,4 @@
+---
 - name: Configure SNMP Monitoring V3
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

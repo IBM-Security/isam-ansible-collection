@@ -1,3 +1,4 @@
+---
 - name: Load Signer Certificate from a server/port into Keystore
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -12,4 +13,4 @@
   notify: Commit Changes
 
 # Commit all changes made to date
-- meta: flush_handlers
+- ansible.builtin.meta: flush_handlers

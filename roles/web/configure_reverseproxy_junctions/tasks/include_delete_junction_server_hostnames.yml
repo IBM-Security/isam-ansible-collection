@@ -1,5 +1,4 @@
 ---
-
 - name: Get junction servers
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"

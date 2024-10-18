@@ -1,13 +1,14 @@
+---
 - name: Check if there are pending changes on the appliance
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
-    force: False
+    force: false
     action: ibmsecurity.isam.appliance.commit
-  check_mode: yes
+  check_mode: true
   register: ret_obj
 
 - name: If Appliance has pending changes - then fail
-  fail:
+  ansible.builtin.fail:
     msg: This appliance has pending changes, please commit or rollback before re-running.
   when: ret_obj.changed
 

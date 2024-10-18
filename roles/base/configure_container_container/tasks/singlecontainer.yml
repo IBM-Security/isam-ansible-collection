@@ -1,17 +1,17 @@
 ---
-- name: Create or update container {{ container_item.name }}
+- name: singlecontainer | create or update container {{ container_item.name }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
-    action: ibmsecurity.isam.base.container_ext.container.{{ container_item.container_action|default('set') }}
+    action: ibmsecurity.isam.base.container_ext.container.{{ container_item.container_action | default('set') }}
     isamapi:
-       name: "{{ container_item.name }}"
-       image: "{{ container_item.image }}"
-       type: "{{ container_item.type }}"
-       ports: "{{ container_item.ports }}"
-       volumes: "{{ container_item.volumes }}"
-       env: "{{ container_item.env|default(omit) }}"
-       logging: "{{ container_item.logging|default(omit) }}"
-       command: "{{ container_item.command|default(omit) }}"
-       args: "{{ container_item.args|default(omit) }}"
-       replace: "{{ container_item.replace|default(omit) }}"
+      name: "{{ container_item.name }}"
+      image: "{{ container_item.image }}"
+      type: "{{ container_item.type }}"
+      ports: "{{ container_item.ports }}"
+      volumes: "{{ container_item.volumes }}"
+      env: "{{ container_item.env | default(omit) }}"
+      logging: "{{ container_item.logging | default(omit) }}"
+      command: "{{ container_item.command | default(omit) }}"
+      args: "{{ container_item.args | default(omit) }}"
+      replace: "{{ container_item.replace | default(omit) }}"

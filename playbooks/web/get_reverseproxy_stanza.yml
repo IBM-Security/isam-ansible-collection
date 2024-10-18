@@ -1,0 +1,15 @@
+---
+# export
+- name: Get reverse proxy stanza {{ stanza_id | default('no stanza set') }}
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
+  tags:
+    - stanza
+  tasks:
+    - name: Reverse proxy stanza
+      import_role:
+        name: ibm.isam.web.get_reverseproxy_stanza
+
+    - name: Debug
+      ansible.builtin.debug:
+        var: reverseproxy_stanza.data

@@ -1,3 +1,4 @@
+---
 - name: Create keystore {{ create_keystore_name }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"

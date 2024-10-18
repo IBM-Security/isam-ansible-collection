@@ -16,6 +16,5 @@
 #     attribute_source_value: "Value 2"
 
 # Comment to be used for creating a snapshot file
-add_attribute_source_comment:
-  "Automated Snapshot Before Adding Attribute Sources"
+add_attribute_source_comment: Automated Snapshot Before Adding Attribute Sources
 add_attribute_source_snapshot: false

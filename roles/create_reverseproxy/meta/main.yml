@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: IBM
   description: Role to create a reverse proxy instance and setup a common web root (if provided)
@@ -5,26 +6,19 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: 2.2
+  min_ansible_version: "2.2"
+
   platforms:
-    - name: Fedora
+    - name: GenericLinux
       versions:
-        - 30
-        - 29
-        - 28
-        - 27
-    - name: EL
-      versions:
-        - 8
-        - 7
-        - 6
+        - all
 
   galaxy_tags:
-  - isam
-  - ibm
-  - reverseproxy
-  - web
-  - create
+    - isam
+    - ibm
+    - reverseproxy
+    - web
+    - create
 
 dependencies:
   - ibm.isam.common_handlers

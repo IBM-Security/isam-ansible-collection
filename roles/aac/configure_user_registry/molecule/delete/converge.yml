@@ -1,10 +1,10 @@
 ---
 - name: Converge - delete an user registry
   hosts: all
-  gather_facts: no
+  gather_facts: False
   tasks:
     - name: "Testing delete - configure_user_registry"
-      include_role:
+      ansible.builtin.include_role:
         name: configure_user_registry
       vars:
         user_registry:
