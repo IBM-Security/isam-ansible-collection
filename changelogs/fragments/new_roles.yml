@@ -6,6 +6,8 @@ add object.role:
     description: Role to delete an admin credential for apiac policies
   - name: web.config_reverseproxy_waf_crssetup
     description: Role to add or update the WAF crssetup file
+  - name: web.store_admin_credential_apiac_policies
+    description: Role to store the admin credential prior to running other apiac commands
 
 add object.playbook:
   - name: web.configure_reverseproxy_wafcrssetup.yml
