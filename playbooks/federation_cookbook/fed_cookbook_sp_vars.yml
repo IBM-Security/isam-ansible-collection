@@ -4,7 +4,7 @@ ntpServers: pool.ntp.org
 timeZone: America/Chicago
 
 # 4.3 Product Activation
-activation_keys: [{ id: wga, code: !!null "" }, { id: mga, code: !!null "" }, { id: federation, code: !!null "" }]
+activation_keys: [{ id: wga, code: "" }, { id: mga, code: "" }, { id: federation, code: "" }]
 # "4.4 Configure Runtime Interfaces"
 label: "1.1"
 address: 192.168.42.202
@@ -29,22 +29,22 @@ policyserver_connection_inactivity: 0
 
 # 5.1 Create new Reverse Proxy
 https_port: "443"
-nw_interface_yn: yes
-https_yn: yes
+nw_interface_yn: !!str yes
+https_yn: !!str yes
 domain: Default
 admin_id: sec_master
 host: isam.mysp.ibm.com
 inst_name: default
 ip_address: 192.168.42.202
 listening_port: "7234"
-ssl_yn: no
-http_yn: no
+ssl_yn: !!str no
+http_yn: !!str no
 
 # 5.2 Modify Reverse Proxy Instance Settings
 set_reverseproxy_conf_entries:
   - { stanza_id: server, entries: [[web-host-name, www.mysp.ibm.com]] }
-  - { stanza_id: step-up, entries: [[verify-step-up-user, no]] }
-  - { stanza_id: session, entries: [[user-session-ids, yes], [inactive-timeout, "1800"], [create-unauth-sessions, yes]] }
+  - { stanza_id: step-up, entries: [[verify-step-up-user, !!str no]] }
+  - { stanza_id: session, entries: [[user-session-ids, !!str yes], [inactive-timeout, "1800"], [create-unauth-sessions, !!str yes]] }
 execute_rp_op_ids: [id: default]
 execute_rp_op_operation: restart
 
