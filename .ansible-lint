@@ -45,7 +45,8 @@ mock_roles:
 # Enforce variable names to follow pattern below, in addition to Ansible own
 # requirements, like avoiding python identifiers. To disable add `var-naming`
 # to skip_list.
-var_naming_pattern: ^[a-z_][a-zA-Z0-9_]*$
+# Updated naming pattern because we have variables that match variable names in the ISVA API.
+var_naming_pattern: ^[a-zA-Z_][a-zA-Z0-9_]*$
 
 use_default_rules: true
 # Load custom rules from this specific folder
