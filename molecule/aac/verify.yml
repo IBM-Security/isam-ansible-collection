@@ -11,7 +11,7 @@
 
     - name: "Include get_access_control_policies"
       ansible.builtin.include_role:
-        name: "get_access_control_policies"
+        name: ibm.isam.aac.get_access_control_policies
       vars:
         get_access_control_policies:
           - name: "{{ access_control_policies[0].name }}"
