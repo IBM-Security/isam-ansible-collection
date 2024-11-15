@@ -8,15 +8,42 @@
 #       - name: test_access_policy
 #         type: policy
 #     action: set
+- name: Create Policy Attachments
+  ignore_errors: true
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.access_control.policy_attachments.config
+    isamapi:
+      server: "{{ item.server }}"
+      resourceUri: "{{ item.resourceUri }}"
+      policies: "{{ item.policies }}"
+      policyCombiningAlgorithm: "{{ item.policyCombiningAlgorithm | default(omit) }}"
+      cache: "{{ (item.cache | default('0')) | int }}"
+  loop: "{{ access_control_policy_attachments }}"
+  loop_control:
+    label: Configuring resource {{ item.resourceUri }} with policy {{ item.policies.0.name | default('skipping - no name defined ...') }}
+  when:
+    - item.resourceUri is defined
+    - item.policies.0.name is defined
 
 - name: Configure access control policy attachments
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.policy_attachments.update_attachments
-    isamapi: "{{ item }}"
-  when: item is defined
-  with_items: "{{ access_control_policy_attachments }}"
+    isamapi:
+      server: "{{ item.server }}"
+      resourceUri: "{{ item.resourceUri }}"
+      attachments: "{{ item.policies }}"
+      action: set
+  when:
+    - item.resourceUri is defined
+    - item.server is defined
+    - item.policies is defined
+  loop: "{{ access_control_policy_attachments }}"
+  loop_control:
+    label: Updating resource {{ item.resourceUri }} on {{ item.server }}
 
 - name: Publish access control policy attachments
   ibm.isam.isam:
@@ -26,5 +53,10 @@
     isamapi:
       server: "{{ item.server }}"
       resourceUri: "{{ item.resourceUri }}"
-  when: item is defined
-  with_items: "{{ access_control_policy_attachments }}"
+  when:
+    - item is defined
+    - item.server is defined
+    - item.resourceUri is defined
+  loop: "{{ access_control_policy_attachments }}"
+  loop_control:
+    label: Publishing {{ item.resourceUri }} on {{ item.server }}
