@@ -2,7 +2,9 @@
 
 galaxy_info:
   author: IBM
-  description: Role to confiure access control attributes
+  namespace: ibm.isam
+  role_name: aac.configure_access_control_attributes
+  description: Role to configure access control attributes
   company: IBM
 
   license: Apache
