@@ -6,6 +6,8 @@
   ibm.isam.isam:
     action: ibmsecurity.isam.base.service_agreement.set
     log: "{{ log_level | default(omit) }}"
+  when:
+    - not ansible_check_mode
 
 # set up LMI FIPS
 - name: Setup FIPS Mode
@@ -20,17 +22,22 @@
   when:
     - FIPS_cfg is defined
     - FIPS_cfg.fipsEnabled
+    - not ansible_check_mode
 
 # Restart after FIPS if needed
 - name: Restart after enabling FIPS
   ibm.isam.isam:
     action: ibmsecurity.isam.base.fips.restart_and_wait
     log: "{{ log_level | default(omit) }}"
-  when: ret_obj.changed
+  when:
+    - ret_obj.changed
+    - not ansible_check_mode
 
 # Complete the appliance set up
 - name: Complete Appliance Setup
   ibm.isam.isam:
     action: ibmsecurity.isam.base.setup_complete.set
     log: "{{ log_level | default(omit) }}"
+  when:
+    - not ansible_check_mode
   notify: Commit Changes
