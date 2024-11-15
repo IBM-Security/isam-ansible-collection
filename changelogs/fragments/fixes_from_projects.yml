@@ -1,9 +1,17 @@
 ---
 bugfixes:
-  - Instances variable for reverse proxy roles (#185)
+  - aac.configure_access_control_policy_attachments - fix role
 
 minor_changes:
   - aac.configure_access_control_attributes - rename uri to attributeURI if present (using the new rename_key filter plugin)
+  - base_site.yml - update to newer version of first_steps role
+  - web.import_certificate_mapping_files - remove invalid name for variable
+  - web.restart_reverseproxy_instances - lint line length
+  - web.configure_kerberos - lint issues
+  - web.execute_pdadmin - lint line length
+
+removed_features:
+  - first_steps - use ibm.isam.base.first_steps instead
 
 add plugin.filter:
   - name: rename_key
@@ -12,3 +20,5 @@ add plugin.filter:
 add object.role:
   - name: aac.get_authentication_mechanism_types
     description: Create mapping between typeId and typeName, for use in `ibm.isam.aac.configure_authentication_mechanisms`
+  - name: aac.authenticate_access_control_policy
+    description: Authenticate before performing access control policy attachments
