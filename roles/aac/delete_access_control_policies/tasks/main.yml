@@ -1,0 +1,16 @@
+---
+# main task to delete access control policies
+# access_control_policies_delete:
+#  - name: New_Policy
+
+- name: Delete access control policies
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.access_control.policies.delete
+    isamapi:
+      name: "{{ item.name }}"
+  when:
+    - item.name is defined
+  loop: "{{ access_control_policies_delete }}"
+  notify: Commit Changes

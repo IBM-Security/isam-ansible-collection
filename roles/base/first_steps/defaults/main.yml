@@ -10,6 +10,7 @@ ansible_isam_port: 443
 # Override at runtime for docker environment to let the container get healthy
 first_steps_retries: 0
 first_steps_delay: 5
+first_steps_admin_pwd: false
 
 # LMI FIPS options
 # Override this setting if you do not want FIPS mode to be turned on

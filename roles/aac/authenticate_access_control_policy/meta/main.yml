@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: IBM
+  description: Role to authenticate for access control policy attachments configuration
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: "2.15"
+
+  galaxy_tags:
+    - isam
+    - ibm
+    - configure
+    - policy_attachments
+
+dependencies: []

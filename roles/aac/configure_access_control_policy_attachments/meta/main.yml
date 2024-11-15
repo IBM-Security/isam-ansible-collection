@@ -1,5 +1,4 @@
 ---
-
 galaxy_info:
   author: IBM
   description: Role to configure access control policy attachments
@@ -7,7 +6,7 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: "2.2"
+  min_ansible_version: "2.13"
 
   galaxy_tags:
     - isam
@@ -17,3 +16,4 @@ galaxy_info:
 
 dependencies:
   - ibm.isam.common_handlers
+  - ibm.isam.aac.authenticate_access_control_policy

@@ -27,7 +27,8 @@
       # execute pdadmin commands
       # Attention:
       #  - order is important !
-      #  - last command should be successful in order to see full command output. Faild commands might produce only stack trace from ansible execution.
+      #  - last command should be successful in order to see full command output.
+      #    Failed commands might produce only stack trace from ansible execution.
       pdadmin_commands:
         - user list * 10
         - server list
@@ -50,8 +51,10 @@
         - help
         - exit
       # Note that the variables get merged in ansible variable precendence order, with values from later dicts replacing values from earlier dicts.
-      # Precedence: group_vars < host_vars < extra vars (full-list: https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)
-      # Additionaly enable sorted merge vars with enable_ansible_merge_vars_sorted to get alphabetical order of their names (e.g. -e enable_ansible_merge_vars_sorted=True)
+      # Precedence: group_vars < host_vars < extra vars (full-list:
+      # https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)
+      # Additionaly enable sorted merge vars with enable_ansible_merge_vars_sorted to get alphabetical
+      # order of their names (e.g. -e enable_ansible_merge_vars_sorted=True)
       # E.g. example will produce pdadmin_commands at runtime
       #  pdadmin_commands:
       #   - user list * 10
@@ -96,7 +99,7 @@
     - enable_ansible_merge_vars_sorted | bool
     - pd_admin_varstomerge is defined
 
-- name: debug the pdadmin commands after merge [-vv]
+- name: Debug the pdadmin commands after merge [-vv]
   ansible.builtin.debug:
     var: pdadmin_commands
     verbosity: 2
@@ -117,6 +120,7 @@
 
 - name: Output of PDAdmin command execution
   ansible.builtin.debug:
-    msg: "{{ ret_obj.data.result.split('\n') if (ret_obj is defined and ret_obj.data is defined) else 'VARIABLE IS NOT DEFINED!' }}"
+    msg: "{{ ret_obj.data.result.split('\n') if (ret_obj is defined and ret_obj.data is defined)
+          else 'VARIABLE IS NOT DEFINED!' }}"
   when:
     - not ansible_check_mode

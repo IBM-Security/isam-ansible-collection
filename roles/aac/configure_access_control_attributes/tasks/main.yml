@@ -23,7 +23,7 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.attributes.set
-    isamapi: "{{ item }}"
+    isamapi: "{{ item | ibm.isam.rename_key(uri='attributeURI') }}"
   when: item is defined
   with_items: "{{ access_control_attributes }}"
   notify: Commit Changes

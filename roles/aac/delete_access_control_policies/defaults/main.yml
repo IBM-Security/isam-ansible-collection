@@ -1,0 +1,4 @@
+---
+
+# Default variables for configuration of access control policies
+access_control_policies_delete: []

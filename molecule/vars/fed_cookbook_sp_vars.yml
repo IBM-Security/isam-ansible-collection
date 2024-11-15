@@ -7,8 +7,7 @@ enableNtp: true
 # 4.3 Product Activation
 activation_keys: [{id: wga, code: ""},
                   {id: mga, code: ""},
-                  {id: federation, code: ""}
-]
+                  {id: federation, code: ""}]
 
 # 4.4 Configure Runtime Interfaces
 label: '1.1'

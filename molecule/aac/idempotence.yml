@@ -1,0 +1,37 @@
+---
+- name: Idempotency aac
+  hosts: all
+  gather_facts: false
+  vars:
+    homedir: "{{ playbook_dir }}" # this is this directory for molecule
+  tasks:
+    - name: Include variables
+      tags:
+        - always
+      ansible.builtin.include_vars:
+        file: "vars/aac.yml"
+
+    - name: Molecule test get authentication mechanism types mapping
+      tags:
+        - authentication
+        - mechanisms
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.get_authentication_mechanism_types
+
+    - name: Test set using configure_access_control_attributes role with rename
+      tags:
+        - access_control
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_access_control_attributes
+
+    - name: Include configure_access_control_policies
+      tags:
+        - access_control
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_access_control_policies
+
+    - name: Include configure_access_control_policy_attachments
+      tags:
+        - access_control
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_access_control_policy_attachments

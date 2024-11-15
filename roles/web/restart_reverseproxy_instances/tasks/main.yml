@@ -13,15 +13,20 @@
         1) restart reverse proxy instances
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/web/restart_reverseproxy_instances.yml // restart all instances, if there are pending changes available. Do not restart instances which are up-to-date.
-        ansible-playbook -i [...] playbooks/ansible_collections/web/restart_reverseproxy_instances.yml -e inst_name=default // only try to restart 'default', if there are pending changes for this instance
-        ansible-playbook -i [...] playbooks/ansible_collections/web/restart_reverseproxy_instances.yml -e inst_name=default -e force=True // restart 'default' even if there are no pending changes
-        ansible-playbook -i [...] playbooks/ansible_collections/web/restart_reverseproxy_instances.yml -e force=True // restart all instances even if there are no pending changes !ATTENTION!: use with caution in production environments
+        # restart all instances, if there are pending changes available. Do not restart instances which are up-to-date.
+        ansible-playbook -i [...] ibm.isam.web.restart_reverseproxy_instances.yml
+        # only try to restart 'default', if there are pending changes for this instance
+        ansible-playbook -i [...] ibm.isam.web.restart_reverseproxy_instances.yml -e inst_name=default
+        # restart 'default' even if there are no pending changes
+        ansible-playbook -i [...] ibm.isam.web.restart_reverseproxy_instances.yml -e inst_name=default -e force=True
+        # restart all instances even if there are no pending changes !ATTENTION!: use with caution in production environments
+        ansible-playbook -i [...] ibm.isam.web.restart_reverseproxy_instances.yml -e force=True
 
       INVENTORY
       ==========
       # restart reverse proxy instance/s
-      # !ATTENTION!: No inventory needed. Reverse proxy instances will be pulled from appliance and if no filter is applied this role will restart instances one by one (depending on available changes or if forced to [-e force=True])
+      # !ATTENTION!: No inventory needed. Reverse proxy instances will be pulled from appliance and if no filter
+      # is applied this role will restart instances one by one (depending on available changes or if forced to [-e force=True])
       ==========
 
       INTERACTION

@@ -4,41 +4,50 @@
 #
 - name: Apply Common Configuration to all Appliances
   hosts: all
-  gather_facts: False
+  gather_facts: false
   tasks:
-    - name: first steps
+    - name: First steps
       ansible.builtin.include_role:
         name: ibm.isam.base.first_steps
       tags: ["first", "steps"]
+    - name: Change Admin Password (must use --tags setup,password or --tags admin)
+      tags:
+        - admin
+        - password
+        - never
+      no_log: true
+      ignore_errors: true
+      ansible.builtin.import_role:
+        name: ibm.isam.base.change_admin_password
       vars:
-        first_steps_fips: False
-        first_steps_admin_pwd: False
-    - name: network
+        new_password: "{{ ansible_isam_password }}"
+        httpsPort: "{{ lmi_port | default(omit) }}"
+    - name: Network
       ansible.builtin.import_role:
         name: ibm.isam.base.configure_interfaces
       tags: ["ipv4"]
       when:
         - interfaces is defined
-    - name: network dhcp
+    - name: Network dhcp
       ansible.builtin.import_role:
         name: ibm.isam.base.configure_dhcp
       tags: ["dhcp"]
       when:
         - interfaces is defined
-    - name: set hostname
+    - name: Set hostname
       ansible.builtin.import_role:
         name: ibm.isam.set_network_hostname
       tags: ["hostname"]
       vars:
         set_network_hostname_hostname: "{{ appliance_name }}"
 
-- name: configure dns (playbook)
-  import_playbook: ibm.isam.base.configure_dns
-- name: configure time (playbook)
-  import_playbook: ibm.isam.base.configure_time
+- name: Configure dns (playbook)
+  import_playbook: ibm.isam.base.configure_dns.yml
+- name: Configure time (playbook)
+  import_playbook: ibm.isam.base.configure_time.yml
   tags: ["ntp"]
-- name: activate modules (playbook)
-  import_playbook: ibm.isam.base.activate_modules
+- name: Activate modules (playbook)
+  import_playbook: ibm.isam.base.activate_modules.yml
   tags: ["activate", "wga"]
   when:
     - activation_keys is defined

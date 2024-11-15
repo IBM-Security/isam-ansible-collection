@@ -1,0 +1,103 @@
+---
+access_control_attributes:
+  - category: Environment
+    datatype: Integer
+    description: The width of the requesting device screen.
+    issuer: urn:ibm:security:issuer:AttributeSession
+    matcher: '1'
+    name: screenWidth
+    predefined: true
+    storageDomain:
+        behavior: false
+        device: true
+        session: true
+    type:
+        policy: false
+        risk: true
+    uri: urn:ibm:security:environment:screenWidth
+  - category: Environment
+    datatype: Boolean
+    description: Trusteer PinPoint Malware Detection derived attribute indicating
+        an error during detection.
+    issuer: urn:ibm:security:trusteer:utils
+    matcher: '1'
+    name: trusteer.pinpoint.md.errorDetected
+    predefined: false
+    storageDomain:
+        behavior: false
+        device: false
+        session: true
+    type:
+        policy: true
+        risk: false
+    uri: urn:ibm:security:trusteer:pinpoint:md:error:detected
+    attributeURI: urn:ibm:security:trusteer:pinpoint:md:error:detected
+
+access_control_policy_attachments:
+ # - cache: 0 # Cache for duration of session (-1).  Needs to be 0
+ #   policies:
+ #   -   name: New_Policy
+ #       type: policy
+ #   policyCombiningAlgorithm: denyOverrides
+ #   resourceUri: /mga
+ #   server: "{{ inventory_hostname_short }}-default" # isva1008-default
+ #   type: reverse_proxy
+  - cache: 0 # Cache for duration of session (-1).  Needs to be 0
+    policies:
+    - name: New_Policy
+      type: policy
+    policyCombiningAlgorithm: denyOverrides
+    resourceUri: /
+    server: "{{ inventory_hostname_short }}-default"
+    type: reverse_proxy
+
+access_control_policy_attachments_delete:
+  - resourceUri: /
+    server: "{{ inventory_hostname_short }}-default"
+
+access_control_policies:
+  - name: New_Policy
+    attributesrequired: false
+    policy: "{{ aac_policy_json }}"
+    description: "New Policy Description"
+    dialect: "urn:oasis:names:tc:xacml:2.0:policy:schema:os"
+    formatting: json
+  - name: test2
+    description: "updated comments"
+    dialect: "urn:oasis:names:tc:xacml:2.0:policy:schema:os"
+    predefined: false
+    policy: <?xml version=\"1.0\" encoding=\"UTF-8\"?><!-- PolicyTag=urn:ibm:security:isam:8.0:xacml:2.0:config-policy --><!-- PolicyName='test2' --><PolicySet xmlns=\"urn:oasis:names:tc:xacml:2.0:policy:schema:os\" xmlns:xacml-context=\"urn:oasis:names:tc:xacml:2.0:context:schema:os\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"urn:oasis:names:tc:xacml:2.0:policy:schema:os http://docs.oasis-open.org/xacml/access_control-xacml-2.0-policy-schema-os.xsd\" PolicySetId=\"urn:ibm:security:config-policy\" PolicyCombiningAlgId=\"urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides\"><Description></Description><Target/></PolicySet>
+    attributesrequired: false
+
+access_control_policies_delete:
+  - name: New_Policy
+  - name: test2
+
+aac_policy_json:
+  PolicyTag: urn:ibm:security:isam:8.0:xacml:2.0:config-policy
+  PolicyName: New_Policy
+  PolicySet:
+    Policy:
+      - RuleCombiningAlgId: urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable
+        Rule:
+          Condition:
+            Apply:
+              - FunctionId: urn:oasis:names:tc:xacml:1.0:function:and
+                Apply:
+                  - FunctionId: urn:oasis:names:tc:xacml:1.0:function:any-of-any
+                    Function:
+                      FunctionId: urn:oasis:names:tc:xacml:1.0:function:integer-equal
+                    Apply:
+                      - FunctionId: urn:oasis:names:tc:xacml:1.0:function:integer-bag
+                        AttributeValue:
+                          DataType: http://www.w3.org/2001/XMLSchema#integer
+                          content: 2
+                    SubjectAttributeDesignator:
+                      - AttributeId: urn:ibm:security:subject:authenticationLevel
+                        MustBePresent: false
+                        DataType: http://www.w3.org/2001/XMLSchema#integer
+          RuleId: urn:ibm:security:rule:0
+          Effect: Permit
+        PolicyId: urn:ibm:security:rule-container:0
+    PolicyCombiningAlgId: urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides
+    Description: New Policy Description

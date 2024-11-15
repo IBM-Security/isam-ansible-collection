@@ -18,10 +18,12 @@
 
       EXAMPLES
         ansible-playbook -i [...] ibm.isam.base.first_steps.yml
-        ansible-playbook -i [...] ibm.isam.base.first_steps.yml -e first_steps_retries=20 // check 20 times with a delay of 5s until appliance is reachable
-        ansible-playbook -i [...] ibm.isam.base.first_steps.yml -e first_steps_retries=10 -e first_steps_delay=10 // check 10 times wit a delay of 10s until appliance is reachable
-        ansible-playbook -i [...] ibm.isam.base.first_steps.yml -e '{ "FIPS_cfg": {"fipsEnabled": true, "tlsv10Enabled": true, "tlsv11Enabled": true}}' // overwrite FIPS mode default at runtime [not recommended -> use inventory instead]
-
+        # check 20 times with a delay of 5s until appliance is reachable
+        ansible-playbook -i [...] ibm.isam.base.first_steps.yml -e first_steps_retries=20
+        #  check 10 times wit a delay of 10s until appliance is reachable
+        ansible-playbook -i [...] ibm.isam.base.first_steps.yml -e first_steps_retries=10 -e first_steps_delay=10
+        # overwrite FIPS mode default at runtime [not recommended -> use inventory instead]
+        ansible-playbook -i [...] ibm.isam.base.first_steps.yml -e '{ "FIPS_cfg": {"fipsEnabled": true, "tlsv10Enabled": true, "tlsv11Enabled": true}}'
       INVENTORY
       ==========
       # enable FIPS mode by default
@@ -55,8 +57,8 @@
   retries: "{{ first_steps_retries }}"
   delay: "{{ first_steps_delay }}"
 
-# Go through basic set up to accept license and set up FIPS only needed
-- ansible.builtin.include_tasks: firststeps.yml
+- name: Go through basic set up to accept license and set up FIPS only needed
+  ansible.builtin.include_tasks: firststeps.yml
   when:
     - result is defined
     - result.status == 200
