@@ -1,0 +1,24 @@
+---
+- name: Cleanup aac
+  hosts: all
+  gather_facts: false
+  vars:
+    homedir: "{{ playbook_dir }}" # this is this directory for molecule
+  tasks:
+    - name: Include variables
+      tags:
+        - always
+      ansible.builtin.include_vars:
+        file: "vars/aac.yml"
+
+    - name: Delete Policy Attachments
+      tags:
+        - access_control
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.delete_access_control_policy_attachments
+
+    - name: Delete Access Control Policies
+      tags:
+        - access_control
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.delete_access_control_policies

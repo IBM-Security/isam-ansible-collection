@@ -1,1 +1,13 @@
 ---
+- name: Verify aac
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Include variables
+      tags:
+        - always
+      ansible.builtin.include_vars:
+        file: "vars/aac.yml"
+    - name: Debug
+      ansible.builtin.debug:
+        var: aac_authentication_mechanism_types_mapping

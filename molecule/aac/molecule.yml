@@ -3,10 +3,10 @@ driver:
 
 scenario:
   test_sequence:
-    - lint
+    # - lint
     # - prepare
     - converge
-    # - idempotence
+    - idempotence
     - verify
     - cleanup
     - destroy
