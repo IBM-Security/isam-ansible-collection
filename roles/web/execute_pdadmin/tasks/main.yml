@@ -99,7 +99,7 @@
     - enable_ansible_merge_vars_sorted | bool
     - pd_admin_varstomerge is defined
 
-- name: debug the pdadmin commands after merge [-vv]
+- name: Debug the pdadmin commands after merge [-vv]
   ansible.builtin.debug:
     var: pdadmin_commands
     verbosity: 2
