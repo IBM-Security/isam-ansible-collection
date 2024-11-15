@@ -1,0 +1,15 @@
+---
+- name: Delete Policy Attachments
+  ignore_errors: true # TODO : An error will be thrown if the resource does not exist
+  isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.access_control.policy_attachments.delete
+    isamapi:
+      server: "{{ item.server }}"
+      resourceUri: "{{ item.resourceUri }}"
+  loop: "{{ access_control_policy_attachments_delete }}"
+  loop_control:
+    label: Deleting resource {{ item.resourceUri }}
+  when:
+    - item.resourceUri is defined

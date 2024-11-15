@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  author: IBM
+  description: Role to delete access control policy attachments
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: "2.14"
+
+  galaxy_tags:
+    - isam
+    - ibm
+    - delete
+    - policy_attachments
+    - resources
+
+dependencies:
+  - role: ibm.isam.aac.authenticate_access_control_policy
