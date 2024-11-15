@@ -1,0 +1,10 @@
+---
+- name: Authenticate
+  isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.access_control.policy_attachments.authenticate
+    isamapi:
+      username: "{{ admin_id }}"
+      password: "{{ admin_pwd }}"
+      domain: "{{ admin_domain }}"

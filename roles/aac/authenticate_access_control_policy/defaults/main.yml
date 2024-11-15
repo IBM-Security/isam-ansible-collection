@@ -1,0 +1,5 @@
+---
+# Default variables for configuration of access control policy attachments
+admin_id: "{{ sec_master_id | default('sec_master') }}"
+admin_pwd: "{{ sec_master_pwd }}"
+admin_domain: Default
