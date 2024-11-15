@@ -36,6 +36,7 @@ mock_roles:
   - mocked_role
   - author.role_name # old standalone galaxy role
   - fake_namespace.fake_collection.fake_role # role within a collection
+  - ibm.isam.common_handlers
 
 # Enable checking of loop variable prefixes in roles
 # loop_var_prefix: "^(__|{role}_)"
