@@ -5,10 +5,8 @@
   hosts: all
   gather_facts: false
   roles:
-    - role: ibm.isam.first_steps
+    - role: ibm.isam.base.first_steps
       tags: [first, steps]
-      first_steps_fips: false
-      first_steps_admin_pwd: false
     - role: ibm.isam.sanity_checks
       tags: [sanity]
     - role: ibm.isam.add_network_ipv4
