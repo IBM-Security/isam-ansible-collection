@@ -4,7 +4,7 @@
 #
 - name: Apply Common Configuration to all Appliances
   hosts: all
-  gather_facts: False
+  gather_facts: false
   tasks:
     - name: First steps
       ansible.builtin.include_role:
@@ -28,26 +28,26 @@
       tags: ["ipv4"]
       when:
         - interfaces is defined
-    - name: network dhcp
+    - name: Network dhcp
       ansible.builtin.import_role:
         name: ibm.isam.base.configure_dhcp
       tags: ["dhcp"]
       when:
         - interfaces is defined
-    - name: set hostname
+    - name: Set hostname
       ansible.builtin.import_role:
         name: ibm.isam.set_network_hostname
       tags: ["hostname"]
       vars:
         set_network_hostname_hostname: "{{ appliance_name }}"
 
-- name: configure dns (playbook)
-  import_playbook: ibm.isam.base.configure_dns
-- name: configure time (playbook)
-  import_playbook: ibm.isam.base.configure_time
+- name: Configure dns (playbook)
+  import_playbook: ibm.isam.base.configure_dns.yml
+- name: Configure time (playbook)
+  import_playbook: ibm.isam.base.configure_time.yml
   tags: ["ntp"]
-- name: activate modules (playbook)
-  import_playbook: ibm.isam.base.activate_modules
+- name: Activate modules (playbook)
+  import_playbook: ibm.isam.base.activate_modules.yml
   tags: ["activate", "wga"]
   when:
     - activation_keys is defined
