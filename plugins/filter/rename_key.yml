@@ -1,0 +1,29 @@
+---
+DOCUMENTATION:
+  name: rename_key
+  author: IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>
+  version_added: 2.3.0
+  short_description: Rename keys in a dictionary
+  description:
+    - Rename keys in a dictionary
+    - This is useful when there are differences in the ISVA api between output and input keys
+    - The return value is a dict.
+  positional: _input
+  options:
+    _input:
+      description: The dictionary in which keys will be renamed
+      type: dict
+      required: true
+    key_name:
+      description: A number of key-value pairs where the key is the current name and the value the new name
+      type: string
+      required: true
+EXAMPLES: |
+  # rename key uri to attributeURI
+  exclude_var: "{{ {test: 'var', 'uri': 'exclude_this'} | ibm.isam.rename_key(uri='attributeURI') }}"
+
+
+RETURN:
+  _value:
+    description: The dictionary, where the keys are renamed
+    type: dict
