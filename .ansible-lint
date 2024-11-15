@@ -18,7 +18,6 @@ exclude_paths:
   - playbooks/base/template.yml
   - roles/aac/disable_authentication_policies/molecule/default/check_for_all_false_status.yml
   - roles/aac/disable_authentication_policies/molecule/default/check_for_all_true_status.yml
-  - playbooks/base_site.yml
   - playbooks/vmware
   - molecule/
 
@@ -37,7 +36,6 @@ mock_roles:
   - mocked_role
   - author.role_name # old standalone galaxy role
   - fake_namespace.fake_collection.fake_role # role within a collection
-  - ibm.isam.common_handlers
 
 # Enable checking of loop variable prefixes in roles
 # loop_var_prefix: "^(__|{role}_)"
