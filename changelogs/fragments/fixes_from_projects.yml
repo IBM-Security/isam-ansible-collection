@@ -9,6 +9,8 @@ minor_changes:
   - web.restart_reverseproxy_instances - lint line length
   - web.configure_kerberos - lint issues
   - web.execute_pdadmin - lint line length
+  - fed.configure_sts_chains - linting issues
+  - gen_report - lint line length
 
 removed_features:
   - first_steps - use ibm.isam.base.first_steps instead
@@ -22,3 +24,7 @@ add object.role:
     description: Create mapping between typeId and typeName, for use in `ibm.isam.aac.configure_authentication_mechanisms`
   - name: aac.authenticate_access_control_policy
     description: Authenticate before performing access control policy attachments
+  - name: aac.delete_access_control_policy_attachments
+    description: Delete specific access control policy attachments
+  - name: aac.delete_access_control_policies
+    description: Delete access control policies
