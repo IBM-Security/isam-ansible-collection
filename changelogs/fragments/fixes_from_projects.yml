@@ -13,6 +13,9 @@ minor_changes:
   - fed.configure_sts_chains - linting issues
   - gen_report - lint line length
 
+deprecated_features:
+  - authenticate_policy_attachments - use aac.authenticate_access_control_policy instead
+
 removed_features:
   - first_steps - use ibm.isam.base.first_steps instead
 
