@@ -8,6 +8,20 @@
         - always
       ansible.builtin.include_vars:
         file: "vars/aac.yml"
+
+    - name: "Include get_access_control_policies"
+      ansible.builtin.include_role:
+        name: "get_access_control_policies"
+      vars:
+        get_access_control_policies:
+          - name: "{{ access_control_policies[0].name }}"
+
+    - name: "Assert that policy {{ access_control_policies[0].name }} is added"
+      assert:
+        that: ret_obj.results.0.data.name == access_control_policies[0].name
+        fail_msg: "Policy {{ access_control_policies[0].name }} was not added"
+        success_msg: "Policy {{ access_control_policies[0].name }} was added"
+
     - name: Debug
       ansible.builtin.debug:
         var: aac_authentication_mechanism_types_mapping
