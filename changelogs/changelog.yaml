@@ -363,3 +363,49 @@ releases:
         name: web.store_admin_credential_apiac_policies
         namespace: null
     release_date: '2024-10-18'
+  2.3.0:
+    changes:
+      bugfixes:
+      - aac.configure_access_control_policy_attachments - fix role
+      deprecated_features:
+      - authenticate_policy_attachments - use aac.authenticate_access_control_policy
+        instead
+      minor_changes:
+      - aac.configure_access_control_attributes - rename uri to attributeURI if present
+        (using the new rename_key filter plugin)
+      - aac.configure_access_control_policies - small updates
+      - base_site.yml - update to newer version of first_steps role
+      - fed.configure_sts_chains - linting issues
+      - gen_report - lint line length
+      - web.configure_kerberos - lint issues
+      - web.execute_pdadmin - lint line length
+      - web.import_certificate_mapping_files - remove invalid name for variable
+      - web.restart_reverseproxy_instances - lint line length
+      release_summary: '| Fixes related to AAC access control policies and mechanisms
+
+        '
+      removed_features:
+      - first_steps - use ibm.isam.base.first_steps instead
+    fragments:
+    - fixes_from_projects.yml
+    objects:
+      role:
+      - description: Authenticate before performing access control policy attachments
+          - is a dependency of aac.configure_access_control_policy_attachments
+        name: aac.authenticate_access_control_policy
+        namespace: null
+      - description: Delete access control policies
+        name: aac.delete_access_control_policies
+        namespace: null
+      - description: Delete specific access control policy attachments
+        name: aac.delete_access_control_policy_attachments
+        namespace: null
+      - description: Create mapping between typeId and typeName, for use in `ibm.isam.aac.configure_authentication_mechanisms`
+        name: aac.get_authentication_mechanism_types
+        namespace: null
+    plugins:
+      filter:
+      - description: Rename keys in a dictionary
+        name: rename_key
+        namespace: null
+    release_date: '2024-11-15'
