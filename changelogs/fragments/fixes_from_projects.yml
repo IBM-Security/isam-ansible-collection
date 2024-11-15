@@ -1,0 +1,14 @@
+---
+bugfixes:
+  - Instances variable for reverse proxy roles (#185)
+
+minor_changes:
+  - aac.configure_access_control_attributes - rename uri to attributeURI if present (using the new rename_key filter plugin)
+
+add plugin.filter:
+  - name: rename_key
+    description: Renames keys in incoming dictionary. This is useful in cases where the export from ISVA API is different from input
+
+add object.role:
+  - name: aac.get_authentication_mechanism_types
+    description: Create mapping between typeId and typeName, for use in `ibm.isam.aac.configure_authentication_mechanisms`
