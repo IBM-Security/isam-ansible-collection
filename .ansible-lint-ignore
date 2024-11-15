@@ -1,7 +1,4 @@
 # This file contains ignores rule violations for ansible-lint
-molecule/175_base_verify_inventorydir_change/verify.yml name[template]
-molecule/175_web_verify_inventorydir_change/converge.yml name[casing]
-molecule/175_web_verify_inventorydir_change/verify.yml name[template]
 molecule/fed_idp_ch10/converge.yml name[missing]
 molecule/fed_idp_ch12/converge.yml name[missing]
 molecule/fed_idp_ch17/converge.yml name[missing]
