@@ -4,6 +4,7 @@ bugfixes:
 
 minor_changes:
   - aac.configure_access_control_attributes - rename uri to attributeURI if present (using the new rename_key filter plugin)
+  - aac.configure_access_control_policies - small updates
   - base_site.yml - update to newer version of first_steps role
   - web.import_certificate_mapping_files - remove invalid name for variable
   - web.restart_reverseproxy_instances - lint line length
@@ -23,7 +24,7 @@ add object.role:
   - name: aac.get_authentication_mechanism_types
     description: Create mapping between typeId and typeName, for use in `ibm.isam.aac.configure_authentication_mechanisms`
   - name: aac.authenticate_access_control_policy
-    description: Authenticate before performing access control policy attachments
+    description: Authenticate before performing access control policy attachments - is a dependency of aac.configure_access_control_policy_attachments
   - name: aac.delete_access_control_policy_attachments
     description: Delete specific access control policy attachments
   - name: aac.delete_access_control_policies
