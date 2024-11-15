@@ -7,6 +7,8 @@ DOCUMENTATION:
   description:
     - Rename keys in a dictionary
     - This is useful when there are differences in the ISVA api between output and input keys
+    - If the new key already exists, the old key is simply dropped
+    - So in the example below, if attributeURI already exists, the uri key is dropped
     - The return value is a dict.
   positional: _input
   options:
@@ -20,7 +22,7 @@ DOCUMENTATION:
       required: true
 EXAMPLES: |
   # rename key uri to attributeURI
-  exclude_var: "{{ {test: 'var', 'uri': 'exclude_this'} | ibm.isam.rename_key(uri='attributeURI') }}"
+  exclude_var: "{{ {test: 'var', 'uri': 'some variable'} | ibm.isam.rename_key(uri='attributeURI') }}"
 
 
 RETURN:

@@ -11,7 +11,8 @@ def rename_key(a, **kw):
             print(f"Renaming {k_old} to {k_new}")
             if k_old in a:
                 if k_new in a:
-                    print("Key exists, skipping renaming")
+                    print("Key exists, skip renaming.  Delete old key")
+                    a.pop(k_old)
                 else:
                     a[k_new] = a.pop(k_old)
     except Exception as e:
