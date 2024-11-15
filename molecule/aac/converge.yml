@@ -1,0 +1,14 @@
+---
+- name: Converge aac
+  hosts: all
+  gather_facts: false
+  vars:
+    homedir: "{{ playbook_dir }}" # this is this directory for molecule
+  tasks:
+    - name: Molecule test get authentication mechanism types mapping
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.get_authentication_mechanism_types
+
+    - name: Debug
+      ansible.builtin.debug:
+        var: authentication_mechanism_types_mapping
