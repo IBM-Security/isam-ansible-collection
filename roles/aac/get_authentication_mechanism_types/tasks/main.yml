@@ -1,0 +1,15 @@
+---
+- name: Get mapping of types
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.authentication.mechanism_types.get_all
+    isamapi:
+  register: __types_mapping
+
+- name: Set fact aac_authentication_mechanism_types_mapping
+  set_fact:
+    aac_authentication_mechanism_types_mapping: "{{ aac_authentication_mechanism_types_mapping | default({}) | combine({item.id: item.name}) }}"
+  loop: "{{ __types_mapping.data }}"
+  loop_control:
+    label: "{{ item.id }}: {{ item.name }}"
