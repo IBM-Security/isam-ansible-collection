@@ -18,6 +18,10 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.policies.set
     isamapi: "{{ item }}"
-  when: item is defined
-  with_items: "{{ access_control_policies }}"
+  when:
+    - item.name is defined
+    - item.policy is defined
+  loop: "{{ access_control_policies }}"
+  loop_control:
+    label: Configuring policy {{ item.name }} - {{ item.formatting | default('xml') }} formatting
   notify: Commit Changes
