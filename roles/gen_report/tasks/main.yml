@@ -2,8 +2,8 @@
 - name: Generate Report using template {{ gen_report_template }}
   ansible.builtin.template:
     src: "{{ gen_report_template }}"
-    dest: "{{ gen_report_dir }}/{{ gen_report_template.partition('.')[0] }}_{{ ansible_date_time.date }}-{{ ansible_date_time.hour }}-{{ ansible_date_time.minute
-      }}-{{ ansible_date_time.second }}.{{ gen_report_output_format }}"
+    dest: "{{ gen_report_dir }}/{{ gen_report_template.partition('.')[0] }}_{{ ansible_date_time.date }}-{{ ansible_date_time.hour
+      }}-{{ ansible_date_time.minute }}-{{ ansible_date_time.second }}.{{ gen_report_output_format }}"
     mode: "{{ gen_report_mode | default(omit) }}"
   run_once: true
   changed_when: false
