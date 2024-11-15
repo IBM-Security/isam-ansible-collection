@@ -1,0 +1,25 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: False
+  tasks:
+    - ansible.builtin.include_vars:
+        file: "../../vars/main.yml"
+        name: inventory
+
+    - name: "Include get_access_control_policies"
+      ansible.builtin.include_role:
+        name: "get_access_control_policies"
+      vars:
+        get_access_control_policies:
+          - name: "{{ inventory.name }}"
+
+    - name: "Assert that policy description was updated"
+      assert:
+        that:
+          - ret_obj.results.0.data.name == inventory.name
+          - ret_obj.results.0.data.description == inventory.update_description
+        fail_msg: "Policy description was not updated"
+        success_msg: "Policy description was updated"
