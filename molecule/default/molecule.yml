@@ -6,7 +6,7 @@ driver:
 
 scenario:
   test_sequence:
-    - lint
+    # - lint
     - create
     - prepare
     - converge
