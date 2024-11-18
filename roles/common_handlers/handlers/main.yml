@@ -23,7 +23,7 @@
     action: ibmsecurity.isam.docker.publish.publish_changes
   when:
     - '"model" in ansible_facts and ansible_facts.model == "Docker"'
-    - docker_publish_changes == true
+    - docker_publish_changes | bool
   listen: Commit Changes
 
 # Commit and Restart may cause LMI to restart - so wait to be safe
