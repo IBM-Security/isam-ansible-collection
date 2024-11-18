@@ -12,7 +12,7 @@ galaxy_info:
     - isam
     - ibm
     - configure
-    - reverse_proxy
+    - reverseproxy
 
 dependencies:
   - ibm.isam.common_handlers

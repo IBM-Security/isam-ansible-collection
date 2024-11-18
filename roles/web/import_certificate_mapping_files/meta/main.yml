@@ -12,7 +12,7 @@ galaxy_info:
     - isam
     - ibm
     - import
-    - certificate_mappings
+    - certificatemappings
 
 dependencies:
   - ibm.isam.common_handlers

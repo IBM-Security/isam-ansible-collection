@@ -12,7 +12,7 @@ galaxy_info:
     - isam
     - ibm
     - upload
-    - ltpa_files
+    - ltpafiles
 
 dependencies:
   - ibm.isam.common_handlers

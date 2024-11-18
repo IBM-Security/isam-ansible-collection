@@ -6,13 +6,13 @@ galaxy_info:
 
   license: Apache
 
-  min_ansible_version: "2.10"
+  min_ansible_version: "2.13"
 
   galaxy_tags:
     - isam
     - ibm
     - upload
-    - runtime_components
+    - runtimecomponents
 
 dependencies:
   - ibm.isam.common_handlers

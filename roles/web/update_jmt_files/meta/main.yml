@@ -12,7 +12,7 @@ galaxy_info:
     - isam
     - ibm
     - update
-    - jmt_files
+    - jmtfiles
 
 dependencies:
   - ibm.isam.common_handlers

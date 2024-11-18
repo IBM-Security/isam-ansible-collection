@@ -11,7 +11,7 @@ galaxy_info:
   galaxy_tags:
     - isam
     - ibm
-    - sso_key
+    - ssokey
 
 dependencies:
   - ibm.isam.common_handlers
