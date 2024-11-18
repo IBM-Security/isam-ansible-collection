@@ -1,5 +1,5 @@
 ---
-- name: singlecontainer | create or update container {{ container_item.name }}
+- name: singlecontainer | Create or update container {{ container_item.name }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"

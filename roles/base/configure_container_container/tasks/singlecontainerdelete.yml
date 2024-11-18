@@ -1,5 +1,5 @@
 ---
-- name: singlecontainerdelete | delete container {{ container_item.name }}
+- name: singlecontainerdelete | Delete container {{ container_item.name }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
