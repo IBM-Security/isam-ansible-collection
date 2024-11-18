@@ -24,7 +24,7 @@
     - path == item.path
 
 - name: Delete application log files
-  ignore_errors: true
+  ignore_errors: true # noqa: ignore-errors
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
