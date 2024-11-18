@@ -7,12 +7,13 @@
     password2: "{{ master_password }}"
     log: "{{ log_level | default('INFO') }}"
     action: "{{ item }}"
-  ignore_errors: true
+  ignore_errors: true # noqa: ignore-errors
   register: ret_obj
 
 - name: Show Differences - values do not match!
-  ansible.builtin.debug: msg="{{ ret_obj['data']['difference'].split('\n') }}"
-  ignore_errors: true
+  ansible.builtin.debug:
+    msg: "{{ ret_obj['data']['difference'].split('\n') }}"
+  ignore_errors: true # noqa: ignore-errors
   when:
     - ret_obj['data']['matches'] is defined
     - not ret_obj['data']['matches']

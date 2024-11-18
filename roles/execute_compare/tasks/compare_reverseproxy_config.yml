@@ -9,19 +9,21 @@
     action: ibmsecurity.isam.web.reverse_proxy.management_root.directory
     isamapi:
       instance_id: "{{ reverseproxy.id }}"
-  ignore_errors: true
+  ignore_errors: true # noqa: ignore-errors
   register: ret_obj
 
 - name: Show Differences - values do not match!
-  ansible.builtin.debug: msg="{{ ret_obj['data']['difference'].split('\n') }}"
-  ignore_errors: true
+  ansible.builtin.debug:
+    msg: "{{ ret_obj['data']['difference'].split('\n') }}"
+  ignore_errors: true # noqa: ignore-errors
   when:
     - ret_obj['data']['matches'] is defined
     - not ret_obj['data']['matches']
 
 - name: Show Log - command failed!
-  ansible.builtin.debug: msg="{{ ret_obj['log'].split('\n') }}"
-  ignore_errors: true
+  ansible.builtin.debug:
+    msg: "{{ ret_obj['log'].split('\n') }}"
+  ignore_errors: true # noqa: ignore-errors
   when: ret_obj['failed'] is true
 
 - name: Compare Junctions for Reverse Proxy->{{ reverseproxy.id }}
@@ -34,20 +36,22 @@
     action: ibmsecurity.isam.web.reverse_proxy.junctions
     isamapi:
       reverseproxy_id: "{{ reverseproxy.id }}"
-  ignore_errors: true
+  ignore_errors: true # noqa: ignore-errors
   register: ret_obj
 
 - name: Show Differences - values do not match!
-  ansible.builtin.debug: msg="{{ ret_obj['data']['difference'].split('\n') }}"
-  ignore_errors: true
+  ansible.builtin.debug:
+    msg: "{{ ret_obj['data']['difference'].split('\n') }}"
+  ignore_errors: true # noqa: ignore-errors
   when:
     - ret_obj['data']['matches'] is defined
     - not ret_obj['data']['matches']
 
 - name: Show Log - command failed!
-  ansible.builtin.debug: msg="{{ ret_obj['log'].split('\n') }}"
-  ignore_errors: true
-  when: ret_obj['failed'] is true
+  ansible.builtin.debug:
+    msg: "{{ ret_obj['log'].split('\n') }}"
+  ignore_errors: true # noqa: ignore-errors
+  when: ret_obj['failed']
 
 - name: Compare stanza/entries for Reverse Proxy->{{ reverseproxy.id }}
   ibm.isam.isamcompare:
@@ -59,17 +63,19 @@
     action: ibmsecurity.isam.web.reverse_proxy.configuration.stanza
     isamapi:
       reverseproxy_id: "{{ reverseproxy.id }}"
-  ignore_errors: true
+  ignore_errors: true # noqa: ignore-errors
   register: ret_obj
 
 - name: Show Differences - values do not match!
-  ansible.builtin.debug: msg="{{ ret_obj['data']['difference'].split('\n') }}"
-  ignore_errors: true
+  ansible.builtin.debug:
+    msg: "{{ ret_obj['data']['difference'].split('\n') }}"
+  ignore_errors: true # noqa: ignore-errors
   when:
     - ret_obj['data']['matches'] is defined
     - not ret_obj['data']['matches']
 
 - name: Show Log - command failed!
-  ansible.builtin.debug: msg="{{ ret_obj['log'].split('\n') }}"
-  ignore_errors: true
-  when: ret_obj['failed'] is true
+  ansible.builtin.debug:
+    msg: "{{ ret_obj['log'].split('\n') }}"
+  ignore_errors: true # noqa: ignore-errors
+  when: ret_obj['failed']

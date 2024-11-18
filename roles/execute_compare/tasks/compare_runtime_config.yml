@@ -9,17 +9,19 @@
     action: ibmsecurity.isam.web.runtime.configuration.stanza
     isamapi:
       resource_id: "{{ resource_id }}"
-  ignore_errors: true
+  ignore_errors: true # noqa: ignore-errors
   register: ret_obj
 
 - name: Show Differences - values do not match!
-  ansible.builtin.debug: msg="{{ ret_obj['data']['difference'].split('\n') }}"
-  ignore_errors: true
+  ansible.builtin.debug:
+    msg: "{{ ret_obj['data']['difference'].split('\n') | default('failed') }}"
   when:
     - ret_obj['data']['matches'] is defined
     - not ret_obj['data']['matches']
 
 - name: Show Log - command failed!
-  ansible.builtin.debug: msg="{{ ret_obj['log'].split('\n') }}"
-  ignore_errors: true
-  when: ret_obj['failed'] is true
+  ansible.builtin.debug:
+    msg: "{{ ret_obj['log'].split('\n') | default('failed') }}"
+  ignore_errors: true # noqa: ignore-errors
+  when:
+    - ret_obj['failed']
