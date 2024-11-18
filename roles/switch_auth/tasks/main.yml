@@ -9,15 +9,15 @@
     isamapi:
       comment: Snapshot Before Switch to External LDAP
 
-# Create certificate database to store AD CA Certs
-- ansible.builtin.include_tasks: cert.yml
-# Switch appliance to AD Based Authentication
-- ansible.builtin.include_tasks: mgmt_auth.yml
-# Enable Management Authorization (role based access)
-- ansible.builtin.include_tasks: mgmt_authz.yml
+- name: Create certificate database to store AD CA Certs
+  ansible.builtin.include_tasks: cert.yml
+- name: Switch appliance to AD Based Authentication
+  ansible.builtin.include_tasks: mgmt_auth.yml
+- name: Enable Management Authorization (role based access)
+  ansible.builtin.include_tasks: mgmt_authz.yml
 
-# Commit changes before next step
-- ansible.builtin.meta: flush_handlers
+- name: Commit changes before next step
+  ansible.builtin.meta: flush_handlers
 
-# Setup Roles
-- ansible.builtin.include_tasks: config_roles.yml
+- name: Setup Roles
+  ansible.builtin.include_tasks: config_roles.yml
