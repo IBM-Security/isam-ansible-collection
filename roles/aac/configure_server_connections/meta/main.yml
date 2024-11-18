@@ -13,7 +13,7 @@ galaxy_info:
     - isam
     - ibm
     - configure
-    - server_connection
+    - serverconnection
 
 dependencies:
   - ibm.isam.common_handlers

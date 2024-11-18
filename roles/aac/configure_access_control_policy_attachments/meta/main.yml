@@ -12,7 +12,7 @@ galaxy_info:
     - isam
     - ibm
     - configure
-    - policy_attachments
+    - policyattachments
 
 dependencies:
   - ibm.isam.common_handlers

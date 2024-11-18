@@ -13,7 +13,7 @@ galaxy_info:
     - isam
     - ibm
     - create
-    - api_protection_definition
+    - apiprotectiondefinition
 
 dependencies:
   - ibm.isam.common_handlers

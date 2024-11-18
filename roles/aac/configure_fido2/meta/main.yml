@@ -17,8 +17,8 @@ galaxy_info:
     - fido2
     - metadata
     - registrations
-    - relying-parties
-    - u2f-migration
+    - relyingparties
+    - u2fmigration
 
 dependencies:
   - ibm.isam.common_handlers

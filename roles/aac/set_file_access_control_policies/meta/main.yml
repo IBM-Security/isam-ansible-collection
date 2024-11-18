@@ -10,11 +10,10 @@ galaxy_info:
   min_ansible_version: "2.5"
 
   galaxy_tags:
-    - v1.0.0
     - isam
     - ibm
-    - set_file
-    - access_control_policies
+    - setfile
+    - accesscontrolpolicies
 
 dependencies:
   - ibm.isam.common_handlers

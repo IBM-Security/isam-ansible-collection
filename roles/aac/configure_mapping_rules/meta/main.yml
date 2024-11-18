@@ -13,7 +13,7 @@ galaxy_info:
     - isam
     - ibm
     - configure
-    - mapping_rules
+    - mappingrules
 
 dependencies:
   - ibm.isam.common_handlers
