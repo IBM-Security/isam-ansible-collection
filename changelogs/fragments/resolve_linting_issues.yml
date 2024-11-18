@@ -1,6 +1,7 @@
 ---
 minor_changes:
-  - ansible-lint - meta-no-tags
+  - ansible-lint - meta-no-tags - rename tags in the meta section
+  - ansible-lint - no error on use of ignore-error
 
 breaking_changes:
   - bootstrap_local - ansible-lint rename variables from `BS_` to `bootstrap_local_`
