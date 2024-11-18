@@ -34,7 +34,6 @@
   when:
     - logs.data is defined
     - uniquedirs is defined
-    - name == item.name
     - path == item.path | default('')
   loop: "{{ uniquedirs }}"
   loop_control:
