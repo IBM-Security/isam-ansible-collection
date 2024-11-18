@@ -13,7 +13,7 @@ galaxy_info:
     - isam
     - ibm
     - configure
-    - runtime_tuning
+    - runtimetuning
 
 dependencies:
   - ibm.isam.common_handlers

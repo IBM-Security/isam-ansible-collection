@@ -13,7 +13,7 @@ galaxy_info:
     - isam
     - ibm
     - create
-    - ssl_certificate_databases
+    - sslcertificatedatabases
 
 dependencies:
   - ibm.isam.common_handlers

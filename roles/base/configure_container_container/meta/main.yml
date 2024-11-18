@@ -16,7 +16,7 @@ galaxy_info:
     - isam
     - ibm
     - extension
-    - container_extension
+    - containerextension
     - upload
 
 dependencies:

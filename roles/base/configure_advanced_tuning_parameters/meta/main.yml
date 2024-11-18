@@ -12,7 +12,7 @@ galaxy_info:
     - isam
     - ibm
     - configure
-    - advanced_tuning_parameter
+    - advancedtuningparameter
 
 dependencies:
   - ibm.isam.common_handlers

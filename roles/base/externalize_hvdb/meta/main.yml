@@ -11,10 +11,10 @@ galaxy_info:
   galaxy_tags:
     - isam
     - ibm
-    - Database
+    - database
     - externalize
-    - DB2
-    - Oracle
+    - db2
+    - oracle
 
 dependencies:
   - ibm.isam.common_handlers

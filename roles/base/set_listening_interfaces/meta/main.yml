@@ -12,7 +12,7 @@ galaxy_info:
     - isam
     - ibm
     - set
-    - listening_interfaces
+    - listeninginterfaces
 
 dependencies:
   - ibm.isam.common_handlers

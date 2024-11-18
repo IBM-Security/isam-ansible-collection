@@ -13,7 +13,8 @@ galaxy_info:
     - isam
     - ibm
     - configure
-    - static_routes
+    - networking
+    - staticroutes
 
 dependencies:
   - ibm.isam.common_handlers

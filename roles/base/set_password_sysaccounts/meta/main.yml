@@ -11,7 +11,7 @@ galaxy_info:
   galaxy_tags:
     - isam
     - ibm
-    - set_password
+    - setpassword
     - sysaccounts
 
 dependencies:
