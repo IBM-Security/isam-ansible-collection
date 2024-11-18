@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: false
   vars:
-    homedir: .
+    homedir: "."
   tasks:
     - name: Include vars
       ansible.builtin.include_vars:
