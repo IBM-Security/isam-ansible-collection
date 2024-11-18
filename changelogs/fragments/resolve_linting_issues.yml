@@ -1,0 +1,12 @@
+---
+minor_changes:
+  - ansible-lint - meta-no-tags
+
+breaking_changes:
+  - bootstrap_local - ansible-lint rename variables from `BS_` to `bootstrap_local_`
+
+deprecated_features:
+  - set_admin_pw - this role is not working anyway
+
+bugfixes:
+  - web.config_reverseproxy_redis - Correct role workings and create a test (#185)
