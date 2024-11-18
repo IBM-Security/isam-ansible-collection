@@ -4,6 +4,58 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v2.3.0
+======
+
+Release Summary
+---------------
+
+| Fixes related to AAC access control policies and mechanisms
+
+Minor Changes
+-------------
+
+- aac.configure_access_control_attributes - rename uri to attributeURI if present (using the new rename_key filter plugin)
+- aac.configure_access_control_policies - small updates
+- base_site.yml - update to newer version of first_steps role
+- fed.configure_sts_chains - linting issues
+- gen_report - lint line length
+- web.configure_kerberos - lint issues
+- web.execute_pdadmin - lint line length
+- web.import_certificate_mapping_files - remove invalid name for variable
+- web.restart_reverseproxy_instances - lint line length
+
+Deprecated Features
+-------------------
+
+- authenticate_policy_attachments - use aac.authenticate_access_control_policy instead
+
+Removed Features (previously deprecated)
+----------------------------------------
+
+- first_steps - use ibm.isam.base.first_steps instead
+
+Bugfixes
+--------
+
+- aac.configure_access_control_policy_attachments - fix role
+
+New Plugins
+-----------
+
+Filter
+~~~~~~
+
+- ibm.isam.rename_key - Rename keys in a dictionary
+
+New Roles
+---------
+
+- ibm.isam.aac.authenticate_access_control_policy - Authenticate before performing access control policy attachments - is a dependency of aac.configure_access_control_policy_attachments
+- ibm.isam.aac.delete_access_control_policies - Delete access control policies
+- ibm.isam.aac.delete_access_control_policy_attachments - Delete specific access control policy attachments
+- ibm.isam.aac.get_authentication_mechanism_types - Create mapping between typeId and typeName, for use in `ibm.isam.aac.configure_authentication_mechanisms`
+
 v2.2.0
 ======
 

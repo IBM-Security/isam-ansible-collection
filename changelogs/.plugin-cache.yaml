@@ -23,6 +23,10 @@ plugins:
       description: Include
       name: include_only
       version_added: historical
+    rename_key:
+      description: Rename keys in a dictionary
+      name: rename_key
+      version_added: 2.3.0
     to_nice_xml:
       description: Transform yaml list e.g. (authentication policy) to nicely formatted
         xml
@@ -61,4 +65,4 @@ plugins:
   strategy: {}
   test: {}
   vars: {}
-version: 2.2.0
+version: 2.3.0
