@@ -6,11 +6,10 @@
     action: ibmsecurity.isam.appliance.commit
   check_mode: true
   register: ret_obj
+  notify: Fail on changes
 
-- name: If Appliance has pending changes - then fail
-  ansible.builtin.fail:
-    msg: This appliance has pending changes, please commit or rollback before re-running.
-  when: ret_obj.changed
+- name: Meta
+  ansible.builtin.meta: flush_handlers
 
 - name: Snapshot Appliance as Backup
   ibm.isam.isam:

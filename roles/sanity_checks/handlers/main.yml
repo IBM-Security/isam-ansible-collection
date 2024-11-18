@@ -1,0 +1,4 @@
+---
+- name: Fail on changes
+  ansible.builtin.fail:
+    msg: This appliance has pending changes, please commit or rollback before re-running.
