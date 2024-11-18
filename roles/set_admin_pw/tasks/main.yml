@@ -5,5 +5,5 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.admin.set_pw
     isamapi:
-  ignore_errors: true
+  ignore_errors: true # noqa: ignore-errors
   notify: Commit Changes
