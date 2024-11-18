@@ -17,10 +17,11 @@
 
       EXAMPLES
         # filter at runtime for specific actions from your inventory
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_http_transformation_rules.yml -e transformation_action=add
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_http_transformation_rules.yml -e transformation_action=delete -e id=test3.xslt # only delete test3.xslt (if mentioned in your inventroy)
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_http_transformation_rules.yml -e transformation_action=import_file -e filename="/tmp/test2.xslt" # only import test2.xslt (if mentioned in your inventroy)
-
+        ansible-playbook -i [...] ibm.isam.web.configure_http_transformation_rules.yml -e transformation_action=add
+        # only delete test3.xslt (if mentioned in your inventroy)
+        ansible-playbook -i [...] ibm.isam.web.configure_http_transformation_rules.yml -e transformation_action=delete -e id=test3.xslt
+        # only import test2.xslt (if mentioned in your inventroy)
+        ansible-playbook -i [...] ibm.isam.web.configure_http_transformation_rules.yml -e transformation_action=import_file -e filename="/tmp/test2.xslt"
       INVENTORY
       ==========
       # configure http transformation rules
@@ -74,14 +75,15 @@
     - item.transformation_action == 'export_file' or item.transformation_action == 'export_template_file'
     - item.filename is defined
 
-- name: Configure http transformation rules [-e transformation_action=[add|delete|rename|update|export_file|export_template_file|import_file|get_all|get|get_template]
+- name: Configure http transformation rules [-e transformation_action=
+    [add|delete|rename|update|export_file|export_template_file|import_file|get_all|get|get_template]
     -e id=<http_transformation_name> -e filename=<path/to/import/or/export/file.xslt>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.http_transformation.{{ item.transformation_action }}
-    isamapi: "{{ item | ibm.isam.exclude('transformation_action') | combine({'filename': (homedir + '/' + item.filename)} if (item.filename is defined) else {}) | default(omit)
-      }}"
+    isamapi: "{{ item | ibm.isam.exclude('transformation_action') | combine({'filename': (homedir + '/' + item.filename)}
+      if (item.filename is defined) else {}) | default(omit) }}"
   loop: "{{ http_transformation_rules }}"
   when:
     - item.transformation_action == transformation_action

@@ -19,6 +19,7 @@
     - not ret_obj['data']['matches']
 
 - name: Show Log - command failed!
-  ansible.builtin.debug: msg="{{ ret_obj['log'].split('\n') }}"
-  ignore_errors: true
-  when: ret_obj['failed'] is true
+  ansible.builtin.debug:
+    msg: "{{ ret_obj['log'].split('\n') }}"
+  ignore_errors: true # noqa: ignore-errors
+  when: ret_obj['failed'] | bool
