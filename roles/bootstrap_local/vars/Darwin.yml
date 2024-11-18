@@ -1,9 +1,9 @@
 ---
-BS_vmrun: /Applications/VMware\ Fusion.app/Contents/Library/vmrun
-BS_vmrunflags: -T fusion
-BS_vmdiskmgr: /Applications/VMware\ Fusion.app/Contents/Library/vmware-vdiskmanager
-BS_vm_dir_suffix: .vmwarevm
-BS_mkisofs: /Applications/VMware\ Fusion.app/Contents/Library/mkisofs
-BS_mkisoflags: -joliet -rock -o
-BS_os: OSX
-BS_tmpdir: /tmp
+bootstrap_local_vmrun: /Applications/VMware\ Fusion.app/Contents/Library/vmrun
+bootstrap_local_vmrunflags: -T fusion
+bootstrap_local_vmdiskmgr: /Applications/VMware\ Fusion.app/Contents/Library/vmware-vdiskmanager
+bootstrap_local_vm_dir_suffix: .vmwarevm
+bootstrap_local_mkisofs: /Applications/VMware\ Fusion.app/Contents/Library/mkisofs
+bootstrap_local_mkisoflags: -joliet -rock -o
+bootstrap_local_os: OSX
+bootstrap_local_tmpdir: /tmp

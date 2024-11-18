@@ -1,43 +1,43 @@
 ---
-- name: tasks file for bootstrap_local
+- name: Tasks file for bootstrap_local
   ansible.builtin.include_vars: "{{ ansible_os_family }}.yml"
 
 - name: Check if there is a vm with the destination name already exist
-  ansible.builtin.stat: path={{ BS_vm_path_root }}/{{ BS_vm_hostname }}{{ BS_vm_dir_suffix }}/{{ BS_vm_hostname }}.vmx
+  ansible.builtin.stat: path={{ bootstrap_local_vm_path_root }}/{{ bootstrap_local_vm_hostname }}{{ bootstrap_local_vm_dir_suffix }}/{{ bootstrap_local_vm_hostname }}.vmx
   register: vmxfile
   ignore_errors: true
 - ansible.builtin.debug: var=vmxfile
 
-- name: bootstrap a new vm if vmx file does not exist
+- name: Bootstrap a new vm if vmx file does not exist
   ansible.builtin.include_tasks: bootstrap.yml
   when: not vmxfile.stat.exists
 
 - name: Check if there is a vm with the destination name already running
   ansible.builtin.shell: |
     set -o pipefail && \
-    {{ BS_vmrun }} {{ BS_vmrunflags }} list | \
-    grep -q {{ BS_vm_path_root }}/{{ BS_vm_hostname }}{{ BS_vm_dir_suffix }}/{{ BS_vm_hostname }}.vmx
+    {{ bootstrap_local_vmrun }} {{ bootstrap_local_vmrunflags }} list | \
+    grep -q {{ bootstrap_local_vm_path_root }}/{{ bootstrap_local_vm_hostname }}{{ bootstrap_local_vm_dir_suffix }}/{{ bootstrap_local_vm_hostname }}.vmx
   changed_when: false
   register: shell_out
   ignore_errors: true
 - ansible.builtin.debug: var=shell_out
 
-- name: set fact about target vm running
+- name: Set fact about target vm running
   ansible.builtin.set_fact:
     vm_running: true
   when: shell_out.rc == 0
 - ansible.builtin.debug: var=vm_running
 
 # start the vm if it is not running
-- name: if vmx file exists but it is not running, start it up
-  ansible.builtin.command: "{{ BS_vmrun }} {{ BS_vmrunflags }} start {{ BS_vm_vmx }}"
+- name: If vmx file exists but it is not running, start it up
+  ansible.builtin.command: "{{ bootstrap_local_vmrun }} {{ bootstrap_local_vmrunflags }} start {{ bootstrap_local_vm_vmx }}"
   register: shell_out
   when: vm_running is not defined
 - ansible.builtin.debug: var=shell_out
 
-- name: wait for system up, the speed depends on whether cold start or resume
+- name: Wait for system up, the speed depends on whether cold start or resume
   ansible.builtin.wait_for:
-    host: "{{ BS_vm_mgmt_ip }}"
+    host: "{{ bootstrap_local_vm_mgmt_ip }}"
     port: 443
     delay: 5
     state: started

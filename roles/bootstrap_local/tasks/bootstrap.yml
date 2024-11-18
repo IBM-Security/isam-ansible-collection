@@ -1,70 +1,106 @@
 ---
 # subtask file for isam-local-bootstrap
 - name: Check the ISAM ISO file exists
-  ansible.builtin.stat: path={{ BS_appliance_iso }}
+  ansible.builtin.stat:
+    path: "{{ bootstrap_local_appliance_iso }}"
   register: isofile
   failed_when: not isofile.stat.exists
 - ansible.builtin.debug: var=isofile.stat.exists
 
 - name: Check if the target VM directory exists
-  ansible.builtin.stat: path={{ BS_vm_path_root }}/{{ BS_vm_hostname }}{{ BS_vm_dir_suffix }}
+  ansible.builtin.stat:
+    path: "{{ bootstrap_local_vm_path_root }}/{{ bootstrap_local_vm_hostname }}{{ bootstrap_local_vm_dir_suffix }}"
   register: vmdir
   ignore_errors: true
 
 - name: Delete if the target VM directory exists
-  ansible.builtin.file: path="{{ BS_vm_dest_dir }}" state=absent
+  ansible.builtin.file:
+    path: "{{ bootstrap_local_vm_dest_dir }}"
+    state: absent
   when: vmdir.stat.exists
 
 - name: Create target VM directory
-  ansible.builtin.file: path="{{ BS_vm_dest_dir }}" state=directory mode=0755
+  ansible.builtin.file:
+    path: "{{ bootstrap_local_vm_dest_dir }}"
+    state: directory
+    mode: 0755
   register: shell_out
 
-- ansible.builtin.debug: var=shell_out
+- name: Debug
+  ansible.builtin.debug:
+    var: shell_out
 
 - name: Copy vmx file to target VM directory
-  ansible.builtin.template: src="{{ role_path }}/templates/isam9_sample.vmx" dest="{{ BS_vm_vmx }}"
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/isam9_sample.vmx"
+    dest: "{{ bootstrap_local_vm_vmx }}"
   register: cmd_out
-- ansible.builtin.debug: var=cmd_out
+
+- name: Debug cmd_out
+  ansible.builtin.debug:
+    var: cmd_out
 
 - name: Create VM disk
-  ansible.builtin.command: "{{ BS_vmdiskmgr }} -c -a lsilogic -s {{ BS_vm_hdd_size }}GB -t 0 {{ BS_vm_vmdk }}"
+  ansible.builtin.command: "{{ bootstrap_local_vmdiskmgr }} -c -a lsilogic -s {{ bootstrap_local_vm_hdd_size }}GB -t 0 {{ bootstrap_local_vm_vmdk }}"
   register: cmd_out
   changed_when: true
-- ansible.builtin.debug: var=cmd_out
 
-- name: Install ISAM ISO from image {{ BS_appliance_iso }}
-  ansible.builtin.command: "{{ BS_vmrun }} {{ BS_vmrunflags }} start {{ BS_vm_vmx }}"
+- name: Debug cmd_out
+  ansible.builtin.debug:
+    var: cmd_out
+
+- name: Install ISAM ISO from image {{ bootstrap_local_appliance_iso }}
+  ansible.builtin.command: "{{ bootstrap_local_vmrun }} {{ bootstrap_local_vmrunflags }} start {{ bootstrap_local_vm_vmx }}"
   register: shell_out
   changed_when: true
-- ansible.builtin.debug: var=shell_out
+
+- name: Debug shell_out
+  ansible.builtin.debug:
+    var: shell_out
 
 - name: Waiting for VM to install isam image and shutdown
-  ansible.builtin.shell: set -o pipefail &&  while ( {{ BS_vmrun }} {{ BS_vmrunflags }} list | grep -q {{ BS_vm_vmx }} ); do echo -n . ; sleep 1; done
+  ansible.builtin.shell: |
+    set -o pipefail && while ( {{ bootstrap_local_vmrun }} {{ bootstrap_local_vmrunflags }} list | grep -q {{ bootstrap_local_vm_vmx }} );
+    do echo -n . ;
+    sleep 1;
+    done
   register: shell_out
 
 - name: Wait for VM process to end
-  ansible.builtin.shell: set -o pipefail &&  while ( ps -ef | grep {{ BS_vm_vmx }} | grep -q -v grep ); do echo -n . ; sleep 1; done
+  ansible.builtin.shell: set -o pipefail && while ( ps -ef | grep {{ bootstrap_local_vm_vmx }} | grep -q -v grep ); do echo -n . ; sleep 1; done
   register: shell_out
   changed_when: false
 
 - name: Check tmp dir
-  ansible.builtin.stat: path="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata"
+  ansible.builtin.stat:
+    path: "{{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata"
   register: tmpdir
   ignore_errors: true
 
 - name: Clean tmp dir and file
-  ansible.builtin.file: path="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata" state=absent path="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata.iso" state=absent
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "{{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata"
+    - "{{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata.iso"
   when: tmpdir.stat.exists
 
 - name: Create tmp dir
-  ansible.builtin.file: path="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata" state=directory mode=0755
+  ansible.builtin.file:
+    path: "{{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata"
+    state: directory
+    mode: 0755
   register: shell_out
-- ansible.builtin.debug: var=shell_out
+
+- name: Debug shell_out
+  ansible.builtin.debug:
+    var: shell_out
 
 - name: Copy template
   ansible.builtin.template:
     src: "{{ role_path }}/templates/app-metadata"
-    dest: "{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata"
+    dest: "{{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata"
   register: cmd_out
 
 - name: Debug cmd_out
@@ -72,7 +108,7 @@
     var: cmd_out
 
 - name: Create metadata ISO
-  ansible.builtin.shell: "{{ BS_mkisofs }} {{ BS_mkisoflags }} {{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata.iso {{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata >/dev/null
+  ansible.builtin.shell: "{{ bootstrap_local_mkisofs }} {{ bootstrap_local_mkisoflags }} {{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata.iso {{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata >/dev/null
     2>&1"
   register: shell_out
   changed_when: true
@@ -83,21 +119,27 @@
 
 - name: Replace the ISO image file entry in vmx
   ansible.builtin.lineinfile:
-    dest: "{{ BS_vm_vmx }}"
+    dest: "{{ bootstrap_local_vm_vmx }}"
     regexp: ^sata0:1.fileName
-    line: sata0:1.fileName="{{ BS_tmpdir }}/{{ BS_vm_hostname }}-metadata.iso"
+    line: sata0:1.fileName="{{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata.iso"
     backrefs: true
   register: cmd_out
-- ansible.builtin.debug: var=cmd_out
+
+- name: Debug cmd_out
+  ansible.builtin.debug:
+    var: cmd_out
 
 - name: Boot up again with bootstrap ISO
-  ansible.builtin.command: "{{ BS_vmrun }} {{ BS_vmrunflags }} start {{ BS_vm_vmx }}"
+  ansible.builtin.command: "{{ bootstrap_local_vmrun }} {{ bootstrap_local_vmrunflags }} start {{ bootstrap_local_vm_vmx }}"
   register: shell_out
   changed_when: true
-- ansible.builtin.debug: var=shell_out
+
+- name: Debug shell_out
+  ansible.builtin.debug:
+    var: shell_out
 
 - name: Wait for LMI up
-  ansible.builtin.command: curl -k -v -s -u "admin:admin" -H "Accept:application/json" https://"{{ BS_vm_mgmt_ip }}"
+  ansible.builtin.command: curl -k -v -s -u "admin:admin" -H "Accept:application/json" https://"{{ bootstrap_local_vm_mgmt_ip }}"
   register: result
   until: result.stdout.find("302 Found") != -1
   retries: 50
@@ -105,22 +147,46 @@
   changed_when: false
 
 - name: Take care of vmx file to remove ISO image
-  ansible.builtin.lineinfile: dest={{ BS_vm_vmx }} regexp='^sata0:1.present' line='sata0:1.present="FALSE"' backrefs=yes
+  ansible.builtin.lineinfile:
+    dest: "{{ bootstrap_local_vm_vmx }}"
+    regexp: '^sata0:1.present'
+    line: 'sata0:1.present="FALSE"'
+    backrefs: true
   register: cmd_out
-- ansible.builtin.debug: var=cmd_out
+
+- name: Debug cmd_out
+  ansible.builtin.debug:
+    var: cmd_out
 
 - name: Take care of vmx file to remove ISO image
-  ansible.builtin.lineinfile: dest={{ BS_vm_vmx }} regexp='^sata0:1.fileName' line='sata0:1.fileName=' backrefs=yes
+  ansible.builtin.lineinfile:
+    dest: "{{ bootstrap_local_vm_vmx }}"
+    regexp: '^sata0:1.fileName'
+    line: 'sata0:1.fileName='
+    backrefs: true
   register: cmd_out
-- ansible.builtin.debug: var=cmd_out
+
+- name: Debug shell_out
+  ansible.builtin.debug:
+    var: shell_out
 
 - name: Take care of vmx file to remove ISO image
-  ansible.builtin.lineinfile: dest={{ BS_vm_vmx }} regexp='^sata0:1.startConnected' line='sata0:1.startConnected=FALSE' backrefs=yes
+  ansible.builtin.lineinfile:
+    dest: "{{ bootstrap_local_vm_vmx }}"
+    regexp: '^sata0:1.startConnected'
+    line: 'sata0:1.startConnected=FALSE'
+    backrefs: true
   register: cmd_out
-- ansible.builtin.debug: var=cmd_out
+
+- name: Debug cmd_out
+  ansible.builtin.debug:
+    var: cmd_out
 
 - name: Take a snapshot as baseline
-  ansible.builtin.command: "{{ BS_vmrun }} {{ BS_vmrunflags }} snapshot {{ BS_vm_vmx }} baseline"
+  ansible.builtin.command: "{{ bootstrap_local_vmrun }} {{ bootstrap_local_vmrunflags }} snapshot {{ bootstrap_local_vm_vmx }} baseline"
   register: shell_out
   changed_when: true
-- ansible.builtin.debug: var=shell_out
+
+- name: Debug shell_out
+  ansible.builtin.debug:
+    var: shell_out

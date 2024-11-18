@@ -1,4 +1,4 @@
-network.hostname = "{{ BS_vm_hostname }}"
-network.1.1.ipv4.address = "{{ BS_vm_mgmt_ip }}"
-network.1.1.ipv4.netmask = "{{ BS_vm_netmask }}"
-network.1.1.ipv4.gateway = "{{ BS_vm_default_gw }}"
+network.hostname = "{{ bootstrap_local_vm_hostname }}"
+network.1.1.ipv4.address = "{{ bootstrap_local_vm_mgmt_ip }}"
+network.1.1.ipv4.netmask = "{{ bootstrap_local_vm_netmask }}"
+network.1.1.ipv4.gateway = "{{ bootstrap_local_vm_default_gw }}"
