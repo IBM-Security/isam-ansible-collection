@@ -5,7 +5,10 @@
     path: "{{ bootstrap_local_appliance_iso }}"
   register: isofile
   failed_when: not isofile.stat.exists
-- ansible.builtin.debug: var=isofile.stat.exists
+
+- name: Debug exists
+  ansible.builtin.debug:
+    var: isofile.stat.exists
 
 - name: Check if the target VM directory exists
   ansible.builtin.stat:
@@ -23,7 +26,7 @@
   ansible.builtin.file:
     path: "{{ bootstrap_local_vm_dest_dir }}"
     state: directory
-    mode: 0755
+    mode: '0755'
   register: shell_out
 
 - name: Debug
@@ -90,7 +93,7 @@
   ansible.builtin.file:
     path: "{{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata"
     state: directory
-    mode: 0755
+    mode: '0755'
   register: shell_out
 
 - name: Debug shell_out
@@ -101,6 +104,7 @@
   ansible.builtin.template:
     src: "{{ role_path }}/templates/app-metadata"
     dest: "{{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata"
+    mode: '0755'
   register: cmd_out
 
 - name: Debug cmd_out
