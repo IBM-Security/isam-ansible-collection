@@ -10,8 +10,23 @@
   vars:
     homedir: "{{ playbook_dir }}" # this is this directory for molecule
     molecule_file: "files/ltpa.key"
+    redis_collections:
+      - name: redis1
+        servers:
+          - name: master
+            host: redis1.domain.com
+            username: isam
+            port: 6379
+            password: password
+          - name: replica1
+            host: replica1.domain.com
+            username: isam
+            port: 6379
+            password: password
     instances:
       - inst_name: default
+        redis_collections:
+          - redis1
         management_root:
           - mgmt_action: upload
             target: management/C/molecule_login.html
@@ -116,3 +131,9 @@
            - file: files/jmt/jmt.conf
       ansible.builtin.include_role:
         name: ibm.isam.web.update_jmt_files
+
+    - name: Test config redis
+      tags:
+        - redis
+      ansible.builtin.include_role:
+        name: ibm.isam.web.config_reverseproxy_redis
