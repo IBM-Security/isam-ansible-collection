@@ -35,7 +35,7 @@
   loop_control:
     label: Make sure directory exists for {{ item.path }}
 - name: Get application log files
-  ignore_errors: true
+  ignore_errors: true # noqa: ignore-errors
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
