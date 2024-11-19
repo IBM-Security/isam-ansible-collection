@@ -1,5 +1,5 @@
 ---
-- name: Add Federation Partner - {{ add_partner_partner_name }} to {{ add_partner_federation_name }}
+- name: Add Federation Partner - {{ add_partner_partner_name + ' to ' + add_partner_federation_name }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
