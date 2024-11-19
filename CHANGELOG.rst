@@ -4,6 +4,19 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v2.3.2
+======
+
+Release Summary
+---------------
+
+| Build related change
+
+Minor Changes
+-------------
+
+- build - a readme file is required in the roles/ directory for uploading to Red Hat
+
 v2.3.1
 ======
 
@@ -12,7 +25,6 @@ Minor Changes
 
 - ansible-lint - meta-no-tags - rename tags in the meta section
 - ansible-lint - no error on use of ignore-error
-- ansible-lint - linelength
 
 Breaking Changes / Porting Guide
 --------------------------------
@@ -22,7 +34,7 @@ Breaking Changes / Porting Guide
 Deprecated Features
 -------------------
 
-- set_admin_pw - this role is not working anyway, will be removed in a future version
+- set_admin_pw - this role is not working anyway
 
 Bugfixes
 --------

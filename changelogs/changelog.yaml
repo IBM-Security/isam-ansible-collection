@@ -423,3 +423,14 @@ releases:
     fragments:
     - resolve_linting_issues.yml
     release_date: '2024-11-19'
+  2.3.2:
+    changes:
+      minor_changes:
+      - build - a readme file is required in the roles/ directory for uploading to
+        Red Hat
+      release_summary: '| Build related change
+
+        '
+    fragments:
+    - build_failed.yml
+    release_date: '2024-11-19'
