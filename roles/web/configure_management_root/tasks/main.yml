@@ -10,27 +10,32 @@
         Role to configure management root
 
       STEPS
-        1) Export single management root from one instance [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance> -e skip_export=True/False -e skip_exports=True/False]
-        2) Export all management roots from all instance in inventroy [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance> -e skip_exports=True/False]
-        3) Sync management root from folder [local => server] [-e mgmt_action=sync_up -e inst_name=<instance> -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]
+        1) Export single management root from one instance [-e mgmt_action=export_zip -e file=</path/to/export/file.zip>
+             -e inst_name=<instance> -e skip_export=True/False -e skip_exports=True/False]
+        2) Export all management roots from all instance in inventroy [-e mgmt_action=export_zip
+             -e file=</path/to/export/file.zip> -e inst_name=<instance> -e skip_exports=True/False]
+        3) Sync management root from folder [local => server] [-e mgmt_action=sync_up -e inst_name=<instance>
+             -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]
         4) Create management root directories [-e mgmt_action=create -e inst_name=<instance> -e target=<directory_on_server> ]
-        5) Upload management root files [-e mgmt_action=upload -e inst_name=<instance> -e target=<target> -e file=</path/to/file.txt>]
+        5) Upload management root files [-e mgmt_action=upload -e inst_name=<instance> -e target=<target> -e file=</path/to/file.txt>]ibm.isam.web.
         6) Delete management root file/directory [-e mgmt_action=delete -e inst_name=<instance> -e target=<file/directory_to_delete>]
         7) Import management root zip files from inventory [-e mgmt_action=import_zip -e inst_name=<instance> -e skip_imports=True/False]
-        8) Import a single runtime template zip file [-e mgmt_action=import_zip -e file=<file/to/import/management_root.zip> -e skip_imports=True/False -e skip_import=True/False]
+        8) Import a single runtime template zip file [-e mgmt_action=import_zip -e file=<file/to/import/management_root.zip>
+             -e skip_imports=True/False -e skip_import=True/False]
 
       EXAMPLES
         # export a single management root to a zip file
         # export file parameter can be an absolute path or relative to homedir
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e mgmt_action=export_zip -e file="files/management_root_files/management_root_{{ ansible_date_time.date }}.zip" -e inst_name=default
+        ansible-playbook -i [...] ibm.isam.web.configure_management_root.yml -e mgmt_action=export_zip
+          -e file="files/management_root_files/management_root_{{ ansible_date_time.date }}.zip" -e inst_name=default
 
         # only do a particular task from the list of tasks
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=export_zip
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=import_zip
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=sync_up
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=create
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=upload
-        ansible-playbook -i [...] playbooks/ansible_collections/web/configure_management_root.yml -e tmpl_action=delete
+        ansible-playbook -i [...] ibm.isam.web.configure_management_root.yml -e tmpl_action=export_zip
+        ansible-playbook -i [...] ibm.isam.web.configure_management_root.yml -e tmpl_action=import_zip
+        ansible-playbook -i [...] ibm.isam.web.configure_management_root.yml -e tmpl_action=sync_up
+        ansible-playbook -i [...] ibm.isam.web.configure_management_root.yml -e tmpl_action=create
+        ansible-playbook -i [...] ibm.isam.web.configure_management_root.yml -e tmpl_action=upload
+        ansible-playbook -i [...] ibm.isam.web.configure_management_root.yml -e tmpl_action=delete
 
       INVENTORY
       ==========
@@ -69,22 +74,8 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-# TODO: this is broken - does not work on Tower anyway
-# - name: Make sure local export directory exists
-#  local_action:
-#    module: file
-#    path: "{{ file | dirname }}"
-#    recurse: yes
-#    state: directory
-#  when:
-#    - file is defined
-#    - file != ''
-#    - mgmt_action == 'export_zip'
-#    - (not (skip_exports | bool)) or
-#      (not (skip_export | bool))
-
-- name: Export single management root from one instance [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance> -e skip_export=True/False
-    -e skip_exports=True/False]
+- name: Export single management root from one instance [-e mgmt_action=export_zip -e file=</path/to/export/file.zip> -e inst_name=<instance>
+    -e skip_export=True/False -e skip_exports=True/False]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -113,8 +104,8 @@
   loop_control:
     label: "{{ item.1 }}"
 
-- name: Sync management root [local => server] [-e mgmt_action=sync_up -e inst_name=<instance> -e target=<directory_on_server> -e directory=<directory_on_local> -e
-    skip_sync=True/False]
+- name: Sync management root [local => server] [-e mgmt_action=sync_up -e inst_name=<instance> -e target=<directory_on_server>
+    -e directory=<directory_on_local> -e skip_sync=True/False]
   ansible.builtin.include_tasks: include_sync_management_root.yml
   when:
     - item.1.mgmt_action == 'sync_up'
@@ -177,8 +168,8 @@
     - management_root
     - skip_missing: true
   loop_control:
-    label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action | default('') }} {{ item.1.type | default('file') }} {{ item.1.target | default('') }} {{ item.1.file | default('')
-      }}"
+    label: "{{ item.0.inst_name }}: {{ item.1.mgmt_action | default('') }} {{ item.1.type | default('file') }}
+      {{ item.1.target | default('') }} {{ item.1.file | default('') }}"
   notify: Commit Changes
 
 - name: Delete management root file/directory [-e mgmt_action=delete -e inst_name=<instance> -e target=<file/directory_to_delete>]
@@ -234,7 +225,8 @@
   loop_control:
     label: "{{ item.1 | default('') }}"
 
-- name: Import a single runtime template zip file [-e mgmt_action=import_zip -e file=<file/to/import/management_root.zip> -e skip_imports=True/False -e skip_import=True/False]
+- name: Import a single runtime template zip file [-e mgmt_action=import_zip
+        -e file=<file/to/import/management_root.zip> -e skip_imports=True/False -e skip_import=True/False]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
