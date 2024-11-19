@@ -25,6 +25,7 @@
   ansible.builtin.copy:
     content: "{{ get_accesscontrolpolicies | to_nice_yaml }}"
     dest: "{{ access_control_output_dir }}/{{ unique_code }}/access_control_policies.yaml"
+    mode: "{{ access_control_output_export_mode }}"
 
 - name: Export all policies to XACML
   ibm.isam.isam:
@@ -55,6 +56,7 @@
   ansible.builtin.copy:
     content: "{{ get_accesscontrolpolicyresources | to_nice_yaml }}"
     dest: "{{ access_control_output_dir }}/{{ unique_code }}/access_control_policyresources.yaml"
+    mode: "{{ access_control_output_export_mode }}"
 
 - name: Authenticate to the Security Access Manager domain "{{ webseal_domain }}"
   ibm.isam.isam:
@@ -69,6 +71,7 @@
   ansible.builtin.copy:
     content: "{{ ret_obj.data | default([]) | to_nice_yaml }}"
     dest: "{{ access_control_output_dir }}/{{ unique_code }}/authenticate.yaml"
+    mode: "{{ access_control_output_export_mode }}"
 
 - name: Get all Access Control Policy Attachments
   ibm.isam.isam:
@@ -90,3 +93,4 @@
   ansible.builtin.copy:
     content: "{{ get_accesscontrolpolicyattachments | to_nice_yaml }}"
     dest: "{{ access_control_output_dir }}/{{ unique_code }}/access_control_policyattachments.yaml"
+    mode: "{{ access_control_output_export_mode }}"

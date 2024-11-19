@@ -37,6 +37,7 @@
   ansible.builtin.template:
     src: "{{ role_path }}/templates/isam9_sample.vmx"
     dest: "{{ bootstrap_local_vm_vmx }}"
+    mode: '0755'
   register: cmd_out
 
 - name: Debug cmd_out

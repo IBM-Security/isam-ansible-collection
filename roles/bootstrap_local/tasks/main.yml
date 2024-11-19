@@ -42,6 +42,7 @@
 - name: If vmx file exists but it is not running, start it up
   ansible.builtin.command: "{{ bootstrap_local_vmrun }} {{ bootstrap_local_vmrunflags }} start {{ bootstrap_local_vm_vmx }}"
   register: shell_out
+  changed_when: false
   when: vm_running is not defined
 
 - name: Debug
