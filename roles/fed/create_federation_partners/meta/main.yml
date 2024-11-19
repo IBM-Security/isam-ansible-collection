@@ -12,7 +12,7 @@ galaxy_info:
     - isam
     - ibm
     - create
-    - federation_partner
+    - federationpartner
 
 dependencies:
   - ibm.isam.common_handlers
