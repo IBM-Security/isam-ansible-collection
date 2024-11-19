@@ -21,8 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run ansible-lint
+      - name: Run ansible-lint for the test playbook only
         uses: ansible/ansible-lint@main
         with:
-          # args: "-v"
+          args: "tests/_ansible_lint.yml"
           setup_python: "true"
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@main
