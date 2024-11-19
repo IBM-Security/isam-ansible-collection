@@ -27,8 +27,10 @@
         ansible-playbook -i [...] ibm.isam.web.configure_reverseproxy_junctions.yml -e inst_name=default
         ansible-playbook -i [...] ibm.isam.web.configure_reverseproxy_junctions.yml -e junction_point=/jct1 // do all tasks only if junction equals /jct1
         // if junction_point renamed in inventory to /jct2, then this command can reconfigure that junction server under the new name
-        ansible-playbook -i [...] ibm.isam.web.configure_reverseproxy_junctions.yml -e junction_point=/jct2 -e delete_junction_server=True -e delete_junctions=True
-        ansible-playbook -i [...] ibm.isam.web.configure_reverseproxy_junctions.yml -e junction_point=/jct1 -e force=True // re-configure junction /jct1
+        ansible-playbook -i [...] ibm.isam.web.configure_reverseproxy_junctions.yml -e junction_point=/jct2
+           -e delete_junction_server=True -e delete_junctions=True
+        // re-configure junction /jct1
+        ansible-playbook -i [...] ibm.isam.web.configure_reverseproxy_junctions.yml -e junction_point=/jct1 -e force=True
         ansible-playbook -i [...] ibm.isam.web.configure_reverseproxy_junctions.yml -e control_setall_junctions=True # Use the faster mode
 
       INVENTORY
