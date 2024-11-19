@@ -4,6 +4,31 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v2.3.1
+======
+
+Minor Changes
+-------------
+
+- ansible-lint - meta-no-tags - rename tags in the meta section
+- ansible-lint - no error on use of ignore-error
+- ansible-lint - linelength
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- bootstrap_local - ansible-lint rename variables from `BS_` to `bootstrap_local_`
+
+Deprecated Features
+-------------------
+
+- set_admin_pw - this role is not working anyway, will be removed in a future version
+
+Bugfixes
+--------
+
+- web.config_reverseproxy_redis - Correct role workings and create a test (#185)
+
 v2.3.0
 ======
 

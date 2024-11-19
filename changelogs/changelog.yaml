@@ -409,3 +409,17 @@ releases:
         name: rename_key
         namespace: null
     release_date: '2024-11-15'
+  2.3.1:
+    changes:
+      breaking_changes:
+      - bootstrap_local - ansible-lint rename variables from `BS_` to `bootstrap_local_`
+      bugfixes:
+      - web.config_reverseproxy_redis - Correct role workings and create a test (#185)
+      deprecated_features:
+      - set_admin_pw - this role is not working anyway
+      minor_changes:
+      - ansible-lint - meta-no-tags - rename tags in the meta section
+      - ansible-lint - no error on use of ignore-error
+    fragments:
+    - resolve_linting_issues.yml
+    release_date: '2024-11-19'
