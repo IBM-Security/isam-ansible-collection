@@ -68,6 +68,7 @@
     do echo -n . ;
     sleep 1;
     done
+  changed_when: false
   register: shell_out
 
 - name: Wait for VM process to end
@@ -113,8 +114,10 @@
     var: cmd_out
 
 - name: Create metadata ISO
-  ansible.builtin.shell: "{{ bootstrap_local_mkisofs }} {{ bootstrap_local_mkisoflags }} {{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata.iso {{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata >/dev/null
-    2>&1"
+  ansible.builtin.shell: >
+    {{ bootstrap_local_mkisofs }} {{ bootstrap_local_mkisoflags }}
+    {{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata.iso
+    {{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata >/dev/null 2>&1
   register: shell_out
   changed_when: true
 
