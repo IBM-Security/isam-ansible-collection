@@ -27,7 +27,7 @@
         name: ibmsecurity
       delegate_to: localhost
       run_once: true
-      ignore_errors: true
+      ignore_errors: true # noqa: ignore-errors
       when:
         - lookup('ansible.builtin.env', 'container') | default(None)
 
@@ -84,7 +84,7 @@
         connect_timeout: 2
         timeout: 5
       delegate_to: localhost
-      ignore_errors: true
+      ignore_errors: true # noqa: ignore-errors
 
     - name: Any call to isam will do (so ansible_facts is available)
       ansible.builtin.import_role:
