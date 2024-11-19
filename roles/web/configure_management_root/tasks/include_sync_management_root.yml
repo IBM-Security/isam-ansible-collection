@@ -48,11 +48,13 @@
 
 - name: "[sync_up] consolidate update items in a list of updates [directory]"
   ansible.builtin.set_fact:
-    directory_updates: "{{ directory_update_result.results | selectattr('ansible_facts', 'defined') | map(attribute='ansible_facts.directory_update_item') | list }}"
+    directory_updates: "{{ directory_update_result.results | selectattr('ansible_facts', 'defined') |
+       map(attribute='ansible_facts.directory_update_item') | list }}"
 
 - name: "[sync_up] list of file update items"
   ansible.builtin.set_fact:
-    file_update_item: "{{ {'mgmt_action': 'upload', 'type': upload.state, 'target': item.1.target + '/' + upload.path, 'file': upload.root + '/' + upload.path} }}"
+    file_update_item: "{{ {'mgmt_action': 'upload', 'type': upload.state, 'target': item.1.target + '/' +
+       upload.path, 'file': upload.root + '/' + upload.path} }}"
   when:
     - upload.state == "file"
   with_community.general.filetree: "{{ homedir }}/{{ item.1.directory }}"
@@ -91,8 +93,8 @@
     - sync_create.type == 'directory'
   with_items: "{{ management_root }}"
   loop_control:
-    label: "{ 'mgmt_action': \"{{ sync_create.mgmt_action | default('create') }}\", 'inst_name': \"{{ item.0.inst_name }}\", 'target': \"{{ sync_create.target | default(None)
-      }}\", 'type': \"{{ sync_create.type | default(None) }}\")"
+    label: "{ 'mgmt_action': \"{{ sync_create.mgmt_action | default('create') }}\", 'inst_name': \"{{ item.0.inst_name }}\",
+      'target': \"{{ sync_create.target | default('') }}\", 'type': \"{{ sync_create.type | default('') }}\")"
     loop_var: sync_create
   notify: Commit Changes
 
@@ -113,7 +115,8 @@
     - sync_upload.type == 'file'
   with_items: "{{ management_root }}"
   loop_control:
-    label: "{ 'mgmt_action': \"{{ sync_upload.mgmt_action | default('create') }}\", 'inst_name': \"{{ item.0.inst_name }}\", 'filename': \"{{ (sync_upload.target |
-      default('none') | basename) }}\", 'target': \"{{ (sync_upload.target | default('none')) | dirname }}\", 'type': \"{{ sync_upload.type | default(None) }}\")"
+    label: "{ 'mgmt_action': \"{{ sync_upload.mgmt_action | default('create') }}\", 'inst_name': \"{{ item.0.inst_name }}\",
+      'filename': \"{{ (sync_upload.target | default('none') | basename) }}\", 'target': \"{{ (sync_upload.target |
+      default('none')) | dirname }}\", 'type': \"{{ sync_upload.type | default(None) }}\")"
     loop_var: sync_upload
   notify: Commit Changes
