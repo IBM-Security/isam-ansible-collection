@@ -1,5 +1,5 @@
 ---
-- name: set password
+- name: Set password
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"

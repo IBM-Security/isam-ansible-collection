@@ -10,5 +10,5 @@
   when: import_url_mapping_id is defined and import_url_mapping_filename is defined
   notify: Commit Changes
 
-# Commit changes - changes need to take effect for next steps
-- ansible.builtin.meta: flush_handlers
+- name: Commit changes - changes need to take effect for next steps
+  ansible.builtin.meta: flush_handlers
