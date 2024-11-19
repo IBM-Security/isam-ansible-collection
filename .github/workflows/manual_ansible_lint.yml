@@ -14,9 +14,9 @@ jobs:
           # - 3.11
         ansible-core-version:
 #          - stable-2.14
-           - stable-2.15
+          #  - stable-2.15
            - stable-2.16
-          # - stable-2.17
+           - stable-2.17
           # - stable-2.18
     runs-on: ubuntu-latest
     steps:
@@ -25,6 +25,6 @@ jobs:
         uses: ansible/ansible-lint@v24.10.0
         with:
           args: "tests/_ansible_lint.yml"
-          setup_python: "true"
+          # setup_python: "true"
       - name: Run ansible-lint
         uses: ansible/ansible-lint@v24.10.0
