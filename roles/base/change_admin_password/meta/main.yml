@@ -11,7 +11,7 @@ galaxy_info:
   galaxy_tags:
     - isam
     - ibm
-    - change_admin_password
+    - changeadminpassword
 
 dependencies:
   - ibm.isam.common_handlers

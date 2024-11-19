@@ -5,11 +5,12 @@ kerberos_action: all
 
 keytab_file: "{{ item.file | basename }}"
 
-realm: "{{ item.realm if (item.realm is defined) else ( item.0.realm if ( item.0 is defined and item.0.realm is defined ) else ( subsections_1st_level.0.realm if
-  ( subsections_1st_level is defined and subsections_1st_level.0 is defined and subsections_1st_level.0.realm is defined ) ) ) }}"
+realm: "{{ item.realm if (item.realm is defined) else ( item.0.realm if ( item.0 is defined and item.0.realm is defined )
+  else ( subsections_1st_level.0.realm if ( subsections_1st_level is defined and subsections_1st_level.0 is
+  defined and subsections_1st_level.0.realm is defined ) ) ) }}"
 
-subsection: "{{ subsections_1st_level.1.name if (subsections_1st_level.1 is defined and subsections_1st_level.1.name is defined) else (item.1.name if (item is defined
-  and item.1 is defined and item.1.name is defined)) }}"
+subsection: "{{ subsections_1st_level.1.name if (subsections_1st_level.1 is defined and subsections_1st_level.1.name is defined)
+  else (item.1.name if (item is defined and item.1 is defined and item.1.name is defined)) }}"
 
 propname: "{{ item.1.propname if (item.1 is defined and item.1.propname is defined) else (property.propname if (property.propname is defined)) }}"
 propvalue: "{{ item.1.propvalue if (item.1 is defined and item.1.propvalue is defined) else (property.propvalue if (property.propvalue is defined)) }}"

@@ -20,20 +20,20 @@ The variables for this role can be passed via role directly, or inventory file, 
 
 Required variables are:
 
-**BS_vm_hostname**: vm hostname
-**BS_vm_mgmt_ip**: vm M1 interface IP address
-**BS_vm_netmask**: vm network mask
-**BS_vm_default_gw**: vm network default gateway
-**BS_vm_path_root**: root path of the VM images
+**bootstrap_local_vm_hostname**: vm hostname
+**bootstrap_local_vm_mgmt_ip**: vm M1 interface IP address
+**bootstrap_local_vm_netmask**: vm network mask
+**bootstrap_local_vm_default_gw**: vm network default gateway
+**bootstrap_local_vm_path_root**: root path of the VM images
 
-**BS_appliance_iso**: ISO image path of the ISAM appliance
+**bootstrap_local_appliance_iso**: ISO image path of the ISAM appliance
 
 Optional variables (with default values):
 
-**BS_vm_cpu_count**: 2
-**BS_vm_ram_size**: 4096
-**BS_vm_hdd_size**: 50
-**BS_vm_nic_count**: 3
+**bootstrap_local_vm_cpu_count**: 2
+**bootstrap_local_vm_ram_size**: 4096
+**bootstrap_local_vm_hdd_size**: 50
+**bootstrap_local_vm_nic_count**: 3
 
 Dependencies
 ------------
@@ -47,7 +47,7 @@ A sample playbook *test.yml* has been placed under *tests/* subdirectory.
 
     - hosts: servers
       roles:
-         - { role: ibm.isam.bootstrap_local, BS_vm_hostname: isamdemo, BS_vm_mgmt_ip: 192.168.42.101, BS_vm_netmask: 255.255.255.0, BS_vm_default_gw: 192.168.42.1 }
+         - { role: ibm.isam.bootstrap_local, bootstrap_local_vm_hostname: isamdemo, bootstrap_local_vm_mgmt_ip: 192.168.42.101, bootstrap_local_vm_netmask: 255.255.255.0, bootstrap_local_vm_default_gw: 192.168.42.1 }
 
 After verifying the other variables set in *host_vars/localhost.yml*,  you may run it with ansible-playbook directly:
 

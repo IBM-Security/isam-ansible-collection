@@ -1,3 +1,2 @@
 ---
 path: "{{ item.path }}"
-name: "{{ item.name }}"

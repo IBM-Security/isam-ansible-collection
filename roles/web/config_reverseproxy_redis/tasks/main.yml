@@ -16,7 +16,7 @@
 
       EXAMPLES
         ansible-playbook -i [...] playbooks/ansible_collections/web/configure_redis.yml # do all steps
-        ansible-playbook -i [...] ibm.isam.web.configure_redis.yml -e dsess_enabled=False # Disable redis
+        ansible-playbook -i [...] ibm.isam.web.configure_redis.yml -e web_dsess_enabled=False # Disable redis
 
       INVENTORY
       ==========
@@ -92,10 +92,10 @@
     - item.redis_collections | length > 0
   notify: Commit Changes
 
-- name: prepare enabling/disabling dsess ({{ dsess_enabled }})
+- name: Prepare enabling/disabling dsess ({{ dsess_enabled }})
   ansible.builtin.set_fact:
-    _instances: "{{ (_instances | default([])) + [{'inst_name': item.inst_name,
-                 'entries': ((dsess_enabled | bool) | ternary(_dsess_redis_entries_enable, _dsess_redis_entries_disable))}] }}"
+    __instances: "{{ (__instances | default([])) + [{'inst_name': item.inst_name,
+                 'entries': ((web_dsess_enabled | bool) | ternary(web_dsess_redis_entries_enable, web_dsess_redis_entries_disable))}] }}"
   loop: "{{ instances }}"
   loop_control:
     label: Processing {{ item.inst_name | default('not set') }}
@@ -107,10 +107,8 @@
 
 - name: Enable/disable Redis enabled distributed session
   vars:
-    instances: "{{ _instances }}"
+    instances: "{{ __instances }}"
   ansible.builtin.include_role:
-    name: web/configure_reverseproxy_instances
+    name: ibm.isam.web.configure_reverseproxy_instances
   when:
-    - _instances is defined
-
-- ansible.builtin.meta: flush_handlers
+    - __instances is defined

@@ -1,0 +1,5 @@
+---
+homedir: "../"
+start_config_comment: Molecule nr. {{ range(1, 51) | random }}
+
+ansible_command_timeout: 600

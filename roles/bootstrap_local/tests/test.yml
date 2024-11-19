@@ -1,4 +1,5 @@
 ---
-- hosts: localhost
+- name: Test
+  hosts: localhost
   roles:
-    - { role: ibm.isam.bootstrap_local, BS_vm_hostname: idp.demo.ibm.com, BS_vm_mgmt_ip: 192.168.42.111 }
+    - { role: ibm.isam.bootstrap_local, bootstrap_local_vm_hostname: idp.demo.ibm.com, bootstrap_local_vm_mgmt_ip: 192.168.42.111 }

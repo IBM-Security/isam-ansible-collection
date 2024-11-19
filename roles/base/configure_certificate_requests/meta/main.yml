@@ -12,7 +12,7 @@ galaxy_info:
     - isam
     - ibm
     - configure
-    - certificate_requests
+    - certificaterequests
 
 dependencies:
   - ibm.isam.common_handlers

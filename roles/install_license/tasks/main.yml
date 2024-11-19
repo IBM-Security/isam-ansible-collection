@@ -17,5 +17,5 @@
   when: install_license_file is defined
   notify: Commit Changes
 
- # Commit license before doing anything else
-- ansible.builtin.meta: flush_handlers
+- name: Commit license before doing anything else
+  ansible.builtin.meta: flush_handlers

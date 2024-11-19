@@ -16,7 +16,7 @@
         - password
         - never
       no_log: true
-      ignore_errors: true
+      ignore_errors: true # noqa: ignore-errors
       ansible.builtin.import_role:
         name: ibm.isam.base.change_admin_password
       vars:

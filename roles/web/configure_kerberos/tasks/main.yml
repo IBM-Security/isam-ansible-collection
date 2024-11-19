@@ -173,8 +173,8 @@
     - properties
     - skip_missing: true
   loop_control:
-    label: '{ "realm": "{{ item.0.realm }}", "propname": "{{ item.1.propname if (item.1.propname is defined) }}", "propvalue": "{{ item.1.propvalue if (item.1.propvalue
-      is defined) }}" }'
+    label: '{ "realm": "{{ item.0.realm }}", "propname": "{{ item.1.propname | default('') }}",
+      "propvalue": "{{ item.1.propvalue | default('') }}" }'
   notify: Commit Changes
 
 - name: Include subsections properties 1st level

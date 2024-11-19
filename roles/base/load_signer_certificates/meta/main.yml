@@ -11,7 +11,7 @@ galaxy_info:
   galaxy_tags:
     - isam
     - ibm
-    - load_signer_certificates
+    - loadsignercertificates
 
 dependencies:
   - ibm.isam.common_handlers

@@ -1,0 +1,20 @@
+---
+- name: Converge legacy roles
+  hosts: all
+  gather_facts: false
+  vars:
+    homedir: "{{ playbook_dir }}" # this is this directory for molecule
+    ansible_command_timeout: 600
+  tasks:
+    - name: Include variables
+      tags:
+        - always
+      ansible.builtin.include_vars:
+        file: "vars/legacy.yml"
+
+    - name: Molecule test sanity_checks
+      tags:
+        - authentication
+        - mechanisms
+      ansible.builtin.import_role:
+        name: ibm.isam.sanity_checks

@@ -31,7 +31,7 @@ galaxy_info:
   galaxy_tags:
     - ibm
     - isam
-    - access_control
+    - accesscontrol
     - policies
     - get
     # List tags for your role here, one per line. A tag is a keyword that describes

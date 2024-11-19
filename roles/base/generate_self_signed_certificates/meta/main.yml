@@ -11,7 +11,7 @@ galaxy_info:
   galaxy_tags:
     - isam
     - ibm
-    - self_signed_certificates
+    - selfsignedcertificates
     - generate
 
 dependencies:

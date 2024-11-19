@@ -18,8 +18,8 @@ galaxy_info:
   galaxy_tags:
     - isam
     - ibm
-    - embedded_ldap
-    - admin_user
+    - embeddedldap
+    - adminuser
     - set
 
 dependencies:

@@ -22,5 +22,5 @@
   notify:
     - Commit Changes
 
- # Commit activation of module before doing anything else
-- ansible.builtin.meta: flush_handlers
+- name: Commit activation of module before doing anything else
+  ansible.builtin.meta: flush_handlers

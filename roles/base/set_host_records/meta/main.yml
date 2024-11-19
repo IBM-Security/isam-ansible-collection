@@ -12,7 +12,7 @@ galaxy_info:
     - isam
     - ibm
     - set
-    - host_file
+    - hostfile
 
 dependencies:
   - ibm.isam.common_handlers

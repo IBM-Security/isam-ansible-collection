@@ -13,7 +13,7 @@ galaxy_info:
     - isam
     - ibm
     - create
-    - authentication_mechanism
+    - authenticationmechanism
 
 dependencies:
   - ibm.isam.common_handlers

@@ -8,7 +8,7 @@
   register: __types_mapping
 
 - name: Set fact aac_authentication_mechanism_types_mapping
-  set_fact:
+  ansible.builtin.set_fact:
     aac_authentication_mechanism_types_mapping: "{{ aac_authentication_mechanism_types_mapping | default({}) | combine({item.id: item.name}) }}"
   loop: "{{ __types_mapping.data }}"
   loop_control:

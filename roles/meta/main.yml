@@ -13,7 +13,7 @@ galaxy_info:
   # - CC-BY
   license: Apache
 
-  min_ansible_version: "2.13"
+  min_ansible_version: "2.15"
 
   # Optionally specify the branch Galaxy will use when accessing the GitHub
   # repo for this role. During role install, if no tags are available,
@@ -32,6 +32,7 @@ galaxy_info:
     # NOTE: A tag is limited to a single word comprised of
     # alphanumeric characters. Maximum 20 tags per role.
     - isam
+    - isva
     - ibm
     - ibmsecurity
 

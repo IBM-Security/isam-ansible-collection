@@ -12,7 +12,7 @@ galaxy_info:
     - isam
     - ibm
     - configure
-    - federated directories
+    - federateddirectories
 
 dependencies:
   - ibm.isam.common_handlers

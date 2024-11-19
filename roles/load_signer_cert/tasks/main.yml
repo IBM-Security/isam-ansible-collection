@@ -12,5 +12,5 @@
   when: load_signer_cert_kdb_id is defined and load_signer_cert_label is defined and load_signer_cert_server is defined and load_signer_cert_port is defined
   notify: Commit Changes
 
-# Commit all changes made to date
-- ansible.builtin.meta: flush_handlers
+- name: Commit all changes made to date
+  ansible.builtin.meta: flush_handlers

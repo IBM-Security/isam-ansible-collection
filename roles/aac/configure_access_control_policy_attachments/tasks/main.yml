@@ -9,7 +9,7 @@
 #         type: policy
 #     action: set
 - name: Create Policy Attachments
-  ignore_errors: true
+  ignore_errors: true # noqa: ignore-errors
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

@@ -1,16 +1,16 @@
 ---
 # default values
-dsess_enabled: true
+web_dsess_enabled: true
 
 # These entries should be in the format, accepted for configure_reverseproxy_instances
-_dsess_redis_entries_enable:
+web_dsess_redis_entries_enable:
   - method: set
     stanza_id: session
     entries:
       - [dsess-enabled, "yes"]
       - [dsess-server-type, redis]
-# this is the version to disable redis (dsess_enabled = False)
-_dsess_redis_entries_disable:
+# this is the version to disable redis (web_dsess_enabled = False)
+web_dsess_redis_entries_disable:
   - method: set
     stanza_id: session
     entries:

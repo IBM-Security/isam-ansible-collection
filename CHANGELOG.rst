@@ -4,6 +4,43 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v2.3.2
+======
+
+Release Summary
+---------------
+
+| Build related change
+
+Minor Changes
+-------------
+
+- build - a readme file is required in the roles/ directory for uploading to Red Hat
+
+v2.3.1
+======
+
+Minor Changes
+-------------
+
+- ansible-lint - meta-no-tags - rename tags in the meta section
+- ansible-lint - no error on use of ignore-error
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- bootstrap_local - ansible-lint rename variables from `BS_` to `bootstrap_local_`
+
+Deprecated Features
+-------------------
+
+- set_admin_pw - this role is not working anyway
+
+Bugfixes
+--------
+
+- web.config_reverseproxy_redis - Correct role workings and create a test (#185)
+
 v2.3.0
 ======
 

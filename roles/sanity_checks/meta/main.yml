@@ -1,12 +1,12 @@
 ---
 galaxy_info:
   author: IBM
-  description: Role that iexecutes sanity checks on the appliance
+  description: Role that executes sanity checks on the appliance
   company: IBM
 
   license: Apache
 
-  min_ansible_version: "2.2"
+  min_ansible_version: "2.15"
   platforms:
     - name: GenericLinux
       versions:

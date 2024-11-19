@@ -12,7 +12,7 @@ galaxy_info:
     - isam
     - ibm
     - configure
-    - http_tranformation
+    - httptranformation
 
 dependencies:
   - ibm.isam.common_handlers

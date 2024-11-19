@@ -14,6 +14,5 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.api_protection.definitions.set
     isamapi: "{{ item | ibm.isam.exclude('clients') | ibm.isam.exclude('mapping_rules') }}"
-  with_items: "{{ api_protection.definitions | default([]) }}"
-  when: item.name == name
+  loop: "{{ api_protection.definitions | default([]) }}"
   notify: Commit Changes

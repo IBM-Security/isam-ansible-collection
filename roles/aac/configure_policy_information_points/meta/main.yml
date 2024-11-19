@@ -14,7 +14,8 @@ galaxy_info:
     - isam
     - ibm
     - configure
-    - policy_information_points
+    - policyinformationpoints
+    - pip
 
 dependencies:
   - ibm.isam.common_handlers

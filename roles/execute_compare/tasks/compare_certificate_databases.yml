@@ -9,20 +9,22 @@
     action: ibmsecurity.isam.base.ssl_certificates.signer_certificate
     isamapi:
       kdb_id: "{{ cert_db.id }}"
-  ignore_errors: true
+  ignore_errors: true # noqa: ignore-errors
   register: ret_obj
 
 - name: Show Differences - values do not match!
-  ansible.builtin.debug: msg="{{ ret_obj['data']['difference'].split('\n') }}"
-  ignore_errors: true
+  ansible.builtin.debug:
+    msg: "{{ ret_obj['data']['difference'].split('\n') }}"
+  ignore_errors: true # noqa: ignore-errors
   when:
     - ret_obj['data']['matches'] is defined
     - not ret_obj['data']['matches']
 
 - name: Show Log - command failed!
-  ansible.builtin.debug: msg="{{ ret_obj['log'].split('\n') }}"
-  ignore_errors: true
-  when: ret_obj['failed'] is true
+  ansible.builtin.debug:
+    msg: "{{ ret_obj['log'].split('\n') }}"
+  ignore_errors: true # noqa: ignore-errors
+  when: ret_obj['failed'] | bool
 
 - name: Compare Personal Certificates in Certificate Database {{ cert_db.id }}
   ibm.isam.isamcompare:
@@ -34,17 +36,19 @@
     action: ibmsecurity.isam.base.ssl_certificates.personal_certificate
     isamapi:
       kdb_id: "{{ cert_db.id }}"
-  ignore_errors: true
+  ignore_errors: true # noqa: ignore-errors
   register: ret_obj
 
 - name: Show Differences - values do not match!
-  ansible.builtin.debug: msg="{{ ret_obj['data']['difference'].split('\n') }}"
-  ignore_errors: true
+  ansible.builtin.debug:
+    msg: "{{ ret_obj['data']['difference'].split('\n') }}"
+  ignore_errors: true # noqa: ignore-errors
   when:
     - ret_obj['data']['matches'] is defined
     - not ret_obj['data']['matches']
 
 - name: Show Log - command failed!
-  ansible.builtin.debug: msg="{{ ret_obj['log'].split('\n') }}"
-  ignore_errors: true
-  when: ret_obj['failed'] is true
+  ansible.builtin.debug:
+    msg: "{{ ret_obj['log'].split('\n') }}"
+  ignore_errors: true # noqa: ignore-errors
+  when: ret_obj['failed'] | bool
