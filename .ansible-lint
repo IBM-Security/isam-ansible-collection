@@ -85,7 +85,7 @@ warn_list:
   - skip_this_tag
   - experimental # experimental is included in the implicit list
   - var-naming
-  - meta-no-tags
+  # - meta-no-tags
   # - role-name
   # - yaml[document-start]  # you can also use sub-rule matches
 
