@@ -63,7 +63,8 @@
   run_once: true
   register: master_rps
 
-- ansible.builtin.include_tasks: compare_reverseproxy_config.yml
+- name: Compare reverse proxy config
+  ansible.builtin.include_tasks: compare_reverseproxy_config.yml
   with_items: "{{ master_rps['data'] }}"
   loop_control:
     loop_var: reverseproxy
@@ -80,7 +81,8 @@
   run_once: true
   register: master_cert_dbs
 
-- ansible.builtin.include_tasks: compare_certificate_databases.yml
+- name: Compare certificate databases
+  ansible.builtin.include_tasks: compare_certificate_databases.yml
   with_items: "{{ master_cert_dbs['data'] }}"
   loop_control:
     loop_var: cert_db
