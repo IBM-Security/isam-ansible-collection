@@ -8,6 +8,6 @@
       kdb_id: "{{ get_signer_certificates_kdb_id }}"
   register: ret_obj
 
-- name: set a fact to be used by other components
+- name: Set a fact to be used by other components
   ansible.builtin.set_fact:
     get_signer_certificates_ret_obj: "{{ ret_obj['data'] }}"
