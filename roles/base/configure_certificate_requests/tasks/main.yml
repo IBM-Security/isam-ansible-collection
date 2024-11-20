@@ -15,8 +15,10 @@
         2) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] ibm.isam.base.configure_certificate_requests.yml // configure all certificate requests from inventory
-        ansible-playbook -i [...] ibm.isam.base.configure_certificate_requests.yml -e kdb_id=pdsrv // configure only certificate requests from inventory for pdsrv.kdb
+        // configure all certificate requests from inventory
+        ansible-playbook -i [...] ibm.isam.base.configure_certificate_requests.yml
+        // configure only certificate requests from inventory for pdsrv.kdb
+        ansible-playbook -i [...] ibm.isam.base.configure_certificate_requests.yml -e kdb_id=pdsrv
 
         // filter for specific action from a single inventory at runtime
         ansible-playbook -i [...] ibm.isam.base.configure_certificate_requests.yml -e cert_action=get_all
@@ -42,7 +44,8 @@
           label: sample_label
           dn: 'CN=weblinux.Raleigh.ibm.com,O=ibm,OU=IBMHTTP Server,L=RTP,ST=NC,C=US'
           size: '2048' # optional defaullt: '1024' OPTIONS: on SHA***WithRSA['1024','2048','4096'] on SHA***WithECDSA['256','384','512']
-          signature_algorithm: 'SHA512WithRSA' # optional default: '' if emptywill get SHA1WithRSASignature OPTIONS: ['SHA256WithRSA','SHA384WithRSA','SHA512WithRSA','SHA256WithECDSA','SHA384WithECDSA','SHA512WithECDSA']
+          signature_algorithm: 'SHA512WithRSA' # optional default: '' if empty will get SHA1WithRSASignature
+                                               # OPTIONS: ['SHA256WithRSA','SHA384WithRSA','SHA512WithRSA','SHA256WithECDSA','SHA384WithECDSA','SHA512WithECDSA']
         # Exporting a certificate request from a certificate database.
         # This certificate must be signed by CA and re-importet through personal certificate receive method (see configure_personal_certificates role/playbook)
         - cert_action: export_cert
@@ -66,10 +69,11 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.ssl_certificates.certificate_requests.{{ item.cert_action }}
-    isamapi: "{{ {'kdb_id': item.kdb_id} | combine({'label': item.label} if (item.label is defined) else {}) | combine({'cert_id': item.cert_id} if (item.cert_id
-      is defined) else {}) | combine({'dn': item.dn} if (item.dn is defined) else {}) | combine({'size': item.size} if (item.size is defined) else {})
-      | combine({'signature_algorithm': item.signature_algorithm} if (item.signature_algorithm is defined) else {}) | combine({'filename': homedir + '/' + item.filename} if
-      (item.filename is defined) else {}) }}"
+    isamapi: "{{ {'kdb_id': item.kdb_id} | combine({'label': item.label} if (item.label is defined) else {})
+      | combine({'cert_id': item.cert_id} if (item.cert_id is defined) else {})
+      | combine({'dn': item.dn} if (item.dn is defined) else {}) | combine({'size': item.size} if (item.size is defined) else {})
+      | combine({'signature_algorithm': item.signature_algorithm} if (item.signature_algorithm is defined) else {})
+      | combine({'filename': homedir + '/' + item.filename} if (item.filename is defined) else {}) }}"
   loop: "{{ certificate_requests }}"
   when:
     - item.cert_action == cert_action
