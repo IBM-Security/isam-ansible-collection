@@ -1,12 +1,12 @@
 ---
-# Import CA certificates for HVDB Database
-- ansible.builtin.include_tasks: import_CA.yml
+- name: Import CA certificates for HVDB Database
+  ansible.builtin.include_tasks: import_CA.yml
 
-# Configure external HVDB
-- ansible.builtin.include_tasks: config_external_hvdb.yml
+- name: Configure external HVDB
+  ansible.builtin.include_tasks: config_external_hvdb.yml
 
-# Configure Advanced Tuning for faster/predictable DB2 failover
-- ansible.builtin.include_tasks: config_adv_tune_parms.yml
+- name: Configure Advanced Tuning for faster/predictable DB2 failover
+  ansible.builtin.include_tasks: config_adv_tune_parms.yml
 
-# Commit all changes made to date
-- ansible.builtin.meta: flush_handlers
+- name: Commit all changes made to date
+  ansible.builtin.meta: flush_handlers
