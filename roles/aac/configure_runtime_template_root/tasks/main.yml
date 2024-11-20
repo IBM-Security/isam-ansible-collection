@@ -11,9 +11,11 @@
         Role to configure runtime template root
 
       STEPS
-        1) Export single runtime template root [-e tmpl_action=export_zip -e file=</path/to/export/file.zip> -e skip_export=True/False -e skip_exports=True/False]
+        1) Export single runtime template root [-e tmpl_action=export_zip -e file=</path/to/export/file.zip>
+            -e skip_export=True/False -e skip_exports=True/False]
         2) Export all runtime template roots from inventroy [-e tmpl_action=export_zip -e skip_exports=True/False]
-        3) Sync runtime template root from folder [-e tmpl_action=sync_up -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]
+        3) Sync runtime template root from folder [-e tmpl_action=sync_up -e target=<directory_on_server>
+            -e directory=<directory_on_local> -e skip_sync=True/False]
         4) Create runtime template root directories [-e tmpl_action=create -e path=<path of file> -e dir_name=<name_of_directory>]
         5) Upload runtime template root files [-e tmpl_action=upload -e target=<full_file_path_and_name_on_server> -e file=<file_to_upload>]
         6) Delete runtime template root file/directory [-e tmpl_action=delete -e inst_name=<instance> -e target=<file/directory_to_delete>]
@@ -22,28 +24,30 @@
 
       EXAMPLES
         # export a single runtime template root to a zip file
-        # export file parameter will be combined with the homedir variable .  You can set the homedir variable to {{ playbook_dir }} , to access file adjacent to your playbooks.
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e tmpl_action=export_zip -e file="files/runtime_template_root_files/runtime_template_root_{{ ansible_date_time.date }}.zip"
+        # export file parameter will be combined with the homedir variable .
+        # You can set the homedir variable to {{ playbook_dir }} , to access file adjacent to your playbooks.
+        ansible-playbook -i [...] ibm.isam.aac.configure_runtime_template_root.yml -e tmpl_action=export_zip
+           -e file="files/runtime_template_root_files/runtime_template_root_{{ ansible_date_time.date }}.zip"
 
         # skip all exports single/multiple ones
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e skip_exports=True
+        ansible-playbook -i [...] ibm.isam.aac.configure_runtime_template_root.yml -e skip_exports=True
 
         # skip only multiple exports but leave single export active
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e skip_exports=True -e skip_export=False -e file=<file_to_export>
+        ansible-playbook -i [...] ibm.isam.aac.configure_runtime_template_root.yml -e skip_exports=True -e skip_export=False -e file=<file_to_export>
 
         # skip all imports single/multiple ones
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e skip_imports=True
+        ansible-playbook -i [...] ibm.isam.aac.configure_runtime_template_root.yml -e skip_imports=True
 
         # skip only multiple imports but leave single import active
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e skip_imports=True -e skip_export=False
+        ansible-playbook -i [...] ibm.isam.aac.configure_runtime_template_root.yml -e skip_imports=True -e skip_export=False
 
         # only do a particular task from the list of tasks
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e tmpl_action=export_zip
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e tmpl_action=import_zip
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e tmpl_action=sync_up
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e tmpl_action=create
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e tmpl_action=upload
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_runtime_template_root.yml -e tmpl_action=delete
+        ansible-playbook -i [...] ibm.isam.aac.configure_runtime_template_root.yml -e tmpl_action=export_zip
+        ansible-playbook -i [...] ibm.isam.aac.configure_runtime_template_root.yml -e tmpl_action=import_zip
+        ansible-playbook -i [...] ibm.isam.aac.configure_runtime_template_root.yml -e tmpl_action=sync_up
+        ansible-playbook -i [...] ibm.isam.aac.configure_runtime_template_root.yml -e tmpl_action=create
+        ansible-playbook -i [...] ibm.isam.aac.configure_runtime_template_root.yml -e tmpl_action=upload
+        ansible-playbook -i [...] ibm.isam.aac.configure_runtime_template_root.yml -e tmpl_action=delete
 
       INVENTORY
       ==========
@@ -92,8 +96,8 @@
     - (not (skip_exports | bool)) or (not (skip_export | bool))
   delegate_to: localhost
 
-- name: Export single runtime template root to {{ homedir + '/' + file }} [-e tmpl_action=export_zip -e file=</path/to/export/file.zip> -e skip_export=True/False
-    -e skip_exports=True/False]
+- name: Export single runtime template root to {{ homedir + '/' + file }} [-e tmpl_action=export_zip
+    -e file=</path/to/export/file.zip> -e skip_export=True/False -e skip_exports=True/False]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -114,7 +118,8 @@
     - tmpl_action == 'export_zip' or tmpl_action == 'None'
   loop: "{{ runtime_template_root }}"
 
-- name: Sync runtime template root [local => server] [-e tmpl_action=sync_up -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]
+- name: Sync runtime template root [local => server] [-e tmpl_action=sync_up
+        -e target=<directory_on_server> -e directory=<directory_on_local> -e skip_sync=True/False]
   ansible.builtin.include_tasks: include_sync_runtime_template_root.yml
   when:
     - item.tmpl_action == 'sync_up'

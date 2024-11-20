@@ -29,7 +29,8 @@ fido2_configurations:
   - fido2_action: relying_parties.delete
     name: DEMO
   # Create or update fido2 relying party
-  - fido2_action: relying_parties.set # set will call add (new relying party) or update (existing relying party) respectivly with a config comparisson prior to the execution of the change
+  # set will call add (new relying party) or update (existing relying party) respectivly with a config comparisson prior to the execution of the change
+  - fido2_action: relying_parties.set
     name: DEMO
     rpId: example.com
     relyingPartyOptions:

@@ -16,14 +16,16 @@
         2) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_authentication_mechanisms.yml // configure all authentication from inventory
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_authentication_mechanisms.yml  -e mechanism_action=set // only create or update tasks
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_authentication_mechanisms.yml  -e mechanism_action=delete -e mechanism_name=Infomap_Sample_Mech_1 // only run delete task for Infomap_Sample_Mech_1  Attention: delete entry/task must be in the inventory
+        ansible-playbook -i [...] ibm.isam.aac.configure_authentication_mechanisms.yml // configure all authentication from inventory
+        ansible-playbook -i [...] ibm.isam.aac.configure_authentication_mechanisms.yml  -e mechanism_action=set // only create or update tasks
+        // only run delete task for Infomap_Sample_Mech_1  Attention: delete entry/task must be in the inventory
+        ansible-playbook -i [...] ibm.isam.aac.configure_authentication_mechanisms.yml  -e mechanism_action=delete -e mechanism_name=Infomap_Sample_Mech_1
 
       INVENTORY
       ==========
       # configure authentication mechanims
-      # attention: all referenced mapping rules or template pages must be available on that appliance. Check roles/playbooks: configure_mapping_rules and configure_runtime_template_root
+      # attention: all referenced mapping rules or template pages must be available on that appliance.
+      # Check roles/playbooks: configure_mapping_rules and configure_runtime_template_root
       authentication_mechanisms:
 
         # create or update InfoMap authentication mechanism
@@ -89,7 +91,8 @@
             - key: U2F.attestationEnforcement
               value: Required # options: [Required | Optional ]
             - key: U2F.attestationSource
-              value: '' # The keystore or key set to use for certificate attestation validation. Either the name of the keystore on the appliance, or the URL for a JSON Web Key Set
+              value: '' # The keystore or key set to use for certificate attestation validation.
+                        # Either the name of the keystore on the appliance, or the URL for a JSON Web Key Set
             - key: U2F.attestationType
               value: None # options [ JWKS | KeyStore | None]
 
