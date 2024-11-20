@@ -50,7 +50,7 @@
           default: 'no' # optional default: 'no'
           size: '2048' # optional defaullt: '1024' OPTIONS: on SHA***WithRSA['1024','2048','4096'] on SHA***WithECDSA['256','384','512']
           signature_algorithm: 'SHA512WithRSA' # optional default: '' if empty will get SHA1WithRSASignature
-                                               # OPTIONS: ['SHA256WithRSA','SHA384WithRSA','SHA512WithRSA','SHA256WithECDSA','SHA384WithECDSA','SHA512WithECDSA']
+                # OPTIONS: ['SHA256WithRSA','SHA384WithRSA','SHA512WithRSA','SHA256WithECDSA','SHA384WithECDSA','SHA512WithECDSA']
         # Setting a personal certificate as default in a certificate database
         - cert_action: set
           kdb_id: pdsrv
@@ -100,7 +100,8 @@
       | combine({'dn': item.dn} if (item.dn is defined) else {}) | combine({'expire': item.expire} if (item.expire is defined) else {})
       | combine({'size': item.size} if (item.size is defined) else {}) | combine({'default': item.default} if (item.default is defined) else {})
       | combine({'password': item.password} if (item.password is defined) else {}) | combine({'signature_algorithm':
-      item.signature_algorithm} if (item.signature_algorithm is defined) else {}) | combine({'filename': homedir + '/' + item.filename} if (item.filename is defined)
+      item.signature_algorithm} if (item.signature_algorithm is defined) else {})
+      | combine({'filename': homedir + '/' + item.filename} if (item.filename is defined)
       else {}) }}"
   loop: "{{ personal_certificates }}"
   when:

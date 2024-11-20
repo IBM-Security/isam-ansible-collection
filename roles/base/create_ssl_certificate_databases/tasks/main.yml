@@ -15,7 +15,8 @@
 
       EXAMPLES
         ansible-playbook -i [...] ibm.isam.base.create_certificate_databases.yml
-        ansible-playbook -i [...] ibm.isam.base.create_certificate_databases.yml -e kdb_name=Registry_Keystore // filter for kdb_name at runtime and configure only matching keystores
+        // filter for kdb_name at runtime and configure only matching keystores
+        ansible-playbook -i [...] ibm.isam.base.create_certificate_databases.yml -e kdb_name=Registry_Keystore
 
       INVENTORY
       ==========
