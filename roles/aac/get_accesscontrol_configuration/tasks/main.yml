@@ -12,7 +12,7 @@
     get_accesscontrolpolicies: "{{ ret_obj.data | default([]) }}"
     unique_code: "{{ 10000 | random }}"
 
-- name: Make sure destination directory exists {{ access_control_output_dir + '/' +  unique_code }}
+- name: Make sure destination directory exists {{ access_control_output_dir + '/' + unique_code }}
   become: "{{ access_control_output_become | default(false) }}"
   ansible.builtin.file:
     path: "{{ access_control_output_dir }}/{{ unique_code }}"
@@ -52,7 +52,7 @@
   ansible.builtin.set_fact:
     get_accesscontrolpolicyresources: "{{ ret_obj.data | default([]) }}"
 
-- name: Create a file with the output "{{ access_control_output_dir }}/{{ unique_code }}/access_control_policyresources.yaml"
+- name: Create a file with the output {{ access_control_output_dir + '/' + unique_code + '/access_control_policyresources.yaml' }}
   ansible.builtin.copy:
     content: "{{ get_accesscontrolpolicyresources | to_nice_yaml }}"
     dest: "{{ access_control_output_dir }}/{{ unique_code }}/access_control_policyresources.yaml"
