@@ -13,13 +13,14 @@
 #          #        allowManagement: false
 #          #        enabled: true
 # Attention: commented out or missing addresses will be deleted by this role
-- name: get all interfaces
+- name: Get all interfaces
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.network.interfaces.get_all
   register: ret_obj
-- name: delete interfaces
+
+- name: Delete interfaces
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
