@@ -33,8 +33,8 @@
     - config_failover_cookie_id is defined
   notify: Commit Changes
 
-# Commit changes before proceeding
-- ansible.builtin.meta: flush_handlers
+- name: Commit changes before proceeding
+  ansible.builtin.meta: flush_handlers
 
 # Export the newly created failover key for reuse
 - name: Export failover key

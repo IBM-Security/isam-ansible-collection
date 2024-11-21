@@ -1,5 +1,5 @@
 ---
-- name: Execute operation {{ execute_rp_op_operation }} against reverse proxy
+- name: Execute operation against reverse proxy {{ execute_rp_op_operation }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
@@ -8,4 +8,6 @@
       id: "{{ item['id'] }}"
       operation: "{{ execute_rp_op_operation }}"
   with_items: "{{ execute_rp_op_ids | default({}) }}"
-  when: execute_rp_op_ids is defined and execute_rp_op_operation is defined
+  when:
+    - execute_rp_op_ids is defined
+    - execute_rp_op_operation is defined

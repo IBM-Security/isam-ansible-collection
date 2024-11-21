@@ -12,7 +12,7 @@
   register: ret_obj
   when: config_reverseproxy_federation_name is defined
 
-- name: Configure Reverse Proxy {{ config_reverseproxy_federation_instanceid }} for Federation {{ config_reverseproxy_federation_name }}
+- name: Configure Reverse Proxy {{ config_reverseproxy_federation_instanceid + ' for Federation ' + config_reverseproxy_federation_name }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"

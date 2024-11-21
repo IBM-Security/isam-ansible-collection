@@ -96,7 +96,7 @@
     - (not (skip_exports | bool)) or (not (skip_export | bool))
   delegate_to: localhost
 
-- name: Export single runtime template root to {{ homedir + '/' + file }} [-e tmpl_action=export_zip
+- name: Export single runtime template root [-e tmpl_action=export_zip
     -e file=</path/to/export/file.zip> -e skip_export=True/False -e skip_exports=True/False]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"

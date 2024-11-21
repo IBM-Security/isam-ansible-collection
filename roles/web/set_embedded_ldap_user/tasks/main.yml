@@ -28,7 +28,7 @@
 - name: Debug if the id exists
   ansible.builtin.debug:
     verbosity: 1
-    msg: "ID exists: {{ __id_exists }}"
+    msg: "{{ web_embeddedldap_user_username }} exists: {{ __id_exists }}"
 
 - name: Create Embedded Ldap User {{ web_embeddedldap_user_username }}
   ibm.isam.isam:
