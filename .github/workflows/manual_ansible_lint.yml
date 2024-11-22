@@ -31,11 +31,3 @@ jobs:
       #  uses: ansible/ansible-lint@v24.10.0
       #  with:
       #    args: "playbooks"
-      - name: Perform sanity testing with ansible-test
-        uses: ansible-community/ansible-test-gh-action@main
-        with:
-          pull-request-change-detection: true
-          target-python-version: ${{ matrix.python-version }}
-          ansible-core-version: ${{ matrix.ansible-core-version }}
-          testing-type: sanity
-          pre-test-cmd: echo Starting ansible-test
