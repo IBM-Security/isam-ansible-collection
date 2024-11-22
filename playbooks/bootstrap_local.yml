@@ -1,0 +1,12 @@
+---
+#
+# Bootstrap local
+#
+- name: Bootstrap local for vmware or fusion
+  hosts: localhost
+  gather_facts: true
+  tasks:
+    - name: Run bootstrapping
+      ansible.builtin.import_role:
+        name: ibm.isam.bootstrap_local
+      delegate_to: localhost
