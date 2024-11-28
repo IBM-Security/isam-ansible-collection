@@ -2,6 +2,8 @@
 
 Documentation for installing and using this collection.
 
+![manual_ansible_lint.yml](https://github.com/IBM-Security/isam-ansible-collection/actions/workflows/manual_ansible_lint.yml/badge.svg)
+
 ## Requirements
 
 - ibmsecurity 2020.05.01.1 or higher (for TLS verification of the LMI connection by the isam ansible connection, use 2024.4.5 or higher)
