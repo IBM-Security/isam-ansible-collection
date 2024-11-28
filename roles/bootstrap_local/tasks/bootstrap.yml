@@ -147,12 +147,15 @@
     var: shell_out
 
 - name: Wait for LMI up
-  ansible.builtin.command: curl -k -v -s -u "admin:admin" -H "Accept:application/json" https://"{{ bootstrap_local_vm_mgmt_ip }}"
-  register: result
-  until: result.stdout.find("302 Found") != -1
-  retries: 50
-  delay: 5
-  changed_when: false
+  ansible.builtin.wait_for:
+    host: "{{ bootstrap_local_vm_mgmt_ip }}"
+    port: 443
+    state: started
+    connect_timeout: 2
+    timeout: 300
+    sleep: 5
+    delay: 5
+  delegate_to: localhost
 
 - name: Take care of vmx file to remove ISO image
   ansible.builtin.lineinfile:

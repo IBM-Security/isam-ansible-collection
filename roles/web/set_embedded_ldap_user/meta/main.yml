@@ -1,0 +1,25 @@
+---
+galaxy_info:
+  author: Tom Bosmans, IBM
+  description: |
+    Idempotent role that creates an embedded ldap user and changes the password if necessary
+    It will connect to the runtime to verify the password.
+    If that fails for ANY reason (eg. the runtime is not externalized , runtime is not accessible, error in runtime),
+    we assume the password needs changing.
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: "2.14"
+
+  galaxy_tags:
+    - isam
+    - ibm
+    - password
+    - embeddedldap
+    - create
+
+dependencies:
+  - role: ibm.isam.common_handlers
+
+allow_duplicates: true

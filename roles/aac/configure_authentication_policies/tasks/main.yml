@@ -16,24 +16,29 @@
         2) Commit changes
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_authentication_policies.yml // configure all authentication policies
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_authentication_policies.yml -e policy_action=set // run only tasks with set to add or update authentication policies
-        ansible-playbook -i [...] playbooks/ansible_collections/aac/configure_authentication_policies.yml -e policy_name=test_auth_policy_1 // run only tasks from authentication_policies inventory where element name equals this parameter
+        ansible-playbook -i [...] ibm.isam.aac.configure_authentication_policies.yml // configure all authentication policies
+        // run only tasks with set to add or update authentication policies
+        ansible-playbook -i [...] ibm.isam.aac.configure_authentication_policies.yml -e policy_action=set
+        // run only tasks from authentication_policies inventory where element name equals this parameter
+        ansible-playbook -i [...] ibm.isam.aac.configure_authentication_policies.yml -e policy_name=test_auth_policy_1
 
       INVENTORY
       ==========
       # configure authentication policies
       authentication_policies:
         # create authentication policy
-        # Attention: the PolicyId attribute inside the policy element must be identitcal to the uri element. Either use ansible variable or keep them manually in sync!
-        #            e.g. globally define `test_auth_policy_1_uri: urn:ibm:security:authentication:asf:test_auth_policy_1` and use {{ '{{' }} test_auth_policy_1_uri {{ '}}' }} inside authentication_policies dict
+        # Attention: the PolicyId attribute inside the policy element must be identitcal to the uri element.
+        #            Either use ansible variable or keep them manually in sync!
+        #            e.g. globally define `test_auth_policy_1_uri: urn:ibm:security:authentication:asf:test_auth_policy_1` and
+        #            use {{ '{{' }} test_auth_policy_1_uri {{ '}}' }} inside authentication_policies dict (?)
         - policy_action: set
           name: test_auth_policy_1
           description: Test authentication policy
           dialect: urn:ibm:security:authentication:policy:1.0:schema
           enabled: true
           uri: urn:ibm:security:authentication:asf:test_auth_policy_1
-          policy: '<Policy xmlns="urn:ibm:security:authentication:policy:1.0:schema" PolicyId="urn:ibm:security:authentication:asf:test_auth_policy_1"><Step type="Authenticator"><Authenticator AuthenticatorId="urn:ibm:security:authentication:asf:mechanism:info_map"/></Step></Policy>'
+          policy: '<Policy xmlns="urn:ibm:security:authentication:policy:1.0:schema" PolicyId="urn:ibm:security:authentication:asf:test_auth_policy_1"><Step
+                   type="Authenticator"><Authenticator AuthenticatorId="urn:ibm:security:authentication:asf:mechanism:info_map"/></Step></Policy>'
 
         # policy provided as yaml (converted with collection filter ibm.isam.to_xml)
         - policy_action: set

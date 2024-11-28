@@ -16,8 +16,6 @@ exclude_paths:
   - changelogs/fragments
   - .config/
   - playbooks/base/template.yml
-  - roles/aac/disable_authentication_policies/molecule/default/check_for_all_false_status.yml
-  - roles/aac/disable_authentication_policies/molecule/default/check_for_all_true_status.yml
   - playbooks/vmware
   - molecule/
 

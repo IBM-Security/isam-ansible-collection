@@ -19,7 +19,9 @@
       EXAMPLES
         ansible-playbook -i [...] ibm.isam.base.export_personal_certificates.yml
         ansible-playbook -i [...] ibm.isam.base.export_personal_certificates.yml -e file=files/ssl/lmi.cert -e kdb_id=lmi_trust_store -e cert_id=server
-        ansible-playbook -i [...] ibm.isam.base.export_personal_certificates.yml -e file=files/ssl/lmi.cert -e kdb_id=lmi_trust_store -e cert_id=server -e skip_exports=true # skip export of multiple certificates from inventory
+        # skip export of multiple certificates from inventory
+        ansible-playbook -i [...] ibm.isam.base.export_personal_certificates.yml -e file=files/ssl/lmi.cert -e kdb_id=lmi_trust_store \
+          -e cert_id=server -e skip_exports=true
 
       INVENTORY
       ==========

@@ -9,7 +9,7 @@
   when: archive_logs_instance_id is defined
   register: ret_obj
 
-- name: Get date from {{ archive_logs_grace_days }} days ago
+- name: Get date from days ago {{ archive_logs_grace_days }}
   ansible.builtin.command: python -c "import datetime;print (datetime.datetime.now()-datetime.timedelta(days={{ archive_logs_grace_days }})).date()"
   register: past_dt
   changed_when: false

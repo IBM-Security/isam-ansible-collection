@@ -1,0 +1,59 @@
+---
+- name: Reset variable
+  ansible.builtin.set_fact:
+    __id_exists: false
+
+- name: Check if Embedded Ldap User exists {{ embeddedldap_user_username }}
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.embedded_ldap.user.get_all
+    isamapi:
+  register: __all_ids
+
+- name: Debug output
+  ansible.builtin.debug:
+    verbosity: 1
+    msg: "{{ __all_ids.data | default([]) }}"
+
+- name: Prepare variable for {{ web_embeddedldap_user_username }}
+  ansible.builtin.set_fact:
+    # _id_exists: "{{ _id_exists|default(0) + ((_emitem.id == embeddedldap_user_username)|ternary('1','0'))|int }}"
+    __id_exists: "{% if __emitem.id == web_embeddedldap_user_username %}True{% endif %}"
+  loop: "{{ __all_ids.data }}"
+  loop_control:
+    loop_var: __emitem
+    label: "{{ __id_exists | default(0) }} - {{ __emitem.id }}"
+
+- name: Debug if the id exists
+  ansible.builtin.debug:
+    verbosity: 1
+    msg: "{{ web_embeddedldap_user_username }} exists: {{ __id_exists }}"
+
+- name: Create Embedded Ldap User {{ web_embeddedldap_user_username }}
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.embedded_ldap.user.add
+    isamapi:
+      id: "{{ web_embeddedldap_user_username }}"
+      password: "{{ web_embeddedldap_user_password }}"
+  when:
+    - not (__id_exists | bool)
+    - web_embeddedldap_user_username is defined
+    - web_embeddedldap_user_password is defined
+  notify: Commit Changes
+
+- name: Set password for user {{ web_embeddedldap_user_username }}
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.web.embedded_ldap.user.set_pw
+    isamapi:
+      id: "{{ web_embeddedldap_user_username }}"
+      password: "{{ web_embeddedldap_user_password }}"
+  when:
+    - __id_exists | bool
+    - web_embeddedldap_user_username is defined
+    - web_embeddedldap_user_password is defined
+  notify: Commit Changes

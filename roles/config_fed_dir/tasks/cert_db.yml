@@ -55,5 +55,5 @@
   notify:
     - Commit Changes
 
-# Commit the certificate database changes
-- ansible.builtin.meta: flush_handlers
+- name: Commit the certificate database changes
+  ansible.builtin.meta: flush_handlers

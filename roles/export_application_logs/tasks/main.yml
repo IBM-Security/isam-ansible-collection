@@ -23,7 +23,7 @@
     - item.path is defined
     - path == item.path
 
-- name: Make sure the underlying directories {{ logs_export_dir }}/{{ inventory_hostname }} exist
+- name: Make sure the underlying directories exist {{ logs_export_dir + '/' + inventory_hostname }}
   become: "{{ logs_become | default(false) }}"
   ansible.builtin.file:
     path: "{{ logs_export_dir }}/{{ inventory_hostname }}/{{ item.path }}"

@@ -2,7 +2,7 @@
 - name: Delete Policy Attachments
   # TODO : An error will be thrown if the resource does not exist
   ignore_errors: true # noqa: ignore-errors
-  isam:
+  ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.policy_attachments.delete

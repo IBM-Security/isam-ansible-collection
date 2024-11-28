@@ -8,3 +8,5 @@ bootstrap_local_vm_netmask: 255.255.255.0
 bootstrap_local_vm_default_gw: 192.168.42.2
 bootstrap_local_vm_path_root: /Users/mlu/VMs
 bootstrap_local_appliance_iso: /Users/mlu/Products/SAM/isam_9.0.0.1_20151209-2309.iso
+
+bootstrap_local_vm_dir_suffix: ''

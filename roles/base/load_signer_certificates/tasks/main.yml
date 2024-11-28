@@ -15,12 +15,19 @@
 
       EXAMPLES
         ansible-playbook -i [...] ibm.isam.base.load_signer_certificates.yml
-        ansible-playbook -i [...] ibm.isam.base.load_signer_certificates.yml -e label=isam-openldap // filter to load only certificates with matching label at runtime
-        ansible-playbook -i [...] ibm.isam.base.load_signer_certificates.yml -e kdb_id=pdsrv // filter to load only certificates which should end in the corresponding certificate store at runtime
-        ansible-playbook -i [...] ibm.isam.base.load_signer_certificates.yml -e server=isam-ldap.ibm.com // filter to load only certificates from matching remote server
-        ansible-playbook -i [...] ibm.isam.base.load_signer_certificates.yml -e server=isam-ldap.ibm.com -e label=isam-openldap // any combination possible
-        ansible-playbook -i [...] ibm.isam.base.load_signer_certificates.yml -e check_remote=True // overwrite compare mode to advanced. Comparing remote server certificate with appliance certificate data in keystore. Attention: ansible needs to be able to access remote server for this.
-        ansible-playbook -i [...] ibm.isam.base.load_signer_certificates.yml -e force=True // overwrite comparison and load certificates again from remote servers
+        // filter to load only certificates with matching label at runtime
+        ansible-playbook -i [...] ibm.isam.base.load_signer_certificates.yml -e label=isam-openldap
+        // filter to load only certificates which should end in the corresponding certificate store at runtime
+        ansible-playbook -i [...] ibm.isam.base.load_signer_certificates.yml -e kdb_id=pdsrv
+        // filter to load only certificates from matching remote server
+        ansible-playbook -i [...] ibm.isam.base.load_signer_certificates.yml -e server=isam-ldap.ibm.com
+        // any combination possible
+        ansible-playbook -i [...] ibm.isam.base.load_signer_certificates.yml -e server=isam-ldap.ibm.com -e label=isam-openldap
+        // overwrite compare mode to advanced. Comparing remote server certificate with appliance certificate data in keystore.
+        // Attention: ansible needs to be able to access remote server for this.
+        ansible-playbook -i [...] ibm.isam.base.load_signer_certificates.yml -e check_remote=True
+        // overwrite comparison and load certificates again from remote servers
+        ansible-playbook -i [...] ibm.isam.base.load_signer_certificates.yml -e force=True
 
       INVENTORY
       ==========

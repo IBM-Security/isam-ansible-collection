@@ -1,0 +1,8 @@
+---
+# defaults for creating an embedded ldap user
+# These variables are used to verify the password.
+# This is only possible if you have the runtime exposed on the system!
+web_rtss_uri: /rtss/authz/services/AuthzService
+web_embeddedldap_runtime_port: 443
+web_embeddedldap_runtime_hostname: "{{ inventory_hostname }}"
+web_embeddedldap_test_url: https://{{ web_embeddedldap_runtime_hostname }}:{{ web_embeddedldap_runtime_port }}/{{ web_rtss_uri }}

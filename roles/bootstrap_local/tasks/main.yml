@@ -1,6 +1,6 @@
 ---
-- name: Tasks file for bootstrap_local
-  ansible.builtin.include_vars: "{{ ansible_os_family }}.yml"
+# - name: Tasks file for bootstrap_local
+#   ansible.builtin.include_vars: "{{ ansible_os_family }}.yml"
 
 - name: Check if there is a vm with the destination name already exist
   ansible.builtin.stat:
@@ -14,7 +14,8 @@
 
 - name: Bootstrap a new vm if vmx file does not exist
   ansible.builtin.include_tasks: bootstrap.yml
-  when: not vmxfile.stat.exists
+  when:
+    - not vmxfile.stat.exists
 
 - name: Check if there is a vm with the destination name already running
   ansible.builtin.shell: |

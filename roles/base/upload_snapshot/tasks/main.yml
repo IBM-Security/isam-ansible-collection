@@ -14,8 +14,11 @@
         1) Upload a single snapshot
 
       EXAMPLES
-        ansible-playbook -i [...] ibm.isam.base.upload_snapshot.yml -e comment="<new_snapshot_comment>" -e file=files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }}.zip
-        ansible-playbook -i [...] ibm.isam.base.upload_snapshot.yml -e file=/ansible/inventory/ENV/files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip # file with absolute path
+        ansible-playbook -i [...] ibm.isam.base.upload_snapshot.yml -e comment="<new_snapshot_comment>"
+          -e file=files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }}.zip
+        # file with absolute path
+        ansible-playbook -i [...] ibm.isam.base.upload_snapshot.yml
+          -e file=/ansible/develop/ENV/files/snapshots/{{ '{{' }} inventory_hostname {{ '}}' }}_{{ '{{' }} ansible_date_time.date {{ '}}' }}.zip
 
       INVENTORY
       ==========

@@ -17,11 +17,14 @@
 
       EXAMPLES
         ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml
-        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e configure_interfaces_delete_missing=True //delete IP address from interfaces which are missing in the inventory
+        // delete IP address from interfaces which are missing in the inventory
+        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e configure_interfaces_delete_missing=True
         ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e label=1.1 //only configure interface with corresponding label
         ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e address=192.168.42.110 //only configure interface with corresponding label
-        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e address=192.168.42.113 -e configure_interfaces_delete_missing=True //only delete one IP from interface if not contained in inventory
-        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e label=1.1 -e configure_interfaces_delete_missing=True //clean up only one interface
+        // only delete one IP from interface if not contained in inventory
+        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e address=192.168.42.113 -e configure_interfaces_delete_missing=True
+        // clean up only one interface
+        ansible-playbook -i [...] ibm.isam.base.configure_interfaces.yml -e label=1.1 -e configure_interfaces_delete_missing=True
 
       INVENTORY
       ==========
@@ -46,16 +49,20 @@
         Ctrl+C + 'C'  = continue
         Ctrl+C + 'A'  = abort
   when: help is defined
+
 - name: Add interfaces IP
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.network.{{ configure_interfaces_action }}.add
-    isamapi: "{{ { 'address': item.1.address } | combine({ 'label': item.0.label } if (item.0.label is defined) else {}) | combine({ 'maskOrPrefix': item.1.maskOrPrefix
-      } if (item.1.maskOrPrefix is defined) else {}) | combine({ 'overrideSubnetChecking': item.1.overrideSubnetChecking } if (item.1.overrideSubnetChecking is defined)
-      else {}) | combine({ 'enabled': item.1.enabled } if (item.1.enabled is defined) else {}) | combine({ 'allowManagement': item.1.allowManagement } if (item.1.allowManagement
-      is defined) else {}) }}"
-  when: item.0.label == label and item.1.address == address
+    isamapi: "{{ { 'address': item.1.address } | combine({ 'label': item.0.label } if (item.0.label is defined) else {})
+      | combine({ 'maskOrPrefix': item.1.maskOrPrefix } if (item.1.maskOrPrefix is defined) else {})
+      | combine({ 'overrideSubnetChecking': item.1.overrideSubnetChecking } if (item.1.overrideSubnetChecking is defined)
+      else {}) | combine({ 'enabled': item.1.enabled } if (item.1.enabled is defined) else {})
+      | combine({ 'allowManagement': item.1.allowManagement } if (item.1.allowManagement is defined) else {}) }}"
+  when:
+    - item.0.label == label
+    - item.1.address == address
   loop: "{{ interfaces | subelements('addresses', {'skip_missing': True}) }}"
   loop_control:
     label: Processing interface {{ item.0.label }} and IP address {{ item.1.address }}
@@ -69,15 +76,16 @@
   when: configure_interfaces_delete_missing
   register: ret_obj
 
-- vars:
-    filter_current_interfaces: "interfaces[].{label: label, addresses: ipv4.addresses[].address}"
+- name: Set filtered interfaces
+  vars:
+    filter_current_interfaces: "interfaces[].{'label': label, 'addresses': ipv4.addresses[].address}"
   ansible.builtin.set_fact:
     addresses_list_server: "{{ ret_obj.data | json_query(filter_current_interfaces) }}"
   when: ret_obj.data is defined and ret_obj.data != []
 
-- vars:
+- name: Delete missing IP addresses from interfaces (-e configure_interfaces_delete_missing=true)
+  vars:
     filter_current_interfaces: "[? label=='{{ item.0.label }}'].addresses[].address"
-  name: Delete missing IP addresses from interfaces (-e configure_interfaces_delete_missing=true)
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -86,7 +94,11 @@
       label: "{{ item.0.label }}"
       address: "{{ item.1 }}"
       overrideSubnetChecking: "{{ configure_interfaces_overrideSubnetChecking | default(False) }}"
-  when: item.1 is not in (interfaces | json_query(filter_current_interfaces)) and configure_interfaces_delete_missing and item.0.label == label and item.1 == address
+  when:
+    - item.1 is not in (interfaces | json_query(filter_current_interfaces))
+    - configure_interfaces_delete_missing
+    - item.0.label == label
+    - item.1 == address
   with_subelements:
     - "{{ addresses_list_server | default([]) }}"
     - addresses

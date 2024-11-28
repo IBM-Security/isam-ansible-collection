@@ -1,5 +1,5 @@
 ---
-- name: Update Network Interface {{ update_network_interface_vlan_label }} Vlan {{ update_network_interface_vlan_vlanId }}
+- name: Update Network Interface {{ update_network_interface_vlan_label + ' Vlan ' + update_network_interface_vlan_vlanId }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"

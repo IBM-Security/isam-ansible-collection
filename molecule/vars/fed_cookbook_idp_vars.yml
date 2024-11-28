@@ -195,7 +195,16 @@ oidc_cloud_partner_configuration: {
 }
 
 # 17.1 Configuring the STSUU to STSUU Chain Template
-sts_chain_templates: [ {"name": "STSUU to STSUU", "chainItems": [{"id": "default-stsuu", "mode": "validate"}, {"id": "default-map", "mode": "map"}, {"id": "default-stsuu", "mode": "issue"}], "description": "STSUU to STSUU"}]
+sts_chain_templates:
+  - name: STSUU to STSUU
+    chainItems:
+      - id: default-stsuu
+        mode: validate
+      - id: default-map
+        mode: map
+      - id: default-stsuu
+        mode: issue
+    description: STSUU to STSUU
 sts_template_name: "STSUU to STSUU"
 sts_template_content_id: "default-map"
 sts_template_content_rule_name: "stsuutostsuu"

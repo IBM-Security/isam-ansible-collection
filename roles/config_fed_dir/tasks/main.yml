@@ -1,10 +1,9 @@
 ---
-# Create a certificate database for the federated directory CAs and populate with CA
-- ansible.builtin.include_tasks: cert_db.yml
-# Configure the federated directory into Web Runtime ldap.conf
-- ansible.builtin.include_tasks: config_fed_dir.yml
-# Setup Basic User Configuration - recommended but optional
-- ansible.builtin.include_tasks: config_basic_user.yml
-
- # Commit Runtime changes
-- ansible.builtin.meta: flush_handlers
+- name: Create a certificate database for the federated directory CAs and populate with CA
+  ansible.builtin.include_tasks: cert_db.yml
+- name: Configure the federated directory into Web Runtime ldap.conf
+  ansible.builtin.include_tasks: config_fed_dir.yml
+- name: Setup Basic User Configuration - recommended but optional
+  ansible.builtin.include_tasks: config_basic_user.yml
+- name: Commit Runtime changes
+  ansible.builtin.meta: flush_handlers

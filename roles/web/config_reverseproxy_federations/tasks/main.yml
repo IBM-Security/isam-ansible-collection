@@ -15,9 +15,11 @@
         *) NOT INCLUDED: Restart reverse proxy instance (use web/restart_reverseproxy_instances role to restart instances with pending changes)
 
       EXAMPLES
-        ansible-playbook -i [...] playbooks/ansible_collections/web/config_reverseproxy_federations.yml
-        ansible-playbook -i [...] playbooks/ansible_collections/web/config_reverseproxy_federations.yml -e inst_name=default # filter at runtime for federation configuration
-        ansible-playbook -i [...] playbooks/ansible_collections/web/config_reverseproxy_federations.yml -e ansible_command_timeout=200 # increase command timeout to wait for task to complete
+        ansible-playbook -i [...] ibm.isam.web.config_reverseproxy_federations.yml
+        # filter at runtime for federation configuration
+        ansible-playbook -i [...] ibm.isam.web.config_reverseproxy_federations.yml -e inst_name=default
+        # increase command timeout to wait for task to complete
+        ansible-playbook -i [...] ibm.isam.web.config_reverseproxy_federations.yml -e ansible_command_timeout=200
 
       INVENTORY
       ==========

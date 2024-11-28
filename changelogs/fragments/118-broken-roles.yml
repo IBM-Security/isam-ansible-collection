@@ -1,0 +1,26 @@
+---
+minor_changes:
+  - aac.authenticate_access_control_policy - FQCN for isam module
+  - aac.delete_access_control_policy_attachments - FQCN for isam module
+  - web.delete_admin_credential_apiac_policies - FQCN for isam module
+  - web.store_admin_credential_apiac_policies - FQCN for isam module
+  - base.configure_interfaces - key order
+  - bootstrap_local - update this role to make it work again
+
+deprecated_features:
+  - set_ldap_root_pw - has no variables
+  - set_ldap_user_pw - missing variables
+
+removed_features:
+  - set_admin_pw - use ibm.isam.web.set_embedded_ldap_admin_pw instead
+  - set_ldap_root_pw - use ibm.isam.web.set_embedded_ldap_admin_pw instead
+  - set_ldap_user_pw - use ibm.isam.web.set_embedded_ldap_user instead
+  - authenticate_policy_attachments - use aac.authenticate_access_control_policy instead
+
+add object.role:
+  - name: aac.set_embedded_ldap_user
+    description: Create an ldap user and set password
+
+add object.playbook:
+  - name: bootstrap_local.yml
+    description: Run the bootstrapping role.  Requires a number of variables.
