@@ -47,12 +47,12 @@
           label: sample_label
           dn: 'CN=weblinux.Raleigh.ibm.com,O=ibm,OU=IBMHTTP Server,L=RTP,ST=NC,C=US'
           expire: '365' # optional default: '365'
-          default: 'no' # optional default: 'no'
-          size: '2048' # optional defaullt: '1024' OPTIONS: on SHA***WithRSA['1024','2048','4096'] on SHA***WithECDSA['256','384','512']
+          # default: 'no' # optional default: 'no'  No longer valid
+          size: '2048' # optional default: '1024' OPTIONS: on SHA***WithRSA['1024','2048','4096'] on SHA***WithECDSA['256','384','512']
           signature_algorithm: 'SHA512WithRSA' # optional default: '' if empty will get SHA1WithRSASignature
                 # OPTIONS: ['SHA256WithRSA','SHA384WithRSA','SHA512WithRSA','SHA256WithECDSA','SHA384WithECDSA','SHA512WithECDSA']
         # Setting a personal certificate as default in a certificate database
-        - cert_action: set
+        - cert_action: set # NO LONGER VALID 10.0.3+
           kdb_id: pdsrv
           cert_id: sample_label
           default: 'no' # optional default: 'no'
@@ -82,6 +82,10 @@
         - cert_action: delete
           kdb_id: pdsrv
           cert_id: runtime
+        - cert_action: rename
+          kdb_id: pdsrv
+          cert_id: runtime
+          new_id: runtime2
       ==========
 
       INTERACTION
@@ -90,7 +94,7 @@
         Ctrl+C + 'A'  = abort
   when: help is defined
 
-- name: Configure personal certificates [-e cert_action=[get_all|get|generate|set|receive|export_cert|extract_cert|import_cert|delete] -e kdb_id=<kdb>]
+- name: Configure personal certificates [-e cert_action=[get_all|get|generate|set|receive|export_cert|extract_cert|import_cert|delete|rename] -e kdb_id=<kdb>]
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
@@ -99,10 +103,11 @@
       (item.cert is defined) else {}) | combine({'cert_id': item.cert_id} if (item.cert_id is defined) else {})
       | combine({'dn': item.dn} if (item.dn is defined) else {}) | combine({'expire': item.expire} if (item.expire is defined) else {})
       | combine({'size': item.size} if (item.size is defined) else {}) | combine({'default': item.default} if (item.default is defined) else {})
-      | combine({'password': item.password} if (item.password is defined) else {}) | combine({'signature_algorithm':
-      item.signature_algorithm} if (item.signature_algorithm is defined) else {})
-      | combine({'filename': homedir + '/' + item.filename} if (item.filename is defined)
-      else {}) }}"
+      | combine({'password': item.password} if (item.password is defined) else {})
+      | combine({'signature_algorithm': item.signature_algorithm} if (item.signature_algorithm is defined) else {})
+      | combine({'filename': homedir + '/' + item.filename} if (item.filename is defined) else {})
+      | combine({'new_id': item.new_id} if (item.new_id is defined) else {})
+      }}"
   loop: "{{ personal_certificates }}"
   when:
     - item.cert_action == cert_action
