@@ -1,0 +1,22 @@
+---
+- name: Converge base
+  hosts: all
+  gather_facts: false
+  vars:
+    homedir: "{{ playbook_dir }}" # this is this directory for molecule
+  tasks:
+    - name: Include variables
+      tags:
+        - always
+      ansible.builtin.include_vars:
+        file: "vars/base.yml"
+
+    - name: Debug
+      debug:
+        var: personal_certificates
+
+    - name: Molecule test get authentication mechanism types mapping
+      tags:
+        - certificates
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_personal_certificates
