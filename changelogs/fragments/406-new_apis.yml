@@ -1,0 +1,9 @@
+---
+deprecated_features:
+  - configure_personal_certificates - set personal certificate as default is no longer possible (> 10.0.3)
+
+minor_changes:
+  - configure_personal_certificates - rename personal certificate (> 10.0.7)
+
+bugfixes:
+  - configure_reverseproxy_junctions - include_create_junctions has a syntax error (#200)
