@@ -1,0 +1,4 @@
+---
+# The id to enable or disable (string)
+# base_audit_component_id:
+base_audit_component_id_enabled: true
