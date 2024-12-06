@@ -11,12 +11,32 @@
       ansible.builtin.include_vars:
         file: "vars/base.yml"
 
-    - name: Debug
-      debug:
-        var: personal_certificates
-
-    - name: Molecule test get authentication mechanism types mapping
+    - name: Molecule test personal certificates
       tags:
         - certificates
       ansible.builtin.import_role:
         name: ibm.isam.base.configure_personal_certificates
+
+    - name: Molecule deprecated audit configuration
+      tags:
+        - audit
+      ansible.builtin.import_role:
+        name: ibm.isam.set_audit_configuration
+
+    - name: Molecule new get audit components
+      tags:
+        - audit
+      ansible.builtin.import_role:
+        name: ibm.isam.base.get_audit_components
+
+    - name: Molecule new audit configuration
+      tags:
+        - audit
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_audit
+
+    - name: Molecule enable single audit component
+      tags:
+        - audit
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_audit_component

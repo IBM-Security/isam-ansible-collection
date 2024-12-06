@@ -52,3 +52,8 @@ personal_certificates:
     kdb_id: pdsrv
     cert_id: sample_label
     new_id: renamed_sample_label
+
+base_audit_type_id: runtime
+base_audit_group_name: FIDO2
+
+base_audit_component_id: '1'

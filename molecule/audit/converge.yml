@@ -16,3 +16,9 @@
         - audit
       ansible.builtin.import_role:
         name: ibm.isam.base.get_audit_components
+
+    - name: Molecule enable single audit component
+      tags:
+        - audit
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_audit_component
