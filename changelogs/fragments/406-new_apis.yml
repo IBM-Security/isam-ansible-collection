@@ -14,3 +14,5 @@ add object.role:
     description: Get audit components, optionally by name or by type
   - name: base.configure_audit
     description: Configure audit.  Uses refactored ibmsecurity code.  Replaces `set_audit_configuration`
+  - name: base.configure_audit_component
+    description: Enables or disables audit component
