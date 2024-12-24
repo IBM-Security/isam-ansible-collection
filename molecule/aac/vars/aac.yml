@@ -62,6 +62,48 @@ access_control_policies:
     description: "New Policy Description"
     dialect: "urn:oasis:names:tc:xacml:2.0:policy:schema:os"
     formatting: json
+  - name: Registration Policy # https://ibm-security.slack.com/archives/C307GJRN1/p1733495240732829
+    attributesrequired: true
+    description: "Obligation to register a device"
+    dialect: "urn:oasis:names:tc:xacml:2.0:policy:schema:os"
+    formatting: json
+    policy:
+      PolicyTag: urn:ibm:security:isam:8.0:xacml:2.0:config-policy
+      PolicyName: Registration Policy
+      PolicySet:
+        Policy:
+          - RuleCombiningAlgId: urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable
+            Rule:
+              Condition:
+                Apply:
+                  - FunctionId: urn:oasis:names:tc:xacml:1.0:function:and
+                    Apply:
+                      - FunctionId: urn:oasis:names:tc:xacml:1.0:function:any-of-any
+                        Function:
+                          FunctionId: urn:oasis:names:tc:xacml:1.0:function:integer-greater-than-or-equal
+                        Apply:
+                          - FunctionId: urn:oasis:names:tc:xacml:1.0:function:integer-bag
+                            AttributeValue:
+                              DataType: http://www.w3.org/2001/XMLSchema#integer
+                              content: 1
+                        SubjectAttributeDesignator:
+                          - AttributeId: urn:ibm:security:subject:authenticationLevel
+                            MustBePresent: true
+                            DataType: http://www.w3.org/2001/XMLSchema#integer
+              RuleId: urn:ibm:security:rule:0
+              Effect: Permit
+            PolicyId: urn:ibm:security:rule-container:0
+          - Obligations:
+              Obligation:
+                ObligationId: urn:ibm:security:obligation:register_device
+                FulfillOn: Permit
+            RuleCombiningAlgId: urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable
+            Rule:
+              RuleId: urn:ibm:security:rule:1
+              Effect: Permit
+            PolicyId: urn:ibm:security:rule-container:1
+        PolicyCombiningAlgId: urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides
+        Description: Obligation to register a device
   - name: test2
     description: "updated comments"
     dialect: "urn:oasis:names:tc:xacml:2.0:policy:schema:os"
