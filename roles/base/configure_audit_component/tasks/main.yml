@@ -7,6 +7,4 @@
     isamapi:
       component_id: "{{ base_audit_component_id }}"
       enabled: "{{ base_audit_component_id_enabled }}"
-  when:
-    - base_audit_component_id is defined
   notify: Commit Changes

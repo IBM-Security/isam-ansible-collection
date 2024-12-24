@@ -27,6 +27,8 @@
           comment: this is a test tuning parameter
         - tuning_action: delete
           key: test
+        - key: setting_something
+          value: setting_value
       ==========
 
       INTERACTION
@@ -39,7 +41,7 @@
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: ibmsecurity.isam.base.advanced_tuning_parameters.{{ item.tuning_action }}
+    action: ibmsecurity.isam.base.advanced_tuning_parameters.{{ item.tuning_action | default('set') }}
     isamapi: "{{ item | ibm.isam.exclude('tuning_action') }}"
   loop: "{{ advanced_tuning_parameters }}"
   when:
