@@ -4,11 +4,11 @@
   gather_facts: true
   vars:
     bootstrap_local_vm_net_mask: 255.255.255.0
-    bootstrap_local_vm_default_gw: 192.168.1.0
+    bootstrap_local_vm_default_gw: 192.168.42.2
     bootstrap_local_vm_path_root: '~/vmware'
-    bootstrap_local_appliance_iso: "/home/tbosmans/Downloads/IBM/ISAM/11.0/11.0/IISVAVE0_1.0_MP_ML.iso" # needs to be an iso
-    bootstrap_local_vm_hostname: iisva11.demo.ibm.com
-    bootstrap_local_vm_mgmt_ip: 192.168.1.11
+    bootstrap_local_appliance_iso: "/home/tbosmans/Downloads/IBM/ISAM/10.0/10.0.8/isva_10.0.8.0_20240612-0013.iso" # needs to be an iso
+    bootstrap_local_vm_hostname: idp.demo.ibm.com
+    bootstrap_local_vm_mgmt_ip: 192.168.42.111
   tasks:
     - name: Include variables
       tags:

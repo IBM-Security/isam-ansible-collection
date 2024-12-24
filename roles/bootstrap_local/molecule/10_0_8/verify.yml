@@ -1,0 +1,17 @@
+---
+- name: Verify bootstrap (TODO)
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Include variables
+      tags:
+        - always
+      ansible.builtin.include_vars:
+        file: "{{ item }}"
+      loop:
+        - ../vars/main.yml
+        - ../vars/Linux.yml
+
+    - name: Debug
+      ansible.builtin.debug:
+        var: bootstrap_local_vmdiskmgr
