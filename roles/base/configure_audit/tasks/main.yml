@@ -19,6 +19,7 @@
       id: "{{ ret_obj['data'][0]['id'] }}"
       enabled: "{{ base_audit_configuration_enabled }}"
       type: "{{ base_audit_configuration_type }}"
-      config: "{{ (ansible_facts.version is version('10.0.8.0', operator='<')) | ternary(base_audit_configuration_config_old,base_audit_configuration_config) }}"
+      config: "{{ (ansible_facts.version is version('10.0.8.0', operator='<'))
+               | ternary(base_audit_configuration_config_old, base_audit_configuration_config) }}"
       verbose: "{{ base_audit_configuration_verbose }}"
   notify: Commit Changes
