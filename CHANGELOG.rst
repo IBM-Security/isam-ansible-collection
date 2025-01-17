@@ -4,6 +4,59 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v2.4.0
+======
+
+Release Summary
+---------------
+
+Fixes and new roles for new features in 10.0.7
+
+Minor Changes
+-------------
+
+- aac.authenticate_access_control_policy - FQCN for isam module
+- aac.delete_access_control_policy_attachments - FQCN for isam module
+- base.configure_advanced_tuning_parameters - default to 'set' action
+- base.configure_interfaces - key order
+- bootstrap_local - update this role to make it work again
+- configure_personal_certificates - rename personal certificate (> 10.0.7)
+- web.delete_admin_credential_apiac_policies - FQCN for isam module
+- web.store_admin_credential_apiac_policies - FQCN for isam module
+
+Deprecated Features
+-------------------
+
+- configure_personal_certificates - set personal certificate as default is no longer possible (> 10.0.3)
+- set_audit_configuration - replaced with base.configure_audit, that is using new code
+- set_ldap_root_pw - has no variables
+- set_ldap_user_pw - missing variables
+
+Removed Features (previously deprecated)
+----------------------------------------
+
+- authenticate_policy_attachments - use aac.authenticate_access_control_policy instead
+- set_admin_pw - use ibm.isam.web.set_embedded_ldap_admin_pw instead
+- set_ldap_root_pw - use ibm.isam.web.set_embedded_ldap_admin_pw instead
+- set_ldap_user_pw - use ibm.isam.web.set_embedded_ldap_user instead
+
+Bugfixes
+--------
+
+- configure_reverseproxy_junctions - include_create_junctions has a syntax error (#200)
+
+New Playbooks
+-------------
+
+- ibm.isam.bootstrap_local.yml - Run the bootstrapping role.  Requires a number of variables.
+
+New Roles
+---------
+
+- ibm.isam.base.configure_audit - Configure audit.  Uses refactored ibmsecurity code.  Replaces `set_audit_configuration`
+- ibm.isam.base.configure_audit_component - Enables or disables audit component
+- ibm.isam.base.get_audit_components - Get audit components, optionally by name or by type
+
 v2.3.2
 ======
 
