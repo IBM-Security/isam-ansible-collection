@@ -3,6 +3,15 @@
   hosts: all
   gather_facts: false
   vars:
+    load_signer_certificates:
+      - kdb_id: pdsrv
+        label: isam-openldap
+        server: localhost
+        port: 636
+     # - kdb_id: pdsrv
+     #   label: local_runtime
+     #   server: 127.0.0.1
+     #   port: 443
     policyserver_runtime:
       configuration:
         admin_pwd: "passw0rd"
@@ -29,6 +38,13 @@
     - name: Prepare policy server
       ansible.builtin.import_role:
         name: ibm.isam.web.configure_policyserver
+
+    - name: Meta
+      ansible.builtin.meta: flush_handlers
+
+    - name: Import SSL certificate
+      ansible.builtin.import_role:
+        name: ibm.isam.base.load_signer_certificates
 
     - name: Create reverse proxy - listen on port 8444 at {{ ansible_host }}
       ansible.builtin.import_role:

@@ -1,0 +1,25 @@
+---
+- name: Query Existing Audit Configuration for "id"
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.audit.configuration.get
+  register: ret_obj
+
+- name: Debug
+  ansible.builtin.debug:
+    var: ret_obj.data
+
+- name: Set Audit Configuration - id "{{ ret_obj['data'][0]['id'] }}"
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.audit.configuration.set
+    isamapi:
+      id: "{{ ret_obj['data'][0]['id'] }}"
+      enabled: "{{ base_audit_configuration_enabled }}"
+      type: "{{ base_audit_configuration_type }}"
+      config: "{{ (ansible_facts.version is version('10.0.8.0', operator='<'))
+               | ternary(base_audit_configuration_config_old, base_audit_configuration_config) }}"
+      verbose: "{{ base_audit_configuration_verbose }}"
+  notify: Commit Changes

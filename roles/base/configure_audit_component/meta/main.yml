@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  author: IBM
+  description: Role to enable or disable a specific audit component
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: "2.17"
+
+  galaxy_tags:
+    - isam
+    - ibm
+    - configure
+    - audit
+    - component
+
+dependencies:
+  - ibm.isam.common_handlers

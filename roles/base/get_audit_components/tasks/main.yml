@@ -1,0 +1,50 @@
+---
+- name: Get all components
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.audit.components.get_all
+  register: base_audit_components_all
+  when:
+    - base_audit_getall | bool
+
+- name: Debug
+  ansible.builtin.debug:
+    verbosity: 1
+    var: base_audit_components_all.data
+
+- name: Get components by type
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.audit.components.get
+    isamapi:
+      type_id: "{{ base_audit_type_id }}"
+  register: base_audit_components_type
+  when:
+    - base_audit_type_id is defined
+
+- name: Debug base_audit_type_id
+  ansible.builtin.debug:
+    verbosity: 1
+    var: base_audit_components_type.data
+  when:
+    - base_audit_type_id is defined
+
+- name: Get component by name {{ base_audit_group_name | default('') }}
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.audit.components.get
+    isamapi:
+      group_name: "{{ base_audit_group_name }}"
+  register: base_audit_components_name
+  when:
+    - base_audit_group_name is defined
+
+- name: Debug base_audit_group_name
+  ansible.builtin.debug:
+    verbosity: 1
+    var: base_audit_components_name.data
+  when:
+    - base_audit_group_name is defined

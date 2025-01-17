@@ -1,0 +1,9 @@
+---
+# Set to true, to process get_all.
+base_audit_getall: true
+
+# Set this to `runtime` or `management`, to enable getting components by type
+# base_audit_type_id:
+
+# Set this to a group name, to get the component
+# base_audit_group_name:

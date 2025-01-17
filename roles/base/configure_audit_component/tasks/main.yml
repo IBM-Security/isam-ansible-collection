@@ -1,0 +1,10 @@
+---
+- name: Enable Audit component
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.audit.components.set
+    isamapi:
+      component_id: "{{ base_audit_component_id }}"
+      enabled: "{{ base_audit_component_id_enabled }}"
+  notify: Commit Changes

@@ -1,0 +1,59 @@
+---
+personal_certificates:
+  # get all certificates from keystore
+  - cert_action: get_all
+    kdb_id: pdsrv
+  # get content of a specific certificate from keystore
+  - cert_action: get
+    kdb_id: pdsrv
+    cert_id: WebSEAL-Test-Only
+  # Generating a self-signed personal certificate in a certificate database
+  - cert_action: generate
+    kdb_id: pdsrv
+    label: sample_label
+    dn: 'CN=weblinux.Raleigh.ibm.com,O=ibm,OU=IBMHTTP Server,L=RTP,ST=NC,C=US'
+    expire: '365' # optional default: '365'
+    # default: 'no' # optional default: 'no'  No longer valid
+    size: '2048' # optional default: '1024' OPTIONS: on SHA***WithRSA['1024','2048','4096'] on SHA***WithECDSA['256','384','512']
+    signature_algorithm: 'SHA512WithRSA' # optional default: '' if empty will get SHA1WithRSASignature
+          # OPTIONS: ['SHA256WithRSA','SHA384WithRSA','SHA512WithRSA','SHA256WithECDSA','SHA384WithECDSA','SHA512WithECDSA']
+  # Setting a personal certificate as default in a certificate database
+  - cert_action: set # NO LONGER VALID 10.0.3+
+    kdb_id: pdsrv
+    cert_id: sample_label
+    default: 'no' # optional default: 'no'
+  # Receiving a personal certificate into a certificate database TODO
+  #- cert_action: receive
+  #  kdb_id: pdsrv
+  #  label: sample_label
+  #  cert: files/ssl/runtime.csr # absolute or relative path supported
+  # Exporting a personal certificate from a certificate database TODO
+  #- cert_action: export_cert
+  #  kdb_id: pdsrv
+  #  cert_id: sample_label
+  #  filename: files/ssl/sample.cert # absolute or relative path supported
+  # Importing a personal certificate into a certificate database TODO
+  #- cert_action: import_cert
+  #  kdb_id: pdsrv
+  #  label: sample_label
+  #  cert: files/ssl/sample.cert # absolute or relative path supported
+  #  password: 'passw0rd'
+  # Importing a personal certificate into a certificate database TODO
+  #- cert_action: extract_cert
+  #  kdb_id: pdsrv
+  #  cert_id: sample_label
+  #  filename: files/ssl/sample.cert # absolute or relative path supported
+  #  password: 'passw0rd'
+  # Deleting a personal certificate from a certificate database
+  #- cert_action: delete
+  #  kdb_id: pdsrv
+  #  cert_id: runtime
+  - cert_action: rename
+    kdb_id: pdsrv
+    cert_id: sample_label
+    new_id: renamed_sample_label
+
+base_audit_type_id: runtime
+base_audit_group_name: FIDO2
+
+base_audit_component_id: '1'
