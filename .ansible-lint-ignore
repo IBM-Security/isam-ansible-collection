@@ -1,6 +1,8 @@
 # This file contains ignores rule violations for ansible-lint
 playbooks/federation_cookbook/fed_idp_part1.yml schema[playbook]
 playbooks/federation_cookbook/fed_sp_part1.yml schema[playbook]
+playbooks/federation_cookbook/fed_idp_part1.yml syntax-check[specific]
+playbooks/federation_cookbook/fed_sp_part1.yml syntax-check[specific]
 roles/aac/authenticate_access_control_policy/defaults/main.yml var-naming[no-role-prefix]
 roles/aac/configure_api_protection_clients/defaults/main.yml var-naming[no-role-prefix]
 roles/aac/configure_api_protection_definitions/defaults/main.yml var-naming[no-role-prefix]

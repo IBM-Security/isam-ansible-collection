@@ -96,7 +96,8 @@ warn_list:
 #   - all
 
 # Offline mode disables installation of requirements.yml and schema refreshing
-offline: true
+# https://github.com/cavcrosby/isam-ansible-collection/commit/31e00874bdfa5371c80c740a7a4f8a28574541a4
+offline: false
 
 # Define required Ansible's variables to satisfy syntax check
 # extra_vars:
