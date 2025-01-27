@@ -2,7 +2,7 @@
 
 Documentation for installing and using this collection.
 
-![manual_ansible_lint.yml](https://github.com/IBM-Security/isam-ansible-collection/actions/workflows/manual_ansible_lint.yml/badge.svg)
+[![Ansible Lint](https://github.com/IBM-Security/isam-ansible-collection/actions/workflows/ansible_lint.yml/badge.svg)](https://github.com/IBM-Security/isam-ansible-collection/actions/workflows/ansible_lint.yml)
 
 ## Requirements
 
