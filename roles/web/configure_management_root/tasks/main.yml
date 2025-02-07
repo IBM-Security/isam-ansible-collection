@@ -217,7 +217,8 @@
   when:
     - item.1.mgmt_action == 'import_zip'
     - item.0.inst_name == inst_name
-    - ( ( mgmt_action == 'import_zip' and not (skip_imports | bool) ) or ( mgmt_action == 'None' and not (skip_imports | bool) ) )
+    - not (skip_imports | bool)
+    - mgmt_action == 'import_zip' or mgmt_action == 'None'
   with_subelements:
     - "{{ instances }}"
     - management_root
@@ -240,5 +241,6 @@
     - file != ''
     - inst_name is defined
     - inst_name != ''
-    - (not (skip_import | bool) and ( mgmt_action == 'import_zip' or mgmt_action == 'None'))
+    - not (skip_import | bool)
+    - mgmt_action == 'import_zip' or mgmt_action == 'None'
   notify: Commit Changes
