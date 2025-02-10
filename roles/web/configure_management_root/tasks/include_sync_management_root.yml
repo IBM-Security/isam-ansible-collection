@@ -10,7 +10,7 @@
 
 - name: "[sync_up] Check local file"
   ansible.builtin.stat:
-    path: "{{ homedir }}/{{ item.1.directory }}{{ element.path | regex_replace(item.1.target, '') }}"
+    path: "{{ ((homedir == '') | ternary('', homedir + '/')) }}{{ item.1.directory }}{{ element.path | regex_replace(item.1.target, '') }}"
   when: (element.path | regex_search('^' + item.1.target)) == item.1.target
   with_items: "{{ ret_obj.data | ibm.isam.flatten_management_root }}"
   loop_control:
@@ -40,7 +40,7 @@
   ansible.builtin.set_fact:
     directory_update_item: "{{ {'mgmt_action': 'create', 'type': create.state, 'target': item.1.target + '/' + create.path } }}"
   when: create.state == "directory"
-  with_community.general.filetree: "{{ homedir }}/{{ item.1.directory }}"
+  with_community.general.filetree: "{{ ((homedir == '') | ternary('', homedir + '/')) }}{{ item.1.directory }}"
   loop_control:
     loop_var: create
     label: "{'mgmt_action': 'create', 'type': \"{{ create.state }}\", 'target': \"{{ item.1.target + '/' + create.path }}\" }"
@@ -57,7 +57,7 @@
        upload.path, 'file': upload.root + '/' + upload.path} }}"
   when:
     - upload.state == "file"
-  with_community.general.filetree: "{{ homedir }}/{{ item.1.directory }}"
+  with_community.general.filetree: "{{ ((homedir == '') | ternary('', homedir + '/')) }}{{ item.1.directory }}"
   loop_control:
     loop_var: upload
     label: "{'mgmt_action': 'upload', 'target': \"{{ item.1.target + '/' + upload.path }}\", 'file': \"{{ upload.root + '/' + upload.path }}\"}"

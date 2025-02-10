@@ -4,7 +4,7 @@
   gather_facts: False
   vars:
     molecule_name: not used
-    molecule_file: "{{ homedir }}/files/ltpa.key"
+    molecule_file: "{{ ((homedir == '') | ternary('', homedir + '/')) }}files/ltpa.key"
   tasks:
     - name: "Test upload using ltpa role"
       ansible.builtin.include_role:

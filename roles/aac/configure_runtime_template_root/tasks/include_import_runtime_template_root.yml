@@ -5,7 +5,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.runtime_template.root.import_file
     isamapi:
-      filename: "{{ homedir + '/' + item.file }}"
+      filename: "{{ ((homedir == '') | ternary('', homedir + '/')) + item.file }}"
       delete_missing: "{{ (item.delete_missing | default(delete_missing)) | bool }}"
   when: item.file is defined
   notify: Commit Changes

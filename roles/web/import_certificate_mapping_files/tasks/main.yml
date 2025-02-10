@@ -10,7 +10,7 @@
     action: ibmsecurity.isam.web.client_certificate_mapping.import_file
     isamapi:
       id: "{{ item.file | basename }}"
-      filename: "{{ homedir + '/' + item.file }}"
+      filename: "{{ ((homedir == '') | ternary('', homedir + '/')) + item.file }}"
   when:
     - item.file is defined
   with_items: "{{ certificate_mapping_files }}"

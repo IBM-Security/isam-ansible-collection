@@ -38,6 +38,6 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.snapshots.upload
     isamapi:
-      file: "{{ homedir + '/' + file }}"
+      file: "{{ ((homedir == '') | ternary('', homedir + '/')) + file }}"
       comment: "{{ comment | default(omit) }}"
   when: file is defined

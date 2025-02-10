@@ -109,7 +109,7 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.fido2.{{ item.fido2_action }}
-    isamapi: "{{ item | ibm.isam.exclude('fido2_action') | combine({'filename': homedir + '/' + item.filename} if (item.filename is defined) else {}) }}"
+    isamapi: "{{ item | ibm.isam.exclude('fido2_action') | combine({'filename': ((homedir == '') | ternary('', homedir + '/')) + item.filename} if (item.filename is defined) else {}) }}"
   when:
     - item.fido2_action is defined
     - item.fido2_action == fido2_action
