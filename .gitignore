@@ -10,4 +10,5 @@
 .vscode
 /tests/output/
 changelogs/.plugin-cache.yaml
+.ansible
 .ansible/*
