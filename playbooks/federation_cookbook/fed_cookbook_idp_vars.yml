@@ -1,7 +1,7 @@
 ---
 # 4.2 Enable NTP
 ntpServers: pool.ntp.org
-timeZone: America/Chicago
+timeZone: 'America/Chicago'
 
 # "4.3 Product Activation"
 activation_keys: [{ id: wga, code: "" }, { id: mga, code: "" }, { id: federation, code: "" }]

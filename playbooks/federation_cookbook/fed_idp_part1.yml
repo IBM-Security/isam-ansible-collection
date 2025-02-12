@@ -39,7 +39,7 @@
       ansible.builtin.include_role:
         name: ibm.isam.base.set_host_records
       vars:
-        - host_records: "{{ inventory.host_records }}"
+        host_records: "{{ inventory.host_records }}"
 
     - name: 4.6 Configure ISAM Runtime Component on the Appliance
       ansible.builtin.include_role:
