@@ -57,43 +57,89 @@
           # necessary parameters
           - junction_point: "/jct1"
             junction_type: "tcp"
+            priority: 9
             servers:
               - server_hostname: "localhost"
                 server_port: 443
+          # Try again
+          - junction_point: preprod.ibm.com
+            description: Pre-production junction for test
+            priority: "9"
+            authz_rules: !!str no
+            case_insensitive_url: !!str no
+            client_ip_http: !!str no
+            cookie_include_path: !!str no
+            delegation_support: !!str no
+            enable_basic_auth: !!str no
+            # fsso_config_file: ""
+            http2_junction: !!str no
+            http2_proxy: !!str no
+            insert_ltpa_cookies: !!str no
+            insert_session_cookies: !!str no
+            junction_hard_limit: 80
+            junction_soft_limit: 50
+            junction_type: ssl
+            # local_ip: ""
+            mutual_auth: !!str no
+            preserve_cookie: !!str no
+            remote_http_header:
+              - iv-user
+              - iv-user-l
+              - iv-groups
+              - iv-creds
+            scripting_support: !!str no
+            silent: true
+            stateful_junction: !!str no
+            tfim_sso: !!str no
+            transparent_path_junction: !!str no
+            # vhost_label: ""
+            # vhost_aliases: preprod.ibm.com:80
+            windows_style_url: !!str no
+            #server_dn: ""
+            #server_cn: ""
+            servers:
+              - server_hostname: w3.ibm.com
+                server_port: "443"
+                virtual_hostname: preprod.ibm.com
+                # virtual_https_hostname: preprod.ibm.com
+                # sms_environment: ""
+                # query_contents: ""
           # all parameters
           - junction_point: "/jct2"
             junction_type: "tcp"
-            transparent_path_junction: "yes"
+            priority: "9"
+            transparent_path_junction: !!str yes
             basic_auth_mode: filter
             remote_http_header:
               - iv_user
               - iv_creds
               - iv_user_l
-            scripting_support: "yes"
-            stateful_junction: "yes"
+            scripting_support: !!str no
+            stateful_junction: !!str yes
             junction_hard_limit: 80
             junction_soft_limit: 60
-            tfim_sso: "yes"
-            mutual_auth: "no"
-            insert_session_cookies: "no"
-            version_two_cookies: "yes"
+            tfim_sso: !!str no
+            mutual_auth: !!str no
+            insert_session_cookies: !!str no
+            # version_two_cookies: "no"
             request_encoding: "utf8_uri"
-            enable_basic_auth: "no"
+            enable_basic_auth: !!str no
             junction_cookie_javascript_block: "inhead"
-            client_ip_http: "no"
+            client_ip_http: !!str no
             authz_rules: "yes"
-            delegation_support: "yes"
-            http2_junction: "no"
-            http2_proxy: "no"
-            sni_name: "iexist.example.com"
+            delegation_support: "no" # only for ssl junctions
+            http2_junction: !!str no
+            http2_proxy: !!str no
+            # sni_name: "iexist.example.com"
             description: "Test application point of contact"
             servers:
               - server_hostname: "server1.example.com"
                 virtual_hostname: "idontexist.com:81"
                 query_contents: /server2/cgi-bin/query
-                https_port: 444
+                #https_port: 444
                 http_port: 81
-                server_port: 443
+                server_port: "443"
+
 
     http_transformation_rules:
       - transformation_action: get_all
@@ -182,5 +228,7 @@
         name: ibm.isam.web.config_reverseproxy_redis
 
     - name: Molecule Test junctions (simple)
-      ansible.builtin.include_role:
+      tags:
+        - junctions
+      ansible.builtin.import_role:
         name: ibm.isam.web.configure_reverseproxy_junctions
