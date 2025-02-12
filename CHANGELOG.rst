@@ -4,6 +4,28 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v2.5.0
+======
+
+Release Summary
+---------------
+
+Minor changes and bugfixes
+
+Minor Changes
+-------------
+
+- vmware.isam_install.yml - lint truthy
+- vmware.server_facts.yml - lint tasks should be named
+
+Bugfixes
+--------
+
+- change_passwords.yml - modify removed role to new role
+- ibm.isam.web.configure_management_root - default and simplify when statements
+- roles - homedir -> ((homedir == '') | ternary('', homedir + '/'))
+- set_user_registry_user_pw.yml - modify removed role to new role
+
 v2.4.0
 ======
 
@@ -44,18 +66,6 @@ Bugfixes
 --------
 
 - configure_reverseproxy_junctions - include_create_junctions has a syntax error (#200)
-
-New Playbooks
--------------
-
-- ibm.isam.bootstrap_local.yml - Run the bootstrapping role.  Requires a number of variables.
-
-New Roles
----------
-
-- ibm.isam.base.configure_audit - Configure audit.  Uses refactored ibmsecurity code.  Replaces `set_audit_configuration`
-- ibm.isam.base.configure_audit_component - Enables or disables audit component
-- ibm.isam.base.get_audit_components - Get audit components, optionally by name or by type
 
 v2.3.2
 ======
@@ -138,14 +148,6 @@ Filter
 
 - ibm.isam.rename_key - Rename keys in a dictionary
 
-New Roles
----------
-
-- ibm.isam.aac.authenticate_access_control_policy - Authenticate before performing access control policy attachments - is a dependency of aac.configure_access_control_policy_attachments
-- ibm.isam.aac.delete_access_control_policies - Delete access control policies
-- ibm.isam.aac.delete_access_control_policy_attachments - Delete specific access control policy attachments
-- ibm.isam.aac.get_authentication_mechanism_types - Create mapping between typeId and typeName, for use in `ibm.isam.aac.configure_authentication_mechanisms`
-
 v2.2.0
 ======
 
@@ -190,20 +192,6 @@ Bugfixes
 
 - removed or moved a number of role vars, since they have a very high precedence and can cause unexpected issues
 
-New Playbooks
--------------
-
-- ibm.isam.web.configure_reverseproxy_wafcrssetup.yml - Playbook to update WAF crssetup
-- ibm.isam.web.get_reverseproxy_stanza.yml - Playbook to get a specific stanza configuration
-
-New Roles
----------
-
-- ibm.isam.web.config_reverseproxy_waf_crssetup - Role to add or update the WAF crssetup file
-- ibm.isam.web.delete_admin_credential_apiac_policies - Role to delete an admin credential for apiac policies
-- ibm.isam.web.get_reverseproxy_stanza - Role to get reverse proxy stanzas
-- ibm.isam.web.store_admin_credential_apiac_policies - Role to store the admin credential prior to running other apiac commands
-
 v2.1.0
 ======
 
@@ -219,18 +207,6 @@ Minor Changes
 -------------
 
 - common_handlers - add homedir and root_playbook_dir shared default variables
-
-New Playbooks
--------------
-
-- ibm.isam.base.configure_containers.yml - Playbook for the new role containers
-- ibm.isam.base.configure_extensions.yml - Playbook for the new role extensions
-
-New Roles
----------
-
-- ibm.isam.base.configure_container_container - Role to configure containers for use with Container extension
-- ibm.isam.base.configure_extensions - Role to configure extensions
 
 v2.0.0
 ======
@@ -253,12 +229,6 @@ Minor Changes
 - documentation updates
 - documentation updates
 - ibm.isam.base.install_fixpacks - fix
-
-New Playbooks
--------------
-
-- ibm.isam.base.configure_management_ssl.yml - Playbook to set management ssl certificate
-- ibm.isam.install_updates.yml - Add playbook that uses the same syntax as upload_updates.yml
 
 v1.1.1
 ======
@@ -294,16 +264,6 @@ Minor Changes
 - ibm.isam.set_admin_cfg - add 16 parameters
 - ibm.isam.web.configure_reverseproxy_junctions - use new set_all() for junctions and junction_servers from the original role (using a variable)
 - isam connection plugin - add module_name to errors
-
-New Playbooks
--------------
-
-- ibm.isam.web.configure_reverseproxy_junctions_setall.yml - Playbook for the new role
-
-New Roles
----------
-
-- ibm.isam.web.configure_reverseproxy_junctions_setall - Role to use the new set_all() for junctions and servers
 
 v1.0.29
 =======
@@ -389,22 +349,6 @@ Known Issues
 
 - ibm.isam.aac.configure_fido2 - molecule import test fails because there is no metadata file to import
 - ibm.isam.base.configure_certificate_databases - importing a db using a zip file fails
-
-New Playbooks
--------------
-
-- ibm.isam.base_site - Base configuration for appliances
-- ibm.isam.connectivity_check - Check connectivity and variables.  You can run this using ansible-navigator or using ansible-playbook.
-
-New Roles
----------
-
-- ibm.isam.base.delete_application_logs - role to delete application logs
-- ibm.isam.base.execute_cli - role to execute cli commands
-- ibm.isam.base.set_management_authorization - enable management authorization
-- ibm.isam.base.set_management_ssl_cert - new role to set the management ssl certificate
-- ibm.isam.config_snmp_monitoring_v3 - Role to configure v3 snmp monitoring
-- ibm.isam.get_memory_statistics - role to generate memory statistics
 
 v1.0.28
 =======

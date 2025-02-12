@@ -166,33 +166,8 @@ releases:
     - 181-config_snmp_monitory.yml
     - fix_connectivity_check_playbook.yml
     objects:
-      playbook:
-      - description: Base configuration for appliances
-        name: base_site
-        namespace: null
-      - description: Check connectivity and variables.  You can run this using ansible-navigator
-          or using ansible-playbook.
-        name: connectivity_check
-        namespace: null
-      role:
-      - description: role to delete application logs
-        name: base.delete_application_logs
-        namespace: null
-      - description: role to execute cli commands
-        name: base.execute_cli
-        namespace: null
-      - description: enable management authorization
-        name: base.set_management_authorization
-        namespace: null
-      - description: new role to set the management ssl certificate
-        name: base.set_management_ssl_cert
-        namespace: null
-      - description: Role to configure v3 snmp monitoring
-        name: config_snmp_monitoring_v3
-        namespace: null
-      - description: role to generate memory statistics
-        name: get_memory_statistics
-        namespace: null
+      playbook: []
+      role: []
     release_date: '2023-07-28'
   1.1.0:
     changes:
@@ -218,14 +193,8 @@ releases:
     - faster_reverseproxy_junction_creation.yml
     - release_summary.yml
     objects:
-      playbook:
-      - description: Playbook for the new role
-        name: web.configure_reverseproxy_junctions_setall.yml
-        namespace: null
-      role:
-      - description: Role to use the new set_all() for junctions and servers
-        name: web.configure_reverseproxy_junctions_setall
-        namespace: null
+      playbook: []
+      role: []
     release_date: '2024-03-01'
   1.1.1:
     changes:
@@ -259,13 +228,7 @@ releases:
     - 188-enable_tls_verification.yml
     - 189-use-of-baseinstall_fixpacks-role-fails.yml
     objects:
-      playbook:
-      - description: Playbook to set management ssl certificate
-        name: base.configure_management_ssl.yml
-        namespace: null
-      - description: Add playbook that uses the same syntax as upload_updates.yml
-        name: install_updates.yml
-        namespace: null
+      playbook: []
     release_date: '2024-06-11'
   2.1.0:
     changes:
@@ -283,20 +246,8 @@ releases:
     fragments:
     - extensions.yml
     objects:
-      playbook:
-      - description: Playbook for the new role containers
-        name: base.configure_containers.yml
-        namespace: null
-      - description: Playbook for the new role extensions
-        name: base.configure_extensions.yml
-        namespace: null
-      role:
-      - description: Role to configure containers for use with Container extension
-        name: base.configure_container_container
-        namespace: null
-      - description: Role to configure extensions
-        name: base.configure_extensions
-        namespace: null
+      playbook: []
+      role: []
     release_date: '2024-10-14'
   2.2.0:
     changes:
@@ -341,27 +292,8 @@ releases:
     - refactoring_lint.yml
     - release_summary.yml
     objects:
-      playbook:
-      - description: Playbook to update WAF crssetup
-        name: web.configure_reverseproxy_wafcrssetup.yml
-        namespace: null
-      - description: Playbook to get a specific stanza configuration
-        name: web.get_reverseproxy_stanza.yml
-        namespace: null
-      role:
-      - description: Role to add or update the WAF crssetup file
-        name: web.config_reverseproxy_waf_crssetup
-        namespace: null
-      - description: Role to delete an admin credential for apiac policies
-        name: web.delete_admin_credential_apiac_policies
-        namespace: null
-      - description: Role to get reverse proxy stanzas
-        name: web.get_reverseproxy_stanza
-        namespace: null
-      - description: Role to store the admin credential prior to running other apiac
-          commands
-        name: web.store_admin_credential_apiac_policies
-        namespace: null
+      playbook: []
+      role: []
     release_date: '2024-10-18'
   2.3.0:
     changes:
@@ -389,20 +321,7 @@ releases:
     fragments:
     - fixes_from_projects.yml
     objects:
-      role:
-      - description: Authenticate before performing access control policy attachments
-          - is a dependency of aac.configure_access_control_policy_attachments
-        name: aac.authenticate_access_control_policy
-        namespace: null
-      - description: Delete access control policies
-        name: aac.delete_access_control_policies
-        namespace: null
-      - description: Delete specific access control policy attachments
-        name: aac.delete_access_control_policy_attachments
-        namespace: null
-      - description: Create mapping between typeId and typeName, for use in `ibm.isam.aac.configure_authentication_mechanisms`
-        name: aac.get_authentication_mechanism_types
-        namespace: null
+      role: []
     plugins:
       filter:
       - description: Rename keys in a dictionary
@@ -469,19 +388,25 @@ releases:
     - 406-new_apis.yml
     - release_summary_v2.4.0.yml
     objects:
-      playbook:
-      - description: Run the bootstrapping role.  Requires a number of variables.
-        name: bootstrap_local.yml
-        namespace: null
-      role:
-      - description: Configure audit.  Uses refactored ibmsecurity code.  Replaces
-          `set_audit_configuration`
-        name: base.configure_audit
-        namespace: null
-      - description: Enables or disables audit component
-        name: base.configure_audit_component
-        namespace: null
-      - description: Get audit components, optionally by name or by type
-        name: base.get_audit_components
-        namespace: null
+      playbook: []
+      role: []
     release_date: '2025-01-17'
+  2.5.0:
+    changes:
+      bugfixes:
+      - change_passwords.yml - modify removed role to new role
+      - ibm.isam.web.configure_management_root - default and simplify when statements
+      - roles - homedir -> ((homedir == '') | ternary('', homedir + '/'))
+      - set_user_registry_user_pw.yml - modify removed role to new role
+      minor_changes:
+      - vmware.isam_install.yml - lint truthy
+      - vmware.server_facts.yml - lint tasks should be named
+      release_summary: 'Minor changes and bugfixes
+
+        '
+    fragments:
+    - container_roles.yml
+    - release_summary.yml
+    objects:
+      role: []
+    release_date: '2025-02-12'
