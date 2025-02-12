@@ -2,7 +2,7 @@
 - name: WAF crssetup
   import_playbook: ibm.isam.web.configure_reverseproxy_wafcrssetup.yml
   vars:
-    homedir: "{{ playbook_dir }}" # this is the directory where the playbook is in this collectin, so <ansible_collections>/ibm/isam/playbooks/web/
+    homedir: "{{ playbook_dir }}" # this is the directory where the playbook is in this collection, so <ansible_collections>/ibm/isam/playbooks/web/
 
 - name: Converge
   hosts: all
