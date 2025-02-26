@@ -238,7 +238,9 @@
       delete_missing: "{{ delete_missing }}"
   when:
     - file is defined
+    - file != ''
     - inst_name is defined
+    - inst_name != ''
     - not (skip_import | bool)
     - mgmt_action == 'import_zip' or mgmt_action == 'None'
   notify: Commit Changes
