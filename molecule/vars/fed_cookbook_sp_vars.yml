@@ -1,4 +1,16 @@
 ---
+# homedir - the root of the provided files directory
+# homedir: "providedfiles/mappingrules/sp"
+homedir: ''
+
+# bootstrap machine
+bootstrap_local_vm_net_mask: 255.255.255.0
+bootstrap_local_vm_default_gw: 192.168.42.1
+bootstrap_local_vm_path_root: '/data/vmware'
+bootstrap_local_appliance_iso: "/home/tbosmans/Downloads/IBM/ISAM/11.0/11.0/IISVAVE0_1.0_MP_ML.iso" # needs to be an iso
+bootstrap_local_vm_hostname: isam.mysp.ibm.com
+bootstrap_local_vm_mgmt_ip:  192.168.42.202
+
 # "4.2 Enable NTP"
 ntpServers: "pool.ntp.org"
 timeZone: "America/Chicago"
@@ -67,7 +79,7 @@ import_certificate_db_kdb: "providedfiles/myspkeys/myspkeys.kdb"
 import_certificate_db_sth: "providedfiles/myspkeys/myspkeys.sth"
 
 # 7.2 Upload mapping rules
-inventory_dir: "providedfiles/mappingrules/sp"
+
 mapping_rules: [ {name: oidc_adv_claims, category: OIDC, file: oidc_adv_claims.js},
                  {name: oidc_adv, category: OIDC, file: oidc_adv.js},
                  {name: sp_saml20_dynamic_group, category: SAML2_0, file: sp_saml20_dynamic_group.js},

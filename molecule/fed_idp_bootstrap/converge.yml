@@ -1,0 +1,13 @@
+---
+- name: Bootstrap idp machine
+  hosts: localhost
+  gather_facts: true
+  tasks:
+    - name: Include idp vars
+      ansible.builtin.include_vars:
+          file: "../vars/fed_cookbook_idp_bootstrap.yml"
+
+    - name: Molecule fed idp bootstrap
+      ansible.builtin.import_role:
+        name: ibm.isam.bootstrap_local
+      delegate_to: localhost

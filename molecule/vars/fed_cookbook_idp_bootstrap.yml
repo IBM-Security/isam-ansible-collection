@@ -1,0 +1,8 @@
+---
+# bootstrap machine
+bootstrap_local_vm_net_mask: 255.255.255.0
+bootstrap_local_vm_default_gw: 192.168.42.1
+bootstrap_local_vm_path_root: '/data/vmware'
+bootstrap_local_appliance_iso: "/home/tbosmans/Downloads/IBM/ISAM/11.0/11.0/IISVAVE0_1.0_MP_ML.iso" # needs to be an iso
+bootstrap_local_vm_hostname: "isam.myidp.ibm.com"
+bootstrap_local_vm_mgmt_ip: 192.168.42.102

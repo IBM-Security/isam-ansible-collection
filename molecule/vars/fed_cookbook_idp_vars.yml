@@ -1,4 +1,8 @@
 ---
+# homedir - the root of the provided files directory
+# homedir: "providedfiles/mappingrules/idp"
+homedir: '/home/tbosmans/Documents/Doc/IBM/ISAM/Federation/federation-cookbook/providedfiles'
+
 # 4.2 Enable NTP
 ntpServers: pool.ntp.org
 timeZone: America/Chicago
@@ -66,7 +70,6 @@ import_certificate_db_kdb: "providedfiles/myidpkeys/myidpkeys.kdb"
 import_certificate_db_sth: "providedfiles/myidpkeys/myidpkeys.sth"
 
 # 6.2 Upload mapping rules
-inventory_dir: "providedfiles/mappingrules/idp"
 mapping_rules: [ {name: accesspolicy_prompt, category: SAML2_0, file: accesspolicy_prompt.js},
                  {name: ip_post_ldap, category: SAML2_0, file: ip_post_ldap.js},
                  {name: ip_pre_ldap, category: SAML2_0, file: ip_pre_ldap.js},
