@@ -6,7 +6,7 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.policies.set
-    isamapi: "{{ item }}"
+    isamapi: "{{ item | ibm.isam.rename_key(attributesRequired='attributesrequired') }}"
   when:
     - item.name is defined
     - item.policy is defined
