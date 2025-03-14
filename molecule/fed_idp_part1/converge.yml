@@ -6,7 +6,8 @@
     homedir: ""
     isam_validate_certs: false
   tasks:
-    - ansible.builtin.include_vars:
+    - name: Load vars
+      ansible.builtin.include_vars:
         file: "../vars/fed_cookbook_idp_vars.yml"
         name: inventory
 
@@ -14,72 +15,66 @@
       ansible.builtin.import_role:
         name: ibm.isam.base.first_steps
 
-    - name: "4.2 Enable NTP"
+    - name: 4.2 Enable NTP
       ansible.builtin.import_role:
         name: ibm.isam.base.configure_time
       vars:
         time_cfg: "{{ inventory.time_cfg }}"
 
-    - name: "4.3 Product Activation"
+    - name: 4.3 Product Activation
       ansible.builtin.include_role:
         name: ibm.isam.base.activate_modules
 
-    - name: "4.4 Configure Runtime Interfaces"
-      ansible.builtin.include_role:
-        name: ibm.isam.base.add_interfaces
+    - name: 4.4 Configure Runtime Interfaces
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_interfaces
       vars:
-        interfaces:
-          - label:  "{{ inventory.label }}"
-            addresses:
-              - address:            "{{ inventory.address }}"
-                maskOrPrefix:       "{{ inventory.maskOrPrefix }}"
-                allowManagement:    "{{ inventory.allowManagement }}"
-                enabled:            "{{ inventory.enabled }}"
+        interfaces: "{{ inventory.interfaces }}"
 
-    - name: "4.5 Update Hosts File on the Appliance"
+    - name: 4.5 Update Hosts File on the Appliance
       ansible.builtin.import_role:
         name: ibm.isam.base.set_host_records
       vars:
-        - host_records: "{{ inventory.host_records }}"
+        host_records: "{{ inventory.host_records }}"
 
-    - name: "4.6 Configure ISAM Runtime Component on the Appliance"
-      ansible.builtin.import_role:
+    - name: 4.6 Configure ISAM Runtime Component on the Appliance
+      ansible.builtin.include_role:
         name: ibm.isam.web.configure_policyserver
       vars:
-        - policyserver_runtime:
-            configuration:
-              admin_pwd:  "{{ inventory.admin_pwd }}"
-              ps_mode:    "{{ inventory.ps_mode }}"
-              user_registry: "{{ inventory.user_registry }}"
-              ldap_pwd: "{{ inventory.ldap_pwd }}"
-              admin_cert_lifetime:    "{{ inventory.admin_cert_lifetime }}"
-              ssl_compliance:  "{{ inventory.ssl_compliance }}"
-        - policyserver_connection_inactivity: "{{ inventory.policyserver_connection_inactivity }}"
+        policyserver_runtime:
+          configuration:
+            admin_pwd: "{{ inventory.admin_pwd }}"
+            ps_mode: "{{ inventory.ps_mode }}"
+            user_registry: "{{ inventory.user_registry }}"
+            ldap_pwd: "{{ inventory.ldap_pwd }}"
+            admin_cert_lifetime: "{{ inventory.admin_cert_lifetime }}"
+            ssl_compliance: "{{ inventory.ssl_compliance }}"
+        policyserver_connection_inactivity: "{{ inventory.policyserver_connection_inactivity }}"
 
-    - name: "5.1 Create new Reverse Proxy"
+    - name: 5.1 Create new Reverse Proxy
       ansible.builtin.import_role:
         name: ibm.isam.web.create_reverseproxy_instances
       vars:
         instances: "{{ inventory.instances }}"
 
-    - name: "5.2 Modify Reverse Proxy Instance Settings"
+    - name: 5.2 Modify Reverse Proxy Instance Settings
       ansible.builtin.import_role:
         name: ibm.isam.web.configure_reverseproxy_instances
       vars:
         instances: "{{ inventory.instances }}"
 
-    - name: "5.2 Restart Reverse Proxy Instance"
+    - name: 5.2 Restart Reverse Proxy Instance
       ansible.builtin.include_role:
         name: ibm.isam.web.restart_reverseproxy_instances
 
-    - name: "6.1 Upload keystore files"
+    - name: 6.1 Upload keystore files
       ansible.builtin.import_role:
         name: ibm.isam.import_certificate_db
       vars:
         import_certificate_db_kdb: "{{ homedir }}/{{ inventory.import_certificate_db_kdb }}"
         import_certificate_db_sth: "{{ homedir }}/{{ inventory.import_certificate_db_sth }}"
 
-    - name: "6.2 Upload mapping rules"
+    - name: 6.2 Upload mapping rules
       ansible.builtin.import_role:
         name: ibm.isam.aac.configure_mapping_rules
       vars:
@@ -102,21 +97,21 @@
             filename: "{{ inventory.ipfed }}"
             mapping_id: "{{ ret_obj.data }}"
 
-    - name: "6.4 Export meta-data"
+    - name: 6.4 Export meta-data
       ansible.builtin.import_role:
         name: ibm.isam.fed.export_metadata
       vars:
         export_metadata_name: "{{ inventory.fed_name }}"
         export_metadata_filename: "{{ homedir }}/{{ inventory.export_metadata_filename }}"
 
-    - name: "17.4 Updating the easuser password" # This needs to be here, otherwise the next step does not work
+    - name: 17.4 Updating the easuser password # This needs to be here, otherwise the next step does not work
       ansible.builtin.import_role:
         name: ibm.isam.aac.set_pwd_user_registry
       vars:
         user_registry_id: "{{ inventory.easuser_registry_id }}"
         user_registry_password: "{{ inventory.easuser_registry_password }}"
 
-    - name: "Flush handlers"
+    - name: Flush handlers
       ansible.builtin.meta: flush_handlers
 
     # 8 Configure Reverse Proxy for Federation
@@ -127,7 +122,7 @@
       vars:
         instances: "{{ inventory.federation_instances }}"
 
-    - name: "8.1.2 Environment-specific configuration"
+    - name: 8.1.2 Environment-specific configuration
       ansible.builtin.include_role:
         name: ibm.isam.set_reverseproxy_conf
       vars:
