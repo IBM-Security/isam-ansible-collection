@@ -1,0 +1,15 @@
+---
+minor_changes:
+  - molecule - update tests for federation cookbook
+  - bootstrap_local - refactoring of variables
+  - config_reverseproxy_federation - just pass federation_name, not id
+
+breaking_changes:
+  - set_ldap_user_attr - switch to community.general.ldap_attrs
+
+removed_features:
+  - set_ldap_user_attr - switch to community.general.ldap_attrs - this broke with python3
+
+deprecated_features:
+  - configure_instance_federations - does not work anyway
+  - ldap_attr.py - use community.general.ldap_attrs instead

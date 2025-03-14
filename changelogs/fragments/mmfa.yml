@@ -1,0 +1,10 @@
+---
+minor_changes:
+  - configure_access_control_policies - rename attributesRequired to attributesrequired (if necessary)
+  - filter/rename_key.py - moved a very chatty print statement
+
+add object.role:
+  - name: ibm.isam.aac.configure_mmfa
+    description: Configure mmfa in AAC
+  - name: ibm.isam.aac.configure_risk_profiles
+    description: Configure AAC risk profiles
