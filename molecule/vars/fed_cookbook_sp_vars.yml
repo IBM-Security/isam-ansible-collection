@@ -1,32 +1,36 @@
 ---
 # homedir - the root of the provided files directory
-# homedir: "providedfiles/mappingrules/sp"
-homedir: ''
+# homedir: "providedfiles/mappingrules/idp"
+# Set this:
+# providedFiles_dir: "{{ homedir }}"
 
-# bootstrap machine
-bootstrap_local_vm_net_mask: 255.255.255.0
-bootstrap_local_vm_default_gw: 192.168.42.1
-bootstrap_local_vm_path_root: '/data/vmware'
-bootstrap_local_appliance_iso: "/home/tbosmans/Downloads/IBM/ISAM/11.0/11.0/IISVAVE0_1.0_MP_ML.iso" # needs to be an iso
-bootstrap_local_vm_hostname: isam.mysp.ibm.com
-bootstrap_local_vm_mgmt_ip:  192.168.42.202
-
-# "4.2 Enable NTP"
-ntpServers: "pool.ntp.org"
-timeZone: "America/Chicago"
-enableNtp: true
+# 4.2 Enable NTP
+time_cfg:
+  enableNtp: true
+  ntpServers: "pool.ntp.org"
+  timeZone: "America/New_York"
 
 # 4.3 Product Activation
-activation_keys: [{id: wga, code: ""},
-                  {id: mga, code: ""},
-                  {id: federation, code: ""}]
+activation_keys:
+  - id: wga
+    code: ""
+  - id: mga
+    code: ""
+  - id: federation
+    code: ""
 
 # 4.4 Configure Runtime Interfaces
-label: '1.1'
-address: "192.168.42.202"
-maskOrPrefix: "24"
-allowManagement: false
-enabled: true
+interfaces:
+  - label: '1.1'
+    addresses:
+      - address: "192.168.42.201"
+        maskOrPrefix: "24"
+        allowManagement: true
+        enabled: true
+      - address: "192.168.42.202"
+        maskOrPrefix: "24"
+        allowManagement: false
+        enabled: true
 
 # 4.5 Update Hosts File on the Appliance
 host_records:
@@ -40,72 +44,84 @@ host_records:
     hostnames: www.mysp.ibm.com
 
 # 4.6 Configure ISAM Runtime Component on the Appliance
-ssl_compliance: "fips"
-ps_mode: "local"
+ssl_compliance: fips
+ps_mode: local
 admin_cert_lifetime: "1460"
-user_registry: "local"
-ldap_pwd: "passw0rd"
-admin_pwd: "Passw0rd"
+user_registry: local
+ldap_pwd: passw0rd
+admin_pwd: Passw0rd
 policyserver_connection_inactivity: 0
 
 # 5.1 Create new Reverse Proxy
-https_port: "443"
-nw_interface_yn: "yes"
-https_yn: "yes"
-domain: "Default"
-admin_id: "sec_master"
-host: "isam.mysp.ibm.com"
-inst_name: "default"
-ip_address: 192.168.42.202
-listening_port: "7234"
-ssl_yn: no
-http_yn: no
+instances:
+- inst_name: default
+  configuration:
+    host: "{{ inventory_hostname }}"
+    https_port: 443
+    nw_interface_yn: !!str yes
+    https_yn: !!str yes
+    admin_id: sec_master
+    admin_pwd: Passw0rd
+    ip_address: 192.168.42.202
+    listening_port: "7234"
+    http_yn: !!str no
+  entries:
+    - method: set
+      stanza_id: server
+      entries:
+        - [description, "federation cookbook sp"]
+        - [web-host-name, "www.mysp.ibm.com"]
+    - method: set
+      stanza_id: step-up
+      entries:
+        - ["verify-step-up-user", "no"]
+    - method: set
+      stanza_id: session
+      entries:
+        - ["user-session-ids", "yes"]
+        - ["inactive-timeout", "1800"]
+        - ["create-unauth-sessions", "yes"]
 
 # 5.2 Modify Reverse Proxy Instance Settings
-set_reverseproxy_conf_entries:
-  [
-    {stanza_id: "server", entries: [["web-host-name", "www.mysp.ibm.com"]]},
-    {stanza_id: "step-up", entries: [["verify-step-up-user", "no"]]},
-    {stanza_id: "session", entries: [["user-session-ids", "yes"],
-                                     ["inactive-timeout", "1800"],
-                                     ["create-unauth-sessions", "yes"]]}
-  ]
 
-execute_rp_op_ids: [{id: "default"}]
-execute_rp_op_operation: "restart"
 
 # 7.1 Upload keystore files
-import_certificate_db_kdb: "providedfiles/myspkeys/myspkeys.kdb"
-import_certificate_db_sth: "providedfiles/myspkeys/myspkeys.sth"
+import_certificate_db_kdb: "{{ providedFiles_dir }}/myspkeys/myspkeys.kdb"
+import_certificate_db_sth: "{{ providedFiles_dir }}/myspkeys/myspkeys.sth"
 
 # 7.2 Upload mapping rules
-
-mapping_rules: [ {name: oidc_adv_claims, category: OIDC, file: oidc_adv_claims.js},
-                 {name: oidc_adv, category: OIDC, file: oidc_adv.js},
-                 {name: sp_saml20_dynamic_group, category: SAML2_0, file: sp_saml20_dynamic_group.js},
-                 {name: sp_saml20, category: SAML2_0, file: sp_saml20.js}]
+mapping_rules:
+  - {rule_action: "set", name: oidc_adv_claims, category: OIDC, file: "{{ providedFiles_dir }}/mappingrules/sp/oidc_adv_claims.js"}
+  - {rule_action: "set", name: oidc_adv, category: OIDC, file: "{{ providedFiles_dir }}/mappingrules/sp/oidc_adv.js"}
+  - {rule_action: "set", name: sp_saml20_dynamic_group, category: SAML2_0, file: "{{ providedFiles_dir }}/mappingrules/sp/sp_saml20_dynamic_group.js"}
+  - {rule_action: "set", name: sp_saml20, category: SAML2_0, file: "{{ providedFiles_dir }}/mappingrules/sp/sp_saml20.js"}
 
 # 7.3 Create Federation
 search_mapping_rule_name: sp_saml20
-spfed: "providedfiles/spfed.json"
+spfed: "{{ providedFiles_dir }}/spfed.json"
 fed_name: saml20sp
 protocol: SAML2_0
 role: sp
 
 # 7.4 Export meta-data
-export_metadata_filename: "providedfiles/Automation/tmp/spmetadata.xml"
+export_metadata_filename: "{{ providedFiles_dir }}/Automation/tmp/spmetadata.xml"
 
 # 8.2.1 Configure Reverse Proxy for SP
-config_reverseproxy_federation_hostname: "127.0.0.1"
-config_reverseproxy_federation_port: "443"
-config_reverseproxy_federation_reuse_certs: false
-config_reverseproxy_federation_reuse_acls: false
+federation_instances:
+  - inst_name: default
+    federation_configurations:
+      - fed_action: config
+        federation_name: saml20sp
+        hostname: 127.0.0.1
+        port: '443'
+        username: easuser
+        password: "Passw0rd"
+        reuse_acls: True
+        reuse_certs: True
 
 # 8.2.2 Environment-specific configuration
 set_reverseproxy_conf_entries_8_2_2:
-  [
-    {stanza_id: "junction:/isam", entries: [["reset-cookies-list", "*ac.uuid,*JSESSIONID"]]}
-  ]
+  - {stanza_id: "junction:/isam", entries: [["reset-cookies-list", "*ac.uuid,*JSESSIONID"]]}
 
 # 8.2.3 Add anonymous user
 execute_pdadmin_isamuser: sec_master
@@ -113,40 +129,33 @@ execute_pdadmin_isampwd: Passw0rd
 execute_pdadmin_commands: ["user create anonymous cn=anonymous,dc=iswga anonymous anonymous Passw0rd", "user modify anonymous account-valid yes"]
 
 # 9.2 Configuring Partner for the SP
-import_metadata_filename: "providedfiles/Automation/tmp/ipmetadata.xml"
+import_metadata_filename: "{{ providedFiles_dir }}/Automation/tmp/ipmetadata.xml"
 partner_name: "IdP Company"
-configuration: {
-  encryptionSettings: {
-    blockEncryptionAlgorithm: "AES-256",
-    encryptionKeyTransportAlgorithm: "RSA-OAEP",
-    encryptionOptions: {
-      encryptAssertion: false,
-      encryptAssertionAttributes: false,
+configuration:
+  encryptionSettings:
+    blockEncryptionAlgorithm: "AES-256"
+    encryptionKeyTransportAlgorithm: "RSA-OAEP"
+    encryptionOptions:
+      encryptAssertion: false
+      encryptAssertionAttributes: false
       encryptNameID: false
-    }
-  },
-  signatureSettings: {
-    digestAlgorithm: "SHA512",
-    signatureAlgorithm: "RSA-SHA512",
-    signingOptions: {
-      signAssertion: true,
+  signatureSettings:
+    digestAlgorithm: "SHA512"
+    signatureAlgorithm: "RSA-SHA512"
+    signingOptions:
+      signAssertion: true
       signAuthnResponse: true
-    },
-    transformAlgorithmElements: {},
-    validationOptions: {
-      validateArtifactRequest: true,
-      validateArtifactResponse: true,
-      validateAuthnRequest: true,
-      validateLogoutRequest: true,
-      validateLogoutResponse: true,
-      validateNameIDManagementRequest: true,
+    transformAlgorithmElements: {}
+    validationOptions:
+      validateArtifactRequest: true
+      validateArtifactResponse: true
+      validateAuthnRequest: true
+      validateLogoutRequest: true
+      validateLogoutResponse: true
+      validateNameIDManagementRequest: true
       validateNameIDManagementResponse: true
-    }
-  }
-}
-
 set_partner_enabled: true
-set_partner_role: "ip"
+set_partner_role: ip
 
 # 10.1 Configure test application
 update_advanced_configuration_key: "live.demos.enabled"
@@ -183,7 +192,7 @@ test_user_pdadmin_commands: ["user create testuser cn=testuser,dc=iswga Test Use
 
 # 13.1 Create federation: create the federation
 oidc_mapping_rule_name: OIDCRP
-sp_oidc_fed: "providedfiles/sp_odic_fed.json"
+sp_oidc_fed: "{{ providedFiles_dir }}/sp_odic_fed.json"
 oidc_fed_name: ISAMRP
 oidc_protocol: OIDC
 oidc_role: rp
@@ -210,38 +219,39 @@ oidc_isam_partner_configuration: {
 oidc_isam_code_partner_name: ISAM-Code
 oidc_isam_code_enabled: true
 oidc_isam_code_role: "rp"
-oidc_isam_code_partner_configuration: {
-  "appliesTo": "ISAMRPCode",
-  "attributeMapping": {},
-  "clientId": "isamtoisamid",
-  "clientSecret": "isamClientSecret",
-  "authorizationEndpointUrl": "https://www.myidp.ibm.com/isam/oidc/endpoint/amapp-runtime-OIDCOP/authorize",
-  "tokenEndpointUrl": "https://www.myidp.ibm.com/isam/oidc/endpoint/amapp-runtime-ISAMOP/token",
-  "grantType": "authorization_code",
-  "issuerIdentifier": "https://www.myidp.ibm.com",
-  "redirectUriPrefix": "https://www.mysp.ibm.com/isam",
-  "scope": ["openid"],
-  "signatureAlgorithm": "HS256"
-}
+oidc_isam_code_partner_configuration:
+  appliesTo: "ISAMRPCode"
+  attributeMapping: {}
+  clientId: "isamtoisamid"
+  clientSecret: "isamClientSecret"
+  authorizationEndpointUrl: "https://www.myidp.ibm.com/isam/oidc/endpoint/amapp-runtime-OIDCOP/authorize"
+  tokenEndpointUrl: "https://www.myidp.ibm.com/isam/oidc/endpoint/amapp-runtime-ISAMOP/token"
+  grantType: "authorization_code"
+  issuerIdentifier: "https://www.myidp.ibm.com"
+  redirectUriPrefix: "https://www.mysp.ibm.com/isam"
+  scope:
+    - openid
+  signatureAlgorithm: "HS256"
 
 # 13.3.3 Google-to-ISAM partner
 oidc_google_partner_name: Google
 oidc_google_enabled: true
 oidc_google_role: "rp"
-oidc_google_partner_configuration: {
-  "appliesTo": "Google",
-  "attributeMapping": {},
-  "clientId": "googleClientId",
-  "clientSecret": "isamClientSecret",
-  "authorizationEndpointUrl": "https://accounts.google.com/o/oauth2/v2/auth",
-  "tokenEndpointUrl": "https://www.googleapis.com/oauth2/v4/token",
-  "grantType": "authorization_code",
-  "issuerIdentifier": "https://accounts.google.com/",
-  "jwkEndpointUrl": "https://www.googleapis.com/oauth2/v3/certs",
-  "redirectUriPrefix": "https://www.mysp.ibm.com/isam",
-  "scope": ["openid", "profile"],
-  "signatureAlgorithm": "RS256"
-}
+oidc_google_partner_configuration:
+  appliesTo: Google
+  attributeMapping: {}
+  clientId: "googleClientId"
+  clientSecret: "isamClientSecret"
+  authorizationEndpointUrl: "https://accounts.google.com/o/oauth2/v2/auth"
+  tokenEndpointUrl: "https://www.googleapis.com/oauth2/v4/token"
+  grantType: "authorization_code"
+  issuerIdentifier: "https://accounts.google.com/"
+  jwkEndpointUrl: "https://www.googleapis.com/oauth2/v3/certs"
+  redirectUriPrefix: "https://www.mysp.ibm.com/isam"
+  scope:
+    - openid
+    - profile
+  signatureAlgorithm": "RS256"
 
 # 14.1 Load OpenID Connect Provider SSL Certificates
 load_signer_certificates:
@@ -266,7 +276,7 @@ set_current_point_of_contact_name: Access Manager Credential
 # 14.2.1 Add extra login links to login page
 update_management_root_idandfilename:
   [
-    {"id": "management/C/login.html", "filename": "/home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook/providedfiles/login.html"}
+    {"id": "management/C/login.html", "filename": "{{ providedFiles_dir }}/login.html"}
   ]
 update_management_root_instance_id: "default"
 
