@@ -10,7 +10,7 @@
         name: inventory
 
     - name: "6.1 Upload keystore files"
-      ansible.builtin.include_role:
+      ansible.builtin.import_role:
         name: ibm.isam.import_certificate_db
       vars:
         import_certificate_db_kdb: "{{ homedir }}/{{ inventory.import_certificate_db_kdb }}"
@@ -20,7 +20,6 @@
       ansible.builtin.include_role:
         name: ibm.isam.aac.configure_mapping_rules
       vars:
-        inventory_dir: "{{ homedir }}/{{ inventory.inventory_dir }}"
         mapping_rules: "{{ inventory.mapping_rules }}"
 
     - name: "6.3 Create Federation: get mapping rule id"
@@ -37,12 +36,12 @@
           - name: "{{ inventory.fed_name }}"
             protocol: "{{ inventory.protocol }}"
             role: "{{ inventory.role }}"
-            filename: "{{ homedir }}/{{ inventory.ipfed }}"
+            filename: "{{ inventory.ipfed }}"
             mapping_id: "{{ ret_obj.data }}"
 
     - name: "6.4 Export meta-data"
       ansible.builtin.include_role:
         name: ibm.isam.fed.export_metadata
       vars:
-        - export_metadata_name: "{{ inventory.fed_name }}"
-        - export_metadata_filename: "{{ homedir }}/{{ inventory.export_metadata_filename }}"
+        export_metadata_name: "{{ inventory.fed_name }}"
+        export_metadata_filename: "{{ homedir }}/{{ inventory.export_metadata_filename }}"
