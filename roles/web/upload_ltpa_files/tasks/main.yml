@@ -10,7 +10,7 @@
     action: ibmsecurity.isam.web.ltpa_key.import_key
     isamapi:
       id: "{{ item.file | basename }}"
-      ltpa_keyfile: "{{ homedir }}/{{ item.file }}"
+      ltpa_keyfile: "{{ ((homedir == '') | ternary('', homedir + '/')) }}{{ item.file }}"
   loop: "{{ ltpa_files }}"
   when:
     - item.file is defined

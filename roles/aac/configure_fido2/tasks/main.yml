@@ -49,7 +49,8 @@
         - fido2_action: relying_parties.delete
           name: DEMO
         # Create or update fido2 relying party
-        # set will call add (new relying party) or update (existing relying party) respectivly with a config comparisson prior to the execution of the change
+        # set will call add (new relying party) or update (existing relying party) respectivly with a
+        # config comparison prior to the execution of the change
         - fido2_action: relying_parties.set
           name: DEMO
           rpId: example.com
@@ -109,7 +110,8 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.fido2.{{ item.fido2_action }}
-    isamapi: "{{ item | ibm.isam.exclude('fido2_action') | combine({'filename': homedir + '/' + item.filename} if (item.filename is defined) else {}) }}"
+    isamapi: "{{ item | ibm.isam.exclude('fido2_action') | combine({'filename': ((homedir == '') |
+      ternary('', homedir + '/')) + item.filename} if (item.filename is defined) else {}) }}"
   when:
     - item.fido2_action is defined
     - item.fido2_action == fido2_action

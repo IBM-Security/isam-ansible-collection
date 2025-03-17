@@ -12,7 +12,7 @@
     action: ibmsecurity.isam.web.reverse_proxy.management_root.file.import_file
     isamapi:
       id: "{{ item.target }}"
-      filename: "{{ homedir }}/{{ item.file }}"
+      filename: "{{ ((homedir == '') | ternary('', homedir + '/')) }}{{ item.file }}"
       instance_id: "{{ item.instance_id }}"
   loop: "{{ management_root_files }}"
   when:

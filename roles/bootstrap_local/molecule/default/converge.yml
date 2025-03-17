@@ -16,7 +16,6 @@
       ansible.builtin.include_vars:
         file: "{{ item }}"
       loop:
-        - ../vars/main.yml
         - ../vars/Linux.yml
 
     - name: Molecule test bootstrap

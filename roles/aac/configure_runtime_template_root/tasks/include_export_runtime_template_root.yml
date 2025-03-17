@@ -5,5 +5,5 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.runtime_template.root.export_file
     isamapi:
-      filename: "{{ homedir + '/' + item.file }}"
+      filename: "{{ ((homedir == '') | ternary('', homedir + '/')) + item.file }}"
   when: item.file is defined

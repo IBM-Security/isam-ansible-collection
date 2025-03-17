@@ -1,0 +1,76 @@
+---
+# main task to configure dns
+- name: Help INFO (-e help=true)
+  ansible.builtin.pause:
+    echo: true
+    prompt: |
+      NAME
+        get_container_metadata
+
+      DESCRIPTION
+        Role to get available metadata
+
+
+      STEPS
+        1) Configure volumes used in the container
+        2) Pull image references in the container deployment
+        3) Start container deployment (container_action=set)
+        4) Delete containers (container_action=delete)
+
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.base.get_container_metadata.yml
+
+      INVENTORY
+      ==========
+      isam_containers:
+        - name: iag1
+          image: "icr.io/ibmappgateway/ibm-application-gateway:23.10"
+          type: "ibm-application-gateway"
+          ports:
+            - name: https
+              value: "0.0.0.0:30443"
+            - name: http
+              value: "0.0.0.0:30080"
+          volumes:
+            - name: "configuration"
+              volume_name: "config.volume"
+
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Get all metadata
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.container_ext.metadata.get_all # set does not exist (yet)
+    isamapi:
+  when:
+    - base_metadata_name is not defined
+  register: base_metadata_out
+
+- name: Print out
+  debug:
+    msg: "{{ base_metadata_out }}"
+  when:
+    - base_metadata_name is not defined
+
+- name: Get specific metadata
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.container_ext.metadata.get
+    isamapi:
+      metadata_name: "{{ base_metadata_name }}"
+  when:
+    - base_metadata_name is defined
+  register: base_metadata_out
+
+- name: Print out
+  debug:
+    msg: "{{ base_metadata_out }}"
+  when:
+    - base_metadata_name is defined

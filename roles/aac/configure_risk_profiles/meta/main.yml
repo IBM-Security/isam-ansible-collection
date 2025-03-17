@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: IBM
+  namespace: ibm
+  description: Role to configure risk profiles
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: "2.15"
+
+  galaxy_tags:
+    - isam
+    - ibm
+    - configure
+    - risk
+    - profiles
+
+dependencies:
+  - ibm.isam.common_handlers

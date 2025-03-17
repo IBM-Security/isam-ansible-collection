@@ -1,0 +1,4 @@
+---
+bootstrap_local_vm_dest_dir: "{{ bootstrap_local_vm_path_root }}/{{ bootstrap_local_vm_hostname }}{{ bootstrap_local_vm_dir_suffix }}"
+bootstrap_local_vm_vmx: "{{ bootstrap_local_vm_dest_dir }}/{{ bootstrap_local_vm_hostname }}.vmx"
+bootstrap_local_vm_vmdk: "{{ bootstrap_local_vm_dest_dir }}/{{ bootstrap_local_vm_hostname }}.vmdk"

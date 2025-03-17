@@ -10,7 +10,7 @@
     action: ibmsecurity.isam.web.sso_keys.export_key
     isamapi:
       id: "{{ item.file | basename }}"
-      filename: "{{ homedir }}/{{ item.file }}"
+      filename: "{{ ((homedir == '') | ternary('', homedir + '/')) }}{{ item.file }}"
   when: item.file is defined
   with_items: "{{ sso_keys }}"
   loop_control:

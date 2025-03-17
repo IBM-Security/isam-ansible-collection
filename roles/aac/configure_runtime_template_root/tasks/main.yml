@@ -86,7 +86,7 @@
 
 - name: Make sure local export directory exists
   ansible.builtin.file:
-    path: "{{ (homedir + '/' + file) | dirname }}"
+    path: "{{ (((homedir == '') | ternary('', homedir + '/')) + file) | dirname }}"
     recurse: true
     state: directory
   when:

@@ -3,13 +3,14 @@
   hosts: all
   gather_facts: false
   vars:
-    homedir: ""
+    homedir: ''
   tasks:
-    - ansible.builtin.include_vars:
-        file: "../vars/fed_cookbook_sp_vars.yml"
+    - name: Include vars
+      ansible.builtin.include_vars:
+        file: ../vars/fed_cookbook_sp_vars.yml
         name: inventory
 
-    - name: "9.2 Configuring Partner for the SP - import metadata"
+    - name: 9.2 Configuring Partner for the SP - import metadata
       ansible.builtin.include_role:
         name: ibm.isam.fed.import_metadata
       vars:
@@ -17,40 +18,40 @@
         import_metadata_filename: "{{ homedir }}/{{ inventory.import_metadata_filename }}"
         import_metadata_partner_name: "{{ inventory.partner_name }}"
 
-    - name: "9.2 Configuring Partner for the SP - get partner json"
+    - name: 9.2 Configuring Partner for the SP - get partner json
       ansible.builtin.include_role:
         name: ibm.isam.fed.get_a_fed_partner
       vars:
         get_a_fed_partner_federation_name: "{{ inventory.fed_name }}"
         get_a_fed_partner_partner_name: "{{ inventory.partner_name }}"
 
-    - name: "9.2 Configuring Partner for the IdP - update signatureSettings in temp partner json"
-      set_fact:
-        partner_signatureSettings_json: "{{  ret_obj.data.configuration.signatureSettings | combine(inventory.configuration.signatureSettings) }}"
+    - name: 9.2 Configuring Partner for the IdP - update signatureSettings in temp partner json
+      ansible.builtin.set_fact:
+        partner_signatureSettings_json: "{{ ret_obj.data.configuration.signatureSettings | combine(inventory.configuration.signatureSettings) }}"
 
-    - name: "9.2 Configuring Partner for the IdP - create new_signatureSettings_json"
-      set_fact:
+    - name: 9.2 Configuring Partner for the IdP - create new_signatureSettings_json
+      ansible.builtin.set_fact:
         new_signatureSettings:
-          { signatureSettings: '{{ partner_signatureSettings_json }}' }
+          signatureSettings: "{{ partner_signatureSettings_json }}"
 
     - name: "9.2 Configuring Partner for the IdP - update encryptionSettings in temp partner json"
       set_fact:
         partner_encryptionSettings_json: "{{  ret_obj.data.configuration.encryptionSettings | combine(inventory.configuration.encryptionSettings) }}"
 
-    - name: "9.2 Configuring Partner for the IdP - create new_encryptionSettings_json"
-      set_fact:
+    - name: 9.2 Configuring Partner for the IdP - create new_encryptionSettings_json
+      ansible.builtin.set_fact:
         new_encryptionSettings:
-          { encryptionSettings: '{{ partner_encryptionSettings_json }}' }
+          encryptionSettings: "{{ partner_encryptionSettings_json }}"
 
-    - name: "9.2 Configuring Partner for the IdP - update signatureSettings in the new configuration json"
-      set_fact:
+    - name: 9.2 Configuring Partner for the IdP - update signatureSettings in the new configuration json
+      ansible.builtin.set_fact:
         partner_configuration_json: "{{  ret_obj.data.configuration | combine(new_encryptionSettings) }}"
 
-    - name: "9.2 Configuring Partner for the IdP - update signatureSettings in the new configuration json"
-      set_fact:
+    - name: 9.2 Configuring Partner for the IdP - update signatureSettings in the new configuration json
+      ansible.builtin.set_fact:
         partner_configuration_json: "{{  partner_configuration_json | combine(new_signatureSettings) }}"
 
-    - name: "9.2 Configuring Partner for the IdP - update federation partner configuration json"
+    - name: 9.2 Configuring Partner for the IdP - update federation partner configuration json
       ansible.builtin.include_role:
         name: ibm.isam.set_partner
       vars:
@@ -61,7 +62,7 @@
         set_partner_configuration: "{{ partner_configuration_json }}"
 
     # 10 Configure test application and test user
-    - name: "10.1 Configure test application"
+    - name: 10.1 Configure test application
       ansible.builtin.include_role:
         name: ibm.isam.update_advanced_configuration
       vars:
@@ -69,7 +70,7 @@
         update_advanced_configuration_value: "{{ inventory.update_advanced_configuration_value }}"
         update_advanced_configuration_sensitive: "{{ inventory.update_advanced_configuration_sensitive }}"
 
-    - name: "10.2 Authorize Access to Mobile Demo Application - setup acls"
+    - name: 10.2 Authorize Access to Mobile Demo Application - setup acls
       ansible.builtin.include_role:
         name: ibm.isam.execute_pdadmin
       vars:
@@ -77,28 +78,28 @@
         execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
         execute_pdadmin_commands: "{{ inventory.demo_pdadmin_commands }}"
 
-    - name: "10.2 Authorize Access to Mobile Demo Application - update demo app settings"
+    - name: 10.2 Authorize Access to Mobile Demo Application - update demo app settings
       vars:
         inputs:
-          - "acHostAndPort={{ inventory.acHostAndPort }}"
-          - "lmiHostAndPort={{ inventory.lmiHostAndPort }}"
-          - "lmiAdminId={{ inventory.lmiAdminId }}"
-          - "lmiAdminPwd={{ inventory.lmiAdminPwd }}"
-          - "websealHostNameAndPort={{ inventory.websealHostNameAndPort }}"
-          - "acUuidCookieName={{ inventory.acUuidCookieName }}"
+          - acHostAndPort={{ inventory.acHostAndPort }}
+          - lmiHostAndPort={{ inventory.lmiHostAndPort }}
+          - lmiAdminId={{ inventory.lmiAdminId }}
+          - lmiAdminPwd={{ inventory.lmiAdminPwd }}
+          - websealHostNameAndPort={{ inventory.websealHostNameAndPort }}
+          - acUuidCookieName={{ inventory.acUuidCookieName }}
       ansible.builtin.uri:
         validate_certs: false
         url: "{{ inventory.url }}"
         method: POST
-        return_content: yes
+        return_content: true
         body_format: form-urlencoded
         body: "{{ inputs | join('&') }}"
         headers:
           Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
       register: rest_post
-      ignore_errors: yes
+      ignore_errors: true
 
-    - name: "10.2 Authorize Access to Mobile Demo Application - update acls"
+    - name: 10.2 Authorize Access to Mobile Demo Application - update acls
       ansible.builtin.include_role:
         name: ibm.isam.execute_pdadmin
       vars:
@@ -107,13 +108,21 @@
         execute_pdadmin_commands: "{{ inventory.acl_pdadmin_commands }}"
 
     # 10.3 Configure test user
-    - name: "10.3 Configure test user - create test user"
+    - name: 10.3 Configure test user - create test user
       ansible.builtin.include_role:
         name: ibm.isam.execute_pdadmin
       vars:
         execute_pdadmin_isamuser: "{{ inventory.execute_pdadmin_isamuser }}"
         execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
         execute_pdadmin_commands: "{{ inventory.test_user_pdadmin_commands }}"
+
+    # 13 Create OpenID Connect Relying Party
+    - name: Check if file exists
+      ansible.builtin.stat:
+        path: "{{ inventory.sp_oidc_fed }}"
+      register: oidc_file_status
+      when:
+        - inventory.sp_oidc_fed is defined
 
     # 13 Create OpenID Connect Relying Party
     - name: "13.1 Create Federation: get mapping rule id"
@@ -130,21 +139,19 @@
           - name: "{{ inventory.oidc_fed_name }}"
             protocol: "{{ inventory.oidc_protocol }}"
             role: "{{ inventory.oidc_role }}"
-            filename: "{{ homedir }}/{{ inventory.sp_oidc_fed }}"
+            filename: "{{ inventory.sp_oidc_fed }}"
             mapping_id: "{{ ret_obj.data }}"
+      when:
+        - ret_obj.data is defined
+        - oidc_file_status.stat.exists
 
-    - name: "13.2 Configure Reverse Proxy for SP"
-      ansible.builtin.include_role:
-        name: ibm.isam.config_reverseproxy_federation
+    - name: 13.2 Configure Reverse Proxy for SP
+      ansible.builtin.import_role:
+        name: ibm.isam.web.config_reverseproxy_federations
       vars:
-        config_reverseproxy_federation_name: "{{ inventory.oidc_fed_name }}"
-        config_reverseproxy_federation_instance_id: "{{ inventory.inst_name }}"
-        config_reverseproxy_federation_hostname: "{{ inventory.config_reverseproxy_federation_hostname }}"
-        config_reverseproxy_federation_port: "{{ inventory.config_reverseproxy_federation_port }}"
-        config_reverseproxy_federation_reuse_certs: "{{ inventory.config_reverseproxy_federation_reuse_certs }}"
-        config_reverseproxy_federation_reuse_acls: "{{ inventory.config_reverseproxy_federation_reuse_acls }}"
+        instances: "{{ inventory.federation_instances_oidc }}"
 
-    - name: "13.3.1 ISAM-to-ISAM implicit partner"
+    - name: 13.3.1 ISAM-to-ISAM implicit partner
       ansible.builtin.include_role:
         name: ibm.isam.set_partner
       vars:
@@ -154,7 +161,7 @@
         set_partner_role: "{{ inventory.oidc_isam_role }}"
         set_partner_configuration: "{{ inventory.oidc_isam_partner_configuration }}"
 
-    - name: "13.3.2 ISAM-to-ISAM authorization_code partner"
+    - name: 13.3.2 ISAM-to-ISAM authorization_code partner
       ansible.builtin.include_role:
         name: ibm.isam.set_partner
       vars:
@@ -164,7 +171,7 @@
         set_partner_role: "{{ inventory.oidc_isam_code_role }}"
         set_partner_configuration: "{{ inventory.oidc_isam_code_partner_configuration }}"
 
-    - name: "13.3.3 Google-to-ISAM partner"
+    - name: 13.3.3 Google-to-ISAM partner
       ansible.builtin.include_role:
         name: ibm.isam.set_partner
       vars:
@@ -174,27 +181,28 @@
         set_partner_role: "{{ inventory.oidc_google_role }}"
         set_partner_configuration: "{{ inventory.oidc_google_partner_configuration }}"
 
-    # 14 Additional Relying Party configuration
-    - name: "14.1 Load OpenID Connect Provider SSL Certificates"
-      ansible.builtin.include_role:
+ # 14 Additional Relying Party configuration
+    - name: 14.1 Load OpenID Connect Provider SSL Certificates
+      ansible.builtin.import_role:
         name: ibm.isam.base.load_signer_certificates
       vars:
         load_signer_certificates: "{{ inventory.load_signer_certificates }}"
+      ignore_errors: true # noqa: ignore_errors
 
-    - name: "14.2 Set credential response header"
+    - name: 14.2 Set credential response header
       ansible.builtin.include_role:
         name: ibm.isam.set_current_point_of_contact
       vars:
         set_current_point_of_contact_name: "{{ inventory.set_current_point_of_contact_name }}"
 
-    - name: "14.2.1 Add extra login links to login page"
+    - name: 14.2.1 Add extra login links to login page
       ansible.builtin.include_role:
         name: ibm.isam.update_management_root
       vars:
         update_management_root_instance_id: "{{ inventory.update_management_root_instance_id }}"
         update_management_root_idandfilename: "{{ inventory.update_management_root_idandfilename }}"
 
-    - name: "14.2.1 Restart Reverse Proxy Instance"
+    - name: 14.2.1 Restart Reverse Proxy Instance
       ansible.builtin.include_role:
         name: ibm.isam.execute_rp_op
       vars:
@@ -241,7 +249,7 @@
           }
 
     - name: "20.5 Scenario: EXTUSER authentication - create updated config obj"
-      set_fact:
+      ansible.builtin.set_fact:
         update_config_obj: "{{ inventory.set_federation_configuration | combine(id_mapping_obj) }}"
 
     - name: "20.5 Scenario: EXTUSER authentication - update the federation"

@@ -1,0 +1,8 @@
+driver:
+  name: default
+
+scenario:
+  test_sequence:
+    - converge
+    - idempotence
+    - verify

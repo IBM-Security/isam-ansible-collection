@@ -75,7 +75,7 @@
               fsso_config_file: "fsso.file"
               username: "user1"
               password: "'{{ '{{' }} user1_password {{ '}}' }}'"
-              delegation_support: "yes"
+              delegation_support: "no" # only for ssl junctions
               http2_junction: "no"
               http2_proxy: "no"
               sni_name: "iexist.example.com"

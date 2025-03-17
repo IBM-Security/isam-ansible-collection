@@ -4,10 +4,10 @@
   vars_prompt:
     - name: vcenter_username
       prompt: "Enter AD Userid to login to Vcenter"
-      private: no
+      private: false
     - name: vcenter_password
       prompt: "Enter AD Password to login to Vcenter"
-      private: yes
+      private: true
   tasks:
     - name: Attach ISAM ISO and Reboot
       community.vmware.vmware_guest:
@@ -19,4 +19,4 @@
         name: "{{ inventory_hostname.partition('.')[0] }}"
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
-        validate_certs: no
+        validate_certs: false

@@ -9,12 +9,12 @@
 
     - name: "check if file exists"
       ansible.builtin.stat:
-        path: "{{ homedir }}/{{ file }}"
+        path: "{{ ((homedir == '') | ternary('', homedir + '/')) }}{{ file }}"
       register: export_file_result
 
     - name: Assert that exported file exits
       assert:
         that:
           - export_file_result.stat.exists == True
-        fail_msg: "The exported file {{ homedir }}/{{ file }} does not exist"
-        success_msg: "The exported file {{ homedir }}/{{ file }} exists"
+        fail_msg: "The exported file {{ ((homedir == '') | ternary('', homedir + '/')) }}{{ file }} does not exist"
+        success_msg: "The exported file {{ ((homedir == '') | ternary('', homedir + '/')) }}{{ file }} exists"

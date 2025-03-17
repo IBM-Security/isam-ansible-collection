@@ -10,7 +10,7 @@
     action: ibmsecurity.isam.web.sso_keys.import_key
     isamapi:
       id: "{{ item.file | basename }}"
-      filename: "{{ homedir }}/{{ item.file }}"
+      filename: "{{ ((homedir == '') | ternary('', homedir + '/')) }}/{{ item.file }}"
   when:
     - item.file is defined
     - (item.file | basename) == sso_key_name

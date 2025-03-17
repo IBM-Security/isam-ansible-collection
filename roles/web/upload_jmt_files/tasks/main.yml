@@ -10,6 +10,6 @@
     action: ibmsecurity.isam.web.junction_mapping.import_file
     isamapi:
       id: "{{ item.file | basename }}"
-      filename: "{{ homedir }}/{{ item.file }}"
+      filename: "{{ ((homedir == '') | ternary('', homedir + '/')) }}{{ item.file }}"
   loop: "{{ jmt_files }}"
   notify: Commit Changes

@@ -1,4 +1,4 @@
 ---
 # default values
 waf_crssetup:
-  filename: "{{ homedir }}/files/waf/crs-setup.conf"
+  filename: "{{ ((homedir == '') | ternary('', homedir + '/')) }}files/waf/crs-setup.conf"

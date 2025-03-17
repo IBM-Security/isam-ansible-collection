@@ -31,45 +31,45 @@ Required variables are:
 ```
     - dn: "uid=testuser,dc=iswga"
       attributes:
-      - { "name": "mail", "values": "testuser@mailinator.com" }
-      - { "name": "displayName", "values": "Test User" }
+       mail: "testuser@mailinator.com"
+       displayName: Test User
 ```
+
+Note that the syntax is updated to match the `community.general.ldap_attrs` module.
+
+**ldap_validate_certs**: Enable / disable certificate validation (default: true)
 
 Dependencies
 ------------
 
-This role depends on the Ansible module ldap-attr which will be part of Ansible 2.3, not official released yet. We have included it under the /library directory. Once it is officially released by Ansible we will remove it from this role.
-
-https://docs.ansible.com/ansible/ldap_attr_module.html
+This role depends on the Ansible module community.general.ldap_attrs
 
 Example Playbook
 ----------------
-
-A sample playbook *test.yml* has been placed under *tests/* subdirectory.
 
 ```
 ---
 - name: modify LDAP user attributes
   hosts: localhost
   connection: local
-  roles:
-      - role: ibm.isam.set_ldap_user_attr
+  tasks:
+    - name: Set attributes
+      import_role:
+        name: ibm.isam.set_ldap_user_attr
+      vars:
+        ldap_validate_certs: false
         ldap_bind_dn: "cn=root,secAuthority=default"
         ldap_bind_pw: "passw0rd"
         ldap_server_uri: "ldaps://192.168.42.101:636/"
         ldap_state: "exact"
         ldap_user_attributes:
-            - dn: "uid=testuser,dc=iswga"
-              attributes:
-                - { "name": "mail", "values": "testuser@mailinator.com" }
-                - { "name": "displayName", "values": "Test User" }
+          - dn: "uid=testuser,dc=iswga"
+            attributes:
+              mail: "testuser@mailinator.com"
+              displayName: "Test User"
 ```
 
-You may run it with ansible-playbook directly:
 
-```
-ansible-playbook -i inventory test.yml
-```
 
 License
 -------

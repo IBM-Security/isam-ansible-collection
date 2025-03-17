@@ -59,7 +59,7 @@
       else {}) | combine({'description': item.description} if (item.description is defined)
       else {}) | combine({'type': item.type} if (item.type is defined)
       else {}) | combine({'new_name': item.new_name} if (item.new_name is defined)
-      else {}) | combine({'filepath': lookup('fileglob', homedir + '/' + item.filepath)} if (item.filepath is defined)
+      else {}) | combine({'filepath': lookup('fileglob', ((homedir == '') | ternary('', homedir + '/')) + item.filepath)} if (item.filepath is defined)
       else {}) }}"
   loop: "{{ policy_information_points }}"
   loop_control:

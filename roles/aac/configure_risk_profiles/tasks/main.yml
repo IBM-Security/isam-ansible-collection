@@ -1,0 +1,26 @@
+---
+# main task to configure access control attributes
+# example:
+#   aac_risk_profiles:
+#     - name: test
+#       description: ""
+#       active: false
+#       attributes:
+#         -
+#           name: applicationId
+#           weight: 0
+#         -
+#           name: appVersion
+#           weight: 0
+#       predefined: false
+
+- name: Configure risk profiles
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.risk_profiles.set
+    isamapi: "{{ item }}"
+  when:
+    - item is defined
+  loop: "{{ aac_risk_profiles }}"
+  notify: Commit Changes

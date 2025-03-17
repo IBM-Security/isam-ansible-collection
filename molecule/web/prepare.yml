@@ -3,10 +3,17 @@
   hosts: all
   gather_facts: false
   vars:
+    check_remote: true
+    host_records:
+      - addr: "{{ ansible_host }}"
+        hostnames:
+          - preprod.ibm.com
+          - w3.ibm.com
+          - server1.example.com
     load_signer_certificates:
       - kdb_id: pdsrv
         label: isam-openldap
-        server: localhost
+        server: "{{ ansible_host }}" # localhost
         port: 636
      # - kdb_id: pdsrv
      #   label: local_runtime
@@ -49,3 +56,7 @@
     - name: Create reverse proxy - listen on port 8444 at {{ ansible_host }}
       ansible.builtin.import_role:
         name: ibm.isam.web.create_reverseproxy_instances
+
+    - name: Prepare hosts file for junctions
+      ansible.builtin.import_role:
+        name: ibm.isam.base.set_host_records

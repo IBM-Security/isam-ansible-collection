@@ -68,13 +68,14 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.mapping_rules.{{ item.rule_action }}
     isamapi: "{{ { 'name': item.name } | combine({ 'category': item.category } if (item.category is defined and (item.rule_action == 'set'
-      or item.rule_action == 'add')) else {}) | combine({ 'upload_filename': homedir + '/' + item.file }
+      or item.rule_action == 'add')) else {}) | combine({ 'upload_filename': ((homedir == '') | ternary('', homedir + '/')) + item.file }
       if (item.file is defined and (item.rule_action == 'set' or item.rule_action == 'upload' or item.rule_action == 'update'
       or item.rule_action == 'add')) else {}) | combine({ 'content': (item.content | replace('\n', '\\n') | regex_replace('\"', '\\\"')) }
       if (item.content is defined and (item.rule_action == 'set' or item.rule_action == 'add' or item.rule_action == 'update')) else {})
       | combine({ 'filename': (item.name) } if (item.content is defined and item.rule_action != 'export_file') else
-      ({'filename': homedir + '/' + item.filename } if(item.filename is defined and (item.rule_action == 'set' or item.rule_action == 'add'
-      or item.rule_action == 'export_file' or item.rule_action == 'upload' or item.rule_action == 'import_file')) else {})) }}"
+      ({'filename': ((homedir == '') | ternary('', homedir + '/')) + item.filename } if (item.filename is defined and
+      (item.rule_action == 'set' or item.rule_action == 'add' or item.rule_action == 'export_file' or
+      item.rule_action == 'upload' or item.rule_action == 'import_file')) else {})) }}"
   when:
     - item.rule_action == rule_action
     - item.name == rule_name

@@ -63,13 +63,13 @@
 
 - name: Make sure all local download directory exists
   ansible.builtin.file:
-    path: "{{ (homedir + '/' + item.filename) | dirname }}"
+    path: "{{ (((homedir == '') | ternary('', homedir + '/')) + item.filename) | dirname }}"
     recurse: true
     state: directory
   delegate_to: localhost
   loop: "{{ http_transformation_rules }}"
   loop_control:
-    label: "{{ ((homedir + '/' + item.filename) | dirname) if item.filename is defined else 'Skipping' }}"
+    label: "{{ ((((homedir == '') | ternary('', homedir + '/')) + item.filename) | dirname) if item.filename is defined else 'Skipping' }}"
   when:
     - not (skip_exports | bool)
     - item.transformation_action == 'export_file' or item.transformation_action == 'export_template_file'

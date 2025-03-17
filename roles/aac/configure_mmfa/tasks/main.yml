@@ -1,0 +1,53 @@
+---
+- name: Help INFO (-e help=true)
+  ansible.builtin.pause:
+    echo: true
+    prompt: |
+      NAME
+        configure_mmfa
+
+      DESCRIPTION
+        Role to configure mmfa
+
+      STEPS
+        1) Configure mmfa configurations
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.configure_mmfa
+
+      INVENTORY
+      ==========
+      # configure mmfa
+      aac_mmfa_configurations:
+        client_id: "mmfa-client"
+        options: "ignoreSslCerts=true"
+        endpoints:
+          authntrxn_endpoint: "https://hostname/scim/Me?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:transactionsPending,
+                               urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:attributesPending"
+          mobile_endpoint_prefix: "https://hostname/mga"
+          enrollment_endpoint: "https://hostname/scim/Me"
+          hotp_shared_secret_endpoint: "https://hostname/mga/sps/mga/user/mgmt/otp/hotp"
+          totp_shared_secret_endpoint: "https://hostname/mga/sps/mga/user/mgmt/otp/totp"
+          details_url: "https://hostname/mga/sps/mmfa/user/mgmt/details"
+          token_endpoint: "https://hostname/mga/sps/oauth/oauth20/token"
+          qrlogin_endpoint: "https://hostname/mga/sps/apiauthsvc?PolicyId=urn:ibm:security:authentication:asf:qrcode_response"
+        discovery_mechanisms:
+          - "urn:ibm:security:authentication:asf:mechanism:mobile_user_approval:fingerprint"
+          - "urn:ibm:security:authentication:asf:mechanism:mobile_user_approval:user_presence"
+
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Configure mmfa
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.mmfa.configuration.set
+    isamapi: "{{ aac_mmfa_configurations }}"
+  notify: Commit Changes
