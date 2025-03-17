@@ -54,33 +54,33 @@ policyserver_connection_inactivity: 0
 
 # 5.1 Create new Reverse Proxy
 instances:
-- inst_name: default
-  configuration:
-    host: "{{ inventory_hostname }}"
-    https_port: 443
-    nw_interface_yn: !!str yes
-    https_yn: !!str yes
-    admin_id: sec_master
-    admin_pwd: Passw0rd
-    ip_address: 192.168.42.102
-    listening_port: "7234"
-    http_yn: !!str no
-  entries:
-    - method: set
-      stanza_id: server
-      entries:
-        - [description, "federation cookbook idp"]
-        - [web-host-name, "www.myidp.ibm.com"]
-    - method: set
-      stanza_id: step-up
-      entries:
-        - ["verify-step-up-user", "no"]
-    - method: set
-      stanza_id: session
-      entries:
-        - ["user-session-ids", "yes"]
-        - ["inactive-timeout", "1800"]
-        - ["create-unauth-sessions", "yes"]
+  - inst_name: default
+    configuration:
+      host: "{{ inventory_hostname }}"
+      https_port: 443
+      nw_interface_yn: !!str yes
+      https_yn: !!str yes
+      admin_id: sec_master
+      admin_pwd: Passw0rd
+      ip_address: 192.168.42.102
+      listening_port: "7234"
+      http_yn: !!str no
+    entries:
+      - method: set
+        stanza_id: server
+        entries:
+          - [description, "federation cookbook idp"]
+          - [web-host-name, "www.myidp.ibm.com"]
+      - method: set
+        stanza_id: step-up
+        entries:
+          - ["verify-step-up-user", "no"]
+      - method: set
+        stanza_id: session
+        entries:
+          - ["user-session-ids", "yes"]
+          - ["inactive-timeout", "1800"]
+          - ["create-unauth-sessions", "yes"]
 
 # 5.2 Modify Reverse Proxy Instance Settings
 
@@ -89,20 +89,59 @@ import_certificate_db_kdb: "{{ providedFiles_dir }}/myidpkeys/myidpkeys.kdb"
 import_certificate_db_sth: "{{ providedFiles_dir }}/myidpkeys/myidpkeys.sth"
 
 # 6.2 Upload mapping rules
-mapping_rules: [ {rule_action: "set", name: accesspolicy_prompt, category: SAML2_0, file: "{{ providedFiles_dir }}/mappingrules/idp/accesspolicy_prompt.js"},
-                 {rule_action: "set", name: ip_post_ldap, category: SAML2_0, file: "{{ providedFiles_dir }}/mappingrules/idp/ip_post_ldap.js"},
-                 {rule_action: "set", name: ip_pre_ldap, category: SAML2_0, file: "{{ providedFiles_dir }}/mappingrules/idp/ip_pre_ldap.js"},
-                 {rule_action: "set", name: ip_saml20_httpclient, category: SAML2_0, file: "{{ providedFiles_dir }}/mappingrules/idp/ip_saml20_httpclient.js"},
-                 {rule_action: "set", name: ip_saml20_httpclient_wstrust, category: SAML2_0, file: "{{ providedFiles_dir }}/mappingrules/idp/ip_saml20_httpclient_wstrust.js"},
-                 {rule_action: "set", name: ip_saml20, category: SAML2_0, file: "{{ providedFiles_dir }}/mappingrules/idp/ip_saml20.js"},
-                 {rule_action: "set", name: ivc_to_ltpa, category: SAML2_0, file: "{{ providedFiles_dir }}/mappingrules/idp/ivc_to_ltpa.js"},
-                 {rule_action: "set", name: ivc_to_passticket, category: SAML2_0, file: "{{ providedFiles_dir }}/mappingrules/idp/ivc_to_passticket.js"},
-                 {rule_action: "set", name: ivc_to_saml20, category: SAML2_0, file: "{{ providedFiles_dir }}/mappingrules/idp/ivc_to_saml20.js"},
-                 {rule_action: "set", name: saml20_ivc_to_saml20, category: SAML2_0, file: "{{ providedFiles_dir }}/mappingrules/idp/saml20_ivc_to_saml20.js"},
-                 {rule_action: "set", name: saml20_to_saml20, category: SAML2_0, file: "{{ providedFiles_dir }}/mappingrules/idp/saml20_to_saml20.js"},
-                 {rule_action: "set", name: stsuutostsuu, category: SAML2_0, file: "{{ providedFiles_dir }}/mappingrules/idp/stsuutostsuu.js"},
-                 {rule_action: "set", name: ut_to_saml20, category: SAML2_0, file: "{{ providedFiles_dir }}/mappingrules/idp/ut_to_saml20.js"}
-]
+mapping_rules:
+  - rule_action: "set"
+    name: accesspolicy_prompt
+    category: SAML2_0
+    file: "{{ providedFiles_dir }}/mappingrules/idp/accesspolicy_prompt.js"
+  - rule_action: set
+    name: ip_post_ldap
+    category: SAML2_0
+    file: "{{ providedFiles_dir }}/mappingrules/idp/ip_post_ldap.js"
+  - rule_action: set
+    name: ip_pre_ldap
+    category: SAML2_0
+    file: "{{ providedFiles_dir }}/mappingrules/idp/ip_pre_ldap.js"
+  - rule_action: set
+    name: ip_saml20_httpclient
+    category: SAML2_0
+    file: "{{ providedFiles_dir }}/mappingrules/idp/ip_saml20_httpclient.js"
+  - rule_action: set
+    name: ip_saml20_httpclient_wstrust
+    category: SAML2_0
+    file: "{{ providedFiles_dir }}/mappingrules/idp/ip_saml20_httpclient_wstrust.js"
+  - rule_action: set
+    name: ip_saml20
+    category: SAML2_0
+    file: "{{ providedFiles_dir }}/mappingrules/idp/ip_saml20.js"
+  - rule_action: set
+    name: ivc_to_ltpa
+    category: SAML2_0
+    file: "{{ providedFiles_dir }}/mappingrules/idp/ivc_to_ltpa.js"
+  - rule_action: set
+    name: ivc_to_passticket
+    category: SAML2_0
+    file: "{{ providedFiles_dir }}/mappingrules/idp/ivc_to_passticket.js"
+  - rule_action: set
+    name: ivc_to_saml20
+    category: SAML2_0
+    file: "{{ providedFiles_dir }}/mappingrules/idp/ivc_to_saml20.js"
+  - rule_action: set
+    name: saml20_ivc_to_saml20
+    category: SAML2_0
+    file: "{{ providedFiles_dir }}/mappingrules/idp/saml20_ivc_to_saml20.js"
+  - rule_action: set
+    name: saml20_to_saml20
+    category: SAML2_0
+    file: "{{ providedFiles_dir }}/mappingrules/idp/saml20_to_saml20.js"
+  - rule_action: set
+    name: stsuutostsuu
+    category: SAML2_0
+    file: "{{ providedFiles_dir }}/mappingrules/idp/stsuutostsuu.js"
+  - rule_action: set
+    name: ut_to_saml20
+    category: SAML2_0
+    file: "{{ providedFiles_dir }}/mappingrules/idp/ut_to_saml20.js"
 
 # 6.3 Create Federation
 search_mapping_rule_name: ip_saml20
@@ -124,8 +163,8 @@ federation_instances:
         port: '443'
         username: easuser
         password: "Passw0rd"
-        reuse_acls: True
-        reuse_certs: True
+        reuse_acls: true
+        reuse_certs: true
 
 # 8.1.2 Environment-specific configuration
 set_reverseproxy_conf_entries_8_1_2:
@@ -166,13 +205,13 @@ ldap_server_uri: ldaps://192.168.42.101:636
 ldap_bind_dn: cn=root,secAuthority=default
 ldap_bind_pw: passw0rd
 ldap_attributes:
-  mail: "testuser@mailinator.com"
-  homePhone: "555-12345"
-  displayName: "Test User"
+  mail: 'testuser@mailinator.com'
+  homePhone: '555-12345'
+  displayName: Test User
 
 # 12 Create OpenID Connect Provider
 oidc_mapping_rule_name: OIDCIDToken
-ip_oidc_fed: "{{ providedFiles_dir }}/ip_odic_fed.json"
+ip_oidc_fed: "{{ providedFiles_dir }}/ip_oidc_fed.json" # I don't know what this is
 oidc_fed_name: ISAMOP
 oidc_protocol: OIDC
 oidc_role: op

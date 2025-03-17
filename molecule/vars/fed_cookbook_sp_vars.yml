@@ -54,33 +54,33 @@ policyserver_connection_inactivity: 0
 
 # 5.1 Create new Reverse Proxy
 instances:
-- inst_name: default
-  configuration:
-    host: "{{ inventory_hostname }}"
-    https_port: 443
-    nw_interface_yn: !!str yes
-    https_yn: !!str yes
-    admin_id: sec_master
-    admin_pwd: Passw0rd
-    ip_address: 192.168.42.202
-    listening_port: "7234"
-    http_yn: !!str no
-  entries:
-    - method: set
-      stanza_id: server
-      entries:
-        - [description, "federation cookbook sp"]
-        - [web-host-name, "www.mysp.ibm.com"]
-    - method: set
-      stanza_id: step-up
-      entries:
-        - ["verify-step-up-user", "no"]
-    - method: set
-      stanza_id: session
-      entries:
-        - ["user-session-ids", "yes"]
-        - ["inactive-timeout", "1800"]
-        - ["create-unauth-sessions", "yes"]
+  - inst_name: default
+    configuration:
+      host: "{{ inventory_hostname }}"
+      https_port: 443
+      nw_interface_yn: !!str yes
+      https_yn: !!str yes
+      admin_id: sec_master
+      admin_pwd: Passw0rd
+      ip_address: 192.168.42.202
+      listening_port: "7234"
+      http_yn: !!str no
+    entries:
+      - method: set
+        stanza_id: server
+        entries:
+          - [description, "federation cookbook sp"]
+          - [web-host-name, "www.mysp.ibm.com"]
+      - method: set
+        stanza_id: step-up
+        entries:
+          - ["verify-step-up-user", "no"]
+      - method: set
+        stanza_id: session
+        entries:
+          - ["user-session-ids", "yes"]
+          - ["inactive-timeout", "1800"]
+          - ["create-unauth-sessions", "yes"]
 
 # 5.2 Modify Reverse Proxy Instance Settings
 
@@ -116,8 +116,8 @@ federation_instances:
         port: '443'
         username: easuser
         password: "Passw0rd"
-        reuse_acls: True
-        reuse_certs: True
+        reuse_acls: true
+        reuse_certs: true
 
 # 8.2.2 Environment-specific configuration
 set_reverseproxy_conf_entries_8_2_2:
@@ -158,37 +158,36 @@ set_partner_enabled: true
 set_partner_role: ip
 
 # 10.1 Configure test application
-update_advanced_configuration_key: "live.demos.enabled"
+update_advanced_configuration_key: live.demos.enabled
 update_advanced_configuration_value: "true"
 update_advanced_configuration_sensitive: false
 
 # 10.2 Authorize Access to Mobile Demo Application
-demo_pdadmin_commands: ["acl create temp-unauth",
-                        "acl modify temp-unauth set group iv-admin TcmdbsvaBRrxl",
-                        "acl modify temp-unauth set group webseal-servers Tgmdbsrxl",
-                        "acl modify temp-unauth set user sec_master TcmdbsvaBRrxl",
-                        "acl modify temp-unauth set any-other Tr",
-                        "acl modify temp-unauth set unauthenticated Tr",
-                        "acl attach /WebSEAL/isam.mysp.ibm.com-default/isam/mobile-demo temp-unauth",
-                        "server replicate"]
+demo_pdadmin_commands:
+  - acl create temp-unauth
+  - acl modify temp-unauth set group iv-admin TcmdbsvaBRrxl
+  - acl modify temp-unauth set group webseal-servers Tgmdbsrxl
+  - acl modify temp-unauth set user sec_master TcmdbsvaBRrxl
+  - acl modify temp-unauth set any-other Tr
+  - acl modify temp-unauth set unauthenticated Tr
+  - acl attach /WebSEAL/isam.mysp.ibm.com-default/isam/mobile-demo temp-unauth
+  - server replicate
 
 url: https://192.168.42.202/isam/mobile-demo/setting/
-acHostAndPort: "localhost:443"
-lmiHostAndPort: "isam.mysp.ibm.com:443"
-lmiAdminId: "admin"
-lmiAdminPwd: "Passw0rd"
-websealHostNameAndPort: "www.mysp.ibm.com:443"
-acUuidCookieName: "ac.uuid"
-acl_pdadmin_commands:
-  ["acl attach /WebSEAL/isam.mysp.ibm.com-default/isam/mobile-demo default-webseal",
-   "acl delete temp-unauth",
-   "server replicate"]
-web_username: "sec_master"
-web_password: "Passw0rd"
+acHostAndPort: localhost:443
+lmiHostAndPort: isam.mysp.ibm.com:443
+lmiAdminId: admin
+lmiAdminPwd: Passw0rd
+websealHostNameAndPort: www.mysp.ibm.com:443
+acUuidCookieName: ac.uuid
+acl_pdadmin_commands: [acl attach /WebSEAL/isam.mysp.ibm.com-default/isam/mobile-demo default-webseal, acl delete temp-unauth, server replicate]
+web_username: sec_master
+web_password: Passw0rd
 
 # 10.3 Configure test user
-test_user_pdadmin_commands: ["user create testuser cn=testuser,dc=iswga Test User Passw0rd",
-                             "user modify testuser account-valid yes"]
+test_user_pdadmin_commands:
+  - user create testuser cn=testuser,dc=iswga Test User Passw0rd
+  - user modify testuser account-valid yes
 
 # 13.1 Create federation: create the federation
 oidc_mapping_rule_name: OIDCRP
@@ -198,45 +197,44 @@ oidc_protocol: OIDC
 oidc_role: rp
 
 # 13.3.1 ISAM-to-ISAM implicit partner
-oidc_idp_server: "https://isam.myidp.ibm.com"
+oidc_idp_server: https://isam.myidp.ibm.com
 oidc_isam_partner_name: ISAM-Implicit
 oidc_isam_enabled: true
-oidc_isam_role: "rp"
-oidc_isam_partner_configuration: {
-  "appliesTo": "ISAMRPImplicit",
-  "attributeMapping": {},
-  "clientId": "isamtoisamid",
-  "clientSecret": "isamClientSecret",
-  "authorizationEndpointUrl": "https://www.myidp.ibm.com/isam/oidc/endpoint/amapp-runtime-ISAMOP/authorize",
-  "grantType": "implicit",
-  "issuerIdentifier": "https://www.myidp.ibm.com",
-  "redirectUriPrefix": "https://www.mysp.ibm.com/isam",
-  "scope": ["openid"],
-  "signatureAlgorithm": "HS256"
-}
+oidc_isam_role: rp
+oidc_isam_partner_configuration:
+  appliesTo: ISAMRPImplicit
+  attributeMapping: {}
+  clientId: isamtoisamid
+  clientSecret: isamClientSecret
+  authorizationEndpointUrl: https://www.myidp.ibm.com/isam/oidc/endpoint/amapp-runtime-ISAMOP/authorize
+  grantType: implicit
+  issuerIdentifier: https://www.myidp.ibm.com
+  redirectUriPrefix: https://www.mysp.ibm.com/isam
+  scope:
+    - openid
+  signatureAlgorithm: HS256
 
 # 13.3.2 ISAM-to-ISAM authorization_code partner
 oidc_isam_code_partner_name: ISAM-Code
 oidc_isam_code_enabled: true
-oidc_isam_code_role: "rp"
+oidc_isam_code_role: rp
 oidc_isam_code_partner_configuration:
-  appliesTo: "ISAMRPCode"
+  appliesTo: ISAMRPCode
   attributeMapping: {}
-  clientId: "isamtoisamid"
-  clientSecret: "isamClientSecret"
-  authorizationEndpointUrl: "https://www.myidp.ibm.com/isam/oidc/endpoint/amapp-runtime-OIDCOP/authorize"
-  tokenEndpointUrl: "https://www.myidp.ibm.com/isam/oidc/endpoint/amapp-runtime-ISAMOP/token"
-  grantType: "authorization_code"
-  issuerIdentifier: "https://www.myidp.ibm.com"
-  redirectUriPrefix: "https://www.mysp.ibm.com/isam"
+  clientId: isamtoisamid
+  clientSecret: isamClientSecret
+  authorizationEndpointUrl: https://www.myidp.ibm.com/isam/oidc/endpoint/amapp-runtime-OIDCOP/authorize
+  tokenEndpointUrl: https://www.myidp.ibm.com/isam/oidc/endpoint/amapp-runtime-ISAMOP/token
+  grantType: authorization_code
+  issuerIdentifier: https://www.myidp.ibm.com
+  redirectUriPrefix: https://www.mysp.ibm.com/isam
   scope:
     - openid
-  signatureAlgorithm: "HS256"
-
+  signatureAlgorithm: HS256
 # 13.3.3 Google-to-ISAM partner
 oidc_google_partner_name: Google
 oidc_google_enabled: true
-oidc_google_role: "rp"
+oidc_google_role: rp
 oidc_google_partner_configuration:
   appliesTo: Google
   attributeMapping: {}
@@ -255,61 +253,41 @@ oidc_google_partner_configuration:
 
 # 14.1 Load OpenID Connect Provider SSL Certificates
 load_signer_certificates:
-  [
-    {
-      "kdb_id": rt_profile_keys,
-      "label": "Google",
-      "server": "www.googleapis.com",
-      "port": "443"
-    },
-    {
-      "kdb_id": rt_profile_keys,
-      "label": "ISAM OpenID Connect Provider",
-      "server": "www.myidp.ibm.com",
-      "port": "443"
-    }
-  ]
+  - kdb_id: rt_profile_keys
+    label: Google
+    server: "www.googleapis.com"
+    port: 443
+  - kdb_id: rt_profile_keys
+    label: ISAM OpenID Connect Provider
+    server: "www.myidp.ibm.com"
+    port: 443
 
 # 14.2 Set credential response header
 set_current_point_of_contact_name: Access Manager Credential
 
 # 14.2.1 Add extra login links to login page
 update_management_root_idandfilename:
-  [
-    {"id": "management/C/login.html", "filename": "{{ providedFiles_dir }}/login.html"}
-  ]
+  - id: "management/C/login.html"
+    filename: "{{ providedFiles_dir }}/login.html"
+
 update_management_root_instance_id: "default"
 
 # 20.3 Scenario: USERNAME authentication
-username_poc_name: "Access Manager Username and extended attributes"
+username_poc_name: Access Manager Username and extended attributes
 
 # 20.4 Scenario: PAC authentication
-access_manager_poc_name: "Access Manager Credential"
+access_manager_poc_name: Access Manager Credential
 
 # 20.5 Scenario: EXTUSER authentication
-non_access_manager_poc_name: "Non-Access Manager Username, Access Manager groups and extended attributes"
-saml20_dynamic_group_name: "sp_saml20_dynamic_group"
-set_federation_name: "saml20sp"
-set_federation_protocol: "SAML2_0"
-set_federation_role: "sp"
+non_access_manager_poc_name: Non-Access Manager Username, Access Manager groups and extended attributes
+saml20_dynamic_group_name: sp_saml20_dynamic_group
+set_federation_name: saml20sp
+set_federation_protocol: SAML2_0
+set_federation_role: sp
 set_federation_configuration:
-  {
-    "assertionConsumerService":
-      [
-        {"binding": "post", "default": "false", "index": "1"},
-        {"binding": "redirect", "default": "false", "index":"2"}
-      ],
-    "companyName": "SP Company",
-    "pointOfContactUrl": "https://www.mysp.ibm.com/isam/sps",
-    "extensionMapping": { "activeDelegateId": "skip-extension-map"},
-    "singleLogoutService":
-      [
-        { "binding": "post" },
-        { "binding": "redirect" }
-      ]
-  }
-testgroup_pdadmin_commands:
-  [
-    "group create testgroup cn=testgroup,dc=iswga testgroup",
-    "group create testgroup2 cn=testgroup2,dc=iswga testgroup2"
-  ]
+  assertionConsumerService: [{ binding: post, default: "false", index: "1" }, { binding: redirect, default: "false", index: "2" }]
+  companyName: SP Company
+  pointOfContactUrl: https://www.mysp.ibm.com/isam/sps
+  extensionMapping: { activeDelegateId: skip-extension-map }
+  singleLogoutService: [binding: post, binding: redirect]
+testgroup_pdadmin_commands: ["group create testgroup cn=testgroup,dc=iswga testgroup", "group create testgroup2 cn=testgroup2,dc=iswga testgroup2"]
