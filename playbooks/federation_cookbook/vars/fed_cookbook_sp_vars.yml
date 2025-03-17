@@ -107,6 +107,8 @@ role: sp
 export_metadata_filename: "{{ providedFiles_dir }}/Automation/tmp/spmetadata.xml"
 
 # 8.2.1 Configure Reverse Proxy for SP
+easuser_registry_id: easuser
+easuser_registry_password: Passw0rd
 federation_instances:
   - inst_name: default
     federation_configurations:

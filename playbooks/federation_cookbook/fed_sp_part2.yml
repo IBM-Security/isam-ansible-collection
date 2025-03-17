@@ -16,6 +16,7 @@
       vars:
         import_metadata_federation_name: "{{ inventory.fed_name }}"
         import_metadata_filename: "{{ homedir }}/{{ inventory.import_metadata_filename }}"
+        import_metadata_partner_name: "{{ inventory.partner_name }}"
 
     - name: 9.2 Configuring Partner for the SP - get partner json
       ansible.builtin.include_role:
@@ -26,19 +27,21 @@
 
     - name: 9.2 Configuring Partner for the IdP - update signatureSettings in temp partner json
       ansible.builtin.set_fact:
-        partner_signatureSettings_json: "{{  ret_obj.data.configuration.signatureSettings | combine(inventory.configuration.signatureSettings) }}"
+        partner_signatureSettings_json: "{{ ret_obj.data.configuration.signatureSettings | combine(inventory.configuration.signatureSettings) }}"
 
     - name: 9.2 Configuring Partner for the IdP - create new_signatureSettings_json
       ansible.builtin.set_fact:
-        new_signatureSettings: { signatureSettings: "{{ partner_signatureSettings_json }}" }
+        new_signatureSettings:
+          signatureSettings: "{{ partner_signatureSettings_json }}"
 
-    - name: 9.2 Configuring Partner for the IdP - update encryptionSettings in temp partner json
-      ansible.builtin.set_fact:
+    - name: "9.2 Configuring Partner for the IdP - update encryptionSettings in temp partner json"
+      set_fact:
         partner_encryptionSettings_json: "{{  ret_obj.data.configuration.encryptionSettings | combine(inventory.configuration.encryptionSettings) }}"
 
     - name: 9.2 Configuring Partner for the IdP - create new_encryptionSettings_json
       ansible.builtin.set_fact:
-        new_encryptionSettings: { encryptionSettings: "{{ partner_encryptionSettings_json }}" }
+        new_encryptionSettings:
+          encryptionSettings: "{{ partner_encryptionSettings_json }}"
 
     - name: 9.2 Configuring Partner for the IdP - update signatureSettings in the new configuration json
       ansible.builtin.set_fact:
@@ -114,6 +117,14 @@
         execute_pdadmin_commands: "{{ inventory.test_user_pdadmin_commands }}"
 
     # 13 Create OpenID Connect Relying Party
+    - name: Check if file exists
+      ansible.builtin.stat:
+        path: "{{ inventory.sp_oidc_fed }}"
+      register: oidc_file_status
+      when:
+        - inventory.sp_oidc_fed is defined
+
+    # 13 Create OpenID Connect Relying Party
     - name: "13.1 Create Federation: get mapping rule id"
       ansible.builtin.include_role:
         name: ibm.isam.search_mapping_rule
@@ -128,19 +139,17 @@
           - name: "{{ inventory.oidc_fed_name }}"
             protocol: "{{ inventory.oidc_protocol }}"
             role: "{{ inventory.oidc_role }}"
-            filename: "{{ homedir }}/{{ inventory.sp_oidc_fed }}"
+            filename: "{{ inventory.sp_oidc_fed }}"
             mapping_id: "{{ ret_obj.data }}"
+      when:
+        - ret_obj.data is defined
+        - oidc_file_status.stat.exists
 
     - name: 13.2 Configure Reverse Proxy for SP
-      ansible.builtin.include_role:
-        name: ibm.isam.config_reverseproxy_federation
+      ansible.builtin.import_role:
+        name: ibm.isam.web.config_reverseproxy_federations
       vars:
-        config_reverseproxy_federation_name: "{{ inventory.oidc_fed_name }}"
-        config_reverseproxy_federation_instance_id: "{{ inventory.inst_name }}"
-        config_reverseproxy_federation_hostname: "{{ inventory.config_reverseproxy_federation_hostname }}"
-        config_reverseproxy_federation_port: "{{ inventory.config_reverseproxy_federation_port }}"
-        config_reverseproxy_federation_reuse_certs: "{{ inventory.config_reverseproxy_federation_reuse_certs }}"
-        config_reverseproxy_federation_reuse_acls: "{{ inventory.config_reverseproxy_federation_reuse_acls }}"
+        instances: "{{ inventory.federation_instances_oidc }}"
 
     - name: 13.3.1 ISAM-to-ISAM implicit partner
       ansible.builtin.include_role:
@@ -178,6 +187,7 @@
         name: ibm.isam.base.load_signer_certificates
       vars:
         load_signer_certificates: "{{ inventory.load_signer_certificates }}"
+      ignore_errors: true # noqa: ignore_errors
 
     - name: 14.2 Set credential response header
       ansible.builtin.include_role:
