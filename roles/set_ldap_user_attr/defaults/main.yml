@@ -18,5 +18,5 @@ ldap_validate_certs: true
 ldap_user_attributes:
   - dn: uid=testuser,dc=iswga
     attributes:
-       mail: testuser@ibm.com
-       displayName: Test User
+      mail: testuser@ibm.com
+      displayName: Test User
