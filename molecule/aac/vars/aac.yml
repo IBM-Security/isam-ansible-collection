@@ -32,6 +32,36 @@ access_control_attributes:
         risk: false
     uri: urn:ibm:security:trusteer:pinpoint:md:error:detected
     attributeURI: urn:ibm:security:trusteer:pinpoint:md:error:detected
+  - name: applicationId
+    description: attribute for policy decision
+    uri: 'urn:ibm:security:environment:applicationId'
+    type:
+      policy: true
+      risk: true
+    category: Environment
+    datatype: String
+    predefined: false
+    issuer: ""
+    matcher: '1'
+    storageDomain:
+      device: true
+      session: true
+      behavior: false
+  - name: appVersion
+    description: attribute for policy decision
+    uri: 'urn:ibm:security:environment:appVersion'
+    type:
+      policy: true
+      risk: true
+    category: Environment
+    datatype: String
+    predefined: false
+    issuer: ""
+    matcher: '1'
+    storageDomain:
+      device: true
+      session: true
+      behavior: false
 
 access_control_policy_attachments:
  # - cache: 0 # Cache for duration of session (-1).  Needs to be 0
@@ -147,3 +177,32 @@ aac_policy_json:
         PolicyId: urn:ibm:security:rule-container:0
     PolicyCombiningAlgId: urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides
     Description: New Policy Description
+
+# Risk profiles
+aac_risk_profiles:
+  - name: Risk profile
+    description: "Molecule Risk profile"
+    active: true
+    attributes:
+      - name: applicationId
+        weight: 10
+      - name: appVersion
+        weight: 10
+
+# MMFA
+aac_mmfa_configurations:
+  client_id: "mmfa-client"
+  options: "ignoreSslCerts=true"
+  endpoints:
+    authntrxn_endpoint: "https://www.myidp.ibm.com/scim/Me?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:transactionsPending,
+                         urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:attributesPending"
+    mobile_endpoint_prefix: "https://www.myidp.ibm.com/mga"
+    enrollment_endpoint: "https://www.myidp.ibm.com/scim/Me"
+    hotp_shared_secret_endpoint: "https://www.myidp.ibm.com/mga/sps/mga/user/mgmt/otp/hotp"
+    totp_shared_secret_endpoint: "https://www.myidp.ibm.com/mga/sps/mga/user/mgmt/otp/totp"
+    details_url: "https://www.myidp.ibm.com/mga/sps/mmfa/user/mgmt/details"
+    token_endpoint: "https://www.myidp.ibm.com/sps/oauth/oauth20/token"
+    qrlogin_endpoint: "https://www.myidp.ibm.com/mga/sps/apiauthsvc?PolicyId=urn:ibm:security:authentication:asf:qrcode_response"
+  discovery_mechanisms:
+    - "urn:ibm:security:authentication:asf:mechanism:mobile_user_approval:fingerprint"
+    - "urn:ibm:security:authentication:asf:mechanism:mobile_user_approval:user_presence"

@@ -35,3 +35,17 @@
         - access_control
       ansible.builtin.import_role:
         name: ibm.isam.aac.configure_access_control_policy_attachments
+
+    - name: Configure risk profiles
+      tags:
+        - access_control
+        - risk
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_risk_profiles
+
+    - name: Configure mmfa
+      tags:
+        - access_control
+        - mmfa
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_mmfa
