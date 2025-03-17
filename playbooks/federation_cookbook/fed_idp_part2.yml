@@ -30,11 +30,16 @@
     - name: 9.1 Configuring Partner for the IdP - update signatureSettings in temp partner json
       ansible.builtin.set_fact:
         partner_signatureSettings_json: "{{ ret_obj.data.configuration.signatureSettings | combine(inventory.configuration.signatureSettings) }}"
+      when:
+        - ret_obj is defined
+        - ret_obj.data is defined
 
     - name: 9.1 Configuring Partner for the IdP - create new_signatureSettings_json
       ansible.builtin.set_fact:
         new_signatureSettings:
           signatureSettings: "{{ partner_signatureSettings_json }}"
+      when:
+        - partner_signatureSettings_json is defined
 
     - name: 9.1 Configuring Partner for the IdP - update encryptionSettings in temp partner json
       ansible.builtin.set_fact:
@@ -89,7 +94,14 @@
       vars:
         search_mapping_rule_name: "{{ inventory.oidc_mapping_rule_name }}"
 
-    - name: "12.1 Create Federation: create the federation"
+    - name: Check if file exists
+      ansible.builtin.stat:
+        path: "{{ inventory.ip_oidc_fed }}"
+      register: oidc_file_status
+      when:
+        - inventory.ip_oidc_fed is defined
+
+    - name: "13.1 Create Federation: create the federation"
       ansible.builtin.include_role:
         name: ibm.isam.fed.set_federation_from_file
       vars:
@@ -99,6 +111,9 @@
             role: "{{ inventory.oidc_role }}"
             filename: "{{ inventory.ip_oidc_fed }}"
             mapping_id: "{{ ret_obj.data }}"
+      when:
+        - oidc_file_status is defined
+        - oidc_file_status.stat.exists
 
     - name: 12.2 Configure Reverse Proxy for IdP
       ansible.builtin.include_role:
@@ -320,12 +335,25 @@
       ansible.builtin.set_fact:
         chain_properties:
           properties:
-            attributeMapping: { map: [{ name: phone, source: "{{ phone_id }}" }, { name: displayName, source: "{{ name_id }}" }] }
+            attributeMapping:
+              map:
+                - name: phone
+                  source: "{{ phone_id }}"
+                - name: displayName
+                  source: "{{ name_id }}"
             self:
-              - { name: "{{ pre_mapper_uuid }}.map.rule.type", value: [JAVASCRIPT] }
-              - { name: "{{ pre_mapper_uuid }}.map.rule.reference.ids", value: ["{{ pre_mapper_id }}"] }
-              - { name: "{{ post_mapper_uuid }}.map.rule.type", value: [JAVASCRIPT] }
-              - { name: "{{ post_mapper_uuid }}.map.rule.reference.ids", value: ["{{ post_mapper_id }}"] }
+              - name: "{{ pre_mapper_uuid }}.map.rule.type"
+                value:
+                  - JAVASCRIPT
+              - name: "{{ pre_mapper_uuid }}.map.rule.reference.ids"
+                value:
+                  - "{{ pre_mapper_id }}"
+              - name: "{{ post_mapper_uuid }}.map.rule.type"
+                value:
+                  - JAVASCRIPT
+              - name: "{{ post_mapper_uuid }}.map.rule.reference.ids"
+                value:
+                  - "{{ post_mapper_id }}"
 
     - name: 18.3.4 Modify STS Test Module Chain - create properties obj
       ansible.builtin.set_fact:
@@ -386,34 +414,101 @@
         chain_properties:
           properties:
             partner:
-              - { name: "{{ saml_validate_uuid }}.ivcred.verify.signatures", value: ["false"] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.attribute.types", value: ["*"] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.sign", value: ["true"] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.SigningKeyIdentifier.db", value: [myidpkeys] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.SigningKeyIdentifier.cert", value: [myidpkey] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.subject.keyid", value: ["true"] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.public.key", value: ["true"] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.issuer.details", value: ["true"] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.subject.name", value: ["true"] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.cert.data", value: ["true"] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.SignatureAlgorithm", value: [RSA-SHA512] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.DigestAlgorithm", value: [SHA256] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptionKeyIdentifier.db", value: [""] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptionKeyIdentifier.cert", value: [""] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptAssertions", value: ["false"] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptAllAttributes", value: ["false"] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptNameIdentifiers", value: ["false"] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.BlockEncryptionAlgorithm", value: [TRIPLEDES] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptionKeyTransportAlgorithm", value: [RSA-OAEP] }
-              - name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.SubjectConfirmationMethod"
-                value: ['urn:oasis:names:tc:SAML:2.0:cm:bearer']
+              - name: "{{ saml_validate_uuid }}.ivcred.verify.signatures"
+                value:
+                  - "false"
+              - name: "{{ saml_issue_uuid
+                  }}.com.tivoli.am.fim.sts.saml.2.0.assertion.attribute.types"
+                value:
+                  - "*"
+              - name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.sign"
+                value:
+                  - "true"
+              - name: "{{ saml_issue_uuid
+                  }}.com.tivoli.am.fim.sts.saml.2.0.SigningKeyIdentifier.db"
+                value:
+                  - myidpkeys
+              - name: "{{ saml_issue_uuid
+                  }}.com.tivoli.am.fim.sts.saml.2.0.SigningKeyIdentifier.cert"
+                value:
+                  - myidpkey
+              - name: "{{ saml_issue_uuid
+                  }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.subject.key\
+                  id"
+                value:
+                  - "true"
+              - name: "{{ saml_issue_uuid
+                  }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.public.key"
+                value:
+                  - "true"
+              - name: "{{ saml_issue_uuid
+                  }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.issuer.deta\
+                  ils"
+                value:
+                  - "true"
+              - name: "{{ saml_issue_uuid
+                  }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.subject.nam\
+                  e"
+                value:
+                  - "true"
+              - name: "{{ saml_issue_uuid
+                  }}.com.tivoli.am.fim.sts.saml.2.0.assertion.signature.include.cert.data"
+                value:
+                  - "true"
+              - name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.SignatureAlgorithm"
+                value:
+                  - RSA-SHA512
+              - name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.DigestAlgorithm"
+                value:
+                  - SHA256
+              - name: "{{ saml_issue_uuid
+                  }}.com.tivoli.am.fim.sts.saml.2.0.EncryptionKeyIdentifier.db"
+                value:
+                  - ""
+              - name: "{{ saml_issue_uuid
+                  }}.com.tivoli.am.fim.sts.saml.2.0.EncryptionKeyIdentifier.cert"
+                value:
+                  - ""
+              - name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptAssertions"
+                value:
+                  - "false"
+              - name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.EncryptAllAttributes"
+                value:
+                  - "false"
+              - name: "{{ saml_issue_uuid
+                  }}.com.tivoli.am.fim.sts.saml.2.0.EncryptNameIdentifiers"
+                value:
+                  - "false"
+              - name: "{{ saml_issue_uuid
+                  }}.com.tivoli.am.fim.sts.saml.2.0.BlockEncryptionAlgorithm"
+                value:
+                  - TRIPLEDES
+              - name: "{{ saml_issue_uuid
+                  }}.com.tivoli.am.fim.sts.saml.2.0.EncryptionKeyTransportAlgorithm"
+                value:
+                  - RSA-OAEP
+              - name: "{{ saml_issue_uuid
+                  }}.com.tivoli.am.fim.sts.saml.2.0.assertion.SubjectConfirmationMethod"
+                value:
+                  - urn:oasis:names:tc:SAML:2.0:cm:bearer
             self:
-              - { name: "{{ saml_mapper_uuid }}.map.rule.type", value: [JAVASCRIPT] }
-              - { name: "{{ saml_mapper_uuid }}.map.rule.reference.ids", value: ["{{ saml20_ivc_to_saml20_id }}"] }
+              - name: "{{ saml_mapper_uuid }}.map.rule.type"
+                value:
+                  - JAVASCRIPT
+              - name: "{{ saml_mapper_uuid }}.map.rule.reference.ids"
+                value:
+                  - "{{ saml20_ivc_to_saml20_id }}"
               - name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.issuer"
-                value: ["https://www.myidp.ibm.com/isam/sps/saml20idp/saml20"]
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.pretime.valid", value: ["3600"] }
-              - { name: "{{ saml_issue_uuid }}.com.tivoli.am.fim.sts.saml.2.0.assertion.posttime.valid", value: ["3600"] }
+                value:
+                  - https://www.myidp.ibm.com/isam/sps/saml20idp/saml20
+              - name: "{{ saml_issue_uuid
+                  }}.com.tivoli.am.fim.sts.saml.2.0.assertion.pretime.valid"
+                value:
+                  - "3600"
+              - name: "{{ saml_issue_uuid
+                  }}.com.tivoli.am.fim.sts.saml.2.0.assertion.posttime.valid"
+                value:
+                  - "3600"
 
     - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - create properties obj
       ansible.builtin.set_fact:
