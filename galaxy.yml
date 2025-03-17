@@ -10,7 +10,7 @@ namespace: ibm
 name: isam
 
 # The version of the collection. Must be compatible with semantic versioning
-version: 2.5.0
+version: 2.6.0
 
 # The path to the Markdown (.md) readme file. This path is relative to the root of the collection
 readme: README.md
@@ -47,7 +47,7 @@ tags:
 # L(specifiers,https://python-semanticversion.readthedocs.io/en/latest/#requirement-specification). Multiple version
 # range specifiers can be set and are separated by ','
 dependencies:
-  "community.general": ">=9.3.0"
+  community.general: ">=9.3.0"
 
 # The URL of the originating SCM repository
 repository: https://github.com/IBM-Security/isam-ansible-collection
