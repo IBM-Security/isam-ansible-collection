@@ -7,7 +7,7 @@
   gather_facts: false
   tasks:
     - name: First steps
-      ansible.builtin.include_role:
+      ansible.builtin.import_role:
         name: ibm.isam.base.first_steps
       tags: ["first", "steps"]
     - name: Change Admin Password (must use --tags setup,password or --tags admin)
@@ -22,7 +22,7 @@
       vars:
         new_password: "{{ ansible_isam_password }}"
         httpsPort: "{{ lmi_port | default(omit) }}"
-    - name: Network
+    - name: Network ipv4
       ansible.builtin.import_role:
         name: ibm.isam.base.configure_interfaces
       tags: ["ipv4"]
