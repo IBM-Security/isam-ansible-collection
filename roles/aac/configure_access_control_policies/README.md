@@ -43,7 +43,7 @@ access_control_policies:
 
 ## xml formatting
 
-xml formatting is trickier, to get the policy in a correct xml format
+in the xml formatting it is trickier to get the policy in a correct xml format
 
 ````yaml
 access_control_policies:
