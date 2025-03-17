@@ -2,14 +2,12 @@
 # tasks file for set_ldap_user_attr
 # modify ldap
 - name: Modify user LDAP attributes
-  ibm.isam.ldap_attr:
-    dn: "{{ item.0.dn }}"
-    name: "{{ item.1.name }}"
-    values: "{{ item.1.values }}"
+  community.general.ldap_attrs:
+    validate_certs: "{{ ldap_validate_certs }}"
+    dn: "{{ item.dn }}"
+    attributes: "{{ item.attributes }}"
     state: "{{ ldap_state }}"
     server_uri: "{{ ldap_server_uri }}"
     bind_dn: "{{ ldap_bind_dn }}"
     bind_pw: "{{ ldap_bind_pw }}"
-  with_subelements:
-    - "{{ ldap_user_attributes }}"
-    - attributes
+  loop: "{{ ldap_user_attributes }}"
