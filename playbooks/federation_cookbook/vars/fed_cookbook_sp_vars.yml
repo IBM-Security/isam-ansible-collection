@@ -191,9 +191,9 @@ test_user_pdadmin_commands:
 
 # 13.1 Create federation: create the federation
 oidc_mapping_rule_name: OIDCRP
-sp_oidc_fed: "{{ providedFiles_dir }}/sp_odic_fed.json"
+sp_oidc_fed: "{{ providedFiles_dir }}/Automation/sp_files/oidcfed.json"
 oidc_fed_name: ISAMRP
-oidc_protocol: OIDC
+oidc_protocol: OIDC10
 oidc_role: rp
 
 # 13.3.1 ISAM-to-ISAM implicit partner
