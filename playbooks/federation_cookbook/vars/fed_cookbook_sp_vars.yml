@@ -193,10 +193,23 @@ test_user_pdadmin_commands:
 
 # 13.1 Create federation: create the federation
 oidc_mapping_rule_name: OIDCRP
-sp_oidc_fed: "{{ providedFiles_dir }}/Automation/sp_files/oidcfed.json"
+sp_oidc_fed: "{{ providedFiles_dir }}/Automation/sp_files/oidcfed.json.skip" # TODO: Fix this
 oidc_fed_name: ISAMRP
 oidc_protocol: OIDC10
 oidc_role: rp
+
+# 13.2
+federation_instances_oidc:
+  - inst_name: default
+    federation_configurations:
+      - fed_action: config
+        federation_name: ISAMRP
+        hostname: 127.0.0.1
+        port: '443'
+        username: easuser
+        password: "Passw0rd"
+        reuse_acls: true
+        reuse_certs: true
 
 # 13.3.1 ISAM-to-ISAM implicit partner
 oidc_idp_server: https://isam.myidp.ibm.com
@@ -270,7 +283,7 @@ set_current_point_of_contact_name: Access Manager Credential
 # 14.2.1 Add extra login links to login page
 update_management_root_idandfilename:
   - id: "management/C/login.html"
-    filename: "{{ providedFiles_dir }}/login.html"
+    filename: "{{ providedFiles_dir }}/Automation/idp_files/pages/login.html" # Not sure if this is right
 
 update_management_root_instance_id: "default"
 

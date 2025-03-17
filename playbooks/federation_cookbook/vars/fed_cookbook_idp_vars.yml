@@ -211,7 +211,7 @@ ldap_attributes:
 
 # 12 Create OpenID Connect Provider
 oidc_mapping_rule_name: OIDCIDToken
-ip_oidc_fed: "{{ providedFiles_dir }}/ip_odic_fed.json"
+ip_oidc_fed: "{{ providedFiles_dir }}/ip_oidc_fed.json" # I don't know what this is
 oidc_fed_name: ISAMOP
 oidc_protocol: OIDC
 oidc_role: op
@@ -449,7 +449,7 @@ web_password: Passw0rd
 # 21.1 Replace login.html on the identity provider
 update_management_root_idandfilename:
   - id: management/C/login.html
-    filename: /home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook/providedfiles/Automation/pages/saml20/login.html
+    filename: "{{ providedFiles_dir }}/Automation/idp_files/pages/login.html"
 update_management_root_instance_id: default
 
 # 21.2 Configure authentication macros in the federation runtime
