@@ -8,14 +8,14 @@
   tasks:
     - name: Include vars
       ansible.builtin.include_vars:
-        file: fed_cookbook_idp_vars.yml
+        file: vars/fed_cookbook_idp_vars.yml
         name: inventory
 
     - name: First steps
       ansible.builtin.import_role:
         name: ibm.isam.base.first_steps
 
-    - name: "4.2 Enable NTP"
+    - name: 4.2 Enable NTP
       ansible.builtin.import_role:
         name: ibm.isam.base.configure_time
       vars:
@@ -30,12 +30,12 @@
         name: ibm.isam.base.add_interfaces
       vars:
         interfaces:
-          - label:  "{{ inventory.label }}"
+          - label: "{{ inventory.label }}"
             addresses:
-              - address:            "{{ inventory.address }}"
-                maskOrPrefix:       "{{ inventory.maskOrPrefix }}"
-                allowManagement:    "{{ inventory.allowManagement }}"
-                enabled:            "{{ inventory.enabled }}"
+              - address: "{{ inventory.address }}"
+                maskOrPrefix: "{{ inventory.maskOrPrefix }}"
+                allowManagement: "{{ inventory.allowManagement }}"
+                enabled: "{{ inventory.enabled }}"
 
     - name: 4.5 Update Hosts File on the Appliance
       ansible.builtin.import_role:

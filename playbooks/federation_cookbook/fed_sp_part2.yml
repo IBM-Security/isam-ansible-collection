@@ -3,11 +3,11 @@
   hosts: all
   gather_facts: false
   vars:
-    homedir: /home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook
+    homedir: ''
   tasks:
     - name: Include vars
       ansible.builtin.include_vars:
-        file: fed_cookbook_sp_vars.yml
+        file: vars/fed_cookbook_sp_vars.yml
         name: inventory
 
     - name: 9.2 Configuring Partner for the SP - import metadata

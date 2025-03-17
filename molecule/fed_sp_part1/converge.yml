@@ -6,7 +6,7 @@
     homedir: ""
     isam_validate_certs: false
   tasks:
-    - name: Load vars
+    - name: Include vars
       ansible.builtin.include_vars:
         file: "../vars/fed_cookbook_sp_vars.yml"
         name: inventory
@@ -104,7 +104,7 @@
             filename: "{{ homedir }}/{{ inventory.spfed }}"
             mapping_id: "{{ ret_obj.data }}"
 
-    - name: "7.4 Export meta-data"
+    - name: 7.4 Export meta-data
       ansible.builtin.include_role:
         name: ibm.isam.fed.export_metadata
       vars:
@@ -112,7 +112,7 @@
         export_metadata_filename: "{{ homedir }}/{{ inventory.export_metadata_filename }}"
 
     # 8.2 ISAM Configuration for SP
-    - name: "8.2.1 Configure Reverse Proxy for SP"
+    - name: 8.2.1 Configure Reverse Proxy for SP
       ansible.builtin.include_role:
         name: ibm.isam.config_reverseproxy_federation
       vars:
@@ -123,14 +123,14 @@
         config_reverseproxy_federation_reuse_certs: "{{ inventory.config_reverseproxy_federation_reuse_certs }}"
         config_reverseproxy_federation_reuse_acls: "{{ inventory.config_reverseproxy_federation_reuse_acls }}"
 
-    - name: "8.2.2 Environment-specific configuration"
+    - name: 8.2.2 Environment-specific configuration
       ansible.builtin.include_role:
         name: ibm.isam.set_reverseproxy_conf
       vars:
         set_reverseproxy_conf_entries: "{{ inventory.set_reverseproxy_conf_entries_8_2_2 }}"
         set_reverseproxy_conf_reverseproxy_id: "{{ inventory.inst_name }}"
 
-    - name: "8.2.3 Add anonymous user"
+    - name: 8.2.3 Add anonymous user
       ansible.builtin.include_role:
         name: ibm.isam.execute_pdadmin
       vars:

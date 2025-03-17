@@ -3,20 +3,22 @@
   hosts: all
   gather_facts: false
   vars:
-    homedir: /home/demouser/IAM/isam-ansible-collection/playbooks/federation_cookbook
+    homedir: ""
+    isam_validate_certs: false
   tasks:
     - name: Include vars
       ansible.builtin.include_vars:
-        file: fed_cookbook_idp_vars.yml
+        file: vars/fed_cookbook_idp_vars.yml
         name: inventory
 
     # 9 Configure Partners
     - name: 9.1 Configuring Partner for the IdP - import metadata
-      ansible.builtin.include_role:
+      ansible.builtin.import_role:
         name: ibm.isam.fed.import_metadata
       vars:
         import_metadata_federation_name: "{{ inventory.fed_name }}"
         import_metadata_filename: "{{ homedir }}/{{ inventory.import_metadata_filename }}"
+        import_metadata_partner_name: "{{ inventory.partner_name }}"
 
     - name: 9.1 Configuring Partner for the IdP - get partner json
       ansible.builtin.include_role:
@@ -27,27 +29,29 @@
 
     - name: 9.1 Configuring Partner for the IdP - update signatureSettings in temp partner json
       ansible.builtin.set_fact:
-        partner_signatureSettings_json: "{{  ret_obj.data.configuration.signatureSettings | combine(inventory.configuration.signatureSettings) }}"
+        partner_signatureSettings_json: "{{ ret_obj.data.configuration.signatureSettings | combine(inventory.configuration.signatureSettings) }}"
 
     - name: 9.1 Configuring Partner for the IdP - create new_signatureSettings_json
       ansible.builtin.set_fact:
-        new_signatureSettings: { signatureSettings: "{{ partner_signatureSettings_json }}" }
+        new_signatureSettings:
+          signatureSettings: "{{ partner_signatureSettings_json }}"
 
     - name: 9.1 Configuring Partner for the IdP - update encryptionSettings in temp partner json
       ansible.builtin.set_fact:
-        partner_encryptionSettings_json: "{{  ret_obj.data.configuration.encryptionSettings | combine(inventory.configuration.encryptionSettings) }}"
+        partner_encryptionSettings_json: "{{ ret_obj.data.configuration.encryptionSettings | combine(inventory.configuration.encryptionSettings) }}"
 
     - name: 9.1 Configuring Partner for the IdP - create new_encryptionSettings_json
       ansible.builtin.set_fact:
-        new_encryptionSettings: { encryptionSettings: "{{ partner_encryptionSettings_json }}" }
+        new_encryptionSettings:
+          encryptionSettings: "{{ partner_encryptionSettings_json }}"
 
     - name: 9.1 Configuring Partner for the IdP - update signatureSettings in the new configuration json
       ansible.builtin.set_fact:
-        partner_configuration_json: "{{  ret_obj.data.configuration | combine(new_encryptionSettings) }}"
+        partner_configuration_json: "{{ ret_obj.data.configuration | combine(new_encryptionSettings) }}"
 
     - name: 9.1 Configuring Partner for the IdP - update signatureSettings in the new configuration json
       ansible.builtin.set_fact:
-        partner_configuration_json: "{{  partner_configuration_json | combine(new_signatureSettings) }}"
+        partner_configuration_json: "{{ partner_configuration_json | combine(new_signatureSettings) }}"
 
     - name: 9.1 Configuring Partner for the IdP - update federation partner configuration json
       ansible.builtin.include_role:
@@ -69,18 +73,14 @@
         execute_pdadmin_commands: "{{ inventory.test_user_pdadmin_commands }}"
 
     - name: 10.3 Add attributes to test user in ldap
-      ibm.isam.ldap_attr:
+      community.general.ldap_attrs:
         validate_certs: false
         dn: "{{ inventory.test_user_dn }}"
-        name: "{{ item.key }}"
-        values: "{{ item.value }}"
+        attributes: "{{ inventory.ldap_attributes }}"
         state: exact
         server_uri: "{{ inventory.ldap_server_uri }}"
         bind_dn: "{{ inventory.ldap_bind_dn }}"
         bind_pw: "{{ inventory.ldap_bind_pw }}"
-      with_dict: "{{ inventory.ldap_attributes }}"
-      vars:
-        ansible_python_interpreter: /usr/bin/python3
 
     # 12 Create OpenID Connect Provider
     - name: "12.1 Create Federation: get mapping rule id"
@@ -97,7 +97,7 @@
           - name: "{{ inventory.oidc_fed_name }}"
             protocol: "{{ inventory.oidc_protocol }}"
             role: "{{ inventory.oidc_role }}"
-            filename: "{{ homedir }}/{{ inventory.ip_oidc_fed }}"
+            filename: "{{ inventory.ip_oidc_fed }}"
             mapping_id: "{{ ret_obj.data }}"
 
     - name: 12.2 Configure Reverse Proxy for IdP
@@ -162,8 +162,12 @@
         chain_properties:
           properties:
             self:
-              - { name: "{{ stsuu_id }}.map.rule.type", value: [JAVASCRIPT] }
-              - { name: "{{ stsuu_id }}.map.rule.reference.ids", value: ["{{ ret_obj.data }}"] }
+              - name: "{{ stsuu_id }}.map.rule.type"
+                value:
+                  - "JAVASCRIPT"
+              - name: "{{ stsuu_id }}.map.rule.reference.ids"
+                value:
+                  - "{{ ret_obj.data }}"
 
     - name: 17.2 Configuring the STS Test Module Chain - create properties obj
       ansible.builtin.set_fact:
@@ -199,7 +203,11 @@
 
     - name: 18.1 Using HttpClient from Javascript mapping rules - create mapping obj
       ansible.builtin.set_fact:
-        id_mapping_obj: { identityMapping: { activeDelegateId: default-map, properties: { identityMappingRuleReference: "{{ ret_obj.data }}" } } }
+        id_mapping_obj:
+          identityMapping:
+            activeDelegateId: default-map
+            properties:
+              identityMappingRuleReference: "{{ ret_obj.data }}"
 
     - name: 18.1 Using HttpClient from Javascript mapping rules - create updated config obj
       ansible.builtin.set_fact:
