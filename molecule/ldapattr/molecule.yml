@@ -1,17 +1,20 @@
 ---
+driver:
+  name: default
+
 scenario:
-  name: fed_sp_part1
+  name: ldapattr
   test_sequence:
-    - dependency
-    - lint
-    - cleanup
-    - destroy
-    - syntax
-    - create
-    - prepare
+    #- dependency
+    #- lint
+    #- cleanup
+    #- destroy
+    #- syntax
+    #- create
+    #- prepare
     - converge
     # - idempotence
-    - side_effect
-    # - verify
-    - cleanup
-    - destroy
+    #- side_effect
+    - verify
+    #cd- cleanup
+    #- destroy
