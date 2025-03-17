@@ -108,8 +108,8 @@
       ansible.builtin.include_role:
         name: ibm.isam.fed.export_metadata
       vars:
-        - export_metadata_name: "{{ inventory.fed_name }}"
-        - export_metadata_filename: "{{ homedir }}/{{ inventory.export_metadata_filename }}"
+        export_metadata_name: "{{ inventory.fed_name }}"
+        export_metadata_filename: "{{ homedir }}/{{ inventory.export_metadata_filename }}"
 
     # 8.2 ISAM Configuration for SP
     - name: "8.2.1 Configure Reverse Proxy for SP"
