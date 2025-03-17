@@ -283,7 +283,7 @@ set_current_point_of_contact_name: Access Manager Credential
 # 14.2.1 Add extra login links to login page
 update_management_root_idandfilename:
   - id: "management/C/login.html"
-    filename: "{{ providedFiles_dir }}/login.html"
+    filename: "{{ providedFiles_dir }}/Automation/idp_files/pages/login.html" # Not sure if this is right
 
 update_management_root_instance_id: "default"
 
