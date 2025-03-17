@@ -4,6 +4,56 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v2.6.0
+======
+
+Release Summary
+---------------
+
+New roles for AAC
+Rewrite federation cookbook (first draft)
+Remove old ldap_attr module
+
+Minor Changes
+-------------
+
+- bootstrap_local - refactoring of variables
+- config_reverseproxy_federation - just pass federation_name, not id
+- configure_access_control_policies - rename attributesRequired to attributesrequired (if necessary)
+- federation_cookbook.fed_idp_part1.yml - update
+- federation_cookbook.fed_idp_part2.yml - update
+- federation_cookbook.fed_sp_part1.yml - update
+- federation_cookbook.fed_sp_part2.yml - update
+- filter/rename_key.py - moved a very chatty print statement
+- molecule - update tests for federation cookbook
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- set_ldap_user_attr - switch to community.general.ldap_attrs
+
+Deprecated Features
+-------------------
+
+- configure_instance_federations - does not work anyway
+- ldap_attr.py - use community.general.ldap_attrs instead
+
+Removed Features (previously deprecated)
+----------------------------------------
+
+- ldap_attr.py - switch to community.general.ldap_attrs - this broke with python3
+
+Known Issues
+------------
+
+- federation_cookbook playbooks are not up to date with latest IBM Federation Cookbook
+
+New Roles
+---------
+
+- ibm.isam.ibm.isam.aac.configure_mmfa - Configure mmfa in AAC
+- ibm.isam.ibm.isam.aac.configure_risk_profiles - Configure AAC risk profiles
+
 v2.5.0
 ======
 

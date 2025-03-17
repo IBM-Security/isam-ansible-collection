@@ -55,14 +55,9 @@ plugins:
       name: isamcompare
       namespace: ''
       version_added: null
-    ldap_attr:
-      description: Add or remove LDAP attribute values.
-      name: ldap_attr
-      namespace: ''
-      version_added: null
   netconf: {}
   shell: {}
   strategy: {}
   test: {}
   vars: {}
-version: 2.5.0
+version: 2.6.0

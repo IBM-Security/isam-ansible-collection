@@ -165,9 +165,6 @@ releases:
     - 179-update_management_ssl_cert_failed.yml
     - 181-config_snmp_monitory.yml
     - fix_connectivity_check_playbook.yml
-    objects:
-      playbook: []
-      role: []
     release_date: '2023-07-28'
   1.1.0:
     changes:
@@ -192,9 +189,6 @@ releases:
     - 29-sync_roles_from_isam-ansible-roles.yml
     - faster_reverseproxy_junction_creation.yml
     - release_summary.yml
-    objects:
-      playbook: []
-      role: []
     release_date: '2024-03-01'
   1.1.1:
     changes:
@@ -227,8 +221,6 @@ releases:
     fragments:
     - 188-enable_tls_verification.yml
     - 189-use-of-baseinstall_fixpacks-role-fails.yml
-    objects:
-      playbook: []
     release_date: '2024-06-11'
   2.1.0:
     changes:
@@ -245,9 +237,6 @@ releases:
         '
     fragments:
     - extensions.yml
-    objects:
-      playbook: []
-      role: []
     release_date: '2024-10-14'
   2.2.0:
     changes:
@@ -291,9 +280,6 @@ releases:
     - new_roles.yml
     - refactoring_lint.yml
     - release_summary.yml
-    objects:
-      playbook: []
-      role: []
     release_date: '2024-10-18'
   2.3.0:
     changes:
@@ -320,8 +306,6 @@ releases:
       - first_steps - use ibm.isam.base.first_steps instead
     fragments:
     - fixes_from_projects.yml
-    objects:
-      role: []
     plugins:
       filter:
       - description: Rename keys in a dictionary
@@ -387,9 +371,6 @@ releases:
     - 118-broken-roles.yml
     - 406-new_apis.yml
     - release_summary_v2.4.0.yml
-    objects:
-      playbook: []
-      role: []
     release_date: '2025-01-17'
   2.5.0:
     changes:
@@ -407,6 +388,46 @@ releases:
     fragments:
     - container_roles.yml
     - release_summary.yml
-    objects:
-      role: []
     release_date: '2025-02-12'
+  2.6.0:
+    changes:
+      breaking_changes:
+      - set_ldap_user_attr - switch to community.general.ldap_attrs
+      deprecated_features:
+      - configure_instance_federations - does not work anyway
+      - ldap_attr.py - use community.general.ldap_attrs instead
+      known_issues:
+      - federation_cookbook playbooks are not up to date with latest IBM Federation
+        Cookbook
+      minor_changes:
+      - bootstrap_local - refactoring of variables
+      - config_reverseproxy_federation - just pass federation_name, not id
+      - configure_access_control_policies - rename attributesRequired to attributesrequired
+        (if necessary)
+      - federation_cookbook.fed_idp_part1.yml - update
+      - federation_cookbook.fed_idp_part2.yml - update
+      - federation_cookbook.fed_sp_part1.yml - update
+      - federation_cookbook.fed_sp_part2.yml - update
+      - filter/rename_key.py - moved a very chatty print statement
+      - molecule - update tests for federation cookbook
+      release_summary: 'New roles for AAC
+
+        Rewrite federation cookbook (first draft)
+
+        Remove old ldap_attr module
+
+        '
+      removed_features:
+      - ldap_attr.py - switch to community.general.ldap_attrs - this broke with python3
+    fragments:
+    - federation.yml
+    - mmfa.yml
+    objects:
+      role:
+      - description: Configure mmfa in AAC
+        name: ibm.isam.aac.configure_mmfa
+        namespace: null
+      - description: Configure AAC risk profiles
+        name: ibm.isam.aac.configure_risk_profiles
+        namespace: null
+    release_date: '2025-03-17'
