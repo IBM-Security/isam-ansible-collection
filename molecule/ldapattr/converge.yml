@@ -1,0 +1,17 @@
+- name: Modify LDAP user attributes
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Set attributes
+      import_role:
+        name: ibm.isam.set_ldap_user_attr
+      vars:
+        ldap_bind_dn: "cn=root,secAuthority=default"
+        ldap_bind_pw: "passw0rd"
+        ldap_server_uri: "ldaps://192.168.42.101:636/"
+        ldap_state: "exact"
+        ldap_user_attributes:
+          - dn: "uid=testuser,dc=iswga"
+            attributes:
+              - { "name": "mail", "values": "testuser@mailinator.com" }
+              - { "name": "displayName", "values": "Test User" }
