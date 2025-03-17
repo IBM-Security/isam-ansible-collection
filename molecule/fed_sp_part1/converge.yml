@@ -51,6 +51,13 @@
             ssl_compliance: "{{ inventory.ssl_compliance }}"
         policyserver_connection_inactivity: "{{ inventory.policyserver_connection_inactivity }}"
 
+    - name: Updating the easuser password # This needs to be here, otherwise the next steps will not work
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.set_pwd_user_registry
+      vars:
+        user_registry_id: "{{ inventory.easuser_registry_id }}"
+        user_registry_password: "{{ inventory.easuser_registry_password }}"
+
     - name: Flush
       ansible.builtin.meta: flush_handlers
 
@@ -74,7 +81,7 @@
         execute_rp_op_operation: "{{ inventory.execute_rp_op_operation }}"
 
     # 7 Create SAML 2.0 Service Provider federation
-    - name: "7.1 Uploading keystore files"
+    - name: 7.1 Uploading keystore files
       ansible.builtin.include_role:
         name: ibm.isam.import_certificate_db
       vars:
@@ -113,15 +120,10 @@
 
     # 8.2 ISAM Configuration for SP
     - name: 8.2.1 Configure Reverse Proxy for SP
-      ansible.builtin.include_role:
-        name: ibm.isam.config_reverseproxy_federation
+      ansible.builtin.import_role:
+        name: ibm.isam.web.config_reverseproxy_federations
       vars:
-        config_reverseproxy_federation_name: "{{ inventory.fed_name }}"
-        config_reverseproxy_federation_instance_id: "{{ inventory.inst_name }}"
-        config_reverseproxy_federation_hostname: "{{ inventory.config_reverseproxy_federation_hostname }}"
-        config_reverseproxy_federation_port: "{{ inventory.config_reverseproxy_federation_port }}"
-        config_reverseproxy_federation_reuse_certs: "{{ inventory.config_reverseproxy_federation_reuse_certs }}"
-        config_reverseproxy_federation_reuse_acls: "{{ inventory.config_reverseproxy_federation_reuse_acls }}"
+        instances: "{{ inventory.federation_instances }}"
 
     - name: 8.2.2 Environment-specific configuration
       ansible.builtin.include_role:
