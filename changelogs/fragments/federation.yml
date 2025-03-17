@@ -3,13 +3,20 @@ minor_changes:
   - molecule - update tests for federation cookbook
   - bootstrap_local - refactoring of variables
   - config_reverseproxy_federation - just pass federation_name, not id
+  - federation_cookbook.fed_idp_part1.yml - update
+  - federation_cookbook.fed_idp_part2.yml - update
+  - federation_cookbook.fed_sp_part1.yml - update
+  - federation_cookbook.fed_sp_part2.yml - update
 
 breaking_changes:
   - set_ldap_user_attr - switch to community.general.ldap_attrs
 
 removed_features:
-  - set_ldap_user_attr - switch to community.general.ldap_attrs - this broke with python3
+  - ldap_attr.py - switch to community.general.ldap_attrs - this broke with python3
 
 deprecated_features:
   - configure_instance_federations - does not work anyway
   - ldap_attr.py - use community.general.ldap_attrs instead
+
+known_issues:
+  - federation_cookbook playbooks are not up to date with latest IBM Federation Cookbook
