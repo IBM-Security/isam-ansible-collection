@@ -183,11 +183,11 @@
 
  # 14 Additional Relying Party configuration
     - name: 14.1 Load OpenID Connect Provider SSL Certificates
-      ansible.builtin.include_role:
+      ansible.builtin.import_role:
         name: ibm.isam.base.load_signer_certificates
       vars:
         load_signer_certificates: "{{ inventory.load_signer_certificates }}"
-      ignore_errors: true #noqa: ignore_errors
+      ignore_errors: true # noqa: ignore_errors
 
     - name: 14.2 Set credential response header
       ansible.builtin.include_role:
@@ -249,7 +249,7 @@
           }
 
     - name: "20.5 Scenario: EXTUSER authentication - create updated config obj"
-      set_fact:
+      ansible.builtin.set_fact:
         update_config_obj: "{{ inventory.set_federation_configuration | combine(id_mapping_obj) }}"
 
     - name: "20.5 Scenario: EXTUSER authentication - update the federation"
