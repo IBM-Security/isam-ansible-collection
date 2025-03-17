@@ -1,4 +1,9 @@
 ---
+release_summary: |
+  New roles for AAC
+  Rewrite federation cookbook (first draft)
+  Remove old ldap_attr module
+
 minor_changes:
   - configure_access_control_policies - rename attributesRequired to attributesrequired (if necessary)
   - filter/rename_key.py - moved a very chatty print statement
