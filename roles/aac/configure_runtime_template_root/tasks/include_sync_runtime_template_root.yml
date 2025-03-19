@@ -46,7 +46,7 @@
     directory_update_item: "{{ {'tmpl_action': 'create', 'type': create.state, 'path': ((item.target + '/' + create.path)
       | dirname) if (item.target != '') else (create.path | dirname), 'name': (create.path | basename)} }}"
   when: create.state == "directory"
-  with_community.general.filetree: "{{ ((homedir == '') | ternary('', homedir + '/')) }}{{ item.directory }}"
+  with_ibm.isam.filetree: "{{ ((homedir == '') | ternary('', homedir + '/')) }}{{ item.directory }}"
   loop_control:
     loop_var: create
     label: "{{ {'tmpl_action': 'create', 'type': create.state, 'path': ((item.target + '/' + create.path)
@@ -64,7 +64,7 @@
       if (item.target != '') else (upload.path), 'type': upload.state, 'file': upload.src} }}"
   when:
     - upload.state == "file"
-  with_community.general.filetree: "{{ ((homedir == '') | ternary('', homedir + '/')) }}{{ item.directory }}"
+  with_ibm.isam.filetree: "{{ ((homedir == '') | ternary('', homedir + '/')) }}{{ item.directory }}"
   loop_control:
     loop_var: upload
     label: "upload {{ upload.state | default('') }}, target: {{ item.target | default('') + '/' + upload.path }}, file: {{ upload.src | default('n/a') }}"
