@@ -1,0 +1,14 @@
+---
+minor_changes:
+  - update readme
+
+
+removed_features:
+  - set_ldap_user_attr - cannot use community.general in certified collections
+
+deprecated_features:
+  - set_ldap_user_attr - cannot use community.general in certified collections
+
+add plugin.lookup:
+  - name: filetree
+    description: Copy from community.general.filetree
