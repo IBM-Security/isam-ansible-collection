@@ -1,10 +1,15 @@
 ---
+release_summary: |
+  Refactoring for redhat certification
+
 minor_changes:
   - update readme
 
-
 removed_features:
   - set_ldap_user_attr - cannot use community.general in certified collections
+  - vmware/isam_install.yml - cannot use community.vmware in certified collection (documented in vmware/README.md)
+  - vmware/server_facts.yml - cannot use community.vmware in certified collection (documented in vmware/README.md)
+  - vmware/server_operation.yml - cannot use community.vmware in certified collection (documented in vmware/README.md)
 
 deprecated_features:
   - set_ldap_user_attr - cannot use community.general in certified collections
