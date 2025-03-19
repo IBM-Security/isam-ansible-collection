@@ -3,6 +3,8 @@
 - name: Configure authentication mapping mechanisms
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.aac.configure_authentication_mechanisms
+  tasks:
+    - name: Role ibm.isam.aac.configure_authentication_mechanisms
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_authentication_mechanisms
       tags: configure_authentication_mechanisms

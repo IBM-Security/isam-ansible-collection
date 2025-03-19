@@ -3,6 +3,8 @@
 - name: Configure policy information points
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.aac.configure_policy_information_points
+  tasks:
+    - name: Role ibm.isam.aac.configure_policy_information_points
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_policy_information_points
       tags: configure_policy_information_points

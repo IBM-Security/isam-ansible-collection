@@ -2,6 +2,8 @@
 # Configure
 - name: Configure user_registry
   hosts: "{{ hosts | default('all') }}"
-  roles:
-    - role: ibm.isam.aac.configure_user_registry
+  tasks:
+    - name: Role ibm.isam.aac.configure_user_registry
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_user_registry
       tags: configure_user_registry

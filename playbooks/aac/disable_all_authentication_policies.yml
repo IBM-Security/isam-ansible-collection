@@ -4,6 +4,8 @@
 - name: Disable all authentication policies
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.aac.disable_all_authentication_policies
+  tasks:
+    - name: Role ibm.isam.aac.disable_all_authentication_policies
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.disable_all_authentication_policies
       tags: disable_all_authentication_policies

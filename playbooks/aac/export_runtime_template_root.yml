@@ -5,6 +5,8 @@
 - name: Export runtime template root
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.aac.export_runtime_template_root
+  tasks:
+    - name: Role ibm.isam.aac.export_runtime_template_root
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.export_runtime_template_root
       tags: export_runtime_template_root

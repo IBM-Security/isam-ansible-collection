@@ -3,6 +3,8 @@
 - name: Configure server connections
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.aac.configure_server_connections
+  tasks:
+    - name: Role ibm.isam.aac.configure_server_connections
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_server_connections
       tags: configure_server_connections

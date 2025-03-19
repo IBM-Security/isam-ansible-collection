@@ -21,6 +21,8 @@
 - name: Configure access control attributes
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.aac.configure_access_control_attributes
+  tasks:
+    - name: Role ibm.isam.aac.configure_access_control_attributes
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_access_control_attributes
       tags: configure_access_control_attributes
