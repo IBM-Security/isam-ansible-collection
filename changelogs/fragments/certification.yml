@@ -22,3 +22,7 @@ deprecated_features:
 add plugin.lookup:
   - name: filetree
     description: Copy from community.general.filetree
+
+add object.playbook:
+  - name: get_container_metadata.yml
+    description: Get the metadata config for a container
