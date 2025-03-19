@@ -4,6 +4,8 @@
 - name: Configure certificate requests
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.configure_certificate_requests
+  tasks:
+    - name: Role ibm.isam.base.configure_certificate_requests
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_certificate_requests
       tags: configure_certificate_requests

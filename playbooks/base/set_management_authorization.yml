@@ -2,6 +2,8 @@
 - name: Configure appliance management authorization
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.set_management_authorization
+  tasks:
+    - name: Role ibm.isam.base.set_management_authorization
+      ansible.builtin.import_role:
+        name: ibm.isam.base.set_management_authorization
       tags: management_authorization

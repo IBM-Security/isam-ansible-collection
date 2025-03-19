@@ -3,6 +3,8 @@
 - name: Set host entries
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.set_host_records
+  tasks:
+    - name: Role ibm.isam.base.set_host_records
+      ansible.builtin.import_role:
+        name: ibm.isam.base.set_host_records
       tags: set_host_records

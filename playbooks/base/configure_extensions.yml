@@ -4,6 +4,8 @@
 - name: Configure extensions
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.configure_extensions
+  tasks:
+    - name: Role ibm.isam.base.configure_extensions
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_extensions
       tags: extensions

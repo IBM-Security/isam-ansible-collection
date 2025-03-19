@@ -3,6 +3,8 @@
 - name: Configure sysaccounts
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.configure_sysaccounts
+  tasks:
+    - name: Role ibm.isam.base.configure_sysaccounts
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_sysaccounts
       tags: configure_sysaccounts

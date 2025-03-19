@@ -4,6 +4,8 @@
 - name: Configure certificate databases
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.configure_certificate_databases
+  tasks:
+    - name: Role ibm.isam.base.configure_certificate_databases
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_certificate_databases
       tags: configure_certificate_databases

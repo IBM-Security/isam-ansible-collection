@@ -5,6 +5,8 @@
 - name: Upload updates
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.upload_updates
+  tasks:
+    - name: Role ibm.isam.base.upload_updates
+      ansible.builtin.import_role:
+        name: ibm.isam.base.upload_updates
       tags: upload_updates

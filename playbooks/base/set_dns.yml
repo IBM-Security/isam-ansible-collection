@@ -2,6 +2,8 @@
 - name: Configure dns servers
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.config_dns
+  tasks:
+    - name: Role ibm.isam.config_dns
+      ansible.builtin.import_role:
+        name: ibm.isam.config_dns
       tags: dns

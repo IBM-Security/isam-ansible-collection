@@ -3,6 +3,8 @@
 - name: Load signer certificates into corresponding certificate store
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.load_signer_certificates
+  tasks:
+    - name: Role ibm.isam.base.load_signer_certificates
+      ansible.builtin.import_role:
+        name: ibm.isam.base.load_signer_certificates
       tags: load_signer_certificates

@@ -9,6 +9,8 @@
 - name: Extract certificates
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.extract_certificates
+  tasks:
+    - name: Role ibm.isam.base.extract_certificates
+      ansible.builtin.import_role:
+        name: ibm.isam.base.extract_certificates
       tags: extract_certificates

@@ -3,6 +3,8 @@
 - name: Configure signer certificates
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.configure_signer_certificates
+  tasks:
+    - name: Role ibm.isam.base.configure_signer_certificates
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_signer_certificates
       tags: configure_signer_certificates

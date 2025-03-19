@@ -4,6 +4,8 @@
 - name: Configure containers
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.configure_container_container
+  tasks:
+    - name: Role ibm.isam.base.configure_container_container
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_container_container
       tags: container

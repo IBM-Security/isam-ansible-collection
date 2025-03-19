@@ -4,6 +4,8 @@
   hosts: "{{ hosts | default('all') }}"
   serial: "{{ serial | default('100%') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.configure_runtime_tunings
+  tasks:
+    - name: Role ibm.isam.base.configure_runtime_tunings
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_runtime_tunings
       tags: configure_runtime_tunings

@@ -6,6 +6,8 @@
 - name: Task name
   hosts: "{{ hosts | default('all') }}"
   gather_facts: False
-  roles:
-    - role: ibm.isam.base.playbook
+  tasks:
+    - name: Role ibm.isam.base.playbook
+      ansible.builtin.import_role:
+        name: ibm.isam.base.playbook
       tags: playbook

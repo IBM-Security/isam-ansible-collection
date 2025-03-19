@@ -9,6 +9,8 @@
 - name: Import personal certificates
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.import_personal_certificates
+  tasks:
+    - name: Role ibm.isam.base.import_personal_certificates
+      ansible.builtin.import_role:
+        name: ibm.isam.base.import_personal_certificates
       tags: import_personal_certificates

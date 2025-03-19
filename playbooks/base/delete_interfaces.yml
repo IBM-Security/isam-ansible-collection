@@ -17,6 +17,8 @@
 - name: Delete interfaces
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.delete_interfaces
+  tasks:
+    - name: Role ibm.isam.base.delete_interfaces
+      ansible.builtin.import_role:
+        name: ibm.isam.base.delete_interfaces
       tags: delete_interfaces

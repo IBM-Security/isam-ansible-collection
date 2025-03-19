@@ -7,6 +7,8 @@
 - name: Install fixpacks
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.install_fixpacks
+  tasks:
+    - name: Role ibm.isam.base.install_fixpacks
+      ansible.builtin.import_role:
+        name: ibm.isam.base.install_fixpacks
       tags: install_fixpacks

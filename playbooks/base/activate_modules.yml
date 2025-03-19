@@ -4,6 +4,8 @@
 - name: Activate multiple modules
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.activate_modules
+  tasks:
+    - name: Role ibm.isam.base.activate_modules
+      ansible.builtin.import_role:
+        name: ibm.isam.base.activate_modules
       tags: activate_modules

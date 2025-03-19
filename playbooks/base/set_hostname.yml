@@ -3,6 +3,8 @@
 - name: Configure appliance hostname
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.set_network_hostname
+  tasks:
+    - name: Role ibm.isam.set_network_hostname
+      ansible.builtin.import_role:
+        name: ibm.isam.set_network_hostname
       tags: hostname

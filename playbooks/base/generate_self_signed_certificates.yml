@@ -11,6 +11,8 @@
 - name: Generate self signed certificates
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.generate_self_signed_certificates
+  tasks:
+    - name: Role ibm.isam.base.generate_self_signed_certificates
+      ansible.builtin.import_role:
+        name: ibm.isam.base.generate_self_signed_certificates
       tags: generate_self_signed_certificates

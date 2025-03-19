@@ -4,6 +4,8 @@
   hosts: "{{ hosts | default('all') }}"
   connection: local
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.publish
+  tasks:
+    - name: Role ibm.isam.base.publish
+      ansible.builtin.import_role:
+        name: ibm.isam.base.publish
       tags: publish

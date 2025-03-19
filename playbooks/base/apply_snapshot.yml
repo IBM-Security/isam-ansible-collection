@@ -4,6 +4,8 @@
 - name: Apply snapshot
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.apply_snapshot
+  tasks:
+    - name: Role ibm.isam.base.apply_snapshot
+      ansible.builtin.import_role:
+        name: ibm.isam.base.apply_snapshot
       tags: snapshot

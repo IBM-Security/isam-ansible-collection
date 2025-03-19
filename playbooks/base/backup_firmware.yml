@@ -8,6 +8,8 @@
 - name: Backup active partition
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.backup_firmware
+  tasks:
+    - name: Role ibm.isam.base.backup_firmware
+      ansible.builtin.import_role:
+        name: ibm.isam.base.backup_firmware
       tags: backup_firmware
