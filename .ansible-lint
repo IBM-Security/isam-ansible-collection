@@ -16,7 +16,6 @@ exclude_paths:
   - changelogs/fragments
   - .config/
   - playbooks/base/template.yml
-  - playbooks/vmware
   - molecule/
 
 # parseable: true
@@ -27,8 +26,6 @@ verbosity: 1
 # Mock modules or roles in order to pass ansible-playbook --syntax-check
 mock_modules:
   - ibm.isam.isam
-  - community.vmware.vmware_guest
-  - community.vmware.vmware_vm_info
 
 mock_roles:
   - mocked_role
