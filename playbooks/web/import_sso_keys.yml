@@ -3,6 +3,8 @@
 - name: Import sso key files
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.import_sso_keys
+  tasks:
+    - name: Role ibm.isam.web.import_sso_keys
+      ansible.builtin.import_role:
+        name: ibm.isam.web.import_sso_keys
       tags: import_sso_keys

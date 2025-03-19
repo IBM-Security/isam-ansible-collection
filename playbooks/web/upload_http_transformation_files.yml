@@ -7,6 +7,8 @@
 - name: Upload http transformation files
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.upload_http_transformation_files
+  tasks:
+    - name: Role ibm.isam.web.upload_http_transformation_files
+      ansible.builtin.import_role:
+        name: ibm.isam.web.upload_http_transformation_files
       tags: upload_http_transformation_files

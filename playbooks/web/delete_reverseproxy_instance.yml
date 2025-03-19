@@ -3,6 +3,8 @@
 - name: Delete single reverse proxy instance
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.delete_reverseproxy_instance
+  tasks:
+    - name: Role ibm.isam.web.delete_reverseproxy_instance
+      ansible.builtin.import_role:
+        name: ibm.isam.web.delete_reverseproxy_instance
       tags: delete_reverseproxy_instance

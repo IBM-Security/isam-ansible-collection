@@ -3,6 +3,8 @@
 - name: Configure kerberos
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.configure_kerberos
+  tasks:
+    - name: Role ibm.isam.web.configure_kerberos
+      ansible.builtin.import_role:
+        name: ibm.isam.web.configure_kerberos
       tags: configure_kerberos

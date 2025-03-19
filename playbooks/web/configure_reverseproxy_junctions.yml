@@ -3,6 +3,8 @@
 - name: Configure reverse proxy junctions
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.configure_reverseproxy_junctions
+  tasks:
+    - name: Role ibm.isam.web.configure_reverseproxy_junctions
+      ansible.builtin.import_role:
+        name: ibm.isam.web.configure_reverseproxy_junctions
       tags: configure_reverseproxy_junctions

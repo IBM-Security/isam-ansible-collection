@@ -8,6 +8,8 @@
 - name: Update personal cert
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.import_personal_cert
+  tasks:
+    - name: Role ibm.isam.import_personal_cert
+      ansible.builtin.import_role:
+        name: ibm.isam.import_personal_cert
       tags: import_personal_cert

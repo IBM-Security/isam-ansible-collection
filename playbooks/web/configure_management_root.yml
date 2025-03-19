@@ -3,6 +3,8 @@
 #   upload management root files
 - name: Upload management root files
   hosts: "{{ hosts | default('all') }}"
-  roles:
-    - role: ibm.isam.web.configure_management_root
+  tasks:
+    - name: Role ibm.isam.web.configure_management_root
+      ansible.builtin.import_role:
+        name: ibm.isam.web.configure_management_root
       tags: configure_management_root

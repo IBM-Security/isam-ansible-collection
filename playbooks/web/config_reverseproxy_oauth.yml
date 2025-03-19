@@ -3,6 +3,8 @@
 - name: Configure reverse proxy oauth
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.config_reverseproxy_oauth
+  tasks:
+    - name: Role ibm.isam.web.config_reverseproxy_oauth
+      ansible.builtin.import_role:
+        name: ibm.isam.web.config_reverseproxy_oauth
       tags: config_reverseproxy_oauth

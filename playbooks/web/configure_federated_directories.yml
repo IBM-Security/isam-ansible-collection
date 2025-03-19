@@ -8,6 +8,8 @@
 - name: Configure federated directories
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.configure_federated_directories
+  tasks:
+    - name: Role ibm.isam.web.configure_federated_directories
+      ansible.builtin.import_role:
+        name: ibm.isam.web.configure_federated_directories
       tags: configure_federated_directories

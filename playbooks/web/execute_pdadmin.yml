@@ -3,6 +3,8 @@
 - name: Set default id and password for the embedded LDAP user
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.execute_pdadmin
+  tasks:
+    - name: Role ibm.isam.web.execute_pdadmin
+      ansible.builtin.import_role:
+        name: ibm.isam.web.execute_pdadmin
       tags: execute_pdadmin

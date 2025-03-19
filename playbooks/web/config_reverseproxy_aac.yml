@@ -3,6 +3,8 @@
 - name: Configure reverse proxy aac
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.config_reverseproxy_aac
+  tasks:
+    - name: Role ibm.isam.web.config_reverseproxy_aac
+      ansible.builtin.import_role:
+        name: ibm.isam.web.config_reverseproxy_aac
       tags: config_reverseproxy_aac
