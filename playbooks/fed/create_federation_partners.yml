@@ -25,6 +25,8 @@
 - name: Create federation partners
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.fed.create_federation_partners
+  tasks:
+    - name: Role ibm.isam.fed.create_federation_partners
+      ansible.builtin.import_role:
+        name: ibm.isam.fed.create_federation_partners
       tags: create_federation_partners
