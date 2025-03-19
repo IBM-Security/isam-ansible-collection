@@ -10,6 +10,10 @@
     - name: master_password
       prompt: Enter password to login to master appliance
       private: true
-  roles:
-    - role: ibm.isam.execute_compare
-      when: master_hostname is defined and master_hostname != inventory_hostname
+  tasks:
+    - name: Role ibm.isam.execute_compare
+      import_role:
+        name: ibm.isam.execute_compare
+      when:
+        - master_hostname is defined
+        - master_hostname != inventory_hostname

@@ -4,20 +4,26 @@
 - name: Setup and enable system alerts with a rsyslog server as the destination
   hosts: all
   gather_facts: false
-  roles:
-    - role: add_system_alerts_rsyslog
+  tasks:
+    - name: Role ibm.isam.add_system_alerts_rsyslog
+      ansible.builtin.import_role:
+        name: ibm.isam.add_system_alerts_rsyslog
       tags: [system alerts, rsyslog]
 
 - name: Setup and enable system alerts with a SNMP as the destination
   hosts: all
   gather_facts: false
-  roles:
-    - role: add_system_alerts_snmp
+  tasks:
+    - name: Role ibm.isam.add_system_alerts_snmp
+      ansible.builtin.import_role:
+        name: ibm.isam.add_system_alerts_snmp
       tags: [system alerts, snmp]
 
 - name: Setup and enable system alerts with a SMTP as the destination
   hosts: all
   gather_facts: false
-  roles:
-    - role: add_system_alerts_smtp
+  tasks:
+    - name: Role ibm.isam.add_system_alerts_smtp
+      ansible.builtin.import_role:
+        name: ibm.isam.add_system_alerts_smtp
       tags: [system alerts, smtp]

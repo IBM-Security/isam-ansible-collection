@@ -1,15 +1,18 @@
 ---
 # Create a Report on CPU Usage
-
 - name: Get CPU Details
   hosts: all
   no_log: true
   vars:
     log_level: CRITICAL
-  roles:
-    - role: ibm.isam.get_cpu_statistics
-      statistics_duration: 6d
+    statistics_duration: 6d
+    gen_report_template: report_cpu_statistics.csv
+    gen_report_dir: "~"
+  tasks:
+    - name: Role ibm.isam.get_cpu_statistics
+      ansible.builtin.import_role:
+        name: ibm.isam.get_cpu_statistics
 
-    - role: ibm.isam.gen_report
-      gen_report_template: report_cpu_statistics.csv
-      gen_report_dir: "~"
+    - name: Role ibm.isam.gen_report
+      ansible.builtin.import_role:
+        name: ibm.isam.gen_report

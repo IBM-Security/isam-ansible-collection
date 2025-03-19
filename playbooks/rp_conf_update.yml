@@ -4,11 +4,17 @@
 - name: Update RP Entry
   hosts: boulder_primary
   gather_facts: false
-  roles:
-    - role: ibm.isam.update_reverseproxy_conf
-      update_reverseproxy_conf_reverseproxy_id: "{{ reverseproxy_instance_name | default('default') }}"
-      update_reverseproxy_conf_entries:
-        - stanza_id: "{{ stanza_id | default(None) }}"
-          entry_id: "{{ entry_id  | default(None) }}"
-          value_id: "{{ value_id  | default(None) }}"
-      when: stanza_id is defined and entry_id is defined and value_id is defined
+  tasks:
+    - name: Role ibm.isam.update_reverseproxy_conf
+      ansible.builtin.import_role:
+        name: ibm.isam.update_reverseproxy_conf
+      vars:
+        update_reverseproxy_conf_reverseproxy_id: "{{ reverseproxy_instance_name | default('default') }}"
+        update_reverseproxy_conf_entries:
+          - stanza_id: "{{ stanza_id | default(None) }}"
+            entry_id: "{{ entry_id  | default(None) }}"
+            value_id: "{{ value_id  | default(None) }}"
+      when:
+        - stanza_id is defined
+        - entry_id is defined
+        - value_id is defined

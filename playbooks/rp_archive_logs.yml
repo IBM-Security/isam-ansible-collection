@@ -4,8 +4,11 @@
 - name: Archive Reverse Proxy Logs
   hosts: all
   gather_facts: false
-  roles:
-    - role: ibm.isam.archive_logs
-      archive_logs_instance_id: "{{ reverseproxy_instance_name }}"
-      archive_logs_directory: /tmp
-      archive_logs_delete: false
+  tasks:
+    - name: Role ibm.isam.archive_logs
+      ansible.builtin.import_role:
+        name: ibm.isam.archive_logs
+      vars:
+        archive_logs_instance_id: "{{ reverseproxy_instance_name }}"
+        archive_logs_directory: /tmp
+        archive_logs_delete: false

@@ -6,9 +6,12 @@
   gather_facts: false
   vars:
     pdadmin_commands: "{{ lookup('file', pdadmin_file) }}"
-  roles:
-    - role: ibm.isam.execute_pdadmin
-      execute_pdadmin_domain: Default
-      execute_pdadmin_commands: "{{ pdadmin_commands }}"
-      execute_pdadmin_isamuser: "{{ sec_master_id }}"
-      execute_pdadmin_isampwd: "{{ sec_master_pwd }}"
+  tasks:
+    - name: Role ibm.isam.execute_pdadmin
+      import_role:
+        name: ibm.isam.execute_pdadmin
+      vars:
+        execute_pdadmin_domain: Default
+        execute_pdadmin_commands: "{{ pdadmin_commands }}"
+        execute_pdadmin_isamuser: "{{ sec_master_id }}"
+        execute_pdadmin_isampwd: "{{ sec_master_pwd }}"

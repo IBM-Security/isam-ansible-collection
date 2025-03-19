@@ -3,10 +3,15 @@
 - name: Restart Reverse Proxy
   hosts: all
   gather_facts: false
-  roles:
-    - role: ibm.isam.get_reverseproxies
+  tasks:
+    - name: Role ibm.isam.get_reverseproxies
+      ansible.builtin.import_role:
+        name: ibm.isam.get_reverseproxies
 
-    - role: ibm.isam.execute_rp_op
-      execute_rp_op_ids: "{{ reverseproxy_ret_obj['data'] }}"
-      # Override as needed
-      execute_rp_op_operation: stop
+    - name: Role ibm.isam.execute_rp_op
+      ansible.builtin.import_role:
+        name: ibm.isam.execute_rp_op
+      vars:
+        execute_rp_op_ids: "{{ reverseproxy_ret_obj['data'] }}"
+        # Override as needed
+        execute_rp_op_operation: stop

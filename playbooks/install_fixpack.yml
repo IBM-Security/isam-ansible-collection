@@ -2,12 +2,11 @@
 # Install fixpack
 # Need to necessarily pass fixpack filename like so:
 #   install_fixpack_file: "/tmp/9021_IF1.fixpack"
-
 - name: Apply given Fixpack to all Appliances
   hosts: all
   gather_facts: false
-  roles:
-    # Install Fixpack
-    - role: ibm.isam.install_fixpack
-      install_fixpack_file: /home/python/9021_IF1.fixpack
+  tasks:
+    - name: Install Fixpack
+      import_role:
+        name: ibm.isam.install_fixpack
       when: install_fixpack_file is defined
