@@ -97,7 +97,7 @@
         headers:
           Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
       register: rest_post
-      ignore_errors: true
+      ignore_errors: true # noqa: ignore-errors
 
     - name: 10.2 Authorize Access to Mobile Demo Application - update acls
       ansible.builtin.include_role:
