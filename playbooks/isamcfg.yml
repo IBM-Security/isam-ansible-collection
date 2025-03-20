@@ -3,7 +3,7 @@
   hosts: all
   tasks:
     - name: Assumes hostname and port are localhost and 443 respectively
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.config_reverseproxy_aac
       tags: [reverseproxy, aac, config, isamcfg]
       vars:

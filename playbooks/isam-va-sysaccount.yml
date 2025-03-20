@@ -3,11 +3,11 @@
   hosts: all
   tasks:
     - name: Create group account
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.add_sysaccount_group
       tags: [system account, group]
 
     - name: Create user account
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.add_sysaccount_user
       tags: [system account, user]

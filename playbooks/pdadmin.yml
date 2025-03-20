@@ -8,7 +8,7 @@
     pdadmin_commands: "{{ lookup('file', pdadmin_file) }}"
   tasks:
     - name: Role ibm.isam.execute_pdadmin
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.execute_pdadmin
       vars:
         execute_pdadmin_domain: Default

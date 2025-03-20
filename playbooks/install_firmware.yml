@@ -11,7 +11,7 @@
   gather_facts: false
   tasks:
     - name: Install Firmware
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.install_firmware
       when:
         - install_firmware_file is defined

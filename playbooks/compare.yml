@@ -12,7 +12,7 @@
       private: true
   tasks:
     - name: Role ibm.isam.execute_compare
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.execute_compare
       when:
         - master_hostname is defined

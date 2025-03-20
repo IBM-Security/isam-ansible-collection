@@ -35,7 +35,7 @@
           signatureSettings: "{{ partner_signatureSettings_json }}"
 
     - name: "9.2 Configuring Partner for the IdP - update encryptionSettings in temp partner json"
-      set_fact:
+      ansible.builtin.set_fact:
         partner_encryptionSettings_json: "{{  ret_obj.data.configuration.encryptionSettings | combine(inventory.configuration.encryptionSettings) }}"
 
     - name: 9.2 Configuring Partner for the IdP - create new_encryptionSettings_json
