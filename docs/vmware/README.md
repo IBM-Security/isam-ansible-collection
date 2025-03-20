@@ -1,8 +1,6 @@
 # VMWARE
 
-This subdirectory houses example playbooks for tasks at the vmware hypervisor layer.
-
-The playbooks that were here, have been removed.
+These are example playbooks for tasks at the vmware hypervisor layer.
 
 ## isam_install.yml
 
