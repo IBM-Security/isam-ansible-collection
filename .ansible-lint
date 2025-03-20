@@ -1,6 +1,6 @@
 ---
 # .ansible-lint
-profile: moderate # min, basic, moderate,safety, shared, production
+profile: production # min, basic, moderate,safety, shared, production
 
 # Allows dumping of results in SARIF format
 # sarif_file: result.sarif
@@ -17,7 +17,7 @@ exclude_paths:
   - .config/
   - playbooks/base/template.yml
   - molecule/
-  - meta/
+  - meta/execution-environment.yml
 
 # parseable: true
 # quiet: true
