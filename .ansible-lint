@@ -17,6 +17,7 @@ exclude_paths:
   - .config/
   - playbooks/base/template.yml
   - molecule/
+  - meta/
 
 # parseable: true
 # quiet: true

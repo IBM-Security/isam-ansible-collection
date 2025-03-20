@@ -111,11 +111,11 @@ However, the collection now includes a playbook that you can use to check if it 
 
 ### Complete configuration
 
-The [base_site.yml](playbooks/base_site.yml) playbook provides an example for basic appliance configuration.
+The [base_site.yml](https://github.com/IBM-Security/isam-ansible-collection/blob/master/playbooks/base_site.yml) playbook provides an example for basic appliance configuration.
 
 ### Cluster configuration
 
-The [site.yml](playbooks/site.yml) playbook provides an example for a clustered IVIA setup.
+The [site.yml](https://github.com/IBM-Security/isam-ansible-collection/blob/master/playbooks/site.yml) playbook provides an example for a clustered IVIA setup.
 
 ## Testing
 
