@@ -1,6 +1,6 @@
 ---
 release_summary: |
-  Refactoring for redhat certification
+  Refactoring for red hat automation hub certification
 
 minor_changes:
   - refactor - removed dependency on community.general
@@ -10,12 +10,13 @@ minor_changes:
   - playbooks/fed - refactored roles to tasks
   - playbooks/web - refactored roles to tasks
   - meta/execution-environment.yml - information to build a custom execution environment
+  - update readme
 
 removed_features:
   - set_ldap_user_attr - cannot use community.general in certified collections
-  - vmware/isam_install.yml - cannot use community.vmware in certified collection (documented in vmware/README.md)
-  - vmware/server_facts.yml - cannot use community.vmware in certified collection (documented in vmware/README.md)
-  - vmware/server_operation.yml - cannot use community.vmware in certified collection (documented in vmware/README.md)
+  - vmware/isam_install.yml - cannot use community.vmware in certified collection (documented in docs/vmware/README.md)
+  - vmware/server_facts.yml - cannot use community.vmware in certified collection (documented in docs/vmware/README.md)
+  - vmware/server_operation.yml - cannot use community.vmware in certified collection (documented in docs/vmware/README.md)
 
 deprecated_features:
   - set_ldap_user_attr - cannot use community.general in certified collections
