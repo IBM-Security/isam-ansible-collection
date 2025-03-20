@@ -2,6 +2,8 @@
 - name: First Steps
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.first_steps
+  tasks:
+    - name: Role ibm.isam.base.first_steps
+      ansible.builtin.import_role:
+        name: ibm.isam.base.first_steps
       tags: first_steps

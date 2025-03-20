@@ -9,6 +9,8 @@
 - name: Configure access control policy resources
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.aac.configure_access_control_policy_resources
+  tasks:
+    - name: Role ibm.isam.aac.configure_access_control_policy_resources
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_access_control_policy_resources
       tags: configure_access_control_policy_resources

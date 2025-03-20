@@ -4,121 +4,177 @@
 - name: Apply Common Configuration to all Appliances
   hosts: all
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.first_steps
+  tasks:
+    - name: Role ibm.isam.base.first_steps
+      ansible.builtin.import_role:
+        name: ibm.isam.base.first_steps
       tags: [first, steps]
-    - role: ibm.isam.sanity_checks
+    - name: Role ibm.isam.sanity_checks
+      ansible.builtin.import_role:
+        name: ibm.isam.sanity_checks
       tags: [sanity]
-    - role: ibm.isam.add_network_ipv4
+    - name: Role ibm.isam.add_network_ipv4
+      ansible.builtin.import_role:
+        name: ibm.isam.add_network_ipv4
       tags: [ipv4]
-      add_network_ipv4_label: "1.1"
-      add_network_ipv4_address: "{{ ipv4_1_1_ip_address }}"
-      add_network_ipv4_maskOrPrefix: "{{ ipv4_1_1_ip_mask }}"
-      add_network_ipv4_allowManagement: true
+      vars:
+        add_network_ipv4_label: "1.1"
+        add_network_ipv4_address: "{{ ipv4_1_1_ip_address }}"
+        add_network_ipv4_maskOrPrefix: "{{ ipv4_1_1_ip_mask }}"
+        add_network_ipv4_allowManagement: true
       when: ipv4_1_1_ip_address is defined
-    - role: ibm.isam.set_network_ipv4_dhcp
+    - name: Role ibm.isam.set_network_ipv4_dhcp
+      ansible.builtin.import_role:
+        name: ibm.isam.set_network_ipv4_dhcp
       tags: [dhcp]
-      set_network_ipv4_dhcp_label: "1.1"
-      set_network_ipv4_dhcp_allowManagement: false
-      set_network_ipv4_dhcp_enabled: false
-      set_network_ipv4_dhcp_providesDefaultRoute: false
+      vars:
+        set_network_ipv4_dhcp_label: "1.1"
+        set_network_ipv4_dhcp_allowManagement: false
+        set_network_ipv4_dhcp_enabled: false
+        set_network_ipv4_dhcp_providesDefaultRoute: false
       when: ipv4_1_1_ip_address is defined
-    - role: ibm.isam.add_network_ipv4
+    - name: Role ibm.isam.add_network_ipv4
+      ansible.builtin.import_role:
+        name: ibm.isam.add_network_ipv4
       tags: [ipv4]
-      add_network_ipv4_label: "1.2"
-      add_network_ipv4_address: "{{ ipv4_1_2_ip_address }}"
-      add_network_ipv4_maskOrPrefix: "{{ ipv4_1_2_ip_mask }}"
-      add_network_ipv4_allowManagement: false
+      vars:
+        add_network_ipv4_label: "1.2"
+        add_network_ipv4_address: "{{ ipv4_1_2_ip_address }}"
+        add_network_ipv4_maskOrPrefix: "{{ ipv4_1_2_ip_mask }}"
+        add_network_ipv4_allowManagement: false
       when: ipv4_1_1_ip_address is defined
-    - role: ibm.isam.set_network_hostname
+    - name: Role ibm.isam.set_network_hostname
+      ansible.builtin.import_role:
+        name: ibm.isam.set_network_hostname
       tags: [hostname]
-      set_network_hostname_hostname: "{{ appliance_name }}"
-    - role: ibm.isam.config_dns
+      vars:
+        set_network_hostname_hostname: "{{ appliance_name }}"
+    - name: Role ibm.isam.config_dns
+      ansible.builtin.import_role:
+        name: ibm.isam.config_dns
       tags: [dns]
-    - role: ibm.isam.config_ntp
+    - name: Role ibm.isam.config_ntp
+      ansible.builtin.import_role:
+        name: ibm.isam.config_ntp
       tags: [ntp]
-    - role: ibm.isam.set_host_records
+    - name: Role ibm.isam.set_host_records
+      ansible.builtin.import_role:
+        name: ibm.isam.set_host_records
       tags: [host, records]
-      set_host_records:
-        - addr: 192.168.198.144
-          hostnames:
-            - { name: isam1.ibm.com }
-            - { name: isam1 }
-        - addr: 192.168.198.145
-          hostnames:
-            - { name: isam2.ibm.com }
-            - { name: isam2 }
-        - addr: 192.168.198.153
-          hostnames:
-            - { name: isam3.ibm.com }
-            - { name: isam3 }
-    - role: ibm.isam.config_snmp_monitoring
+      vars:
+        set_host_records:
+          - addr: 192.168.198.144
+            hostnames:
+              - { name: isam1.ibm.com }
+              - { name: isam1 }
+          - addr: 192.168.198.145
+            hostnames:
+              - { name: isam2.ibm.com }
+              - { name: isam2 }
+          - addr: 192.168.198.153
+            hostnames:
+              - { name: isam3.ibm.com }
+              - { name: isam3 }
+    - name: Role ibm.isam.config_snmp_monitoring
+      ansible.builtin.import_role:
+        name: ibm.isam.config_snmp_monitoring
       tags: [snmp]
-      config_snmp_monitoring_community: ibm
-      config_snmp_monitoring_port: 161
-    - role: ibm.isam.activate_module
+      vars:
+        config_snmp_monitoring_community: ibm
+        config_snmp_monitoring_port: 161
+    - name: Role ibm.isam.activate_module
+      ansible.builtin.import_role:
+        name: ibm.isam.activate_module
       tags: [activate, wga]
-      activate_module_id: wga
-      activate_module_code: "{{ lookup('file', '/Users/ram/Documents/Work/Software/ISAM_90_ACTIVATION_CODE_MP_ML.txt') }}"
+      vars:
+        activate_module_id: wga
+        activate_module_code: "{{ lookup('file', '/Users/ram/Documents/Work/Software/ISAM_90_ACTIVATION_CODE_MP_ML.txt') }}"
 
 - name: Setup Primary Appliance
   hosts: primary
   gather_facts: false
-  roles:
-    - role: ibm.isam.config_policyserver
+  tasks:
+    - name: Role ibm.isam.config_policyserver
+      ansible.builtin.import_role:
+        name: ibm.isam.config_policyserver
       tags: [policyserver, config]
-      config_policyserver_admin_pwd: "{{ sec_master_pwd }}"
-      config_policyserver_ldap_pwd: passw0rd
-    - role: ibm.isam.set_cluster_config
-      set_cluster_config_primary_master: "{{ ipv4_1_1_ip_address }}"
-    - role: ibm.isam.set_cert_replication
+      vars:
+        config_policyserver_admin_pwd: "{{ sec_master_pwd }}"
+        config_policyserver_ldap_pwd: passw0rd
+    - name: Role ibm.isam.set_cluster_config
+      ansible.builtin.import_role:
+        name: ibm.isam.set_cluster_config
+      vars:
+        set_cluster_config_primary_master: "{{ ipv4_1_1_ip_address }}"
+    - name: Role ibm.isam.set_cert_replication
+      ansible.builtin.import_role:
+        name: ibm.isam.set_cert_replication
       tags: [certificate, replication]
-    - role: ibm.isam.set_runtime_replication
+    - name: Role ibm.isam.set_runtime_replication
+      ansible.builtin.import_role:
+        name: ibm.isam.set_runtime_replication
       tags: [runtime, replication]
-    - role: ibm.isam.export_cluster_sign
-      export_cluster_sign_filename: /Users/ram/Documents/Work/TechAcademy/primary.sign
+    - name: Role ibm.isam.export_cluster_sign
+      ansible.builtin.import_role:
+        name: ibm.isam.export_cluster_sign
+      vars:
+        export_cluster_sign_filename: /Users/ram/Documents/Work/TechAcademy/primary.sign
 
 - name: Setup Restricted Appliances
   hosts: restricted
   gather_facts: false
   vars:
     reverseproxy_instance_name: default
-  roles:
-    - role: ibm.isam.add_cluster_node
+  tasks:
+    - name: Role ibm.isam.add_cluster_node
+      ansible.builtin.import_role:
+        name: ibm.isam.add_cluster_node
       tags: [cluster, add]
-      add_cluster_node_signature_file: /Users/ram/Documents/Work/TechAcademy/primary.sign
-      add_cluster_node_restricted: true
-    - role: ibm.isam.set_tcpip_tuning
+      vars:
+        add_cluster_node_signature_file: /Users/ram/Documents/Work/TechAcademy/primary.sign
+        add_cluster_node_restricted: true
+    - name: Role ibm.isam.set_tcpip_tuning
+      ansible.builtin.import_role:
+        name: ibm.isam.set_tcpip_tuning
       tags: [tcpip]
-    - role: ibm.isam.create_reverseproxy
+    - name: Role ibm.isam.create_reverseproxy
+      ansible.builtin.import_role:
+        name: ibm.isam.create_reverseproxy
       tags: [reverseproxy, create]
-      create_reverseproxy_host: "{{ appliance_name.split('.')[0] }}"
-      create_reverseproxy_inst_name: "{{ reverseproxy_instance_name }}"
-      create_reverseproxy_ip_address: "{{ ipv4_1_2_ip_address }}"
-      create_reverseproxy_admin_id: "{{ sec_master_id }}"
-      create_reverseproxy_admin_pwd: "{{ sec_master_pwd }}"
+      vars:
+        create_reverseproxy_host: "{{ appliance_name.split('.')[0] }}"
+        create_reverseproxy_inst_name: "{{ reverseproxy_instance_name }}"
+        create_reverseproxy_ip_address: "{{ ipv4_1_2_ip_address }}"
+        create_reverseproxy_admin_id: "{{ sec_master_id }}"
+        create_reverseproxy_admin_pwd: "{{ sec_master_pwd }}"
 
 - name: Setup Primary Appliance
   hosts: primary
   gather_facts: false
-  roles:
-    - role: ibm.isam.execute_pdadmin
+  tasks:
+    - name: Role ibm.isam.execute_pdadmin
+      ansible.builtin.import_role:
+        name: ibm.isam.execute_pdadmin
       tags: [pdadmin, object, create]
-      execute_pdadmin_commands:
-        - object create /WebSEAL/ibm "Common Web Root for all Reverse Proxies" 5 ispolicyattachable yes
-      execute_pdadmin_isamuser: "{{ sec_master_id }}"
-      execute_pdadmin_isampwd: "{{ sec_master_pwd }}"
+      vars:
+        execute_pdadmin_commands:
+          - object create /WebSEAL/ibm "Common Web Root for all Reverse Proxies" 5 ispolicyattachable yes
+        execute_pdadmin_isamuser: "{{ sec_master_id }}"
+        execute_pdadmin_isampwd: "{{ sec_master_pwd }}"
 
 - name: Setup Restricted Appliances
   hosts: restricted
   gather_facts: false
   vars:
     reverseproxy_instance_name: default
-  roles:
-    - role: ibm.isam.update_reverseproxy_conf
+  tasks:
+    - name: Role ibm.isam.update_reverseproxy_conf
+      ansible.builtin.import_role:
+        name: ibm.isam.update_reverseproxy_conf
       tags: [reverseproxy, update]
-      update_reverseproxy_conf_reverseproxy_id: "{{ reverseproxy_instance_name }}"
-      update_reverseproxy_conf_entries:
-        - stanza_id: server
-          entry_id: server-name
-          value_id: ibm
+      vars:
+        update_reverseproxy_conf_reverseproxy_id: "{{ reverseproxy_instance_name }}"
+        update_reverseproxy_conf_entries:
+          - stanza_id: server
+            entry_id: server-name
+            value_id: ibm

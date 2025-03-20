@@ -6,6 +6,8 @@
 - name: Set user registry user password
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.set_embedded_ldap_user
+  tasks:
+    - name: Role ibm.isam.web.set_embedded_ldap_user
+      ansible.builtin.import_role:
+        name: ibm.isam.web.set_embedded_ldap_user
       tags: set_ldap_user_pw

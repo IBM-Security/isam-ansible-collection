@@ -53,7 +53,7 @@
   register: base_metadata_out
 
 - name: Print out
-  debug:
+  ansible.builtin.debug:
     msg: "{{ base_metadata_out }}"
   when:
     - base_metadata_name is not defined
@@ -70,7 +70,7 @@
   register: base_metadata_out
 
 - name: Print out
-  debug:
+  ansible.builtin.debug:
     msg: "{{ base_metadata_out }}"
   when:
     - base_metadata_name is defined

@@ -7,6 +7,8 @@
 - name: Update jmt files
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.update_jmt_files
+  tasks:
+    - name: Role ibm.isam.web.update_jmt_files
+      ansible.builtin.import_role:
+        name: ibm.isam.web.update_jmt_files
       tags: update_jmt_files

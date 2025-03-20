@@ -1,0 +1,10 @@
+# necessary for ibmsecurity:
+python39-devel
+openldap-devel
+gcc
+glibc-devel
+make [platform:rpm]
+# support for git based repositories
+git [platform:rpm]
+# support for libselinux
+python3-libselinux

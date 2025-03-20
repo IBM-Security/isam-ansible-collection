@@ -3,6 +3,8 @@
 - name: Restart reverse proxy instances
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.restart_reverseproxy_instances
+  tasks:
+    - name: Role ibm.isam.web.restart_reverseproxy_instances
+      ansible.builtin.import_role:
+        name: ibm.isam.web.restart_reverseproxy_instances
       tags: restart_reverseproxy_instance

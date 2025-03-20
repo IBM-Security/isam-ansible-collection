@@ -4,6 +4,8 @@
 - name: Configure an ISAM Policy Server
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.configure_policyserver
+  tasks:
+    - name: Role ibm.isam.web.configure_policyserver
+      ansible.builtin.import_role:
+        name: ibm.isam.web.configure_policyserver
       tags: configure_policyserver

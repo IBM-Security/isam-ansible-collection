@@ -7,6 +7,8 @@
 - name: Upload jmt files
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.upload_jmt_files
+  tasks:
+    - name: Role ibm.isam.web.upload_jmt_files
+      ansible.builtin.import_role:
+        name: ibm.isam.web.upload_jmt_files
       tags: upload_jmt_files

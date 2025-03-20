@@ -38,7 +38,11 @@ plugins:
       version_added: historical
   httpapi: {}
   inventory: {}
-  lookup: {}
+  lookup:
+    filetree:
+      description: recursively match all files in a directory tree
+      name: filetree
+      version_added: null
   module:
     isam:
       description: This module will make calls to connection
@@ -60,4 +64,4 @@ plugins:
   strategy: {}
   test: {}
   vars: {}
-version: 2.6.0
+version: 3.0.0

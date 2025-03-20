@@ -2,6 +2,8 @@
 # Configure
 - name: Configure time for appliance
   hosts: "{{ hosts | default('all') }}"
-  roles:
-    - role: ibm.isam.base.configure_time
+  tasks:
+    - name: Role ibm.isam.base.configure_time
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_time
       tags: configure_time

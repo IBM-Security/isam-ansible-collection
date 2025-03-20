@@ -2,6 +2,8 @@
 # configure
 - name: Configure runtime template root
   hosts: "{{ hosts | default('all') }}"
-  roles:
-    - role: ibm.isam.aac.configure_runtime_template_root
+  tasks:
+    - name: Role ibm.isam.aac.configure_runtime_template_root
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_runtime_template_root
       tags: configure_runtime_template_root

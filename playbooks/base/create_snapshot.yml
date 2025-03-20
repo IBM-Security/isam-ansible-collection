@@ -3,6 +3,8 @@
 - name: Create snapshot
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.create_snapshot
+  tasks:
+    - name: Role ibm.isam.base.create_snapshot
+      ansible.builtin.import_role:
+        name: ibm.isam.base.create_snapshot
       tags: snapshot

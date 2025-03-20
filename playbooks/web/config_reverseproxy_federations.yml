@@ -3,6 +3,8 @@
 - name: Configure reverse proxy federations
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.config_reverseproxy_federations
+  tasks:
+    - name: Role ibm.isam.web.config_reverseproxy_federations
+      ansible.builtin.import_role:
+        name: ibm.isam.web.config_reverseproxy_federations
       tags: config_reverseproxy_federations

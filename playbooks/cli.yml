@@ -2,5 +2,7 @@
 # Execute CLI (unsure what this does)
 - name: Execute CLI Command
   hosts: all
-  roles:
-    - role: ibm.isam.base.execute_cli
+  tasks:
+    - name: Execute_cli
+      ansible.builtin.import_role:
+        name: ibm.isam.base.execute_cli

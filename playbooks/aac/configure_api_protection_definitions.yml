@@ -12,6 +12,8 @@
 - name: Configure api protection definitions
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.aac.configure_api_protection_definitions
+  tasks:
+    - name: Role ibm.isam.aac.configure_api_protection_definitions
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_api_protection_definitions
       tags: configure_api_protection_definitions

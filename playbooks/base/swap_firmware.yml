@@ -8,6 +8,8 @@
 - name: Swap to inactive partition
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.swap_firmware
+  tasks:
+    - name: Role ibm.isam.base.swap_firmware
+      ansible.builtin.import_role:
+        name: ibm.isam.base.swap_firmware
       tags: swap_firmware

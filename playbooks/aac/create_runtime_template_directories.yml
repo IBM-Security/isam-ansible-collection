@@ -7,6 +7,8 @@
 - name: Create runtime template directory
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.create_runtime_template_directories
+  tasks:
+    - name: Role ibm.isam.create_runtime_template_directories
+      ansible.builtin.import_role:
+        name: ibm.isam.create_runtime_template_directories
       tags: create_runtime_template_directories

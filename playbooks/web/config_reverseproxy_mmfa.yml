@@ -3,6 +3,8 @@
 - name: Configure reverse proxy mmfa
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.config_reverseproxy_mmfa
+  tasks:
+    - name: Role ibm.isam.web.config_reverseproxy_mmfa
+      ansible.builtin.import_role:
+        name: ibm.isam.web.config_reverseproxy_mmfa
       tags: config_reverseproxy_mmfa

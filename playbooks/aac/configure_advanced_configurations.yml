@@ -30,6 +30,8 @@
 - name: Configure advanced configurations
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.aac.update_advanced_configurations
+  tasks:
+    - name: Role ibm.isam.aac.update_advanced_configurations
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.update_advanced_configurations
       tags: update_advanced_configurations

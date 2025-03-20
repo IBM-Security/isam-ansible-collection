@@ -7,6 +7,8 @@
 - name: Upload ltpa files
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.upload_ltpa_files
+  tasks:
+    - name: Role ibm.isam.web.upload_ltpa_files
+      ansible.builtin.import_role:
+        name: ibm.isam.web.upload_ltpa_files
       tags: upload_ltpa_files

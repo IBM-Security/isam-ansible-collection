@@ -9,7 +9,11 @@
 - name: Upgrade all Appliances to a given Firmware Level
   hosts: all
   gather_facts: false
-  roles:
-    # Install Firmware
-    - role: ibm.isam.install_firmware
-      when: install_firmware_file is defined and install_firmware_version is defined and install_firmware_release_date is defined
+  tasks:
+    - name: Install Firmware
+      ansible.builtin.import_role:
+        name: ibm.isam.install_firmware
+      when:
+        - install_firmware_file is defined
+        - install_firmware_version is defined
+        - install_firmware_release_date is defined

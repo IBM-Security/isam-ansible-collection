@@ -1,0 +1,9 @@
+---
+# Configure
+- name: Get container metadata
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
+  tasks:
+    - name: Container metadata
+      ansible.builtin.import_role:
+        name: ibm.isam.base.get_container_metadata

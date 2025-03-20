@@ -2,6 +2,8 @@
 # Download
 - name: Download snapshots
   hosts: "{{ hosts | default('all') }}"
-  roles:
-    - role: ibm.isam.base.download_snapshots
+  tasks:
+    - name: Role ibm.isam.base.download_snapshots
+      ansible.builtin.import_role:
+        name: ibm.isam.base.download_snapshots
       tags: snapshot

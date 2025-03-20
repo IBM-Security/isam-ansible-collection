@@ -9,6 +9,8 @@
 - name: Set runtime component
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.set_runtime_components
+  tasks:
+    - name: Role ibm.isam.web.set_runtime_components
+      ansible.builtin.import_role:
+        name: ibm.isam.web.set_runtime_components
       tags: set_runtime_components

@@ -3,6 +3,8 @@
 - name: Configure WAF crssetup file
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.config_reverseproxy_waf_crssetup
+  tasks:
+    - name: Role ibm.isam.web.config_reverseproxy_waf_crssetup
+      ansible.builtin.import_role:
+        name: ibm.isam.web.config_reverseproxy_waf_crssetup
       tags: configure_reverseproxy_waf

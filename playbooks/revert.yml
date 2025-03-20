@@ -6,13 +6,22 @@
 - name: Revert Appliances to Pre-Configuration State
   hosts: all
   gather_facts: false
-  roles:
-    - role: ibm.isam.delete_activation
+  tasks:
+    - name: Role ibm.isam.delete_activation
+      ansible.builtin.include_role:
+        name: ibm.isam.delete_activation
       tags: [delete, activation, federation]
-      delete_activation_id: federation
-    - role: ibm.isam.delete_activation
+      vars:
+        delete_activation_id: federation
+    - name: Role ibm.isam.delete_activation
+      ansible.builtin.include_role:
+        name: ibm.isam.delete_activation
       tags: [delete, activation, mga]
-      delete_activation_id: mga
-    - role: ibm.isam.delete_activation
+      vars:
+        delete_activation_id: mga
+    - name: Role ibm.isam.delete_activation
+      ansible.builtin.include_role:
+        name: ibm.isam.delete_activation
       tags: [delete, activation, wga]
-      delete_activation_id: wga
+      vars:
+        delete_activation_id: wga

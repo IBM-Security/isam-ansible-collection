@@ -3,6 +3,8 @@
 - name: Configure mapping rules
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.aac.configure_mapping_rules
+  tasks:
+    - name: Role ibm.isam.aac.configure_mapping_rules
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_mapping_rules
       tags: configure_mapping_rules

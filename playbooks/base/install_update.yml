@@ -11,6 +11,8 @@
 - name: Install firmware update
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.base.install_update
+  tasks:
+    - name: Role ibm.isam.base.install_update
+      ansible.builtin.import_role:
+        name: ibm.isam.base.install_update
       tags: install_update

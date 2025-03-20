@@ -3,6 +3,8 @@
 - name: Export sso key files
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.web.export_sso_keys
+  tasks:
+    - name: Role ibm.isam.web.export_sso_keys
+      ansible.builtin.import_role:
+        name: ibm.isam.web.export_sso_keys
       tags: export_sso_keys

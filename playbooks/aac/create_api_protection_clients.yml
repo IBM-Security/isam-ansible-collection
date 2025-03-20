@@ -19,6 +19,8 @@
 - name: Create api protection definitions
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.aac.create_api_protection_clients
+  tasks:
+    - name: Role ibm.isam.aac.create_api_protection_clients
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.create_api_protection_clients
       tags: create_api_protection_clients

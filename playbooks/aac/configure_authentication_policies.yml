@@ -3,6 +3,8 @@
 - name: Configure authentication mapping policies
   hosts: "{{ hosts | default('all') }}"
   gather_facts: false
-  roles:
-    - role: ibm.isam.aac.configure_authentication_policies
+  tasks:
+    - name: Role ibm.isam.aac.configure_authentication_policies
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_authentication_policies
       tags: configure_authentication_policies
