@@ -7,6 +7,6 @@
   gather_facts: false
   tasks:
     - name: Install Fixpack
-      import_role:
+      ansible.builtin.import_role:
         name: ibm.isam.install_fixpack
       when: install_fixpack_file is defined
