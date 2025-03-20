@@ -9,6 +9,7 @@ minor_changes:
   - playbooks/base - refactored roles to tasks
   - playbooks/fed - refactored roles to tasks
   - playbooks/web - refactored roles to tasks
+  - meta/execution-environment.yml - information to build a custom execution environment
 
 removed_features:
   - set_ldap_user_attr - cannot use community.general in certified collections
