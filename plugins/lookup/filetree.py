@@ -11,7 +11,6 @@ name: filetree
 author: Dag Wieers (@dagwieers) <dag@wieers.com>
 short_description: recursively match all files in a directory tree
 description:
-- This lookup plugin follows the one on community.general
 - This lookup enables you to template a complete tree of files on a target system while retaining permissions and ownership.
 - Supports directories, files and symlinks, including SELinux and other file properties.
 - If you provide more than one path, it will implement a first_found logic, and will not process entries it already processed in previous paths.
