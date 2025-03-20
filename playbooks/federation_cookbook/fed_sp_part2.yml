@@ -187,7 +187,7 @@
         name: ibm.isam.base.load_signer_certificates
       vars:
         load_signer_certificates: "{{ inventory.load_signer_certificates }}"
-      ignore_errors: true # noqa: ignore_errors
+      ignore_errors: true # noqa: ignore-errors
 
     - name: 14.2 Set credential response header
       ansible.builtin.include_role:
