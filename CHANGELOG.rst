@@ -4,6 +4,52 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v3.0.0
+======
+
+Release Summary
+---------------
+
+Refactoring for red hat automation hub certification
+
+Minor Changes
+-------------
+
+- meta/execution-environment.yml - information to build a custom execution environment
+- playbooks - refactored roles to tasks
+- playbooks/aac - refactored roles to tasks
+- playbooks/base - refactored roles to tasks
+- playbooks/fed - refactored roles to tasks
+- playbooks/web - refactored roles to tasks
+- refactor - removed dependency on community.general
+- update readme
+
+Deprecated Features
+-------------------
+
+- set_ldap_user_attr - cannot use community.general in certified collections
+
+Removed Features (previously deprecated)
+----------------------------------------
+
+- set_ldap_user_attr - cannot use community.general in certified collections
+- vmware/isam_install.yml - cannot use community.vmware in certified collection (documented in docs/vmware/README.md)
+- vmware/server_facts.yml - cannot use community.vmware in certified collection (documented in docs/vmware/README.md)
+- vmware/server_operation.yml - cannot use community.vmware in certified collection (documented in docs/vmware/README.md)
+
+New Plugins
+-----------
+
+Lookup
+~~~~~~
+
+- ibm.isam.filetree - Copy from community.general.filetree
+
+New Playbooks
+-------------
+
+- ibm.isam.get_container_metadata.yml - Get the metadata config for a container
+
 v2.6.0
 ======
 

@@ -431,3 +431,40 @@ releases:
         name: ibm.isam.aac.configure_risk_profiles
         namespace: null
     release_date: '2025-03-17'
+  3.0.0:
+    changes:
+      deprecated_features:
+      - set_ldap_user_attr - cannot use community.general in certified collections
+      minor_changes:
+      - meta/execution-environment.yml - information to build a custom execution environment
+      - playbooks - refactored roles to tasks
+      - playbooks/aac - refactored roles to tasks
+      - playbooks/base - refactored roles to tasks
+      - playbooks/fed - refactored roles to tasks
+      - playbooks/web - refactored roles to tasks
+      - refactor - removed dependency on community.general
+      - update readme
+      release_summary: 'Refactoring for red hat automation hub certification
+
+        '
+      removed_features:
+      - set_ldap_user_attr - cannot use community.general in certified collections
+      - vmware/isam_install.yml - cannot use community.vmware in certified collection
+        (documented in docs/vmware/README.md)
+      - vmware/server_facts.yml - cannot use community.vmware in certified collection
+        (documented in docs/vmware/README.md)
+      - vmware/server_operation.yml - cannot use community.vmware in certified collection
+        (documented in docs/vmware/README.md)
+    fragments:
+    - certification.yml
+    objects:
+      playbook:
+      - description: Get the metadata config for a container
+        name: get_container_metadata.yml
+        namespace: null
+    plugins:
+      lookup:
+      - description: Copy from community.general.filetree
+        name: filetree
+        namespace: null
+    release_date: '2025-03-20'
