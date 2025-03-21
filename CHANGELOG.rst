@@ -4,6 +4,21 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v3.0.1
+======
+
+Release Summary
+---------------
+
+Small updates related to automation hub publishing
+
+Minor Changes
+-------------
+
+- federation/fed_idp_part2.yml - removed community.general usage
+- roles/README.md - removed
+- update README.md - link format
+
 v3.0.0
 ======
 
