@@ -1,0 +1,8 @@
+---
+release_summary: |
+  Small updates related to automation hub publishing
+
+minor_changes:
+  - update README.md - link format
+  - federation/fed_idp_part2.yml - removed community.general usage
+  - roles/README.md - removed
