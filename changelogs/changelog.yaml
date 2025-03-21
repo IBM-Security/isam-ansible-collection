@@ -480,3 +480,13 @@ releases:
     fragments:
     - prepare_release_301.yml
     release_date: '2025-03-21'
+  3.0.2:
+    changes:
+      minor_changes:
+      - roles/README.md is required
+      release_summary: 'No functional changes
+
+        '
+    fragments:
+    - error_during_import.yml
+    release_date: '2025-03-21'

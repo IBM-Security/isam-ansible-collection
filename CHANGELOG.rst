@@ -4,6 +4,19 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v3.0.2
+======
+
+Release Summary
+---------------
+
+No functional changes
+
+Minor Changes
+-------------
+
+- roles/README.md is required
+
 v3.0.1
 ======
 
