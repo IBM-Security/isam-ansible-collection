@@ -468,3 +468,25 @@ releases:
         name: filetree
         namespace: null
     release_date: '2025-03-20'
+  3.0.1:
+    changes:
+      minor_changes:
+      - federation/fed_idp_part2.yml - removed community.general usage
+      - roles/README.md - removed
+      - update README.md - link format
+      release_summary: 'Small updates related to automation hub publishing
+
+        '
+    fragments:
+    - prepare_release_301.yml
+    release_date: '2025-03-21'
+  3.0.2:
+    changes:
+      minor_changes:
+      - roles/README.md is required
+      release_summary: 'No functional changes
+
+        '
+    fragments:
+    - error_during_import.yml
+    release_date: '2025-03-21'

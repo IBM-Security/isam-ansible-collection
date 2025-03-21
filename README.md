@@ -7,7 +7,7 @@ Documentation for installing and using this collection.
 ## Description
 
 The ibm.isam collection provides Ansible modules, plugins and roles to configure IBM Verify Identity Access (formerly IBM Security Verify Access) appliances or containers.
-It depends on the ibmsecurity Python package (https://github.com/IBM-Security/ibmsecurity).
+It depends on the [ibmsecurity](https://github.com/IBM-Security/ibmsecurity) Python package .
 
 The playbooks in the collection can be used as examples to create your own specific deployments of IBM Verify Identity Access using Ansible !
 
@@ -123,12 +123,12 @@ The collection is tested against IVIA appliances v11.0.0 and v10.0.8.
 
 ## Support
 
-Issues can be reported here through the Issues in the Github repository: https://github.com/IBM-Security/isam-ansible-collection/issues
+Issues can be reported here through the [Issues](https://github.com/IBM-Security/isam-ansible-collection/issues) in the `isam-ansible-collection` Github repository.
 
 
 ## Release Notes and Roadmap
 
-https://github.com/IBM-Security/isam-ansible-collection/blob/master/CHANGELOG.rst
+[Changelog](https://github.com/IBM-Security/isam-ansible-collection/blob/master/CHANGELOG.rst)
 
 
 ## Related Information
@@ -137,4 +137,4 @@ https://github.com/IBM-Security/isam-ansible-collection/blob/master/CHANGELOG.rs
 
 ## License Information
 
-https://github.com/IBM-Security/isam-ansible-collection/blob/master/LICENSE
+[LICENCE](https://github.com/IBM-Security/isam-ansible-collection/blob/master/LICENSE)

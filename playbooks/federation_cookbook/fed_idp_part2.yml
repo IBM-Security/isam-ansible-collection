@@ -77,15 +77,9 @@
         execute_pdadmin_isampwd: "{{ inventory.execute_pdadmin_isampwd }}"
         execute_pdadmin_commands: "{{ inventory.test_user_pdadmin_commands }}"
 
-    - name: 10.3 Add attributes to test user in ldap
-      community.general.ldap_attrs:
-        validate_certs: false
-        dn: "{{ inventory.test_user_dn }}"
-        attributes: "{{ inventory.ldap_attributes }}"
-        state: exact
-        server_uri: "{{ inventory.ldap_server_uri }}"
-        bind_dn: "{{ inventory.ldap_bind_dn }}"
-        bind_pw: "{{ inventory.ldap_bind_pw }}"
+    - name: 10.3 Add attributes to test user in ldap suggestion
+      ansible.builtin.debug:
+        msg: "This step requires a separate playbook - see federation_cookbook/README"
 
     # 12 Create OpenID Connect Provider
     - name: "12.1 Create Federation: get mapping rule id"
