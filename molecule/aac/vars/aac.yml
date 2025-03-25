@@ -206,3 +206,12 @@ aac_mmfa_configurations:
   discovery_mechanisms:
     - "urn:ibm:security:authentication:asf:mechanism:mobile_user_approval:fingerprint"
     - "urn:ibm:security:authentication:asf:mechanism:mobile_user_approval:user_presence"
+
+# Push notifications
+aac_push_notifications:
+  - app_id: "com.ibm.testapp"
+    platform: "android"
+    provider:
+      firebase:
+        service_account_json: "{'type': 'service_account','project_id': 'ivia-push-test'}" # MUST BE A STRING
+        provider_address: "fcm.googleapis.com:443"
