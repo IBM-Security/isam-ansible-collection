@@ -1,0 +1,26 @@
+---
+base_ivia_container_repos:
+  - registry: my.container.registry
+    user: "testUser"
+    secret: "Passw0rd!"
+    action: "set" # set,add,update,delete
+  - registry: dockerhub
+    user: "testUser2"
+    secret: "secret"
+    action: "set" # set,add,update,delete
+  - registry: dockerhub
+    user: "testUser2"
+    action: "delete" # set,add,update,delete
+
+base_ivia_containers:
+  - name: iag1
+    image: "icr.io/ibmappgateway/ibm-application-gateway:23.10"
+    type: "ibm-application-gateway"
+    ports:
+      - name: https
+        value: "0.0.0.0:30443"
+      - name: http
+        value: "0.0.0.0:30080"
+    volumes:
+      - name: "configuration"
+        volume_name: "config.volume"
