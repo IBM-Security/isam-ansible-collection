@@ -1,5 +1,5 @@
 ---
-isam_containers: []
+base_ivia_containers: []
 #  - name: iag1
 #    image: "icr.io/ibmappgateway/ibm-application-gateway:23.10"
 #    type: "ibm-application-gateway"
