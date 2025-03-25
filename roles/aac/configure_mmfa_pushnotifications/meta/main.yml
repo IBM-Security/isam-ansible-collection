@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  namespace: ibm
+  author: IBM
+  description: Role to configure push notification registrations
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: "2.15"
+
+  galaxy_tags:
+    - isam
+    - ibm
+    - configure
+    - mmfa
+    - pushnotification
+
+dependencies:
+  - ibm.isam.common_handlers

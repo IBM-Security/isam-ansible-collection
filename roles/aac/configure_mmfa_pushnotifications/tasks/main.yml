@@ -1,0 +1,47 @@
+---
+- name: Help INFO (-e help=true)
+  ansible.builtin.pause:
+    echo: true
+    prompt: |
+      NAME
+        configure_mmfa
+
+      DESCRIPTION
+        Role to configure push notification registrations
+
+      STEPS
+        1) Configure push notification registrations
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] i
+
+      INVENTORY
+      ==========
+      # configure mmfa push notifications
+      aac_push_notifications:
+        - app_id: "com.ibm.testapp"
+          platform: "android"
+          provider:
+            firebase:
+              service_account_json: "{'type': 'service_account','project_id': 'ivia-push-test'}" # MUST BE A STRING
+              provider_address: "fcm.googleapis.com:443"
+
+      ==========
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Configure mmfa
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.mmfa.push_notification_registration.set
+    isamapi: "{{ item }}"
+  loop: "{{ aac_push_notifications }}"
+  when:
+    - aac_push_notifications is defined
+  notify: Commit Changes
