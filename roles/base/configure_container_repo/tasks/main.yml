@@ -47,10 +47,11 @@
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.container_ext.repo.{{ base_c_item.action | default('set') }}
-    isamapi: "{{ (base_c_item.action | default('set') == 'delete') | ternary( {'registry': base_c_item.registry, 'user': (base_c_item.user | default('')) }, base_c_item|ibm.isam.exclude('action')) }}"
+    isamapi: "{{ (base_c_item.action | default('set') == 'delete') |
+      ternary({'registry': base_c_item.registry, 'user': (base_c_item.user | default(''))}, base_c_item | ibm.isam.exclude('action')) }}"
   loop: "{{ base_ivia_container_repos }}"
   loop_control:
-    label: "repo: {{ base_c_item.registry|default('') }}, user: {{ base_c_item.user|default('') }}"
+    label: "repo: {{ base_c_item.registry | default('') }}, user: {{ base_c_item.user | default('') }}"
     loop_var: base_c_item
   when:
     - base_ivia_container_repos is defined
