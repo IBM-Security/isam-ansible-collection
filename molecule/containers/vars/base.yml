@@ -1,4 +1,11 @@
 ---
+# These extensions need to be added to the files/extension directory for the test to work
+isam_extensions:
+   - extension: "files/extensions/containerExtIAG.ext"
+     extId: containerExtIAG
+   - extension: "files/extensions/containerExtISVAOP.ext"
+     extId: containerExtISVAOP
+
 base_ivia_container_repos:
   - registry: my.container.registry
     user: "testUser"

@@ -4,7 +4,7 @@ driver:
 scenario:
   test_sequence:
     # - lint
-    # - prepare
+    - prepare
     - converge
     - idempotence
     - verify
