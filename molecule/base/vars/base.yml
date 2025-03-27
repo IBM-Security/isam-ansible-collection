@@ -1,4 +1,14 @@
 ---
+base_admin_cfg:
+  enableSSLv3: True
+  maxFiles: 50
+  maxFileSize:
+  loginHeader: "{{ inventory_hostname }} - molecule"
+  loginMessage: "{{ inventory_hostname }} - molecule message"
+  lmiMessageTimeout:
+  validVerifyDomains:
+  jsVersion: ""
+
 personal_certificates:
   # get all certificates from keystore
   - cert_action: get_all
