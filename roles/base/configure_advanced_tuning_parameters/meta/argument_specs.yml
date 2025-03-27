@@ -1,0 +1,58 @@
+---
+argument_specs:
+  main:
+    short_description: Configure Advanced Tuning Parameters
+    description: |
+      This is the main entrypoint for the C(ibm.isam.base.configure_advanced_tuning_parameters) role.
+      Role to configure advanced tuning parameters
+      STEPS
+      1) configure advanced tuning parameters
+      2) Commit changes
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.base.configure_advanced_tuning_parameters.yml
+      INVENTORY
+      ==========
+
+      advanced_tuning_parameters:
+       - tuning_action: set
+         key: test
+         value: HelloWorld
+         comment: this is a test tuning parameter
+       - tuning_action: delete
+         key: setting_something
+         value: setting_value
+      ==========
+    author:
+      - 'IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>'
+    options:
+      advanced_tuning_parameters:
+        type: "list"
+        required: false
+        elements: "dict"
+        description:
+          - A list of key-value pairs admin_cfg settings
+          - Not required, but obviously is required if you want to actually do something
+        options:
+          tuning_action:
+            type: str
+            description:
+              - "Action to perform"
+            default: set
+            choices:
+              - set
+              - add
+              - delete
+          key:
+            type: str
+            required: true
+            description:
+              - "Key for the ATP parameter"
+          value:
+            type: raw
+            required: true
+            description:
+              - "Value for the ATP parameter"
+          comment:
+            type: "str"
+            description:
+              - "Commnet for the ATP parameter"
