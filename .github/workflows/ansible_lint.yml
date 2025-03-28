@@ -25,11 +25,3 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run ansible-lint
         uses: ansible/ansible-lint@v24.10.0
-       # with:
-          # args: "roles"
-          # requirements_file: ".ansible-lint-requirements.yml"
-          # setup_python: "true"
-      #- name: Run ansible-lint for playbooks only
-      #  uses: ansible/ansible-lint@v24.10.0
-      #  with:
-      #    args: "playbooks"
