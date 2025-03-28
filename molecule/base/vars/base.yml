@@ -71,3 +71,13 @@ advanced_tuning_parameters:
   - key: sysctl.net.ipv6.conf.all.disable_ipv6
     value: "1"
     tuning_action: set
+
+runtime_tunings:
+  - runtime_action: set
+    option: max_files
+    value: 40
+  - runtime_action: set
+    option: max_file_size
+    value: 100
+  - runtime_action: reset
+    option: max_files

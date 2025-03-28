@@ -58,3 +58,9 @@
         - atp
       ansible.builtin.import_role:
         name: ibm.isam.base.configure_advanced_tuning_parameters
+
+    - name: Molecule rtp
+      tags:
+        - rtp
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_runtime_tunings
