@@ -49,3 +49,10 @@
         - mmfa
       ansible.builtin.import_role:
         name: ibm.isam.aac.configure_mmfa
+
+    - name: Configure push notifications
+      tags:
+        - pushnotifications
+        - mmfa
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_mmfa_pushnotifications

@@ -1,4 +1,14 @@
 ---
+base_admin_cfg:
+  enableSSLv3: True
+  maxFiles: 50
+  maxFileSize:
+  loginHeader: "{{ inventory_hostname }} - molecule"
+  loginMessage: "{{ inventory_hostname }} - molecule message"
+  lmiMessageTimeout:
+  validVerifyDomains:
+  jsVersion: ""
+
 personal_certificates:
   # get all certificates from keystore
   - cert_action: get_all
@@ -18,10 +28,6 @@ personal_certificates:
     signature_algorithm: 'SHA512WithRSA' # optional default: '' if empty will get SHA1WithRSASignature
           # OPTIONS: ['SHA256WithRSA','SHA384WithRSA','SHA512WithRSA','SHA256WithECDSA','SHA384WithECDSA','SHA512WithECDSA']
   # Setting a personal certificate as default in a certificate database
-  - cert_action: set # NO LONGER VALID 10.0.3+
-    kdb_id: pdsrv
-    cert_id: sample_label
-    default: 'no' # optional default: 'no'
   # Receiving a personal certificate into a certificate database TODO
   #- cert_action: receive
   #  kdb_id: pdsrv
@@ -33,11 +39,11 @@ personal_certificates:
   #  cert_id: sample_label
   #  filename: files/ssl/sample.cert # absolute or relative path supported
   # Importing a personal certificate into a certificate database TODO
-  #- cert_action: import_cert
-  #  kdb_id: pdsrv
-  #  label: sample_label
-  #  cert: files/ssl/sample.cert # absolute or relative path supported
-  #  password: 'passw0rd'
+  - cert_action: import_cert
+    kdb_id: pdsrv
+    label: test_certificate
+    cert: files/test_certificate.p12
+    password: 'passw0rd'
   # Importing a personal certificate into a certificate database TODO
   #- cert_action: extract_cert
   #  kdb_id: pdsrv
@@ -57,3 +63,21 @@ base_audit_type_id: runtime
 base_audit_group_name: FIDO2
 
 base_audit_component_id: '1'
+
+advanced_tuning_parameters:
+  - key: events.response.snmp.ignored
+    value: GLGUP(.*) GLGSI(.*) GLGSS(.*) GLGFP(.*) GLGEV(.*) GLGDT(.*) GLGLI(.*) GLG(.*)I FBTSML241E GLGSY0101W
+    comment: ignore some events
+  - key: sysctl.net.ipv6.conf.all.disable_ipv6
+    value: "1"
+    tuning_action: set
+
+runtime_tunings:
+  - runtime_action: set
+    option: max_files
+    value: 40
+  - runtime_action: set
+    option: max_file_size
+    value: 100
+  - runtime_action: reset
+    option: max_files

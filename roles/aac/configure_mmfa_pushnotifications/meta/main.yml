@@ -1,7 +1,8 @@
 ---
 galaxy_info:
+  namespace: ibm
   author: IBM
-  description: Role to activate multiple modules in ISAM
+  description: Role to configure push notification registrations
   company: IBM
 
   license: Apache
@@ -11,7 +12,9 @@ galaxy_info:
   galaxy_tags:
     - isam
     - ibm
-    - activation
+    - configure
+    - mmfa
+    - pushnotification
 
 dependencies:
   - ibm.isam.common_handlers

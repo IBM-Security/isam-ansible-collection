@@ -1,0 +1,24 @@
+---
+- name: Converge container related
+  hosts: all
+  gather_facts: false
+  vars:
+    homedir: "{{ playbook_dir }}" # this is this directory for molecule
+  tasks:
+    - name: Include variables
+      tags:
+        - always
+      ansible.builtin.include_vars:
+        file: "vars/base.yml"
+
+    - name: Molecule container repo
+      tags:
+        - repo
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_container_repo
+
+    - name: Molecule container repo
+      tags:
+        - container
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_container_container

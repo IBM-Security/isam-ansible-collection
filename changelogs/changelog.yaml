@@ -490,3 +490,45 @@ releases:
     fragments:
     - error_during_import.yml
     release_date: '2025-03-21'
+  3.1.0:
+    changes:
+      breaking_changes:
+      - base/configure_container_container - rename `isam_containers` to `base_ivia_containers`
+      deprecated_features:
+      - ibm.isam.base.add_bonding_interfaces - only applicable to hardware appliances
+        and these are out of support
+      - ibm.isam.set_admin_cfg - use ibm.isam.base.configure_admin_cfg instead. This
+        role will no longer be updated
+      known_issues:
+      - aac/configure_mmfa - not fully idempotent
+      - aac/configure_mmfa_pushnotifications - not fully idempotent
+      minor_changes:
+      - add galaxy-importer.cfg configuration file
+      - ibm.isam.base.activate_modules - add meta/argument_specs
+      - ibm.isam.base.configure_advanced_tuning_parameters - add meta/argument_specs
+        instead of `help`
+      - ibm.isam.base.configure_runtime_tunings - add meta/argument_specs instead
+        of `help`
+      - remove test file tests/_ansible_lint.yml
+      - update tests for personal certificates
+      release_summary: 'Add new features to support IVIA 11/ISVA 10.0.9
+
+        '
+    fragments:
+    - ivia11_updates.yml
+    objects:
+      playbook:
+      - description: Playbook to configure mmfa and push notifications
+        name: aac/configure_mmfa.yml
+        namespace: null
+      role:
+      - description: Configure push notification registrations
+        name: ibm.isam.aac.configure_mmfa_pushnotifications
+        namespace: null
+      - description: Configure LMI admin settings - new parameter for v11
+        name: ibm.isam.base.configure_admin_cfg
+        namespace: null
+      - description: Configure container repositories
+        name: ibm.isam.base.configure_container_repo
+        namespace: null
+    release_date: '2025-03-28'

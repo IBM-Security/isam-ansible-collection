@@ -9,7 +9,7 @@
 
       DESCRIPTION
         Role to configure extensions on the appliance.
-        This not fully idempotent.  Don't use extId to only do "install".
+        This not fully idempotent.
 
       STEPS
         1) Configure extensions

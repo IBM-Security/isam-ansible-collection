@@ -1,0 +1,18 @@
+---
+- name: Configure mmfa
+  hosts: "{{ hosts | default('all') }}"
+  gather_facts: false
+
+  tasks:
+    - name: Configure MMFA
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_mmfa
+      tags:
+        - mmfa
+
+    - name: Configure push notifications
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_mmfa_pushnotifications
+      tags:
+        - push
+        - pushnotifications

@@ -1,17 +1,23 @@
 ---
 galaxy_info:
   author: IBM
-  description: Role to activate multiple modules in ISAM
+  description: Role to configure Admin Configuration (LMI)
   company: IBM
 
   license: Apache
 
   min_ansible_version: "2.15"
+  platforms:
+    - name: GenericLinux
+      versions:
+        - all
 
   galaxy_tags:
     - isam
     - ibm
-    - activation
+    - lmi
+    - configuration
+    - set
 
 dependencies:
   - ibm.isam.common_handlers
