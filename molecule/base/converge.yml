@@ -52,3 +52,9 @@
         - audit
       ansible.builtin.import_role:
         name: ibm.isam.base.configure_audit_component
+
+    - name: Molecule enable single advanced tuning parameters
+      tags:
+        - atp
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_advanced_tuning_parameters
