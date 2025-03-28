@@ -1,0 +1,58 @@
+---
+argument_specs:
+  main:
+    short_description: Configure Runtime tunings
+    description: |
+      STEPS
+        1) Configure runtime tuning
+        2) Commit changes
+
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.base.configure_runtime_tunings.yml
+        # limit configuration as runtime for specific option
+        ansible-playbook -i [...] ibm.isam.base.configure_runtime_tunings.yml -e option=max_files
+        # limit configuration as runtime for specific runtime_action
+        ansible-playbook -i [...] ibm.isam.base.configure_runtime_tunings.yml -e runtime_action=set
+
+      INVENTORY
+      ==========
+      # configure runtime tunings
+      runtime_tunings:
+        - runtime_action: set
+          option: max_files
+          value: 40
+        - runtime_action: set
+          option: max_file_size
+          value: 100
+        - runtime_action: reset
+          option: max_files
+      ==========
+    author:
+      - 'IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>'
+    options:
+      runtime_tunings:
+        type: list
+        required: false
+        elements: dict
+        description: |
+          - A list of the runtime tuning options (as dict)
+          - Not required, but obviously is required if you want to actually do something
+        options:
+          runtime_action:
+            type: "str"
+            required: false
+            description: "Action to perform"
+            choices:
+              - set
+              - reset
+              - add
+              - get
+              - get_all
+          option:
+            type: "str"
+            required: true
+            description:
+              - "The option to set"
+          value:
+            type: raw
+            description: "Value for the RTP option"
