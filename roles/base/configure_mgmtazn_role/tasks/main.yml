@@ -1,0 +1,17 @@
+---
+- name: Set Management Authorization Roles
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.management_authorization.role.{{ item.action | default('set') }}
+    isamapi:
+      name: "{{ item.name }}"
+      users: "{{ item.users | default(omit) }}"
+      groups: "{{ item.groups | default(omit) }}"
+      features: "{{ item.features | default(omit) }}"
+  loop: "{{ management_authorization_roles }}"
+  loop_control:
+    label: "Role: {{ item.action | default('set') }} {{ item.name | default('') }}"
+  when:
+    - management_authorization_roles is defined
+  notify: Commit Changes

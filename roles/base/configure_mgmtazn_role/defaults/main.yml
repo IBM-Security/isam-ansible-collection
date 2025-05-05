@@ -1,0 +1,10 @@
+---
+# Provide a list of features and access for this role to work on
+# management_authorization_roles:
+#  - name: role_1
+#    groups: []
+#    users: []
+#    features:
+#      - name: "wpm_policy_administration"
+#        access: "w"
+#    action: set
