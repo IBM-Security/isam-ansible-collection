@@ -1,0 +1,4 @@
+---
+add object.role:
+  - name: base.configure_mgmtazn_role
+    description: Add role to configure management authorization
