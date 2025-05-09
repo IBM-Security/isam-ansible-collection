@@ -1,7 +1,7 @@
 ---
 argument_specs:
   main:
-    short_description: Configure authentication policies using json policy format
+    short_description: Configure or delete authentication policies using json policy format
     description:
       - This is the main entrypoint for the C(ibm.isam.aac.configure_authentication_policies_json) role.
     version_added: '3.2.0'
@@ -42,12 +42,12 @@ argument_specs:
             description: Optional is the policy enabled.  Defaults to true
           uri:
             type: 'str'
-            required: true
-            description: The full uri for the policy
+            required: false
+            description: The full uri for the policy.  Is required for creating or updating policies.
           policy:
             type: 'list'
-            required: true
-            description: The Policy in json format (yaml)
+            required: false
+            description: The Policy in json format (yaml).  Is required for creating or updating policies.
             elements: 'dict'
             options:
               step:
