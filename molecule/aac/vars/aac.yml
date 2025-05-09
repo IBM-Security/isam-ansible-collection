@@ -258,3 +258,39 @@ fido2:
     mdsRefresh: 86400
     metadataServices: []
     timeout: 300
+
+#
+# Infomaps - policies
+#
+aac_authentication_policies:
+  - name: "test1_scimConfig"
+    description: "test1 - uses an oob mechanism"
+    uri: "urn:ibm:security:authentication:asf:test1"
+    enabled: true
+    policy:
+      - step:
+          mechanism:
+            id: "urn:ibm:security:authentication:asf:mechanism:scimConfig"
+  - name: "MMFA Fingerprint Authentication Response"
+    description: "Enforces fingerprint authentication through a registered MMFA authenticator."
+    uri: "urn:ibm:security:authentication:asf:mmfa_fingerprint_response"
+    enabled: true
+    policy:
+      - step:
+          mechanism:
+            id: "urn:ibm:security:authentication:asf:mechanism:mobile_user_approval:fingerprint"
+      - step:
+          mechanism:
+            id: "urn:ibm:security:authentication:asf:mechanism:mmfa"
+            parameters:
+              - id: "mode"
+                source: "value"
+                value: "Response"
+  - name: "Non existing policy"
+    policy_action: delete
+    uri: "urn:ibm:security:authentication:asf:test2"
+    enabled: true
+    policy:
+      - step:
+          mechanism:
+            id: "urn:ibm:security:authentication:asf:mechanism:mobile_user_approval:fingerprint"
