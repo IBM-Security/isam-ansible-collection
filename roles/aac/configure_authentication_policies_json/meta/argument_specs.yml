@@ -1,0 +1,60 @@
+---
+argument_specs:
+  main:
+    short_description: Configure authentication policies using json policy format
+    description:
+      - This is the main entrypoint for the C(ibm.isam.aac.configure_authentication_policies_json) role.
+    version_added: '3.2.0'
+    author:
+      - 'IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>'
+    options:
+      aac_authentication_policies:
+        type: "list"
+        elements: "dict"
+        required: false
+        description:
+          - A list of policy objects
+        options:
+          policy_action:
+            type: 'str'
+            choices:
+              - set
+              - delete
+            required: false
+            description: use set or delete
+          name:
+            type: 'str'
+            required: true
+            description: Name of the policy
+          description:
+            type: 'str'
+            required: false
+            description: The description of the policy
+          dialect:
+            type: 'str'
+            required: false
+            default: urn:ibm:security:authentication:policy:1.0:schema
+            description: Optional dialect parameter
+          enabled:
+            type: 'bool'
+            required: false
+            default: true
+            description: Optional is the policy enabled.  Defaults to true
+          uri:
+            type: 'str'
+            required: true
+            description: The full uri for the policy
+          policy:
+            type: 'list'
+            required: true
+            description: The Policy in json format (yaml)
+            elements: 'dict'
+            options:
+              step:
+                type: dict
+                required: false
+                description: Policy Step
+              decision:
+                type: dict
+                required: false
+                description: The Policy decision
