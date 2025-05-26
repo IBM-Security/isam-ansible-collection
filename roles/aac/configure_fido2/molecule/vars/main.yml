@@ -8,15 +8,12 @@ fido2_configurations:
   - fido2_action: metadata.get
     name: metadata.json
   # Export specific metadata to disc
-  - fido2_action: metadata.export_file
+  - fido2_action: metadata.export_file # this doens't do anything
     name: metadata.json
     filename: ../files/metadata.json
   # Delete specific metadata entry by name
   - fido2_action: metadata.delete
     name: metadata.json
-  # Import metadata from disc
-  - fido2_action: metadata.import_file
-    filename: ../files/metadata.json
   # Retrieve all FIDO2 configurations of all relying parties
   - fido2_action: relying_parties.get_all
   # Retrieve entire FIDO2 configruation of a specific relying party
@@ -24,9 +21,6 @@ fido2_configurations:
     name: DEMO
   # Retrieve only FIDO2 relying party ID on the appliance
   - fido2_action: relying_parties.search
-    name: DEMO
-  # Delete a FIDO2 relying party
-  - fido2_action: relying_parties.delete
     name: DEMO
   # Create or update fido2 relying party
   # set will call add (new relying party) or update (existing relying party) respectivly with a config comparisson prior to the execution of the change
@@ -60,19 +54,40 @@ fido2_configurations:
       android-safetynet:
         attestationMaxAge: 60000
         clockSkew: 30000
-
-  # Retrieve all FIDO2 registrations
-  - fido2_action: registrations.get_all
   # Retrieve a specific FIDO2 registration for a given credentialId
   - fido2_action: registrations.get
     credentialId: CKYuA1IJW4wY-FnKY_gLubEfaqEJK6_6E4t8I_JWgmE
+  # Retrieve all FIDO2 registrations
+  - fido2_action: registrations.get_all
   # Delete all FIDO2 registrations for a given username
   - fido2_action: registrations.delete
     username: testuser01
-
+  # Delete a FIDO2 relying party TODO: does not work
+  #- fido2_action: relying_parties.delete
+  #  name: DEMO
   # Retrieve a count of U2F Registrations yet to be migrated
   - fido2_action: u2f_migration.get_all
   # Migrate U2F Registrations
   - fido2_action: u2f_migration.migrate
     batchSize: '1000' # The number of registrations to migrate in a single batch
     batchCount: '5' # The number of batches to migrate. Can be set to 'all' to indicate that all registrations should be migrated.
+  # Import metadata from disk - TODO: this does not work
+  # - fido2_action: metadata.import_file
+  #  filename: files/metadata.json
+
+authentication_mechanisms:
+  - mechanism_action: set
+    name: "FIDO2 WebAuthn Registration"
+    description: "Performs the FIDO2/WebAuthn Attestation Ceremony"
+    typeName: "FIDO2AuthenticatorName"
+    uri: "urn:ibm:security:authentication:asf:mechanism:fido2registration"
+    attributes: []
+    properties:
+      - key: "FIDO2.abortOnError"
+        value: "false"
+      - key: "FIDO2.optionsTemplate"
+        value: "/authsvc/authenticator/fido/default_attestation_options.json"
+      - key: "FIDO2.templatePage"
+        value: "/authsvc/authenticator/fido/attestation.html"
+      - key: "FIDO2.relyingPartyConfigId"
+        value: "{{ aac_fido2_relyingparty_id.data }}"
