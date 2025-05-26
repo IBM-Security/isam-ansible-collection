@@ -1,4 +1,7 @@
 ---
+minor_changes:
+  - update molecule tests for fido2
+
 add object.role:
   - name: base.configure_mgmtazn_role
     description: Add role to configure management authorization
