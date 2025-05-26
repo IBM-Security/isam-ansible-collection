@@ -1,0 +1,12 @@
+---
+# tasks file
+- name: Get fido2 relying party configid by name
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.fido2.relying_parties.search
+    isamapi:
+      name: "{{ aac_fido2_relyingparty_name }}"
+  when:
+    - aac_fido2_relyingparty_name is defined
+  register: aac_fido2_relyingparty_id

@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  author: IBM
+  description: Retrieve fido2 relying party id
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: "2.15"
+
+  platforms:
+    - name: GenericLinux
+      versions:
+        - all
+
+  galaxy_tags:
+    - ibm
+    - isam
+    - fido2
+    - passkeys
+    - get
+
+dependencies: []

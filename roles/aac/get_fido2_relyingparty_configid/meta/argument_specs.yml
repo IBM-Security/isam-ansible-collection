@@ -1,0 +1,14 @@
+---
+argument_specs:
+  main:
+    short_description: Get the configid from a fido2 relying party
+    description:
+      - This is the main entrypoint for the C(ibm.isam.aac.get_fido2_relyingparty_configid) role.
+    author:
+      - 'IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>'
+    options:
+      aac_fido2_relyingparty_name:
+        type: str
+        required: true
+        description:
+          - "The name of the fido2 relying party"
