@@ -12,3 +12,17 @@
     - name: "Testing configure fido2"
       ansible.builtin.include_role:
         name: ibm.isam.aac.configure_fido2
+
+    - name: Get configid
+      vars:
+        aac_fido2_relyingparty_name: "DEMO"
+      ansible.builtin.include_role:
+        name: ibm.isam.aac.get_fido2_relyingparty_configid
+
+    - name: Debug
+      ansible.builtin.debug:
+        var:  aac_fido2_relyingparty_id.data
+
+    - name: Configure fido2 webauthn registration
+      ansible.builtin.include_role:
+        name: ibm.isam.aac.configure_authentication_mechanisms

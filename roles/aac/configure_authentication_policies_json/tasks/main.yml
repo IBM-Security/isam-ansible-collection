@@ -1,0 +1,31 @@
+---
+- name: Configure authentication policies (JSON)
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.authentication.policies.set
+    isamapi:
+      name: "{{ item.name }}"
+      policy: "{{ item.policy }}"
+      uri: "{{ item.uri }}"
+      description: "{{ item.description | default(omit) }}"
+      enabled: "{{ item.enabled | default(omit) }}"
+      formatting: 'json'
+  loop: "{{ aac_authentication_policies }}"
+  when:
+    - (item.policy_action | default('set'))  == 'set'
+  loop_control:
+    label: "Set policy {{ item.name | default('') }}"
+  notify: Commit Changes
+
+- name: Remove authentication policies (JSON)
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.aac.authentication.policies.delete
+    isamapi:
+      name: "{{ item.name }}"
+  loop: "{{ aac_authentication_policies | selectattr('policy_action', 'defined') | selectattr('policy_action', 'equalto', 'delete') }}"
+  loop_control:
+    label: "Delete policy {{ item.name | default('') }}"
+  notify: Commit Changes

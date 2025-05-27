@@ -215,3 +215,82 @@ aac_push_notifications:
       firebase:
         service_account_json: "{'type': 'service_account','project_id': 'ivia-push-test'}" # MUST BE A STRING
         provider_address: "fcm.googleapis.com:443"
+
+# Fido2
+# the hostname must exist, so need to add it to host file of appliance
+# scim, and aac enabled on rp
+fido2:
+  name: www.tommietest.com
+  rpId: www.tommietest.com
+  id: 3a397ef1-ca61-45ff-83f6-10c730bad4d2
+  relyingPartyOptions:
+    impersonationGroup: adminGroup
+    webauthnSpecEnforcement: true
+  fidoServerOptions:
+    origins:
+      - https://www.tommietest.com
+    metadataSet: []
+    metadataSoftFail: true
+    attestation:
+      statementTypes:
+        - basic
+        - self
+        - attCA
+        - anonCA
+        - none
+      statementFormats:
+        - fido-u2f
+        - packed
+        - tpm
+        - android-key
+        - android-safetynet
+        - apple
+        - none
+      publicKeyAlgorithms:
+        - SHA256withECDSA
+        - SHA256withRSA
+      compoundAttestationAllValid: true
+    android-safetynet:
+      attestationMaxAge: 60000
+      clockSkew: 30000
+      ctsProfileMatch: true
+    preferMdsOverStatic: false
+    mdsRefresh: 86400
+    metadataServices: []
+    timeout: 300
+
+#
+# Infomaps - policies
+#
+aac_authentication_policies:
+  - name: "test1_scimConfig"
+    description: "test1 - uses an oob mechanism"
+    uri: "urn:ibm:security:authentication:asf:test1"
+    enabled: true
+    policy:
+      - step:
+          mechanism:
+            id: "urn:ibm:security:authentication:asf:mechanism:scimConfig"
+  - name: "MMFA Fingerprint Authentication Response"
+    description: "Enforces fingerprint authentication through a registered MMFA authenticator."
+    uri: "urn:ibm:security:authentication:asf:mmfa_fingerprint_response"
+    enabled: true
+    policy:
+      - step:
+          mechanism:
+            id: "urn:ibm:security:authentication:asf:mechanism:mobile_user_approval:fingerprint"
+      - step:
+          mechanism:
+            id: "urn:ibm:security:authentication:asf:mechanism:mmfa"
+            parameters:
+              - id: "mode"
+                source: "value"
+                value: "Response"
+  - name: "Non existing policy"
+    policy_action: delete
+    uri: "urn:ibm:security:authentication:asf:test2"
+    enabled: true
+    policy:
+      - step:
+          mechanism:
+            id: "urn:ibm:security:authentication:asf:mechanism:mobile_user_approval:fingerprint"

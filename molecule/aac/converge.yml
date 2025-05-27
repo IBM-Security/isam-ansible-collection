@@ -56,3 +56,7 @@
         - mmfa
       ansible.builtin.import_role:
         name: ibm.isam.aac.configure_mmfa_pushnotifications
+
+    - name: Configure authentication policies json
+      ansible.builtin.import_role:
+        name: ibm.isam.aac.configure_authentication_policies_json
