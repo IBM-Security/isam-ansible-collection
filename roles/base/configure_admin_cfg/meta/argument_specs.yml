@@ -1,0 +1,15 @@
+---
+argument_specs:
+  main:
+    short_description: Configure admin config settings
+    description:
+      - This is the main entrypoint for the C(ibm.isam.base.configure_admin_cfg) role.
+    author:
+      - 'IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>'
+    options:
+      base_admin_cfg:
+        type: "dict"
+        required: false
+        description:
+          - A list of key-value pairs admin_cfg settings
+          - Not required, but obviously is required if you want to actually do something

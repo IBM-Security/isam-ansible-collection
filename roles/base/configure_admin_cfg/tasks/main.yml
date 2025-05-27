@@ -1,0 +1,10 @@
+---
+- name: Set Administrator Configuration
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.admin.set
+    isamapi: "{{ base_admin_cfg }}"
+  notify:
+    - Commit Changes
+    - Restart LMI

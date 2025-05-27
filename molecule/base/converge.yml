@@ -11,17 +11,29 @@
       ansible.builtin.include_vars:
         file: "vars/base.yml"
 
+    - name: Molecule activate modules
+      tags:
+        - activate
+      ansible.builtin.import_role:
+        name: ibm.isam.base.activate_modules
+
+    - name: Molecule admin_cfg settings
+      tags:
+        - admincfg
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_admin_cfg
+
     - name: Molecule test personal certificates
       tags:
         - certificates
       ansible.builtin.import_role:
         name: ibm.isam.base.configure_personal_certificates
 
-    - name: Molecule deprecated audit configuration
-      tags:
-        - audit
-      ansible.builtin.import_role:
-        name: ibm.isam.set_audit_configuration
+    # - name: Molecule deprecated audit configuration
+    #  tags:
+    #    - audit
+    #  ansible.builtin.import_role:
+    #    name: ibm.isam.set_audit_configuration
 
     - name: Molecule new get audit components
       tags:
@@ -40,3 +52,15 @@
         - audit
       ansible.builtin.import_role:
         name: ibm.isam.base.configure_audit_component
+
+    - name: Molecule enable single advanced tuning parameters
+      tags:
+        - atp
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_advanced_tuning_parameters
+
+    - name: Molecule rtp
+      tags:
+        - rtp
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_runtime_tunings

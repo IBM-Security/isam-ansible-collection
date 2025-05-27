@@ -1,0 +1,6 @@
+---
+# base_ivia_container_repos:
+#  - registry: my.container.registry
+#    user: "testUser"
+#    secret: "Passw0rd!"
+#

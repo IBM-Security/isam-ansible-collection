@@ -1,0 +1,3 @@
+---
+# Default variables for configuration of authentication policies
+aac_authentication_policies: []

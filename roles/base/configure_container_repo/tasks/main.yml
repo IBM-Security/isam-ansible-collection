@@ -1,0 +1,57 @@
+---
+- name: Help INFO (-e help=true)
+  ansible.builtin.pause:
+    echo: true
+    prompt: |
+      NAME
+        configure_container_repo
+
+      DESCRIPTION
+        Role to configure repository for container
+
+      STEPS
+        1) Configure repo
+
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.base.configure_container.yml
+
+      INVENTORY
+      ==========
+      base_ivia_container_repos:
+       - registry: my.container.registry
+         user: "testUser"
+         secret: "Passw0rd!"
+         action: "set" # set,add,update,delete
+
+      You may need to add certificates, to get them, do this
+
+      echo QUIT | openssl s_client -showcerts -connect icr.io:443 | openssl x509 -outform PEM > icrio.pem
+
+      Then you can add them using this
+
+      base_ivia_container_repos:
+       - registry: my.container.registry
+         ca: "{{ (lookup('ansible.builtin.file', 'files/icrio.pem')) | replace('\n', '\\n') }}"
+         action: "set" # set,add,update,delete
+
+      Mind the escaping of the newline characters !
+
+      INTERACTION
+        ENTER         = continue
+        Ctrl+C + 'C'  = continue
+        Ctrl+C + 'A'  = abort
+  when: help is defined
+
+- name: Configure container repository
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.container_ext.repo.{{ base_c_item.action | default('set') }}
+    isamapi: "{{ (base_c_item.action | default('set') == 'delete') |
+      ternary({'registry': base_c_item.registry, 'user': (base_c_item.user | default(''))}, base_c_item | ibm.isam.exclude('action')) }}"
+  loop: "{{ base_ivia_container_repos }}"
+  loop_control:
+    label: "repo: {{ base_c_item.registry | default('') }}, user: {{ base_c_item.user | default('') }}"
+    loop_var: base_c_item
+  when:
+    - base_ivia_container_repos is defined

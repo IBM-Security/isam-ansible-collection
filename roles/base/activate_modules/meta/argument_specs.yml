@@ -1,0 +1,32 @@
+---
+argument_specs:
+  main:
+    short_description: Activate modules
+    description:
+      - This is the main entrypoint for the C(ibm.isam.base.activate_modules) role.
+    author:
+      - 'IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>'
+    options:
+      activation_keys:
+        type: list
+        required: false
+        elements: dict
+        description:
+          - A list of key-value pairs containing the activation id and code
+          - Not required, but obviously is required if you want to actually do something
+        options:
+          id:
+            type: "str"
+            required: true
+            description:
+              - "Activation id"
+            choices:
+              - wga
+              - mga
+              - federation
+              - dc
+          code:
+            type: "str"
+            required: true
+            description:
+              - "The activation code for the id"

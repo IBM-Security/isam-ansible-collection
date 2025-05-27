@@ -1,0 +1,40 @@
+---
+argument_specs:
+  main:
+    short_description: Configure IVIA extensions
+    description:
+      - This is the main entrypoint for the C(ibm.isam.base.configure_extensions) role.
+    author:
+      - 'IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>'
+    options:
+      isam_extensions:
+        type: "list"
+        elements: "dict"
+        required: false
+        description:
+          - List of extensions to install
+        options:
+          extension:
+            type: "str"
+            required: true
+            description:
+              - "Path to the extension to install (eg. files/containerExtIVIAOP.ext"
+          extId:
+            type: "str"
+            required: true
+            description:
+              - "The extension ID (eg. containerExtIVIAOP)"
+          config_data:
+            type: "dict"
+            required: false
+            description:
+              - "The configuration data"
+              - "A dict containing the configuration parameters for the extension"
+              - "This parameter is optional, but may be required for some extensions"
+          third_party_package:
+            type: "str"
+            required: false
+            description:
+              - "An optional package to install with the extension"
+              - "See documentation on the extension"
+              - "This parameter is optional, but may be required for some extensions"
