@@ -3,7 +3,6 @@
   ansible.builtin.stat:
     path: "{{ install_firmware_file }}"
     get_checksum: false
-    get_md5: false
   register: firmware
 
 - name: Upload Firmware file - {{ install_firmware_file }}
