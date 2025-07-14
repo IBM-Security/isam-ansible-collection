@@ -6,10 +6,6 @@
     action: ibmsecurity.isam.base.audit.configuration.get
   register: ret_obj
 
-- name: Debug
-  ansible.builtin.debug:
-    var: ret_obj.data
-
 - name: Set Audit Configuration - id "{{ ret_obj['data'][0]['id'] }}"
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
@@ -22,4 +18,8 @@
       config: "{{ (ansible_facts.version is version('10.0.8.0', operator='<'))
                | ternary(base_audit_configuration_config_old, base_audit_configuration_config) }}"
       verbose: "{{ base_audit_configuration_verbose }}"
-  notify: Commit Changes
+      use_json: "{{ base_audit_configuration_usejson | default(omit) }}"
+      components: "{{ base_audit_configuration_components | default(omit) }}"
+  notify:
+    - Commit Changes
+    - Restart LMI and wait
