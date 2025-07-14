@@ -4,6 +4,30 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v3.3.0
+======
+
+Release Summary
+---------------
+
+A couple of new roles and fixes
+
+Minor Changes
+-------------
+
+- aac.configure_access_control_policy_attachments - add policyType (type) attribute
+- base.configure_audit - add use_json and components
+- base.install_firmware - remove deprecated get_md5 (Gourav1308)
+- update molecule tests for fido2
+- web.configure_management_root - remove some when statements
+
+New Roles
+---------
+
+- ibm.isam.aac.configure_authentication_policies_json - Role to configure authentication policies using json format
+- ibm.isam.aac.get_fido2_relyingparty_configid - Get the fido2 relying party config id based on name (helper for configuring authentication mechanisms)
+- ibm.isam.base.configure_mgmtazn_role - Add role to configure management authorization
+
 v3.1.0
 ======
 
