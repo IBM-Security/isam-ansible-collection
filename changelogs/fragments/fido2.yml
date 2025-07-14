@@ -1,10 +1,12 @@
 ---
+release_summary:
+  A couple of new roles and fixes
 minor_changes:
   - update molecule tests for fido2
   - base.configure_audit - add use_json and components
   - aac.configure_access_control_policy_attachments - add policyType (type) attribute
   - web.configure_management_root - remove some when statements
-
+  - base.install_firmware - remove deprecated get_md5
 add object.role:
   - name: base.configure_mgmtazn_role
     description: Add role to configure management authorization
