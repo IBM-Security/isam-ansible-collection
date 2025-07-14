@@ -1,6 +1,8 @@
 ---
 minor_changes:
   - update molecule tests for fido2
+  - base.configure_audit - add use_json and components
+  - aac.configure_access_control_policy_attachments - add policyType (type) attribute
 
 add object.role:
   - name: base.configure_mgmtazn_role
