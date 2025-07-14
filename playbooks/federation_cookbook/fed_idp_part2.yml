@@ -54,10 +54,6 @@
       ansible.builtin.set_fact:
         partner_configuration_json: "{{ ret_obj.data.configuration | combine(new_encryptionSettings) }}"
 
-    - name: 9.1 Configuring Partner for the IdP - update signatureSettings in the new configuration json
-      ansible.builtin.set_fact:
-        partner_configuration_json: "{{ partner_configuration_json | combine(new_signatureSettings) }}"
-
     - name: 9.1 Configuring Partner for the IdP - update federation partner configuration json
       ansible.builtin.include_role:
         name: ibm.isam.set_partner
@@ -177,9 +173,6 @@
               - name: "{{ stsuu_id }}.map.rule.reference.ids"
                 value:
                   - "{{ ret_obj.data }}"
-
-    - name: 17.2 Configuring the STS Test Module Chain - create properties obj
-      ansible.builtin.set_fact:
         new_sts_chain: ["{{ inventory.sts_chain | combine(chain_properties) }}"]
 
     - name: 17.2 Configuring the STS Test Module Chain
