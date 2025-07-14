@@ -155,8 +155,6 @@
       filename: "{{ ((homedir == '') | ternary('', homedir + '/')) + item.1.file }}"
   when:
     - item.1.mgmt_action == 'upload'
-    - item.1.type is defined
-    - item.1.type == 'file'
     - item.1.target is defined
     - item.1.file is defined
     - item.0.inst_name == inst_name
