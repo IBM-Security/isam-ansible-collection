@@ -341,9 +341,6 @@
               - name: "{{ post_mapper_uuid }}.map.rule.reference.ids"
                 value:
                   - "{{ post_mapper_id }}"
-
-    - name: 18.3.4 Modify STS Test Module Chain - create properties obj
-      ansible.builtin.set_fact:
         new_modify_chain: ["{{ inventory.update_sts_chain | combine(chain_properties) }}"]
 
     - name: 18.3.4 Modify STS Test Module Chain
@@ -397,7 +394,7 @@
         saml20_ivc_to_saml20_id: "{{ ret_obj.data }}"
 
     - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - create properties obj
-      ansible.builtin.set_fact:
+      vars:
         chain_properties:
           properties:
             partner:
@@ -496,8 +493,6 @@
                   }}.com.tivoli.am.fim.sts.saml.2.0.assertion.posttime.valid"
                 value:
                   - "3600"
-
-    - name: 19.2 Create the ISAM Credential to SAML 2.0 STS Module Chain - create properties obj
       ansible.builtin.set_fact:
         new_saml_chain: ["{{ inventory.saml_sts_chain | combine(chain_properties) }}"]
 
