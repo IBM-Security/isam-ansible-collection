@@ -38,7 +38,7 @@ Link to download ibmsecurity package:
 
 Example command to install package:
 
-    `pip3 install <tar.gz downloaded>`
+     pip3 install <tar.gz downloaded>
 
 Ansible collection can also be downloaded as a file and installed:
 
