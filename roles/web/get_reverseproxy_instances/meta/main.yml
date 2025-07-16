@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: IBM
+  description: Role to get all configured instances
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: "2.14"
+  platforms:
+    - name: GenericLinux
+      versions:
+        - all
+
+  galaxy_tags:
+    - isam
+    - ibm
+    - web
+    - reverseproxy
+    - proxy

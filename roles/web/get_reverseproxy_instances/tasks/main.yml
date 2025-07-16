@@ -1,0 +1,12 @@
+---
+- name: Get reverse proxy instances
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.web.reverse_proxy.instance.get
+    isamapi:
+  register: _rp_instances
+
+- name: Set web_reverseproxy_instances variable for use in rest of playbook
+  ansible.builtin.set_fact:
+    web_reverseproxy_instances: "{{ _rp_instances.data | default([]) }}"
