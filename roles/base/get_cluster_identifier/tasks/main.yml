@@ -1,0 +1,13 @@
+---
+- name: Get cluster identifier
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.cluster.node.get_id
+    isamapi:
+  register: base_cluster_identifier
+
+- name: Display cluster identifier (use -v)
+  ansible.builtin.debug:
+    verbosity: 1
+    var: base_cluster_identifier.data
