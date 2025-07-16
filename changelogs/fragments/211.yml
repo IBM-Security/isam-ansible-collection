@@ -1,0 +1,13 @@
+---
+release_summary:
+  Build related changes
+minor_changes:
+  - galaxy.yml - add build_ignore
+
+add object.role:
+  - name: base.configure_mgmtazn_role
+    description: Add role to configure management authorization
+  - name: aac.configure_authentication_policies_json
+    description: Role to configure authentication policies using json format
+  - name: aac.get_fido2_relyingparty_configid
+    description: Get the fido2 relying party config id based on name (helper for configuring authentication mechanisms)
