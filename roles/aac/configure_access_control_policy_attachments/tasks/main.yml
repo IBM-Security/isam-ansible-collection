@@ -20,6 +20,7 @@
       policies: "{{ item.policies }}"
       policyCombiningAlgorithm: "{{ item.policyCombiningAlgorithm | default(omit) }}"
       cache: "{{ (item.cache | default('0')) | int }}"
+      policyType: "{{ item.type | default(omit) }}"
   loop: "{{ access_control_policy_attachments }}"
   loop_control:
     label: Configuring resource {{ item.resourceUri }} with policy {{ item.policies.0.name | default('skipping - no name defined ...') }}

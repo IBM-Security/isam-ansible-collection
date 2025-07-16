@@ -532,3 +532,27 @@ releases:
         name: ibm.isam.base.configure_container_repo
         namespace: null
     release_date: '2025-03-28'
+  3.3.0:
+    changes:
+      minor_changes:
+      - aac.configure_access_control_policy_attachments - add policyType (type) attribute
+      - base.configure_audit - add use_json and components
+      - base.install_firmware - remove deprecated get_md5 (Gourav1308)
+      - update molecule tests for fido2
+      - web.configure_management_root - remove some when statements
+      release_summary: A couple of new roles and fixes
+    fragments:
+    - fido2.yml
+    objects:
+      role:
+      - description: Role to configure authentication policies using json format
+        name: aac.configure_authentication_policies_json
+        namespace: null
+      - description: Get the fido2 relying party config id based on name (helper for
+          configuring authentication mechanisms)
+        name: aac.get_fido2_relyingparty_configid
+        namespace: null
+      - description: Add role to configure management authorization
+        name: base.configure_mgmtazn_role
+        namespace: null
+    release_date: '2025-07-14'

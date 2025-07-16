@@ -45,11 +45,11 @@
 
     - name: 9.2 Configuring Partner for the IdP - update signatureSettings in the new configuration json
       ansible.builtin.set_fact:
-        partner_configuration_json: "{{  ret_obj.data.configuration | combine(new_encryptionSettings) }}"
+        partner_configuration_json: "{{ ret_obj.data.configuration | combine(new_encryptionSettings) }}"
 
-    - name: 9.2 Configuring Partner for the IdP - update signatureSettings in the new configuration json
+    - name: 9.2 Configuring Partner for the IdP - update signatureSettings in the new configuration json part 2
       ansible.builtin.set_fact:
-        partner_configuration_json: "{{  partner_configuration_json | combine(new_signatureSettings) }}"
+        partner_configuration_json: "{{ partner_configuration_json | combine(new_signatureSettings) }}"
 
     - name: 9.2 Configuring Partner for the IdP - update federation partner configuration json
       ansible.builtin.include_role:

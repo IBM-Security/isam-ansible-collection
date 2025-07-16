@@ -7,19 +7,19 @@
   hosts: all
   gather_facts: false
   tasks:
-    - name: Role ibm.isam.delete_activation
+    - name: Role ibm.isam.delete_activation federation
       ansible.builtin.include_role:
         name: ibm.isam.delete_activation
       tags: [delete, activation, federation]
       vars:
         delete_activation_id: federation
-    - name: Role ibm.isam.delete_activation
+    - name: Role ibm.isam.delete_activation mga
       ansible.builtin.include_role:
         name: ibm.isam.delete_activation
       tags: [delete, activation, mga]
       vars:
         delete_activation_id: mga
-    - name: Role ibm.isam.delete_activation
+    - name: Role ibm.isam.delete_activation wga
       ansible.builtin.include_role:
         name: ibm.isam.delete_activation
       tags: [delete, activation, wga]

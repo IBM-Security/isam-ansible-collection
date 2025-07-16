@@ -1,5 +1,0 @@
----
-base_audit_type_id: runtime
-base_audit_group_name: FIDO2
-
-base_audit_component_id: '1'

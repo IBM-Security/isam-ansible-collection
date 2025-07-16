@@ -15,6 +15,9 @@ base_audit_configuration_server_host: 127.0.0.1
 base_audit_configuration_transport: TRANSPORT_UDP
 base_audit_configuration_queue_full_timeout: "-1"
 base_audit_configuration_max_queue_size: "1000"
+# Optional new
+base_audit_configuration_usejson:
+
 # Above values are set inside of "config"
 base_audit_configuration_config:
   - datatype: String
