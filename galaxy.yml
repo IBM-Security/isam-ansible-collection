@@ -12,7 +12,7 @@ name: isam
 # The version of the collection. Must be compatible with semantic versioning
 # new features and deprecations: minor release
 # removed features or breaking changes: major release
-version: 3.3.1
+version: 3.4.0
 
 # The path to the Markdown (.md) readme file. This path is relative to the root of the collection
 readme: README.md
@@ -66,6 +66,7 @@ issues: https://github.com/IBM-Security/isam-ansible-collection/issues
 build_ignore:
   - .gitignore
   - '*.tar.gz'
+  - .pre-commmit-config.yaml
   - .ansible-lint-ignore
   - .ansible-lint
   - molecule
@@ -73,3 +74,6 @@ build_ignore:
   - .github
   - .ansible
   - importer_result.json
+  - galaxy-importer.cfg
+  - .idea
+  - tests
