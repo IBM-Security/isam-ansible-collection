@@ -41,6 +41,7 @@
     - item.1.name is defined
   loop: "{{ base_rsyslog_forwarder_sources | default([]) | subelements('sources') }}"
   loop_control:
-    label: "{{ item.1.action|default('set') }}: {{ item.0.server|default('') }} - {{ item.0.port | default(base_rsyslog_forwarder_sources_port) }} - {{ item.1.name
-      | default('name') }}"
+    label: "{{ item.1.action|default('set') }}: {{ item.0.server|default('') }} -
+      {{ item.0.port | default(base_rsyslog_forwarder_sources_port) }} -
+      {{ item.1.name | default('name') }}"
   notify: Commit Changes
