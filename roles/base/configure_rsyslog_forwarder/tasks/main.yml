@@ -1,0 +1,46 @@
+---
+- name: Set Remote Syslog Forwarders
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.remote_syslog.forwarder.set
+    isamapi:
+      server: "{{ item.server }}"
+      port: "{{ item.port | default(base_rsyslog_forwarder_port) }}"
+      protocol: "{{ item.protocol | default(base_rsyslog_forwarder_protocol) }}"
+      debug: "{{ item.debug | default(base_rsyslog_forwarder_debug) }}"
+      keyfile: "{{ item.keyfile | default(omit) }}"
+      ca_certificate: "{{ item.ca_certificate | default(omit) }}"
+      client_certificate: "{{ item.client_certificate | default(omit) }}"
+      permitted_peers: "{{ item.permitted_peers | default(omit) }}"
+      format: "{{ item.format | default(omit) }}"
+      sources: []
+  when:
+    - base_rsyslog_forwarder_sources is defined
+  loop: "{{ base_rsyslog_forwarder_sources }}"
+  loop_control:
+    label: "Configuring rsyslog server: {{ item.server }}"
+  notify: Commit Changes
+
+- name: Set Remote Syslog Forwarder Sources
+  ibm.isam.isam:
+    log: "{{ log_level | default('INFO') }}"
+    force: "{{ force | default(False) }}"
+    action: ibmsecurity.isam.base.remote_syslog.forwarder_sources.{{ item.1.action|default('set') }}
+    isamapi:
+      server: "{{ item.0.server }}"
+      port: "{{ item.0.port | default(base_rsyslog_forwarder_port) }}"
+      protocol: "{{ item.0.protocol | default(base_rsyslog_forwarder_protocol) }}"
+      name: "{{ item.1.name }}"
+      tag: "{{ (item.1.action|default('set') == 'set') | ternary(item.1.tag,omit) }}"
+      facility: "{{ (item.1.action|default('set') == 'set') | ternary(item.1.facility,omit) }}"
+      severity: "{{ (item.1.action|default('set') == 'set') | ternary(item.1.severity,omit) }}"
+  when:
+    - base_rsyslog_forwarder_sources is defined
+    - item.0.server is defined
+    - item.1.name is defined
+  loop: "{{ base_rsyslog_forwarder_sources | default([]) | subelements('sources') }}"
+  loop_control:
+    label: "{{ item.1.action|default('set') }}: {{ item.0.server|default('') }} - {{ item.0.port | default(base_rsyslog_forwarder_sources_port) }} - {{ item.1.name
+      | default('name') }}"
+  notify: Commit Changes
