@@ -12,3 +12,6 @@
 changelogs/.plugin-cache.yaml
 .ansible
 .ansible/*
+importer_result.json
+.tox
+.tox/*
