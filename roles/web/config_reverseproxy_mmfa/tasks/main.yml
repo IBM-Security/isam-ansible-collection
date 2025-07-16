@@ -57,11 +57,16 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.mmfa_configuration.{{ item.mmfa_configuration.mmfa_action }}
-    isamapi: "{{ item.mmfa_configuration | ibm.isam.exclude('mmfa_action') | combine({'instance_id': item.inst_name}) }}"
+    isamapi:
+      instance_id: "{{ item.inst_name }}"
+      lmi: "{{ item.mmfa_configuration.lmi }}"
+      runtime: "{{ item.mmfa_configuration.runtime }}"
+      reuse_acls: "{{ item.mmfa_configuration.reuse_acls | default(omit) }}"
+      reuse_certs: "{{ item.mmfa_configuration.reuse_certs | default(omit) }}"
+      channel: "{{ item.mmfa_configuration.channel | default(omit) }}"
   loop: "{{ instances }}"
   loop_control:
-    label: "{'instance_id': '{{ item.inst_name }}', 'mmfa_action': {{ item.mmfa_configuration.mmfa_action | default('') }}}"
+    label: "instance_id {{ item.inst_name | default('') }}"
   when:
-    - item.inst_name == inst_name
     - item.mmfa_configuration is defined
   notify: Commit Changes
