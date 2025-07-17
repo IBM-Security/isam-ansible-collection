@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: IBM
-  description: Role to auto-configure reverse proxy for mmfa
+  description: Role to configure rsyslog
   company: IBM
 
   license: Apache
@@ -12,7 +12,7 @@ galaxy_info:
     - isam
     - ibm
     - configure
-    - reverseproxymmfa
+    - rsyslog
 
 dependencies:
   - ibm.isam.common_handlers

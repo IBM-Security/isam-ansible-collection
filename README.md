@@ -123,8 +123,12 @@ The collection is tested against IVIA appliances v11.0.0 and v10.0.8.
 
 ## Support
 
-Issues can be reported here through the [Issues](https://github.com/IBM-Security/isam-ansible-collection/issues) in the `isam-ansible-collection` Github repository.
-
+As Red Hat Ansible Certified Content, this collection is entitled
+to support through the Ansible Automation Platform (AAP) using the
+**Create issue** button on the top right corner.
+If a support case cannot be opened with Red Hat and the collection
+has been obtained either from Galaxy or GitHub, issues can be alternatively be reported
+by opening an issue [Issues](https://github.com/IBM-Security/isam-ansible-collection/issues) in the `isam-ansible-collection` Github repository.
 
 ## Release Notes and Roadmap
 

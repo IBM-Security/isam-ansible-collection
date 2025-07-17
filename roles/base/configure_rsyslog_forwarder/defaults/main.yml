@@ -1,0 +1,34 @@
+---
+# Defaults
+base_rsyslog_forwarder_port: 514
+base_rsyslog_forwarder_protocol: udp
+base_rsyslog_forwarder_debug: false
+#
+# This is the new format .  It uses the output format with nested list
+#
+# base_rsyslog_forwarder_sources:
+#  -   debug: false
+#      port: 514
+#      protocol: udp
+#      server: 10.1.1.110
+#      sources:
+#      -   facility: local7
+#          name: Runtime Messages
+#          severity: info
+#          tag: isamruntime
+#      -   facility: local7
+#          name: Runtime Trace
+#          severity: debug
+#          tag: isamruntime
+#      -   facility: local6
+#          name: LMI Messages
+#          severity: info
+#          tag: isamlmi
+#      -   facility: local6
+#          name: LMI Trace
+#          severity: debug
+#          tag: isamlmi
+#      -   facility: local4
+#          name: WebSEAL:default:request.log
+#          severity: info
+#          tag: isam

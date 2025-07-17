@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: IBM
-  description: Role to auto-configure reverse proxy for mmfa
+  description: Role view cluster identifier
   company: IBM
 
   license: Apache
@@ -11,8 +11,8 @@ galaxy_info:
   galaxy_tags:
     - isam
     - ibm
-    - configure
-    - reverseproxymmfa
+    - cluster
+    - get
 
 dependencies:
   - ibm.isam.common_handlers

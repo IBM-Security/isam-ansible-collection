@@ -25,7 +25,7 @@ repos:
         additional_dependencies:
           - ansible-core
   - repo: https://github.com/ansible/ansible-lint # Don't do that in pre-commit, it takes too long.
-    rev: v24.10.0 # put latest release tag from https://github.com/ansible/ansible-lint/releases/
+    rev: v25.6.0 # put latest release tag from https://github.com/ansible/ansible-lint/releases/
     hooks:
       - id: ansible-lint
         stages: [pre-push]
