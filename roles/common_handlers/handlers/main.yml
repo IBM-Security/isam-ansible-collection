@@ -29,8 +29,12 @@
 # Commit and Restart may cause LMI to restart - so wait to be safe
 - name: Await Appliance Commit LMI Response
   ansible.builtin.wait_for:
-    delay: 60
+    host: "{{ ansible_host | default(inventory_hostname) }}"
+    port: "{{ lmi_port | default(443) }}"
+    delay: 30
     timeout: "{{ start_config_wait_time }}"
+    connect_timeout: 2
+    sleep: 5
     state: started
   when: not ansible_check_mode
 
@@ -99,8 +103,12 @@
 
 - name: Await Appliance LMI Response
   ansible.builtin.wait_for:
-    delay: 60
+    host: "{{ ansible_host | default(inventory_hostname) }}"
+    port: "{{ lmi_port | default(443) }}"
+    delay: 30
     timeout: "{{ start_config_wait_time }}"
+    connect_timeout: 2
+    sleep: 5
     state: started
   when: not ansible_check_mode
 

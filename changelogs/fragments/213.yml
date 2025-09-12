@@ -1,0 +1,8 @@
+---
+bugfixes:
+  - common_handlers - actually perform a check for LMI
+  - base.import_personal_certificates - fix role , add password
+
+security_fixes:
+  - base.configure_personal_certificates - shows password in ansible logs
+  - base.import_personal_certificates - shows password in ansible logs

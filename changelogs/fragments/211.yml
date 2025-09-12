@@ -1,6 +1,6 @@
 ---
 release_summary:
-  Build related changes
+  Build related changes, some fixes
   A couple of new roles, and some deprecated roles
 
 minor_changes:
@@ -19,3 +19,4 @@ add object.role:
 deprecated_features:
   - set_rsyslog_forwarder - use base.configure_rsyslog_forwarder
   - set_rsyslog_forwarder_sources - use base.configure_rsyslog_forwarder
+  - import_personal_cert - does not work anyway. use `base.configure_personal_certificates` instead
