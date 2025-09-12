@@ -8,5 +8,8 @@
       kdb_id: "{{ item.kdb_id }}"
       label: "{{ item.label }}"
       cert: "{{ homedir }}/{{ item.cert }}"
-  with_items: "{{ personal_certificates }}"
+      password: "{{ item.password | default(omit) }}"
+  loop: "{{ personal_certificates }}"
+  loop_control:
+    label: "Importing {{ item.label }} into {{ item.kdb_id }}"
   notify: Commit Changes
