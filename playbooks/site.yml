@@ -1,6 +1,5 @@
 ---
 # Build out entire environment
-
 - name: Apply Common Configuration to all Appliances
   hosts: all
   gather_facts: false
@@ -162,7 +161,7 @@
         execute_pdadmin_isamuser: "{{ sec_master_id }}"
         execute_pdadmin_isampwd: "{{ sec_master_pwd }}"
 
-- name: Setup Restricted Appliances
+- name: Setup Restricted Appliances part 2
   hosts: restricted
   gather_facts: false
   vars:
