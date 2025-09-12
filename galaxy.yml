@@ -42,6 +42,7 @@ tags:
   - ibm
   - isam
   - isva
+  - ivia
   - security
 
 # Collections that this collection requires to be installed for it to be usable. The key of the dict is the
@@ -67,7 +68,7 @@ build_ignore:
   - .gitignore
   - '*.tar.gz'
   - .pre-commmit-config.yaml
-  - .ansible-lint-ignore
+  - .ansible-lint-ignore.old
   - .ansible-lint
   - molecule
   - .tox
