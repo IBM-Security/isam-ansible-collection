@@ -7,3 +7,5 @@ Todo: make this into a prepare step, and don't put the generated files in git
 export to pkcs12
 
     openssl pkcs12 -export -out test_certificate.p12 -inkey test_certificate_privatekey.pem -in test_certificate_private.crt
+
+The certificates need to be placed in a directory `files` at the same level as `isam`

@@ -42,7 +42,7 @@ personal_certificates:
   - cert_action: import_cert
     kdb_id: pdsrv
     label: test_certificate
-    cert: files/test_certificate.p12
+    cert: ../../../files/test_certificate.p12 # Moved out of the collection
     password: 'passw0rd'
   # Importing a personal certificate into a certificate database TODO
   #- cert_action: extract_cert

@@ -2,6 +2,9 @@
 bugfixes:
   - common_handlers - actually perform a check for LMI
   - base.import_personal_certificates - fix role , add password
+  - set_cluster_config - add passwords for hvdb and configdb (#216)
+  - base/externalize_hvdb - add passwords for hvdb and configdb (#216)
+  - molecule - remove p12 certificates out of collection (#218)
 
 security_fixes:
   - base.configure_personal_certificates - shows password in ansible logs

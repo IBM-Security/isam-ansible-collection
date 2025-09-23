@@ -80,6 +80,13 @@ access_control_policy_attachments:
     resourceUri: /
     server: "{{ inventory_hostname_short }}-default"
     type: reverse_proxy
+  - cache: 0 # Cache for duration of session (-1).  Needs to be 0
+    policies:
+    - name: New_Policy
+      type: policy
+    resourceUri: uri/test
+    server: customApplication
+    type: application
 
 access_control_policy_attachments_delete:
   - resourceUri: /
