@@ -18,6 +18,7 @@ Minor Changes
 - README updates
 - config_reverseproxy_mmfa - change the way the api is called
 - galaxy.yml - add build_ignore
+- galaxy.yml - remove all molecule folders from galaxy build.  Drastically reduce size of collection.
 
 Deprecated Features
 -------------------

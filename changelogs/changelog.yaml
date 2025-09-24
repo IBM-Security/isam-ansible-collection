@@ -571,6 +571,8 @@ releases:
       - set_rsyslog_forwarder_sources - use base.configure_rsyslog_forwarder
       minor_changes:
       - README updates
+      - build related - remove all molecule folders from galaxy build.  Drastically
+        reduce size of collection.
       - config_reverseproxy_mmfa - change the way the api is called
       - galaxy.yml - add build_ignore
       release_summary: Build related changes, some fixes A couple of new roles, and
@@ -581,6 +583,7 @@ releases:
     fragments:
     - 211.yml
     - 213.yml
+    - build.yml
     objects:
       role:
       - description: Add role to configure rsyslog forwarder
