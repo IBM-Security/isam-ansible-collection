@@ -1,4 +1,6 @@
 ---
+homedir: ''
+
 base_admin_cfg:
   enableSSLv3: True
   maxFiles: 50
