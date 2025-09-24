@@ -71,6 +71,7 @@ build_ignore:
   - .ansible-lint-ignore.old
   - .ansible-lint
   - molecule
+  - '*/molecule/*'
   - .tox
   - .github
   - .ansible
