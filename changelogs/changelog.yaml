@@ -556,3 +556,43 @@ releases:
         name: base.configure_mgmtazn_role
         namespace: null
     release_date: '2025-07-14'
+  3.4.0:
+    changes:
+      bugfixes:
+      - base.import_personal_certificates - fix role , add password
+      - base/externalize_hvdb - add passwords for hvdb and configdb (#216)
+      - common_handlers - actually perform a check for LMI
+      - molecule - remove p12 certificates out of collection (#218)
+      - set_cluster_config - add passwords for hvdb and configdb (#216)
+      deprecated_features:
+      - import_personal_cert - does not work anyway. use `base.configure_personal_certificates`
+        instead
+      - set_rsyslog_forwarder - use base.configure_rsyslog_forwarder
+      - set_rsyslog_forwarder_sources - use base.configure_rsyslog_forwarder
+      minor_changes:
+      - README updates
+      - build related - remove all molecule folders from galaxy build.  Drastically
+        reduce size of collection.
+      - config_reverseproxy_mmfa - change the way the api is called
+      - galaxy.yml - add build_ignore
+      release_summary: Build related changes, some fixes A couple of new roles, and
+        some deprecated roles
+      security_fixes:
+      - base.configure_personal_certificates - shows password in ansible logs
+      - base.import_personal_certificates - shows password in ansible logs
+    fragments:
+    - 211.yml
+    - 213.yml
+    - build.yml
+    objects:
+      role:
+      - description: Add role to configure rsyslog forwarder
+        name: base.configure_rsyslog_forwarder
+        namespace: null
+      - description: Register and show cluster identifier (debugging purposes)
+        name: base.get_cluster_identifier
+        namespace: null
+      - description: Get a list of all instances
+        name: web.get_reverseproxy_instances
+        namespace: null
+    release_date: '2025-09-23'

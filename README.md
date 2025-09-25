@@ -71,6 +71,38 @@ ansible_isam_password="admin"
 ansible_isam_port="443"
 ```
 
+### Recommended variables
+
+Additionally, you need to set the homedir variable to match your environment.
+The homedir variable defines the root path that will be searched for files.
+It defaults to `inventory_dir`, but a better value would be the empty string (`''`),
+to simply use the path as is from the variable,
+or to the `root_playbook_dir` variable.
+
+    homedir: "{{ root_playbook_dir }}"
+
+The default for `root_playbook_dir` var is pointing to the Ansible magic variable `playbook_dir`.
+
+
+**Note** that if you run playbooks from within this collection, the `playbook_dir` variable will point
+to the folder in the collection that contains the playbook.  This is not desirable (probably), so
+the best way to handle this is to explicitly set the variable when starting your playbook, like in the
+example below.
+
+```yaml
+- name: Prepare root_playbook_dir variable
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Set root_playbook_dir fact
+      ansible.builtin.set_fact:
+        root_playbook_dir: "{{ playbook_dir | dirname }}"
+        cacheable: yes
+      tags:
+        - always
+```
+
+
 ### TLS
 
 Using ibmsecurity v2024.4.5+ enables secure TLS connections between Ansible and the appliance's LMI (Management interface).

@@ -4,6 +4,51 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v3.4.0
+======
+
+Release Summary
+---------------
+
+Build related changes, some fixes A couple of new roles, and some deprecated roles
+
+Minor Changes
+-------------
+
+- README updates
+- config_reverseproxy_mmfa - change the way the api is called
+- galaxy.yml - add build_ignore
+- galaxy.yml - remove all molecule folders from galaxy build.  Drastically reduce size of collection.
+
+Deprecated Features
+-------------------
+
+- import_personal_cert - does not work anyway. use `base.configure_personal_certificates` instead
+- set_rsyslog_forwarder - use base.configure_rsyslog_forwarder
+- set_rsyslog_forwarder_sources - use base.configure_rsyslog_forwarder
+
+Security Fixes
+--------------
+
+- base.configure_personal_certificates - shows password in ansible logs
+- base.import_personal_certificates - shows password in ansible logs
+
+Bugfixes
+--------
+
+- base.import_personal_certificates - fix role , add password
+- base.externalize_hvdb - add passwords for hvdb and configdb (#216)
+- common_handlers - actually perform a check for LMI
+- molecule - remove p12 certificates out of collection (#218)
+- set_cluster_config - add passwords for hvdb and configdb (#216)
+
+New Roles
+---------
+
+- ibm.isam.base.configure_rsyslog_forwarder - Add role to configure rsyslog forwarder
+- ibm.isam.base.get_cluster_identifier - Register and show cluster identifier (debugging purposes)
+- ibm.isam.web.get_reverseproxy_instances - Get a list of all instances
+
 v3.3.0
 ======
 

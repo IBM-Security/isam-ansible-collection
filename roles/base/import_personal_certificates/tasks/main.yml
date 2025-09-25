@@ -7,7 +7,7 @@
     isamapi:
       kdb_id: "{{ item.kdb_id }}"
       label: "{{ item.label }}"
-      cert: "{{ homedir }}/{{ item.cert }}"
+      cert: "{{ ((homedir == '') | ternary('', homedir + '/')) }}{{ item.cert }}"
       password: "{{ item.password | default(omit) }}"
   loop: "{{ personal_certificates }}"
   loop_control:

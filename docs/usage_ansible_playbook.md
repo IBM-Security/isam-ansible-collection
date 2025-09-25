@@ -52,7 +52,7 @@ Example command to install collection:
 
 ## 5) Prepare your inventory
 
-You can
+
 
 ### 6) Miscellaneous
 - Please note that roles, modules and sample playbooks get installed

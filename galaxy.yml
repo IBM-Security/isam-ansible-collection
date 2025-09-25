@@ -71,6 +71,7 @@ build_ignore:
   - .ansible-lint-ignore.old
   - .ansible-lint
   - molecule
+  - '*/molecule/*'
   - .tox
   - .github
   - .ansible
@@ -78,3 +79,6 @@ build_ignore:
   - galaxy-importer.cfg
   - .idea
   - tests
+  - '*.zip'
+  - '*.p12'
+  - '*.ext'
