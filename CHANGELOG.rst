@@ -37,7 +37,7 @@ Bugfixes
 --------
 
 - base.import_personal_certificates - fix role , add password
-- base/externalize_hvdb - add passwords for hvdb and configdb (#216)
+- base.externalize_hvdb - add passwords for hvdb and configdb (#216)
 - common_handlers - actually perform a check for LMI
 - molecule - remove p12 certificates out of collection (#218)
 - set_cluster_config - add passwords for hvdb and configdb (#216)
