@@ -29,6 +29,12 @@
       ansible.builtin.import_role:
         name: ibm.isam.base.configure_personal_certificates
 
+    - name: Molecule test signer certificates
+      tags:
+        - certificates
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_signer_certificates
+
     # - name: Molecule deprecated audit configuration
     #  tags:
     #    - audit

@@ -8,4 +8,6 @@ export to pkcs12
 
     openssl pkcs12 -export -out test_certificate.p12 -inkey test_certificate_privatekey.pem -in test_certificate_private.crt
 
-The certificates need to be placed in a directory `files` at the same level as `isam`
+# Signer Certificates
+
+The signer certiicates here are some random public certs.

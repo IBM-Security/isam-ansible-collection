@@ -44,7 +44,12 @@ personal_certificates:
   - cert_action: import_cert
     kdb_id: pdsrv
     label: test_certificate
-    cert: ../../../files/test_certificate.p12 # Moved out of the collection
+    cert: files/test_certificate.p12
+    password: 'passw0rd'
+  - cert_action: import_cert
+    kdb_id: rt_profile_keys
+    label: test_certificate
+    cert: "{{ playbook_dir }}/files/test_certificate.p12"
     password: 'passw0rd'
   # Importing a personal certificate into a certificate database TODO
   #- cert_action: extract_cert
@@ -53,13 +58,87 @@ personal_certificates:
   #  filename: files/ssl/sample.cert # absolute or relative path supported
   #  password: 'passw0rd'
   # Deleting a personal certificate from a certificate database
-  #- cert_action: delete
-  #  kdb_id: pdsrv
-  #  cert_id: runtime
+  - cert_action: delete
+    kdb_id: rt_profile_keys
+    cert_id: test_certificate
   - cert_action: rename
     kdb_id: pdsrv
     cert_id: sample_label
     new_id: renamed_sample_label
+
+signer_certificates:
+  # import multiple signer certificates
+  - cert_action: import_cert
+    kdb_id: lmi_trust_store
+    cert: "{{ playbook_dir }}/files/WE1.pem"
+    label: WE1 Root Cert
+    preserve_label: false
+  - cert_action: import_cert
+    kdb_id: rt_profile_keys
+    cert: >-
+           -----BEGIN CERTIFICATE-----
+           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
+           -----END CERTIFICATE-----
+    label: github.io
+    preserve_label: false
+  - cert_action: import_cert
+    kdb_id: pdsrv
+    cert: "{{ lookup('ansible.builtin.file', 'files/github.io.pem', rstrip=False)  }}" # string (you can use lookup plugins here, eg. for aws)
+    label: github.io
+  - cert_action: import_cert
+    kdb_id: pdsrv
+    cert: "{{ lookup('ansible.builtin.file', 'files/www-ibm-com.pem') }}" # string (you can use lookup plugins here, eg. for aws)
+    label: digicert
+  - cert_action: import_cert
+    kdb_id: pdsrv
+    cert: >-
+      -----BEGIN CERTIFICATE-----
+      MIIDpTCCA0qgAwIBAgIRAP43bd3jsmBgETiUqdBOetcwCgYIKoZIzj0EAwIwOzEL
+      MAkGA1UEBhMCVVMxHjAcBgNVBAoTFUdvb2dsZSBUcnVzdCBTZXJ2aWNlczEMMAoG
+      A1UEAxMDV0UxMB4XDTI1MDgyODA0NDc1NVoXDTI1MTEyNjA1NDc0NVowFjEUMBIG
+      A1UEAxMLYW5zaWJsZS5jb20wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAARZkutS
+      sFbOrPqnEXlL34ijJbKJZiG/fr1B1po6TMo/YcwKNN3twwbRp+m2bWR/xByM0GQ8
+      iGCSY1YZ8dSysVXgo4ICUjCCAk4wDgYDVR0PAQH/BAQDAgeAMBMGA1UdJQQMMAoG
+      CCsGAQUFBwMBMAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYEFPvdd22yi3wOVIrrqdo/
+      AuO75IaRMB8GA1UdIwQYMBaAFJB3kjVnxP+ozKnme9mAeXvMk/k4MF4GCCsGAQUF
+      BwEBBFIwUDAnBggrBgEFBQcwAYYbaHR0cDovL28ucGtpLmdvb2cvcy93ZTEvX2pj
+      MCUGCCsGAQUFBzAChhlodHRwOi8vaS5wa2kuZ29vZy93ZTEuY3J0MCUGA1UdEQQe
+      MByCC2Fuc2libGUuY29tgg0qLmFuc2libGUuY29tMBMGA1UdIAQMMAowCAYGZ4EM
+      AQIBMDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jLnBraS5nb29nL3dlMS9mSmVk
+      bUwycGV0by5jcmwwggEDBgorBgEEAdZ5AgQCBIH0BIHxAO8AdgDM+w9qhXEJZf6V
+      m1PO6bJ8IumFXA2XjbapflTA/kwNsAAAAZjvN+1bAAAEAwBHMEUCIQCuUEnwuFN4
+      PRDk5vMsCbD/WklJqPgXBOE4NpliBrQqfwIgKOiHWEhzolvWnbGNlrjLsfGIOaz+
+      si9gFhwnBaWXvdoAdQAS8U40vVNyTIQGGcOPP3oT+Oe1YoeInG0wBYTr5YYmOgAA
+      AZjvN+0iAAAEAwBGMEQCIFhQdWKpTlysGzMRyu4s5//YO/jaY6SyTBsR+goAUaLd
+      AiBE+Y2qZSahei9nIpjPqkdrgwFZjVGeXER4h/OPrjcPGDAKBggqhkjOPQQDAgNJ
+      ADBGAiEAldO8MmATNBe89GvfkSmxFn1ERu4SKeRPxft+vkED6vUCIQD/F/DmfWdV
+      xqnNFhu16mUDQxQRqAZgQkBUDjCBOGQQ2A==
+      -----END CERTIFICATE-----
+    label: ansible.com
+  # get all certificates from keystore
+  - cert_action: get_all
+    kdb_id: pdsrv
+  # get content of a specific certificate from keystore
+  - cert_action: get
+    kdb_id: pdsrv
+    cert_id: github.io
+  # load public key into keystore
+  - cert_action: load
+    kdb_id: pdsrv
+    label: runtime
+    server: localhost
+    port: 443
+  # check_remote controls if ansible should check remote certificate by retrieving it or simply by checking for existence of the label in the kdb
+    check_remote: false
+  # export a certificate to local directory
+  - cert_action: export_cert
+    kdb_id: pdsrv
+    cert_id: runtime
+    filename: /tmp/runtime.cert
+  # delete a specific signer certificate from keystore
+  - cert_action: delete
+    kdb_id: pdsrv
+    cert_id: runtime
 
 base_audit_type_id: runtime
 base_audit_group_name: FIDO2
