@@ -102,6 +102,16 @@ example below.
         - always
 ```
 
+### Optional variables
+
+Support for proxies (http and https) has been added.
+
+````
+ansible_https_proxy: "http://<proxyserver>:<port>"
+ansible_http_proxy: "http://<proxyserver>:<port>"
+````
+It was already possible to use a proxy server for the Ansible CLI (ansible-playbook) by setting an environment variable before
+starting the playbook.
 
 ### TLS
 
