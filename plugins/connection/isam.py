@@ -114,7 +114,7 @@ DOCUMENTATION = """
               key: validate_certs
           vars:
             - name: isam_validate_certs
-          version_added: '2024.4.0'
+          version_added: '3.0.0'
         verify_ca_path:
           type: str
           required: False
@@ -129,8 +129,39 @@ DOCUMENTATION = """
             - name: IBMSECLIB_VERIFY_CONNECTION
           vars:
             - name: ibmseclib_verify_connection
-          version_added: '2024.4.0'
-
+          version_added: '3.0.0'
+        http_proxy:
+          type: str
+          required: False
+          description:
+            - This set the http_proxy for the ISAM Connection
+            - This requires version 2025.9.30.0 or higher of the ibmsecurity package
+          ini:
+            - section: defaults
+              key: http_proxy
+          env:
+            - name: ANSIBLE_HTTP_PROXY
+          vars:
+            - name: ansible_http_proxy
+            - name: isam_http_proxy
+            - name: ivia_http_proxy
+          version_added: '3.5.0'
+        https_proxy:
+          type: str
+          required: False
+          description:
+            - This set the http_proxy for the ISAM Connection
+            - This requires version 2025.9.30.0 or higher of the ibmsecurity package
+          ini:
+            - section: defaults
+              key: https_proxy
+          env:
+            - name: ANSIBLE_HTTPS_PROXY
+          vars:
+            - name: ansible_https_proxy
+            - name: isam_https_proxy
+            - name: ivia_https_proxy
+          version_added: '3.5.0'
 """
 import importlib
 
@@ -176,6 +207,8 @@ class Connection(NetworkConnectionBase):
             passwd = self.get_option('password')
             verify_ca_path = self.get_option('verify_ca_path')
             verify = self.get_option('validate_certs')
+            http_proxy = self.get_option('http_proxy')
+            https_proxy = self.get_option('https_proxy')
             self.queue_message('v', f'Verify certificates {verify}')
             if verify_ca_path is not None:
                 if verify_ca_path.lower() in ["true", "yes"]:
@@ -214,14 +247,14 @@ class Connection(NetworkConnectionBase):
                     self.queue_message(
                         'warning',
                         'The LMI connected using an insecure TLS connection.')
-                self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port, verify=verify)
+                self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port, verify=verify, http_proxy=http_proxy, https_proxy=https_proxy)
 
             except Exception as e:
-                # Assume this is the old ibmsecurity code, without the verify option
+                # Assume this is the old ibmsecurity code, without the verify option or without proxy support
                 # Will throw an error (not sure which)
                 self.queue_message(
                     'warning',
-                    'Upgrade your ibmsecurity python module to 2024.4.5.0 or higher')
+                    'Upgrade your ibmsecurity python module to 2025.9.30.0 or higher')
                 self.queue_message(
                     'warning',
                     f'This error is skipped (backward compatibility): {e}')
