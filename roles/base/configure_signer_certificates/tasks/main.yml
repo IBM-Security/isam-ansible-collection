@@ -37,6 +37,10 @@
           kdb_id: lmi_trust_store
           cert: files/ssl/lmi.crt # absolute or relative path supported
           label: sample_label
+        - cert_action: import_cert
+          kdb_id: lmi_trust_store
+          cert: "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----" # string (you can use lookup plugins here, eg. for aws)
+          label: sample_label2
         # get all certificates from keystore
         - cert_action: get_all
           kdb_id: pdsrv
@@ -57,7 +61,7 @@
           kdb_id: pdsrv
           cert_id: runtime
           filename: files/ssl/runtime.cert # absolute or relative path supported
-        # delete a specific sidgner certificate from keystore
+        # delete a specific signer certificate from keystore
         - cert_action: delete
           kdb_id: pdsrv
           cert_id: runtime
@@ -70,20 +74,26 @@
   when: help is defined
 
 - name: Configure signer certificates [-e cert_action=[import_cert] -e kdb_id=<kdb>]
+  vars:
+    _homedir_path: "{{ (homedir=='') | ternary('', homedir + '/') }}"
+    _cert: "{{ ((item.cert | default('')) is search('-----BEGIN CERTIFICATE-----')) |
+           ternary( '-----BEGIN CERTIFICATE-----\\n' ~ (item.cert | regex_replace('[\\r\\n\\t]+','') | replace('-----BEGIN CERTIFICATE-----', '') | replace('-----END CERTIFICATE-----', '')) ~  '\\n-----END CERTIFICATE-----',
+           ((homedir=='') | ternary('', homedir + '/')) + item.cert) }}"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
-    action: ibmsecurity.isam.base.ssl_certificates.signer_certificate.{{ item.cert_action }}
+    action: ibmsecurity.isam.base.ssl_certificates.signer_certificate.{{ item.cert_action | default('import_cert') }}
     isamapi: "{{ {'kdb_id': item.kdb_id} | combine({'label': item.label} if (item.label is defined) else {})
-      | combine({'cert': homedir + '/' + item.cert} if (item.cert is defined) else {})
+      | combine({'cert': _cert} if (item.cert is defined) else {})
+      | combine( (item.preserve_label is defined) | ternary({'preserve_label': (item.preserve_label | default('') | string)},{}) )
       | combine({'cert_id': item.cert_id} if (item.cert_id is defined) else {})
       | combine({'server': item.server} if (item.server is defined) else {})
       | combine({'port': item.port} if (item.port is defined) else {})
       | combine({'check_remote': item.check_remote} if (item.check_remote is defined) else {})
-      | combine({'filename': homedir + '/' + item.filename} if (item.filename is defined) else {}) }}"
+      | combine({'filename': _homedir_path + item.filename} if (item.filename is defined) else {}) }}"
   loop: "{{ signer_certificates }}"
   loop_control:
-    label: "kdb: {{ item.kdb_id }} - {{ item.label | default('') }} - {{ item.cert_id | default('') }} - {{ item.cert | default('') }}"
+    label: "kdb: {{ item.kdb_id }} - {{ item.label | default('') }}"
   when:
     - item.cert_action == cert_action
     - item.kdb_id == kdb_id
