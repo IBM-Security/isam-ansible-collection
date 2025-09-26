@@ -1,0 +1,7 @@
+---
+bugfixes:
+  - configure_personal_certificates - homedir handling
+  - configure_signer_certificates - homedir handling
+
+major_changes:
+  - configure_signer_certificates - import certificate as string
