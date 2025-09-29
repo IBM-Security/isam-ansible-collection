@@ -5,3 +5,6 @@ bugfixes:
 
 major_changes:
   - configure_signer_certificates - import certificate as string
+
+known_issues:
+  - configure_signer_certificates - import certificate as string only works for individual certificates not for chains
