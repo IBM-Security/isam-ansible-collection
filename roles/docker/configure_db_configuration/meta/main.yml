@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: IBM
+  description: Role to configure hvdb for container deployments
+  company: IBM
+
+  license: Apache
+
+  min_ansible_version: "2.15"
+
+  galaxy_tags:
+    - isam
+    - ibm
+    - docker
+
+dependencies:
+  - ibm.isam.common_handlers

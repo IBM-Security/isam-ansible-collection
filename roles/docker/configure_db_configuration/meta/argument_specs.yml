@@ -1,0 +1,210 @@
+---
+argument_specs:
+  main:
+    short_description: Configure HVDB in container scenario
+    description: |
+      This is the main entrypoint for the C(ibm.isam.docker.configure_db_configuration) role.
+      Role to configure the runtime database for docker (container model)
+      STEPS
+      1) configure runtime database
+      2) Commit changes
+      EXAMPLES
+        ansible-playbook -i [...] ibm.isam.docker.configure_db_configuration
+      INVENTORY
+      ==========
+
+      docker_db_config:
+        hvdb_db_type: postgresql
+        hvdb_address: 1.2.3.4
+        hvdb_port: 5432
+        hvdb_user: postgres
+        hvdb_password: password
+        hvdb_db_name: ivia
+        hvdb_db_secure: false
+      ==========
+    author:
+      - 'IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>'
+    options:
+      docker_db_config:
+        type: dict
+        required: false
+        description:
+          - The parameters required to setup a runtime database
+          - Not required, but obviously is required if you want to actually do something
+        options:
+          ignore_password_for_idempotency:
+            type: bool
+            required: false
+            description:
+              - "Do not look at the password for idempotency"
+          hvdb_db_type:
+            type: str
+            required: true
+            description:
+              - "Database type"
+            choices:
+              - db2
+              - postgresql
+              - oracle
+              - mssql
+          hvdb_db_name:
+            type: str
+            required: true
+            description:
+              - "Database name"
+          hvdb_address:
+            type: str
+            description:
+              - "Internal address to the database"
+              - "Must be an ip address or a FQDN hostname"
+          hvdb_port:
+            type: str
+            description:
+              - "Port"
+          hvdb_user:
+            type: str
+            description:
+              - "Username"
+          hvdb_password:
+            type: str
+            description:
+              - "Database password"
+          hvdb_db_secure:
+            type: bool
+            required: true
+            description:
+              - "Secure connection"
+              - "Required for DB2, Oracle, MSSQL and Postgres"
+          hvdb_driver_type:
+            type: str
+            description:
+              - "Driver type. Only applicable for certain types"
+              - Oracle only
+              - thin or something else
+          hvdb_db2_alt_address:
+            type: str
+            description:
+              - "DB2 Alternate address"
+          hvdb_db2_alt_port:
+            type: str
+            description:
+              - "DB2 Alternate port"
+          hvdb_db_truststore:
+            type: str
+            description:
+              - "Oracle only: Truststore, required if secure"
+              - "eg. embedded_ldap_keys"
+
+          hvdb_failover_servers:
+            type: list
+            description:
+              - PostgresQL only
+              - An ordered list of PostgreSQL failover servers for the Runtime database
+          hvdb_mssql_instance_name:
+            type: str
+            description:
+              - "MSSQL only: the database instance name to connect to"
+              - "When not specified, a connection is made to the default instance"
+          hvdb_mssql_trust_server_cert:
+            type: bool
+            description:
+              - "MSSQL only: Set to true to specify that the driver doesn't validate the server TLS/SSL certificate"
+              - "Required for MSSQL"
+          hvdb_mssql_failover_partner:
+            type: str
+            description:
+              - "MSSQL only: The name of the failover server used in a database mirroring configuration"
+          cfgdb_embedded:
+            type: bool
+            description:
+              - "A flag true/false indicating whether or not the Configuration database is embedded"
+              - "If this value is not specified, the internal database will be used and none of the other cfgdb_* values are required"
+          cfgdb_db_type:
+            type: str
+            choices:
+              - db2
+              - postgresql
+              - mssql
+              - oracle
+            description:
+              - The type of database that is being used. Valid values are db2, postgresql, mssql and oracle.
+              - This option is only valid if cfgdb_embedded is set to false
+          cfgdb_address:
+            type: str
+            desciption:
+              - The IP or hostname of the external database server.
+              - This option is only valid if cfgdb_embedded is set to false.
+          cfgdb_port:
+            type: int
+            decription:
+              - The port on which the external database server is listening.
+              - This option is only valid if cfgdb_embedded is set to false.
+          cfgdb_user:
+            type: str
+            description:
+              - The administrator name for the external database.
+              - This option is only valid if cfgdb_embedded is set to false.
+          cfgdb_password:
+            type: str
+            description:
+              - The administrator password for the external database.
+              - This option is only valid if cfgdb_embedded is set to false.
+          cfgdb_db2_alt_address:
+            type: str
+            description:
+              - DB2 Only
+              - The IP or hostname of the fail-over server in DB2 HADR/ACR environments.
+              - This option is only valid if cfgdb_embedded is set to false.
+          cfgdb_db2_alt_port:
+            type: str
+            description:
+              - DB2 only
+              - The IP or hostname of the fail-over server in DB2 HADR/ACR environments.
+              - This option is only valid if cfgdb_embedded is set to false.
+          cfgdb_db_name:
+            type: str
+            description:
+              - The name of the external database
+              - This option is only valid if cfgdb_embedded is set to false.
+          cfgdb_db_secure:
+            type: bool
+            description:
+              - A flag true/false indicating whether or not the external database is secure.
+              - This option is only valid if cfgdb_embedded is set to false.
+          cfgdb_db_truststore:
+            type: str
+            description:
+              - Oracle only; required when cfgdb_db_secure is true
+              - The SSL Key Store which contains the trusted certificate of the Oracle DB requiring secure connectivity.
+          cfgdb_driver_type:
+            type: str
+            description:
+              - Oracle only
+              - The type of Oracle JDBC driver to use.
+              - This option is only valid if cfgdb_embedded is set to false.
+          cfgdb_failover_servers:
+            type: list
+            description:
+              - PostgreSQL only
+              - An ordered list of PostgreSQL failover servers for the Configuration database.
+              - This option is only valid if cfgdb_embedded is set to false.
+          cfgdb_mssql_instance_name:
+            type: str
+            description:
+              - MSSQL only
+              - The database instance name to connect to
+              - When not specified, a connection is made to the default instance
+              - This option is only valid if cfgdb_embedded is set to false.
+          cfgdb_mssql_trust_server_cert:
+            type: bool
+            description:
+              - MSSQL only, required
+              - Set to true to specify that the driver doesn't validate the server TLS/SSL certificate
+              - This option is only valid if cfgdb_embedded is set to false.
+          cfgdb_mssql_failover_partner:
+            type: str
+            description:
+              - MSSQL only
+              - The name of the failover server used in a database mirroring configuration
+              - This property is used for an initial connection failure to the principal server. After you make the initial connection, this property is ignored
+              - This option is only valid if cfgdb_embedded is set to false

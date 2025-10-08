@@ -1,0 +1,15 @@
+---
+docker_db_config:
+#  hvdb_db_type:
+#  hvdb_address:
+#  hvdb_port:
+#  hvdb_user:
+#  hvdb_password:
+#  hvdb_db_name:
+#  hvdb_db_secure:
+#  #optional
+#  hvdb_driver_type:
+#  hvdb_db2_alt_address:
+#  hvdb_db2_alt_port:
+#  hvdb_solid_tc:
+#  ignore_password_for_idempotency:
