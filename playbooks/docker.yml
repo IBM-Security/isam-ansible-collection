@@ -24,6 +24,10 @@
     - name: Flush
       ansible.builtin.meta: flush_handlers
 
+    - name: Debug the policy server
+      ansible.builtin.debug:
+        var: policyserver_runtime
+
     - name: Role ibm.isam.web.configure_policyserver
       ansible.builtin.import_role:
         name: ibm.isam.web.configure_policyserver
