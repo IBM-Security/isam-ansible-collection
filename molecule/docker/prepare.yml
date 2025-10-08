@@ -1,0 +1,15 @@
+---
+- name: Prepare docker
+  hosts: all
+  gather_facts: false
+  vars:
+    homedir: "{{ playbook_dir }}" # this is this directory for molecule
+  tasks:
+    - name: Include variables
+      tags:
+        - always
+      ansible.builtin.include_vars:
+        file: "base.yml"
+
+- name: Molecule - Run docker setup playbook
+  import_playbook: ibm.isam.docker.yml
