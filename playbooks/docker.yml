@@ -1,0 +1,30 @@
+---
+# Prepare docker config container
+- name: Base docker setup
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Role ibm.isam.base.first_steps
+      ansible.builtin.import_role:
+        name: ibm.isam.base.first_steps
+      tags: [first, steps]
+
+    - name: Configure docker db config
+      ansible.builtin.import_role:
+        name: ibm.isam.docker.configure_db_configuration
+
+    - name: Flush
+      ansible.builtin.meta: flush_handlers
+
+    - name: Role ibm.isam.base.activate_module
+      ansible.builtin.import_role:
+        name: ibm.isam.base.activate_modules
+      tags: [activate, wga]
+
+    - name: Flush
+      ansible.builtin.meta: flush_handlers
+
+    - name: Role ibm.isam.web.configure_policyserver
+      ansible.builtin.import_role:
+        name: ibm.isam.web.configure_policyserver
+      tags: [policyserver, config]
