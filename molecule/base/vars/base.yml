@@ -11,6 +11,25 @@ base_admin_cfg:
   validVerifyDomains:
   jsVersion: ""
 
+time_cfg:
+  enableNtp: true
+  ntpServers: "0.europe.pool.ntp.org,1.europe.pool.ntp.org,2.europe.pool.ntp.org"
+  timeZone: "Europe/Brussels"
+
+host_records:
+  - addr: 192.168.198.144
+    hostnames:
+      - name: isam1.ibm.com
+      - name: isam1
+  - addr: 192.168.198.145
+    hostnames:
+      - name: isam2.ibm.com
+      - name: isam2
+  - addr: 192.168.198.153
+    hostnames:
+      - name: isam3.ibm.com
+      - name: isam3
+
 personal_certificates:
   # get all certificates from keystore
   - cert_action: get_all
