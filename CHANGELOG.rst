@@ -4,6 +4,41 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v3.5.0
+======
+
+Major Changes
+-------------
+
+- configure_signer_certificates - import certificate as string
+- connection/isam.py - Support for http_proxy and https_proxy (requires ibmsecurity 2025.9.30.0 or higher)
+
+Deprecated Features
+-------------------
+
+- Playbook isamcfg.yml
+
+Bugfixes
+--------
+
+- configure_personal_certificates - homedir handling
+- configure_signer_certificates - homedir handling
+
+Known Issues
+------------
+
+- configure_signer_certificates - import certificate as string only works for individual certificates not for chains
+
+New Playbooks
+-------------
+
+- ibm.isam.docker.yml - Example playbook to do an initial setup of a docker config container
+
+New Roles
+---------
+
+- ibm.isam.docker.configure_db_configuration - Add role to configure perform initial runtime db configuration in containers (docker, kubernetes, openshift)
+
 v3.4.0
 ======
 
@@ -16,9 +51,9 @@ Minor Changes
 -------------
 
 - README updates
+- build related - remove all molecule folders from galaxy build.  Drastically reduce size of collection.
 - config_reverseproxy_mmfa - change the way the api is called
 - galaxy.yml - add build_ignore
-- galaxy.yml - remove all molecule folders from galaxy build.  Drastically reduce size of collection.
 
 Deprecated Features
 -------------------
@@ -37,7 +72,7 @@ Bugfixes
 --------
 
 - base.import_personal_certificates - fix role , add password
-- base.externalize_hvdb - add passwords for hvdb and configdb (#216)
+- base/externalize_hvdb - add passwords for hvdb and configdb (#216)
 - common_handlers - actually perform a check for LMI
 - molecule - remove p12 certificates out of collection (#218)
 - set_cluster_config - add passwords for hvdb and configdb (#216)

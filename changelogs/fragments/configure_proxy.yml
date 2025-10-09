@@ -1,3 +1,0 @@
----
-major_changes:
-  - connection/isam.py - Support for http_proxy and https_proxy (requires ibmsecurity 2025.9.30.0)
