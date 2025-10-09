@@ -13,7 +13,7 @@
       ansible.builtin.import_role:
         name: ibm.isam.docker.configure_db_configuration
 
-    - name: Flush
+    - name: Flush after configuring db
       ansible.builtin.meta: flush_handlers
 
     - name: Role ibm.isam.base.activate_module
@@ -21,7 +21,7 @@
         name: ibm.isam.base.activate_modules
       tags: [activate, wga]
 
-    - name: Flush
+    - name: Flush after activating
       ansible.builtin.meta: flush_handlers
 
     - name: Role configure_certificate_databases (before policy server configuration)
