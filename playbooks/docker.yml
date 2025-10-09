@@ -24,6 +24,20 @@
     - name: Flush
       ansible.builtin.meta: flush_handlers
 
+    - name: Role configure_certificate_databases (before policy server configuration)
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_certificate_databases
+
+    - name: Flush after configuring ssl databases
+      ansible.builtin.meta: flush_handlers
+
+    - name: Role configure_signer_certificates (before policy server configuration)
+      ansible.builtin.import_role:
+        name: ibm.isam.base.configure_signer_certificates
+
+    - name: Flush after adding signer certs
+      ansible.builtin.meta: flush_handlers
+
     - name: Debug the policy server
       ansible.builtin.debug:
         var: policyserver_runtime
