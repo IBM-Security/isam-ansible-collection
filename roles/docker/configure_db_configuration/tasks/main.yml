@@ -1,0 +1,10 @@
+---
+- name: Configure runtime docker hvdb
+  ibm.isam.isam:
+    log: "{{ log_level | default(omit) }}"
+    force: "{{ force | default(omit) }}"
+    action: ibmsecurity.isam.docker.base.network.db_configuration.configuration.set
+    isamapi: "{{ docker_db_config }}"
+  when:
+    - docker_db_config is defined
+  notify: Commit Changes

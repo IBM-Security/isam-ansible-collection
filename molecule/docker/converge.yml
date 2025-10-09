@@ -1,5 +1,5 @@
 ---
-- name: Converge base
+- name: Converge docker
   hosts: all
   gather_facts: false
   vars:
@@ -10,27 +10,6 @@
         - always
       ansible.builtin.include_vars:
         file: "vars/base.yml"
-
-    - name: Molecule activate modules
-      tags:
-        - activate
-      ansible.builtin.import_role:
-        name: ibm.isam.base.activate_modules
-
-    - name: Role ibm.isam.base.configure_dns
-      ansible.builtin.import_role:
-        name: ibm.isam.base.configure_dns
-      tags: [dns]
-
-    - name: Role ibm.isam.base.configure_time
-      ansible.builtin.import_role:
-        name: ibm.isam.base.configure_time
-      tags: [ntp]
-
-    - name: Role ibm.isam.base.set_host_records
-      ansible.builtin.import_role:
-        name: ibm.isam.base.set_host_records
-      tags: [host, records]
 
     - name: Molecule admin_cfg settings
       tags:
