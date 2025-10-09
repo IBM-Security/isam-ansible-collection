@@ -75,7 +75,7 @@
 
 - name: Configure signer certificates [-e cert_action=[import_cert] -e kdb_id=<kdb>]
   vars:
-    _homedir_path: "{{ (homedir=='') | ternary('', homedir + '/') }}"
+    _homedir_path: "{{ (homedir == '') | ternary('', homedir + '/') }}"
     _cert: "{{ ((item.cert | default('')) is search('-----BEGIN CERTIFICATE-----')) |
            ternary( '-----BEGIN CERTIFICATE-----\\n' ~ (item.cert | regex_replace('[\\r\\n\\t]+','') | replace('-----BEGIN CERTIFICATE-----', '') | replace('-----END CERTIFICATE-----', '')) ~  '\\n-----END CERTIFICATE-----',
            ((homedir=='') | ternary('', homedir + '/')) + item.cert) }}"

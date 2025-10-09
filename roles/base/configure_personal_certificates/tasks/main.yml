@@ -96,7 +96,7 @@
 
 - name: Configure personal certificates [-e cert_action=[get_all|get|generate|set|receive|export_cert|extract_cert|import_cert|delete|rename] -e kdb_id=<kdb>]
   vars:
-    _homedir_path: "{{ (homedir=='') | ternary('', homedir + '/') }}"
+    _homedir_path: "{{ (homedir == '') | ternary('', homedir + '/') }}"
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
