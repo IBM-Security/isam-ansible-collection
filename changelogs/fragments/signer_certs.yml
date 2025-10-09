@@ -8,3 +8,14 @@ major_changes:
 
 known_issues:
   - configure_signer_certificates - import certificate as string only works for individual certificates not for chains
+
+add object.role:
+  - name: docker.configure_db_configuration
+    description: Add role to configure perform initial runtime db configuration in containers (docker, kubernetes, openshift)
+
+add object.playbook:
+  - name: docker.yml
+    description: Example playbook to do an initial setup of a docker config container
+
+deprecated_features:
+  - Playbook isamcfg.yml
