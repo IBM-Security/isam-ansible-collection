@@ -596,3 +596,31 @@ releases:
         name: web.get_reverseproxy_instances
         namespace: null
     release_date: '2025-09-23'
+  3.5.0:
+    changes:
+      bugfixes:
+      - configure_personal_certificates - homedir handling
+      - configure_signer_certificates - homedir handling
+      deprecated_features:
+      - Playbook isamcfg.yml
+      known_issues:
+      - configure_signer_certificates - import certificate as string only works for
+        individual certificates not for chains
+      major_changes:
+      - configure_signer_certificates - import certificate as string
+      - connection/isam.py - Support for http_proxy and https_proxy (requires ibmsecurity
+        2025.9.30.0 or higher)
+    fragments:
+    - configure_proxy.yml
+    - signer_certs.yml
+    objects:
+      playbook:
+      - description: Example playbook to do an initial setup of a docker config container
+        name: docker.yml
+        namespace: null
+      role:
+      - description: Add role to configure perform initial runtime db configuration
+          in containers (docker, kubernetes, openshift)
+        name: docker.configure_db_configuration
+        namespace: null
+    release_date: '2025-10-09'
