@@ -242,24 +242,46 @@ class Connection(NetworkConnectionBase):
             #    hostname=appliance, adminProxyProtocol=adminProxyProtocol, adminProxyPort=adminProxyPort,
             #    adminProxyApplianceShortName=adminProxyApplianceShortName)
             #    pass
-            try:
-                if not verify:
+            if http_proxy or https_proxy:
+                # Only handle if these arguments are used
+                try:
+                    if not verify:
+                        self.queue_message(
+                            'warning',
+                            'The LMI connected using an insecure TLS connection.')
+                    self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port, verify=verify,
+                                                     http_proxy=http_proxy, https_proxy=https_proxy)
+
+                except Exception as e:
+                    # Assume this is the old ibmsecurity code, without the verify option or without proxy support
+                    # Will throw an error (not sure which)
                     self.queue_message(
                         'warning',
-                        'The LMI connected using an insecure TLS connection.')
-                self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port, verify=verify, http_proxy=http_proxy, https_proxy=https_proxy)
+                        'Upgrade your ibmsecurity python module to 2025.9.30.0 or higher')
+                    self.queue_message(
+                        'warning',
+                        f'This error is skipped (backward compatibility): {e}')
+                    self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port)
+                    pass
+            else:
+                try:
+                    if not verify:
+                        self.queue_message(
+                            'warning',
+                            'The LMI connected using an insecure TLS connection.')
+                    self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port, verify=verify)
 
-            except Exception as e:
-                # Assume this is the old ibmsecurity code, without the verify option or without proxy support
-                # Will throw an error (not sure which)
-                self.queue_message(
-                    'warning',
-                    'Upgrade your ibmsecurity python module to 2025.9.30.0 or higher')
-                self.queue_message(
-                    'warning',
-                    f'This error is skipped (backward compatibility): {e}')
-                self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port)
-                pass
+                except Exception as e:
+                    # Assume this is the old ibmsecurity code, without the verify option
+                    # Will throw an error (not sure which)
+                    self.queue_message(
+                        'warning',
+                        'Upgrade your ibmsecurity python module to 2024.4.5.0 or higher ')
+                    self.queue_message(
+                        'warning',
+                        f'This error is skipped (backward compatibility): {e}')
+                    self.isam_server = ISAMAppliance(hostname=host, user=u, lmi_port=port)
+                    pass
 
             self._sub_plugin = {'name': 'isam_server', 'obj': self.isam_server}
 
