@@ -1,0 +1,3 @@
+---
+minor_changes:
+  - connection/isam.py - check if proxy arguments are used
