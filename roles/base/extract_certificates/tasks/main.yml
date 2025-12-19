@@ -29,6 +29,8 @@
       filename: "{{ homedir }}/{{ item.filename }}"
       password: "{{ item.password }}"
   loop: "{{ extract_certificates }}"
+  loop_control:
+    label: "Extract {{ item.cert_id | default('') }} to {{ homedir }}/{{ item.filename }}"
   when:
     - item.filename is defined
     - item.password is defined
