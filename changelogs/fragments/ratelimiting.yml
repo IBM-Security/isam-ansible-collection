@@ -5,7 +5,8 @@ bugfixes:
   - filter/to_xml.py - Importing 'to_text' from 'ansible.module_utils._text' is deprecated
   - ansible-lint issues (empty-string-compare, line too long)
   - web/upload_kerberos_keytab_files - syntax for module
-  - 229 - correct comments in playbook
+  - 229 - correct comments in playbook import_personal_certificates.yml
+  - base/publish.yml - remove connection parameter
 
 add object.role:
   - name: web/config_reverseproxy_ratelimiting
