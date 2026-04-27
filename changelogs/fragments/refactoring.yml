@@ -1,3 +1,4 @@
 ---
 minor_changes:
   - Update pre-commit-config
+  - Move molecule to extensions/molecule
