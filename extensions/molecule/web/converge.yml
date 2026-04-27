@@ -160,55 +160,20 @@
     certificate_mapping_files:
       - file: files/certificate_mappings/cert_map.xsl
     web_ratelimiting_policies:
-      - file: files/ratelimiting/LimitTest.yaml
-      - name: LimitContent.yaml
-        action: add
-        content: |
-            ---
-            #=========================
-            # Rate limiting content
-            #=========================
-
-
-
-            #=========================
-            # Matching criteria
-            #=========================
-
-            resources:
-              - url: /
-                method:
-                  - GET
-
-            #=========================
-            # Tokenizing Criteria
-            #=========================
-            # Requests are built into tokens to identify them, these
-            # tokens consist of any permutation of IP, headers, cookies, query string
-            # parameters.
-
-            ip: false
-
-            # If a load balancer is involved instead use:
-            #header:
-            #  x-forwarded-for: "*"
-
-            #=========================
-            # Capacity Criteria
-            #=========================
-            # The client is allowed to try 5 times in a minute.
-
-            capacity: 5
-            interval: 60
-
-            #=========================
-            # Reaction
-            #=========================
-
-            reaction: CLOSE
-
-            ---
-      - name: LimitContent.yaml
+      - filename: files/ratelimiting/LimitTest.yaml
+      #- id: LimitContent.yaml
+      #  action: add
+      #  content: >-
+      #      ---
+      #      resources:
+      #        - url: /
+      #          method:
+      #            - GET
+      #      ip: false
+      #      capacity: 5
+      #      interval: 60
+      #      reaction: CLOSE
+      - id: LimitContent.yaml
         action: delete
 
   tasks:
@@ -222,6 +187,10 @@
       vars:
         ltpa_files:
           - file: "{{ molecule_file }}"
+
+    - name: Test configure rate limiting policies
+      ansible.builtin.include_role:
+        name: ibm.isam.web.configure_ratelimiting
 
     - name: Test upload management root files
       ansible.builtin.include_role:
@@ -239,10 +208,6 @@
     - name: Test configure http transformation rules
       ansible.builtin.include_role:
         name: ibm.isam.web.configure_http_transformation_rules
-
-    - name: Test configure rate limiting policies
-      ansible.builtin.include_role:
-        name: ibm.isam.web.configure_ratelimiting
 
     - name: Test import certificate mapping files
       ansible.builtin.include_role:
