@@ -43,7 +43,7 @@
   delegate_to: localhost
   when:
     - file is defined
-    - file != ''
+    - file | length > 0
 
 - name: Download appliance snapshots [-e comment=<snapshot_containing_comment_text>
     -e id=<id_of_comment_to_download> -e ids=[<id_1>,<id_2>] -e file=<path/to/download/file.snapshot>]
