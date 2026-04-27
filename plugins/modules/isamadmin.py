@@ -108,6 +108,13 @@ def main():
     ret_obj['cmd'] = "pdadmin execution using Domain: {0}, User: {1} and Commands: {2}".format(isamdomain, isamuser,
                                                                                                commands)
 
+    if ret_obj.get('warnings', []) == []:
+        # remove
+        ret_obj.pop('warnings', None)
+    elif ret_obj.get('warnings', None) is not None:
+        for w in ret_obj.pop('warnings', None):
+            module.warn(w)
+
     module.exit_json(**ret_obj)
 
 

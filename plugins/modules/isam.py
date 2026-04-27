@@ -120,9 +120,17 @@ def main():
         ret_obj['delta'] = str(delta)
         ret_obj['cmd'] = action + "(" + options + ")"
 
+        if ret_obj.get('warnings', []) == []:
+            # remove the warnings key if it's an empty list
+            ret_obj.pop('warnings', None)
+        elif ret_obj.get('warnings', None) is not None:
+            for w in ret_obj.pop('warnings', None):
+                module.warn(w)
+
         module.exit_json(**ret_obj)
 
     else:
+
         module.fail_json(name=action, msg='Error> invalid action specified, needs to be isam!',
                          log=isam_util.strlog.getvalue())
 
