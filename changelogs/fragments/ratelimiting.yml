@@ -3,6 +3,8 @@ bugfixes:
   - web/configure_management_root - sync_up fails because of null values -> use default('value', true)  instead of default('value')
   - modules/isam.py - Passing `warnings` to `exit_json` or `fail_json` is deprecated. This feature will be removed from ansible-core version 2.23. Use `AnsibleModule.warn` instead.
   - filter/to_xml.py - Importing 'to_text' from 'ansible.module_utils._text' is deprecated
+  - ansible-lint issues (empty-string-compare, line too long)
+  - web/upload_kerberos_keytab_files - syntax for module
 
 add object.role:
   - name: web/config_reverseproxy_ratelimiting
