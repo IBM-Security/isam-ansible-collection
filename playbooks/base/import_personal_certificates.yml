@@ -1,7 +1,7 @@
 ---
 # main task for importing personal certificates
 # Example inventory:
-#     import_personal_certs:
+#     personal_certificates:
 #       - kdb_id: pdsrv
 #         label: wildcard.test.net
 #         cert: "uploads/ssl/wildcard.test.net.p12"
