@@ -75,7 +75,8 @@
 
 - name: "[sync_up] Combine the variables"
   ansible.builtin.set_fact:
-    management_root: "{{ ((management_root_ori | default('', true)) == '') | ternary([], management_root_ori | list) + (directory_updates | default([])) + (file_updates | default([])) }}"
+    management_root: "{{ ((management_root_ori | default('', true)) == '') | ternary([], management_root_ori) +
+                     (directory_updates | default([])) + (file_updates | default([])) }}"
 
 - name: "[sync_up] Create management root directories"
   ibm.isam.isam:
