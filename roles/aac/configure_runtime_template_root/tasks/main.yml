@@ -91,7 +91,7 @@
     state: directory
   when:
     - file is defined
-    - file != ''
+    - file | length > 0
     - tmpl_action == 'export_zip'
     - (not (skip_exports | bool)) or (not (skip_export | bool))
   delegate_to: localhost
@@ -106,7 +106,7 @@
       filename: "{{ homedir + '/' + file }}"
   when:
     - file is defined
-    - file != ''
+    - file | length > 0
     - not (skip_export | bool)
     - tmpl_action == 'export_zip' or tmpl_action == 'None'
 
@@ -204,7 +204,7 @@
       delete_missing: "{{ delete_missing | bool }}"
   when:
     - file is defined
-    - file != ''
+    - file | length > 0
     - not (skip_import | bool)
     - tmpl_action == 'import_zip' or tmpl_action == 'None'
   notify: Commit Changes
