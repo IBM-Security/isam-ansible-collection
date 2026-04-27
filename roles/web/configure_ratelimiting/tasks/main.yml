@@ -6,11 +6,9 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.rate_limiting.{{ item.action | default('import_file') }}
-    isamapi: "{{ item | ibm.isam.exclude('action') | combine({'filename': (homedir + '/' + item.filename)}
-      if (item.filename is defined) else {})
-      | combine({'id': item.filename | basename }
-      if (item.filename is defined) else {}) | default(omit)
-      }}"
+    isamapi: "{{ item | ibm.isam.exclude('action')
+              | combine({'filename': (homedir + '/' + item.filename)} if (item.filename is defined) else {})
+              | combine({'id': item.filename | basename} if (item.filename is defined) else {}) | default(omit) }}"
   loop: "{{ web_ratelimiting_policies }}"
   when:
     - item is defined
