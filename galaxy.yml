@@ -82,3 +82,6 @@ build_ignore:
   - '*.zip'
   - '*.p12'
   - '*.ext'
+  - CODEOWNERS
+  - CODE_OF_CONDUCT.md
+  - CONTRIBUTING.md

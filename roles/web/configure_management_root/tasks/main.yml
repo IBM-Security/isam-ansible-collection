@@ -85,9 +85,9 @@
       instance_id: "{{ inst_name }}"
   when:
     - file is defined
-    - file != ''
+    - file | length > 0
     - inst_name is defined
-    - inst_name != ''
+    - inst_name | length > 0
     - ( ( mgmt_action == 'export_zip' and not (skip_export | bool) ) or ( mgmt_action == 'None' and not (skip_export | bool) ) )
 
 - name: Export all management root files from instances in inventory [-e mgmt_action=export_zip -e inst_name=<instance>]
@@ -236,9 +236,9 @@
       delete_missing: "{{ delete_missing }}"
   when:
     - file is defined
-    - file != ''
+    - file | length > 0
     - inst_name is defined
-    - inst_name != ''
+    - inst_name | length > 0
     - not (skip_import | bool)
     - mgmt_action == 'import_zip' or mgmt_action == 'None'
   notify: Commit Changes

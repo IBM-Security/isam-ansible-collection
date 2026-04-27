@@ -1,5 +1,5 @@
 ---
-# default password of uncofigured appliances
+# default password of unconfigured appliances
 # Override this setting e.g. if pre-configured docker environment with different default password is used
 first_steps_default_password: admin
 

@@ -159,6 +159,22 @@
         filename: files/transformationrules/test_lua.lua
     certificate_mapping_files:
       - file: files/certificate_mappings/cert_map.xsl
+    web_ratelimiting_policies:
+      - filename: files/ratelimiting/LimitTest.yaml
+      #- id: LimitContent.yaml
+      #  action: add
+      #  content: >-
+      #      ---
+      #      resources:
+      #        - url: /
+      #          method:
+      #            - GET
+      #      ip: false
+      #      capacity: 5
+      #      interval: 60
+      #      reaction: CLOSE
+      - id: LimitContent.yaml
+        action: delete
 
   tasks:
     - name: Debug
@@ -171,6 +187,10 @@
       vars:
         ltpa_files:
           - file: "{{ molecule_file }}"
+
+    - name: Test configure rate limiting policies
+      ansible.builtin.include_role:
+        name: ibm.isam.web.configure_ratelimiting
 
     - name: Test upload management root files
       ansible.builtin.include_role:

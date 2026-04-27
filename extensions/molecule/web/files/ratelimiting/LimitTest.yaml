@@ -1,0 +1,44 @@
+---
+#=========================
+# Rate limiting mga
+#=========================
+
+
+#=========================
+# Matching criteria
+#=========================
+# Identifies that this configuration should be applied to the
+# request by method and URL. Wild cards accepted. Method, can be a comma
+# separated list too. This can just as easily be applied to a form provided
+# by an EAI, just update the URL to match the form action.
+
+resources:
+  - url: /mga
+    method:
+      - POST
+
+#=========================
+# Tokenizing Criteria
+#=========================
+# Requests are built into tokens to identify them, these
+# tokens consist of any permutation of IP, headers, cookies, query string
+# parameters.
+
+ip: false
+
+# If a load balancer is involved instead use:
+header:
+  x-forwarded-for: "*"
+
+#=========================
+# Capacity Criteria
+#=========================
+# Total is allowed to try 5 times in a minute.
+
+capacity: 5
+interval: 60
+
+#=========================
+# Reaction
+#=========================
+reaction: TEMPLATE

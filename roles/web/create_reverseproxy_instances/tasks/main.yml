@@ -58,7 +58,9 @@
     action: ibmsecurity.isam.web.reverse_proxy.instance.add
     isamapi: "{{ item.configuration | combine({'inst_name': item.inst_name}) }}"
   with_items: "{{ instances }}"
-  when: item.configuration is defined and item.inst_name == inst_name
+  when:
+    - item.configuration is defined
+    - item.inst_name == inst_name
   loop_control:
     label: "{'inst_name': {{ item.inst_name }}, 'ip_address': {{ item.configuration.ip_address | default('') }} }"
   notify: Commit Changes

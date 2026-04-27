@@ -1,0 +1,49 @@
+---
+argument_specs:
+  main:
+    short_description: Configure rate limiting
+    description:
+      - This is the main entrypoint for the C(ibm.isam.web.configure_ratelimiting) role.
+    author:
+      - 'IBM Security Orchestration <secorch@wwpdl.vnet.ibm.com>'
+    options:
+      web_ratelimiting_policies:
+        type: "list"
+        elements: "dict"
+        required: false
+        description:
+          - List of rate limiting policies to configure
+        options:
+          id:
+            type: "str"
+            required: false
+            description:
+              - "Name of the new policy (only when action is add/update/delete)"
+          content:
+            type: "str"
+            required: false
+            description:
+              - "Content of the new or updated policy (only when action is add/update)"
+          filename:
+            type: "str"
+            required: false
+            description:
+              - "Path to the rate limiting yaml file"
+          new_name:
+            type: "str"
+            required: false
+            description:
+              - "new name"
+          action:
+            type: "str"
+            required: false
+            default: import_file
+            description: "What to do.  Defaults to import_file"
+            choices:
+              - add
+              - update
+              - delete
+              - import_file
+              - export_file
+              - get
+              - get_all

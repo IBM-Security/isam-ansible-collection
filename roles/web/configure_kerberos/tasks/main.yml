@@ -165,7 +165,7 @@
     - item.1.propvalue is defined
     - item.1.propname == propname
     - item.1.propvalue == propvalue
-    - subsection == ''
+    - subsection | length > 0
     - item.0.realm == realm
     - kerberos_action == 'configure_properties' or kerberos_action == 'all'
   with_subelements:

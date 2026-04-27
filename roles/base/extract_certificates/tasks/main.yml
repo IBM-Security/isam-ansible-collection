@@ -16,7 +16,7 @@
   when:
     - item.filename is defined
   loop_control:
-    label: "{'kdb_id': '{{ item.kdb_id }}', 'cert_id': '{{ item.cert_id }}', 'filename': '{{ item.filename | default('') }}'}"
+    label: "{'kdb_id': '{{ item.kdb_id }}', 'cert_id': '{{ item.cert_id }}', 'filename': '{{ item.filename | default('', true) }}'}"
 
 - name: Extract certificates
   ibm.isam.isam:
@@ -29,6 +29,8 @@
       filename: "{{ homedir }}/{{ item.filename }}"
       password: "{{ item.password }}"
   loop: "{{ extract_certificates }}"
+  loop_control:
+    label: "Extract {{ item.cert_id | default('') }} to {{ homedir }}/{{ item.filename | default('', true) }}"
   when:
     - item.filename is defined
     - item.password is defined

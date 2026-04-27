@@ -27,10 +27,10 @@
         name: ibm.isam.base.configure_time
       tags: [ntp]
 
-    - name: Role ibm.isam.base.set_host_records
-      ansible.builtin.import_role:
-        name: ibm.isam.base.set_host_records
-      tags: [host, records]
+    #- name: Role ibm.isam.base.set_host_records
+    #  ansible.builtin.import_role:
+    #    name: ibm.isam.base.set_host_records
+    #  tags: [host, records]
 
     - name: Molecule admin_cfg settings
       tags:
