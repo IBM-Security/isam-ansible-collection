@@ -4,6 +4,39 @@ Ibm.Isam Release Notes
 
 .. contents:: Topics
 
+v3.6.0
+======
+
+Minor Changes
+-------------
+
+- Move molecule to extensions/molecule
+- Update pre-commit-config
+- connection/isam.py - check if proxy arguments are used
+
+Bugfixes
+--------
+
+- 229 - correct comments in playbook import_personal_certificates.yml
+- add_cluster_node - remove unsupported parameter stat
+- ansible-lint issues (empty-string-compare, line too long)
+- base/publish.yml - remove connection parameter
+- filter/to_xml.py - Importing 'to_text' from 'ansible.module_utils._text' is deprecated
+- modules/isam.py - Passing `warnings` to `exit_json` or `fail_json` is deprecated. This feature will be removed from ansible-core version 2.23. Use `AnsibleModule.warn` instead.
+- set_dsc_config - add missing parameters
+- web/configure_management_root - sync_up fails because of null values -> use default('value', true)  instead of default('value')
+- web/upload_kerberos_keytab_files - syntax for module
+
+Known Issues
+------------
+
+- web/config_reverseproxy_ratelimiting - add does not work with content string
+
+New Roles
+---------
+
+- ibm.isam.web/config_reverseproxy_ratelimiting - Rate limiting configuration
+
 v3.5.0
 ======
 
