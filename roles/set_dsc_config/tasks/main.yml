@@ -19,6 +19,10 @@
       max_session_lifetime: "{{ set_dsc_config_max_session_lifetime }}"
       client_grace: "{{ set_dsc_config_client_grace }}"
       servers: "{{ set_dsc_config_servers }}"
+      connection_idle_timeout: "{{ set_dsc_config_connection_idle_timeout | default(omit) }}"
+      max_session_list: "{{ set_dsc_config_max_session_list | default(omit) }}"
+      trace_level: "{{ set_dsc_config_trace_level | default(omit) }}"
+      ssl_ciphers: "{{ set_dsc_config_ssl_ciphers | default(omit) }}"
   notify:
     - Commit Changes
 

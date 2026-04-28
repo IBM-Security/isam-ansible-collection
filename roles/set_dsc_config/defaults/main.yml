@@ -5,3 +5,11 @@ set_dsc_config_port:
 set_dsc_config_worker_threads: 64
 set_dsc_config_max_session_lifetime: 3600
 set_dsc_config_client_grace: 600
+
+# Optional
+# set_dsc_config_connection_idle_timeout: 0 # must be integer
+# set_dsc_config_max_session_list: # Requires 11.0.2.0 or higher
+# set_dsc_config_trace_level: 0 # 0 disables tracing.
+# set_dsc_config_ssl_ciphers: # Requires 11.0.2.0 or higher, comma separated string , one of
+#  "RSA_WITH_SHA224", "RSA_WITH_SHA256", "RSA_WITH_SHA384", "RSA_WITH_SHA512", "ECDSA_WITH_SHA224",
+#  "ECDSA_WITH_SHA256", "ECDSA_WITH_SHA384", and "ECDSA_WITH_SHA512".

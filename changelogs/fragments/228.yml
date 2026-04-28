@@ -1,0 +1,4 @@
+---
+bugfixes:
+  - set_dsc_config - add missing parameters
+  - add_cluster_node - remove unsupported parameter stat
