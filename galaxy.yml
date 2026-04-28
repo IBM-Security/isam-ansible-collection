@@ -85,3 +85,4 @@ build_ignore:
   - CODEOWNERS
   - CODE_OF_CONDUCT.md
   - CONTRIBUTING.md
+  - playbooks/base/template.yml
