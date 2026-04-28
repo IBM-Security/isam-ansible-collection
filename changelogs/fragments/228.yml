@@ -1,0 +1,3 @@
+---
+bugfixes:
+  - set_dsc_config - add missing parameters
