@@ -3,7 +3,6 @@
   ansible.builtin.stat:
     path: "{{ add_cluster_node_signature_file }}"
     get_checksum: false
-    get_md5: false
   register: signature_file
 
 - name: Add cluster signature
