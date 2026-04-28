@@ -3,7 +3,7 @@
   ansible.builtin.stat:
     path: "{{ add_cluster_node_signature_file }}"
     get_checksum: false
-  register: signature_file
+  register: add_cluster_node_signature_file_stat
 
 - name: Add cluster signature
   ibm.isam.isam:
@@ -15,7 +15,7 @@
       restricted: "{{ add_cluster_node_restricted }}"
   when:
     - add_cluster_node_signature_file is defined
-    - signature_file.stat.exists
+    - add_cluster_node_signature_file_stat.stat.exists
   notify:
     - Commit Changes
 
