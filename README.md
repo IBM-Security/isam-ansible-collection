@@ -14,7 +14,7 @@ The playbooks in the collection can be used as examples to create your own speci
 ## Requirements
 
 - ibmsecurity 2024.4.5 or higher (`pip install ibmsecurity`)
-- Ansible 2.15 or higher
+- Ansible 2.16 or higher
 - Python v3.7 or higher
 
 ## Installation
