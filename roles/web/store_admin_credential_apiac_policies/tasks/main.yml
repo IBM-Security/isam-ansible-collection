@@ -5,14 +5,14 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.api_access_control.utilities.credential.get
     isamapi:
-  register: credresult
+  register: _credresult
   when:
     - (debug_verbosity | default(0)) | int > 1
 
 - name: Debug
   ansible.builtin.debug:
     verbosity: "{{ debug_verbosity | default(0) }}"
-    var: credresult.data
+    var: _credresult.data
   when:
     - (debug_verbosity | default(0)) | int > 1
 
