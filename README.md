@@ -147,7 +147,7 @@ So for instance, to do the initial setup of your appliance, you could use
     ansible-navigator run .... -e "isam_validate_certs=false"
 
 To use the ibm.isam collection with execution environments, you may want to create a custom Execution Environment that includes the dependencies.
-However, the collection now includes a playbook that you can use to check if it works in your case with a standard Execution Environment ([connectivity_check.yml](playbooks/connectivity_check.yml))
+However, the collection now includes a playbook that you can use to check if it works in your case with a standard Execution Environment ([connectivity_check.yml](https://github.com/IBM-Security/isam-ansible-collection/blob/master/playbooks/connectivity_check.yml))
 
 ## Use Cases
 
