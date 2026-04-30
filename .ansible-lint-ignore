@@ -214,7 +214,6 @@ roles/web/get_reverseproxy_stanza/defaults/main.yml var-naming[no-role-prefix]
 roles/web/get_reverseproxy_stanza/tasks/main.yml var-naming[no-role-prefix]
 roles/web/import_certificate_mapping_files/defaults/main.yml var-naming[no-role-prefix]
 roles/web/import_sso_keys/defaults/main.yml var-naming[no-role-prefix]
-roles/web/merge_keytabs/tasks/main.yml no-log-password
 roles/web/merge_keytabs/tasks/main.yml var-naming[no-role-prefix]
 roles/web/restart_reverseproxy_instances/defaults/main.yml var-naming[no-role-prefix]
 roles/web/restart_reverseproxy_instances/tasks/main.yml var-naming[no-role-prefix]
