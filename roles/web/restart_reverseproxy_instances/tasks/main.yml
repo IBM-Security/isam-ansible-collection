@@ -40,7 +40,7 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.instance.get
-  register: appliance_instances
+  register: _appliance_instances
 
 - name: Restart reverse proxy instance/s
   ibm.isam.isam:
@@ -49,7 +49,7 @@
     action: ibmsecurity.isam.web.reverse_proxy.instance.execute
     isamapi:
       id: "{{ item.instance_name }}"
-  with_items: "{{ appliance_instances.data }}"
+  with_items: "{{ _appliance_instances.data }}"
   when:
     - item is defined
     - item.id == inst_name

@@ -44,4 +44,4 @@
   when:
     - inst_name is defined
     - stanza_id is defined
-  register: reverseproxy_stanza
+  register: reverseproxy_stanza # noqa: var-naming[no-role-prefix]
