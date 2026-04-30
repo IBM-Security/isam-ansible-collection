@@ -6,13 +6,13 @@
     action: ibmsecurity.isam.web.reverse_proxy.management_root.file.get_all
     isamapi:
       instance_id: "{{ item.0.inst_name }}"
-  register: ret_obj
+  register: _ret_obj
 
 - name: "[sync_up] Check local file"
   ansible.builtin.stat:
     path: "{{ ((homedir == '') | ternary('', homedir + '/')) }}{{ item.1.directory }}{{ element.path | regex_replace(item.1.target, '') }}"
   when: (element.path | regex_search('^' + item.1.target)) == item.1.target
-  with_items: "{{ ret_obj.data | ibm.isam.flatten_management_root }}"
+  with_items: "{{ _ret_obj.data | ibm.isam.flatten_management_root }}"
   loop_control:
     loop_var: element
     label: '{ inst_name="{{ item.0.inst_name }}", path: "{{ element.path }}", type: "{{ element.type }}", name: "{{ element.name }}"}'

@@ -1,4 +1,4 @@
 ---
 # Default variables to delete a single reverseproxy instance
 
-admin_id: sec_master
+admin_id: sec_master  # noqa: var-naming[no-role-prefix]

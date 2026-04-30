@@ -1,5 +1,5 @@
 ---
 # Default variables for creation of reverse proxy instances
-instances: []
+instances: []  # noqa: var-naming[no-role-prefix]
 # limit execution at runtime to filter for inst_name's
-inst_name: "{{ item.inst_name }}"
+inst_name: "{{ item.inst_name }}"  # noqa: var-naming[no-role-prefix]

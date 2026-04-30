@@ -1,9 +1,9 @@
 ---
 # Use Default domain, override as needed
-admin_domain: Default
+admin_domain: Default # noqa: var-naming[no-role-prefix]
 
 # Initialize pdadmin_commands
-pdadmin_commands: []
+pdadmin_commands: []  # noqa: var-naming[no-role-prefix]
 # Disable merging and/or sorting of pdadmin_commands variables by default
-enable_ansible_merge_vars: false
-enable_ansible_merge_vars_sorted: false
+enable_ansible_merge_vars: false  # noqa: var-naming[no-role-prefix]
+enable_ansible_merge_vars_sorted: false  # noqa: var-naming[no-role-prefix]

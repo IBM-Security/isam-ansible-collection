@@ -142,4 +142,4 @@
   when:
     - control_setall_junctions | bool
     - item.junctions is defined
-  register: ret_obj
+  register: ret_obj  # noqa: var-naming[no-role-prefix]

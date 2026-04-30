@@ -39,7 +39,7 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.instance.get
-  register: appliance_instances
+  register: _appliance_instances
 
 - name: Delete reverse proxy instance if existing [-e inst_name=<instance>]
   ibm.isam.isam:
@@ -50,8 +50,9 @@
       id: "{{ item.instance_name }}"
       admin_id: "{{ admin_id }}"
       admin_pwd: "{{ admin_pwd }}"
-  with_items: "{{ appliance_instances.data }}"
+  with_items: "{{ _appliance_instances.data }}"
   when:
+    - _appliance_instances is defined
     - item is defined
     - item.id == inst_name
     - admin_id is defined
