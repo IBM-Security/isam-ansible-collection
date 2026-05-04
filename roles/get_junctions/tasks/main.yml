@@ -12,4 +12,4 @@
 
 - name: Set variable for use by rest of playbook
   ansible.builtin.set_fact:
-    junction_ret_obj: "{{ _ret_obj }}"
+    junction_ret_obj: "{{ _ret_obj }}" # noqa: var-naming[no-role-prefix]

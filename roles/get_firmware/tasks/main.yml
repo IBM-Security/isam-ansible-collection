@@ -8,4 +8,4 @@
 
 - name: Set variable for use by rest of playbook
   ansible.builtin.set_fact:
-    firmware_ret_obj: "{{ ret_obj }}"
+    firmware_ret_obj: "{{ ret_obj }}" # noqa: var-naming[no-role-prefix]

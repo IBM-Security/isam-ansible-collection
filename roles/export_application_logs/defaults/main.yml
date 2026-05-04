@@ -1,10 +1,10 @@
 ---
-path: "{{ item.path }}"
+path: "{{ item.path }}" # noqa: var-naming[no-role-prefix]
 # you can set the default export_dir to {{ inventory_dir }}
 # you shouldn't do that, use a different export directory, eg. ~/isam_logs
-logs_export_dir: /tmp/isam/exports
+logs_export_dir: /tmp/isam/exports # noqa: var-naming[no-role-prefix]
 # use become to create directory structure
-logs_become: false
+logs_become: false # noqa: var-naming[no-role-prefix]
 # set group ownership for the created directories
 # logs_group: null
 # set mode, default is o=rwx,g=rx,o=
