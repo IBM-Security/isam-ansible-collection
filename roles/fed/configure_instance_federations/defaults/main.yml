@@ -1,4 +1,3 @@
 ---
-
 # Provide the following values for this role to work
-import_personal_certs: []
+import_personal_certs: [] # noqa: var-naming[no-role-prefix]

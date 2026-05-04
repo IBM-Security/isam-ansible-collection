@@ -8,4 +8,4 @@
 
 - name: Set variable for use by rest of playbook
   ansible.builtin.set_fact:
-    get_federations_ret_obj: "{{ ret_obj['data'] }}"
+    get_federations_ret_obj: "{{ ret_obj['data'] }}" # noqa: var-naming[no-role-prefix]

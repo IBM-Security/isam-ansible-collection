@@ -1,5 +1,5 @@
 ---
 # Default variables for creation of federation partners
-federations: []
-fed_name: "{{ item.0.name }}"
-partner_name: "{{ item.1.name }}"
+federations: [] # noqa: var-naming[no-role-prefix]
+fed_name: "{{ item.0.name }}" # noqa: var-naming[no-role-prefix]
+partner_name: "{{ item.1.name }}" # noqa: var-naming[no-role-prefix]

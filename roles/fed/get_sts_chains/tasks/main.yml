@@ -8,4 +8,4 @@
     isamapi:
       name: "{{ sts_template_name }}"
   when: sts_template_name is defined
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]
