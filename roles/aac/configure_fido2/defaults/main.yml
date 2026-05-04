@@ -1,5 +1,5 @@
 ---
 # Default variables for fido2 configurations
-fido2_configurations: []
+fido2_configurations: [] # noqa: var-naming[no-role-prefix]
 # Default variables to filter for configuration of specific fido2 actions at runtime
-fido2_action: "{{ item.fido2_action }}"
+fido2_action: "{{ item.fido2_action }}" # noqa: var-naming[no-role-prefix]

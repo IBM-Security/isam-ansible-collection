@@ -1,23 +1,23 @@
 ---
 # default password of unconfigured appliances
 # Override this setting e.g. if pre-configured docker environment with different default password is used
-first_steps_default_password: admin
+first_steps_default_password: admin # noqa: var-naming[no-role-prefix]
 
 # default isam ansible port for use in uri module
-ansible_isam_port: 443
+ansible_isam_port: 443 # noqa: var-naming[no-role-prefix]
 
 # retries and delay to check appliance availability
 # Override at runtime for docker environment to let the container get healthy
-first_steps_retries: 0
-first_steps_delay: 5
-first_steps_admin_pwd: false
+first_steps_retries: 0 # noqa: var-naming[no-role-prefix]
+first_steps_delay: 5 # noqa: var-naming[no-role-prefix]
+first_steps_admin_pwd: false # noqa: var-naming[no-role-prefix]
 
 # LMI FIPS options
 # Override this setting if you do not want FIPS mode to be turned on
-FIPS_cfg:
+FIPS_cfg: # noqa: var-naming[no-role-prefix]
   fipsEnabled: false
   tlsv10Enabled: false
   tlsv11Enabled: false
 
 # increase wait time for command execution after appliance restarts (e.g. when FIPS mode is activated)
-ansible_command_timeout: 120
+ansible_command_timeout: 120 # noqa: var-naming[no-role-prefix]

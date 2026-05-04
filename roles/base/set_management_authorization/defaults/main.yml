@@ -1,3 +1,3 @@
 ---
 # defaults for enabling management auth
-switch_auth_enable: true
+switch_auth_enable: true # noqa: var-naming[no-role-prefix]

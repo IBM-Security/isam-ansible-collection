@@ -1,6 +1,6 @@
 ---
 # Default variables for importing signer certificates
-import_signer_certificates: []
+import_signer_certificates: [] # noqa: var-naming[no-role-prefix]
 # default variables to limit execution at runtime
-kdb_id: "{{ item.kdb_id }}"
-label: "{{ item.label }}"
+kdb_id: "{{ item.kdb_id }}" # noqa: var-naming[no-role-prefix]
+label: "{{ item.label }}" # noqa: var-naming[no-role-prefix]

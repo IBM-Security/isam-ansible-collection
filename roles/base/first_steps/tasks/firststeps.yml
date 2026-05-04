@@ -18,7 +18,7 @@
       fipsEnabled: "{{ FIPS_cfg.fipsEnabled }}"
       tlsv10Enabled: "{{ FIPS_cfg.tlsv10Enabled }}"
       tlsv11Enabled: "{{ FIPS_cfg.tlsv11Enabled }}"
-  register: ret_obj
+  register: _ret_obj
   when:
     - FIPS_cfg is defined
     - FIPS_cfg.fipsEnabled
@@ -30,7 +30,7 @@
     action: ibmsecurity.isam.base.fips.restart_and_wait
     log: "{{ log_level | default(omit) }}"
   when:
-    - ret_obj.changed
+    - _ret_obj.changed
     - not ansible_check_mode
 
 # Complete the appliance set up
