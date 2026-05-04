@@ -18,7 +18,7 @@
       fipsEnabled: "{{ FIPS_cfg.fipsEnabled }}"
       tlsv10Enabled: "{{ FIPS_cfg.tlsv10Enabled }}"
       tlsv11Enabled: "{{ FIPS_cfg.tlsv11Enabled }}"
-  register: _ret_obj
+  register: _ret_obj # noqa: var-naming[no-role-prefix]
   when:
     - FIPS_cfg is defined
     - FIPS_cfg.fipsEnabled

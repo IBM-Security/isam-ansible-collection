@@ -1,2 +1,2 @@
 ---
-path: "{{ item.path }}"
+path: "{{ item.path }}" # noqa: var-naming[no-role-prefix]

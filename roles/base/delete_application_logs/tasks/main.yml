@@ -10,11 +10,11 @@
     action: ibmsecurity.isam.application_logs.get_all
     isamapi:
       flat_details: true
-  register: _logs
+  register: _logs # noqa: var-naming[no-role-prefix]
 
 - name: Temporary variable filter by path
   ansible.builtin.set_fact:
-    _uniquedirs: "{{ (_uniquedirs | default([]) + [{'name': item.name, 'id': item.id, 'path': item.path}]) | unique }}"
+    _uniquedirs: "{{ (_uniquedirs | default([]) + [{'name': item.name, 'id': item.id, 'path': item.path}]) | unique }}" # noqa: var-naming[no-role-prefix]
   loop: "{{ _logs.data }}"
   loop_control:
     label: Adding {{ item.path }}/{{ item.name }}

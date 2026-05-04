@@ -6,7 +6,7 @@
     action: ibmsecurity.isam.web.reverse_proxy.junctions.get_all
     isamapi:
       reverseproxy_id: "{{ item['id'] }}"
-  register: _ret_obj
+  register: _ret_obj # noqa: var-naming[no-role-prefix]
   when: reverseproxy_ret_obj is defined
   with_items: "{{ reverseproxy_ret_obj['data'] | default([]) }}"
 

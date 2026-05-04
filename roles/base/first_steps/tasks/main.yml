@@ -52,7 +52,7 @@
     headers:
       Accept: application/json
   check_mode: false
-  register: _result
+  register: _result # noqa: var-naming[no-role-prefix]
   until: _result.status == 200 or _result.status == 403
   retries: "{{ first_steps_retries }}"
   delay: "{{ first_steps_delay }}"

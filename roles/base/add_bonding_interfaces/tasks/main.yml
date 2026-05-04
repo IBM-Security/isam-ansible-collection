@@ -10,7 +10,7 @@
   with_items:
     - "{{ interfaces }}"
   when: interfaces is defined and item.bondingMode is defined and item.bondingMode == 'slave'
-  register: _ret_obj
+  register: _ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Debug output of lookup interface
   ansible.builtin.debug:

@@ -5,7 +5,7 @@
 - name: Check if there is a vm with the destination name already exist
   ansible.builtin.stat:
     path: "{{ bootstrap_local_vm_path_root }}/{{ bootstrap_local_vm_hostname }}{{ bootstrap_local_vm_dir_suffix }}/{{ bootstrap_local_vm_hostname }}.vmx"
-  register: _vmxfile
+  register: _vmxfile # noqa: var-naming[no-role-prefix]
   ignore_errors: true # noqa: ignore-errors
 
 - name: Debug
@@ -32,7 +32,7 @@
 
 - name: Set fact about target vm running
   ansible.builtin.set_fact:
-    vm_running: true
+    vm_running: true # noqa: var-naming[no-role-prefix]
   when: shell_out.rc == 0
 
 - name: Debug vm_running

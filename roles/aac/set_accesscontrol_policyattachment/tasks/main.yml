@@ -34,11 +34,11 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.colruyt_policy_attachments.get_all
     isamapi:
-  register: _ret_obj
+  register: _ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Set variable _ret_attachments for use by rest of playbook
   ansible.builtin.set_fact:
-    _ret_attachments: "{{ _ret_obj.data | default([]) }}"
+    _ret_attachments: "{{ _ret_obj.data | default([]) }}" # noqa: var-naming[no-role-prefix]
 
 - name: Publish attachments that require publishing
   ibm.isam.isam:

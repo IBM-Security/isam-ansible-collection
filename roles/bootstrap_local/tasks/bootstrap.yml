@@ -46,7 +46,7 @@
 
 - name: Create VM disk
   ansible.builtin.command: "{{ bootstrap_local_vmdiskmgr }} -c -a lsilogic -s {{ bootstrap_local_vm_hdd_size }}GB -t 0 {{ bootstrap_local_vm_vmdk }}"
-  register: cmd_out
+  register: cmd_out # noqa: var-naming[no-role-prefix]
   changed_when: true
 
 - name: Debug cmd_out

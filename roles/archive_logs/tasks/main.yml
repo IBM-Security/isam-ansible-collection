@@ -11,7 +11,7 @@
 
 - name: Get date from days ago {{ archive_logs_grace_days }}
   ansible.builtin.command: python -c "import datetime;print (datetime.datetime.now()-datetime.timedelta(days={{ archive_logs_grace_days }})).date()"
-  register: past_dt
+  register: past_dt # noqa: var-naming[no-role-prefix]
   changed_when: false
 
 - name: Export logs from reverse proxy {{ archive_logs_instance_id }}

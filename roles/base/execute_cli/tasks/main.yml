@@ -9,7 +9,7 @@
   when:
     - cli_command is defined
   ignore_errors: true
-  register: _ret_obj
+  register: _ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Output of cli command execution
   ansible.builtin.debug:

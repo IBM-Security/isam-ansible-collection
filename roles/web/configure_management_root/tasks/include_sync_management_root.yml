@@ -49,12 +49,12 @@
 - name: "[sync_up] consolidate update items in a list of updates [directory]"
   ansible.builtin.set_fact:
     directory_updates: "{{ directory_update_result.results | selectattr('ansible_facts', 'defined') |
-       map(attribute='ansible_facts.directory_update_item') | list }}"
+       map(attribute='ansible_facts.directory_update_item') | list }}" # noqa: var-naming[no-role-prefix]
 
 - name: "[sync_up] list of file update items"
   ansible.builtin.set_fact:
     file_update_item: "{{ {'mgmt_action': 'upload', 'type': upload.state, 'target': item.1.target + '/' +
-       upload.path, 'file': upload.root + '/' + upload.path} }}"
+       upload.path, 'file': upload.root + '/' + upload.path} }}" # noqa: var-naming[no-role-prefix]
   when:
     - upload.state == "file"
   with_ibm.isam.filetree: "{{ ((homedir == '') | ternary('', homedir + '/')) }}{{ item.1.directory }}"
@@ -65,13 +65,15 @@
 
 - name: "[sync_up] Consolidate update items in a list of updates [file]"
   ansible.builtin.set_fact:
-    file_updates: "{{ file_update_result.results | selectattr('ansible_facts', 'defined') | map(attribute='ansible_facts.file_update_item') | list }}" # noqa: var-naming[no-role-prefix]
+    file_updates: "{{ file_update_result.results | selectattr('ansible_facts', 'defined')
+                   | map(attribute='ansible_facts.file_update_item') | list }}" # noqa: var-naming[no-role-prefix]
 
 - name: "[sync_up] Define dynamic management_root containing directories and files to be created/uploaded for {{ item.0.inst_name }}"
   vars:
     filter_current_management_root: "[? inst_name == '{{ item.0.inst_name }}'].management_root"
   ansible.builtin.set_fact:
-    management_root_ori: "{{ (hostvars[inventory_hostname].instances | default({}, true) | json_query(filter_current_management_root)) | default([], true) }}" # noqa: var-naming[no-role-prefix]
+    management_root_ori: "{{ (hostvars[inventory_hostname].instances | default({}, true) | json_query(filter_current_management_root))
+                          | default([], true) }}" # noqa: var-naming[no-role-prefix]
 
 - name: "[sync_up] Combine the variables"
   ansible.builtin.set_fact:

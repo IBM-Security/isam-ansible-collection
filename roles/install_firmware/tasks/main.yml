@@ -3,7 +3,7 @@
   ansible.builtin.stat:
     path: "{{ install_firmware_file }}"
     get_checksum: false
-  register: _firmware
+  register: _firmware # noqa: var-naming[no-role-prefix]
 
 - name: Upload Firmware file - {{ install_firmware_file }}
   ibm.isam.isam:
@@ -38,7 +38,7 @@
       release_date: "{{ install_firmware_release_date }}"
       name: "{{ install_firmware_name }}"
   when: _firmware.stat.exists
-  register: install_firmware
+  register: install_firmware # noqa: var-naming[no-role-prefix]
   notify: Await Appliance LMI Response
 
 - name: Flush Handler to wait for appliance reboot

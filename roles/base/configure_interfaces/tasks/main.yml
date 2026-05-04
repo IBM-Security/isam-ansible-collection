@@ -74,7 +74,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.network.interfaces.get_all
   when: configure_interfaces_delete_missing
-  register: _ret_obj
+  register: _ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Set filtered interfaces
   vars:
