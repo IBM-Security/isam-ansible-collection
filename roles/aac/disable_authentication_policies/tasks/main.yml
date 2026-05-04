@@ -20,7 +20,8 @@
 - name: Do the list magic. Combine the explicit whitelist with the authentication policies you defined elsewhere
   ansible.builtin.set_fact:
     filtered_definedPolicies: "{{ definedPolicies.data | json_query('[*].name') }}" # noqa: var-naming[no-role-prefix]
-    filtered_authentication_policies: "{{ authentication_policies | union(whitelist_authentication_policies) | json_query('[*].name') }}" # noqa: var-naming[no-role-prefix]
+    filtered_authentication_policies: "{{ authentication_policies | union(whitelist_authentication_policies)
+                                       | json_query('[*].name') }}" # noqa: var-naming[no-role-prefix]
 
 - name: Debug defined policies after json_query
   ansible.builtin.debug:

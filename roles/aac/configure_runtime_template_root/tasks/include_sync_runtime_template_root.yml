@@ -72,7 +72,8 @@
 
 - name: "[sync_up] consolidate update items in a list of updates [files]"
   ansible.builtin.set_fact:
-    file_updates: "{{ file_update_result.results | selectattr('ansible_facts', 'defined') | map(attribute='ansible_facts.file_update_item') | list }}" # noqa: var-naming[no-role-prefix]
+    file_updates: "{{ file_update_result.results | selectattr('ansible_facts', 'defined')
+                   | map(attribute='ansible_facts.file_update_item') | list }}" # noqa: var-naming[no-role-prefix]
 
 - name: "[sync_up] Define dynamic runtime template containing directories and files to be created/uploaded"
   ansible.builtin.set_fact:

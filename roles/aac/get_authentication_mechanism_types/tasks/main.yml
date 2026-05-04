@@ -9,7 +9,8 @@
 
 - name: Set fact aac_authentication_mechanism_types_mapping
   ansible.builtin.set_fact:
-    aac_authentication_mechanism_types_mapping: "{{ aac_authentication_mechanism_types_mapping | default({}) | combine({item.id: item.name}) }}" # noqa: var-naming[no-role-prefix]
+    aac_authentication_mechanism_types_mapping: "{{ aac_authentication_mechanism_types_mapping
+                                                 | default({}) | combine({item.id: item.name}) }}" # noqa: var-naming[no-role-prefix]
   loop: "{{ __types_mapping.data }}"
   loop_control:
     label: "{{ item.id }}: {{ item.name }}"
