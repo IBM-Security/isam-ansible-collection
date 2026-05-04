@@ -10,16 +10,16 @@
     action: ibmsecurity.isam.application_logs.get_all
     isamapi:
       flat_details: true
-  register: logs
+  register: _logs
 
 - name: Temporary variable filter by path
   ansible.builtin.set_fact:
-    uniquedirs: "{{ (uniquedirs | default([]) + [{'name': item.name, 'id': item.id, 'path': item.path}]) | unique }}"
-  loop: "{{ logs.data }}"
+    _uniquedirs: "{{ (_uniquedirs | default([]) + [{'name': item.name, 'id': item.id, 'path': item.path}]) | unique }}"
+  loop: "{{ _logs.data }}"
   loop_control:
     label: Adding {{ item.path }}/{{ item.name }}
   when:
-    - logs.data is defined
+    - _logs.data is defined
     - item.path is defined
     - path == item.path
 
@@ -32,9 +32,9 @@
     isamapi:
       file_id: "{{ (item.id | default('') == '') | ternary(item.name, item.path + '/' + item.name) }}"
   when:
-    - logs.data is defined
-    - uniquedirs is defined
+    - _logs.data is defined
+    - _uniquedirs is defined
     - path == item.path | default('')
-  loop: "{{ uniquedirs }}"
+  loop: "{{ _uniquedirs }}"
   loop_control:
     label: Delete {{ item.path | default('') + '/' + item.name }}
