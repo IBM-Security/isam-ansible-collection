@@ -1,6 +1,5 @@
 ---
-
 # default variables for configuration of advanced tuning parameters
-advanced_tuning_parameters: []
+advanced_tuning_parameters: [] # noqa: var-naming[no-role-prefix]
 # filter at runtime for specific advanced tuning parameters
-key: "{{ item.key }}"
+key: "{{ item.key }}" # noqa: var-naming[no-role-prefix]

@@ -1,5 +1,5 @@
 ---
 # Default variables to configure certificate databases
-certificate_databases: []
+certificate_databases: [] # noqa: var-naming[no-role-prefix]
 # default variables to limit execution at runtime
-db_action: "{{ item.db_action }}"
+db_action: "{{ item.db_action }}" # noqa: var-naming[no-role-prefix]

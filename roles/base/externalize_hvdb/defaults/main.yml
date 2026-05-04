@@ -1,48 +1,48 @@
 ---
 # These are default values as in LMI - override as necessary
-externalize_hvdb_cfgdb_embedded: true
-externalize_hvdb_dsc_client_grace_period: 600
-externalize_hvdb_dsc_external_clients: false
-externalize_hvdb_dsc_maximum_session_lifetime: 3600
-externalize_hvdb_dsc_worker_threads: 64
-externalize_hvdb_first_port: 2020
-externalize_hvdb_hvdb_db_secure: true
-externalize_hvdb_hvdb_db_type: db2
-externalize_hvdb_hvdb_driver_type: thin
-externalize_hvdb_hvdb_embedded: false
-externalize_hvdb_primary_master: 127.0.0.1
-externalize_hvdb_hvdb_port: "50000"
+externalize_hvdb_cfgdb_embedded: true # noqa: var-naming[no-role-prefix]
+externalize_hvdb_dsc_client_grace_period: 600 # noqa: var-naming[no-role-prefix]
+externalize_hvdb_dsc_external_clients: false # noqa: var-naming[no-role-prefix]
+externalize_hvdb_dsc_maximum_session_lifetime: 3600 # noqa: var-naming[no-role-prefix]
+externalize_hvdb_dsc_worker_threads: 64 # noqa: var-naming[no-role-prefix]
+externalize_hvdb_first_port: 2020 # noqa: var-naming[no-role-prefix]
+externalize_hvdb_hvdb_db_secure: true # noqa: var-naming[no-role-prefix]
+externalize_hvdb_hvdb_db_type: db2 # noqa: var-naming[no-role-prefix]
+externalize_hvdb_hvdb_driver_type: thin # noqa: var-naming[no-role-prefix]
+externalize_hvdb_hvdb_embedded: false # noqa: var-naming[no-role-prefix]
+externalize_hvdb_primary_master: 127.0.0.1 # noqa: var-naming[no-role-prefix]
+externalize_hvdb_hvdb_port: "50000" # noqa: var-naming[no-role-prefix]
 # For Oracle
 # externalize_hvdb_oracle_connection_string, for instance for RAC Cluster:
 #  "externalize_hvdb_oracle_connection_string: "{{ 'jdbc:oracle:thin:@//' + externalize_hvdb_hvdb_address + ':' +
 #    externalize_hvdb_hvdb_port + ':' + externalize_hvdb_hvdb_db_name " }}""
-externalize_hvdb_oracle_connection_string:
+externalize_hvdb_oracle_connection_string: # noqa: var-naming[no-role-prefix]
 # The following parameters are provided for completeness - especially if you do not want to overwrite other settings
 # with the cluster configuration
-externalize_hvdb_db2_hvdb_alt_address:
-externalize_hvdb_secondary_master:
-externalize_hvdb_master_ere:
-externalize_hvdb_tertiary_master:
-externalize_hvdb_quaternary_master:
-externalize_hvdb_dsc_port:
-externalize_hvdb_dsc_use_ssl:
-externalize_hvdb_hvdb_max_size: 40
-externalize_hvdb_hvdb_solid_tc:
-externalize_hvdb_cfgdb_db_type:
-externalize_hvdb_cfgdb_address:
-externalize_hvdb_cfgdb_port:
-externalize_hvdb_cfgdb_user:
-externalize_hvdb_db2_cfgdb_alt_address:
-externalize_hvdb_db2_cfgdb_alt_port:
-externalize_hvdb_cfgdb_db_name:
-externalize_hvdb_cfgdb_db_secure:
-externalize_hvdb_cfgdb_driver_type:
-externalize_hvdb_cfgdb_solid_tc:
-externalize_hvdb_cfgdb_fs:
-externalize_hvdb_dsc_trace_level:
+externalize_hvdb_db2_hvdb_alt_address: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_secondary_master: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_master_ere: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_tertiary_master: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_quaternary_master: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_dsc_port: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_dsc_use_ssl: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_hvdb_max_size: 40 # noqa: var-naming[no-role-prefix]
+externalize_hvdb_hvdb_solid_tc: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_cfgdb_db_type: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_cfgdb_address: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_cfgdb_port: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_cfgdb_user: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_db2_cfgdb_alt_address: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_db2_cfgdb_alt_port: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_cfgdb_db_name: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_cfgdb_db_secure: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_cfgdb_driver_type: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_cfgdb_solid_tc: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_cfgdb_fs: # noqa: var-naming[no-role-prefix]
+externalize_hvdb_dsc_trace_level: # noqa: var-naming[no-role-prefix]
 # The following are default keystores used by AAC Runtime and LMI (usually there should not be a need to change this)
 # Both these keystores need the CA certs
-externalize_hvdb_ora_keystores:
+externalize_hvdb_ora_keystores: # noqa: var-naming[no-role-prefix]
   - rt_profile_keys
   - lmi_trust_store
 # Note: Provide either externalize_hvdb_db2_ca_label for self-signed certs or externalize_hvdb_db2_ca_certandlabel
@@ -66,5 +66,5 @@ externalize_hvdb_ora_keystores:
 
 # Advanced Tuning Parameters for ORACLE
 # Oracle - enable oracle tracing for LMI and runtime
-debug_oracle_enable_lmi_trace: false
-debug_oracle_enable_runtime_trace: false
+debug_oracle_enable_lmi_trace: false # noqa: var-naming[no-role-prefix]
+debug_oracle_enable_runtime_trace: false # noqa: var-naming[no-role-prefix]

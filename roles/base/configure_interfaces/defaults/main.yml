@@ -1,13 +1,13 @@
 ---
 
 # default variables to configure interfaces on appliances
-interfaces: []
+interfaces: [] # noqa: var-naming[no-role-prefix]
 # possible values: [interfaces_ipv4, interfaces_ipv6, interfaces_vlan]
-configure_interfaces_action: interfaces_ipv4
+configure_interfaces_action: interfaces_ipv4 # noqa: var-naming[no-role-prefix]
 
 # variable to delete all IP addresses not listed in the inventories
-configure_interfaces_delete_missing: false
+configure_interfaces_delete_missing: false # noqa: var-naming[no-role-prefix]
 
 # limit at runtime for particular variables otherwise use loop variables
-label: "{{ item.0.label }}"
-address: "{{ item.1.address if item.1.address is defined else item.1 }}"
+label: "{{ item.0.label }}" # noqa: var-naming[no-role-prefix]
+address: "{{ item.1.address if item.1.address is defined else item.1 }}" # noqa: var-naming[no-role-prefix]

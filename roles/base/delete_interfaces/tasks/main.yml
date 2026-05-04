@@ -18,7 +18,7 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.network.interfaces.get_all
-  register: ret_obj
+  register: _ret_obj
 
 - name: Delete interfaces
   ibm.isam.isam:
@@ -32,6 +32,6 @@
     filter: "[? label=='{{ item.0.label }}'].addresses[].address"
   when: item.1.address not in (interfaces | json_query(filter))
   with_subelements:
-    - "{{ ret_obj | json_query('data.interfaces[*].{label: label, addresses: ipv4.addresses[]}') }}"
+    - "{{ _ret_obj | json_query('data.interfaces[*].{label: label, addresses: ipv4.addresses[]}') }}"
     - addresses
   notify: Commit Changes

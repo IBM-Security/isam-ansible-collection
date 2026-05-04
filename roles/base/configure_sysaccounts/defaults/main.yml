@@ -1,7 +1,7 @@
 ---
 
 # default variables to set password for system accounts
-sysaccounts: []
+sysaccounts: [] # noqa: var-naming[no-role-prefix]
 # limit execution at runtime to filter for system accounts
-id: "{{ item.id }}"
-sysaccount_action: "{{ item.sysaccount_action }}"
+id: "{{ item.id }}" # noqa: var-naming[no-role-prefix]
+sysaccount_action: "{{ item.sysaccount_action }}" # noqa: var-naming[no-role-prefix]
