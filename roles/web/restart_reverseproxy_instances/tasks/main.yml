@@ -40,7 +40,7 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.reverse_proxy.instance.get
-  register: _appliance_instances
+  register: _appliance_instances # noqa: var-naming[no-role-prefix]
 
 - name: Restart reverse proxy instance/s
   ibm.isam.isam:

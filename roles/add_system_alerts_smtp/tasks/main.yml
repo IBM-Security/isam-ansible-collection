@@ -12,7 +12,7 @@
       to_email: "{{ add_system_alerts_to_email }}"
       comment: Email Alert to {{ add_system_alerts_smtpServer }}
   when: add_system_alerts_smtpServer is defined
-  register: _alertObj
+  register: _alertObj # noqa: var-naming[no-role-prefix]
   notify: Commit Changes
 
 - name: Enable System Alert - Created in previous Step

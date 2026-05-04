@@ -18,7 +18,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.kerberos_configuration.keyfiles.get
     isamapi:
-  register: _ret_obj
+  register: _ret_obj # noqa: var-naming[no-role-prefix]
   ignore_errors: true
 
 # TODO: test if the keyfiles to merge are there

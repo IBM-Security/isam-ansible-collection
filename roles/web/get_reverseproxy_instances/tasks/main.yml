@@ -5,7 +5,7 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.web.reverse_proxy.instance.get
     isamapi:
-  register: _rp_instances
+  register: _rp_instances # noqa: var-naming[no-role-prefix]
 
 - name: Set web_reverseproxy_instances variable for use in rest of playbook
   ansible.builtin.set_fact:

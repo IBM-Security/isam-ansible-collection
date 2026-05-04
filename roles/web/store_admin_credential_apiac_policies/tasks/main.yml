@@ -5,7 +5,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.api_access_control.utilities.credential.get
     isamapi:
-  register: _credresult
+  register: _credresult # noqa: var-naming[no-role-prefix]
   when:
     - (debug_verbosity | default(0)) | int > 1
 

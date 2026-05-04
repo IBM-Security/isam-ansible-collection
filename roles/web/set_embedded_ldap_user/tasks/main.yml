@@ -1,7 +1,7 @@
 ---
 - name: Reset variable
   ansible.builtin.set_fact:
-    __id_exists: false
+    __id_exists: false # noqa: var-naming[no-role-prefix]
 
 - name: Check if Embedded Ldap User exists {{ embeddedldap_user_username }}
   ibm.isam.isam:
@@ -9,7 +9,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.web.embedded_ldap.user.get_all
     isamapi:
-  register: __all_ids
+  register: __all_ids # noqa: var-naming[no-role-prefix]
 
 - name: Debug output
   ansible.builtin.debug:

@@ -7,7 +7,7 @@
     isamapi:
       instance_id: "{{ archive_logs_instance_id }}"
   when: archive_logs_instance_id is defined
-  register: _ret_obj
+  register: _ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Get date from days ago {{ archive_logs_grace_days }}
   ansible.builtin.command: python -c "import datetime;print (datetime.datetime.now()-datetime.timedelta(days={{ archive_logs_grace_days }})).date()"
