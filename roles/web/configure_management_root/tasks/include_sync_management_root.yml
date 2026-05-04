@@ -6,7 +6,7 @@
     action: ibmsecurity.isam.web.reverse_proxy.management_root.file.get_all
     isamapi:
       instance_id: "{{ item.0.inst_name }}"
-  register: _ret_obj
+  register: _ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: "[sync_up] Check local file"
   ansible.builtin.stat:
@@ -16,7 +16,7 @@
   loop_control:
     loop_var: element
     label: '{ inst_name="{{ item.0.inst_name }}", path: "{{ element.path }}", type: "{{ element.type }}", name: "{{ element.name }}"}'
-  register: locals
+  register: locals # noqa: var-naming[no-role-prefix]
   delegate_to: localhost
 
 - name: "[sync_up] Delete missing local files on the server"
@@ -44,7 +44,7 @@
   loop_control:
     loop_var: create
     label: "{'mgmt_action': 'create', 'type': \"{{ create.state }}\", 'target': \"{{ item.1.target + '/' + create.path }}\" }"
-  register: directory_update_result
+  register: directory_update_result # noqa: var-naming[no-role-prefix]
 
 - name: "[sync_up] consolidate update items in a list of updates [directory]"
   ansible.builtin.set_fact:
@@ -61,22 +61,22 @@
   loop_control:
     loop_var: upload
     label: "{'mgmt_action': 'upload', 'target': \"{{ item.1.target + '/' + upload.path }}\", 'file': \"{{ upload.root + '/' + upload.path }}\"}"
-  register: file_update_result
+  register: file_update_result # noqa: var-naming[no-role-prefix]
 
 - name: "[sync_up] Consolidate update items in a list of updates [file]"
   ansible.builtin.set_fact:
-    file_updates: "{{ file_update_result.results | selectattr('ansible_facts', 'defined') | map(attribute='ansible_facts.file_update_item') | list }}"
+    file_updates: "{{ file_update_result.results | selectattr('ansible_facts', 'defined') | map(attribute='ansible_facts.file_update_item') | list }}" # noqa: var-naming[no-role-prefix]
 
 - name: "[sync_up] Define dynamic management_root containing directories and files to be created/uploaded for {{ item.0.inst_name }}"
   vars:
     filter_current_management_root: "[? inst_name == '{{ item.0.inst_name }}'].management_root"
   ansible.builtin.set_fact:
-    management_root_ori: "{{ (hostvars[inventory_hostname].instances | default({}, true) | json_query(filter_current_management_root)) | default([], true) }}"
+    management_root_ori: "{{ (hostvars[inventory_hostname].instances | default({}, true) | json_query(filter_current_management_root)) | default([], true) }}" # noqa: var-naming[no-role-prefix]
 
 - name: "[sync_up] Combine the variables"
   ansible.builtin.set_fact:
     management_root: "{{ ((management_root_ori | default('', true)) == '') | ternary([], management_root_ori) +
-                     (directory_updates | default([])) + (file_updates | default([])) }}"
+                     (directory_updates | default([])) + (file_updates | default([])) }}" # noqa: var-naming[no-role-prefix]
 
 - name: "[sync_up] Create management root directories"
   ibm.isam.isam:
