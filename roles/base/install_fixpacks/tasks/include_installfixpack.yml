@@ -6,8 +6,8 @@
     action: ibmsecurity.isam.base.fixpack.install
     isamapi:
       file: "{{ (homedir == '') | ternary('', homedir + '/') }}{{ item.file }}"
-  register: fpresult
-  failed_when: fpresult.rc != 0
+  register: _fpresult
+  failed_when: _fpresult.rc != 0
 
 - name: Wait for system to become responsive again (should be almost immediately)
   vars:
@@ -19,6 +19,6 @@
     sleep: 5
     timeout: 300
   when:
-    - fpresult.changed
-    - fpresult.rc == 0
+    - _fpresult.changed
+    - _fpresult.rc == 0
     - not ansible_check_mode
