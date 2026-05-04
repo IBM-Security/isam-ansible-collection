@@ -1,6 +1,5 @@
 ---
-
 # Default variables for user_registry configuration
-user_registry: []
-id: "{{ item.id | default(omit) }}"
-registry_action: "{{ item.registry_action }}"
+user_registry: [] # noqa: var-naming[no-role-prefix]
+id: "{{ item.id | default(omit) }}" # noqa: var-naming[no-role-prefix]
+registry_action: "{{ item.registry_action }}" # noqa: var-naming[no-role-prefix]

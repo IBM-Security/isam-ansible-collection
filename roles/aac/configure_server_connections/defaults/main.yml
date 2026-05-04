@@ -1,10 +1,9 @@
 ---
-
 # Default variables for configuration of server connections
-server_connections: []
+server_connections: [] # noqa: var-naming[no-role-prefix]
 # Default variables to filter for configuration of specific server connections at runtime
-connection_action: "{{ item.connection_action }}"
-connection_name: "{{ item.name }}"
-type: "{{ item.type if (item.type is defined) }}"
+connection_action: "{{ item.connection_action }}" # noqa: var-naming[no-role-prefix]
+connection_name: "{{ item.name }}" # noqa: var-naming[no-role-prefix]
+type: "{{ item.type if (item.type is defined) }}" # noqa: var-naming[no-role-prefix]
 
-ignore_password_for_idempotency: "{{ item.ignore_password_for_idempotency | default(False) }}"
+ignore_password_for_idempotency: "{{ item.ignore_password_for_idempotency | default(False) }}" # noqa: var-naming[no-role-prefix]
