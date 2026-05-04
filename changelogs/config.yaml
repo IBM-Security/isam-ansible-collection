@@ -27,6 +27,10 @@ sections:
   - Bugfixes
 - - known_issues
   - Known Issues
+- - refactoring
+  - Refactoring (no functional changes)
 title: Ibm.Isam
 trivial_section_name: trivial
 use_fqcn: true
+archive_path_template: changelogs/archived_fragments/{version}
+always_refresh: none # full

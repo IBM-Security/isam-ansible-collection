@@ -87,3 +87,4 @@ build_ignore:
   - CONTRIBUTING.md
   - playbooks/base/template.yml
   - .ansible-lint-ignore
+  - changelogs/archived_fragments
