@@ -10,7 +10,7 @@
     isamapi:
       instance_id: "{{ reverseproxy.id }}"
   ignore_errors: true # noqa: ignore-errors
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Show Differences - values do not match!
   ansible.builtin.debug:
@@ -64,7 +64,7 @@
     isamapi:
       reverseproxy_id: "{{ reverseproxy.id }}"
   ignore_errors: true # noqa: ignore-errors
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Show Differences - values do not match!
   ansible.builtin.debug:

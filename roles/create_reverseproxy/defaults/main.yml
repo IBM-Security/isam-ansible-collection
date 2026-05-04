@@ -17,4 +17,4 @@ create_reverseproxy_ip_address: 0.0.0.0
 
 # Define a common web root if it is needed to switch to it
 # common_web_root: mywebroot"
-common_web_root_description: Common Web Root for ACLs/POPs/AuthzRules
+common_web_root_description: Common Web Root for ACLs/POPs/AuthzRules # noqa: var-naming[no-role-prefix]

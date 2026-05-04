@@ -5,17 +5,17 @@
 - name: Check if there is a vm with the destination name already exist
   ansible.builtin.stat:
     path: "{{ bootstrap_local_vm_path_root }}/{{ bootstrap_local_vm_hostname }}{{ bootstrap_local_vm_dir_suffix }}/{{ bootstrap_local_vm_hostname }}.vmx"
-  register: vmxfile
+  register: _vmxfile
   ignore_errors: true # noqa: ignore-errors
 
 - name: Debug
   ansible.builtin.debug:
-    var: vmxfile
+    var: _vmxfile
 
 - name: Bootstrap a new vm if vmx file does not exist
   ansible.builtin.include_tasks: bootstrap.yml
   when:
-    - not vmxfile.stat.exists
+    - not _vmxfile.stat.exists
 
 - name: Check if there is a vm with the destination name already running
   ansible.builtin.shell: |
@@ -23,7 +23,7 @@
     {{ bootstrap_local_vmrun }} {{ bootstrap_local_vmrunflags }} list | \
     grep -q {{ bootstrap_local_vm_path_root }}/{{ bootstrap_local_vm_hostname }}{{ bootstrap_local_vm_dir_suffix }}/{{ bootstrap_local_vm_hostname }}.vmx
   changed_when: false
-  register: shell_out
+  register: shell_out # noqa: var-naming[no-role-prefix]
   ignore_errors: true
 
 - name: Debug
@@ -42,7 +42,7 @@
 # start the vm if it is not running
 - name: If vmx file exists but it is not running, start it up
   ansible.builtin.command: "{{ bootstrap_local_vmrun }} {{ bootstrap_local_vmrunflags }} start {{ bootstrap_local_vm_vmx }}"
-  register: shell_out
+  register: shell_out # noqa: var-naming[no-role-prefix]
   changed_when: false
   when: vm_running is not defined
 

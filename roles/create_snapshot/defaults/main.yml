@@ -1,2 +1,2 @@
 ---
-create_snampshot_comment: Snapshot of appliance by Script
+create_snampshot_comment: Snapshot of appliance by Script # noqa: var-naming[no-role-prefix]
