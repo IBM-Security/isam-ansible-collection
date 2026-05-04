@@ -1,8 +1,1 @@
 # This file contains ignores rule violations for ansible-lint
-roles/aac/configure_policy_information_points/defaults/main.yml var-naming[no-role-prefix]
-roles/aac/configure_runtime_template_root/defaults/main.yml var-naming[no-role-prefix]
-roles/aac/configure_runtime_template_root/tasks/include_sync_runtime_template_root.yml var-naming[no-role-prefix]
-roles/aac/configure_scim/defaults/main.yml var-naming[no-role-prefix]
-roles/aac/configure_server_connections/defaults/main.yml var-naming[no-role-prefix]
-roles/aac/configure_user_registry/defaults/main.yml var-naming[no-role-prefix]
-roles/aac/configure_user_registry/tasks/main.yml var-naming[no-role-prefix]
