@@ -9,4 +9,4 @@
       id: "{{ item.id }}"
   when: item is defined
   with_items: "{{ get_user_registry_ids }}"
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]

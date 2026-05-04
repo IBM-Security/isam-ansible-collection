@@ -5,12 +5,12 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.policies.get_all
     isamapi:
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Set variable get_accesscontrolpolicies for use by rest of playbook
   ansible.builtin.set_fact:
-    get_accesscontrolpolicies: "{{ ret_obj.data | default([]) }}"
-    unique_code: "{{ 10000 | random }}"
+    get_accesscontrolpolicies: "{{ ret_obj.data | default([]) }}" # noqa: var-naming[no-role-prefix]
+    unique_code: "{{ 10000 | random }}" # noqa: var-naming[no-role-prefix]
 
 - name: Make sure destination directory exists {{ access_control_output_dir + '/' + unique_code }}
   become: "{{ access_control_output_become | default(false) }}"
@@ -46,11 +46,11 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.policy_attachments.get_all
     isamapi:
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Set variable get_accesscontrolpolicyresources for use by rest of playbook
   ansible.builtin.set_fact:
-    get_accesscontrolpolicyresources: "{{ ret_obj.data | default([]) }}"
+    get_accesscontrolpolicyresources: "{{ ret_obj.data | default([]) }}" # noqa: var-naming[no-role-prefix]
 
 - name: Create a file with the output {{ access_control_output_dir + '/' + unique_code + '/access_control_policyresources.yaml' }}
   ansible.builtin.copy:
@@ -65,7 +65,7 @@
     action: ibmsecurity.isam.aac.access_control.policy_attachments.authenticate
     isamapi:
       domain: "{{ webseal_domain }}"
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Create a file with the output
   ansible.builtin.copy:
@@ -83,11 +83,11 @@
       resourceUri: "{{ item.resourceUri }}"
   loop: "{{ get_accesscontrolpolicyresources }}"
   when: get_accesscontrolpolicyresources is defined and get_accesscontrolpolicyresources != []
-  register: ret_obj_loop
+  register: ret_obj_loop # noqa: var-naming[no-role-prefix]
 
 - name: Set variable get_accesscontrolpolicyattachments for use by rest of playbook
   ansible.builtin.set_fact:
-    get_accesscontrolpolicyattachments: "{{ ret_obj_loop | default([]) | json_query('results[*].item') }}"
+    get_accesscontrolpolicyattachments: "{{ ret_obj_loop | default([]) | json_query('results[*].item') }}" # noqa: var-naming[no-role-prefix]
 
 - name: Create a file with the output
   ansible.builtin.copy:

@@ -8,4 +8,4 @@
     isamapi: "{{ item }}"
   when: item is defined
   with_items: "{{ get_access_control_attributes }}"
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]

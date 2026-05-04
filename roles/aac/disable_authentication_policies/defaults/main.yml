@@ -14,7 +14,7 @@
 #             value:	test.html
 #         typeName: InfoMapAuthenticationName
 #         uri:	urn:ibm:security:authentication:asf:mechanism:test
-authentication_policies: []
+authentication_policies: [] # noqa: var-naming[no-role-prefix]
 #
 # This variable points to a list names of authentication policies you want
 # to keep enabled.
@@ -30,7 +30,7 @@ authentication_policies: []
 #   whitelist_authentication_policies:
 #    - name: MMFA User Presence Authentication
 #    - name: Consent Register Device
-whitelist_authentication_policies:
+whitelist_authentication_policies: # noqa: var-naming[no-role-prefix]
   - name: Consent Register Device
   - name: QR Code Login Initiate
   - name: MMFA User Presence Authentication

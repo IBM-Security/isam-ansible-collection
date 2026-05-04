@@ -1,7 +1,7 @@
 ---
 # Default variables for deletion of access control attributes
 # you cannot delete pre-defined attributes
-accesscontrol_delete_attributes: []
+accesscontrol_delete_attributes: [] # noqa: var-naming[no-role-prefix]
 #
 # Example:
 #  - name: "attributeToDelete"

@@ -7,4 +7,4 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.mapping_rules.get_all
     isamapi:
-  register: mapping_rules_obj
+  register: mapping_rules_obj # noqa: var-naming[no-role-prefix]
