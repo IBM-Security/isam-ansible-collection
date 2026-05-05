@@ -88,3 +88,4 @@ build_ignore:
   - playbooks/base/template.yml
   - .ansible-lint-ignore
   - changelogs/archived_fragments
+  - .whitesource
