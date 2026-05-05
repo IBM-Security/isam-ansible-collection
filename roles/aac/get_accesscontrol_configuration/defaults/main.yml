@@ -1,15 +1,15 @@
 ---
 # Default variables
-access_control_output_dir: "{{ ((homedir == '') | ternary('', homedir + '/')) }}tmp"
+access_control_output_dir: "{{ ((homedir == '') | ternary('', homedir + '/')) }}tmp" # noqa: var-naming[no-role-prefix]
 
 # prepare export directory; become
-access_control_output_become: false
+access_control_output_become: false # noqa: var-naming[no-role-prefix]
 # set group to this group, null to not do anything
-access_control_output_export_group:
+access_control_output_export_group: # noqa: var-naming[no-role-prefix]
 # default mode.  Should probably set to something a bit more restrictive than this.
-access_control_output_export_mode: "0755"
+access_control_output_export_mode: "0755" # noqa: var-naming[no-role-prefix]
 
 # webseal domain
-webseal_domain: Default
-sec_master_id: sec_master
-sec_master_pwd: Passw0rd
+webseal_domain: Default # noqa: var-naming[no-role-prefix]
+sec_master_id: sec_master # noqa: var-naming[no-role-prefix]
+sec_master_pwd: Passw0rd # noqa: var-naming[no-role-prefix]

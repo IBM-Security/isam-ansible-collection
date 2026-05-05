@@ -9,25 +9,25 @@
   when:
     - cli_command is defined
   ignore_errors: true
-  register: ret_obj
+  register: _ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Output of cli command execution
   ansible.builtin.debug:
-    msg: "{{ ret_obj['data']['output'].split('\n') }}"
+    msg: "{{ _ret_obj['data']['output'].split('\n') }}"
   when:
     - cli_command is defined
-    - ret_obj is defined
-    - ret_obj.data is defined
-    - ret_obj.data.output is defined
-    - ret_obj is succeeded
+    - _ret_obj is defined
+    - _ret_obj.data is defined
+    - _ret_obj.data.output is defined
+    - _ret_obj is succeeded
     - not ansible_check_mode
 
 - name: Error Messages if cli command failed
   ansible.builtin.debug:
-    msg: "{{ ret_obj['log'].split('\n') }}"
+    msg: "{{ _ret_obj['log'].split('\n') }}"
   when:
     - cli_command is defined
-    - ret_obj is defined
-    - ret_obj.log is defined
-    - ret_obj is failed
+    - _ret_obj is defined
+    - _ret_obj.log is defined
+    - _ret_obj is failed
     - not ansible_check_mode

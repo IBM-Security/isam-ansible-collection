@@ -9,7 +9,7 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.authentication.policies.get_all
     isamapi:
-  register: definedPolicies
+  register: definedPolicies # noqa: var-naming[no-role-prefix]
 
 - name: Debug defined policies
   ansible.builtin.debug:
@@ -19,8 +19,9 @@
 
 - name: Do the list magic. Combine the explicit whitelist with the authentication policies you defined elsewhere
   ansible.builtin.set_fact:
-    filtered_definedPolicies: "{{ definedPolicies.data | json_query('[*].name') }}"
-    filtered_authentication_policies: "{{ authentication_policies | union(whitelist_authentication_policies) | json_query('[*].name') }}"
+    filtered_definedPolicies: "{{ definedPolicies.data | json_query('[*].name') }}" # noqa: var-naming[no-role-prefix]
+    filtered_authentication_policies: "{{ authentication_policies | union(whitelist_authentication_policies)
+                                       | json_query('[*].name') }}" # noqa: var-naming[no-role-prefix]
 
 - name: Debug defined policies after json_query
   ansible.builtin.debug:
@@ -36,7 +37,7 @@
 
 - name: Do the list magic.  The outcome is all policies to disable
   ansible.builtin.set_fact:
-    filtered_difference: "{{ filtered_definedPolicies | difference(filtered_authentication_policies) }}"
+    filtered_difference: "{{ filtered_definedPolicies | difference(filtered_authentication_policies) }}" # noqa: var-naming[no-role-prefix]
 
 - name: Debug the outcome of the difference.  These policies will be disabled.
   ansible.builtin.debug:
@@ -59,7 +60,7 @@
     - filtered_difference is defined
     - item is defined
 
-- name: Explicitely enabling all defined and whitelisted authentication policies
+- name: Explicitly enabling all defined and whitelisted authentication policies
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"

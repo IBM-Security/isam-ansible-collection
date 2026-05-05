@@ -1,10 +1,10 @@
 ---
 # Default variables for configuration of reverse proxy junctions
-instances: []
+instances: [] # noqa: var-naming[no-role-prefix]
 # Configuration entry to control, if not listed junction servers should be deleted on the server
-delete_junction_server: false
-delete_junctions: false
-force: false
+delete_junction_server: false  # noqa: var-naming[no-role-prefix]
+delete_junctions: false  # noqa: var-naming[no-role-prefix]
+force: false # noqa: var-naming[no-role-prefix]
 
 # Control of using set_all instead of looping through junctions
-control_setall_junctions: false
+control_setall_junctions: false  # noqa: var-naming[no-role-prefix]

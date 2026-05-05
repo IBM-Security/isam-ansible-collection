@@ -15,3 +15,4 @@ changelogs/.plugin-cache.yaml
 importer_result.json
 .tox
 .tox/*
+.whitesource

@@ -1,0 +1,9 @@
+---
+minor_changes:
+  - aac/configure_api_protection_definitions - correct default value
+
+refactoring:
+  - antsibull - update configuration
+  - ansible-lint - remove .ansible-lint-ignore from build
+  - ansible-lint - move ignores to noqa
+  - update antsibull configuration and galaxy

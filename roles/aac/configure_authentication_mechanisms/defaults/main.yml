@@ -1,7 +1,7 @@
 ---
 
 # Default variables for configuration of authentication mechanisms
-authentication_mechanisms: []
+authentication_mechanisms: [] # noqa: var-naming[no-role-prefix]
 # Default variables for filtering
-mechanism_action: "{{ item.mechanism_action }}"
-mechanism_name: "{{ item.name }}"
+mechanism_action: "{{ item.mechanism_action }}" # noqa: var-naming[no-role-prefix]
+mechanism_name: "{{ item.name }}" # noqa: var-naming[no-role-prefix]

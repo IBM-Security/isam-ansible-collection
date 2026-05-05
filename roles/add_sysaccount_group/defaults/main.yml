@@ -1,4 +1,4 @@
 ---
 
 # Provide a system account group
-add_sysaccount_group:
+add_sysaccount_group: # noqa: var-naming[no-role-prefix]

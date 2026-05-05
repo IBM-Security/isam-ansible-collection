@@ -10,16 +10,16 @@
   with_items:
     - "{{ interfaces }}"
   when: interfaces is defined and item.bondingMode is defined and item.bondingMode == 'slave'
-  register: ret_obj
+  register: _ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Debug output of lookup interface
   ansible.builtin.debug:
     msg: "{{ item.uuid + ' for label ' + item.item.label }}"
     verbosity: 3
-  loop: "{{ ret_obj.results | flatten }}"
+  loop: "{{ _ret_obj.results | flatten }}"
   loop_control:
     label: "{{ item.uuid | default('skipped...') }}"
-  when: ret_obj is defined and item.uuid is defined
+  when: _ret_obj is defined and item.uuid is defined
 
 - name: Update bonding master
   ibm.isam.isam:
@@ -34,7 +34,10 @@
       enabled: true
   with_items:
     - "{{ interfaces }}"
-  when: interfaces is defined and item.bondingMode is defined and item.bondingMode != 'slave'
+  when:
+    - interfaces is defined
+    - item.bondingMode is defined
+    - item.bondingMode != 'slave'
   notify: Commit Changes
 
 - name: Update bonding slave
@@ -49,8 +52,10 @@
       label: "{{ item.item.label }}"
       name: "{{ item.item.name | default('') }}"
       enabled: true
-  loop: "{{ ret_obj.results | flatten }}"
+  loop: "{{ _ret_obj.results | flatten }}"
   loop_control:
     label: "{{ item.uuid | default('skipped...') }}"
-  when: ret_obj is defined and item.uuid is defined
+  when:
+    - _ret_obj is defined
+    - item.uuid is defined
   notify: Commit Changes

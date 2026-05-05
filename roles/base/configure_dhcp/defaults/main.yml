@@ -1,7 +1,7 @@
 ---
 
 # default variables to configure dhcp on an interface
-configure_dhcp_action: interfaces_ipv4
+configure_dhcp_action: interfaces_ipv4 # noqa: var-naming[no-role-prefix]
 
 # filter at runtime for specific interface with label
-label: "{{ item.label }}"
+label: "{{ item.label }}" # noqa: var-naming[no-role-prefix]

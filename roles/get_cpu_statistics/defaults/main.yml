@@ -2,4 +2,4 @@
 # Provide the following to extract data
 
 # Provide number of days inthe format ?d (default is one day)
-statistics_duration: 1d
+statistics_duration: 1d  # noqa: var-naming[no-role-prefix]

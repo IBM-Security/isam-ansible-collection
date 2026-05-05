@@ -1,6 +1,6 @@
 ---
 
 # default variables to configure static routes
-static_routes: []
+static_routes: [] # noqa: var-naming[no-role-prefix]
 # default action should be set to configure static route
-route_action: set
+route_action: set # noqa: var-naming[no-role-prefix]

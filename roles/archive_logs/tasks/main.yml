@@ -7,11 +7,11 @@
     isamapi:
       instance_id: "{{ archive_logs_instance_id }}"
   when: archive_logs_instance_id is defined
-  register: ret_obj
+  register: _ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Get date from days ago {{ archive_logs_grace_days }}
   ansible.builtin.command: python -c "import datetime;print (datetime.datetime.now()-datetime.timedelta(days={{ archive_logs_grace_days }})).date()"
-  register: past_dt
+  register: past_dt # noqa: var-naming[no-role-prefix]
   changed_when: false
 
 - name: Export logs from reverse proxy {{ archive_logs_instance_id }}
@@ -27,7 +27,7 @@
     - archive_logs_instance_id is defined
     - item['id'].startswith(archive_logs_filter)
     - item['id'][dt_start | int:dt_end | int] < past_dt.stdout
-  with_items: "{{ ret_obj['data'] }}"
+  with_items: "{{ _ret_obj['data'] }}"
   vars:
     dt_start: "{{ archive_logs_filter | length }}"
     dt_end: "{{ dt_start | int + 10 }}"
@@ -45,7 +45,7 @@
     - archive_logs_instance_id is defined
     - item['id'].startswith(archive_logs_filter)
     - item['id'][dt_start | int:dt_end | int] < past_dt.stdout
-  with_items: "{{ ret_obj['data'] }}"
+  with_items: "{{ _ret_obj['data'] }}"
   vars:
     dt_start: "{{ archive_logs_filter | length }}"
     dt_end: "{{ dt_start | int + 10 }}"

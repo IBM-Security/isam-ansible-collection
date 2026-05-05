@@ -1,4 +1,4 @@
 ---
 # Default variables for uploading keytab files
 #
-keytab_files: []
+keytab_files: [] # noqa: var-naming[no-role-prefix]

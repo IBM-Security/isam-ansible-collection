@@ -14,7 +14,7 @@ The playbooks in the collection can be used as examples to create your own speci
 ## Requirements
 
 - ibmsecurity 2024.4.5 or higher (`pip install ibmsecurity`)
-- Ansible 2.15 or higher
+- Ansible 2.16 or higher
 - Python v3.7 or higher
 
 ## Installation
@@ -147,7 +147,7 @@ So for instance, to do the initial setup of your appliance, you could use
     ansible-navigator run .... -e "isam_validate_certs=false"
 
 To use the ibm.isam collection with execution environments, you may want to create a custom Execution Environment that includes the dependencies.
-However, the collection now includes a playbook that you can use to check if it works in your case with a standard Execution Environment ([connectivity_check.yml](playbooks/connectivity_check.yml))
+However, the collection now includes a playbook that you can use to check if it works in your case with a standard Execution Environment ([connectivity_check.yml](https://github.com/IBM-Security/isam-ansible-collection/blob/master/playbooks/connectivity_check.yml))
 
 ## Use Cases
 

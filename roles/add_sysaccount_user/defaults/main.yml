@@ -1,5 +1,5 @@
 ---
 
-add_sysaccount_id:
-add_sysaccount_password:
-add_sysaccount_groups:
+add_sysaccount_id: # noqa: var-naming[no-role-prefix]
+add_sysaccount_password: # noqa: var-naming[no-role-prefix]
+add_sysaccount_groups: # noqa: var-naming[no-role-prefix]

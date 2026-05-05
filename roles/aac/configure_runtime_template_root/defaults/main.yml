@@ -1,31 +1,31 @@
 ---
 
 # Default variables for configuration of runtime template root content
-runtime_template_root: []
+runtime_template_root: [] # noqa: var-naming[no-role-prefix]
 # No filter at runtime on tmpl_action if none is defined. This will try every feasable action in the play
-tmpl_action: None
+tmpl_action: None # noqa: var-naming[no-role-prefix]
 
 # variables to control multiple tasks from play
 
 # If delete_missing=True also sync provided file as master with the server.
 # This will delete files on the server that exist there but are missing in the provided zip file.
 # To use the import_zip in additive mode, leave delete_missing=False
-delete_missing: false
+delete_missing: false # noqa: var-naming[no-role-prefix]
 
 # control file import tasks
-skip_imports: false # whether to skip multiple file imports from inventory
-skip_import: "{{ skip_imports }}" # whether to skip a single file import
+skip_imports: false # noqa: var-naming[no-role-prefix] # whether to skip multiple file imports from inventory
+skip_import: "{{ skip_imports }}" # noqa: var-naming[no-role-prefix] # whether to skip a single file import
 
 # control file export tasks
-skip_exports: false # whether to skip multiple file exports from inventory
-skip_export: "{{ skip_exports }}" # whether to skip a single file export
+skip_exports: false # noqa: var-naming[no-role-prefix] # whether to skip multiple file exports from inventory
+skip_export: "{{ skip_exports }}" # noqa: var-naming[no-role-prefix] # whether to skip a single file export
 
 # skip slower sync task
-skip_sync: false
+skip_sync: false # noqa: var-naming[no-role-prefix]
 
-path: "{{ item.path | default(omit) }}"
-dir_name: "{{ item.name | default(omit) }}"
-id: "{{ item.id | default(omit) }}"
-file: "{{ item.file | default('') }}"
-target: "{{ item.target | default(omit) }}"
-directory: "{{ item.directory | default(omit) }}"
+path: "{{ item.path | default(omit) }}" # noqa: var-naming[no-role-prefix]
+dir_name: "{{ item.name | default(omit) }}" # noqa: var-naming[no-role-prefix]
+id: "{{ item.id | default(omit) }}" # noqa: var-naming[no-role-prefix]
+file: "{{ item.file | default('') }}" # noqa: var-naming[no-role-prefix]
+target: "{{ item.target | default(omit) }}" # noqa: var-naming[no-role-prefix]
+directory: "{{ item.directory | default(omit) }}" # noqa: var-naming[no-role-prefix]

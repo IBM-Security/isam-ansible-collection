@@ -6,7 +6,7 @@
   ansible.builtin.stat:
     path: "{{ config_failover_cookie_filename }}"
   when: config_failover_cookie_filename is defined
-  register: failover
+  register: failover # noqa: var-naming[no-role-prefix]
 
 # If the failover key exists then import it
 - name: Import failover key
@@ -17,7 +17,10 @@
     isamapi:
       id: "{{ config_failover_cookie_id }}"
       filename: "{{ config_failover_cookie_filename }}"
-  when: failover.stat.exists and config_failover_cookie_filename is defined and config_failover_cookie_id is defined
+  when:
+    - failover.stat.exists
+    - config_failover_cookie_filename is defined
+    - config_failover_cookie_id is defined
   notify: Commit Changes
 
 # If failover key does not exists then create it

@@ -1,4 +1,3 @@
 ---
-
 # Default variables for configuration of api protection definitions
-api_protection: []
+api_protection: {} # noqa: var-naming[no-role-prefix]

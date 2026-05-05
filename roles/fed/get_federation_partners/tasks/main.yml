@@ -6,8 +6,8 @@
     action: ibmsecurity.isam.fed.partners.get_all
     isamapi:
       federation_name: "{{ get_federation_partners_federation_name }}"
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Set variable for use by rest of playbook
   ansible.builtin.set_fact:
-    get_federation_partners_ret_obj: "{{ ret_obj['data'] }}"
+    get_federation_partners_ret_obj: "{{ ret_obj['data'] }}" # noqa: var-naming[no-role-prefix]

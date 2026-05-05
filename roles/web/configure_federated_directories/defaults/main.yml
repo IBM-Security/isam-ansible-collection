@@ -1,4 +1,4 @@
 ---
 # Default variables for configuration of federated directories
-policyserver_runtime:
+policyserver_runtime: # noqa: var-naming[no-role-prefix]
   federated_directories: []

@@ -52,14 +52,14 @@
     headers:
       Accept: application/json
   check_mode: false
-  register: result
-  until: result.status == 200 or result.status == 403
+  register: _result # noqa: var-naming[no-role-prefix]
+  until: _result.status == 200 or _result.status == 403
   retries: "{{ first_steps_retries }}"
   delay: "{{ first_steps_delay }}"
 
 - name: Go through basic set up to accept license and set up FIPS only needed
   ansible.builtin.include_tasks: firststeps.yml
   when:
-    - result is defined
-    - result.status == 200
-    - result.json.sla is defined
+    - _result is defined
+    - _result.status == 200
+    - _result.json.sla is defined

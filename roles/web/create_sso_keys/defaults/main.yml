@@ -3,4 +3,4 @@
 # Example:
 #   sso_keys:
 #     - ssokey_name: "sso.key"
-sso_keys: []
+sso_keys: [] # noqa: var-naming[no-role-prefix]

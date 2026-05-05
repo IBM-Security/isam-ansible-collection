@@ -1,27 +1,24 @@
 ---
 # default values to configure kerberos
 # kerberos: []
-kerberos_action: all
+kerberos_action: all # noqa: var-naming[no-role-prefix] # noqa: var-naming[no-role-prefix]
 
-keytab_file: "{{ item.file | basename }}"
+keytab_file: "{{ item.file | basename }}" # noqa: var-naming[no-role-prefix]
 
-realm: "{{ item.realm if (item.realm is defined) else ( item.0.realm if ( item.0 is defined and item.0.realm is defined )
-  else ( subsections_1st_level.0.realm if ( subsections_1st_level is defined and subsections_1st_level.0 is
-  defined and subsections_1st_level.0.realm is defined ) ) ) }}"
+# yamllint disable
+realm: "{{ item.realm if (item.realm is defined) else ( item.0.realm if ( item.0 is defined and item.0.realm is defined ) else ( subsections_1st_level.0.realm if ( subsections_1st_level is defined and subsections_1st_level.0 is defined and subsections_1st_level.0.realm is defined ) ) ) }}" # noqa: var-naming[no-role-prefix]
+subsection: "{{ subsections_1st_level.1.name if (subsections_1st_level.1 is defined and subsections_1st_level.1.name is defined) else (item.1.name if (item is defined and item.1 is defined and item.1.name is defined)) }}" # noqa: var-naming[no-role-prefix]
+propname: "{{ item.1.propname if (item.1 is defined and item.1.propname is defined) else (property.propname if (property.propname is defined)) }}" # noqa: var-naming[no-role-prefix]
+propvalue: "{{ item.1.propvalue if (item.1 is defined and item.1.propvalue is defined) else (property.propvalue if (property.propvalue is defined)) }}" # noqa: var-naming[no-role-prefix]
+# yamllint enable
 
-subsection: "{{ subsections_1st_level.1.name if (subsections_1st_level.1 is defined and subsections_1st_level.1.name is defined)
-  else (item.1.name if (item is defined and item.1 is defined and item.1.name is defined)) }}"
+default_name: "{{ item.name }}" # noqa: var-naming[no-role-prefix]
+default_value: "{{ item.value }}" # noqa: var-naming[no-role-prefix]
 
-propname: "{{ item.1.propname if (item.1 is defined and item.1.propname is defined) else (property.propname if (property.propname is defined)) }}"
-propvalue: "{{ item.1.propvalue if (item.1 is defined and item.1.propvalue is defined) else (property.propvalue if (property.propvalue is defined)) }}"
+domain_name: "{{ item.name }}" # noqa: var-naming[no-role-prefix]
+domain_value: "{{ item.value }}" # noqa: var-naming[no-role-prefix]
 
-default_name: "{{ item.name }}"
-default_value: "{{ item.value }}"
-
-domain_name: "{{ item.name }}"
-domain_value: "{{ item.value }}"
-
-ca_paths_name: "{{ item.name }}"
-client_realm: "{{ item.0.name }}"
-server_realm: "{{ item.1.server_realm }}"
-intermediate_realm: "{{ item.1.intermediate_realm }}"
+ca_paths_name: "{{ item.name }}" # noqa: var-naming[no-role-prefix]
+client_realm: "{{ item.0.name }}" # noqa: var-naming[no-role-prefix]
+server_realm: "{{ item.1.server_realm }}" # noqa: var-naming[no-role-prefix]
+intermediate_realm: "{{ item.1.intermediate_realm }}" # noqa: var-naming[no-role-prefix]

@@ -11,4 +11,4 @@
     - item is defined
     - item.name is defined
   with_items: "{{ get_server_connections_names }}"
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]

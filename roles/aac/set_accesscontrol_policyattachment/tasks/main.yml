@@ -3,7 +3,6 @@
 #
 #
 #
-
 - name: Authenticate
   ibm.isam.isam:
     log: "{{ log_level | default(omit) }}"
@@ -35,11 +34,11 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.access_control.colruyt_policy_attachments.get_all
     isamapi:
-  register: ret_obj
+  register: _ret_obj # noqa: var-naming[no-role-prefix]
 
-- name: Set variable ret_attachments for use by rest of playbook
+- name: Set variable _ret_attachments for use by rest of playbook
   ansible.builtin.set_fact:
-    ret_attachments: "{{ ret_obj.data | default([]) }}"
+    _ret_attachments: "{{ _ret_obj.data | default([]) }}" # noqa: var-naming[no-role-prefix]
 
 - name: Publish attachments that require publishing
   ibm.isam.isam:
@@ -49,8 +48,10 @@
     isamapi:
       server: "{{ item.server }}"
       resourceUri: "{{ item.resourceUri }}"
-  loop: "{{ ret_attachments }}"
+  loop: "{{ _ret_attachments }}"
   loop_control:
     label: "{{ 'PUBLISHING' if (not item.deployed) else 'SKIPPING' }} {{ item.resourceUri }}"
-  when: item.resourceUri is defined and (not item.deployed)
+  when:
+    - item.resourceUri is defined
+    - (not item.deployed)
   notify: Commit Changes

@@ -3,7 +3,7 @@
 - name: Check the ISAM ISO file exists
   ansible.builtin.stat:
     path: "{{ bootstrap_local_appliance_iso }}"
-  register: isofile
+  register: isofile # noqa: var-naming[no-role-prefix]
   failed_when: not isofile.stat.exists
 
 - name: Debug exists
@@ -13,7 +13,7 @@
 - name: Check if the target VM directory exists
   ansible.builtin.stat:
     path: "{{ bootstrap_local_vm_path_root }}/{{ bootstrap_local_vm_hostname }}{{ bootstrap_local_vm_dir_suffix }}"
-  register: vmdir
+  register: vmdir # noqa: var-naming[no-role-prefix]
   ignore_errors: true
 
 - name: Delete if the target VM directory exists
@@ -27,7 +27,7 @@
     path: "{{ bootstrap_local_vm_dest_dir }}"
     state: directory
     mode: '0755'
-  register: shell_out
+  register: shell_out # noqa: var-naming[no-role-prefix]
 
 - name: Debug
   ansible.builtin.debug:
@@ -38,7 +38,7 @@
     src: "{{ role_path }}/templates/isam9_sample.vmx"
     dest: "{{ bootstrap_local_vm_vmx }}"
     mode: '0755'
-  register: cmd_out
+  register: cmd_out # noqa: var-naming[no-role-prefix]
 
 - name: Debug cmd_out
   ansible.builtin.debug:
@@ -46,7 +46,7 @@
 
 - name: Create VM disk
   ansible.builtin.command: "{{ bootstrap_local_vmdiskmgr }} -c -a lsilogic -s {{ bootstrap_local_vm_hdd_size }}GB -t 0 {{ bootstrap_local_vm_vmdk }}"
-  register: cmd_out
+  register: cmd_out # noqa: var-naming[no-role-prefix]
   changed_when: true
 
 - name: Debug cmd_out
@@ -55,7 +55,7 @@
 
 - name: Install ISAM ISO from image {{ bootstrap_local_appliance_iso }}
   ansible.builtin.command: "{{ bootstrap_local_vmrun }} {{ bootstrap_local_vmrunflags }} start {{ bootstrap_local_vm_vmx }}"
-  register: shell_out
+  register: shell_out # noqa: var-naming[no-role-prefix]
   changed_when: true
 
 - name: Debug shell_out
@@ -69,17 +69,17 @@
     sleep 1;
     done
   changed_when: false
-  register: shell_out
+  register: shell_out # noqa: var-naming[no-role-prefix]
 
 - name: Wait for VM process to end
   ansible.builtin.shell: set -o pipefail && while ( ps -ef | grep {{ bootstrap_local_vm_vmx }} | grep -q -v grep ); do echo -n . ; sleep 1; done
-  register: shell_out
+  register: shell_out # noqa: var-naming[no-role-prefix]
   changed_when: false
 
 - name: Check tmp dir
   ansible.builtin.stat:
     path: "{{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata"
-  register: tmpdir
+  register: tmpdir # noqa: var-naming[no-role-prefix]
   ignore_errors: true
 
 - name: Clean tmp dir and file
@@ -96,7 +96,7 @@
     path: "{{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata"
     state: directory
     mode: '0755'
-  register: shell_out
+  register: shell_out # noqa: var-naming[no-role-prefix]
 
 - name: Debug shell_out
   ansible.builtin.debug:
@@ -107,7 +107,7 @@
     src: "{{ role_path }}/templates/app-metadata"
     dest: "{{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata"
     mode: '0755'
-  register: cmd_out
+  register: cmd_out # noqa: var-naming[no-role-prefix]
 
 - name: Debug cmd_out
   ansible.builtin.debug:
@@ -118,7 +118,7 @@
     {{ bootstrap_local_mkisofs }} {{ bootstrap_local_mkisoflags }}
     {{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata.iso
     {{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata >/dev/null 2>&1
-  register: shell_out
+  register: shell_out # noqa: var-naming[no-role-prefix]
   changed_when: true
 
 - name: Debug shell_out
@@ -131,7 +131,7 @@
     regexp: ^sata0:1.fileName
     line: sata0:1.fileName="{{ bootstrap_local_tmpdir }}/{{ bootstrap_local_vm_hostname }}-metadata.iso"
     backrefs: true
-  register: cmd_out
+  register: cmd_out # noqa: var-naming[no-role-prefix]
 
 - name: Debug cmd_out
   ansible.builtin.debug:
@@ -139,7 +139,7 @@
 
 - name: Boot up again with bootstrap ISO
   ansible.builtin.command: "{{ bootstrap_local_vmrun }} {{ bootstrap_local_vmrunflags }} start {{ bootstrap_local_vm_vmx }}"
-  register: shell_out
+  register: shell_out # noqa: var-naming[no-role-prefix]
   changed_when: true
 
 - name: Debug shell_out
@@ -163,7 +163,7 @@
     regexp: '^sata0:1.present'
     line: 'sata0:1.present="FALSE"'
     backrefs: true
-  register: cmd_out
+  register: cmd_out # noqa: var-naming[no-role-prefix]
 
 - name: Debug cmd_out
   ansible.builtin.debug:
@@ -175,7 +175,7 @@
     regexp: '^sata0:1.fileName'
     line: 'sata0:1.fileName='
     backrefs: true
-  register: cmd_out
+  register: cmd_out # noqa: var-naming[no-role-prefix]
 
 - name: Debug shell_out
   ansible.builtin.debug:
@@ -187,7 +187,7 @@
     regexp: '^sata0:1.startConnected'
     line: 'sata0:1.startConnected=FALSE'
     backrefs: true
-  register: cmd_out
+  register: cmd_out # noqa: var-naming[no-role-prefix]
 
 - name: Debug cmd_out
   ansible.builtin.debug:
@@ -195,7 +195,7 @@
 
 - name: Take a snapshot as baseline
   ansible.builtin.command: "{{ bootstrap_local_vmrun }} {{ bootstrap_local_vmrunflags }} snapshot {{ bootstrap_local_vm_vmx }} baseline"
-  register: shell_out
+  register: shell_out # noqa: var-naming[no-role-prefix]
   changed_when: true
 
 - name: Debug shell_out

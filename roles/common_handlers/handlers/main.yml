@@ -55,7 +55,7 @@
     action: ibmsecurity.isam.web.reverse_proxy.instance.get
   notify: Restart all Reverse Proxys - checks if flagged for restart
   changed_when: true
-  register: reverseproxy_list
+  register: reverseproxy_list # noqa: var-naming[no-role-prefix]
 
 # Note: Restart function will only restart if required - set force to True to avoid that kind of check
 - name: Restart all Reverse Proxys - checks if flagged for restart

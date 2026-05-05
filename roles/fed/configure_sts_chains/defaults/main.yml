@@ -1,10 +1,10 @@
 ---
 # Default variables for configuration of sts chains
-sts_chains: []
+sts_chains: [] # noqa: var-naming[no-role-prefix]
 # Default variables to filter at runtime for specific conditions
-chainName: "{{ item.chainName }}"
-requestType: "{{ item.requestType }}"
-issuer:
+chainName: "{{ item.chainName }}" # noqa: var-naming[no-role-prefix]
+requestType: "{{ item.requestType }}" # noqa: var-naming[no-role-prefix]
+issuer: # noqa: var-naming[no-role-prefix]
   address: "{{ item.issuer.address }}"
-appliesTo:
+appliesTo: # noqa: var-naming[no-role-prefix]
   address: "{{ item.appliesTo.address }}"

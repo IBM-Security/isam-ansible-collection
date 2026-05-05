@@ -1,10 +1,10 @@
 ---
 # Default variables for configuration of mapping rules
-mapping_rules: []
+mapping_rules: [] # noqa: var-naming[no-role-prefix]
 # Default variables to filter for configuration of specific mapping rules at runtime
-rule_name: "{{ item.name }}"
-category: "{{ item.category if item.category is defined }}"
-rule_action: "{{ item.rule_action }}"
-file: "{{ item.file if item.file is defined }}"
-content: "{{ item.content if item.content is defined }}"
-filename: "{{ item.filename if item.filename is defined }}"
+rule_name: "{{ item.name }}" # noqa: var-naming[no-role-prefix]
+category: "{{ item.category if item.category is defined }}" # noqa: var-naming[no-role-prefix]
+rule_action: "{{ item.rule_action }}" # noqa: var-naming[no-role-prefix]
+file: "{{ item.file if item.file is defined }}" # noqa: var-naming[no-role-prefix]
+content: "{{ item.content if item.content is defined }}" # noqa: var-naming[no-role-prefix]
+filename: "{{ item.filename if item.filename is defined }}" # noqa: var-naming[no-role-prefix]

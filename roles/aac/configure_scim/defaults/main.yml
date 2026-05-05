@@ -1,4 +1,4 @@
 ---
 
 # Default variables for scim configuration
-scim_configuration:
+scim_configuration: # noqa: var-naming[no-role-prefix]

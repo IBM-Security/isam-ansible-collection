@@ -1,6 +1,5 @@
 ---
 # main task to configure user registry
-
 - name: Help INFO (-e help=true)
   ansible.builtin.pause:
     echo: true
@@ -80,4 +79,4 @@
   loop_control:
     label: "{ 'registry_action': {{ item.registry_action | default('Missing') }},  {'id': {{ item.id | default('No id') }} }"
   notify: Commit Changes
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]

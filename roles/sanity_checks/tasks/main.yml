@@ -5,7 +5,7 @@
     force: false
     action: ibmsecurity.isam.appliance.commit
   check_mode: true
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]
   notify: Fail on changes
 
 - name: Meta

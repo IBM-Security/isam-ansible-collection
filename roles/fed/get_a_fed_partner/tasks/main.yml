@@ -11,4 +11,4 @@
   when:
     - get_a_fed_partner_federation_name is defined
     - get_a_fed_partner_partner_name is defined
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]

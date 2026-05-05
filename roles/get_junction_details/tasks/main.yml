@@ -7,7 +7,7 @@
     isamapi:
       reverseproxy_id: "{{ item.0.item.id }}"
       junctionname: "{{ item.1.id }}"
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]
   when: junction_ret_obj is defined
   with_subelements:
     - "{{ junction_ret_obj['results'] }}"
@@ -15,4 +15,4 @@
 
 - name: Set variable for use by rest of playbook
   ansible.builtin.set_fact:
-    junction_detail_ret_obj: "{{ ret_obj }}"
+    junction_detail_ret_obj: "{{ ret_obj }}" # noqa: var-naming[no-role-prefix]

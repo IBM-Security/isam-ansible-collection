@@ -10,7 +10,7 @@
       policies: "{{ config_policy_attachments_policies }}"
       policyCombiningAlgorithm: "{{ config_policy_attachments_policyCombiningAlgorithm }}"
   when: config_policy_attachments_server is defined and config_policy_attachments_resourceUri is defined
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Publish Policy Attachments - {{ config_policy_attachments_resourceUri }}
   ibm.isam.isam:
@@ -20,4 +20,6 @@
     isamapi:
       server: "{{ config_policy_attachments_server }}"
       resourceUri: "{{ config_policy_attachments_resourceUri }}"
-  when: config_policy_attachments_server is defined and config_policy_attachments_resourceUri is defined
+  when:
+    - config_policy_attachments_server is defined
+    - config_policy_attachments_resourceUri is defined

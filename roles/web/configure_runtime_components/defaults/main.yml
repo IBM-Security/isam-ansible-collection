@@ -1,5 +1,5 @@
 ---
 # Default variables for confiuratino of runtime components
-resource_id: "{{ item.resource_id }}"
-stanza_id: "{{ item.stanza_id }}"
-entry_id: ""
+resource_id: "{{ item.resource_id }}"  # noqa: var-naming[no-role-prefix]
+stanza_id: "{{ item.stanza_id }}"  # noqa: var-naming[no-role-prefix]
+entry_id: ""  # noqa: var-naming[no-role-prefix]

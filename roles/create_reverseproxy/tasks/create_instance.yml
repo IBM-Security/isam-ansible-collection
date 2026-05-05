@@ -5,7 +5,7 @@
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.activation.get
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]
 
 # Configuring reverse proxy does not require a commit. So flush handlers now
 # to ensure not to loose any prior pending changes.

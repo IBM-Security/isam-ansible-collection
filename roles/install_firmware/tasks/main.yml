@@ -3,7 +3,7 @@
   ansible.builtin.stat:
     path: "{{ install_firmware_file }}"
     get_checksum: false
-  register: firmware
+  register: _firmware # noqa: var-naming[no-role-prefix]
 
 - name: Upload Firmware file - {{ install_firmware_file }}
   ibm.isam.isam:
@@ -12,17 +12,17 @@
     action: ibmsecurity.isam.base.available_updates.upload
     isamapi:
       file: "{{ install_firmware_file }}"
-  when: firmware.stat.exists
+  when: _firmware.stat.exists
   notify: Commit Changes
 
-- name: Snapshot Appliance Before Firmware Upgrade to {{ install_firmware_version }}
+- name: Snapshot Appliance Before firmware Upgrade to {{ install_firmware_version }}
   ibm.isam.isam:
     log: "{{ log_level | default('INFO') }}"
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.snapshots.create
     isamapi:
       comment: "{{ install_firmware_comment }}"
-  when: firmware.stat.exists
+  when: _firmware.stat.exists
 
 - name: Make sure all handlers are flushed before Firmware Upgrade is done
   ansible.builtin.meta: flush_handlers
@@ -37,8 +37,8 @@
       version: "{{ install_firmware_version }}"
       release_date: "{{ install_firmware_release_date }}"
       name: "{{ install_firmware_name }}"
-  when: firmware.stat.exists
-  register: install_firmware
+  when: _firmware.stat.exists
+  register: install_firmware # noqa: var-naming[no-role-prefix]
   notify: Await Appliance LMI Response
 
 - name: Flush Handler to wait for appliance reboot

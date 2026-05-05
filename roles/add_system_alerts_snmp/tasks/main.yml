@@ -21,7 +21,7 @@
       informTimeout: "{{ add_system_alerts_snmp_informTimeout }}"
       comment: SNMP Alert to {{ add_system_alerts_snmp_trapAddress }}
   when: add_system_alerts_snmp_trapAddress is defined
-  register: alertObj
+  register: _alertObj # noqa: var-naming[no-role-prefix]
   notify: Commit Changes
 
 - name: Enable System Alert - Created in previous Step
@@ -30,7 +30,10 @@
     force: "{{ force | default(False) }}"
     action: ibmsecurity.isam.base.system_alerts.alerts.enable
     isamapi:
-      uuid: "{{ alertObj['data']['uuid'] }}"
-      objType: "{{ alertObj['data']['objType'] }}"
-  when: add_system_alerts_snmp_trapAddress is defined and alertObj.changed and (not ansible_check_mode)
+      uuid: "{{ _alertObj['data']['uuid'] }}"
+      objType: "{{ _alertObj['data']['objType'] }}"
+  when:
+    - add_system_alerts_snmp_trapAddress is defined
+    - _alertObj.changed
+    - (not ansible_check_mode)
   notify: Commit Changes

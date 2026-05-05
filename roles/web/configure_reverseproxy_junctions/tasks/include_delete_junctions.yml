@@ -7,7 +7,7 @@
     isamapi:
       reverseproxy_id: "{{ item.inst_name }}"
   when: item.inst_name == (inst_name | default(item.inst_name))
-  register: ret_obj
+  register: ret_obj  # noqa: var-naming[no-role-prefix]
 
 - name: Delete junction
   ibm.isam.isam:

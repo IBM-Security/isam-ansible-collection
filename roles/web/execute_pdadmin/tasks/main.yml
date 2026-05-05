@@ -72,7 +72,7 @@
 
 - name: Locate pdadmin_commands to merge
   ansible.builtin.set_fact:
-    pd_admin_varstomerge: "{{ lookup('varnames', '.+pdadmin_commands__to_merge$', wantlist=True) }}"
+    pd_admin_varstomerge: "{{ lookup('varnames', '.+pdadmin_commands__to_merge$', wantlist=True) }}" # noqa: var-naming[no-role-prefix]
   when:
     - enable_ansible_merge_vars | bool
 
@@ -83,7 +83,7 @@
 
 - name: Merge the pdadmin_commands [unsorted]
   ansible.builtin.set_fact:
-    pdadmin_commands: "{{ pdadmin_commands | default([]) + lookup('vars', item) }}"
+    pdadmin_commands: "{{ pdadmin_commands | default([]) + lookup('vars', item) }}" # noqa: var-naming[no-role-prefix]
   loop: "{{ pd_admin_varstomerge }}"
   when:
     - enable_ansible_merge_vars | bool
@@ -92,7 +92,7 @@
 
 - name: Merge the pdadmin_commands [sorted]
   ansible.builtin.set_fact:
-    pdadmin_commands: "{{ pdadmin_commands | default([]) + lookup('vars', item) }}"
+    pdadmin_commands: "{{ pdadmin_commands | default([]) + lookup('vars', item) }}" # noqa: var-naming[no-role-prefix]
   loop: "{{ pd_admin_varstomerge | sort }}"
   when:
     - enable_ansible_merge_vars | bool
@@ -116,11 +116,12 @@
     - pdadmin_commands is defined
     - pdadmin_commands | length > 0
   ignore_errors: true
-  register: ret_obj
+  no_log: true
+  register: _ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Output of PDAdmin command execution
   ansible.builtin.debug:
-    msg: "{{ ret_obj.data.result.split('\n') if (ret_obj is defined and ret_obj.data is defined)
+    msg: "{{ _ret_obj.data.result.split('\n') if (_ret_obj is defined and _ret_obj.data is defined)
           else 'VARIABLE IS NOT DEFINED!' }}"
   when:
     - not ansible_check_mode

@@ -6,10 +6,10 @@
     action: ibmsecurity.isam.statistics.get_memory
     isamapi:
       statistics_duration: "{{ statistics_duration }}"
-  register: ret_obj
+  register: _ret_obj # noqa: var-naming[no-role-prefix]
   when: statistics_duration is defined
 
 - name: Set variable for use by rest of playbook
   ansible.builtin.set_fact:
-    memory_stats_obj: "{{ ret_obj }}"
+    memory_stats_obj: "{{ _ret_obj }}" # noqa: var-naming[no-role-prefix]
   when: statistics_duration is defined

@@ -74,14 +74,16 @@
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.base.network.interfaces.get_all
   when: configure_interfaces_delete_missing
-  register: ret_obj
+  register: _ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Set filtered interfaces
   vars:
     filter_current_interfaces: "interfaces[].{'label': label, 'addresses': ipv4.addresses[].address}"
   ansible.builtin.set_fact:
-    addresses_list_server: "{{ ret_obj.data | json_query(filter_current_interfaces) }}"
-  when: ret_obj.data is defined and ret_obj.data != []
+    addresses_list_server: "{{ _ret_obj.data | json_query(filter_current_interfaces) }}" # noqa: var-naming[no-role-prefix]
+  when:
+    - _ret_obj.data is defined
+    - _ret_obj.data != []
 
 - name: Delete missing IP addresses from interfaces (-e configure_interfaces_delete_missing=true)
   vars:

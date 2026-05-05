@@ -6,10 +6,10 @@
     action: ibmsecurity.isam.web.reverse_proxy.junctions.get_all
     isamapi:
       reverseproxy_id: "{{ item['id'] }}"
-  register: ret_obj
+  register: _ret_obj # noqa: var-naming[no-role-prefix]
   when: reverseproxy_ret_obj is defined
   with_items: "{{ reverseproxy_ret_obj['data'] | default([]) }}"
 
 - name: Set variable for use by rest of playbook
   ansible.builtin.set_fact:
-    junction_ret_obj: "{{ ret_obj }}"
+    junction_ret_obj: "{{ _ret_obj }}" # noqa: var-naming[no-role-prefix]

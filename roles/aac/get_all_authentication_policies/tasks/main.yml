@@ -5,4 +5,4 @@
     log: "{{ log_level | default(omit) }}"
     force: "{{ force | default(omit) }}"
     action: ibmsecurity.isam.aac.authentication.policies.get_all
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]

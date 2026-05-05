@@ -1,5 +1,5 @@
 ---
 # Default variables for exporting personal certificates from databases
-export_personal_certificates: []
+export_personal_certificates: [] # noqa: var-naming[no-role-prefix]
 # skip multiple exports
-skip_exports: false
+skip_exports: false # noqa: var-naming[no-role-prefix]

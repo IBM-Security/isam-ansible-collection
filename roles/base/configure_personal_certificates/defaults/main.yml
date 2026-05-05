@@ -1,6 +1,6 @@
 ---
 # Default variables to configure personal certificates
-personal_certificates: []
+personal_certificates: [] # noqa: var-naming[no-role-prefix]
 # default variables to limit execution at runtime
-cert_action: "{{ item.cert_action }}"
-kdb_id: "{{ item.kdb_id }}"
+cert_action: "{{ item.cert_action }}" # noqa: var-naming[no-role-prefix]
+kdb_id: "{{ item.kdb_id }}" # noqa: var-naming[no-role-prefix]

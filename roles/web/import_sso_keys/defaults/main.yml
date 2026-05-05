@@ -1,5 +1,5 @@
 ---
 # default values for import sso key files
-sso_keys: []
+sso_keys: [] # noqa: var-naming[no-role-prefix]
 # breaking change
-sso_key_name: "{{ item.file | basename }}"
+sso_key_name: "{{ item.file | basename }}" # noqa: var-naming[no-role-prefix]

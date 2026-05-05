@@ -11,7 +11,7 @@
     - execute_pdadmin_isamuser is defined
     - execute_pdadmin_isampwd is defined
   ignore_errors: true
-  register: ret_obj
+  register: ret_obj # noqa: var-naming[no-role-prefix]
 
 - name: Output of PDAdmin command execution
   ansible.builtin.debug:

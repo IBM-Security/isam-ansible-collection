@@ -1,7 +1,6 @@
 ---
-
 # Default variables for configuration of authentication policies
-authentication_policies: []
+authentication_policies: [] # noqa: var-naming[no-role-prefix]
 # Default variables for filtering
-policy_name: "{{ item.name }}"
-policy_action: "{{ item.policy_action }}"
+policy_name: "{{ item.name }}" # noqa: var-naming[no-role-prefix]
+policy_action: "{{ item.policy_action }}" # noqa: var-naming[no-role-prefix]

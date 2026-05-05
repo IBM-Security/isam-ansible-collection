@@ -1,27 +1,27 @@
 ---
 # Default variables for configuration of management root content
-instances: []
+instances: [] # noqa: var-naming[no-role-prefix]
 # variables to control whether to configure one instance and/or one target at a time or everything from the configurations
-inst_name: "{{ item.0.inst_name if (item is defined) }}"
-file: "{{ item.1.file if (item is defined and item.1 is defined and item.1.file is defined) }}"
+inst_name: "{{ item.0.inst_name if (item is defined) }}" # noqa: var-naming[no-role-prefix]
+file: "{{ item.1.file if (item is defined and item.1 is defined and item.1.file is defined) }}" # noqa: var-naming[no-role-prefix]
 
 # directory: "{{ item.1.directory if (item is defined and item.1 is defined and item.1.directory is defined) }}"
-target: "{{ item.1.target | default(omit) }}"
-filename: "{{ item.1.file if (item.1.file is defined) }}"
+target: "{{ item.1.target | default(omit) }}" # noqa: var-naming[no-role-prefix]
+filename: "{{ item.1.file if (item.1.file is defined) }}" # noqa: var-naming[no-role-prefix]
 
 # No filter at runtime on mgmt_action if none is defined. This will try every feasable action in the play
-mgmt_action: 'None'
+mgmt_action: 'None' # noqa: var-naming[no-role-prefix]
 
 # Do not delete any files as default behavior
-delete_missing: false
+delete_missing: false # noqa: var-naming[no-role-prefix]
 
 # control file import tasks
-skip_imports: false # whether to skip multiple file imports from inventory
-skip_import: "{{ skip_imports }}" # whether to skip a single file import
+skip_imports: false # whether to skip multiple file imports from inventory # noqa: var-naming[no-role-prefix]
+skip_import: "{{ skip_imports }}" # whether to skip a single file import # noqa: var-naming[no-role-prefix]
 
 # control file export tasks
-skip_exports: false # whether to skip multiple file exports from inventory
-skip_export: "{{ skip_exports }}" # whether to skip a single file export
+skip_exports: false # whether to skip multiple file exports from inventory # noqa: var-naming[no-role-prefix]
+skip_export: "{{ skip_exports }}" # whether to skip a single file export # noqa: var-naming[no-role-prefix]
 
 # skip slower sync task
-skip_sync: false
+skip_sync: false # noqa: var-naming[no-role-prefix]

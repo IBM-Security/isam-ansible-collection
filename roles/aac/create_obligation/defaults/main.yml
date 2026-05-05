@@ -1,6 +1,6 @@
 ---
 # Default variables for creation of obligations
-authentication_obligations: []
+authentication_obligations: [] # noqa: var-naming[no-role-prefix]
 
 # Example
 # authentication_obligations:
